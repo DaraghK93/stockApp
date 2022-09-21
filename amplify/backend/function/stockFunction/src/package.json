@@ -8,6 +8,7 @@
     "aws-serverless-express": "^3.3.5",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "express-async-handler": "^1.2.0",
     "mongoose": "^6.6.1"
   },
   "devDependencies": {

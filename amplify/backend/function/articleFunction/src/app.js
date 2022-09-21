@@ -7,8 +7,6 @@ See the License for the specific language governing permissions and limitations 
 */
 
 
-
-
 const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')

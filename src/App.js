@@ -13,7 +13,7 @@ const myInit = { // OPTIONAL
 };
 
 function App() {
-  const [stock, setStock] = useState([])
+  const [stocks, setStocks] = useState([])
 
 
   function getStocks(e){
@@ -22,7 +22,7 @@ function App() {
       .get(apiName,'/stock', myInit)
       .then(response => {
         console.log(response)
-        setStock(response.data.success)
+        setStocks(response.data)
       })
       .catch(error => {
         console.log(error)
@@ -35,7 +35,11 @@ function App() {
       <button onClick={getStocks}>
         Make a GET request to stocks
       </button>
-      <p>{stock}</p>
+      <ul>
+        {stocks.map((stock) => (
+          <li key={stock._id}>{stock.name} - {stock.ticker} - {stock.value} - {stock.createdAt}</li>
+        ))}
+      </ul>
     </div>
   );
 }

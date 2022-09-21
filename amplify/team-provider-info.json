@@ -16,7 +16,8 @@
         "stockFunction": {
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
           "s3Key": "amplify-builds/stockFunction-3054784f434969626869-build.zip"
-        }
+        },
+        "articleFunction": {}
       }
     }
   }

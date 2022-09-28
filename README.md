@@ -3,6 +3,7 @@ Joseph Corcoran
 Caolán Power
 Rebecca Kelly
 Bearach Byrne
+Warren Kavanagh
 
 # Getting Started with Create React App
 

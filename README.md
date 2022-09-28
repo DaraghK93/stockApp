@@ -1,6 +1,7 @@
 Team Members:
 Joseph Corcoran
 Rebecca Kelly
+Bearach Byrne
 
 # Getting Started with Create React App
 

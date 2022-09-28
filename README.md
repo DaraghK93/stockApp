@@ -1,6 +1,7 @@
 Team Members:
 Joseph Corcoran
 Caolán Power
+Rebecca Kelly
 
 # Getting Started with Create React App
 

@@ -1,7 +1,10 @@
 Team Members:
 Joseph Corcoran
+Caolán Power
 Rebecca Kelly
 Bearach Byrne
+Warren Kavanagh
+Daragh Kneeshaw
 
 # Getting Started with Create React App
 

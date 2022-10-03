@@ -4,37 +4,66 @@
 // Description:
 //  This screen contains the components redenred to the user when they are logging in
 import { useState } from 'react'
+import {Form, Button, Row, Col, Container} from 'react-bootstrap'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { login } from '../actions/userActions'
+import { useNavigate,Link } from "react-router-dom"
 
 function LoginPage() {
     const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
+    // const navigate = useNavigate()
+    // const dispatch = useDispatch()
+	// const user = useSelector((state) => state.user)
+    // const {loading, error, userInfo} = user;
+    // function handleSubmit(event) {
+    //     event.preventDefault();
+    //     dispatch(login(email,password));
+    //   }
+       
+
+    //   useEffect (() => {
+    //     if(userInfo){
+
+    //       navigate('/userDashboard');
+    //     }
+    //   },[userInfo,navigate])
+    
+
     return(
         <>
+        <Container>
         <h1>Login</h1>
-        {/* Simple login form taken from w3 schools. https://www.w3schools.com/howto/howto_css_login_form.asp */}
-        <div>
-        <h1>Welcome, would you like to login?</h1>
-			<form onSubmit={console.log("Hello")}>
-				<input
-					value={email}
-					// onChange={(e) => setEmail(e.target.value)}
-					type="email"
-					placeholder="Email"
-				/>
-				<br />
-				<input
-					value={password}
-					// onChange={(e) => setPassword(e.target.value)}
-					type="password"
-					placeholder="Password"
-				/>
-				<br />
-				<input type="submit" value="Login" />
-			</form>
-      <p>Don't have an account? Sign up <a href="/register">here.</a></p>
-        </div>
+        {/* <Form onSubmit={handleSubmit}> */}
+        <Form onSubmit={console.log("Hold until redux is ready")}>
+            <Form.Group className="py-2" controlId="email">
+                <Form.Label>Email Address</Form.Label>
+                <Form.Control
+                    type="email"
+                    placeholder="Email Address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="py-2" controlId="password">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}/>
+            </Form.Group> 
+            <Row>
+                <Col className="text-center py-4">
+            <Button variant="primary" type="submit">
+              Login
+            </Button>
+            </Col>
+            </Row>
 
-        </>
+        </Form>
+        </Container></>
+
         )
 }
 

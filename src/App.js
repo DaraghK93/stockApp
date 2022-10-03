@@ -10,8 +10,9 @@ function App() {
   return (
     
     <Router> 
+            <Header />
       <Routes>
-      <Header />
+
       <Route path="/login" element={<LoginPage/>}/>
       </Routes>
 

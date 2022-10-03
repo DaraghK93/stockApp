@@ -49,13 +49,13 @@
             "FunctionName": {
                 "Fn::If": [
                     "ShouldNotCreateEnvResources",
-                    "articleFunction",
+                    "expressServer",
                     {
 
                         "Fn::Join": [
                             "",
                             [
-                                "articleFunction",
+                                "expressServer",
                                 "-",
                                 {
                                     "Ref": "env"
@@ -80,13 +80,13 @@
                 "RoleName": {
                     "Fn::If": [
                         "ShouldNotCreateEnvResources",
-                        "stockappLambdaRole22dcc207",
+                        "stockappLambdaRole986b7679",
                         {
 
                             "Fn::Join": [
                                 "",
                                 [
-                                    "stockappLambdaRole22dcc207",
+                                    "stockappLambdaRole986b7679",
                                     "-",
                                     {
                                         "Ref": "env"

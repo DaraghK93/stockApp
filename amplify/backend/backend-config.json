@@ -1,11 +1,6 @@
 {
   "function": {
-    "stockFunction": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "articleFunction": {
+    "expressServer": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -18,15 +13,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "stockFunction",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "articleFunction",
+          "resourceName": "expressServer",
           "attributes": [
             "Name",
             "Arn"

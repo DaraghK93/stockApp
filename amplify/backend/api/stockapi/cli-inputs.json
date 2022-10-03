@@ -1,16 +1,9 @@
 {
   "version": 1,
   "paths": {
-    "/stock": {
-      "name": "/stock",
-      "lambdaFunction": "stockFunction",
-      "permissions": {
-        "setting": "open"
-      }
-    },
-    "/article": {
-      "name": "/article",
-      "lambdaFunction": "articleFunction",
+    "/api": {
+      "name": "/api",
+      "lambdaFunction": "expressServer",
       "permissions": {
         "setting": "open"
       }

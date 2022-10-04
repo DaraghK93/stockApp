@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const stockSchema = new mongoose.schema(
+const stockSchema = new mongoose.Schema(
   {
     exchange: {type: String, trim: true, required: true},
     symbol: {type: String, trim: true,required: true},
@@ -20,6 +20,6 @@ const stockSchema = new mongoose.schema(
   }
 )
 
-const model = mongoose.model('StockData', stockSchema)
+const stock = mongoose.stock('StockData', stockSchema)
 
-module.exports = model
+module.exports = stock

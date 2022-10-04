@@ -1,7 +1,8 @@
-.Col {
-    width: "100%";
-    position: "relative";
+.footerStyle {
+    width: 100%;
+    justify-content: center;
+    position: fixed;
+    left: 0;
     bottom: 0;
-    display: "flex";
-    justify-content: "center";
+    right: 0;
 }

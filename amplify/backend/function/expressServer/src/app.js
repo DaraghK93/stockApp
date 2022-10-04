@@ -10,7 +10,7 @@ const port = 3000
 const express = require('express')
 const bodyParser = require('body-parser')
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
-
+const connectDB = require('./config/db')
 // declare a new express app
 const app = express()
 

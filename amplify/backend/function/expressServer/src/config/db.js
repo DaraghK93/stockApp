@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
-const MONGO_URI = 'mongodb://admin:pass@ec2-3-249-127-86.eu-west-1.compute.amazonaws.com:27017'
+const config = require('config')
+const MONGO_URI = config.get("MONGO_URI")
+
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(MONGO_URI)

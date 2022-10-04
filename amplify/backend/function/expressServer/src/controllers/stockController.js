@@ -38,7 +38,7 @@ const getAllStocks = async (req,res) =>{
 }
 
 
-// @desc get individual stock price
+// @desc Add new stock data
 // @route POST /api/stock/addStock/
 // @access Public
 
@@ -63,20 +63,31 @@ const addStock = async (req,res) => {
 
 
 
-// @desc get individual stock price
+// @desc Update a stock. Price only at the minute but whatever else can be added
 // @route PUT /api/stock/updatestock/:name
-// @access Public
+// @access Private
 
 const updateStock = async (req,res) => {
     try{
-        console.log(req.params.name)
+        // Get the stock from db
+        const stock = await Stock.find({name: req.params.name})
+        
+        console.log(stock[0].price);
+        console.log(req.body.price);
+        const price = req.body.price
 
-        const stock = Stock.find({symbol: req.params.name})
+        // price must be greater than 0
+        if (price <= 0){
+            return res.status(404).json({msg: 'Price not found'});
 
-        const newStock = req.params.name
+        }
 
+        stock[0].price = req.body.price;
 
-        res.json(req.params.name);
+        await stock[0].save();
+
+        res.json(stock);
+
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');

@@ -1,0 +1,38 @@
+// Description:
+//  This file contains all the reducers for updating the logged in user state within redux 
+//  This state contains the users details. 
+//  Each reducer accepts two inputs
+//      state - The current state 
+//      action - The action which is being called which informs how the state wil be updated 
+
+/// Imports ///
+// userActionConstants - These are the action constants for the reducers 
+import {  
+    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT // For userLoginLogoutReducer 
+
+} from "../constants/userActionConstants";
+
+/// userLoginReducer ///
+// Description:
+//  This reducer is in charge of the user state 
+//  This reducer is called when the user attempts to sign in or sign out whch alters the user state  
+export function userLoginLogoutReducer (state={}, action) {
+    // Check the action type 
+    switch (action.type){
+        // User has made request to login set loading true 
+        case USER_LOGIN_REQUEST:
+            return {loading:true}
+        // User has succesfully logged into the system, set loading false and the user state to payload 
+        case USER_LOGIN_SUCCESS:
+            return {loading: false, user: action.payload}
+        // User has failed to login, set loading false and set the error state to the payload to be displayed
+        case USER_LOGIN_FAIL:
+            return {loading: false, error: action.payload}
+        // User has requested a logout, just return the empty state
+        case USER_LOGOUT:
+            return {}
+        // For default just return state unmodified 
+        default:
+            return state;
+    }
+}

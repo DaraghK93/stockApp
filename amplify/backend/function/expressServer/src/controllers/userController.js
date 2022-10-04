@@ -10,12 +10,7 @@ const config = require('config');
 
 const registerUser = async (req,res) => {
 
-        // errors = valid(req);
-    
-        // if(!errors.isEmpty()){
-        //     return res.status(400).json({ errors: errors.array() });
-        // }
-       
+   // may need to put some validation here, although it's already on the frontend and in the models
         const {name,email,username,password} = req.body;
         // console.log(name)
         try {
@@ -112,6 +107,7 @@ const loginUser = async (req,res) => {
 const getUserInfo = async (req,res) => {
 
     try {
+    // get all their details except their password
       const userDetails = await User.findById(req.user.id).select('-password');
   
       if (!userDetails) {
@@ -126,6 +122,28 @@ const getUserInfo = async (req,res) => {
   };
 
 
+// @route    DELETE api/users/delete
+// @desc     Delete current user
+// @access   Private
+const deleteUser =  async (req, res) => {
+    try {
+      const user = await User.findByIdAndDelete(req.user.id).select('-password');
+      console.log(req.user.id);
+      console.log('user = ' +user);
+  
+      if (!user) {
+        return res.status(400).json({ msg: 'Can\'t find user' });
+      }
+      
+      res.json(user.name);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+
+
 module.exports = {
-    registerUser,loginUser, getUserInfo
+    registerUser,loginUser, getUserInfo, deleteUser
 } 
+

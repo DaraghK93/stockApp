@@ -9,6 +9,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
+    "mongoose": "^6.6.4",
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {

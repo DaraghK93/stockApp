@@ -31,6 +31,6 @@ const UserSchema = new mongoose.Schema(
 )
 
 // Registers schema with Mongoose, can now be accessed using "mongoose.model('UserData')"
-const model = mongoose.model('User', UserSchema)
+const user = mongoose.user('UserData', UserSchema)
 
-module.exports = model
+module.exports = user

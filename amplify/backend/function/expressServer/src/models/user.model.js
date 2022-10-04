@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const validateEmail = (email) => {
   const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   return re.test(email);
-};
+}; 
 
 // User schema definition
 const UserSchema = new mongoose.Schema(
@@ -31,6 +31,6 @@ const UserSchema = new mongoose.Schema(
 )
 
 // Registers schema with Mongoose, can now be accessed using "mongoose.model('UserData')"
-const model = mongoose.model('UserData', UserSchema)
+const model = mongoose.model('User', UserSchema)
 
 module.exports = model

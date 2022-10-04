@@ -1,9 +1,11 @@
 import './App.css';
-import { API } from 'aws-amplify';
+// import { API } from 'aws-amplify';
 import {BrowserRouter as Router,Routes,Route,Navigate } from 'react-router-dom'
+// import {useState} from 'react';
 import {useState} from 'react';
-import Header from './components/layout/Header/header';
-import Footer from './components/layout/Footer/footer';
+import Header from './components/layout/Header/header'
+import LoginPage from './screens/login/loginscreen'
+import Footer from './components/layout/Footer/footer'
 
 
 
@@ -12,6 +14,9 @@ function App() {
     
     <Router> 
       <Header />
+      <Routes>
+      <Route path="/login" element={<LoginPage/>}/>
+      </Routes>
       <Footer />
     </Router>
   );

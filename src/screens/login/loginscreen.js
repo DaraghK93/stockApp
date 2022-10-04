@@ -10,13 +10,19 @@ import { login } from '../../actions/userActions'
 import { useNavigate } from "react-router-dom"
 
 function LoginPage() {
+    // constant email holds the value of the input email address
     const [email, setEmail] = useState('')
+    // constant password holds the value of the input password
 	const [password, setPassword] = useState('')
 
+    // navigate allows the page to redirected to another page
     const navigate = useNavigate()
+
     const dispatch = useDispatch()
 	const user = useSelector((state) => state.user)
     const {userInfo} = user;
+
+    // this function will allow the user to use the login function from the userActions.js file
     function handleSubmit(event) {
         event.preventDefault();
         dispatch(login(email,password));
@@ -37,7 +43,6 @@ function LoginPage() {
 
         <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
-        {/* <Form onSubmit={console.log("Hold until redux is ready")}> */}
             <Form.Group className="py-2" controlId="email">
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control

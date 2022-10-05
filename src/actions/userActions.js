@@ -6,29 +6,29 @@
 // userActionConstatns - Contants for user actions 
 // APIName             - The name of the API 
 import {  
-    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT // For userLoginLogoutReducer 
+    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL // For userLoginLogoutReducer 
 } from "../constants/userActionConstants";
 import {APIName} from '../constants/APIConstants';
 import { API } from "aws-amplify";
-
-
 
 export function login (email,password) {
     // Return an async function so that it can be awaited in component that calls it 
     return async (dispatch) => {
         try{
+            console.log("CALLED")
             // Dispatch user login request whuch sets loading to true so that loading screen can be set 
             dispatch({type:USER_LOGIN_REQUEST})
             // Configure the HTTP request 
-            let path = '/login'
+            let path = '/api/users/login'
             let requestConfig = {
-                data: {
+                body: {
                     email: email,
                     password: password
                 }
             }
             // Sent the request to backend 
             const {data} = await API.post(APIName,path,requestConfig)
+            console.log(data)
             // Dispatch the user success action 
             dispatch({type:USER_LOGIN_SUCCESS,payload:data})
             // Set the users data to local storage also 

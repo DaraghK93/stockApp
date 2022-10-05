@@ -9,8 +9,14 @@ import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 import {userLoginLogoutReducer} from './reducers/userReducers'
 
 
-/// Initial State ///
-const initialState = {} 
+/// Initial State ///#
+// userLocalStorage - If a users state is saved in loclastorage dont make them sign in again 
+const userLocalStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
+
+
+const initialState = {
+    user: {userInfo: userLocalStorage}
+} 
 
 
 /// Create the store ///

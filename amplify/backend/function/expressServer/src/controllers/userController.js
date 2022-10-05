@@ -11,7 +11,7 @@ const config = require('config');
 const registerUser = async (req,res) => {
 
    // may need to put some validation here, although it's already on the frontend and in the models
-        const {name,email,username,password} = req.body;
+        const {firstname,lastname,email,username,password,dob,location,image,bio} = req.body;
         // console.log(name)
         try {
             let user = await User.findOne({ email });
@@ -21,10 +21,15 @@ const registerUser = async (req,res) => {
             }
     
             user = new User({
-                name,
+                firstname,
+                lastname,
                 username,
                 email,
-                password
+                password,
+                dob,
+                location,
+                image,
+                bio
             });
             let salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
@@ -44,7 +49,8 @@ const registerUser = async (req,res) => {
             { expiresIn: 360000},
             (err, token) => {
                 if(err) throw err;
-                res.json({ name,email,username,token }); 
+                res.json({ firstname,lastname,email,username,token,dob,location,image,bio }); 
+
             });
     
         } catch (err) {
@@ -62,7 +68,8 @@ const registerUser = async (req,res) => {
 // @access Public
 
 const loginUser = async (req,res) => {
-    const {name,email,username,password } = req.body
+    const {email,password } = req.body
+    
     try{
         let user = await User.findOne({ email });
 
@@ -84,17 +91,27 @@ const loginUser = async (req,res) => {
                 id: user.id
             }
         };
-
+        
         jwt.sign(payload,
             config.get('jwtSecret'),
             { expiresIn: 360000 },
             (err, token) => {
             if(err) throw err;
-            (res.json({ name,email,username,token }));
+            console.log(user.firstname)
+            (res.json({ firstname: user.firstname,
+                        lastname: user.lastname,
+                        email,
+                        username: user.username,
+                        dob: user.dob, 
+                        location: user.location,
+                        image: user.image,
+                        bio: user.bio,
+                        token
+                 }));
         });
     } catch(err) {
         console.error(err.message);
-        res.status(500).send('Server error');
+        res.status(500).send('Server error');   
     }
 }
 

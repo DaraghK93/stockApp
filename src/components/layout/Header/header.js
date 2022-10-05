@@ -14,7 +14,7 @@ function Header() {
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">FIN<span class="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
+        <Navbar.Brand href="#home">FIN<span className="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

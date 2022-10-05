@@ -5,8 +5,8 @@ const { getStockPrice, updateStock, addStock, getAllStocks } = require('../contr
 
 // maybe change name to ticker symbol instead
 
-router.get('/price/:name', getStockPrice)
-router.put('/updateStock/:name', updateStock)
+router.get('/price/:symbol', getStockPrice)
+router.put('/updateStock/:symbol', updateStock)
 router.post('/addStock/', addStock)
 router.get('/', getAllStocks)
 

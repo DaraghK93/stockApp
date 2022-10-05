@@ -94,7 +94,25 @@ const updateStock = async (req,res) => {
     }
 }
 
+// @route   GET api/stocks/:symbol
+// @desc    Get stock by sybmol
+// @access  Private - add auth middleware to make it private
+const getStockBySymbol = async (req,res) =>{
+    try {
+        const stocks = await Stock.find({symbol: req.params.symbol});
+
+        if(!stocks.length) {
+            return res.status(404).json({ msg: 'Stock not found' });
+        }
+
+        res.json(stocks);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}
+
 
 module.exports = {
-    getStockPrice, updateStock, addStock, getAllStocks
+    getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol
 } 

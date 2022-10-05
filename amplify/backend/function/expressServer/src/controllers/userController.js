@@ -4,105 +4,115 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 // const valid = require('validMiddle')
 
-// @desc Register new uesr
+// @desc Register new user
 // @route POST /api/users
 // @access Public
 
-const registerUser = async (req, res, next) => {
-  // may need to put some validation here, although it's already on the frontend and in the models
-  const { name, email, username, password } = req.body;
-  // console.log(name)
-  try {
-    let user = await User.findOne({ email });
+const registerUser = async (req,res) => {
 
-    if (user) {
-      // User already exists
-      res.status(400);
-      res.errormessage = 'User already exists';
-      return next(new Error('User already exists'));
-    }
+   // may need to put some validation here, although it's already on the frontend and in the models
+        const {firstname,lastname,email,username,password,dob,location,image,bio} = req.body;
+        // console.log(name)
+        try {
+            let user = await User.findOne({ email });
+    
+            if(user) {
+                return res.status(400).json({ error: 'User already exists'});
+            }
+    
+            user = new User({
+                firstname,
+                lastname,
+                username,
+                email,
+                password,
+                dob,
+                location,
+                image,
+                bio
+            });
+            let salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+    
+            await user.save();
+            console.log(user)
+            const payload = {
+                user: {
+                    user: {
+                        id: user.id
+                    }
+                }
+            }
+    
+            jwt.sign(payload,
+             config.get('jwtSecret'), // need to set config in .env this is throwing an error for now
+            { expiresIn: 360000},
+            (err, token) => {
+                if(err) throw err;
+                res.json({ firstname,lastname,email,username,token,dob,location,image,bio }); 
 
-    user = new User({
-      name,
-      username,
-      email,
-      password,
-    });
-    let salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
-
-    await user.save();
-    console.log(user);
-    const payload = {
-      user: {
-        user: {
-          id: user.id,
-        },
-      },
+            });
+    
+        } catch (err) {
+            if(User) {  
+                console.error(err.message);
+                return res.status(500).send('Server error');
+    
+            }
+        }
     };
 
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'), // need to set config in .env this is throwing an error for now
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-  } catch (err) {
-    if (User) {
-      console.error(err.message);
-      res.errormessage = 'Server error';
-      return next(err);
-    }
-  }
-};
 
-//@desc Authenticate USer
+//@desc Authenticate User
 // route POST /api/users/login
 // @access Public
 
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    let user = await User.findOne({ email });
+const loginUser = async (req,res) => {
+    const {email,password } = req.body
+    
+    try{
+        let user = await User.findOne({ email });
 
-    if (!user) {
-      res.status(400);
-      res.errormessage = 'Invalid credentials';
-      return next(new Error('Invalid credentials'));
+        if(!user) {
+        return res
+            .status(400)
+            .json({ errors: [{ msg: 'Invalid credentials' }]  });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+        return res
+            .status(400)
+            .json({ errors: [{ msg: 'Invalid credentials' }]  });
+        }
+        const payload = {
+            user: {
+                id: user.id
+            }
+        };
+        
+        jwt.sign(payload,
+            config.get('jwtSecret'),
+            { expiresIn: 360000 },
+            (err, token) => {
+            if(err) throw err;
+            (res.json({ firstname: user.firstname,
+                        lastname: user.lastname,
+                        email,
+                        username: user.username,
+                        dob: user.dob, 
+                        location: user.location,
+                        image: user.image,
+                        bio: user.bio,
+                        token
+                 }));
+        });
+    } catch(err) {
+        console.error(err.message);
+        res.status(500).send('Server error');   
     }
-
-    const isMatch = await bcrypt.compare(password, user.password);
-
-    if (!isMatch) {
-      res.status(400);
-      res.errormessage = 'Invalid credentials';
-      return next(new Error('Invalid credentials'));
-    }
-
-    const payload = {
-      user: {
-        id: user.id,
-      },
-    };
-
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'),
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.errormessage = 'Server error';
-    return next(err);
-  }
-};
+}
 
 // @desc get user data
 // route get /api/users/info

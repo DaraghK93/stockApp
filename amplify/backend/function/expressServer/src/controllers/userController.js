@@ -8,7 +8,7 @@ const config = require('config');
 // @route POST /api/users
 // @access Public
 
-const registerUser = async (req, res) => {
+const registerUser = async (req, res, next) => {
   // may need to put some validation here, although it's already on the frontend and in the models
   const {
     firstname,
@@ -87,7 +87,7 @@ const registerUser = async (req, res) => {
 // route POST /api/users/login
 // @access Public
 
-const loginUser = async (req, res) => {
+const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
@@ -142,7 +142,7 @@ const loginUser = async (req, res) => {
 // route get /api/users/info
 // @access private
 
-const getUserInfo = async (req, res) => {
+const getUserInfo = async (req, res,next) => {
   try {
     // get all their details except their password
     const userDetails = await User.findById(req.user.id).select('-password');
@@ -164,7 +164,7 @@ const getUserInfo = async (req, res) => {
 // @route    DELETE api/users/delete
 // @desc     Delete current user
 // @access   Private
-const deleteUser = async (req, res) => {
+const deleteUser = async (req, res,next) => {
   try {
     const user = await User.findByIdAndDelete(req.user.id).select('-password');
     console.log(req.user.id);

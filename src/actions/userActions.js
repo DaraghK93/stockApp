@@ -27,13 +27,11 @@ export function login (email,password) {
             }
             // Sent the request to backend 
             const data = await API.post(APIName,path,requestConfig)
-            console.log(data)
             // Dispatch the user success action 
             dispatch({type:USER_LOGIN_SUCCESS,payload:data})
             // Set the users data to local storage also 
             localStorage.setItem('userInfo',JSON.stringify(data))
         }catch(error){
-            console.log(error)
             dispatch({
                 type:USER_LOGIN_FAIL,
                 payload:error.response.data.errormessage /// THIS NEEDS TO BE AGRRED UPON WITH BACKEND GUYS SHOULD BE NICE ERROR MESSAGE 

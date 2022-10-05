@@ -43,6 +43,20 @@ export function userLoginLogoutReducer (state={}, action) {
 export function userRegisterReducer(state = {}, action) {
     // check action
     switch (action.type){
-        
+        // User has requested registration 
+        case USER_REGISTER_REQUEST:
+            // Set loading to true 
+            return {loading: true}
+        // User succfully registered 
+        case USER_REGISTER_SUCCESS:
+            // have user deatials at this point 
+            return {loading: false}
+        // User cannot be registered 
+        case USER_REGISTER_FAIL:
+            // Set the error message 
+            return {loading: false, error: action.payload}
+        // For default just return uunmodfied state 
+        default:
+            return state; 
     }    
 }

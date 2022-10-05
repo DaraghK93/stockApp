@@ -19,7 +19,7 @@ export function login (email,password) {
             // Dispatch user login request whuch sets loading to true so that loading screen can be set 
             dispatch({type:USER_LOGIN_REQUEST})
             // Configure the HTTP request 
-            let path = '/api/users/login'
+            let path = '/api/user/login'
             let requestConfig = {
                 body: {
                     email: email,
@@ -27,13 +27,14 @@ export function login (email,password) {
                 }
             }
             // Sent the request to backend 
-            const {data} = await API.post(APIName,path,requestConfig)
-            console.log(data)
+            const data = await API.post(APIName,path,requestConfig)
+            console.log("HERER",data)
             // Dispatch the user success action 
             dispatch({type:USER_LOGIN_SUCCESS,payload:data})
             // Set the users data to local storage also 
             localStorage.setItem('user',JSON.stringify(data))
         }catch(error){
+            console.log(error)
             dispatch({
                 type:USER_LOGIN_FAIL,
                 payload:error /// THIS NEEDS TO BE AGRRED UPON WITH BACKEND GUYS SHOULD BE NICE ERROR MESSAGE 

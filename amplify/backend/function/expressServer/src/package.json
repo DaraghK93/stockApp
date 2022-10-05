@@ -8,9 +8,11 @@
     "aws-serverless-express": "^3.3.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
+    "config": "^3.3.8",
+    "cors": "^2.8.5",
     "express": "^4.15.2",
-    "mongoose": "^6.6.4",
-    "jsonwebtoken": "^8.5.1"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.4"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.92",

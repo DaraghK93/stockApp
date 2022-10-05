@@ -13,6 +13,7 @@ const awsServerlessExpressMiddleware = require('aws-serverless-express/middlewar
 const connectDB = require('./config/db')
 // declare a new express app
 const app = express()
+const cors = require('cors');
 
 connectDB();
 
@@ -26,6 +27,7 @@ app.use(function(req, res, next) {
   next()
 });
 
+app.use(cors())
 app.use('/api/user', require("./routes/userRoutes"))
 app.use('/api/stock', require("./routes/stockRoutes"))
 

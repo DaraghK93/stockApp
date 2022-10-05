@@ -1,0 +1,4 @@
+{
+"jwtSecret": "itsasecret",
+"MONGO_URI": "mongodb://admin:pass@ec2-3-249-127-86.eu-west-1.compute.amazonaws.com:27017"
+}

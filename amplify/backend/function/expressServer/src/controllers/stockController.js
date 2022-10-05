@@ -8,15 +8,15 @@ const Stock = require('../models/stock.model');
 
 const getStockPrice = async (req,res) => {
     try {
-        console.log(req.params.name);
+        console.log(req.params.symbol);
         
-        const stock = await Stock.find({name: req.params.name});
+        const stock = await Stock.find({symbol: req.params.symbol});
         
         if (!stock.length){
             return res.status(404).json({msg: 'Stock not found'});
         }
 
-        res.json(stock[0].price);
+        res.json(stock[0].currentprice);
     }catch (err){
         console.error(err.message);
         res.status(500).send('Server error');
@@ -44,11 +44,11 @@ const getAllStocks = async (req,res) =>{
 
 const addStock = async (req,res) => {
     try {
-        console.log(req.params.name);
+        console.log(req.params.symbol);
         
         const newStock = new Stock({
-            name: req.body.name,
-            price: req.body.price
+            symbol: req.body.symbol,
+            currentprice: req.body.currentprice
         });
 
         const stock = await newStock.save();
@@ -70,11 +70,11 @@ const addStock = async (req,res) => {
 const updateStock = async (req,res) => {
     try{
         // Get the stock from db
-        const stock = await Stock.find({name: req.params.name})
+        const stock = await Stock.find({symbol: req.params.symbol})
         
-        console.log(stock[0].price);
-        console.log(req.body.price);
-        const price = req.body.price
+        console.log(stock[0].currentprice);
+        console.log(req.body.currentprice);
+        const price = req.body.currentprice
 
         // price must be greater than 0
         if (price <= 0){
@@ -82,7 +82,7 @@ const updateStock = async (req,res) => {
 
         }
 
-        stock[0].price = req.body.price;
+        stock[0].currentprice = req.body.currentprice;
 
         await stock[0].save();
 
@@ -94,7 +94,25 @@ const updateStock = async (req,res) => {
     }
 }
 
+// @route   GET api/stocks/:symbol
+// @desc    Get stock by sybmol
+// @access  Private - add auth middleware to make it private
+const getStockBySymbol = async (req,res) =>{
+    try {
+        const stocks = await Stock.find({symbol: req.params.symbol});
+
+        if(!stocks.length) {
+            return res.status(404).json({ msg: 'Stock not found' });
+        }
+
+        res.json(stocks);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server Error');
+    }
+}
+
 
 module.exports = {
-    getStockPrice, updateStock, addStock, getAllStocks
+    getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol
 } 

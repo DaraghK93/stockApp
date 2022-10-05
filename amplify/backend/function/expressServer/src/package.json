@@ -6,10 +6,18 @@
   "license": "Apache-2.0",
   "dependencies": {
     "aws-serverless-express": "^3.3.5",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "mongoose": "^6.6.4",
+    "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
-    "@types/aws-lambda": "^8.10.92"
+    "@types/aws-lambda": "^8.10.92",
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js"
   }
 }

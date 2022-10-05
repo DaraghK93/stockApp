@@ -8,6 +8,7 @@ import {Form, Button, Row, Col, Container} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/userActions'
 import { useNavigate } from "react-router-dom"
+import GoogleButton from '../../components/widgets/GoogleSignIn/googleAuth'
 
 function LoginPage() {
     // constant email holds the value of the input email address
@@ -64,6 +65,11 @@ function LoginPage() {
             <Button variant="primary" type="submit">
               Login
             </Button>
+            </Col>
+            </Row>
+            <Row>
+                <Col className="text-center py-4">
+            <GoogleButton></GoogleButton>
             </Col>
             </Row>
 

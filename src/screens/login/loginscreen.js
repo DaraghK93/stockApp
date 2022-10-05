@@ -31,7 +31,7 @@ function LoginPage() {
 
       useEffect (() => {
         if(userInfo){
-          navigate('/userDashboard');
+          navigate('/stockdiscovery');
         }
       },[userInfo,navigate])
     

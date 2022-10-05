@@ -44,7 +44,7 @@ const registerUser = async (req,res) => {
             { expiresIn: 360000},
             (err, token) => {
                 if(err) throw err;
-                res.json({ name,email,username,password,token }); 
+                res.json({ name,email,username,token }); 
             });
     
         } catch (err) {
@@ -57,7 +57,7 @@ const registerUser = async (req,res) => {
     };
 
 
-//@desc Authenticate USer
+//@desc Authenticate User
 // route POST /api/users/login
 // @access Public
 
@@ -79,7 +79,6 @@ const loginUser = async (req,res) => {
             .status(400)
             .json({ errors: [{ msg: 'Invalid credentials' }]  });
         }
-
         const payload = {
             user: {
                 id: user.id
@@ -91,7 +90,7 @@ const loginUser = async (req,res) => {
             { expiresIn: 360000 },
             (err, token) => {
             if(err) throw err;
-            res.json({ name,email,username,password,token });
+            (res.json({ name,email,username,token }));
         });
     } catch(err) {
         console.error(err.message);

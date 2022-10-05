@@ -2,24 +2,25 @@ const mongoose = require('mongoose');
 
 const stockSchema = new mongoose.Schema(
   {
-    // exchange: {type: String, trim: true, required: true},
-    name: {type: String,required: true},
-    // shortname: {type: String, trim: true,required: true},
-    // longname: {type: String, trim: true,required: true},
-    // sector: {type: String, trim: true,required: true},
-    // industry: {type: String, trim: true,required: true},
-    price: {type: String,required: true}
-    // marketcap: {type: String, trim: true,required: true},
-    // ebitda: {type: String, trim: true,required: true},
-    // revenuegrowth: {type: String, trim: true,required: true},
-    // city: {type: String, trim: true,required: true},
-    // state: {type: String, trim: true,required: true},
-    // country: {type: String, trim: true,required: true},
-    // fulltimeemployees: {type: String, trim: true,required: true},
-    // businessummary: {type: String, trim: true,required: true},
-  }
-);
+    exchange: { type: String, trim: true },
+    symbol: { type: String, trim: true },
+    shortname: { type: String, trim: true },
+    longname: { type: String, trim: true },
+    sector: { type: String, trim: true },
+    industry: { type: String, trim: true },
+    currentprice: { type: String, trim: true },
+    marketcap: { type: String, trim: true },
+    ebitda: { type: String, trim: true },
+    revenuegrowth: { type: String, trim: true },
+    city: { type: String, trim: true },
+    state: { type: String, trim: true },
+    country: { type: String, trim: true },
+    fulltimeemployees: { type: String, trim: true },
+    businessummary: { type: String, trim: true },
+  },
+  { collection: 'stock-data' },
+  // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
+  { timestamps: true },
+)
 
-
-
-module.exports = Stock = mongoose.model('stock', stockSchema);
+module.exports = mongoose.model('StockData', stockSchema)

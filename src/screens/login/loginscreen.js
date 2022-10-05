@@ -14,13 +14,13 @@ function LoginPage() {
     // constant email holds the value of the input email address
     const [email, setEmail] = useState('')
     // constant password holds the value of the input password
-	const [password, setPassword] = useState('')
+	  const [password, setPassword] = useState('')
 
     // navigate allows the page to redirected to another page
     const navigate = useNavigate()
 
     const dispatch = useDispatch()
-	const user = useSelector((state) => state.user)
+	  const user = useSelector((state) => state.user)
     const {userInfo} = user;
 
     // this function will allow the user to use the login function from the userActions.js file
@@ -32,8 +32,7 @@ function LoginPage() {
 
       useEffect (() => {
         if(userInfo){
-
-          navigate('/userDashboard');
+          navigate('/stockdiscovery');
         }
       },[userInfo,navigate])
     
@@ -67,6 +66,7 @@ function LoginPage() {
             </Button>
             </Col>
             </Row>
+            <Row><Col className="text-center py-4">Alternatively, you can sign in one of two ways:</Col></Row>
             <Row>
                 <Col className="text-center py-4">
             <GoogleButton></GoogleButton>

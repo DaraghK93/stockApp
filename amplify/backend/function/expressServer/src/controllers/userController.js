@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const config = require('config');
 // const valid = require('validMiddle')
 
-// @desc Register new uesr
+// @desc Register new user
 // @route POST /api/users
 // @access Public
 
@@ -44,11 +44,11 @@ const registerUser = async (req,res) => {
             { expiresIn: 360000},
             (err, token) => {
                 if(err) throw err;
-                res.json({token});
+                res.json({ name,email,username,password,token }); 
             });
     
         } catch (err) {
-            if(User) {
+            if(User) {  
                 console.error(err.message);
                 return res.status(500).send('Server error');
     
@@ -62,7 +62,7 @@ const registerUser = async (req,res) => {
 // @access Public
 
 const loginUser = async (req,res) => {
-    const {email, password} = req.body
+    const {name,email,username,password } = req.body
     try{
         let user = await User.findOne({ email });
 
@@ -91,13 +91,12 @@ const loginUser = async (req,res) => {
             { expiresIn: 360000 },
             (err, token) => {
             if(err) throw err;
-            res.json({ token });
+            res.json({ name,email,username,password,token });
         });
     } catch(err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
-
 }
 
 // @desc get user data

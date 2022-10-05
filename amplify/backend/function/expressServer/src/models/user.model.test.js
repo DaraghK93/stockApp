@@ -26,7 +26,6 @@ beforeAll(async () => {
 // });
 
 
-
 describe("User model", () => {
   it("create & save user successfully", async () => {
     const validUser = new User(userData);

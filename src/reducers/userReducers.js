@@ -8,8 +8,8 @@
 /// Imports ///
 // userActionConstants - These are the action constants for the reducers 
 import {  
-    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT // For userLoginLogoutReducer 
-
+    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT, // For userLoginLogoutReducer 
+    USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL // For userRegisterReducer
 } from "../constants/userActionConstants";
 
 /// userLoginReducer ///

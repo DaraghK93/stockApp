@@ -13,7 +13,7 @@ import {userLoginLogoutReducer} from './reducers/userReducers'
 // userLocalStorage - If a users state is saved in loclastorage dont make them sign in again 
 const userLocalStorage = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getItem('userInfo')) : null;
 
-
+/// This will be the preloaded state ///
 const initialState = {
     user: {userInfo: userLocalStorage}
 } 

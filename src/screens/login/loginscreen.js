@@ -31,7 +31,6 @@ function LoginPage() {
 
       useEffect (() => {
         if(userInfo){
-
           navigate('/userDashboard');
         }
       },[userInfo,navigate])

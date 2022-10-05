@@ -36,3 +36,13 @@ export function userLoginLogoutReducer (state={}, action) {
             return state;
     }
 }
+
+/// userRegisterReducer ///
+// Description:
+//  Reducer used to change state for a register request 
+export function userRegisterReducer(state = {}, action) {
+    // check action
+    switch (action.type){
+        
+    }    
+}

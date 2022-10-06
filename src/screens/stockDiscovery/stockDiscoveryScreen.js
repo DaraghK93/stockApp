@@ -52,7 +52,7 @@ function StockDiscoveryPage() {
 
     return (
         <>
-            {loading ? <LoadingSpinner /> : error ? <MessageAlert /> :
+            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
                     <h1>Stock Discovery Page</h1>
                     <h2> Search/ Filter stocks</h2>

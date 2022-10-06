@@ -1,103 +1,84 @@
-import { Container, Card, Row, Col } from 'react-bootstrap';
-import TickerCard from '../../components/stockDiscoveryComponents/TickerCard/tickerCard';
-import StockSearchBar from '../../components/stockDiscoveryComponents/StockSearchBar/stockSearchBar';
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
-
 /// Stock Discovery Screen ///
 // Route:
-//  <URL>/explorestocks
+//  <URL>/stockdiscovery
 // Description:
 //  This screen contains the components rendered to the user when they click "Explore stocks"
 
-
+import { Container, Card, Row, Col } from 'react-bootstrap';
+import TickerCard from '../../components/stockDiscoveryComponents/TickerCard/TickerCard';
+import StockSearchBar from '../../components/stockDiscoveryComponents/StockSearchBar/StockSearchBar';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 function StockDiscoveryPage() {
 
-    const stocks = [{
-        name: "Microsoft Inc.",
-        ticker: "MSFT",
-        price: 10000,
-        _id: 1
-    }
-        // ,
-        // {
-        //     name: "Company2",
-        //     ticker: "CMPY",
-        //     _id: 2
-        // },
-        // {
-        //     name: "Company3",
-        //     ticker: "EXMPL",
-        //     _id: 3
-        // },
-        // {
-        //     name: "Company4",
-        //     ticker: "TCKR",
-        //     _id: 4
-        // },
-        // {
-        //     name: "Company5",
-        //     ticker: "AMZN",
-        //     _id: 5
-        // }
-    ]
-
     const [loading, setLoading] = useState(true);
-    const [stock, setStock] = useState('');
+    const [stocks, setStock] = useState('');
     const [error, setError] = useState("");
 
 
+    useEffect(() => {
+        /// getStocks ///
+        // Description:
+        //  Makes a GET request to the backend route /stock/ 
+        const getStocks = async () => {
+            try {
+                // Request is being sent set loading true 
+                setLoading(true);
 
+                let stockRequest = {
+                    method: 'get',
+                    url: `http://localhost:3000/api/stock`
+                }
+                // Send the request with axios
+                const res = await axios(stockRequest);
+                // Set the state for the stocks and loading to false 
 
-
-    const getStocks = async () => {
-        const result = await fetch(
-            `http://localhost:3000/api/stock`,
-        )
-        const data = await result.json()
-
-        console.log(data)
-
-    }
-
-    getStocks()
-
+                setStock(res.data);
+                setLoading(false);
+            } catch (error) {
+                // Log the error 
+                console.log(error);
+                // Set the error message to be displayed on the page 
+                setError(error.response.data.errormessage);
+                setLoading(false);
+            }
+        }
+        getStocks();
+    }, [])
 
 
     return (
         <>
-            <Container>
-                <h1>Stock Discovery Page</h1>
-                <h2> Search/ Filter stocks</h2>
-                <StockSearchBar />
-                <br />
+            {loading ? <p>loading </p> : error ? <p>Error..</p> :
+                <Container>
+                    <h1>Stock Discovery Page</h1>
+                    <h2> Search/ Filter stocks</h2>
+                    <StockSearchBar />
+                    <br />
+                    <h2>Suggested Stocks</h2>
+                    <h2>Top Movers</h2>
+                    <h2>Compare Stocks</h2>
 
-                <h3>Insert Filter(s) Here</h3>
-
-                <Card.Body>
-                    <Card.Title><h2>All Stocks</h2></Card.Title>
-                    {stocks.length > 0 ? (
-                        <Row md={3} xs={1}>
-                            {stocks.map((stockObj) => (
-                                <Col className="py-2" key={stockObj._id}>
-                                    <TickerCard stock={stockObj} />
-                                </Col>
-                            ))}
-                        </Row>)
-                        : <Card.Text>
-                            Error Loading stocks
-                        </Card.Text>}
-                </Card.Body>
-                <h2>Suggested Stocks</h2>
-                <h2>Top Movers</h2>
-                <h2>Compare Stocks</h2>
-
-            </Container>
+                    <Card.Body>
+                        <Card.Title><h2>All Stocks</h2></Card.Title>
+                        {stocks.length > 0 ? (
+                            <Row md={4} xs={1}>
+                                {stocks.map((stockObj) => (
+                                    <Col className="py-2" key={stockObj._id}>
+                                        <TickerCard stock={stockObj} />
+                                    </Col>
+                                ))}
+                            </Row>)
+                            : <Card.Text>
+                                Error Loading stocks
+                            </Card.Text>}
+                    </Card.Body>
+                </Container>
+            }
         </>
     )
+
 }
 
 export default StockDiscoveryPage;

@@ -4,7 +4,7 @@
 // Description:
 //  This screen contains the components redenred to the user when they are logging in
 import { useState, useEffect } from 'react'
-import {Form, Button, Row, Col, Container} from 'react-bootstrap'
+import {Form, Button, Row, Col} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/userActions'
 import { useNavigate } from "react-router-dom"
@@ -12,6 +12,9 @@ import { useNavigate } from "react-router-dom"
 /// Widgets ///
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner'
+
+/// Layout ///
+import FormContainer from '../../components/layout/FormContainer/FormContainer';
 
 function LoginPage() {
     // constant email holds the value of the input email address
@@ -41,10 +44,14 @@ function LoginPage() {
         }
       },[userInfo,navigate])
     
-
+// 
+ //           
     return(
-        <>
-        <Container>
+        <FormContainer>
+
+       
+
+           
           {error && <MessageAlert variant='danger'>{error}</MessageAlert>}
           {loading && <LoadingSpinner/>}
           <h1>Login</h1>
@@ -72,10 +79,8 @@ function LoginPage() {
               </Button>
               </Col>
               </Row>
-          </Form>
-        </Container></>
-
+          </Form>  
+          </FormContainer>
         )
 }
-
 export default LoginPage

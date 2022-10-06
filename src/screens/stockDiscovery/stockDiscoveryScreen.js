@@ -9,6 +9,8 @@ import TickerCard from '../../components/stockDiscoveryComponents/TickerCard/Tic
 import StockSearchBar from '../../components/stockDiscoveryComponents/StockSearchBar/StockSearchBar';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
+import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 
 function StockDiscoveryPage() {
 
@@ -50,7 +52,7 @@ function StockDiscoveryPage() {
 
     return (
         <>
-            {loading ? <p>loading </p> : error ? <p>Error..</p> :
+            {loading ? <LoadingSpinner /> : error ? <MessageAlert /> :
                 <Container>
                     <h1>Stock Discovery Page</h1>
                     <h2> Search/ Filter stocks</h2>

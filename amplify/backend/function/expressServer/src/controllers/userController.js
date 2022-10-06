@@ -2,35 +2,37 @@ const User = require('../models/user.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const config = require('config');
-// const valid = require('validMiddle')
+
 
 // @desc Register new user
 // @route POST /api/users
 // @access Public
 
 const registerUser = async (req, res, next) => {
-  // may need to put some validation here, although it's already on the frontend and in the models
-  const {
-    firstname,
-    lastname,
-    email,
-    username,
-    password,
-    dob,
-    location,
-    image,
-    bio,
-  } = req.body;
-  // console.log(name)
+ 
+  
   try {
+    // Need some validation here, although it's already on the frontend and in the models
+    /// Parse the body *NEED VALIDATION FOR NULLS HERE***
+    const {
+      firstname,
+      lastname,
+      email,
+      username,
+      password,
+      dob,
+      location,
+    } = req.body; 
     let user = await User.findOne({ email });
 
+    // Check for existing user 
     if (user) {
       res.status(400);
       res.errormessage = 'User already exists';
       return next(new Error('User already exists'));
     }
 
+    /// Create a ne user 
     user = new User({
       firstname,
       lastname,
@@ -38,15 +40,14 @@ const registerUser = async (req, res, next) => {
       email,
       password,
       dob,
-      location,
-      image,
-      bio,
+      location
     });
-    let salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(password, salt);
 
+    /// Hash the password ///
+    let salt      = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+    // Save user in DB 
     await user.save();
-    console.log(user);
     const payload = {
       user: {
         user: {
@@ -55,25 +56,17 @@ const registerUser = async (req, res, next) => {
       },
     };
 
-    jwt.sign(
-      payload,
-      config.get('jwtSecret'), // need to set config in .env this is throwing an error for now
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({
-          firstname,
-          lastname,
-          email,
-          username,
-          token,
-          dob,
-          location,
-          image,
-          bio,
-        });
-      }
-    );
+    jwt.sign( payload, config.get('jwtSecret'), {expiresIn:'360000'}, (err, token) => {
+      if (err) throw err;
+      res.json({
+        firstname,
+        lastname,
+        email,
+        username,
+        token,
+      })
+    })
+
   } catch (err) {
     if (User) {
       console.error(err.message);

@@ -108,7 +108,7 @@ function RegistrationPage() {
                     required
                 />
             </Form.Group>
-            <Form.Group className="py-2" controlId="dateOfBirth">
+            <Form.Group className="py-2" controlId="username">
                 <Form.Label>Username</Form.Label>
                             <Form.Control
                                 type="text"

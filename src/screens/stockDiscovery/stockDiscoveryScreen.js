@@ -8,9 +8,12 @@ import { Container, Card, Row, Col } from 'react-bootstrap';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import StockSearchBar from '../../components/stockDiscoveryComponents/stockSearchBar/StockSearchBar';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
+
+/// API ///
+import {APIName} from '../../constants/APIConstants'
+import { API } from "aws-amplify";
 
 function StockDiscoveryPage() {
 
@@ -27,16 +30,12 @@ function StockDiscoveryPage() {
             try {
                 // Request is being sent set loading true 
                 setLoading(true);
-
-                let stockRequest = {
-                    method: 'get',
-                    url: `http://localhost:3000/api/stock`
-                }
-                // Send the request with axios
-                const res = await axios(stockRequest);
+                // Set the path 
+                let path = '/api/stock'
+                // Send the request with API package
+                const res = await API.get(APIName,path)
                 // Set the state for the stocks and loading to false 
-
-                setStock(res.data);
+                setStock(res);
                 setLoading(false);
             } catch (error) {
                 // Log the error 

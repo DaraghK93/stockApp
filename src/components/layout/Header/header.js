@@ -25,11 +25,7 @@ function Header() {
   const {userInfo} = user; 
 
 
-
-
-
   return (
-    <header className="pb-4">
     <Navbar bg="light" expand="lg">
       <Container>
         <Navbar.Brand as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
@@ -52,7 +48,6 @@ function Header() {
         </Navbar.Collapse>   
       </Container>
     </Navbar>
-    </header>
   );
 }
 

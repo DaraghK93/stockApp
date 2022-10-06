@@ -9,9 +9,14 @@ import {Form, Button, Row, Col, Container} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../actions/userActions'
 import { useNavigate,Link } from "react-router-dom"
+
+// The below three imports are used for the dropdown menu for location. react-bootstrap-country-select 
+// was installed for this.
 import 'bootstrap/dist/css/bootstrap.css'
 import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
 import CountrySelect from 'react-bootstrap-country-select'
+
+// Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
 
 
@@ -34,11 +39,15 @@ function RegistrationPage() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        // Check whether password and confirm password are the same. More messages will need to be added.
         if (password !== confirmPassword){
             setErrorMessage("Password and Confirm Password must be the same!")
         }
+        else {
+            // location returns a dictionary of items such as country ID and name, but we only want name here.
         dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
-      }
+        }
+    }
        
 
       useEffect (() => {

@@ -5,13 +5,13 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Amplify} from 'aws-amplify';
 import awsExports from './aws-exports';
-
-/// Redux ///
-import { Provider } from 'react-redux';
+import { Provider } from 'react-redux';/// Redux ///
 import store from './store'
+import '../node_modules/bootstrap/dist/css/bootstrap.css';
+
+const feather = require('feather-icons')
 
 // Configure amplify/// 
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
 Amplify.configure(awsExports);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

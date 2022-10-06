@@ -1,16 +1,16 @@
+import { Container, Card, Row, Col } from 'react-bootstrap';
+import TickerCard from '../../components/stockDiscoveryComponents/TickerCard/tickerCard';
+import StockSearchBar from '../../components/stockDiscoveryComponents/StockSearchBar/stockSearchBar';
+import { useState, useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+
 /// Stock Discovery Screen ///
 // Route:
 //  <URL>/explorestocks
 // Description:
 //  This screen contains the components rendered to the user when they click "Explore stocks"
-import { Container, Card, Row, Col } from 'react-bootstrap';
-import TickerCard from '../../components/stockDiscoveryComponents/tickerCard/tickerCard';
-import StockSearchBar from '../../components/stockDiscoveryComponents/stockSearchBar/stockSearchBar';
-
-import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import axios from 'axios';
-import { useSelector } from 'react-redux';
 
 
 

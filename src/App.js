@@ -18,7 +18,6 @@ function App() {
       <Routes>
       <Route path="/login" element={<LoginPage/>}/>
       <Route path="/stockdiscovery" element={<StockDiscoveryPage/>}/>
-
       </Routes>
       <Footer />
     </Router>

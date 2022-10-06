@@ -1,0 +1,22 @@
+[{
+  "httpMethod": "POST",
+  "path": "/stock",
+  "queryStringParameters": {
+    "limit": "10"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"msg\":\"Hello from the event.json body\"}"
+},
+{
+  "httpMethod": "GET",
+  "path": "/stock",
+  "queryStringParameters": {
+    "limit": "10"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"msg\":\"Hello from the event.json body\"}"
+}]

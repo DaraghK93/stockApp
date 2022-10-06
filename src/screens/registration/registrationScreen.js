@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import {Form, Button, Row, Col, Container} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { registerUser } from '../../actions/userActions'
-import { useNavigate,Link } from "react-router-dom"
+import { useNavigate} from "react-router-dom"
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select 
 // was installed for this.
@@ -70,15 +70,17 @@ function RegistrationPage() {
                     type="text"
                     placeholder="First Name"
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)} />
+                    onChange={(e) => setFirstName(e.target.value)} 
+                    required/>
             </Form.Group>
-            <Form.Group className="py-2" controlId="secondName">
+            <Form.Group className="py-2" controlId="lastName">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Last Name"
                     value={lastName}
-                    onChange={(e) => setLastName(e.target.value)} />
+                    onChange={(e) => setLastName(e.target.value)}
+                    required />
             </Form.Group>
             <Form.Group className="py-2" controlId="email">
                 <Form.Label>Email Address</Form.Label>
@@ -86,7 +88,8 @@ function RegistrationPage() {
                     type="email"
                     placeholder="Email Address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)} />
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required/>
             </Form.Group>
             <Form.Group className="py-2" controlId="dateOfBirth">
                 <Form.Label>Date of Birth</Form.Label>
@@ -94,13 +97,15 @@ function RegistrationPage() {
                     type="date"
                     placeholder="Date of Birth"
                     value={dateOfBirth}
-                    onChange={(e) => setDateOfBirth(e.target.value)} />
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    required />
             </Form.Group>
             <Form.Group className="py-2" controlId="country">
                 <Form.Label>Location</Form.Label>
                 <CountrySelect
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={setLocation}
+                    required
                 />
             </Form.Group>
             <Form.Group className="py-2" controlId="dateOfBirth">
@@ -108,20 +113,19 @@ function RegistrationPage() {
                             <Form.Control
                                 type="text"
                                 placeholder="Username"
-                                aria-describedby="inputGroupPrepend"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 required
                                 />
-                            <Form.Control.Feedback type="invalid">
-                            Please choose a username.
-                            </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="py-2" controlId="username">
+            <Form.Group className="py-2" controlId="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                    type="text"
+                    type="password"
                     placeholder="Password"
-                    value={username}
-                    onChange={(e) => setPassword(e.target.value)} />
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required />
             </Form.Group> 
             <Form.Group className="py-2" controlId="password">
                 <Form.Label>Confirm Password</Form.Label>
@@ -129,7 +133,8 @@ function RegistrationPage() {
                     type="password"
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}/>
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    required/>
             </Form.Group>
             <Row>
                 <Col className="text-center py-4">

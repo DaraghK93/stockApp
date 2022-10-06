@@ -7,7 +7,6 @@
 // spinner - Bootstrap loading spinner https://react-bootstrap.github.io/components/spinners/
 import {Spinner} from 'react-bootstrap';
 
-
 /// LoadingSpinner ///
 // Description:
 //     Uses react bootstrap component 
@@ -16,6 +15,12 @@ function LoadingSpinner(){
         <Spinner
             animation='border'
             variant = 'dark'
+            style = {{
+                width: '4rem', 
+                height: '4rem',
+                margin:'auto',
+                display:'block'
+            }}
         >
         </Spinner>
     )

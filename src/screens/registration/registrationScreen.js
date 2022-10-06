@@ -35,7 +35,7 @@ function RegistrationPage() {
     function handleSubmit(event) {
         event.preventDefault();
         if (password !== confirmPassword){
-            setErrorMessage("Password and Confirm Password Must Be Equal")
+            setErrorMessage("Password and Confirm Password must be the same!")
         }
         dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
       }
@@ -91,7 +91,7 @@ function RegistrationPage() {
                 <Form.Label>Location</Form.Label>
                 <CountrySelect
                     value={location}
-                    onChange={setLocation}
+                    onChange={(e) => setLocation(e.target.value)}
                 />
             </Form.Group>
             <Form.Group className="py-2" controlId="dateOfBirth">
@@ -112,14 +112,14 @@ function RegistrationPage() {
                     type="text"
                     placeholder="Password"
                     value={username}
-                    onChange={(e) => setUsername(e.target.value)} />
+                    onChange={(e) => setPassword(e.target.value)} />
             </Form.Group> 
             <Form.Group className="py-2" controlId="password">
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="Confirm Password"
-                    value={password}
+                    value={confirmPassword}
                     onChange={(event) => setConfirmPassword(event.target.value)}/>
             </Form.Group>
             <Row>

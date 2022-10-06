@@ -4,7 +4,7 @@
 // Description:
 //  This screen contains the components rendered to the user when they click "Explore stocks"
 
-import { Container, Card, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import StockSearchBar from '../../components/stockDiscoveryComponents/stockSearchBar/StockSearchBar';
 import { useState, useEffect } from 'react';
@@ -60,25 +60,30 @@ function StockDiscoveryPage() {
                     <h2>Suggested Stocks</h2>
                     <h2>Top Movers</h2>
                     <h2>Compare Stocks</h2>
-
-                    <Card.Body>
-                        <Card.Title><h2>All Stocks</h2></Card.Title>
-                        {stocks.length > 0 ? (
-                            <Row md={4} xs={1}>
-                                {stocks.map((stockObj) => (
-                                    <Col className="py-2" key={stockObj._id}>
-                                        <TickerCard stock={stockObj} />
+                    <h2>All Stocks</h2>
+                     <Row md={4} xs={1}>
+                        {stocks.map((stockObj) => (
+                             <Col className="py-2" key={stockObj._id}>
+                                       <TickerCard stock={stockObj} />
                                     </Col>
-                                ))}
-                            </Row>)
-                            : <Card.Text>
-                                Error Loading stocks
-                            </Card.Text>}
-                    </Card.Body>
+                        ))}
+                     </Row>
                 </Container>
             }
         </>
     )
 }
-
+//<Row md={4} xs={1}>
+//                        {stocks.length > 0 ? (  
+//                                {stocks.map((stockObj) => (
+//                                    <Col className="py-2" key={stockObj._id}>
+//                                        <TickerCard stock={stockObj} />
+//                                    </Col>
+//                                ))}
+//                            
+//                            :<>
+//                            Error Loading stocks
+//                            </> 
+//                            </Row>)
+//                            }
 export default StockDiscoveryPage;

@@ -2,9 +2,10 @@
 //  This component is used to display stocks to the user
 //  It is a card which shows an overview of the stock showing some key details 
 
-import { autoShowTooltip } from 'aws-amplify';
-import { Button, Card, ListGroupItem, ListGroup, Badge } from 'react-bootstrap';
-import { Camera, ChevronsUp, ArrowUp, ArrowDown } from 'react-feather';
+import { Card, ListGroupItem, ListGroup} from 'react-bootstrap';
+
+import { Link } from "react-router-dom";
+
 
 function TickerCard({ stock }) {
 
@@ -18,17 +19,16 @@ function TickerCard({ stock }) {
   }
 
   return (
-    <Card style={{ width: '15rem' }}>
-      <Card.Body>
-        <Card.Img variant="top" 
-        src={stock.logo}
-        // style={{ height: '5rem', width: '100%'}} 
+    <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none'}}>
+    <Card className="h-100">
+      <Card.Body style={{ textDecoration: 'none'}}>
+        <Card.Img variant="top"  src={stock.logo}
+          styel={{ width: "100%", height: "15vw",
+          margin: "20px",textDecoration: 'none'
+        }}
         />
-
-        <Card.Title style={{ fontSize: 30 }}> <strong>{stock.longname}</strong></Card.Title>
-        <Card.Text style={{ fontFamily: 'Courier New', fontSize: 50 }}>{stock.symbol}</Card.Text>
-
-        <Button colour="$primary">View Stock</Button>
+        <Card.Title style={{ fontSize: "3vh"  }}> <strong>{stock.longname}</strong></Card.Title>
+        <Card.Text style={{ fontFamily: 'Courier New', fontSize: "2vh" }}>{stock.symbol}</Card.Text>
 
       </Card.Body>
 
@@ -40,6 +40,7 @@ function TickerCard({ stock }) {
         <ListGroupItem><strong>Exchange:</strong> {stock.exchange}</ListGroupItem>
       </ListGroup>
     </Card>
+    </Link>
   );
 }
 

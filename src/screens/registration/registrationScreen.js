@@ -6,8 +6,8 @@
 
 import { useState, useEffect } from 'react'
 import {Form, Button, Row, Col, Container} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../actions/userActions'
+
+
 import { useNavigate} from "react-router-dom"
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select 
@@ -18,6 +18,10 @@ import CountrySelect from 'react-bootstrap-country-select'
 
 // Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
+
+//// Redux ////
+import { useDispatch, useSelector } from 'react-redux'
+import { registerUser } from '../../actions/userActions'
 
 
 function RegistrationPage() {
@@ -32,9 +36,14 @@ function RegistrationPage() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate()
+
+    /// Redux ///
     const dispatch = useDispatch()
+    /// Need loading and error for 
+    const userRegistration = useSelector((state) => state.userRegistration)
+    const {loading, error} = userRegistration
 	const user = useSelector((state) => state.user)
-    const {loading, error, userInfo} = user;
+    const {userInfo} = user;
 
 
     function handleSubmit(event) {

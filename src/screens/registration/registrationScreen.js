@@ -6,8 +6,8 @@
 
 import { useState, useEffect } from 'react'
 import {Form, Button, Row, Col, Container} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../actions/userActions'
+
+
 import { useNavigate} from "react-router-dom"
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select 
@@ -19,6 +19,11 @@ import CountrySelect from 'react-bootstrap-country-select'
 /// Widgets ///
 // Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
+
+//// Redux ////
+import { useDispatch, useSelector } from 'react-redux'
+import { registerUser } from '../../actions/userActions'
+
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner'
 
 function RegistrationPage() {
@@ -33,9 +38,14 @@ function RegistrationPage() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate()
+
+    /// Redux ///
     const dispatch = useDispatch()
+    /// Need loading and error from registration  
+    const userRegistration = useSelector((state) => state.userRegistration)
+    const {loading, error} = userRegistration
 	const user = useSelector((state) => state.user)
-    const {loading,error,userInfo} = user;
+    const {userInfo} = user;
 
 
     function handleSubmit(event) {
@@ -46,17 +56,16 @@ function RegistrationPage() {
         }
         else {
             // location returns a dictionary of items such as country ID and name, but we only want name here.
-        dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
+            dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
         }
     }
        
-
-      useEffect (() => {
+    // Redirect if the user is logged in (stock disovery for now will change to profile later)
+    useEffect (() => {
         if(userInfo){
-
-          navigate('/userDashboard');
+            navigate('/stockdiscovery');
         }
-      },[userInfo,navigate])
+    },[userInfo,navigate])
 
     return(
         <>
@@ -129,7 +138,7 @@ function RegistrationPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required />
             </Form.Group> 
-            <Form.Group className="py-2" controlId="password">
+            <Form.Group className="py-2" controlId="confirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                     type="password"
@@ -140,10 +149,10 @@ function RegistrationPage() {
             </Form.Group>
             <Row>
                 <Col className="text-center py-4">
-            <Button variant="primary" type="submit">
-              Register
-            </Button>
-            </Col>
+                    <Button variant="primary" type="submit">
+                        Register
+                    </Button>
+                </Col>
             </Row>
 
         </Form>

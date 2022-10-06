@@ -6,9 +6,9 @@
 
 import { useState, useEffect } from 'react'
 import {Form, Button, Row, Col, Container} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { registerUser } from '../../actions/userActions'
-import { useNavigate,Link } from "react-router-dom"
+
+
+import { useNavigate} from "react-router-dom"
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select 
 // was installed for this.
@@ -16,9 +16,15 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
 import CountrySelect from 'react-bootstrap-country-select'
 
+/// Widgets ///
 // Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
 
+//// Redux ////
+import { useDispatch, useSelector } from 'react-redux'
+import { registerUser } from '../../actions/userActions'
+
+import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner'
 
 function RegistrationPage() {
 	const [firstName, setFirstName] = useState('')
@@ -32,9 +38,14 @@ function RegistrationPage() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate()
+
+    /// Redux ///
     const dispatch = useDispatch()
+    /// Need loading and error from registration  
+    const userRegistration = useSelector((state) => state.userRegistration)
+    const {loading, error} = userRegistration
 	const user = useSelector((state) => state.user)
-    const {loading, error, userInfo} = user;
+    const {userInfo} = user;
 
 
     function handleSubmit(event) {
@@ -45,24 +56,24 @@ function RegistrationPage() {
         }
         else {
             // location returns a dictionary of items such as country ID and name, but we only want name here.
-        dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
+            dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
         }
     }
        
-
-      useEffect (() => {
+    // Redirect if the user is logged in (stock disovery for now will change to profile later)
+    useEffect (() => {
         if(userInfo){
-
-          navigate('/userDashboard');
+            navigate('/stockdiscovery');
         }
-      },[userInfo,navigate])
-    
+    },[userInfo,navigate])
 
     return(
         <>
         <Container>
         <h1>Register</h1>
         {errorMessage && <MessageAlert variant="danger">{errorMessage}</MessageAlert>}
+        {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+        {loading && <LoadingSpinner/>}
         <Form onSubmit={handleSubmit}>
             <Form.Group className="py-2" controlId="firstName">
                 <Form.Label>First Name</Form.Label>
@@ -70,15 +81,17 @@ function RegistrationPage() {
                     type="text"
                     placeholder="First Name"
                     value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)} />
+                    onChange={(e) => setFirstName(e.target.value)} 
+                    required/>
             </Form.Group>
-            <Form.Group className="py-2" controlId="secondName">
+            <Form.Group className="py-2" controlId="lastName">
                 <Form.Label>Last Name</Form.Label>
                 <Form.Control
                     type="text"
                     placeholder="Last Name"
                     value={lastName}
-                    onChange={(e) => setLastName(e.target.value)} />
+                    onChange={(e) => setLastName(e.target.value)}
+                    required />
             </Form.Group>
             <Form.Group className="py-2" controlId="email">
                 <Form.Label>Email Address</Form.Label>
@@ -86,7 +99,8 @@ function RegistrationPage() {
                     type="email"
                     placeholder="Email Address"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)} />
+                    onChange={(e) => setEmail(e.target.value)} 
+                    required/>
             </Form.Group>
             <Form.Group className="py-2" controlId="dateOfBirth">
                 <Form.Label>Date of Birth</Form.Label>
@@ -94,49 +108,51 @@ function RegistrationPage() {
                     type="date"
                     placeholder="Date of Birth"
                     value={dateOfBirth}
-                    onChange={(e) => setDateOfBirth(e.target.value)} />
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    required />
             </Form.Group>
             <Form.Group className="py-2" controlId="country">
                 <Form.Label>Location</Form.Label>
                 <CountrySelect
                     value={location}
-                    onChange={(e) => setLocation(e.target.value)}
+                    onChange={setLocation}
+                    required
                 />
             </Form.Group>
-            <Form.Group className="py-2" controlId="dateOfBirth">
+            <Form.Group className="py-2" controlId="username">
                 <Form.Label>Username</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder="Username"
-                                aria-describedby="inputGroupPrepend"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
                                 required
                                 />
-                            <Form.Control.Feedback type="invalid">
-                            Please choose a username.
-                            </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className="py-2" controlId="username">
+            <Form.Group className="py-2" controlId="password">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
-                    type="text"
+                    type="password"
                     placeholder="Password"
-                    value={username}
-                    onChange={(e) => setPassword(e.target.value)} />
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required />
             </Form.Group> 
-            <Form.Group className="py-2" controlId="password">
+            <Form.Group className="py-2" controlId="confirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                     type="password"
                     placeholder="Confirm Password"
                     value={confirmPassword}
-                    onChange={(event) => setConfirmPassword(event.target.value)}/>
+                    onChange={(event) => setConfirmPassword(event.target.value)}
+                    required/>
             </Form.Group>
             <Row>
                 <Col className="text-center py-4">
-            <Button variant="primary" type="submit">
-              Register
-            </Button>
-            </Col>
+                    <Button variant="primary" type="submit">
+                        Register
+                    </Button>
+                </Col>
             </Row>
 
         </Form>

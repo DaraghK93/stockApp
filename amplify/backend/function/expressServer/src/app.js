@@ -28,16 +28,15 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,DELETE');
   if (req.method === 'OPTIONS') {
-    return res.send(204);
-    
+    // res.send depreciated use sendStatus 
+    return res.sendStatus(204);
   }
-  next()
-})
+  next();
+});
 
 // app.use(cors());
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/stock', require('./routes/stockRoutes'));
-
 
 // Custom Middleware here
 app.use(errorHandler);

@@ -8,7 +8,10 @@ import {Form, Button, Row, Col, Container} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/userActions'
 import { useNavigate } from "react-router-dom"
+
+/// Widgets ///
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
+import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner'
 
 function LoginPage() {
     // constant email holds the value of the input email address
@@ -22,7 +25,7 @@ function LoginPage() {
     /// Redux ///
     const dispatch = useDispatch()
 	  const user = useSelector((state) => state.user)
-    const {error, userInfo} = user;
+    const {loading,error, userInfo} = user;
 
     // this function will allow the user to use the login function from the userActions.js file
     function handleSubmit(event) {
@@ -43,6 +46,7 @@ function LoginPage() {
         <>
         <Container>
           {error && <MessageAlert variant='danger'>{error}</MessageAlert>}
+          {loading && <LoadingSpinner/>}
           <h1>Login</h1>
           <Form onSubmit={handleSubmit}>
               <Form.Group className="py-2" controlId="email">

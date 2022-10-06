@@ -6,6 +6,7 @@ import {useState} from 'react';
 import Header from './components/layout/Header/header'
 import LoginPage from './screens/login/loginscreen'
 import Footer from './components/layout/Footer/footer'
+import StockDiscoveryPage from './screens/stockDiscovery/stockDiscoveryScreen';
 
 
 
@@ -16,6 +17,8 @@ function App() {
       <Header />
       <Routes>
       <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/stockdiscovery" element={<StockDiscoveryPage/>}/>
+
       </Routes>
       <Footer />
     </Router>

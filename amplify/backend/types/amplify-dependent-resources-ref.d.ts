@@ -1,12 +1,6 @@
 export type AmplifyDependentResourcesAttributes = {
     "function": {
-        "stockFunction": {
-            "Name": "string",
-            "Arn": "string",
-            "Region": "string",
-            "LambdaExecutionRole": "string"
-        },
-        "articleFunction": {
+        "expressServer": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

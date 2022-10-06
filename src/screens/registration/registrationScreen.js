@@ -5,7 +5,7 @@
 //  This screen contains the components rendered to the user when they are registering to use the site.
 
 import { useState, useEffect } from 'react'
-import {Form, Button, Row, Col, Container} from 'react-bootstrap'
+import {Form, Button, Row, Col} from 'react-bootstrap'
 
 
 import { useNavigate} from "react-router-dom"
@@ -19,6 +19,10 @@ import CountrySelect from 'react-bootstrap-country-select'
 /// Widgets ///
 // Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
+
+/// Layout ///
+import FormContainer from '../../components/layout/FormContainer/FormContainer';
+
 
 //// Redux ////
 import { useDispatch, useSelector } from 'react-redux'
@@ -68,8 +72,9 @@ function RegistrationPage() {
     },[userInfo,navigate])
 
     return(
-        <>
-        <Container>
+        <FormContainer>
+
+      
         <h1>Register</h1>
         {errorMessage && <MessageAlert variant="danger">{errorMessage}</MessageAlert>}
         {error && <MessageAlert variant="danger">{error}</MessageAlert>}
@@ -155,8 +160,8 @@ function RegistrationPage() {
                 </Col>
             </Row>
 
-        </Form>
-        </Container></>
+        </Form>  
+        </FormContainer>
 
         )
 }

@@ -5,7 +5,7 @@
 // userActionConstatns - Contants for user actions 
 // APIName             - The name of the API 
 import {  
-    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL, // For userLoginLogoutReducer 
+    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL, USER_LOGOUT, // For userLoginLogoutReducer 
     USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL
 } from "../constants/userActionConstants";
 import {APIName} from '../constants/APIConstants';
@@ -38,6 +38,17 @@ export function login (email,password) {
             })
         }
     }
+}
+
+
+export function logout() {
+    return (dispatch) => {
+        // remvoe the users info from local storage 
+        localStorage.removeItem('userInfo')
+        // Dispatch the logout action 
+        dispatch({type:USER_LOGOUT})
+    }
+
 }
 
 

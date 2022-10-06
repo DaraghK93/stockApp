@@ -10,31 +10,49 @@ import {
     Nav
 } from 'react-bootstrap'
 
+import {Link} from 'react-router-dom';
+
+
+/// Redux ///
+import {useSelector} from 'react-redux';
+
+
 function Header() {
+
+  /// Redux ///
+  const user = useSelector((state) => state.user)
+  // Get the userInfo piece of state, dont need loading and error 
+  const {userInfo} = user; 
+
+
+
+
+
   return (
+    <header className="pb-4">
     <Navbar bg="light" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">FIN<span className="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
+        <Navbar.Brand as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            {/* <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown> */}
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/stockdiscovery">Stocks</Nav.Link>
           </Nav>
-        </Navbar.Collapse>
+          <Nav>
+             {userInfo ?
+              (<NavDropdown align="end" title={userInfo.firstname}>
+                <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/portfolio">My Portfolio</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
+              </NavDropdown>)
+              :<Nav.Link as={Link} to="/login">Login</Nav.Link> 
+             }
+          </Nav>
+        </Navbar.Collapse>   
       </Container>
     </Navbar>
+    </header>
   );
 }
 

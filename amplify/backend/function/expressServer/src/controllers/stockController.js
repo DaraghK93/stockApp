@@ -27,7 +27,7 @@ const getStockPrice = async (req, res, next) => {
 // @route   GET api/stocks
 // @desc    Get all stocks
 // @access  Private - add auth middleware to make it private
-const getAllStocks = async (req, res,next) => {
+const getAllStocks = async (req, res, next) => {
   try {
     const stocks = await Stock.find();
     res.json(stocks);
@@ -42,7 +42,7 @@ const getAllStocks = async (req, res,next) => {
 // @route POST /api/stock/addStock/
 // @access Public
 
-const addStock = async (req, res,next) => {
+const addStock = async (req, res, next) => {
   try {
     const newStock = new Stock({
       symbol: req.body.symbol,
@@ -63,7 +63,7 @@ const addStock = async (req, res,next) => {
 // @route PUT /api/stock/updatestock/:name
 // @access Private
 
-const updateStock = async (req, res,next) => {
+const updateStock = async (req, res, next) => {
   try {
     // Get the stock from db
     const stock = await Stock.find({ symbol: req.params.symbol });

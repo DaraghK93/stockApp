@@ -46,6 +46,7 @@ export function registerUser(firstName,lastName,email,username,password,dob,loca
         try{
             // Initiate the request 
             dispatch({type:USER_REGISTER_REQUEST})
+            console.log("HERE")
             // Configure the HTTP request
             let path = '/api/user/'
             let requestConfig = {
@@ -54,18 +55,18 @@ export function registerUser(firstName,lastName,email,username,password,dob,loca
                     lastname: lastName,
                     email: email,
                     username: username,
-                    passsword: password,
+                    password: password,
                     dob: dob,
                     location:location
                 }
             }
-            // Sent the request to backend 
+            //// Sent the request to backend 
             const data = await API.post(APIName,path,requestConfig)
-            // Dispatch the user register success, sets register loading false 
+            //// Dispatch the user register success, sets register loading false 
             dispatch({type:USER_REGISTER_SUCCESS});
-            // Dispatch login success as this will set user state in redux 
+            //// Dispatch login success as this will set user state in redux 
             dispatch({type:USER_LOGIN_SUCCESS,payload:data})
-            // Set the user in localstorage 
+            //// Set the user in localstorage 
             localStorage.setItem('userInfo',JSON.stringify(data))
         }catch(error){
             // Error in regsitraing user set the message 

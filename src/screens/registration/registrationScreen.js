@@ -41,7 +41,7 @@ function RegistrationPage() {
 
     /// Redux ///
     const dispatch = useDispatch()
-    /// Need loading and error for 
+    /// Need loading and error from registration  
     const userRegistration = useSelector((state) => state.userRegistration)
     const {loading, error} = userRegistration
 	const user = useSelector((state) => state.user)
@@ -56,17 +56,16 @@ function RegistrationPage() {
         }
         else {
             // location returns a dictionary of items such as country ID and name, but we only want name here.
-        dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
+            dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
         }
     }
        
-
-      useEffect (() => {
+    // Redirect if the user is logged in (stock disovery for now will change to profile later)
+    useEffect (() => {
         if(userInfo){
-
-          navigate('/userDashboard');
+            navigate('/stockdiscovery');
         }
-      },[userInfo,navigate])
+    },[userInfo,navigate])
 
     return(
         <>
@@ -139,7 +138,7 @@ function RegistrationPage() {
                     onChange={(e) => setPassword(e.target.value)}
                     required />
             </Form.Group> 
-            <Form.Group className="py-2" controlId="password">
+            <Form.Group className="py-2" controlId="confirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                     type="password"
@@ -150,10 +149,10 @@ function RegistrationPage() {
             </Form.Group>
             <Row>
                 <Col className="text-center py-4">
-            <Button variant="primary" type="submit">
-              Register
-            </Button>
-            </Col>
+                    <Button variant="primary" type="submit">
+                        Register
+                    </Button>
+                </Col>
             </Row>
 
         </Form>

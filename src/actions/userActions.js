@@ -46,7 +46,6 @@ export function registerUser(firstName,lastName,email,username,password,dob,loca
         try{
             // Initiate the request 
             dispatch({type:USER_REGISTER_REQUEST})
-            console.log("HERE")
             // Configure the HTTP request
             let path = '/api/user/'
             let requestConfig = {

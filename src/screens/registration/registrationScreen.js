@@ -7,8 +7,13 @@
 import { useState, useEffect } from 'react'
 import {Form, Button, Row, Col, Container} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-// import { login } from '../actions/userActions'
+import { registerUser } from '../../actions/userActions'
 import { useNavigate,Link } from "react-router-dom"
+import 'bootstrap/dist/css/bootstrap.css'
+import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
+import CountrySelect from 'react-bootstrap-country-select'
+import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
+
 
 function RegistrationPage() {
 	const [firstName, setFirstName] = useState('')
@@ -18,15 +23,21 @@ function RegistrationPage() {
     const [username, setUsername] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
+	const [location, setLocation] = useState('')
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate()
     const dispatch = useDispatch()
 	const user = useSelector((state) => state.user)
     const {loading, error, userInfo} = user;
 
+
     function handleSubmit(event) {
         event.preventDefault();
-        // dispatch(register(firstName, lastName, userName, dateOfBirth, email, password));
+        if (password !== confirmPassword){
+            setErrorMessage("Password and Confirm Password Must Be Equal")
+        }
+        dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
       }
        
 
@@ -42,6 +53,7 @@ function RegistrationPage() {
         <>
         <Container>
         <h1>Register</h1>
+        {errorMessage && <MessageAlert variant="danger">{errorMessage}</MessageAlert>}
         <Form onSubmit={handleSubmit}>
             <Form.Group className="py-2" controlId="firstName">
                 <Form.Label>First Name</Form.Label>
@@ -75,6 +87,13 @@ function RegistrationPage() {
                     value={dateOfBirth}
                     onChange={(e) => setDateOfBirth(e.target.value)} />
             </Form.Group>
+            <Form.Group className="py-2" controlId="country">
+                <Form.Label>Location</Form.Label>
+                <CountrySelect
+                    value={location}
+                    onChange={setLocation}
+                />
+            </Form.Group>
             <Form.Group className="py-2" controlId="dateOfBirth">
                 <Form.Label>Username</Form.Label>
                             <Form.Control
@@ -91,7 +110,7 @@ function RegistrationPage() {
                 <Form.Label>Password</Form.Label>
                 <Form.Control
                     type="text"
-                    placeholder="Create Username"
+                    placeholder="Password"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)} />
             </Form.Group> 
@@ -99,9 +118,9 @@ function RegistrationPage() {
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                     type="password"
-                    placeholder="Password"
+                    placeholder="Confirm Password"
                     value={password}
-                    onChange={(event) => setPassword(event.target.value)}/>
+                    onChange={(event) => setConfirmPassword(event.target.value)}/>
             </Form.Group>
             <Row>
                 <Col className="text-center py-4">

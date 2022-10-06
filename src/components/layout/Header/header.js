@@ -14,15 +14,28 @@ import {Link} from 'react-router-dom';
 
 
 /// Redux ///
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
+import {logout} from '../../../actions/userActions'
 
 
 function Header() {
 
   /// Redux ///
+  const dispatch = useDispatch(); 
   const user = useSelector((state) => state.user)
-  // Get the userInfo piece of state, dont need loading and error 
+  // Get the userInfo piece of state, dont need loading and error
+  // The users name will be shown in top corner of nav 
   const {userInfo} = user; 
+
+
+  // logoutHandler //
+  // Called when the logout button is pressed 
+  function logoutHandler(){
+    // dispatch the logout action 
+    dispatch(logout());
+  }
+
+
 
 
   return (
@@ -40,7 +53,7 @@ function Header() {
               (<NavDropdown align="end" title={userInfo.firstname}>
                 <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
                 <NavDropdown.Item as={Link} to="/portfolio">My Portfolio</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/logout">Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
               </NavDropdown>)
               :<Nav.Link as={Link} to="/login">Login</Nav.Link> 
              }

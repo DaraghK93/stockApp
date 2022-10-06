@@ -8,8 +8,8 @@
 /// Imports ///
 // userActionConstants - These are the action constants for the reducers 
 import {  
-    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT // For userLoginLogoutReducer 
-
+    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT, // For userLoginLogoutReducer 
+    USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL // For userRegisterReducer
 } from "../constants/userActionConstants";
 
 /// userLoginReducer ///
@@ -35,4 +35,28 @@ export function userLoginLogoutReducer (state={}, action) {
         default:
             return state;
     }
+}
+
+/// userRegisterReducer ///
+// Description:
+//  Reducer used to change state for a register request 
+export function userRegisterReducer(state = {}, action) {
+    // check action
+    switch (action.type){
+        // User has requested registration 
+        case USER_REGISTER_REQUEST:
+            // Set loading to true 
+            return {loading: true}
+        // User succfully registered 
+        case USER_REGISTER_SUCCESS:
+            // have user deatials at this point 
+            return {loading: false}
+        // User cannot be registered 
+        case USER_REGISTER_FAIL:
+            // Set the error message 
+            return {loading: false, error: action.payload}
+        // For default just return uunmodfied state 
+        default:
+            return state; 
+    }    
 }

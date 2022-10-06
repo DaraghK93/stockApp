@@ -16,9 +16,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
 import CountrySelect from 'react-bootstrap-country-select'
 
+/// Widgets ///
 // Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert' 
-
+import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner'
 
 function RegistrationPage() {
 	const [firstName, setFirstName] = useState('')
@@ -34,7 +35,7 @@ function RegistrationPage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 	const user = useSelector((state) => state.user)
-    const {loading, error, userInfo} = user;
+    const {loading,error,userInfo} = user;
 
 
     function handleSubmit(event) {
@@ -56,13 +57,14 @@ function RegistrationPage() {
           navigate('/userDashboard');
         }
       },[userInfo,navigate])
-    
 
     return(
         <>
         <Container>
         <h1>Register</h1>
         {errorMessage && <MessageAlert variant="danger">{errorMessage}</MessageAlert>}
+        {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+        {loading && <LoadingSpinner/>}
         <Form onSubmit={handleSubmit}>
             <Form.Group className="py-2" controlId="firstName">
                 <Form.Label>First Name</Form.Label>

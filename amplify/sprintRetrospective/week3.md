@@ -4,7 +4,7 @@
 
 
 ## **Start - Things we need to start doing:**
-- Need to split out the dependencies so that we're tripping each other up when it comes to features and PRs.
+- Need to split out the dependencies so that we're not tripping each other up when it comes to features and PRs.
 - More close communication with specific teams at early stages:
   - For frontend - Need more prototypes for explaining our ideas, more casual and quick prototypes to get our ideas across to each other.
   - For backend - Need identify clearly what information is needed when creating routes between frontend and backend.
@@ -14,6 +14,7 @@
   - If something needs to be calculated, provide overview of what the function needs to do.
 - Need to create a rule for branch/issue naming, everyone should follow this.
 - If in doubt as to whether you should be in a meeting, ask the question.
+- Should aim to have a backup task to work on in case of slowness or depending on another coder is a suggestion.
 
 
 ## **Stop - Things we need to stop doing:**

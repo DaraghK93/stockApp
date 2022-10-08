@@ -1,5 +1,7 @@
 index.py
 setup.py
+lib/__init__.py
+lib/newsArticleFunctions.py
 src.egg-info/PKG-INFO
 src.egg-info/SOURCES.txt
 src.egg-info/dependency_links.txt

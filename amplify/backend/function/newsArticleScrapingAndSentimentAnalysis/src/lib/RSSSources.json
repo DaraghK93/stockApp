@@ -1,0 +1,82 @@
+[
+ {
+   "Source": "Sky News",
+   "Topic": "Business",
+   "Link": "https://feeds.skynews.com/feeds/rss/business.xml"
+ },
+ {
+   "Source": "Sky News",
+   "Topic": "Technology",
+   "Link": "https://feeds.skynews.com/feeds/rss/technology.xml"
+ },
+ {
+   "Source": "ABC",
+   "Topic": "Business",
+   "Link": "https://abcnews.go.com/abcnews/moneyheadlines"
+ },
+ {
+   "Source": "ABC",
+   "Topic": "Technology",
+   "Link": "https://abcnews.go.com/abcnews/technologyheadlines"
+ },
+ {
+   "Source": "New York Times",
+   "Topic": "Buisness",
+   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+ },
+ {
+   "Source": "New York Times",
+   "Topic": "Economy",
+   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml"
+ },
+ {
+   "Source": "New York Times",
+   "Topic": "Energy Environment ",
+   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml"
+ },
+ {
+   "Source": "New York Times",
+   "Topic": "Technology ",
+   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Deals",
+   "Link": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Business",
+   "Link": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Technology ",
+   "Link": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best"
+ },
+ {
+   "Source": "The Independent",
+   "Topic": "Technology ",
+   "Link": "https://www.independent.ie/business/technology/rss/"
+ },
+ {
+   "Source": "The Independent",
+   "Topic": "Buisness ",
+   "Link": "https://www.independent.ie/business/world/rss/"
+ },
+ {
+   "Source": "CNN",
+   "Topic": "Market",
+   "Link": "http://rss.cnn.com/rss/money_markets.rss"
+ },
+ {
+   "Source": "CNN",
+   "Topic": "Technology",
+   "Link": "http://rss.cnn.com/rss/money_technology.rss"
+ },
+ {
+   "Source": "CNN",
+   "Topic": "Companies",
+   "Link": "http://rss.cnn.com/rss/money_news_companies.rss"
+ }
+]

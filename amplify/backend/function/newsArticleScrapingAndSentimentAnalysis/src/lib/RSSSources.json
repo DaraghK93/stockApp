@@ -2,81 +2,91 @@
  {
    "Source": "Sky News",
    "Topic": "Business",
-   "Link": "https://feeds.skynews.com/feeds/rss/business.xml"
+   "URL": "https://feeds.skynews.com/feeds/rss/business.xml"
  },
  {
    "Source": "Sky News",
    "Topic": "Technology",
-   "Link": "https://feeds.skynews.com/feeds/rss/technology.xml"
+   "URL": "https://feeds.skynews.com/feeds/rss/technology.xml"
  },
  {
    "Source": "ABC",
    "Topic": "Business",
-   "Link": "https://abcnews.go.com/abcnews/moneyheadlines"
+   "URL": "https://abcnews.go.com/abcnews/moneyheadlines"
  },
  {
    "Source": "ABC",
    "Topic": "Technology",
-   "Link": "https://abcnews.go.com/abcnews/technologyheadlines"
+   "URL": "https://abcnews.go.com/abcnews/technologyheadlines"
  },
  {
    "Source": "New York Times",
    "Topic": "Buisness",
-   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
  },
  {
    "Source": "New York Times",
    "Topic": "Economy",
-   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml"
  },
  {
    "Source": "New York Times",
    "Topic": "Energy Environment ",
-   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml"
  },
  {
    "Source": "New York Times",
    "Topic": "Technology ",
-   "Link": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
  },
  {
    "Source": "Reuters",
    "Topic": "Deals",
-   "Link": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+   "URL": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
  },
  {
    "Source": "Reuters",
    "Topic": "Business",
-   "Link": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+   "URL": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
  },
  {
    "Source": "Reuters",
    "Topic": "Technology ",
-   "Link": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best"
+   "URL": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best"
  },
  {
    "Source": "The Independent",
    "Topic": "Technology ",
-   "Link": "https://www.independent.ie/business/technology/rss/"
+   "URL": "https://www.independent.ie/business/technology/rss/"
  },
  {
    "Source": "The Independent",
    "Topic": "Buisness ",
-   "Link": "https://www.independent.ie/business/world/rss/"
+   "URL": "https://www.independent.ie/business/world/rss/"
  },
  {
-   "Source": "CNN",
-   "Topic": "Market",
-   "Link": "http://rss.cnn.com/rss/money_markets.rss"
+   "Source": "CNBC",
+   "Topic": "Earnings",
+   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15839135"
  },
  {
-   "Source": "CNN",
-   "Topic": "Technology",
-   "Link": "http://rss.cnn.com/rss/money_technology.rss"
+   "Source": "CNBC",
+   "Topic": "Finance",
+   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"
  },
  {
-   "Source": "CNN",
-   "Topic": "Companies",
-   "Link": "http://rss.cnn.com/rss/money_news_companies.rss"
+   "Source": "CNBC",
+   "Topic": "Buisness",
+   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147"
+ },
+ {
+  "Source": "CNBC",
+  "Topic":"Top News",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"World News",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362"
  }
 ]

@@ -10,6 +10,7 @@ import json
 import os 
 import feedparser
 from pprint import pprint
+import boto3 
 
 
 
@@ -120,8 +121,18 @@ def getArticles(feed):
         print(f'ERROR:Occured in the getArticles function.\nException Details:\n\t{e}')
         return
         
-    
 
+def getSecret(secretName):
+    # 
+    client = boto3.client('ssm')
+    try:
+        response = client.get_parameter(
+            Name=secretName,
+            WithDecryption=True
+        )
+        return response
+    except Exception as e:
+        print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
 
 
 ### Handler ###
@@ -159,7 +170,8 @@ def handler(event, context):
 
     ## Step Five ##
     #   Log the articles to the database 
-
+    secrets = getSecret('MONGO_URI')
+    print(secrets)
 
 
 

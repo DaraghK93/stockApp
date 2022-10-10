@@ -13,7 +13,10 @@
     },
     "categories": {
       "function": {
-        "expressServer": {}
+        "expressServer": {},
+        "newsArticleScrapingAndSentimentAnalysis": {
+          "secretsPathAmplifyAppId": "d2l3aeky8jssr5"
+        }
       }
     }
   }

@@ -37,6 +37,8 @@ app.use(function (req, res, next) {
 // app.use(cors());
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/stock', require('./routes/stockRoutes'));
+app.use('/api/tweet', require('./routes/tweetRoutes'));
+
 
 // Custom Middleware here
 app.use(errorHandler);

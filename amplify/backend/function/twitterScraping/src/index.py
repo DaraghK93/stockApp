@@ -1,9 +1,15 @@
 import json
+import boto3
 from pymongo import MongoClient
 import snscrape.modules.twitter as sntwitter
 
-def handler(event, context):
+REGION = "eu-north-1"
+SECRET_NAME = "MongoURL"
 
+def handler(event, context):
+    MongoURL = get_secret()
+
+    print (MongoURL)
 
     def createTweetObject(id, stock, date, username, content):
         try:
@@ -43,3 +49,17 @@ def handler(event, context):
     return json.dumps(tweets, default=str)
 
 
+def get_secret():
+    session = boto3.session.Session()
+    client = session.client(
+        service_name = 'secretsmanager',
+        region_name=REGION
+    )
+
+    get_secret_value_response = client.get_secret_value(
+        SecretId=SECRET_NAME
+    )
+
+    secret_response = get_secret_value_response['SecretString']
+
+    return json.loads(secret_response)

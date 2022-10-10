@@ -19,31 +19,41 @@ from pprint import pprint
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 
-### ReadSources ###
-## Description:
-#   This function reads in a supplied JSON file of RSS sources and returns a dictionary
-## Inputs:
-#   file - Path to JSON file 
-## Return
-#   contnent - An array of dictionaries containing RSS feeds info 
 def readSources(file):
+    """
+    Description:
+        This function reads in a supplied JSON file of RSS sources and returns a dictionary
+    Args:
+        file (string): Path to RSSSources.json file. This should be located in the lib directory. 
+
+    Returns:
+        content (dict): The contnent of the JSON file supplied in the input. 
+    """
     try:
         f = open(file)
         content = json.load(f)
         f.close()
         return content
     except Exception as e:
-        print(f'ERROR:Occured in trying to read file supplied "{file}"\nException message {e}')
+        print(f'ERROR:Occured in trying to read file supplied\nException message:\n\t{e}')
 
-### getRSSFeed ###
-## Description:
-#   Calls a get request to the 
 def getRSSFeed(url):
+    """
+    Description:
+        Gets the RSS feed located at the url input supplied using the feedparser package 
+
+    Args:
+        url (string): url of the RSS feed to parse. 
+
+    Returns:
+        feed: Dictionary containing the parsed RSS feeds. The keys are the XML tags of the RSS feed. 
+    """
     try:
-        data = feedparser.parse(url)
-        return data
+        feed = feedparser.parse(url)
+        return feed
     except Exception as e:
-        print(f'ERROR:Cannot get RSS feed from the URL:{url}.\nException Details:\n{e}')
+        print(f'ERROR:Cannot get RSS feed from the URL:{url}.\nException Details:\n\t{e}')
+        return None 
     
 
 
@@ -70,7 +80,8 @@ def getImage(article,imageTag,defaultImage):
             # Image found return this images URL 
             return image[0]['url']
     except Exception as e:
-        print(f'ERROR:Cannot access image in article.\nException Details:\n{e}')
+        print(f'ERROR:Cannot access image in article.\nException Details:\n\t{e}')
+        return
 
 
 
@@ -78,24 +89,40 @@ def getImage(article,imageTag,defaultImage):
 ## Description:
 #   This function parses an RSS feed passed to it    
 def getArticles(feed): 
-    articles = [] 
-    # Just try get the image 
-    for article in feed['Articles']:
-        # Get the image 
-        image = getImage(article,feed['ImageTag'],feed['DefaultImage']) 
-        # Get the headline 
-        headline = article.title
-        # Get the url 
-        link = article.link 
-        # Get the pub date 
-        pubDate = article.published
-        # Get the description 
-        description = article.description
-        # Append article object to articles 
-        articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":pubDate})
-    return articles
+    """
+    Description:
+        This function parses the articles within an RSS feed.     
 
+    Args:
+        feed (dict): Dictionary containing an RSS feed.
+
+    Returns:
+        articles (list): A list of dictionary objects. Each object contains a passed article. 
+    """
+    try:
+        articles = [] 
+        # Just try get the image 
+        for article in feed['Articles']:
+            # Get the image 
+            image = getImage(article,feed['ImageTag'],feed['DefaultImage']) 
+            # Get the headline 
+            headline = article.title
+            # Get the url 
+            link = article.link 
+            # Get the pub date 
+            pubDate = article.published
+            # Get the description 
+            description = article.description
+            # Append article object to articles 
+            articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":pubDate})
+        return articles
+    except Exception as e:
+        print(f'ERROR:Occured in the getArticles function.\nException Details:\n\t{e}')
+        return
         
+    
+
+
 
 ### Handler ###
 def handler(event, context):
@@ -107,13 +134,15 @@ def handler(event, context):
     # Iterate thorugh the sources and get the feeds 
     for source in rssSources:
         feed = getRSSFeed(source["URL"])
-        currentFeed = {}
-        currentFeed['Articles']      = feed.entries
-        currentFeed['Source']        = source['Source']
-        currentFeed['Category']      = source['Topic']
-        currentFeed['DefaultImage']  = source['DefaultImage']
-        currentFeed['ImageTag']      = source['ImageTag']
-        feeds.append(currentFeed)
+        if feed is not None:
+            currentFeed = {}
+            currentFeed['Articles']      = feed.entries
+            currentFeed['Source']        = source['Source']
+            currentFeed['Category']      = source['Topic']
+            currentFeed['DefaultImage']  = source['DefaultImage']
+            currentFeed['ImageTag']      = source['ImageTag']
+            feeds.append(currentFeed)
+
     # Iterate through the feeds and parse the articles  
     articles = []     
     for feed in feeds:

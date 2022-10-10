@@ -2,91 +2,127 @@
  {
    "Source": "Sky News",
    "Topic": "Business",
-   "URL": "https://feeds.skynews.com/feeds/rss/business.xml"
+   "URL": "https://feeds.skynews.com/feeds/rss/business.xml",
+   "DefaultImage": "SKY_IMAGE",
+   "ImageTag": "media_thumbnail"
  },
  {
    "Source": "Sky News",
    "Topic": "Technology",
-   "URL": "https://feeds.skynews.com/feeds/rss/technology.xml"
+   "URL": "https://feeds.skynews.com/feeds/rss/technology.xml",
+   "DefaultImage": "SKY_IMAGE",
+   "ImageTag": "media_thumbnail"
  },
  {
    "Source": "ABC",
    "Topic": "Business",
-   "URL": "https://abcnews.go.com/abcnews/moneyheadlines"
+   "URL": "https://abcnews.go.com/abcnews/moneyheadlines",
+   "DefaultImage": "ABC_IMAGE",
+   "ImageTag": "media_thumbnail"
  },
  {
    "Source": "ABC",
    "Topic": "Technology",
-   "URL": "https://abcnews.go.com/abcnews/technologyheadlines"
+   "URL": "https://abcnews.go.com/abcnews/technologyheadlines",
+   "DefaultImage": "ABC_IMAGE",
+   "ImageTag": "media_thumbnail"
  },
  {
    "Source": "New York Times",
    "Topic": "Buisness",
-   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+   "ImageTag": "media_content",
+   "DefaultImage": "NY_IMAGE"
  },
  {
    "Source": "New York Times",
    "Topic": "Economy",
-   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml",
+   "ImageTag": "media_content",
+   "DefaultImage": "NY_IMAGE"
  },
  {
    "Source": "New York Times",
    "Topic": "Energy Environment ",
-   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml",
+   "ImageTag": "media_content",
+   "DefaultImage": "NY_IMAGE"
  },
  {
    "Source": "New York Times",
    "Topic": "Technology ",
-   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+   "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+   "ImageTag": "media_content",
+   "DefaultImage": "NY_IMAGE"
  },
  {
    "Source": "Reuters",
    "Topic": "Deals",
-   "URL": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best"
+   "URL": "https://www.reutersagency.com/feed/?best-topics=deals&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "Reuters_IMAGE"
  },
  {
    "Source": "Reuters",
    "Topic": "Business",
-   "URL": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best"
+   "URL": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "Reuters_IMAGE"
  },
  {
    "Source": "Reuters",
    "Topic": "Technology ",
-   "URL": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best"
+   "URL": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "Reuters_IMAGE"
  },
  {
    "Source": "The Independent",
    "Topic": "Technology ",
-   "URL": "https://www.independent.ie/business/technology/rss/"
+   "URL": "https://www.independent.ie/business/technology/rss/",
+   "ImageTag": "enclosures",
+   "DefaultImage": "Independent_IMAGE"
  },
  {
    "Source": "The Independent",
    "Topic": "Buisness ",
-   "URL": "https://www.independent.ie/business/world/rss/"
+   "URL": "https://www.independent.ie/business/world/rss/",
+   "ImageTag": "enclosures",
+   "DefaultImage": "Independent_IMAGE"
  },
  {
    "Source": "CNBC",
    "Topic": "Earnings",
-   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15839135"
+   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=15839135",
+   "ImageTag": "",
+   "DefaultImage": "CNBC_IMAGE"
  },
  {
    "Source": "CNBC",
    "Topic": "Finance",
-   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"
+   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664",
+  "ImageTag": "",
+   "DefaultImage": "CNBC_IMAGE"
  },
  {
    "Source": "CNBC",
    "Topic": "Buisness",
-   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147"
+   "URL": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147",
+  "ImageTag": "",
+   "DefaultImage": "CNBC_IMAGE"
  },
  {
   "Source": "CNBC",
   "Topic":"Top News",
-  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114"
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114",
+  "ImageTag": "",
+  "DefaultImage": "CNBC_IMAGE"
  },
  {
   "Source":"CNBC",
   "Topic":"World News",
-  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362"
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362",
+  "ImageTag": "",
+  "DefaultImage": "CNBC_IMAGE"
  }
 ]

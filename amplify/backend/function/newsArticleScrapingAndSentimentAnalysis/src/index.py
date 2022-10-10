@@ -44,12 +44,7 @@ def getRSSFeed(url):
         return data
     except Exception as e:
         print(f'ERROR:Cannot get RSS feed from the URL:{url}.\nException Details:\n{e}')
-    #print(f'Title:\t{data.entries[0].title}')
-    #print(f'Link:\t{data.entries[0].link}')
-    #print(f'Description:\t{data.entries[0].description}')
-    #print(f'Date:\t{data.entries[0].published}')
-    #print(f'Date Parsed:\t{data.entries[0].published_parsed}')
-    #print(f'GUID:\t{data.entries[0].id}')
+    
 
 
 def getImage(article,imageTag,defaultImage):
@@ -82,17 +77,25 @@ def getImage(article,imageTag,defaultImage):
 ### parseRSSFeed ###
 ## Description:
 #   This function parses an RSS feed passed to it    
-def parseRSSFeed(feed): 
-    print("*******************************")
-    print(feed["Source"])
+def getArticles(feed): 
+    articles = [] 
     # Just try get the image 
     for article in feed['Articles']:
         # Get the image 
         image = getImage(article,feed['ImageTag'],feed['DefaultImage']) 
+        # Get the headline 
+        headline = article.title
+        # Get the url 
+        link = article.link 
+        # Get the pub date 
+        pubDate = article.published
+        # Get the description 
+        description = article.description
+        # Append article object to articles 
+        articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":pubDate})
+    return articles
 
-
-
-
+        
 
 ### Handler ###
 def handler(event, context):
@@ -101,37 +104,20 @@ def handler(event, context):
     rssSources = readSources(f'{dir_path}\lib\RSSSources.json')
     #   For each spurce URL make a get request to get the feeds data
     feeds = []
-    # Iterate thorugh the sources and create the feeds 
+    # Iterate thorugh the sources and get the feeds 
     for source in rssSources:
         feed = getRSSFeed(source["URL"])
         currentFeed = {}
+        currentFeed['Articles']      = feed.entries
         currentFeed['Source']        = source['Source']
         currentFeed['Category']      = source['Topic']
         currentFeed['DefaultImage']  = source['DefaultImage']
-        currentFeed['Articles']      = feed.entries
-        currentFeed['ImageTag'] = source['ImageTag']
+        currentFeed['ImageTag']      = source['ImageTag']
         feeds.append(currentFeed)
-
-    # Iterate through the feeds and parse the articles     
+    # Iterate through the feeds and parse the articles  
+    articles = []     
     for feed in feeds:
-        articles = parseRSSFeed(feed)
-    
-    
-    # For each feed parse out the information we need for the articles 
-    #for key, value in feeds.items():
-        # Parse the articles 
-        #print(feeds[key]['Source'])
-    #    parseRSSFeed(feeds[key]['Articles'],feeds[key]['Source'],feeds[key]['ImageTag'])
-        #break
-
-        
-    
-    #for feed in feeds:
-    #    for article in feed.entries:
-    #        pprint(article["media_thumbnail"])
-    #    break
-    ##getRSSFeed(rssSources[0]["URL"])ddd
-
+        articles.extend(getArticles(feed))
 
     ## Step Two ##
     #   Get the features required for machine learning classifier 

@@ -13,6 +13,9 @@ from pprint import pprint
 import boto3 
 import pymongo
 from pymongo.errors import DuplicateKeyError
+from datetime import datetime
+from datetime import timedelta
+from time import mktime
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running 
@@ -85,10 +88,50 @@ def getImage(article,imageTag,defaultImage):
         return
 
 
+def checkArticleTime(articleTime,cronMinsSchedule):
+    """
+    Description:
+      This function checks the time inputted and sees if it less than the time now minus the croneTime.
+      The cronTime is the time the function is run every X mins. 
+      If the article should be used if would have been published since he last scrape.
+      i.e between the time now - the cron time. 
 
-### parseRSSFeed ###
-## Description:
-#   This function parses an RSS feed passed to it    
+    Args:
+        articleTime (time.struct_time): A time.stuct_time object, this is the format the feedparsers uses. 
+        cronMinsSchedule (float): A floating point number representing the minutes the lambda function runs. Should be obtained from enviroment variable CRONTIME.
+
+    Returns:
+        (BOOL): True if the article should be used. False if the article should not be used. 
+    """
+    # Get the time now 
+    now = datetime.now()
+    # The last scraped time is the time the cronjon was last run 
+    lastScrapeTime = now - timedelta(minutes=cronMinsSchedule)
+    # Convert the article time to a datetime stamp 
+    # If the time article was publised at time which is greateer than last scraped time then it should be used
+    if articleTime > lastScrapeTime:
+        return True
+    else:
+        # Article will have been gotten fom previous scrapes 
+        return False
+   
+def checkArticleFormat(article):
+    """
+    Description:
+        Checks an article object to ensure all required fields are in the article.     
+
+    Args:
+        article (dictionary): An article object parsed from an RSS feed. 
+
+    Returns:
+        (Bool): True if required fields are present. False if required fields are not present. 
+    """
+    if ('title' in article) and ('link' in article) and ('published' in article) and ('description' in article):
+        return True
+    else:
+        return False
+
+
 def getArticles(feed): 
     """
     Description:
@@ -102,20 +145,26 @@ def getArticles(feed):
     """
     try:
         articles = [] 
+        time = float(os.environ['CRONTIME'])
         # Just try get the image 
         for article in feed['Articles']:
-            # Get the image 
-            image = getImage(article,feed['ImageTag'],feed['DefaultImage']) 
-            # Get the headline 
-            headline = article.title
-            # Get the url 
-            link = article.link 
-            # Get the pub date 
-            pubDate = article.published
-            # Get the description 
-            description = article.description
-            # Append article object to articles TODO - Change the hardcoded sentiment, will be updated next week when sentiment due 
-            articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":pubDate,"Sentiment":"Neutral"})
+            # Check first if the article has all the required fields 
+            if checkArticleFormat(article):
+                # Check the time of the article
+                parsedPubDate = article.published_parsed
+                parsedPubDate  = datetime.fromtimestamp(mktime(parsedPubDate)) # Converted to datetime here as this is what Mongo works with
+                # If the article was not obtained from the previous scrape then parse it 
+                if checkArticleTime(parsedPubDate,time):
+                    # Get the image 
+                    image = getImage(article,feed['ImageTag'],feed['DefaultImage']) 
+                    # Get the headline 
+                    headline = article.title
+                    # Get the url 
+                    link = article.link 
+                    # Get the description 
+                    description = article.description
+                    # Append article object to articles TODO - Change the hardcoded sentiment, will be updated next week when sentiment due 
+                    articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":parsedPubDate,"Sentiment":"Neutral"})
         return articles
     except Exception as e:
         print(f'ERROR:Occured in the getArticles function.\nException Details:\n\t{e}')
@@ -185,67 +234,62 @@ def writeArticlestoDatabase(client,articles):
 
 ### Handler ###
 def handler(event, context):
-    ## Step One ###
-    #   Get the feeds source, topic and URL 
-    rssSources = readSources(f'{dir_path}\lib\RSSSources.json')
-    #   For each spurce URL make a get request to get the feeds data
-    feeds = []
-    # Iterate thorugh the sources and get the feeds 
-    for source in rssSources:
-        feed = getRSSFeed(source["URL"])
-        if feed is not None:
-            currentFeed = {}
-            currentFeed['Articles']      = feed.entries
-            currentFeed['Source']        = source['Source']
-            currentFeed['Category']      = source['Topic']
-            currentFeed['DefaultImage']  = source['DefaultImage']
-            currentFeed['ImageTag']      = source['ImageTag']
-            feeds.append(currentFeed)
+    try:
+        ## Step One ###
+        #   Get the feeds source, topic and URL 
+        rssSources = readSources(f'{dir_path}\lib\RSSSources.json')
+        #   For each spurce URL make a get request to get the feeds data
+        feeds = []
+        # Iterate thorugh the sources and get the feeds 
+        for source in rssSources:
+            feed = getRSSFeed(source["URL"])
+            if feed is not None:
+                currentFeed = {}
+                currentFeed['Articles']      = feed.entries
+                currentFeed['Source']        = source['Source']
+                currentFeed['Category']      = source['Topic']
+                currentFeed['DefaultImage']  = source['DefaultImage']
+                currentFeed['ImageTag']      = source['ImageTag']
+                feeds.append(currentFeed)
 
-    # Iterate through the feeds and parse the articles  
-    articles = []     
-    for feed in feeds:
-        articles.extend(getArticles(feed))
+        # Iterate through the feeds and parse the articles  
+        articles = []     
+        for feed in feeds:
+            articles.extend(getArticles(feed))
 
-    ## Step Two ##
-    #   Get the features required for machine learning classifier 
+        ## Step Two - Implment week 5  ##
+        #   Get the features required for machine learning classifier 
 
-    ## Step Three ##
-    #   Load in the classifier 
+        ## Step Three - Implement week 5 ##
+        #   Load in the classifier 
 
-    ## Step Four ##
-    #   Classify each news article    
+        ## Step Four - Implement week 5 ##
+        #   Classify each news article    
 
-    ## Step Five ##
-    #   Log the articles to the database 
-    # If the enviroment is production then get the production URI 
-    # ***NOTE*** Create a local .env file newsArticleScrapingAndSentimentAnalysis directory with ENVIRONMENT and MONGOURI in it, this will set "dev" variables 
-    # ENVIRONMENT=dev
-    # MONGOURI=mongodb://localhost:27017/StocksApplication
-    mongoURI = '' 
-    environment = os.environ['ENVIRONMENT']
-    if environment == 'prod':
-        mongoURI = getSecret('MONGO_URI')
-    elif environment == 'dev':
-        mongoURI = os.environ['MONGOURI']
-    # Get the mongo connection 
-    client = getMongoConnection(mongoURI)
-    # Write articles to the database 
-    ids = writeArticlestoDatabase(client,articles)
+        ## Step Five ##
+        #   Log the articles to the database 
+        # If the enviroment is production then get the production URI 
+        # ***NOTE*** Create a local .env file newsArticleScrapingAndSentimentAnalysis directory with ENVIRONMENT and MONGOURI in it, this will set "dev" variables 
+        # ENVIRONMENT=dev
+        # MONGOURI=mongodb://localhost:27017/StocksApplication
+        mongoURI = '' 
+        environment = os.environ['ENVIRONMENT']
+        if environment == 'prod':
+            mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
+        elif environment == 'dev':
+            mongoURI = os.environ['MONGOURI']
+        # Get the mongo connection 
+        client = getMongoConnection(mongoURI)
+        # Write articles to the database 
+        writeArticlestoDatabase(client,articles)
 
-    print(ids)
-
-
-
-    print('received event:')
-    print(event)
-    
-    return {
-        'statusCode': 200,
-        'headers': {
-            'Access-Control-Allow-Headers': '*',
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-        },
-        'body': json.dumps('Hello from your new Amplify Python lambda!')
-    }
+        # Return a success message 
+        return {
+            'Message': 'Articles Succesfully Inserted',
+            'Number of Articles Scraped': len(articles)
+        }
+    except Exception as e:
+        print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
+        return {
+            'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }

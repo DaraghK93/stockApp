@@ -17,7 +17,8 @@
         "newsArticleScrapingAndSentimentAnalysis": {
           "secretsPathAmplifyAppId": "d2l3aeky8jssr5",
           "environment": "prod",
-          "databasename": "test"
+          "databasename": "test",
+          "crontime": "30"
         }
       }
     }

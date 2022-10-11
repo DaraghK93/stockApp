@@ -11,6 +11,10 @@
     {
       "cloudFormationParameterName": "databasename",
       "environmentVariableName": "DATABASENAME"
+    },
+    {
+      "cloudFormationParameterName": "crontime",
+      "environmentVariableName": "CRONTIME"
     }
   ]
 }

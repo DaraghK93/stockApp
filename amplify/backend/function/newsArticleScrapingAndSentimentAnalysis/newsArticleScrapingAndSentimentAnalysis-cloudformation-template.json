@@ -24,6 +24,9 @@
     },
     "databasename": {
       "Type": "String"
+    },
+    "crontime": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -106,6 +109,9 @@
             },
             "DATABASENAME": {
               "Ref": "databasename"
+            },
+            "CRONTIME": {
+              "Ref": "crontime"
             }
           }
         },

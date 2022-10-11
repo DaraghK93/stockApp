@@ -1,11 +1,12 @@
 # Scraping library taken from: https://github.com/ohyicong/Google-Image-Scraper
 
-#Import libraries
+# Import libraries
 import os
 import concurrent.futures
 from GoogleImageScraper import GoogleImageScraper
 from patch import webdriver_executable
 import pandas as pd
+
 
 def worker_thread(search_key):
     image_scraper = GoogleImageScraper(
@@ -13,22 +14,24 @@ def worker_thread(search_key):
     image_urls = image_scraper.find_image_urls()
     image_scraper.save_images(image_urls, keep_filenames)
 
-    #Release resources
+    # Release resources
     del image_scraper
 
+
 if __name__ == "__main__":
-    #Define file path
-    webdriver_path = os.path.normpath(os.path.join(os.getcwd(), 'webdriver', webdriver_executable()))
+    # Define file path
+    webdriver_path = os.path.normpath(os.path.join(
+        os.getcwd(), 'webdriver', webdriver_executable()))
     image_path = os.path.normpath(os.path.join(os.getcwd(), 'S&P500 Logos'))
 
-    columns = ["Exchange", "Symbol","Shortname","Longname"]
+    columns = ["Exchange", "Symbol", "Shortname", "Longname"]
     df = pd.read_csv("sp500_companies.csv", usecols=columns)
     sym = df['Longname'].tolist()
 
-    #Add new search key into array ["cat","t-shirt","apple","orange","pear","fish"]
+    # Add new search key into array ["cat","t-shirt","apple","orange","pear","fish"]
     search_keys = list(sym)
 
-    #Parameters
+    # Parameters
     number_of_images = 5                # Desired number of images
     headless = True                     # True = No Chrome GUI
     min_resolution = (0, 0)             # Minimum desired image resolution
@@ -37,8 +40,8 @@ if __name__ == "__main__":
     number_of_workers = 1               # Number of "workers" used
     keep_filenames = False              # Keep original URL image filenames
 
-    #Run each search_key in a separate thread
-    #Automatically waits for all threads to finish
-    #Removes duplicate strings from search_keys
+    # Run each search_key in a separate thread
+    # Automatically waits for all threads to finish
+    # Removes duplicate strings from search_keys
     with concurrent.futures.ThreadPoolExecutor(max_workers=number_of_workers) as executor:
         executor.map(worker_thread, search_keys)

@@ -66,7 +66,7 @@ function StockPriceChart() {
                         <YAxis dataKey="price"
                             stroke="false"
                         />
-                        <Tooltip />
+                        {/* <Tooltip /> */}
                         <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                     </AreaChart>
                 </ResponsiveContainer>

@@ -14,11 +14,14 @@ function StockNewsSentimentChart() {
     const data = [
         { name: 'Positive', value: 600 },
         { name: 'Negative', value: 300 },
-        { name: 'Neutral', value: 100 },
-        { name: 'No Sentiment', value: 100 }
+        { name: 'Neutral', value: 100 }
+        // ,
+        // { name: 'No Sentiment', value: 100 }
     ];
 
-    const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+    const COLORS = [
+        // '#0088FE', 
+        '#00C49F', '#FFBB28', '#FF8042'];
 
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {

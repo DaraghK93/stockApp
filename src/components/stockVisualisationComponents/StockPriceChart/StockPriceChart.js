@@ -51,8 +51,8 @@ function StockPriceChart() {
                         margin={{ top: 10, right: 30, left: 20, bottom: 30 }}>
                         <defs>
                             <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#85000b" stopOpacity={0.8} />
-                                <stop offset="95%" stopColor="#85000b" stopOpacity={0} />
+                                <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
+                                <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
                             </linearGradient>
                         </defs>
                         <Legend verticalAlign="top" height={36}
@@ -67,7 +67,7 @@ function StockPriceChart() {
                             stroke="false"
                         />
                         <Tooltip />
-                        <Area type="monotone" dataKey="price" stroke="#85000b" fillOpacity={1} fill="url(#colorPrice)" />
+                        <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                     </AreaChart>
                 </ResponsiveContainer>
 

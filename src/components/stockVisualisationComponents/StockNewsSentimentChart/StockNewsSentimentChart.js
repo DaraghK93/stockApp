@@ -2,7 +2,8 @@ import {
     PieChart,
     Pie,
     ResponsiveContainer,
-    Cell
+    Cell,
+    Legend
 } from "recharts";
 
 
@@ -41,6 +42,7 @@ function StockNewsSentimentChart() {
             <Container>
                 <ResponsiveContainer width="100%" height={200}>
                     <PieChart width={400} height={400}>
+                    <Legend layout="vertical" verticalAlign="middle" align="left" />
                         <Pie
                             data={data}
                             cx="50%"
@@ -57,7 +59,6 @@ function StockNewsSentimentChart() {
                         </Pie>
                     </PieChart>
                 </ResponsiveContainer>
-                <p>I need a Legend!</p>
             </Container>
         </>
     )

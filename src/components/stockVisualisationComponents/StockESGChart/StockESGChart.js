@@ -29,16 +29,21 @@ function StockESGChart() {
 
                 <ResponsiveContainer width="100%" height={300} margin={100}>
 
-                    <BarChart width={730} height={250} data={data}>
+                    <BarChart width={700} height={200} data={data}>
+                    <Legend layout="vertical" verticalAlign="middle" align="right" />
                         <XAxis dataKey="name" stroke="false" hide="true"/>
                         <YAxis stroke="false" 
                         />
                         <Legend />
-                        <Bar dataKey="E Rating" fill="#00C49F" label>
+                        <Bar dataKey="E Rating" fill="#00C49F">
+                        <LabelList dataKey="E Rating" position="top" />
                         </Bar>
-                        <Bar dataKey="S Rating" fill="#FFBB28" label>
+                        <Bar dataKey="S Rating" fill="#FFBB28">
+                        <LabelList dataKey="S Rating" position="top" />
                         </Bar>
-                        <Bar dataKey="G Rating" fill="#FF8042" label>
+
+                        <Bar dataKey="G Rating" fill="#FF8042">
+                        <LabelList dataKey="G Rating" position="top" />
                         </Bar>
 
                     </BarChart>

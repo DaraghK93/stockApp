@@ -122,9 +122,19 @@ def getArticles(feed):
         return
         
 
-def getSecret(secretName):
-    # 
-    client = boto3.client('ssm')
+def getSecret(secretName,region="eu-north-1"):
+    """
+    Description:
+        This function is used to get a secret from the parameter store in AWS. 
+
+    Args:
+        secretName (string): The name of the secret found in the parameter store. 
+        region (string): The region the secret is stored in, default to eu-north-1. 
+
+    Returns:
+        response (dict): Dictonary object with the secret name under "Name" key and value under "Value" key
+    """ 
+    client = boto3.client('ssm',region)
     try:
         response = client.get_parameter(
             Name=secretName,

@@ -12,7 +12,7 @@ import {
 
 import { Container } from "react-bootstrap";
 
-function StockPriceChart() {
+function StockESGChart() {
 
     const data = [
         { name: 'Day 1', price: 400, price2: 100 },
@@ -47,34 +47,7 @@ function StockPriceChart() {
             <Container>
 
                 <ResponsiveContainer width="100%" height={400} margin={100}>
-                    <AreaChart width={730} height={250} data={data}
-                        margin={{ top: 10, right: 30, left: 20, bottom: 30 }}>
-                        <defs>
-                            <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor="#85000b" stopOpacity={0.8} />
-                                <stop offset="95%" stopColor="#85000b" stopOpacity={0} />
-                            </linearGradient>
-                        </defs>
-
-                        <Legend verticalAlign="top" height={36}
-
-                        />
-
-                        <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-
-                        <XAxis dataKey="name"
-                            stroke="black"
-                        >
-                            <Label value="Date" position="bottom"
-
-                            /></XAxis>
-                        <YAxis dataKey="price"
-                            stroke={false}
-
-                        />
-                        <Tooltip />
-                        <Area type="monotone" dataKey="price" stroke="#85000b" fillOpacity={1} fill="url(#colorPrice)" />
-                    </AreaChart>
+                    <h1>STOCK ESG CHART </h1>
                 </ResponsiveContainer>
 
 
@@ -84,4 +57,4 @@ function StockPriceChart() {
 };
 
 
-export default StockPriceChart;
+export default StockESGChart;

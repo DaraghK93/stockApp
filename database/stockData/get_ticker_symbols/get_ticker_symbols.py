@@ -3,7 +3,7 @@ import pandas as pd
 
 columns = ["Exchange", "Symbol","Shortname","Longname"]
 output = ""
-df = pd.read_csv("sp500_companies", usecols=columns)
+df = pd.read_csv("sp500_companies.csv", usecols=columns)
 sym = df['Symbol'].tolist()
 a = ": {type: Number, trim: true, required: true},"
 

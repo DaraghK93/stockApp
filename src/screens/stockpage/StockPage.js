@@ -8,6 +8,8 @@ import { useState, useEffect } from 'react';
 import { Container } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/StockPriceChart/StockPriceChart";
 import StockESGChart from "../../components/stockVisualisationComponents/StockESGChart/StockESGChart";
+import StockNewsSentimentChart from '../../components/stockVisualisationComponents/StockNewsSentimentChart/StockNewsSentimentChart';
+import StockTwitterSentimentChart from '../../components/stockVisualisationComponents/StockTwitterSentimentChart/StockTwitterSentimentChart';
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -54,14 +56,22 @@ function StockPage() {
             <Container>
                 <h1>{stock.longname}</h1>
                 <h2>{stock.symbol}</h2>
-                <h1>${stock.currentprice}</h1>
+                <h2>$200</h2>
                 <h4>+$50 (25%)</h4>
                 <br></br>
                 <StockPriceChart />
 
                 <p>Filter By: <button>Day</button> <button>Month</button> <button>Year</button> <button>5 Years</button></p>
                 <br></br>
+                <h2>ESG Rating</h2>
                 <StockESGChart />
+                <br></br>
+                <h2>News Sentiment</h2>
+                <StockNewsSentimentChart />
+                <br></br>
+                <h2>Twitter Sentiment</h2>
+                <StockTwitterSentimentChart />
+
             </Container>
 
 

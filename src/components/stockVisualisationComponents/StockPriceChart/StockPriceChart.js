@@ -55,28 +55,21 @@ function StockPriceChart() {
                                 <stop offset="95%" stopColor="#85000b" stopOpacity={0} />
                             </linearGradient>
                         </defs>
-
                         <Legend verticalAlign="top" height={36}
-
                         />
-
                         <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-
                         <XAxis dataKey="name"
                             stroke="black"
                         >
                             <Label value="Date" position="bottom"
-
                             /></XAxis>
                         <YAxis dataKey="price"
-                            stroke={false}
-
+                            stroke="false"
                         />
                         <Tooltip />
                         <Area type="monotone" dataKey="price" stroke="#85000b" fillOpacity={1} fill="url(#colorPrice)" />
                     </AreaChart>
                 </ResponsiveContainer>
-
 
             </Container>
         </>

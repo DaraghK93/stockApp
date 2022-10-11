@@ -1,13 +1,12 @@
 import {
-    AreaChart,
+    BarChart,
+    Bar,
     Legend,
-    Area,
     XAxis,
     YAxis,
-    Label,
-    CartesianGrid,
-    Tooltip,
     ResponsiveContainer,
+    LabelList,
+    Label
 } from "recharts";
 
 import { Container } from "react-bootstrap";
@@ -15,30 +14,12 @@ import { Container } from "react-bootstrap";
 function StockESGChart() {
 
     const data = [
-        { name: 'Day 1', price: 400, price2: 100 },
-        { name: 'Day 2', price: 500, price2: 300 },
-        { name: 'Day 3', price: 60, price2: 500 },
-        { name: 'Day 4', price: 700, price2: 200 },
-        { name: 'Day 5', price: 800, price2: 900 },
-        { name: 'Day 6', price: 200, price2: 100 },
-        { name: 'Day 7', price: 1000, price2: 150 },
-        { name: 'Day 8', price: 1100, price2: 800 },
-        { name: 'Day 9', price: 400, price2: 100 },
-        { name: 'Day 10', price: 500, price2: 300 },
-        { name: 'Day 11', price: 60, price2: 500 },
-        { name: 'Day 12', price: 700, price2: 200 },
-        { name: 'Day 13', price: 800, price2: 900 },
-        { name: 'Day 14', price: 200, price2: 100 },
-        { name: 'Day 15', price: 1000, price2: 150 },
-        { name: 'Day 16', price: 1100, price2: 800 },
-        { name: 'Day 17', price: 400, price2: 100 },
-        { name: 'Day 18', price: 500, price2: 300 },
-        { name: 'Day 19', price: 60, price2: 500 },
-        { name: 'Day 20', price: 700, price2: 200 },
-        { name: 'Day 21', price: 800, price2: 900 },
-        { name: 'Day 22', price: 200, price2: 100 },
-        { name: 'Day 23', price: 1000, price2: 150 },
-        { name: 'Day 24', price: 1100, price2: 800 },
+        {
+            "name": "ESG Rating",
+            "E Rating": 600,
+            "S Rating": 980,
+            "G Rating": 200
+        }
     ]
 
 
@@ -46,8 +27,25 @@ function StockESGChart() {
         <>
             <Container>
 
-                <ResponsiveContainer width="100%" height={400} margin={100}>
-                    <h1>STOCK ESG CHART </h1>
+                <ResponsiveContainer width="100%" height={300} margin={100}>
+
+                    <BarChart width={730} height={250} data={data}>
+                        <XAxis dataKey="name" stroke="false" hide="true" />
+                        <YAxis stroke="false"
+                        />
+                        <Legend />
+                        <Bar dataKey="E Rating" fill="#8884d8" label>
+                            <LabelList dataKey="E Rating" position="top" />
+                        </Bar>
+                        <Bar dataKey="S Rating" fill="#82ca9d" label>
+                            <LabelList dataKey="S Rating" position="top" />
+                        </Bar>
+
+                        <Bar dataKey="G Rating" fill="#82ca9d" label>
+                            <LabelList dataKey="G Rating" position="top" />
+                        </Bar>
+
+                    </BarChart>
                 </ResponsiveContainer>
 
 

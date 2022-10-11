@@ -38,7 +38,6 @@ function StockESGChart() {
                         </Bar>
                         <Bar dataKey="S Rating" fill="#FFBB28" label>
                         </Bar>
-
                         <Bar dataKey="G Rating" fill="#FF8042" label>
                         </Bar>
 

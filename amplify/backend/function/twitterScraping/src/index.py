@@ -7,16 +7,10 @@ REGION = "eu-north-1"
 SECRET_NAME = "MongoURL"
 
 def handler(event, context):
-    MongoURL = get_secret()
+    #MongoURL = get_secret()
 
-    print (MongoURL)
+   # print (MongoURL)
 
-    def createTweetObject(id, stock, date, username, content):
-        try:
-            tweetObject = { 'id': id, 'stock': stock.upper(), 'date': date, 'username': username, 'content': content }
-        except:
-            return json.dumps({"errormessage": "Error creating tweet object"}) 
-        return tweetObject
 
     # Create Connection
     client = MongoClient('mongodb://admin:pass@ec2-3-249-127-86.eu-west-1.compute.amazonaws.com:27017')
@@ -47,6 +41,17 @@ def handler(event, context):
 
 
     return json.dumps(tweets, default=str)
+
+
+
+def createTweetObject(id, stock, date, username, content):
+    print('we made it')
+    try:
+        tweetObject = { 'id': id, 'stock': stock.upper(), 'date': date, 'username': username, 'content': content }
+    except:
+        return json.dumps({"errormessage": "Error creating tweet object"}) 
+    return tweetObject
+
 
 
 def get_secret():

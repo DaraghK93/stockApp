@@ -179,10 +179,10 @@ def writeArticlestoDatabase(client,articles):
     #collection = client["articles"]
     try:
         db.articles.insert_many(articles, ordered=False)
-    except DuplicateKeyError:
-        print(f'Duplicate Article')
-    #except Exception as e:
-    #    print(f'ERROR:Could not insert articles into database.\nException Details:\n\t{e}')
+    except pymongo.errors.BulkWriteError as e:
+        print(f'WARNING:Duplicate Articles detected, only one copy of articles inserted into database.')
+    except Exception as e:
+        print(f'ERROR:Could not insert articles into database.\nException Details:\n\t{e}')
 
 
 

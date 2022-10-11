@@ -3,10 +3,16 @@
 # Module imports
 import csv
 from pymongo import MongoClient
+import os
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('../database/.env')
+load_dotenv(dotenv_path = dotenv_path)
+mongo_uri = os.getenv(mongo_uri)
 
 # Setting the MongoDB connection
-mongoClient = MongoClient(
-    "mongodb://admin:pass@ec2-3-249-127-86.eu-west-1.compute.amazonaws.com:27017/")
+mongoClient = MongoClient(mongo_uri)
 db = mongoClient.test
 
 # Setting the headers for the .csv file

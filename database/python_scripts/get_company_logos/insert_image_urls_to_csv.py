@@ -2,13 +2,20 @@
 import os
 import boto3
 import pandas as pd
+from dotenv import load_dotenv
+from pathlib import Path
+
+dotenv_path = Path('../database/.env')
+load_dotenv(dotenv_path=dotenv_path)
+ACCESS_KEY = os.getenv(access_key)
+SECRET_KEY = os.getenv(secret_key)
 
 # This function returns a list of all filenames in the stockapplogobucket S3 bucket
 # This was needed so that the URL for each image could be input into the database
 
 
 def list_s3_files_using_client():
-    ACCESS_KEY = ""       # Redacted for privacy. Contact Bearach for
+    ACCESS_KEY = ""
     SECRET_KEY = ""
     s3 = boto3.client("s3", aws_access_key_id=ACCESS_KEY,
                       aws_secret_access_key=SECRET_KEY)

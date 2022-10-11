@@ -3,22 +3,16 @@ import boto3
 from pymongo import MongoClient
 import snscrape.modules.twitter as sntwitter
 
-REGION = "eu-north-1"
-SECRET_NAME = "MongoURL"
 
 def handler(event, context):
-    #MongoURL = get_secret()
-
-   # print (MongoURL)
-
+    mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
 
     # Create Connection
-    client = MongoClient('mongodb://admin:pass@ec2-3-249-127-86.eu-west-1.compute.amazonaws.com:27017')
+    client = MongoClient(mongoURI)
     # Select the Database
     database = client['test']
     # Select the collection
     collection = database['sample_tweet_data']
-
 
     # Will loop through all 500 stocks we are looking after soon but for now to keep db usage down i'll only do 1/2 stocks
     tweets = []
@@ -45,7 +39,6 @@ def handler(event, context):
 
 
 def createTweetObject(id, stock, date, username, content):
-    print('we made it')
     try:
         tweetObject = { 'id': id, 'stock': stock.upper(), 'date': date, 'username': username, 'content': content }
     except:
@@ -54,17 +47,25 @@ def createTweetObject(id, stock, date, username, content):
 
 
 
-def get_secret():
-    session = boto3.session.Session()
-    client = session.client(
-        service_name = 'secretsmanager',
-        region_name=REGION
-    )
+def getSecret(secretName,region="eu-north-1"):
+    """
+    Description:
+        This function is used to get a secret from the parameter store in AWS. 
 
-    get_secret_value_response = client.get_secret_value(
-        SecretId=SECRET_NAME
-    )
+    Args:
+        secretName (string): The name of the secret found in the parameter store. 
+        region (string): The region the secret is stored in, default to eu-north-1. 
 
-    secret_response = get_secret_value_response['SecretString']
+    Returns:
+        response (dict): Dictonary object with the secret name under "Name" key and value under "Value" key
+    """ 
+    client = boto3.client('ssm',region)
+    try:
+        response = client.get_parameter(
+            Name=secretName,
+            WithDecryption=True
+        )
+        return response
+    except Exception as e:
+        print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
 
-    return json.loads(secret_response)

@@ -14,8 +14,6 @@ import boto3
 import pymongo
 from pymongo.errors import DuplicateKeyError
 
-
-
 ### Directory Setup ###
 # For relative imports use the directory where script is running 
 # This will change dynamically when running locallly or on AWS Lambda 
@@ -176,7 +174,6 @@ def writeArticlestoDatabase(client,articles):
         _type_: _description_
     """
     db = client[os.environ["DATABASENAME"]]
-    #collection = client["articles"]
     try:
         db.articles.insert_many(articles, ordered=False)
     except pymongo.errors.BulkWriteError as e:
@@ -234,7 +231,9 @@ def handler(event, context):
     # Get the mongo connection 
     client = getMongoConnection(mongoURI)
     # Write articles to the database 
-    writeArticlestoDatabase(client,articles)
+    ids = writeArticlestoDatabase(client,articles)
+
+    print(ids)
 
 
 

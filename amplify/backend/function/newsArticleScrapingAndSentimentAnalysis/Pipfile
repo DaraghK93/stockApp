@@ -9,6 +9,7 @@ verify_ssl = true
 src = {editable = true, path = "./src"}
 feedparser = "*"
 boto3 = "*"
+pymongo = "*"
 
 [requires]
 python_version = "3.9"

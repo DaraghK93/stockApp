@@ -18,6 +18,12 @@
     },
     "secretsPathAmplifyAppId": {
       "Type": "String"
+    },
+    "environment": {
+      "Type": "String"
+    },
+    "databasename": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -94,6 +100,12 @@
                   "MONGO_URI"
                 ]
               ]
+            },
+            "ENVIRONMENT": {
+              "Ref": "environment"
+            },
+            "DATABASENAME": {
+              "Ref": "databasename"
             }
           }
         },

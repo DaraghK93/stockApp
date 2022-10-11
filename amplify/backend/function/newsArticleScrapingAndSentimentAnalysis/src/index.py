@@ -11,6 +11,8 @@ import os
 import feedparser
 from pprint import pprint
 import boto3 
+import pymongo
+from pymongo.errors import DuplicateKeyError
 
 
 
@@ -114,8 +116,8 @@ def getArticles(feed):
             pubDate = article.published
             # Get the description 
             description = article.description
-            # Append article object to articles 
-            articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":pubDate})
+            # Append article object to articles TODO - Change the hardcoded sentiment, will be updated next week when sentiment due 
+            articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":pubDate,"Sentiment":"Neutral"})
         return articles
     except Exception as e:
         print(f'ERROR:Occured in the getArticles function.\nException Details:\n\t{e}')
@@ -143,6 +145,45 @@ def getSecret(secretName,region="eu-north-1"):
         return response
     except Exception as e:
         print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
+
+
+def getMongoConnection(URI):
+    """
+    Description:
+        Gets a client connection to MongoDB
+
+    Args:
+        URI (string): A connection string for mongo Database 
+
+    Returns:
+        client(MongoClient): MongoClient object which can be used to execute commands on the database. 
+    """
+    client = pymongo.MongoClient(URI)
+    if client is None:
+        print(f'ERROR:Could not connect to MongoDB, client obeject is none')
+    else:
+        return client
+
+
+def writeArticlestoDatabase(client,articles):
+    """
+    Description:
+        Logs the articles to the database 
+    Args:
+        articles (list): List of JSON objects containing articles 
+
+    Returns:
+        _type_: _description_
+    """
+    db = client[os.environ["DATABASENAME"]]
+    #collection = client["articles"]
+    try:
+        db.articles.insert_many(articles, ordered=False)
+    except DuplicateKeyError:
+        print(f'Duplicate Article')
+    #except Exception as e:
+    #    print(f'ERROR:Could not insert articles into database.\nException Details:\n\t{e}')
+
 
 
 ### Handler ###
@@ -180,9 +221,20 @@ def handler(event, context):
 
     ## Step Five ##
     #   Log the articles to the database 
-    secrets = getSecret('MONGO_URI')
-    print(secrets)
-
+    # If the enviroment is production then get the production URI 
+    # ***NOTE*** Create a local .env file newsArticleScrapingAndSentimentAnalysis directory with ENVIRONMENT and MONGOURI in it, this will set "dev" variables 
+    # ENVIRONMENT=dev
+    # MONGOURI=mongodb://localhost:27017/StocksApplication
+    mongoURI = '' 
+    environment = os.environ['ENVIRONMENT']
+    if environment == 'prod':
+        mongoURI = getSecret('MONGO_URI')
+    elif environment == 'dev':
+        mongoURI = os.environ['MONGOURI']
+    # Get the mongo connection 
+    client = getMongoConnection(mongoURI)
+    # Write articles to the database 
+    writeArticlestoDatabase(client,articles)
 
 
 

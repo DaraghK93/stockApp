@@ -15,7 +15,9 @@
       "function": {
         "expressServer": {},
         "newsArticleScrapingAndSentimentAnalysis": {
-          "secretsPathAmplifyAppId": "d2l3aeky8jssr5"
+          "secretsPathAmplifyAppId": "d2l3aeky8jssr5",
+          "environment": "prod",
+          "databasename": "test"
         }
       }
     }

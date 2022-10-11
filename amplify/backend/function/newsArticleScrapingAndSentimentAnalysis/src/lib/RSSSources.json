@@ -43,14 +43,14 @@
  },
  {
    "Source": "New York Times",
-   "Topic": "Energy Environment ",
+   "Topic": "Energy Environment",
    "URL": "https://rss.nytimes.com/services/xml/rss/nyt/EnergyEnvironment.xml",
    "ImageTag": "media_content",
    "DefaultImage": "NY_IMAGE"
  },
  {
    "Source": "New York Times",
-   "Topic": "Technology ",
+   "Topic": "Technology",
    "URL": "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
    "ImageTag": "media_content",
    "DefaultImage": "NY_IMAGE"
@@ -71,21 +71,21 @@
  },
  {
    "Source": "Reuters",
-   "Topic": "Technology ",
+   "Topic": "Technology",
    "URL": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best",
    "ImageTag": "",
    "DefaultImage": "Reuters_IMAGE"
  },
  {
    "Source": "The Independent",
-   "Topic": "Technology ",
+   "Topic": "Technology",
    "URL": "https://www.independent.ie/business/technology/rss/",
    "ImageTag": "enclosures",
    "DefaultImage": "Independent_IMAGE"
  },
  {
    "Source": "The Independent",
-   "Topic": "Buisness ",
+   "Topic": "Buisness",
    "URL": "https://www.independent.ie/business/world/rss/",
    "ImageTag": "enclosures",
    "DefaultImage": "Independent_IMAGE"
@@ -124,5 +124,12 @@
   "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362",
   "ImageTag": "",
   "DefaultImage": "CNBC_IMAGE"
+ },
+ {
+  "Source":"Fox",
+  "Topic":"Technology",
+  "URL":"https://moxie.foxnews.com/google-publisher/tech.xml",
+  "ImageTag": "media_content",
+  "DefaultImage": "FOX_IMAGE"
  }
 ]

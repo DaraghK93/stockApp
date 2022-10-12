@@ -14,8 +14,11 @@ def get_mongo_client():
     load_dotenv(dotenv_path=dotenv_path)
     mongo_uri_secret = os.getenv("mongo_uri")
     client = MongoClient(mongo_uri_secret)
-    database = client.test
-    return database
+    if client is None:
+        print(f'ERROR:Could not connect to MongoDB, client obeject is none')
+    else:
+        database = client.test
+        return database
 
 
 def get_historical_data(stock_symbol, api_key):
@@ -23,9 +26,14 @@ def get_historical_data(stock_symbol, api_key):
     # TIME_SERIES_DAILY - which provides daily time series information
     # stock_symbol - e.g. "MSFT" - would get all the data for Microsoft
     # outputsize - can get compact which is the last 5 months, or full, which gives full historical data for a company
-    url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+stock_symbol+"&outputsize=full&apikey=" + api_key
+    try:
+        url = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol="+stock_symbol+"&outputsize=full&apikey=" + api_key
+        res = requests.get(url)
     # request.get fetches the information from the api
-    res = requests.get(url)
+    except Exception as e:
+        print(f'ERROR:Cannot get API data feed from Alpha Vantage.\nException Details:\n\t{e}')
+        return None 
+    
     # the data then needs to be converted to json
     stock_historical_data = res.json()
     # here we create two new dictionaries
@@ -111,4 +119,7 @@ for element in datarequest:
     request_to_db.append(element)
 
 # the below will write a bulk request to the mongoDB database
-db.sample_stock_data.bulk_write(request_to_db)
+try:
+    db.sample_stock_data.bulk_write(request_to_db)
+except Exception as e:
+    print(f'ERROR:Could not update prices in database.\nException Details:\n\t{e}')

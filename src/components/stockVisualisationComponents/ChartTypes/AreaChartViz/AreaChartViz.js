@@ -33,11 +33,11 @@ function StockPriceChart() {
 
 
     const year = [
-        { name: 'YEAR 1', price: 400 },
-        { name: 'YEAR 2', price: 10 },
-        { name: 'YEAR 3', price: 60 },
-        { name: 'year', price: 700 },
-        { name: 'year', price: 100 }]
+        { name: '2017', price: 400 },
+        { name: '2018', price: 10 },
+        { name: '2019', price: 60 },
+        { name: '2020', price: 700 },
+        { name: '2021', price: 100 }]
 
 
     const DayData = event => {

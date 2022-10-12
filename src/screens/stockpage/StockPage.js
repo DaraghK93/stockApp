@@ -20,19 +20,20 @@ function StockPage() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        /// getStock ///
+        /// getStockInfo ///
         // Description:
-        //  Makes a GET request to the backend route /stock/
-        // this currently is only retrieving one hard coded stock. I will sort out the rest of this later
-        const getStocks = async () => {
+        //  Makes a GET request to the backend route /stock/:symbol
+        const getStockInfo = async () => {
             try {
                 // Request is being sent set loading true 
                 setLoading(true);
+                // get the symbol from the url string, use regex to extract
+                const symbol = window.location.href.replace(/[^A-Z]/g, '');
                 // Set the path 
-                let path = '/api/stock/MMM'
+                let path = `/api/stock/${symbol}`
                 // Send the request with API package
                 const res = await API.get(APIName, path)
-                // Set the state for the stocks and loading to false 
+                // Set the state for the stock and loading to false 
                 setStock(res[0]);
                 setLoading(false);
             } catch (error) {
@@ -43,7 +44,7 @@ function StockPage() {
                 setLoading(false);
             }
         }
-        getStocks();
+        getStockInfo();
     }, [])
 
     return (
@@ -52,6 +53,7 @@ function StockPage() {
             <Container>
                 <Row sm>
                     <Col style={{ marginBottom: "10px" }}>
+                        <img src={stock.logo} className="img-fluid" alt="Company Logo" />
                         <h1>{stock.longname}</h1>
                         <h2>{stock.symbol}</h2>
                         <h2>$200 </h2>
@@ -64,13 +66,13 @@ function StockPage() {
                     </Col>
                 </Row>
                 <Row lg={3} md={2} xs={1}>
-                    <Col sm md={4} style={{ marginBottom: "10px" }}>
+                    <Col sm md={2} style={{ marginBottom: "10px" }}>
                         <ChartCard title={"ESG Rating"} />
                     </Col>
-                    <Col sm md={4} style={{ marginBottom: "10px" }}>
+                    <Col sm md={2} style={{ marginBottom: "10px" }}>
                         <ChartCard title={"News Sentiment"} />
                     </Col>
-                    <Col sm md={4} style={{ marginBottom: "10px" }}>
+                    <Col sm md={2} style={{ marginBottom: "10px" }}>
                         <ChartCard title={"Twitter Sentiment"} />
                     </Col>
                 </Row>

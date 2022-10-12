@@ -1,10 +1,11 @@
 export type AmplifyDependentResourcesAttributes = {
     "function": {
-        "expressServer": {
+        "newsArticleScrapingAndSentimentAnalysis": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",
-            "LambdaExecutionRole": "string"
+            "LambdaExecutionRole": "string",
+            "CloudWatchEventRule": "string"
         }
     },
     "api": {

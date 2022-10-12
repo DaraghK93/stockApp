@@ -1,7 +1,5 @@
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
-
-
 import { Container } from "react-bootstrap";
 
 function RadarChartViz() {

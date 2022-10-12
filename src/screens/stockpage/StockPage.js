@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
-
+import PlainCard from '../../components/stockVisualisationComponents/PlainCard/PlainCard';
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -28,9 +28,9 @@ function StockPage() {
             try {
                 // Request is being sent set loading true 
                 setLoading(true);
-                // get the symbol from the url string, use regex to extract
+                // get the symbol from the url string, use regex to extract capital letters only
                 const symbol = window.location.href.replace(/[^A-Z]/g, '');
-                // Set the path 
+                // Set the path and use symbol to get single stock
                 let path = `/api/stock/${symbol}`
                 // Send the request with API package
                 const res = await API.get(APIName, path)
@@ -54,11 +54,11 @@ function StockPage() {
             <Container>
                 <Row>
                     <Col className="stockInfoCol">
-                        <img src={stock.logo} className="img-fluid" alt="Company Logo" />
-                        <h1>{stock.longname}</h1>
-                        <h2>{stock.symbol}</h2>
-                        <h2>$200 </h2>
-                        <h4>+$50 (25%)</h4>
+                    <PlainCard 
+                    longname={stock.longname}
+                    symbol={stock.symbol}
+                    logo={stock.logo}
+                    />
                     </Col>
                 </Row>
                 <Row>
@@ -67,7 +67,7 @@ function StockPage() {
                     </Col>
                 </Row>
                 <Row lg={3} md={2} xs={1}>
-                <Col sm md={8} className="stockInfoCol">
+                    <Col sm md={8} className="stockInfoCol">
                         <ChartCard title={"ESG Rating"} />
                     </Col>
                     <Col sm md={8} className="stockInfoCol">
@@ -75,6 +75,10 @@ function StockPage() {
                     </Col>
                     <Col sm md={8} className="stockInfoCol">
                         <ChartCard title={"Twitter Sentiment"} />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm md={8} className="stockInfoCol">
                     </Col>
                 </Row>
             </Container>

@@ -30,7 +30,6 @@ function Header() {
     dispatch(logout());
   }
 
-
   return (
     <Navbar expand="lg" 
     className="navbar">

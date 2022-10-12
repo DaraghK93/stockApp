@@ -6,11 +6,6 @@ import {
     Legend
 } from "recharts";
 
-
-
-
-
-
 function PieChartViz() {
     const data = [
         { name: 'Positive', value: 600 },
@@ -37,7 +32,6 @@ function PieChartViz() {
 
     return (
         <>
-
                     <ResponsiveContainer width="100%" height={200}>
                         <PieChart width={400} height={400}>
                             <Legend layout="vertical" verticalAlign="middle" align="left" />
@@ -61,8 +55,5 @@ function PieChartViz() {
         </>
     )
 };
-
-
-
 
 export default PieChartViz;

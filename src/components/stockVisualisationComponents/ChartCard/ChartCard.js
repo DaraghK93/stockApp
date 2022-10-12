@@ -5,8 +5,7 @@ import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
 import { Info } from "react-feather"
 //TODO
-// Add area chart type and hide dropdown button
-// Move dropdown to right hand side
+// Move dropdown to right hand side without losing functionality of button
 
 const ChartCard = ({ title }) => {
 
@@ -53,7 +52,6 @@ const ChartCard = ({ title }) => {
             <Card className="infoCardStyle">
                 <Container>
                     <h2>{title}  <Info size={20}/></h2>
-                    {/* <div style={{float:"right", position:"relative"}}> */}
                         <Dropdown 
                     //     style={{
                     //         float:"right"
@@ -69,7 +67,6 @@ const ChartCard = ({ title }) => {
                                 <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                    {/* </div> */}
                     {/* show component on click */}
                     {isShownBarChart && <BarChartViz />}
                     {isShownPieChart && <PieChartViz />}

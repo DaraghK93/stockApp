@@ -1,13 +1,16 @@
 import { Container, Dropdown, Card } from "react-bootstrap";
+import { useState } from "react";
 
 
-function ChartCard() {
+const ChartCard = ({ title, content:Content }) => {
+
 
 
     return (
         <>
-                <Card>
-                    <h2>TITLE</h2>
+            <Card>
+                <Container>
+                    <h2>{title}</h2>
                     <Dropdown>
                         <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                             Graph Type
@@ -18,12 +21,11 @@ function ChartCard() {
                             <Dropdown.Item href="#/action-3">Bar Chart</Dropdown.Item>
                         </Dropdown.Menu>
                     </Dropdown>
-                </Card>
+                    <Content />
+
+                </Container>
+            </Card>
         </>
-
-
     )
-
-
 }
 export default ChartCard;

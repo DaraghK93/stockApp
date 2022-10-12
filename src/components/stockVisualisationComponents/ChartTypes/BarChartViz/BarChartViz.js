@@ -17,7 +17,7 @@ function BarChartViz() {
         {
             "name": "ESG Rating",
             "E Rating": 600,
-            "S Rating": 980,
+            "S Rating": 700,
             "G Rating": 200
         }
     ]
@@ -29,7 +29,7 @@ function BarChartViz() {
 
                 <ResponsiveContainer width="100%" height={300} margin={100}>
 
-                    <BarChart width={700} height={200} data={data}>
+                    <BarChart width={700} height={100} data={data}>
                     <Legend layout="vertical" verticalAlign="middle" align="right" />
                         <XAxis dataKey="name" stroke="false" hide="true"/>
                         <YAxis stroke="false" 

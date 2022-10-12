@@ -6,8 +6,9 @@
 
 import { useState, useEffect } from 'react';
 import { Container, Row, Col, Button } from "react-bootstrap";
-import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/AreaChartViz/AreaChartViz";
+import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
+
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -51,8 +52,8 @@ function StockPage() {
 
         <>
             <Container>
-                <Row sm>
-                    <Col style={{ marginBottom: "10px" }}>
+                <Row>
+                    <Col className="stockInfoCol">
                         <img src={stock.logo} className="img-fluid" alt="Company Logo" />
                         <h1>{stock.longname}</h1>
                         <h2>{stock.symbol}</h2>
@@ -66,13 +67,13 @@ function StockPage() {
                     </Col>
                 </Row>
                 <Row lg={3} md={2} xs={1}>
-                    <Col sm md={2} style={{ marginBottom: "10px" }}>
+                <Col sm md={8} className="stockInfoCol">
                         <ChartCard title={"ESG Rating"} />
                     </Col>
-                    <Col sm md={2} style={{ marginBottom: "10px" }}>
+                    <Col sm md={8} className="stockInfoCol">
                         <ChartCard title={"News Sentiment"} />
                     </Col>
-                    <Col sm md={2} style={{ marginBottom: "10px" }}>
+                    <Col sm md={8} className="stockInfoCol">
                         <ChartCard title={"Twitter Sentiment"} />
                     </Col>
                 </Row>

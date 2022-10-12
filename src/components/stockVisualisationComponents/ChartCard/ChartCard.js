@@ -50,7 +50,7 @@ const ChartCard = ({ title }) => {
 
     return (
         <>
-            <Card style={{ padding: "10px", margin:"10px", marginBottom:"20px", paddingBottom:"50px", display:"flex" }}>
+            <Card className="infoCardStyle">
                 <Container>
                     <h2>{title}  <Info size={20}/></h2>
                     {/* <div style={{float:"right", position:"relative"}}> */}

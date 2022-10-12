@@ -61,7 +61,7 @@ function StockPriceChart() {
 
     return (
         <>
-            <Card style={{ padding: "10px", margin: "10px", marginBottom: "20px", paddingBottom: "50px" }}>
+            <Card className="infoCardStyle">
                 <Container>
                     <h2>Price Chart</h2>
                     <Row>

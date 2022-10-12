@@ -11,47 +11,56 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
+import { useState, useEffect } from "react";
 
 function StockPriceChart() {
 
-    // get real prices APPL
-    const data = [
-        { name: '01', price: 400, price2: 100 },
-        { name: '02', price: 500, price2: 300 },
-        { name: '03', price: 60, price2: 500 },
-        { name: '04', price: 700, price2: 200 },
-        { name: '05', price: 800, price2: 900 },
-        { name: '06', price: 200, price2: 100 },
-        { name: '07', price: 1000, price2: 150 },
-        { name: '08', price: 1100, price2: 800 },
-        { name: '09', price: 400, price2: 100 },
-        { name: '10', price: 500, price2: 300 },
-        { name: '11', price: 60, price2: 500 },
-        { name: '12', price: 700, price2: 200 },
-        { name: '13', price: 800, price2: 900 },
-        { name: '14', price: 200, price2: 100 },
-        { name: '15', price: 1000, price2: 150 },
-        { name: '16', price: 1100, price2: 800 },
-        { name: '17', price: 400, price2: 100 },
-        { name: '18', price: 500, price2: 300 },
-        { name: '19', price: 60, price2: 500 },
-        { name: '20', price: 700, price2: 200 },
-        { name: '21', price: 800, price2: 900 },
-        { name: '22', price: 200, price2: 100 },
-        { name: '23', price: 1000, price2: 150 },
-        { name: '24', price: 1100, price2: 800 },
-        { name: '25', price: 700, price2: 200 },
-        { name: '26', price: 800, price2: 900 },
-        { name: '27', price: 200, price2: 100 },
-        { name: '28', price: 1000, price2: 150 },
-        { name: '29', price: 1100, price2: 800 },
-        { name: '30', price: 1100, price2: 800 }
-    ]
+    const [data, setData] = useState();
+
+    const month = [
+        { name: 'month', price: 400, price2: 100 },
+        { name: 'month', price: 500, price2: 300 },
+        { name: 'month', price: 60, price2: 500 },
+        { name: 'month', price: 700, price2: 200 },
+        { name: 'month', price: 800, price2: 900 }]
+
+    const day = [
+        { name: 'day', price: 400, price2: 100 },
+        { name: 'day', price: 500, price2: 300 },
+        { name: 'day', price: 60, price2: 500 },
+        { name: 'day', price: 700, price2: 200 },
+        { name: 'day', price: 800, price2: 900 }]
+
+
+    const year = [
+        { name: 'YEAR 1', price: 400, price2: 100 },
+        { name: 'YEAR 2', price: 500, price2: 300 },
+        { name: 'YEAR 3', price: 60, price2: 500 },
+        { name: 'year', price: 700, price2: 200 },
+        { name: 'year', price: 800, price2: 900 }]
+
+
+
+
+        const DayData = event => {
+            // toggle shown state
+            setData(day);
+        };
+        const MonthData = event => {
+            // toggle shown state
+            setData(month);
+        };
+        const YearData = event => {
+            // toggle shown state
+            setData(year);
+        };
+    
+
 
 
     return (
         <>
-            <Card style={{ padding: "10px", margin:"10px", marginBottom:"20px", paddingBottom:"50px"  }}>
+            <Card style={{ padding: "10px", margin: "10px", marginBottom: "20px", paddingBottom: "50px" }}>
                 <Container>
                     <h2>Price Chart</h2>
                     <Row>
@@ -83,15 +92,15 @@ function StockPriceChart() {
                     <Row>
                         <span>Filter By: </span>
                     </Row>
-                    <Row style={{display:"flex", justifyContent:"center"}}>
+                    <Row style={{ display: "flex", justifyContent: "center" }}>
                         <Col xs={3}>
-                            <Button className="btn btn-primary btn-sm">Day</Button>
+                            <Button className="btn btn-primary btn-sm" onClick={DayData}>Day</Button>
                         </Col>
                         <Col xs={3}>
-                            <Button className="btn btn-primary btn-sm">Month</Button>
+                            <Button className="btn btn-primary btn-sm" onClick={MonthData}>Month</Button>
                         </Col>
                         <Col xs={3}>
-                            <Button className="btn btn-primary btn-sm">Year</Button>
+                            <Button className="btn btn-primary btn-sm" onClick={YearData}>Year</Button>
                         </Col>
                     </Row>
                 </Container>

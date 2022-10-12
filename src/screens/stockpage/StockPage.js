@@ -47,11 +47,7 @@ function StockPage() {
         }
         getStocks();
     }, [])
-
-
-
-
-
+    
     return (
 
         <>
@@ -60,7 +56,7 @@ function StockPage() {
                     <Col style={{ marginBottom: "10px" }}>
                         <h1>{stock.longname}</h1>
                         <h2>{stock.symbol}</h2>
-                        <h2>$200</h2>
+                        <h2>$200 </h2>
                         <h4>+$50 (25%)</h4>
                     </Col>
                 </Row>

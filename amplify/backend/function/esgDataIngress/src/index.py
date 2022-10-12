@@ -99,7 +99,9 @@ def sendBulkUpdate(collection,stocklist,esgdata):
     try:
         for i in stocklist:
             data_request.append(UpdateOne({"symbol": i}, {'$set': {"esgrating": getObjectByTicker(i,esgdata)}}))
-        collection.bulk_write(data_request)
+        res = collection.bulk_write(data_request)
+        matched_count = res.matched_count
+        return matched_count
     except Exception as e:
         print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
 
@@ -122,22 +124,6 @@ def getSecret(secretName,region="eu-north-1"):
         print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
 
 
-# def sendToDB():
-#     # get the list of objects we are sending to the DB
-#     objectList, tickerlist = getData()
-#     # connection string
-#     connection = 'mongodb://admin:pass@ec2-3-249-127-86.eu-west-1.compute.amazonaws.com:27017/'
-#     # establish connection with mongoDB cluster
-#     # need to do tlsCAFile as the certs were wrong on my computer
-#     client = MongoClient(connection)
-#     # establish the database and collection
-#     db = client['daragh']
-#     collection = db['sample_stock_data']
-#     # insert the documents into the collection
-#     buildBulkUpdate(collection,tickerlist,objectList)
-#     # collection.insert_many(objectList)
-
-
 def handler(event, context):
     try:
         objectList, tickerlist = getData()
@@ -150,12 +136,12 @@ def handler(event, context):
 
         collection = db['sample_stock_data']
 
-        sendBulkUpdate(collection,tickerlist,objectList)
-        
+        updateDB = sendBulkUpdate(collection,tickerlist,objectList)
+
      # Return a success message 
         return {
             'Message': 'ESG Ratings successfully updated',
-            'Number of Articles Scraped': len(articles)
+            'Number of Articles Scraped': updateDB
         }
         
     except Exception as e:

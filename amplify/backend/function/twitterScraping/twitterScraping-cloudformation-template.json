@@ -18,6 +18,9 @@
     },
     "secretsPathAmplifyAppId": {
       "Type": "String"
+    },
+    "databasename": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -94,6 +97,9 @@
                   "MongoURL"
                 ]
               ]
+            },
+            "DATABASENAME": {
+              "Ref": "databasename"
             }
           }
         },

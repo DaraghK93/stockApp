@@ -17,23 +17,19 @@ const ChartCard = ({ title }) => {
         setIsShownRadarChart(false);
     };
 
-
     const showPieChart = event => {
         // toggle shown state
-        setIsShownPieChart(current => !current);
+        setIsShownPieChart(true);
         setIsShownBarChart(false);
         setIsShownRadarChart(false);
     };
 
     const showRadarChart = event => {
         // toggle shown state
-        setIsShownRadarChart(current => !current);
+        setIsShownRadarChart(true);
         setIsShownBarChart(false);
         setIsShownPieChart(false);
     };
-
-
-
 
     return (
         <>
@@ -41,9 +37,16 @@ const ChartCard = ({ title }) => {
                 <Container>
                     <h2>{title}</h2>
 
-                    <button onClick={showBarChart}>Bar Chart</button>
-                    <button onClick={showPieChart}>Pie Chart</button>
-                    <button onClick={showRadarChart}>Radar Chart</button>
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                            Graph Type
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>
+                            <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
+                            <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
 
                     {/* show component on click */}
                     {isShownBarChart && <BarChartViz />}
@@ -55,20 +58,3 @@ const ChartCard = ({ title }) => {
     )
 }
 export default ChartCard;
-
-
-
-
-
-
-                    {/* <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                            Graph Type
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item onClick={showChart("Pie Chart")}>Pie Chart</Dropdown.Item> */}
-                    {/* <Dropdown.Item onClick={showChart("Radar Chart")}>Radar Chart</Dropdown.Item>
-                            <Dropdown.Item onClick={showChart("PieChart")}>Bar Chart</Dropdown.Item> */}
-                    {/* </Dropdown.Menu>
-                    </Dropdown> */}
-                    {/* <Content /> */}

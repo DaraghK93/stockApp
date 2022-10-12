@@ -5,6 +5,7 @@ const TweetSchema = new mongoose.Schema(
     id: {
       type: String,
       required: true,
+      unique: true,
     },
     stock: {
       type: String,
@@ -16,6 +17,9 @@ const TweetSchema = new mongoose.Schema(
       type: String,
     },
     content: {
+      type: String,
+    },
+    sentiment: {
       type: String,
     },
   },

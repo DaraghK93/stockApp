@@ -132,9 +132,9 @@ def handler(event, context):
 
         client = connectToDB(mongoURI)
 
-        db = client['daragh']
+        db = client[os.environ["DATABASE"]]
 
-        collection = db['sample_stock_data']
+        collection = db[os.environ["COLLECTION"]]
 
         updateDB = sendBulkUpdate(collection,tickerlist,objectList)
 

@@ -29,6 +29,10 @@
           "environment": "prod",
           "databasename": "test",
           "crontime": "30"
+        },
+        "esgDataIngress": {
+          "database": "daragh",
+          "collection": "sample_stock_data"
         }
       }
     }

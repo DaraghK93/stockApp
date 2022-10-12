@@ -13,8 +13,6 @@ import ChartCard from '../../components/stockVisualisationComponents/ChartCard/C
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
-
-
 function StockPage() {
 
     const [loading, setLoading] = useState(true);
@@ -47,7 +45,7 @@ function StockPage() {
         }
         getStocks();
     }, [])
-    
+
     return (
 
         <>

@@ -18,45 +18,46 @@ function StockPriceChart() {
     const [data, setData] = useState();
 
     const month = [
-        { name: 'month', price: 400, price2: 100 },
-        { name: 'month', price: 500, price2: 300 },
-        { name: 'month', price: 60, price2: 500 },
-        { name: 'month', price: 700, price2: 200 },
-        { name: 'month', price: 800, price2: 900 }]
+        { name: 'month', price: 100 },
+        { name: 'month', price: 500 },
+        { name: 'month', price: 60 },
+        { name: 'month', price: 700 },
+        { name: 'month', price: 800 }]
 
     const day = [
-        { name: 'day', price: 400, price2: 100 },
-        { name: 'day', price: 500, price2: 300 },
-        { name: 'day', price: 60, price2: 500 },
-        { name: 'day', price: 700, price2: 200 },
-        { name: 'day', price: 800, price2: 900 }]
+        { name: 'day', price: 400 },
+        { name: 'day', price: 700 },
+        { name: 'day', price: 60 },
+        { name: 'day', price: 700 },
+        { name: 'day', price: 500 }]
 
 
     const year = [
-        { name: 'YEAR 1', price: 400, price2: 100 },
-        { name: 'YEAR 2', price: 500, price2: 300 },
-        { name: 'YEAR 3', price: 60, price2: 500 },
-        { name: 'year', price: 700, price2: 200 },
-        { name: 'year', price: 800, price2: 900 }]
+        { name: 'YEAR 1', price: 400 },
+        { name: 'YEAR 2', price: 10 },
+        { name: 'YEAR 3', price: 60 },
+        { name: 'year', price: 700 },
+        { name: 'year', price: 100 }]
 
 
+    const DayData = event => {
+        // toggle shown data
+        setData(day);
+    };
+    const MonthData = event => {
+        // toggle shown data
+        setData(month);
+    };
+    const YearData = event => {
+        // toggle shown data
+        setData(year);
+    };
 
 
-        const DayData = event => {
-            // toggle shown state
-            setData(day);
-        };
-        const MonthData = event => {
-            // toggle shown state
-            setData(month);
-        };
-        const YearData = event => {
-            // toggle shown state
-            setData(year);
-        };
-    
-
-
+    useEffect(() => {
+        //set data as daily data on loading card
+        setData(day);
+    }, []); 
 
     return (
         <>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
-
+import { Info } from "react-feather"
 //TODO
 // Add area chart type and hide dropdown button
 // Move dropdown to right hand side
@@ -52,7 +52,7 @@ const ChartCard = ({ title }) => {
         <>
             <Card style={{ padding: "10px", margin:"10px", marginBottom:"20px", paddingBottom:"50px", display:"flex" }}>
                 <Container>
-                    <h2>{title}</h2>
+                    <h2>{title}  <Info size={20}/></h2>
                     {/* <div style={{float:"right", position:"relative"}}> */}
                         <Dropdown 
                     //     style={{

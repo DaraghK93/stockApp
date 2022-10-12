@@ -7,7 +7,7 @@ import {
 } from "recharts";
 
 
-import { Container } from "react-bootstrap";
+import { Container, Dropdown, Card } from "react-bootstrap";
 
 
 
@@ -16,8 +16,6 @@ function StockNewsSentimentChart() {
         { name: 'Positive', value: 600 },
         { name: 'Negative', value: 300 },
         { name: 'Neutral', value: 100 }
-        // ,
-        // { name: 'No Sentiment', value: 100 }
     ];
 
     const COLORS = [
@@ -39,27 +37,43 @@ function StockNewsSentimentChart() {
 
     return (
         <>
-            <Container>
-                <ResponsiveContainer width="100%" height={200}>
-                    <PieChart width={400} height={400}>
-                    <Legend layout="vertical" verticalAlign="middle" align="left" />
-                        <Pie
-                            data={data}
-                            cx="50%"
-                            cy="50%"
-                            labelLine={false}
-                            label={renderCustomizedLabel}
-                            outerRadius={80}
-                            fill="#8884d8"
-                            dataKey="value"
-                        >
-                            {data.map((entry, index) => (
-                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                            ))}
-                        </Pie>
-                    </PieChart>
-                </ResponsiveContainer>
-            </Container>
+            <Card>
+
+                <Container>
+                    <h2>News Sentiment</h2>
+
+                    <Dropdown>
+                        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                            Graph Type
+                        </Dropdown.Toggle>
+
+                        <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">Pie Chart</Dropdown.Item>
+                            <Dropdown.Item href="#/action-2">Radar Chart</Dropdown.Item>
+                            <Dropdown.Item href="#/action-3">Bar Chart</Dropdown.Item>
+                        </Dropdown.Menu>
+                    </Dropdown>
+                    <ResponsiveContainer width="100%" height={200}>
+                        <PieChart width={400} height={400}>
+                            <Legend layout="vertical" verticalAlign="middle" align="left" />
+                            <Pie
+                                data={data}
+                                cx="50%"
+                                cy="50%"
+                                labelLine={false}
+                                label={renderCustomizedLabel}
+                                outerRadius={80}
+                                fill="#8884d8"
+                                dataKey="value"
+                            >
+                                {data.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                        </PieChart>
+                    </ResponsiveContainer>
+                </Container>
+            </Card>
         </>
     )
 };

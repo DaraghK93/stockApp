@@ -66,7 +66,6 @@ function StockPage() {
                 <h2>ESG Rating</h2>
                 <StockESGChart />
                 <br></br>
-                <h2>News Sentiment</h2>
                 <StockNewsSentimentChart />
                 <br></br>
                 <h2>Twitter Sentiment</h2>

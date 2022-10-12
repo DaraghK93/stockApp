@@ -10,7 +10,7 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "stockPriceFunction": {
+    "twitterScraping": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"

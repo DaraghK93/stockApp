@@ -1,0 +1,16 @@
+{
+  "lambdaLayers": [],
+  "secretNames": [
+    "MongoURL"
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "databasename",
+      "environmentVariableName": "DATABASENAME"
+    },
+    {
+      "cloudFormationParameterName": "limit",
+      "environmentVariableName": "LIMIT"
+    }
+  ]
+}

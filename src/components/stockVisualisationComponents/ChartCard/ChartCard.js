@@ -50,15 +50,15 @@ const ChartCard = ({ title }) => {
 
     return (
         <>
-            <Card style={{ padding: "10px", margin:"10px", marginBottom:"20px", paddingBottom:"50px" ,display:"flex" }}>
+            <Card style={{ padding: "10px", margin:"10px", marginBottom:"20px", paddingBottom:"50px", display:"flex" }}>
                 <Container>
                     <h2>{title}</h2>
                     {/* <div style={{float:"right", position:"relative"}}> */}
                         <Dropdown 
-                        style={{
-                            // float:"right"
-                            // , position:"relative"
-                    }}
+                    //     style={{
+                    //         float:"right"
+                    //         , position:"relative"
+                    // }}
                         >
                             <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                 Graph Type

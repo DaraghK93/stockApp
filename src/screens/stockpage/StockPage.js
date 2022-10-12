@@ -48,6 +48,10 @@ function StockPage() {
         getStocks();
     }, [])
 
+
+
+
+
     return (
 
         <>
@@ -60,8 +64,8 @@ function StockPage() {
                         <h4>+$50 (25%)</h4>
                     </Col>
                 </Row>
-                <Row lg md xs>
-                    <Col style={{ marginBottom: "10px" }}>
+                <Row>
+                    <Col>
                         <StockPriceChart />
                     </Col>
                 </Row>

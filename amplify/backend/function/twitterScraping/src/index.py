@@ -25,7 +25,7 @@ def handler(event, context):
 
     list_of_tickers = readSources(f'{dir_path}/lib/TwitterSources.json')
 
-    limit = 3
+    limit = int(os.environ["LIMIT"])
     
     ids =[]
     tweets_to_write = []
@@ -59,6 +59,19 @@ def handler(event, context):
 
 #Create tweet object. Hardcoding a sentiment in for now 
 def createTweetObject(id, stock, date, username, content):
+    """
+    Description:
+        This function creates a json of a tweet for adding to the db
+    Args:
+        id (_type_): _description_
+        stock (_type_): _description_
+        date (_type_): _description_
+        username (_type_): _description_
+        content (_type_): _description_
+
+    Returns:
+        tweet (json): JSON of the tweet object
+    """
     try:
         tweetObject = { 'id': id, 'stock': stock.upper(), 'date': date, 'username': username, 'content': content, 'sentiment':'Neutral'}
     except:
@@ -95,11 +108,12 @@ def getSecret(secretName,region="eu-north-1"):
 def readSources(file):
     """
     Description:
-        This function reads in a supplied JSON file of RSS sources and returns a dictionary
+        Reads sources from /lib/TwitterSources.json
     Args:
-        file (string): Path to RSSSources.json file. This should be located in the lib directory. 
+        file (_type_): file pointer
+
     Returns:
-        content (dict): The contnent of the JSON file supplied in the input. 
+        tweets (list): An array of ticker symbols to use in scraping query
     """
     try:
         f = open(file)
@@ -114,9 +128,9 @@ def readSources(file):
 def writeTweetsToDatabase(collection,tweets):
     """
     Description:
-        Logs the articles to the database 
+        Logs the tweets to the database 
     Args:
-        articles (list): List of JSON objects containing articles 
+        tweets (list): List of JSON objects containing tweets 
     Returns:
         _type_: _description_
     """

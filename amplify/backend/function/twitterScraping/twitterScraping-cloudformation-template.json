@@ -21,6 +21,9 @@
     },
     "databasename": {
       "Type": "String"
+    },
+    "limit": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -100,6 +103,9 @@
             },
             "DATABASENAME": {
               "Ref": "databasename"
+            },
+            "LIMIT": {
+              "Ref": "limit"
             }
           }
         },

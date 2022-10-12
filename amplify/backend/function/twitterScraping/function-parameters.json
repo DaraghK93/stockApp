@@ -7,6 +7,10 @@
     {
       "cloudFormationParameterName": "databasename",
       "environmentVariableName": "DATABASENAME"
+    },
+    {
+      "cloudFormationParameterName": "limit",
+      "environmentVariableName": "LIMIT"
     }
   ]
 }

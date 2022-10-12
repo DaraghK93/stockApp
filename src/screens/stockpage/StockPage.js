@@ -5,11 +5,8 @@
 //  This screen contains the components rendered to the user when they click on an individual stock 
 
 import { useState, useEffect } from 'react';
-import { Container } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/AreaChartViz/AreaChartViz";
-import BarChartViz from "../../components/stockVisualisationComponents/ChartTypes/BarChartViz/BarChartViz";
-import PieChartViz from '../../components/stockVisualisationComponents/ChartTypes/PieChartViz/PieChartViz';
-import RadarChartViz from '../../components/stockVisualisationComponents/ChartTypes/RadarChartViz/RadarChartViz';
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 
 /// API ///
@@ -55,31 +52,31 @@ function StockPage() {
 
         <>
             <Container>
-                <h1>{stock.longname}</h1>
-                <h2>{stock.symbol}</h2>
-                <h2>$200</h2>
-                <h4>+$50 (25%)</h4>
-                <br></br>
-                {/* <ChartCard title={"ESG Rating"} content={BarChartViz}/> */}
-
-
-
-
-
-                <StockPriceChart />
-
-                <p>Filter By: <button>Day</button> <button>Month</button> <button>Year</button> <button>5 Years</button></p>
-                <br></br>
-                <ChartCard title={"ESG Rating"} />
-                <br></br>
-                <ChartCard title={"News Sentiment"} />
-                <br></br>
-                <ChartCard title={"Twitter Sentiment"} />
-                <br></br>
-
+                <Row sm>
+                    <Col style={{ marginBottom: "10px" }}>
+                        <h1>{stock.longname}</h1>
+                        <h2>{stock.symbol}</h2>
+                        <h2>$200</h2>
+                        <h4>+$50 (25%)</h4>
+                    </Col>
+                </Row>
+                <Row lg md xs>
+                    <Col style={{ marginBottom: "10px" }}>
+                        <StockPriceChart />
+                    </Col>
+                </Row>
+                <Row lg={3} md={2} xs={1}>
+                    <Col sm md={4} style={{ marginBottom: "10px" }}>
+                        <ChartCard title={"ESG Rating"} />
+                    </Col>
+                    <Col sm md={4} style={{ marginBottom: "10px" }}>
+                        <ChartCard title={"News Sentiment"} />
+                    </Col>
+                    <Col sm md={4} style={{ marginBottom: "10px" }}>
+                        <ChartCard title={"Twitter Sentiment"} />
+                    </Col>
+                </Row>
             </Container>
-
-
         </>
     )
 };

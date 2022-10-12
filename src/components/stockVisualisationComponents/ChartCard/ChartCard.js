@@ -4,6 +4,10 @@ import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
 
+//TODO
+// Add area chart type and hide dropdown button
+// Move dropdown to right hand side
+
 const ChartCard = ({ title }) => {
 
     const [isShownBarChart, setIsShownBarChart] = useState(false);
@@ -20,7 +24,7 @@ const ChartCard = ({ title }) => {
         if (String(title) == "Twitter Sentiment") {
             setIsShownRadarChart(true);
         }
-      }, []); // <-- empty dependancies array
+    }, []); // <-- empty dependancies array
 
 
     const showBarChart = event => {
@@ -46,21 +50,26 @@ const ChartCard = ({ title }) => {
 
     return (
         <>
-            <Card>
+            <Card style={{ padding: "10px", margin:"10px", marginBottom:"20px", paddingBottom:"50px" ,display:"flex" }}>
                 <Container>
                     <h2>{title}</h2>
-
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                            Graph Type
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>
-                            <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
-                            <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-
+                    {/* <div style={{float:"right", position:"relative"}}> */}
+                        <Dropdown 
+                        style={{
+                            // float:"right"
+                            // , position:"relative"
+                    }}
+                        >
+                            <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                                Graph Type
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>
+                                <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
+                                <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    {/* </div> */}
                     {/* show component on click */}
                     {isShownBarChart && <BarChartViz />}
                     {isShownPieChart && <PieChartViz />}

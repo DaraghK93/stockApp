@@ -1,0 +1,20 @@
+{
+  "lambdaLayers": [],
+  "secretNames": [
+    "MONGO_URI"
+  ],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "environment",
+      "environmentVariableName": "ENVIRONMENT"
+    },
+    {
+      "cloudFormationParameterName": "databasename",
+      "environmentVariableName": "DATABASENAME"
+    },
+    {
+      "cloudFormationParameterName": "crontime",
+      "environmentVariableName": "CRONTIME"
+    }
+  ]
+}

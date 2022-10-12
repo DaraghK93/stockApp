@@ -162,7 +162,7 @@ def getArticles(feed):
                     # Get the description 
                     description = article.description
                     # Append article object to articles TODO - Change the hardcoded sentiment, will be updated next week when sentiment due 
-                    articles.append({"Headline":headline,"Source":feed['Source'],"Link":link,"Description":description,"Image":image,"PubDate":parsedPubDate,"Sentiment":"Neutral"})
+                    articles.append({"headline":headline,"source":feed['Source'],"link":link,"category":feed['Category'],"description":description,"image":image,"pubDate":parsedPubDate,"sentiment":"Neutral"})
         return articles
     except Exception as e:
         print(f'ERROR:Occured in the getArticles function.\nException Details:\n\t{e}')

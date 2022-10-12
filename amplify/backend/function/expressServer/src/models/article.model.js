@@ -23,6 +23,10 @@ const articleSchema = new mongoose.Schema(
             required: true,
             unique: true // Domt sstore duplicate articles 
         },
+        category:{
+            type: String,
+            required: true
+        },
         description:{
             type: String,
             required: true
@@ -42,10 +46,7 @@ const articleSchema = new mongoose.Schema(
     },
     {
         collection: 'articles'
-    },
-    { 
-        timestamps: true 
-    }
+    } 
 )
 
 module.exports = Article = mongoose.model('article', articleSchema);

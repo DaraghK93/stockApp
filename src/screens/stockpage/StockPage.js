@@ -61,19 +61,21 @@ function StockPage() {
                 <h4>+$50 (25%)</h4>
                 <br></br>
                 {/* <ChartCard title={"ESG Rating"} content={BarChartViz}/> */}
-                <ChartCard title={"ESG Rating"} />
+
+
+
+
 
                 <StockPriceChart />
 
                 <p>Filter By: <button>Day</button> <button>Month</button> <button>Year</button> <button>5 Years</button></p>
                 <br></br>
-                <h2>ESG Rating</h2>
-                <BarChartViz />
+                <ChartCard title={"ESG Rating"} />
                 <br></br>
-                <PieChartViz />
+                <ChartCard title={"News Sentiment"} />
                 <br></br>
-                <h2>Twitter Sentiment</h2>
-                <RadarChartViz />
+                <ChartCard title={"Twitter Sentiment"} />
+                <br></br>
 
             </Container>
 

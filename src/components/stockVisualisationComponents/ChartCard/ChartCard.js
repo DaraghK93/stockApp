@@ -1,14 +1,27 @@
 import { Container, Dropdown, Card, Button } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
 
 const ChartCard = ({ title }) => {
 
-    const [isShownBarChart, setIsShownBarChart] = useState(true);
+    const [isShownBarChart, setIsShownBarChart] = useState(false);
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
+
+    useEffect(() => {
+        if (String(title) == "ESG Rating") {
+            setIsShownBarChart(true);
+        }
+        else if (String(title) == "News Sentiment") {
+            setIsShownPieChart(true);
+        }
+        if (String(title) == "Twitter Sentiment") {
+            setIsShownRadarChart(true);
+        }
+      }, []); // <-- empty dependancies array
+
 
     const showBarChart = event => {
         // toggle shown state

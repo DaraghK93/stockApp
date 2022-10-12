@@ -28,7 +28,7 @@ const getStockPrice = async (req, res, next) => {
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
   try {
-    const stocks = await Stock.find();
+    const stocks = await Stock.find().select({prices: 0});
     res.json(stocks);
   } catch (err) {
     console.error(err.message);

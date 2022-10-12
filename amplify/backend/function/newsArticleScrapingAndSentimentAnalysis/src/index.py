@@ -235,7 +235,7 @@ def handler(event, context):
     try:
         ## Step One ###
         #   Get the feeds source, topic and URL 
-        rssSources = readSources(f'{dir_path}\lib\RSSSources.json')
+        rssSources = readSources(f'{dir_path}/lib/RSSSources.json')
         #   For each spurce URL make a get request to get the feeds data
         feeds = []
         # Iterate thorugh the sources and get the feeds 

@@ -1,6 +1,6 @@
 /// Individual Stock Page ///
 // Route:
-//  <URL>/stock....
+//  <URL>/stock/:symbol
 // Description:
 //  This screen contains the components rendered to the user when they click on an individual stock 
 
@@ -58,6 +58,7 @@ function StockPage() {
                     longname={stock.longname}
                     symbol={stock.symbol}
                     logo={stock.logo}
+                    info={stock.longbusinesssummary}
                     />
                     </Col>
                 </Row>

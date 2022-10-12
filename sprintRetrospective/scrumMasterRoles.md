@@ -1,0 +1,3 @@
+- Cut together weekly video diary submission.
+- Create sprint retrospective document.
+- Lead stand up meetings every day.

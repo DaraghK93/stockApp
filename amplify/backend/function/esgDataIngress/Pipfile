@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 src = {editable = true, path = "./src"}
 pymongo = "*"
+boto3 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"

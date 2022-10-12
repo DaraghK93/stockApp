@@ -31,7 +31,7 @@
           "crontime": "30"
         },
         "esgDataIngress": {
-          "database": "daragh",
+          "database": "joey_test",
           "collection": "sample_stock_data"
         }
       }

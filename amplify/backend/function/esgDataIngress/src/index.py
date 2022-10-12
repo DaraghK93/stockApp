@@ -106,6 +106,8 @@ def sendBulkUpdate(collection,stocklist,esgdata):
         print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
 
 def connectToDB(URI):
+    # connect to the mongo instance
+    # return error if connection fails
     client = pymongo.MongoClient(URI)
     if client is None:
         print(f'ERROR:Could not connect to MongoDB, client obeject is none')
@@ -113,6 +115,7 @@ def connectToDB(URI):
         return client
 
 def getSecret(secretName,region="eu-north-1"):
+    # get the secret from AWS
     client = boto3.client('ssm',region)
     try:
         response = client.get_parameter(
@@ -126,22 +129,26 @@ def getSecret(secretName,region="eu-north-1"):
 
 def handler(event, context):
     try:
+        # get list of objects to update from txt file and list tickers to match them
         objectList, tickerlist = getData()
 
+        # get the URI from secret
         mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
 
+        # connect to DB
         client = connectToDB(mongoURI)
 
+        # specify db and collection
         db = client[os.environ["DATABASE"]]
-
         collection = db[os.environ["COLLECTION"]]
 
+        # update the DB with the data from API
         updateDB = sendBulkUpdate(collection,tickerlist,objectList)
 
      # Return a success message 
         return {
             'Message': 'ESG Ratings successfully updated',
-            'Number of Articles Scraped': updateDB
+            'Number of records matched': updateDB
         }
         
     except Exception as e:

@@ -5,11 +5,9 @@
 #   Then sends the data to the database 
 
 ### Imports ###
-from html import entities
 import json
 import os 
 import feedparser
-from pprint import pprint
 import boto3 
 import pymongo
 from pymongo.errors import DuplicateKeyError

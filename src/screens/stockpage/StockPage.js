@@ -52,7 +52,7 @@ function StockPage() {
 
         <>
             <Container>
-                <Row>
+                <Row lg={3} md={2} xs={1}>
                     <Col className="stockInfoCol">
                     <PlainCard 
                     longname={stock.longname}

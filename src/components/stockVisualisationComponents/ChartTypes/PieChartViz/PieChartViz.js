@@ -7,11 +7,11 @@ import {
 } from "recharts";
 
 
-import { Container, Dropdown, Card } from "react-bootstrap";
 
 
 
-function StockNewsSentimentChart() {
+
+function PieChartViz() {
     const data = [
         { name: 'Positive', value: 600 },
         { name: 'Negative', value: 300 },
@@ -37,22 +37,7 @@ function StockNewsSentimentChart() {
 
     return (
         <>
-            <Card>
 
-                <Container>
-                    <h2>News Sentiment</h2>
-
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                            Graph Type
-                        </Dropdown.Toggle>
-
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">Pie Chart</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2">Radar Chart</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3">Bar Chart</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
                     <ResponsiveContainer width="100%" height={200}>
                         <PieChart width={400} height={400}>
                             <Legend layout="vertical" verticalAlign="middle" align="left" />
@@ -72,8 +57,7 @@ function StockNewsSentimentChart() {
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
-                </Container>
-            </Card>
+
         </>
     )
 };
@@ -81,4 +65,4 @@ function StockNewsSentimentChart() {
 
 
 
-export default StockNewsSentimentChart;
+export default PieChartViz;

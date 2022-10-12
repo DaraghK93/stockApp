@@ -11,7 +11,7 @@ import {
 
 import { Container } from "react-bootstrap";
 
-function StockESGChart() {
+function BarChartViz() {
 
     const data = [
         {
@@ -56,4 +56,4 @@ function StockESGChart() {
 };
 
 
-export default StockESGChart;
+export default BarChartViz;

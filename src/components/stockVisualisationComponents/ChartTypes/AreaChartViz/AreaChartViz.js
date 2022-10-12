@@ -12,8 +12,10 @@ import {
 
 import { Container } from "react-bootstrap";
 
-function StockPriceChart() {
+function AreaChartViz() {
 
+    // get real prices APPL
+    // news is in , maybe twitter
     const data = [
         { name: 'Day 1', price: 400, price2: 100 },
         { name: 'Day 2', price: 500, price2: 300 },
@@ -77,4 +79,4 @@ function StockPriceChart() {
 };
 
 
-export default StockPriceChart;
+export default AreaChartViz;

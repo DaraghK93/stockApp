@@ -4,7 +4,7 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 
 import { Container } from "react-bootstrap";
 
-function StockTwitterSentimentChart() {
+function RadarChartViz() {
 
     const data = [
         {
@@ -37,4 +37,4 @@ function StockTwitterSentimentChart() {
     )
 };
 
-export default StockTwitterSentimentChart;
+export default RadarChartViz;

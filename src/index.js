@@ -10,8 +10,10 @@ import awsExports from './aws-exports';
 import { Provider } from 'react-redux';
 import store from './store'
 
+// Custom Bootstrap SCSS
+import './scss/custom.scss';
+
 // Configure amplify/// 
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
 Amplify.configure(awsExports);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

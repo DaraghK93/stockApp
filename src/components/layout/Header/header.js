@@ -1,8 +1,3 @@
-// import Container from 'react-bootstrap/Container';
-// import Nav from 'react-bootstrap/Nav';
-// import Navbar from 'react-bootstrap/Navbar';
-// import NavDropdown from 'react-bootstrap/NavDropdown';
-
 import {
     Navbar,
     Container,
@@ -37,7 +32,8 @@ function Header() {
 
 
   return (
-    <Navbar expand="lg" style={{backgroundColor: 'dodgerblue', color:'white'}}>
+    <Navbar expand="lg" 
+    className="navbar">
       <Container>
         <Navbar.Brand style={{color:'white'}} as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

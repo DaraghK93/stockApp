@@ -5,6 +5,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "newsArticleScrapingAndSentimentAnalysis": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "twitterScraping": {
       "build": true,
       "providerPlugin": "awscloudformation",

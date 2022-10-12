@@ -22,6 +22,12 @@
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
           "s3Key": "amplify-builds/twitterScraping-37527759426852516354-build.zip",
           "databasename": "test"
+        },
+        "newsArticleScrapingAndSentimentAnalysis": {
+          "secretsPathAmplifyAppId": "d2l3aeky8jssr5",
+          "environment": "prod",
+          "databasename": "test",
+          "crontime": "30"
         }
       }
     }

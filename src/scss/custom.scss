@@ -1,0 +1,41 @@
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$primary: #006195;
+$background: #FCFBFB;
+$text-colour: #020202;
+$submit: #e16202;
+
+body {
+    background-color: $background;
+}
+
+h1, .h1 {
+    color: $text-colour;
+}
+
+.navbar {
+    background-color: $primary;
+    color:$background
+}
+
+.btn-primary {
+    background-color: $submit;
+    border-color: $submit;
+}
+
+.btn-primary:hover {
+    background-color: darken($submit, 10%);
+    border-color: darken($submit, 10%);
+}
+
+.btn-primary:focus {
+    background-color: darken($submit, 10%) !important;
+    border-color: darken($submit, 10%) !important;
+}
+
+.navbar-brand {
+    h1, .h1 {
+        color:$background;
+    }
+}

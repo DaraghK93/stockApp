@@ -3,13 +3,13 @@ import pymongo
 from cgi import print_arguments
 from urllib import response
 from pymongo import UpdateOne, MongoClient
-# import certifi
 import requests
 import boto3
 import os
 
 # set path variable for use 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
 
 def getTickersAndExch(file):
 # open the file containing the list of companies and exchanges and read it in
@@ -50,6 +50,7 @@ def sendRequest(query):
         print(f'ERROR:Cannot connect to external API at:{url}.\nException Details:\n\t{e}')
         return None
 
+
 def getData():
     # API only takes in 100 companies at a time, so need to split into 5 requests
     # get the list of companies
@@ -72,7 +73,6 @@ def getData():
     tickerlist = []
     responseList = []
 
-
     for i in concatResponse:
         newdict = dict()
         newdict["ticker"] = i['stock_symbol']
@@ -85,7 +85,13 @@ def getData():
         responseList.append(newdict)
     return responseList, tickerlist
 
+
 def getObjectByTicker(ticker, list):
+
+    # used to get matching tickers for Mongo query
+    # get the object that matches that ticker
+    # create a new object from that that only has the info we want to send to the DB
+    # eaasier to do it with list comp and get first element
     ele = [element for element in list if element['ticker'] == ticker][0]
     new_obj = {"environment_score": ele["environment_score"],
                "social_score": ele["social_score"],
@@ -93,9 +99,17 @@ def getObjectByTicker(ticker, list):
                "total": ele["total"]}
     return new_obj
 
+
 def sendBulkUpdate(collection,stocklist,esgdata):
-    # setting it to total now just to test
+
+    # build the bulk write request to send to DB
+    # empty array to which the queries are added
     data_request = []
+
+    # loop through the list of stocks returned
+    # match by ticker symbol and update
+    # bulk write this list of updates
+    # return matched_count, which gives you a count of the records that were matced in the update
     try:
         for i in stocklist:
             data_request.append(UpdateOne({"symbol": i}, {'$set': {"esgrating": getObjectByTicker(i,esgdata)}}))
@@ -105,6 +119,7 @@ def sendBulkUpdate(collection,stocklist,esgdata):
     except Exception as e:
         print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
 
+
 def connectToDB(URI):
     # connect to the mongo instance
     # return error if connection fails
@@ -113,6 +128,7 @@ def connectToDB(URI):
         print(f'ERROR:Could not connect to MongoDB, client obeject is none')
     else:
         return client
+
 
 def getSecret(secretName,region="eu-north-1"):
     # get the secret from AWS

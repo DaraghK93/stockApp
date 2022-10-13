@@ -1,4 +1,3 @@
-const { mockComponent } = require('react-dom/test-utils');
 const Stock = require('../models/stock.model');
 var moment = require('moment')
 

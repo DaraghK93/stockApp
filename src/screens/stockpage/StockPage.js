@@ -89,7 +89,7 @@ function StockPage() {
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col sm md={8} className="stockInfoCol">
+                        <Col sm md className="stockInfoCol">
                             <ChartCard title={"ESG Rating"} data={esgData} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">

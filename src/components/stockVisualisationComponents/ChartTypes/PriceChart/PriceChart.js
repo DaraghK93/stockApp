@@ -57,7 +57,7 @@ function StockPriceChart() {
                     <h2>Price Chart</h2>
                     <Row>
                         <ResponsiveContainer width="100%" height={400} margin={100}>
-                            <AreaChart width={730} height={250} data={data}
+                            <AreaChart width="100%" height={250} data={data}
                                 margin={{ top: 10, right: 30, left: 20, bottom: 30 }}>
                                 <defs>
                                     <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
@@ -73,10 +73,11 @@ function StockPriceChart() {
                                 >
                                     <Label value="Date" position="bottom"
                                     /></XAxis>
-                                <YAxis dataKey="price"
+                                <YAxis/>
+                                {/* dataKey="price"
                                     stroke="false">
                                     <Label value="Price $" position="left" angle="-90"></Label>
-                                </YAxis>
+                                </YAxis> */}
                                 <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                             </AreaChart>
                         </ResponsiveContainer>

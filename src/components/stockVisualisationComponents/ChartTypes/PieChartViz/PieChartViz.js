@@ -27,7 +27,7 @@ function PieChartViz({ data }) {
 
     return (
         <>
-            <ResponsiveContainer width="100%" height={200}>
+            <ResponsiveContainer width="100%" height={300}>
                 <PieChart width={400} height={400}>
                     <Legend layout="vertical" verticalAlign="middle" align="left" />
                     <Pie

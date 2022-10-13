@@ -68,6 +68,7 @@ function StockPage() {
         getStockInfo();
     }, [])
 
+
     return (
 
         <>
@@ -85,7 +86,7 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col>
-                            <StockPriceChart />
+                            <StockPriceChart symbol={stock.symbol}/>
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>

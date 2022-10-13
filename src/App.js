@@ -5,7 +5,6 @@ import RegistrationPage from './screens/registration/registrationScreen';
 import LoginPage from './screens/login/loginscreen';
 import StockDiscoveryPage from './screens/stockDiscovery/stockDiscoveryScreen';
 import StockPage from './screens/stockpage/StockPage';
-import { TwitterTweetEmbed } from 'react-twitter-embed';
 import TwitterFeed from './screens/TwitterFeed/TwitterFeed';
 
 function App() {

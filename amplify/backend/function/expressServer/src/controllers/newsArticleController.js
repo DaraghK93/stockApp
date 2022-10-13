@@ -2,9 +2,6 @@
 //  This file holds all the controllers for the route /api/newsarticles
 
 /// Imports ///
-// 
-const Article = require('../models/article.model');
-
 const articleService = require('../services/articleService');
 
 /// getNewsArticles ///

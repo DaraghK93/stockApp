@@ -35,3 +35,4 @@ export type AmplifyDependentResourcesAttributes = {
             "ApiId": "string"
         }
     }
+}

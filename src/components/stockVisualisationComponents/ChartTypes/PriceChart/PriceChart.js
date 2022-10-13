@@ -52,26 +52,12 @@ function StockPriceChart({ symbol }) {
         getOneMonthPrices();
     }, [])
 
-    const month = [
-        { name: 'month', price: 100 },
-        { name: 'month', price: 500 },
-        { name: 'month', price: 60 },
-        { name: 'month', price: 700 },
-        { name: 'month', price: 800 }]
-
     const day = [
         { name: '2022-01-10', price: 400 },
         { name: '2022-01-11', price: 700 },
         { name: '2022-01-12', price: 60 },
         { name: '2022-01-13', price: 700 },
         { name: '2022-01-1', price: 500 }]
-
-    const year = [
-        { name: '2017', price: 400 },
-        { name: '2018', price: 10 },
-        { name: '2019', price: 60 },
-        { name: '2020', price: 700 },
-        { name: '2021', price: 100 }]
 
     const DayData = event => {
         // toggle shown data

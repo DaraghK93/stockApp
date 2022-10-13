@@ -4,32 +4,18 @@ import {
     Area,
     XAxis,
     YAxis,
-    Label,
     CartesianGrid,
     ResponsiveContainer,
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect, PureComponent } from "react";
+import { useState, useEffect } from "react";
+import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
+import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 
 /// API ///
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
-
-
-class CustomizedAxisTick extends PureComponent {
-    render() {
-        const { x, y, stroke, payload } = this.props;
-
-        return (
-            <g transform={`translate(${x},${y})`}>
-                <text x={0} y={0} dy={16} textAnchor="end" fontSize={1} fill="#ffffff" transform="rotate(-35)">
-                    {payload.value}
-                </text>
-            </g>
-        );
-    }
-}
 
 function StockPriceChart({ symbol }) {
 
@@ -65,7 +51,7 @@ function StockPriceChart({ symbol }) {
             }
         }
         getOneMonthPrices();
-    }, [])
+    }, [symbol])
 
     const day = [
         { date: '2022-01-10', price: 400 },
@@ -96,37 +82,39 @@ function StockPriceChart({ symbol }) {
                 <Container>
                     <h2>Price Chart</h2>
                     <Row>
-                        <ResponsiveContainer width="100%" height={400} margin={100}>
-                            <AreaChart width="100%" height={250} data={data}
-                                margin={{
-                                    top: 10,
-                                    right: 30,
-                                    left: -25,
-                                    bottom: 30
-                                }}>
-                                <defs>
-                                    <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
-                                        <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <Legend verticalAlign="top" height={36}
-                                />
-                                <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-                                <XAxis dataKey="date"
-                                    stroke="black"
-                                    // tick={<CustomizedAxisTick />}
-                                    tick={false}
-                                >
-                                </XAxis>
-                                <YAxis />
-                                {/* dataKey="price"
+                        {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+                            <ResponsiveContainer width="100%" height={400} margin={100}>
+                                <AreaChart width="100%" height={250} data={data}
+                                    margin={{
+                                        top: 10,
+                                        right: 30,
+                                        left: -25,
+                                        bottom: 30
+                                    }}>
+                                    <defs>
+                                        <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
+                                            <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
+                                    <Legend verticalAlign="top" height={36}
+                                    />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
+                                    <XAxis dataKey="date"
+                                        stroke="black"
+                                        // tick={<CustomizedAxisTick />}
+                                        tick={false}
+                                    >
+                                    </XAxis>
+                                    <YAxis />
+                                    {/* dataKey="price"
                                     stroke="false">
                                     <Label value="Price $" position="left" angle="-90"></Label>
                                 </YAxis> */}
-                                <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
-                            </AreaChart>
-                        </ResponsiveContainer>
+                                    <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        }
                     </Row>
                     <Row
                         style={{

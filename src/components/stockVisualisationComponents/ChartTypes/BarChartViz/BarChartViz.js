@@ -27,13 +27,14 @@ function BarChartViz({ data }) {
             <Container>
                 <ResponsiveContainer width="100%" height={300} margin={100}>
                     <BarChart width={700} height={100} data={data}>
-                    <Legend layout="vertical" verticalAlign="middle" align="right" />
-                        <XAxis dataKey="name" stroke="false" hide="true"/>
-                        <YAxis dataKey="value" stroke="false" 
+                    {/* <Legend layout="vertical" verticalAlign="middle" align="right" /> */}
+                        <XAxis dataKey="name" stroke="false" />
+                        <YAxis 
+                        dataKey="value" stroke="false" 
                         />
-                        <Legend />
+              
                         <Bar dataKey="value" fill="#00C49F">
-                        <LabelList dataKey="name" position="bottom" />
+                        {/* <LabelList dataKey="name" position="bottom" /> */}
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

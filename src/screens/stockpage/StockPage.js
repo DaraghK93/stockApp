@@ -23,9 +23,9 @@ function StockPage() {
     const [error, setError] = useState("");
 
     const esgData = [
-            { name: 'E Rating', value: 600 },
-            { name: 'S Rating', value: 700 },
-            { name: 'G Rating', value: 200 }
+        { name: 'E Rating', value: 600 },
+        { name: 'S Rating', value: 700 },
+        { name: 'G Rating', value: 200 }
     ]
 
     const newsSentimentData = [
@@ -35,21 +35,10 @@ function StockPage() {
     ];
 
     const twitterSentimentData = [
-        {
-            name: 'Positive',
-            value: 100
-        },
-        {
-            name: 'Negative',
-            value: 98
-        },
-        {
-            name: 'Neutral',
-            value: 26
-        }
+        { name: 'Positive', value: 100 },
+        { name: 'Negative', value: 98 },
+        { name: 'Neutral', value: 26 }
     ];
-
-
 
     useEffect(() => {
         /// getStockInfo ///
@@ -104,13 +93,13 @@ function StockPage() {
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"ESG Rating"} data={esgData}/>
+                            <ChartCard title={"ESG Rating"} data={esgData} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData}/>
+                            <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />
                         </Col>
                     </Row>
                     <Row>

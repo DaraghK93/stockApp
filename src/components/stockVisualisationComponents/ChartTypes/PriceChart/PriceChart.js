@@ -10,11 +10,9 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function StockPriceChart() {
-
-    const [data, setData] = useState();
 
     const month = [
         { name: 'month', price: 100 },
@@ -30,14 +28,12 @@ function StockPriceChart() {
         { name: 'day', price: 700 },
         { name: 'day', price: 500 }]
 
-
     const year = [
         { name: '2017', price: 400 },
         { name: '2018', price: 10 },
         { name: '2019', price: 60 },
         { name: '2020', price: 700 },
         { name: '2021', price: 100 }]
-
 
     const DayData = event => {
         // toggle shown data
@@ -52,12 +48,7 @@ function StockPriceChart() {
         setData(year);
     };
 
-    useEffect(() => {
-        //set data as daily data on loading card
-        setData(day);
-    }, [
-        // day
-    ]);
+    const [data, setData] = useState(day);
 
     return (
         <>
@@ -84,7 +75,7 @@ function StockPriceChart() {
                                     /></XAxis>
                                 <YAxis dataKey="price"
                                     stroke="false">
-                                        <Label value="Price $" position="left" angle="-90"></Label>
+                                    <Label value="Price $" position="left" angle="-90"></Label>
                                 </YAxis>
                                 <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                             </AreaChart>
@@ -98,7 +89,7 @@ function StockPriceChart() {
                             display: "flex",
                             justifyContent: "center"
                         }}>
-                            <span className = "m-1">Filter By: </span>
+                            <span className="m-1">Filter By: </span>
                             <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>
 
                             <Button className="btn btn-primary btn-sm m-1" onClick={MonthData}>Month</Button>

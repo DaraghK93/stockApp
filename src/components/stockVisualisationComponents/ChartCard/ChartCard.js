@@ -12,10 +12,6 @@ const ChartCard = ({ title, data }) => {
     const [isShownBarChart, setIsShownBarChart] = useState(false);
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
-    // const [data, setData] = useState();
-
-
-    // console.log(data)
 
     useEffect(() => {
 

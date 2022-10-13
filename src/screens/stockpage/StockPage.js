@@ -68,9 +68,6 @@ function StockPage() {
         getStockInfo();
     }, [])
 
-
-
-
     return (
 
         <>

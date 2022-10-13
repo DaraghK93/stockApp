@@ -9,7 +9,7 @@ function RadarChartViz({ data }) {
             <Container>
                 <ResponsiveContainer width="100%" height={250}>
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-                        <PolarGrid gridType='circle'/>
+                        <PolarGrid gridType='circle' />
                         <PolarAngleAxis dataKey="name" />
                         <PolarRadiusAxis />
                         <Radar name="Mike" dataKey="value" stroke="#FFBB28" fill="#FFBB28" fillOpacity={0.6} />

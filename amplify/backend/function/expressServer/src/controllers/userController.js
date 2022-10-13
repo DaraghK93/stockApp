@@ -31,7 +31,7 @@ const registerUser = async (req, res, next) => {
      {
       // data is missing bad request 
       res.status(400);
-      res.errormessage ="A first name, last name, email and password is required to register";
+      res.errormessage ="All details are needed for a user to register";
       return next(new Error("The client has not sent the required information to register the user"));
     }
 

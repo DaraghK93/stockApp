@@ -171,6 +171,4 @@ def handler(event, context):
         print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
-        }
-
-
+        }   

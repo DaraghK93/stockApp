@@ -8,16 +8,23 @@ const PlainCard = ({ longname, symbol, logo, info }) => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     return (
         <>
             <Card className="infoCardStyle">
                 <Container>
-                    <img src={logo} className="img-fluid" alt="Company Logo" style={{width:"50%"}}/>
-                    <h1>{longname}  <Info size={20} onClick={handleShow} /></h1>
-                    <h2 style={{ fontFamily: 'Courier New' }}>{symbol}</h2>
-                    <h2>$200</h2>
-                    <h4>+$50 (25%)</h4>
+                    <img src={logo} className="img-fluid" alt="Company Logo" style={{ width: "20%" }} />
+                    <div>
+                        <dl style={{marginTop:"10px"}}>
+                            <dt><h2>{longname}  <Info size={20} onClick={handleShow} /></h2></dt>
+                            <dt><h5 style={{ fontFamily: 'Courier New' }}>{symbol}</h5></dt>
+                            <dt>$200</dt>
+                            <dt>+$50 (25%)</dt>
+                        </dl>
+             
+
+                    </div>
+
                 </Container>
             </Card>
             <Modal show={show} onHide={handleClose}>

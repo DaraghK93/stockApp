@@ -29,6 +29,11 @@
           "environment": "prod",
           "databasename": "test",
           "crontime": "30"
+        },
+        "esgDataIngress": {
+          "database": "joey_test",
+          "collection": "sample_stock_data",
+          "environment": "prod"
         }
       }
     }

@@ -1,0 +1,17 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "database",
+      "environmentVariableName": "DATABASE"
+    },
+    {
+      "cloudFormationParameterName": "collection",
+      "environmentVariableName": "COLLECTION"
+    },
+    {
+      "cloudFormationParameterName": "environment",
+      "environmentVariableName": "ENVIRONMENT"
+    }
+  ]
+}

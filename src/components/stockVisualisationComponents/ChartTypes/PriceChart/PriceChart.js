@@ -10,9 +10,47 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function StockPriceChart() {
+/// API ///
+import { APIName } from "../../../../constants/APIConstants";
+import { API } from "aws-amplify";
+
+function StockPriceChart({ symbol }) {
+
+    const [loading, setLoading] = useState(true);
+    const [oneMonthPrices, setOneMonthPrices] = useState();
+    const [error, setError] = useState("");
+
+
+    useEffect(() => {
+        /// getStockInfo ///
+        // Description:
+        //  Makes a GET request to the backend route /stock/OneYearStockData/:symbol
+        const getOneMonthPrices = async () => {
+            try {
+                // Request is being sent set loading true 
+                setLoading(true);
+                // Set the path and use symbol to get single stock
+                let path = `/api/stock/OneYearStockData/${symbol}`
+                // Send the request with API package
+                const res = await API.get(APIName, path);
+
+                Object.keys(res).forEach(function(el){
+                    res[el] = parseFloat(res[el])
+                  });
+                setOneMonthPrices(res);
+                setLoading(false);
+            } catch (error) {
+                // Log the error 
+                console.log(error);
+                // Set the error message to be displayed on the page 
+                setError(error.response.data.errormessage);
+                setLoading(false);
+            }
+        }
+        getOneMonthPrices();
+    }, [])
 
     const month = [
         { name: 'month', price: 100 },
@@ -22,11 +60,11 @@ function StockPriceChart() {
         { name: 'month', price: 800 }]
 
     const day = [
-        { name: 'day', price: 400 },
-        { name: 'day', price: 700 },
-        { name: 'day', price: 60 },
-        { name: 'day', price: 700 },
-        { name: 'day', price: 500 }]
+        { name: '2022-01-10', price: 400 },
+        { name: '2022-01-11', price: 700 },
+        { name: '2022-01-12', price: 60 },
+        { name: '2022-01-13', price: 700 },
+        { name: '2022-01-1', price: 500 }]
 
     const year = [
         { name: '2017', price: 400 },
@@ -41,7 +79,7 @@ function StockPriceChart() {
     };
     const MonthData = event => {
         // toggle shown data
-        setData(month);
+        setData(oneMonthPrices);
     };
     const YearData = event => {
         // toggle shown data
@@ -49,6 +87,7 @@ function StockPriceChart() {
     };
 
     const [data, setData] = useState(day);
+    //  const [data, setData] = useState();
 
     return (
         <>
@@ -58,10 +97,12 @@ function StockPriceChart() {
                     <Row>
                         <ResponsiveContainer width="100%" height={400} margin={100}>
                             <AreaChart width="100%" height={250} data={data}
-                                margin={{ top: 10, 
-                                right: 30, 
-                                left: -25, 
-                                bottom: 30 }}>
+                                margin={{
+                                    top: 10,
+                                    right: 30,
+                                    left: -25,
+                                    bottom: 30
+                                }}>
                                 <defs>
                                     <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
@@ -76,7 +117,7 @@ function StockPriceChart() {
                                 >
                                     <Label value="Date" position="bottom"
                                     /></XAxis>
-                                <YAxis/>
+                                <YAxis />
                                 {/* dataKey="price"
                                     stroke="false">
                                     <Label value="Price $" position="left" angle="-90"></Label>

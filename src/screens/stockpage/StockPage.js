@@ -70,7 +70,7 @@ function StockPage() {
                             <StockPriceChart />
                         </Col>
                     </Row>
-                    <Row lg={3} md={2} xs={1}>
+                    <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"ESG Rating"} />
                         </Col>

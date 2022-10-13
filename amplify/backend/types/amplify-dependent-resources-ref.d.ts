@@ -26,13 +26,12 @@ export type AmplifyDependentResourcesAttributes = {
             "Region": "string",
             "LambdaExecutionRole": "string",
             "CloudWatchEventRule": "string"
-        },
-        "api": {
-            "stockapi": {
-                "RootUrl": "string",
-                "ApiName": "string",
-                "ApiId": "string"
-            }
+        }
+    },
+    "api": {
+        "stockapi": {
+            "RootUrl": "string",
+            "ApiName": "string",
+            "ApiId": "string"
         }
     }
-}

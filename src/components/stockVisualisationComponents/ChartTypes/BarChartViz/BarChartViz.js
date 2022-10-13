@@ -11,16 +11,16 @@ import {
 
 import { Container } from "react-bootstrap";
 
-function BarChartViz() {
+function BarChartViz({ data }) {
 
-    const data = [
-        {
-            "name": "ESG Rating",
-            "E Rating": 600,
-            "S Rating": 700,
-            "G Rating": 200
-        }
-    ]
+    // const data = [
+    //     {
+    //         "name": "ESG Rating",
+    //         "E Rating": 600,
+    //         "S Rating": 700,
+    //         "G Rating": 200
+    //     }
+    // ]
 
     return (
         <>
@@ -29,17 +29,11 @@ function BarChartViz() {
                     <BarChart width={700} height={100} data={data}>
                     <Legend layout="vertical" verticalAlign="middle" align="right" />
                         <XAxis dataKey="name" stroke="false" hide="true"/>
-                        <YAxis stroke="false" 
+                        <YAxis dataKey="value" stroke="false" 
                         />
                         <Legend />
-                        <Bar dataKey="E Rating" fill="#00C49F">
-                        <LabelList dataKey="E Rating" position="top" />
-                        </Bar>
-                        <Bar dataKey="S Rating" fill="#FFBB28">
-                        <LabelList dataKey="S Rating" position="top" />
-                        </Bar>
-                        <Bar dataKey="G Rating" fill="#FF8042">
-                        <LabelList dataKey="G Rating" position="top" />
+                        <Bar dataKey="value" fill="#00C49F">
+                        <LabelList dataKey="name" position="bottom" />
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

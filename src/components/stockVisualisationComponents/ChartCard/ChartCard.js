@@ -68,7 +68,7 @@ const ChartCard = ({ title, data }) => {
                             </Dropdown.Menu>
                         </Dropdown>
                     {/* show component on click */}
-                    {isShownBarChart && <BarChartViz/>}
+                    {isShownBarChart && <BarChartViz data={data}/>}
                     {isShownPieChart && <PieChartViz data={data}/>}
                     {isShownRadarChart && <RadarChartViz data={data}/>}
                 </Container>

@@ -23,12 +23,9 @@ function StockPage() {
     const [error, setError] = useState("");
 
     const esgData = [
-        {
-            "name": "ESG Rating",
-            "E Rating": 600,
-            "S Rating": 700,
-            "G Rating": 200
-        }
+            { name: 'E Rating', value: 600 },
+            { name: 'S Rating', value: 700 },
+            { name: 'G Rating', value: 200 }
     ]
 
     const newsSentimentData = [

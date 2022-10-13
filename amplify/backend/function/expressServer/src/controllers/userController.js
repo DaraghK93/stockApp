@@ -12,8 +12,7 @@ const registerUser = async (req, res, next) => {
  
   
   try {
-    // Need some validation here, although it's already on the frontend and in the models
-    /// Parse the body *NEED VALIDATION FOR NULLS HERE***
+    // Parse the body 
     const {
       firstname,
       lastname,
@@ -23,6 +22,19 @@ const registerUser = async (req, res, next) => {
       dob,
       location,
     } = req.body; 
+  
+    // check for nulls. all fields must be filled
+    if(typeof firstname ==='undefined' || typeof lastname === 'undefined' || typeof email === 'undefined'
+     || typeof username ==='undefined' || typeof password ==='undefined' || typeof dob ==='undefined' 
+     || typeof location ==='undefined' )
+      
+     {
+      // data is missing bad request 
+      res.status(400);
+      res.errormessage ="All details are needed for a user to register";
+      return next(new Error("The client has not sent the required information to register the user"));
+    }
+
     let user = await User.findOne({ email });
 
     // Check for existing user 
@@ -32,7 +44,7 @@ const registerUser = async (req, res, next) => {
       return next(new Error('User already exists'));
     }
 
-    /// Create a ne user 
+    // Create a new user 
     user = new User({
       firstname,
       lastname,
@@ -46,6 +58,7 @@ const registerUser = async (req, res, next) => {
     /// Hash the password ///
     let salt      = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
+
     // Save user in DB 
     await user.save();
     const payload = {
@@ -83,11 +96,18 @@ const registerUser = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
+  // ensure they added email and password
+  if(typeof email ==='undefined' || typeof password === 'undefined'){
+    // data is missing 
+    res.status(400);
+    res.errormessage ="An email and password is required to login";
+    return next(new Error("The client has not sent the required email and password information")); }
+
   try {
     let user = await User.findOne({ email });
 
     if (!user) {
-      res.status(400);
+      res.status(404);
       res.errormessage = 'Invalid credentials';
       return next(new Error('Invalid credentials'));
     }

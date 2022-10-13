@@ -155,13 +155,13 @@ const getOneMonthStockData = async (req, res, next) => {
     date_range = getDatesInRange(d1, d2);
 
     // create an object for the prices (similar to python dictionary)
-    const prices_month = {}
+    const prices_month = []
 
     // loop through the date range list and extract the data
     for (var i = 0; i < date_range.length; i++) { 
       // the format of the data keys is "YYYY-MM-DDT20:00:00"
       if(typeof(monthly_prices[date_range[i]+"T20:00:00"]) != 'undefined'){
-        prices_month[date_range[i]]= monthly_prices[date_range[i]+"T20:00:00"]["4. close"] }}
+        prices_month.push({"date": date_range[i], "price": monthly_prices[date_range[i]+"T20:00:00"]["4. close"] })}}
     res.json(prices_month);
   } catch (err) {
     console.error(err.message);
@@ -219,13 +219,13 @@ const getOneYearStockData = async (req, res, next) => {
     date_range = getDatesInRange(d1, d2);
 
     // create an object for the prices (similar to python dictionary)
-    const prices_year = {}
+    const prices_year = []
 
     // loop through the date range list and extract the data
     for (var i = 0; i < date_range.length; i++) { 
       // the format of the data keys is "YYYY-MM-DDT20:00:00"
       if(typeof(yearly_prices[date_range[i]+"T20:00:00"]) != 'undefined'){
-        prices_year[date_range[i]]= yearly_prices[date_range[i]+"T20:00:00"]["4. close"] }}
+        prices_year.push({"date": date_range[i], "price": yearly_prices[date_range[i]+"T20:00:00"]["4. close"] })}}
     res.json(prices_year);
   } catch (err) {
     console.error(err.message);

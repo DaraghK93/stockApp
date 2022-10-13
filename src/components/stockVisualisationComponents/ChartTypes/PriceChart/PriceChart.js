@@ -58,7 +58,10 @@ function StockPriceChart() {
                     <Row>
                         <ResponsiveContainer width="100%" height={400} margin={100}>
                             <AreaChart width="100%" height={250} data={data}
-                                margin={{ top: 10, right: 30, left: 20, bottom: 30 }}>
+                                margin={{ top: 10, 
+                                right: 30, 
+                                left: -25, 
+                                bottom: 30 }}>
                                 <defs>
                                     <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
                                         <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />

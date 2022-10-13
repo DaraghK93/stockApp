@@ -10,16 +10,32 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, PureComponent } from "react";
 
 /// API ///
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
 
+
+class CustomizedAxisTick extends PureComponent {
+    render() {
+        const { x, y, stroke, payload } = this.props;
+
+        return (
+            <g transform={`translate(${x},${y})`}>
+                <text x={0} y={0} dy={16} textAnchor="end" fontSize={1} fill="#ffffff" transform="rotate(-35)">
+                    {payload.value}
+                </text>
+            </g>
+        );
+    }
+}
+
 function StockPriceChart({ symbol }) {
 
     const [loading, setLoading] = useState(true);
     const [oneMonthPrices, setOneMonthPrices] = useState();
+    const [oneYearPrices, setOneYearPrices] = useState();
     const [error, setError] = useState("");
 
 
@@ -35,11 +51,10 @@ function StockPriceChart({ symbol }) {
                 let path = `/api/stock/OneYearStockData/${symbol}`
                 // Send the request with API package
                 const res = await API.get(APIName, path);
-
-                Object.keys(res).forEach(function(el){
-                    res[el] = parseFloat(res[el])
-                  });
-                setOneMonthPrices(res);
+                let path2 = `/api/stock/OneMonthStockData/${symbol}`
+                const res2 = await API.get(APIName, path2);
+                setOneYearPrices(res);
+                setOneMonthPrices(res2);
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -52,26 +67,12 @@ function StockPriceChart({ symbol }) {
         getOneMonthPrices();
     }, [])
 
-    const month = [
-        { name: 'month', price: 100 },
-        { name: 'month', price: 500 },
-        { name: 'month', price: 60 },
-        { name: 'month', price: 700 },
-        { name: 'month', price: 800 }]
-
     const day = [
-        { name: '2022-01-10', price: 400 },
-        { name: '2022-01-11', price: 700 },
-        { name: '2022-01-12', price: 60 },
-        { name: '2022-01-13', price: 700 },
-        { name: '2022-01-1', price: 500 }]
-
-    const year = [
-        { name: '2017', price: 400 },
-        { name: '2018', price: 10 },
-        { name: '2019', price: 60 },
-        { name: '2020', price: 700 },
-        { name: '2021', price: 100 }]
+        { date: '2022-01-10', price: 400 },
+        { date: '2022-01-11', price: 700 },
+        { date: '2022-01-12', price: 60 },
+        { date: '2022-01-13', price: 700 },
+        { date: '2022-01-1', price: 500 }]
 
     const DayData = event => {
         // toggle shown data
@@ -83,7 +84,7 @@ function StockPriceChart({ symbol }) {
     };
     const YearData = event => {
         // toggle shown data
-        setData(year);
+        setData(oneYearPrices);
     };
 
     const [data, setData] = useState(day);
@@ -112,11 +113,12 @@ function StockPriceChart({ symbol }) {
                                 <Legend verticalAlign="top" height={36}
                                 />
                                 <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-                                <XAxis dataKey="name"
+                                <XAxis dataKey="date"
                                     stroke="black"
+                                    // tick={<CustomizedAxisTick />}
+                                    tick={false}
                                 >
-                                    <Label value="Date" position="bottom"
-                                    /></XAxis>
+                                </XAxis>
                                 <YAxis />
                                 {/* dataKey="price"
                                     stroke="false">
@@ -129,10 +131,10 @@ function StockPriceChart({ symbol }) {
                     <Row
                         style={{
                             justifyContent: "center"
-                        }}>
+                        }}><br></br><br></br>
                         <Col style={{
                             display: "flex",
-                            justifyContent: "center"
+                            justifyContent: "center",
                         }}>
                             <span className="m-1">Filter By: </span>
                             <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>

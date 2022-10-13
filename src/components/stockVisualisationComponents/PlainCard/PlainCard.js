@@ -13,10 +13,10 @@ const PlainCard = ({ longname, symbol, logo, info }) => {
         <>
             <Card className="infoCardStyle">
                 <Container>
-                    <img src={logo} className="img-fluid" alt="Company Logo" />
+                    <img src={logo} className="img-fluid" alt="Company Logo" style={{width:"50%"}}/>
                     <h1>{longname}  <Info size={20} onClick={handleShow} /></h1>
                     <h2 style={{ fontFamily: 'Courier New' }}>{symbol}</h2>
-                    <h2>$200 sample Price</h2>
+                    <h2>$200</h2>
                     <h4>+$50 (25%)</h4>
                 </Container>
             </Card>

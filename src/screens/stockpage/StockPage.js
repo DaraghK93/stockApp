@@ -5,10 +5,12 @@
 //  This screen contains the components rendered to the user when they click on an individual stock 
 
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 import PlainCard from '../../components/stockVisualisationComponents/PlainCard/PlainCard';
+import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
+import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -51,38 +53,40 @@ function StockPage() {
     return (
 
         <>
-            <Container>
-                <Row lg={3} md={2} xs={1}>
-                    <Col className="stockInfoCol">
-                    <PlainCard 
-                    longname={stock.longname}
-                    symbol={stock.symbol}
-                    logo={stock.logo}
-                    info={stock.longbusinesssummary}
-                    />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <StockPriceChart />
-                    </Col>
-                </Row>
-                <Row lg={3} md={2} xs={1}>
-                    <Col sm md={8} className="stockInfoCol">
-                        <ChartCard title={"ESG Rating"} />
-                    </Col>
-                    <Col sm md={8} className="stockInfoCol">
-                        <ChartCard title={"News Sentiment"} />
-                    </Col>
-                    <Col sm md={8} className="stockInfoCol">
-                        <ChartCard title={"Twitter Sentiment"} />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col sm md={8} className="stockInfoCol">
-                    </Col>
-                </Row>
-            </Container>
+            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+                <Container>
+                    <Row lg={3} md={2} xs={1}>
+                        <Col className="stockInfoCol">
+                            <PlainCard
+                                longname={stock.longname}
+                                symbol={stock.symbol}
+                                logo={stock.logo}
+                                info={stock.longbusinesssummary}
+                            />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <StockPriceChart />
+                        </Col>
+                    </Row>
+                    <Row lg={3} md={2} xs={1}>
+                        <Col sm md={8} className="stockInfoCol">
+                            <ChartCard title={"ESG Rating"} />
+                        </Col>
+                        <Col sm md={8} className="stockInfoCol">
+                            <ChartCard title={"News Sentiment"} />
+                        </Col>
+                        <Col sm md={8} className="stockInfoCol">
+                            <ChartCard title={"Twitter Sentiment"} />
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col sm md={8} className="stockInfoCol">
+                        </Col>
+                    </Row>
+                </Container>
+            }
         </>
     )
 };

@@ -6,7 +6,6 @@ import {
     YAxis,
     Label,
     CartesianGrid,
-    Tooltip,
     ResponsiveContainer,
 } from "recharts";
 
@@ -53,11 +52,12 @@ function StockPriceChart() {
         setData(year);
     };
 
-
     useEffect(() => {
         //set data as daily data on loading card
         setData(day);
-    }, []); 
+    }, [
+        // day
+    ]);
 
     return (
         <>
@@ -85,7 +85,6 @@ function StockPriceChart() {
                                 <YAxis dataKey="price"
                                     stroke="false"
                                 />
-                                {/* <Tooltip /> */}
                                 <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                             </AreaChart>
                         </ResponsiveContainer>
@@ -93,15 +92,19 @@ function StockPriceChart() {
                     <Row>
                         <span>Filter By: </span>
                     </Row>
-                    <Row style={{ display: "flex", justifyContent: "center" }}>
-                        <Col xs={3}>
-                            <Button className="btn btn-primary btn-sm" onClick={DayData}>Day</Button>
-                        </Col>
-                        <Col xs={3}>
-                            <Button className="btn btn-primary btn-sm" onClick={MonthData}>Month</Button>
-                        </Col>
-                        <Col xs={3}>
-                            <Button className="btn btn-primary btn-sm" onClick={YearData}>Year</Button>
+                    <Row
+                        style={{
+                            justifyContent: "center"
+                        }}>
+                        <Col style={{
+                            display: "flex",
+                            justifyContent: "center"
+                        }}>
+                            <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>
+
+                            <Button className="btn btn-primary btn-sm m-1" onClick={MonthData}>Month</Button>
+
+                            <Button className="btn btn-primary btn-sm m-1" onClick={YearData}>Year</Button>
                         </Col>
                     </Row>
                 </Container>

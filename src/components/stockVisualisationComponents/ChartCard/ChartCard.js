@@ -1,4 +1,4 @@
-import { Container, Dropdown, Card, Button } from "react-bootstrap";
+import { Container, Dropdown, Card } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
@@ -14,16 +14,17 @@ const ChartCard = ({ title }) => {
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
 
     useEffect(() => {
-        if (String(title) == "ESG Rating") {
+
+        if (String(title) === "ESG Rating") {
             setIsShownBarChart(true);
         }
-        else if (String(title) == "News Sentiment") {
+        else if (String(title) === "News Sentiment") {
             setIsShownPieChart(true);
         }
-        if (String(title) == "Twitter Sentiment") {
+        else if (String(title) === "Twitter Sentiment") {
             setIsShownRadarChart(true);
         }
-    }, []); // <-- empty dependancies array
+    }, [title]); // <-- empty dependancies array
 
 
     const showBarChart = event => {
@@ -52,12 +53,7 @@ const ChartCard = ({ title }) => {
             <Card className="infoCardStyle">
                 <Container>
                     <h2>{title}  <Info size={20}/></h2>
-                        <Dropdown 
-                    //     style={{
-                    //         float:"right"
-                    //         , position:"relative"
-                    // }}
-                        >
+                        <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                 Graph Type
                             </Dropdown.Toggle>

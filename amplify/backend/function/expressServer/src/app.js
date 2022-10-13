@@ -38,6 +38,7 @@ app.use(function (req, res, next) {
 app.use('/api/user', require('./routes/userRoutes'));
 app.use('/api/stock', require('./routes/stockRoutes'));
 app.use('/api/tweet', require('./routes/tweetRoutes'));
+app.use('/api/newsarticles',require('./routes/newsArticleRoutes'));
 
 
 // Custom Middleware here

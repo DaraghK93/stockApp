@@ -103,15 +103,15 @@ function StockPage() {
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        {/* <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"ESG Rating"} />
-                        </Col> */}
+                        <Col sm md={8} className="stockInfoCol">
+                            <ChartCard title={"ESG Rating"} data={esgData}/>
+                        </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />
                         </Col>
-                        {/* <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"Twitter Sentiment"} />
-                        </Col> */}
+                        <Col sm md={8} className="stockInfoCol">
+                            <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData}/>
+                        </Col>
                     </Row>
                     <Row>
                         <Col sm md={8} className="stockInfoCol">

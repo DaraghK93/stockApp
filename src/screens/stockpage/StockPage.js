@@ -22,6 +22,38 @@ function StockPage() {
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
 
+    const esgData = [
+        {
+            "name": "ESG Rating",
+            "E Rating": 600,
+            "S Rating": 700,
+            "G Rating": 200
+        }
+    ]
+
+    const newsSentimentData = [
+        { name: 'Positive', value: 600 },
+        { name: 'Negative', value: 300 },
+        { name: 'Neutral', value: 100 }
+    ];
+
+    const twitterSentimentData = [
+        {
+            name: 'Positive',
+            value: 100
+        },
+        {
+            name: 'Negative',
+            value: 98
+        },
+        {
+            name: 'Neutral',
+            value: 26
+        }
+    ];
+
+
+
     useEffect(() => {
         /// getStockInfo ///
         // Description:
@@ -50,6 +82,9 @@ function StockPage() {
         getStockInfo();
     }, [])
 
+
+
+
     return (
 
         <>
@@ -71,15 +106,15 @@ function StockPage() {
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col sm md={8} className="stockInfoCol">
+                        {/* <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"ESG Rating"} />
-                        </Col>
+                        </Col> */}
                         <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"News Sentiment"} />
+                            <ChartCard title={"News Sentiment"} data={newsSentimentData} />
                         </Col>
-                        <Col sm md={8} className="stockInfoCol">
+                        {/* <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"Twitter Sentiment"} />
-                        </Col>
+                        </Col> */}
                     </Row>
                     <Row>
                         <Col sm md={8} className="stockInfoCol">

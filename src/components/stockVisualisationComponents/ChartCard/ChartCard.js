@@ -7,11 +7,15 @@ import { Info } from "react-feather"
 //TODO
 // Move dropdown to right hand side without losing functionality of button
 
-const ChartCard = ({ title }) => {
+const ChartCard = ({ title, data }) => {
 
     const [isShownBarChart, setIsShownBarChart] = useState(false);
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
+    // const [data, setData] = useState();
+
+
+    // console.log(data)
 
     useEffect(() => {
 
@@ -64,9 +68,9 @@ const ChartCard = ({ title }) => {
                             </Dropdown.Menu>
                         </Dropdown>
                     {/* show component on click */}
-                    {isShownBarChart && <BarChartViz />}
-                    {isShownPieChart && <PieChartViz />}
-                    {isShownRadarChart && <RadarChartViz />}
+                    {isShownBarChart && <BarChartViz/>}
+                    {isShownPieChart && <PieChartViz data={data}/>}
+                    {isShownRadarChart && <RadarChartViz data={data}/>}
                 </Container>
             </Card>
         </>

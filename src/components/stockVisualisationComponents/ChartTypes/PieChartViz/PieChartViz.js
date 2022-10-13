@@ -6,12 +6,7 @@ import {
     Legend
 } from "recharts";
 
-function PieChartViz() {
-    const data = [
-        { name: 'Positive', value: 600 },
-        { name: 'Negative', value: 300 },
-        { name: 'Neutral', value: 100 }
-    ];
+function PieChartViz({ data }) {
 
     const COLORS = [
         // '#0088FE', 

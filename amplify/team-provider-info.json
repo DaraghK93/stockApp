@@ -32,7 +32,8 @@
         },
         "esgDataIngress": {
           "database": "joey_test",
-          "collection": "sample_stock_data"
+          "collection": "sample_stock_data",
+          "environment": "prod"
         }
       }
     }

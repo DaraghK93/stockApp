@@ -21,6 +21,9 @@
     },
     "collection": {
       "Type": "String"
+    },
+    "environment": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -81,6 +84,9 @@
             },
             "COLLECTION": {
               "Ref": "collection"
+            },
+            "ENVIRONMENT": {
+              "Ref": "environment"
             }
           }
         },

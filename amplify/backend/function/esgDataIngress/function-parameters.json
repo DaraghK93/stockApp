@@ -8,6 +8,10 @@
     {
       "cloudFormationParameterName": "collection",
       "environmentVariableName": "COLLECTION"
+    },
+    {
+      "cloudFormationParameterName": "environment",
+      "environmentVariableName": "ENVIRONMENT"
     }
   ]
 }

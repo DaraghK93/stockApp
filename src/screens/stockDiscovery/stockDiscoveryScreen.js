@@ -12,7 +12,7 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 
 /// API ///
-import {APIName} from '../../constants/APIConstants'
+import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 function StockDiscoveryPage() {
@@ -33,7 +33,7 @@ function StockDiscoveryPage() {
                 // Set the path 
                 let path = '/api/stock'
                 // Send the request with API package
-                const res = await API.get(APIName,path)
+                const res = await API.get(APIName, path)
                 // Set the state for the stocks and loading to false 
                 setStock(res);
                 setLoading(false);
@@ -61,29 +61,16 @@ function StockDiscoveryPage() {
                     <h2>Top Movers</h2>
                     <h2>Compare Stocks</h2>
                     <h2>All Stocks</h2>
-                     <Row md={4} xs={1}>
+                    <Row md={4} xs={1}>
                         {stocks.map((stockObj) => (
-                             <Col className="py-2" key={stockObj._id}>
-                                       <TickerCard stock={stockObj} />
-                                    </Col>
+                            <Col className="py-2" key={stockObj._id}>
+                                <TickerCard stock={stockObj} />
+                            </Col>
                         ))}
-                     </Row>
+                    </Row>
                 </Container>
             }
         </>
     )
 }
-//<Row md={4} xs={1}>
-//                        {stocks.length > 0 ? (  
-//                                {stocks.map((stockObj) => (
-//                                    <Col className="py-2" key={stockObj._id}>
-//                                        <TickerCard stock={stockObj} />
-//                                    </Col>
-//                                ))}
-//                            
-//                            :<>
-//                            Error Loading stocks
-//                            </> 
-//                            </Row>)
-//                            }
 export default StockDiscoveryPage;

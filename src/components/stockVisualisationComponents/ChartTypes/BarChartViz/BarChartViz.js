@@ -4,11 +4,16 @@ import {
     XAxis,
     YAxis,
     ResponsiveContainer,
+    Cell
 } from "recharts";
 
 import { Container } from "react-bootstrap";
 
 function BarChartViz({ data }) {
+
+    const COLORS = [
+        // '#0088FE', 
+        '#00C49F', '#FFBB28', '#FF8042'];
 
     return (
         <>
@@ -18,6 +23,9 @@ function BarChartViz({ data }) {
                         <XAxis dataKey="name" stroke="false" />
                         <YAxis dataKey="value" stroke="false" />
                         <Bar dataKey="value" fill="#00C49F" label>
+                            {data.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % 20]} />
+                            ))}
                         </Bar>
                     </BarChart>
                 </ResponsiveContainer>

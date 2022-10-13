@@ -69,7 +69,30 @@ h1, .h1 {
         width: 30%;
         padding: 0.25rem;
         border-radius:25px;
-}
+    }
+    .newsArticleCardTitle{
+        font-size:70%;
+        margin-bottom:1%;
+
+    }
+    .newsArticleCardSourceandDate{
+        font-size: 55% !important;
+    }
+    .newsArticleDescription{
+        font-size:55% !important;
+    }
+    .positiveSentimentBadge{
+        font-size: 55% !important;
+    }
+
+    .negativeSentimentBadge{
+        font-size: 55% !important;
+    }
+
+    .neutralSentimentBadge{
+        font-size: 55% !important;
+    }
+
 }
 
 .newsArticleCardBody{

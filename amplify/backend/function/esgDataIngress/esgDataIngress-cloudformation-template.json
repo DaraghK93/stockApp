@@ -98,7 +98,7 @@
         },
         "Runtime": "python3.9",
         "Layers": [],
-        "Timeout": 25
+        "Timeout": 80
       }
     },
     "LambdaExecutionRole": {

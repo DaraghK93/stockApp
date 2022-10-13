@@ -100,10 +100,6 @@ function StockPage() {
                             <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />
                         </Col>
                     </Row>
-                    <Row>
-                        <Col sm md={8} className="stockInfoCol">
-                        </Col>
-                    </Row>
                 </Container>
             }
         </>

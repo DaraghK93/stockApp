@@ -15,12 +15,12 @@
       "function": {
         "expressServer": {
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
-          "s3Key": "amplify-builds/expressServer-746764634d6933773954-build.zip"
+          "s3Key": "amplify-builds/expressServer-753174514c376f647362-build.zip"
         },
         "twitterScraping": {
           "secretsPathAmplifyAppId": "d2l3aeky8jssr5",
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
-          "s3Key": "amplify-builds/twitterScraping-37527759426852516354-build.zip",
+          "s3Key": "amplify-builds/twitterScraping-395a4c30485a69633149-build.zip",
           "databasename": "test",
           "limit": "3"
         },
@@ -28,12 +28,16 @@
           "secretsPathAmplifyAppId": "d2l3aeky8jssr5",
           "environment": "prod",
           "databasename": "test",
-          "crontime": "30"
+          "crontime": "30",
+          "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+          "s3Key": "amplify-builds/newsArticleScrapingAndSentimentAnalysis-74384430423870446956-build.zip"
         },
         "esgDataIngress": {
           "environment": "prod",
           "database": "test",
-          "collection": "sample_stock_data"
+          "collection": "sample_stock_data",
+          "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+          "s3Key": "amplify-builds/esgDataIngress-5765794c526a776d7831-build.zip"
         }
       }
     }

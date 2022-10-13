@@ -61,7 +61,7 @@ const getAllTweets = async (req, res, next) => {
       return next(new Error('Tweet not found'));
     }
 
-    res.json({ tweet });
+    res.json(tweet);
   } catch (err) {
     console.error(err.message);
     res.errormessage = 'Server error';

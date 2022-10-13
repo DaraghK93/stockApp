@@ -53,10 +53,18 @@ h1, .h1 {
 }
 
 
+.newsCardContainer{
+    max-height: 40rem;
+    overflow-y: auto;
+    margin: 10px;
+    margin-bottom: 20px;
+}
+
 
 .newsArticleCard{
     flex-direction: column;
     align-items:center;
+    height: 100%;
 }
 
 @media only screen and (max-width: 600px){
@@ -64,7 +72,7 @@ h1, .h1 {
         flex-direction: row;
     }
     .newsArticleCardImage{
-        height: 100%;
+        height: 30%;
         align-items:center;
         width: 30%;
         padding: 0.25rem;

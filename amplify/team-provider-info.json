@@ -31,9 +31,9 @@
           "crontime": "30"
         },
         "esgDataIngress": {
-          "database": "joey_test",
-          "collection": "sample_stock_data",
-          "environment": "prod"
+          "environment": "prod",
+          "database": "test",
+          "collection": "sample_stock_data"
         }
       }
     }

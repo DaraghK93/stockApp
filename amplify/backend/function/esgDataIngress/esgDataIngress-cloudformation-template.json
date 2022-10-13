@@ -16,13 +16,13 @@
     "s3Key": {
       "Type": "String"
     },
+    "environment": {
+      "Type": "String"
+    },
     "database": {
       "Type": "String"
     },
     "collection": {
-      "Type": "String"
-    },
-    "environment": {
       "Type": "String"
     }
   },
@@ -79,14 +79,14 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
+            "ENVIRONMENT": {
+              "Ref": "environment"
+            },
             "DATABASE": {
               "Ref": "database"
             },
             "COLLECTION": {
               "Ref": "collection"
-            },
-            "ENVIRONMENT": {
-              "Ref": "environment"
             }
           }
         },

@@ -83,14 +83,12 @@ function StockPriceChart() {
                                     <Label value="Date" position="bottom"
                                     /></XAxis>
                                 <YAxis dataKey="price"
-                                    stroke="false"
-                                />
+                                    stroke="false">
+                                        <Label value="Price $" position="left" angle="-90"></Label>
+                                </YAxis>
                                 <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                             </AreaChart>
                         </ResponsiveContainer>
-                    </Row>
-                    <Row>
-                        <span>Filter By: </span>
                     </Row>
                     <Row
                         style={{
@@ -100,6 +98,7 @@ function StockPriceChart() {
                             display: "flex",
                             justifyContent: "center"
                         }}>
+                            <span className = "m-1">Filter By: </span>
                             <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>
 
                             <Button className="btn btn-primary btn-sm m-1" onClick={MonthData}>Month</Button>

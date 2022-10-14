@@ -4,13 +4,14 @@ import {
     Area,
     XAxis,
     YAxis,
-    Label,
     CartesianGrid,
     ResponsiveContainer,
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
+import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
+import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 
 /// API ///
 import { APIName } from "../../../../constants/APIConstants";
@@ -20,6 +21,7 @@ function StockPriceChart({ symbol }) {
 
     const [loading, setLoading] = useState(true);
     const [oneMonthPrices, setOneMonthPrices] = useState();
+    const [oneYearPrices, setOneYearPrices] = useState();
     const [error, setError] = useState("");
 
 
@@ -35,11 +37,10 @@ function StockPriceChart({ symbol }) {
                 let path = `/api/stock/OneYearStockData/${symbol}`
                 // Send the request with API package
                 const res = await API.get(APIName, path);
-
-                Object.keys(res).forEach(function(el){
-                    res[el] = parseFloat(res[el])
-                  });
-                setOneMonthPrices(res);
+                let path2 = `/api/stock/OneMonthStockData/${symbol}`
+                const res2 = await API.get(APIName, path2);
+                setOneYearPrices(res);
+                setOneMonthPrices(res2);
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -50,14 +51,14 @@ function StockPriceChart({ symbol }) {
             }
         }
         getOneMonthPrices();
-    }, [])
+    }, [symbol])
 
     const day = [
-        { name: '2022-01-10', price: 400 },
-        { name: '2022-01-11', price: 700 },
-        { name: '2022-01-12', price: 60 },
-        { name: '2022-01-13', price: 700 },
-        { name: '2022-01-1', price: 500 }]
+        { date: '2022-01-10', price: 400 },
+        { date: '2022-01-11', price: 700 },
+        { date: '2022-01-12', price: 60 },
+        { date: '2022-01-13', price: 700 },
+        { date: '2022-01-1', price: 500 }]
 
     const DayData = event => {
         // toggle shown data
@@ -69,7 +70,7 @@ function StockPriceChart({ symbol }) {
     };
     const YearData = event => {
         // toggle shown data
-        setData(year);
+        setData(oneYearPrices);
     };
 
     const [data, setData] = useState(day);
@@ -81,44 +82,47 @@ function StockPriceChart({ symbol }) {
                 <Container>
                     <h2>Price Chart</h2>
                     <Row>
-                        <ResponsiveContainer width="100%" height={400} margin={100}>
-                            <AreaChart width="100%" height={250} data={data}
-                                margin={{
-                                    top: 10,
-                                    right: 30,
-                                    left: -25,
-                                    bottom: 30
-                                }}>
-                                <defs>
-                                    <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                        <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
-                                        <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
-                                    </linearGradient>
-                                </defs>
-                                <Legend verticalAlign="top" height={36}
-                                />
-                                <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-                                <XAxis dataKey="name"
-                                    stroke="black"
-                                >
-                                    <Label value="Date" position="bottom"
-                                    /></XAxis>
-                                <YAxis />
-                                {/* dataKey="price"
+                        {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+                            <ResponsiveContainer width="100%" height={400} margin={100}>
+                                <AreaChart width="100%" height={250} data={data}
+                                    margin={{
+                                        top: 10,
+                                        right: 30,
+                                        left: -25,
+                                        bottom: 30
+                                    }}>
+                                    <defs>
+                                        <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
+                                            <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
+                                    <Legend verticalAlign="top" height={36}
+                                    />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
+                                    <XAxis dataKey="date"
+                                        stroke="black"
+                                        // tick={<CustomizedAxisTick />}
+                                        tick={false}
+                                    >
+                                    </XAxis>
+                                    <YAxis />
+                                    {/* dataKey="price"
                                     stroke="false">
                                     <Label value="Price $" position="left" angle="-90"></Label>
                                 </YAxis> */}
-                                <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
-                            </AreaChart>
-                        </ResponsiveContainer>
+                                    <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        }
                     </Row>
                     <Row
                         style={{
                             justifyContent: "center"
-                        }}>
+                        }}><br></br><br></br>
                         <Col style={{
                             display: "flex",
-                            justifyContent: "center"
+                            justifyContent: "center",
                         }}>
                             <span className="m-1">Filter By: </span>
                             <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>

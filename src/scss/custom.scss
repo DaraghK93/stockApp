@@ -59,8 +59,8 @@ h1, .h1 {
     align-items: center;
     flex-direction: row; 
     height: 100%;
+    cursor: pointer; 
 }
-
 
 .newsArticleCardImage{
         width: 100%;
@@ -73,6 +73,12 @@ h1, .h1 {
 .newsArticleCardSourceandDate{
     font-weight: lighter;
 }
+
+.newsArticleCardModalImage{
+    height: 25rem;
+}
+
+
 
 @media only screen and (max-width: 600px){
     .newsArticleCard{
@@ -106,8 +112,13 @@ h1, .h1 {
     .neutralSentimentBadge{
         font-size: 0.65rem !important;
     }
-
+    .newsArticleCardModalImage{
+        height: 12rem;
+    }
 }
+
+
+
 
 /* ***************************** News Article Card Container ***************************** */
 

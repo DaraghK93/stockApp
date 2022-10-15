@@ -14,7 +14,6 @@ from pymongo.errors import DuplicateKeyError
 from datetime import datetime
 from datetime import timedelta
 from time import mktime
-from pprint import pprint
 from bs4 import  BeautifulSoup
 
 ### Directory Setup ###

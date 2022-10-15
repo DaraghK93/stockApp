@@ -53,38 +53,30 @@ h1, .h1 {
 }
 
 
-.newsCardContainer{
-    max-height: 40rem;
-    overflow-y: auto;
-    margin: 10px;
-    margin-bottom: 20px;
-}
 
-
+/* ***************************** News Article Card ***************************** */
 .newsArticleCard{
     flex-direction: column;
-    align-items:center;
-    height: 100%;
+    align-items: center;
 }
 
 @media only screen and (max-width: 600px){
     .newsArticleCard{
-        flex-direction: row;
+        flex-direction: row; 
+        min-height: 30vw;
     }
     .newsArticleCardImage{
-        height: 30%;
-        align-items:center;
-        width: 30%;
-        padding: 0.25rem;
-        border-radius:25px;
+        width: 30vw;
+        height: 30vw;
+        border-radius: 10%;
+        padding: 0.4rem;
     }
     .newsArticleCardTitle{
-        font-size:70%;
-        margin-bottom:1%;
+        font-size: 0.75rem;
 
     }
     .newsArticleCardSourceandDate{
-        font-size: 55% !important;
+        font-size: 0.5rem !important;
     }
     .newsArticleDescription{
         font-size:55% !important;
@@ -103,22 +95,14 @@ h1, .h1 {
 
 }
 
-.newsArticleCardBody{
-    align-items:center
-}
 
-.newsArticleCardTitle{
-    font-weight:bold
-}
 
-.newsArticleCardSourceandDate{
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 85%;
-}
-
-.newsArticleDescription{
-    font-size: 90%;
+/* ***************************** News Article Card Container ***************************** */
+.newsCardContainer{
+    max-height: 40rem;
+    overflow-y: auto;
+    margin: 10px;
+    margin-bottom: 20px;
 }
 
 
@@ -135,7 +119,6 @@ h1, .h1 {
 }
 
 .neutralSentimentBadge{
-    margin-bottom:2%;
     font-size: 85%;
     background-color:#FFA500 !important;
 }

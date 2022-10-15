@@ -1,4 +1,4 @@
-import {Card} from 'react-bootstrap'
+import {Card,Row,Col,Button} from 'react-bootstrap'
 
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge';
 
@@ -14,8 +14,9 @@ function NewsArticleCard({article}){
             className='newsArticleCardImage'
             variant="top" 
             src={article.image}/>
+        
           <Card.Body
-            className='newsArticleCardBody'
+            className=''
           >
              <Card.Title
                 className='newsArticleCardTitle'
@@ -26,14 +27,32 @@ function NewsArticleCard({article}){
             >
                 {article.source} • {article.pubDate}
             </Card.Text>
-            <Card.Text
-                className='newsArticleDescription'
-            >
-                {article.description} 
-            </Card.Text>
           </Card.Body>
         </Card>
+
     )
 }
 
 export default NewsArticleCard;
+
+
+//        <Card className="">
+//<Card.Img 
+//            className='col-md-4'
+//            variant="top" 
+//            src={article.image}/>
+//        
+//          <Card.Body
+//            className=''
+//          >
+//             <Card.Title
+//                className='newsArticleCardTitle'
+//            >{article.headline}</Card.Title>
+//            <SentimentBadge sentiment={article.sentiment}/>
+//            <Card.Text
+//                className='newsArticleCardSourceandDate'
+//            >
+//                {article.source} • {article.pubDate}
+//            </Card.Text>
+//          </Card.Body>
+//        </Card>

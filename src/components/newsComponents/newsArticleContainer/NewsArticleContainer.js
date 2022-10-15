@@ -17,9 +17,9 @@ function NewsArticleContainer({symbol,shortname,longname}){
     const [error, setError] = useState("");
 
     useEffect(() => {
-        /// getStockInfo ///
+        /// getArticles ///
         // Description:
-        //  Makes a GET request to the backend route /stock/:symbol
+        //  Makes a GET request to the backend route GET /api/newsarticles
         const getStockInfo = async () => {
             try {
                 // Request is being sent set loading true 
@@ -45,14 +45,14 @@ function NewsArticleContainer({symbol,shortname,longname}){
     }, [symbol,longname,shortname])
 
 
-
-
     return(
-        <>
-       
-        {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-        
-        <Row xs={1} md={4}>
+        <Card id="newsCardContainer" className="newsCardContainer">
+
+        <Card.Body className="newsCardContainerBody">
+             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+             <>
+            <h2>News Feed</h2>
+             <Row xs={1} md={1}>
             {articles.map((article) => (
                         <Col className='pb-3'>
                             <NewsArticleCard article={article}/>
@@ -60,7 +60,12 @@ function NewsArticleContainer({symbol,shortname,longname}){
                                 
                             ))}
         </Row>
-        }   </>
+             </>
+        
+        }   
+        </Card.Body>
+       
+        </Card>
     )
 }
 

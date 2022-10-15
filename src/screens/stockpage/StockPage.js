@@ -103,7 +103,15 @@ function StockPage() {
                             <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />
                         </Col>
                     </Row>
-                    <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname}/>
+                    <Row md={2} xs={1}>
+                         <Col className="stockInfoCol">
+                            <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname}/>
+                        </Col>
+                        <Col className="stockInfoCol">
+                            {/*THINK THE TWITTER FEED WOULD WORK WELL HERE*/}
+                        </Col>
+                    </Row>
+                    
                 </Container>
             }
         </>

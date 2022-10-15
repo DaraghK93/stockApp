@@ -1,6 +1,7 @@
-import {Card,Row,Col,Button} from 'react-bootstrap'
+import {Card,ListGroup} from 'react-bootstrap'
 
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge';
+import moment from "moment";
 
 
 /// NewsArticleCard ///
@@ -16,18 +17,22 @@ function NewsArticleCard({article}){
             src={article.image}/>
         
           <Card.Body
+            style={{display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}
             className=''
           >
              <Card.Title
                 className='newsArticleCardTitle'
             >{article.headline}</Card.Title>
-            <SentimentBadge sentiment={article.sentiment}/>
-            <Card.Text
-                className='newsArticleCardSourceandDate'
-            >
-                {article.source} • {article.pubDate}
-            </Card.Text>
+            <ListGroup className="list-group-flush">
+                <ListGroup.Item> <SentimentBadge sentiment={article.sentiment}/></ListGroup.Item>
+                <ListGroup.Item><Card.Text className='newsArticleCardSourceandDate'>
+                {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
+            </Card.Text></ListGroup.Item>
+            </ListGroup>
           </Card.Body>
+
+
+          
         </Card>
 
     )

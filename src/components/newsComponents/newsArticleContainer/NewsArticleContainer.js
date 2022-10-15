@@ -1,4 +1,4 @@
-import {Row,Col} from 'react-bootstrap'
+import {Row,Col,Card} from 'react-bootstrap'
 import { useState, useEffect } from 'react';
 import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
@@ -51,17 +51,16 @@ function NewsArticleContainer({symbol,shortname,longname}){
         <>
        
         {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-        <Row xs={1} md={4}>
-        {articles.map((article) => (
-                    <Col className='pb-3'>
-                        <NewsArticleCard article={article}/>
-                    </Col>                        
-                            
-                        ))}
-        </Row>
-        }  
         
-         </>
+        <Row xs={1} md={4}>
+            {articles.map((article) => (
+                        <Col className='pb-3'>
+                            <NewsArticleCard article={article}/>
+                        </Col>                        
+                                
+                            ))}
+        </Row>
+        }   </>
     )
 }
 

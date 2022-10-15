@@ -14,6 +14,8 @@ from pymongo.errors import DuplicateKeyError
 from datetime import datetime
 from datetime import timedelta
 from time import mktime
+from pprint import pprint
+from bs4 import  BeautifulSoup
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running 
@@ -130,6 +132,31 @@ def checkArticleFormat(article):
         return False
 
 
+def getReutersDescription(html):
+    """
+    Description:
+        Reuters use two HTML paragraphs for there description. 
+        Needs further processing as dont want <p> tags in database only plain text.
+
+    Args:
+        html (string): The string conataing an article description with 2 <p> tags. 
+
+    Returns:
+        description(string): The plain text description for a reuters article with no html tags. 
+    """
+    try:
+        # Parse the html 
+        soup = BeautifulSoup(html,features="html.parser")
+        # Find all the p tags 
+        tags = soup.find_all('p')
+        # Get the second HTML p tag, format it as plain text.
+        description = tags[1].get_text()
+        return description
+    except Exception as e:
+        print(f'ERROR:Occured in the removeHTMLTagsReutersDescription function.\nException Details:\n\t{e}')
+        return
+
+
 def getArticles(feed): 
     """
     Description:
@@ -161,6 +188,9 @@ def getArticles(feed):
                     link = article.link 
                     # Get the description 
                     description = article.description
+                    # Reuters format there description in multiple HTML tags, needs further processing 
+                    if feed["Source"] == "Reuters" and article.summary_detail.type =="text/html":
+                        description = getReutersDescription(description)
                     # Append article object to articles TODO - Change the hardcoded sentiment, will be updated next week when sentiment due 
                     articles.append({"headline":headline,"source":feed['Source'],"link":link,"category":feed['Category'],"description":description,"image":image,"pubDate":parsedPubDate,"sentiment":"Neutral"})
         return articles

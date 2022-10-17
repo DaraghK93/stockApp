@@ -1,14 +1,20 @@
 # Dataset One - Aspect based Sentiment Analysis for Financial News
-This dataset was obtained from Kaggle [here](https://www.kaggle.com/datasets/ankurzing/aspect-based-sentiment-analysis-for-financial-news)
+## Description
+This dataset is targeted towards the problem of having multiple subtopics within a financial news headline with each topic having a different topic. The dataset labels the sentiment of the news headline by topic for example in one headline Tesla can have a positive sentiment and Microsoft a negative sentiment.
 
-## Kaggle Description 
-Fine-grained financial sentiment analysis on news headlines is a challenging task requiring human-annotated datasets to achieve high performance. Limited studies have tried to address the sentiment extraction task in a setting where multiple entities are present in a news headline. In an effort to further research in this area, we make publicly available SEntFiN 1.0, a human-annotated dataset of 10,700+ news headlines with entity-sentiment annotations, of which 2,800+ headlines contain multiple entities, often with conflicting sentiments.
+## Source of Data
+Obtained from Kaggle [here](https://www.kaggle.com/datasets/ankurzing/aspect-based-sentiment-analysis-for-financial-news)
+
+## Number of Records
+10,700+ records of which 2800+ contain multiple topics. There are 4100+ positive entries, 3200+ negative entries and 4500+ neutral entries. 
 
 ## Features 
-1. ***S No.*** - A unique serial number for the record.
-2. ***Title*** - A financial headline. 
-3. ***Decisions*** - Dictionary where the key is the finacial entity and the value is the sentiment. 
-4. ***Words*** - The number of words in the news headline. 
+| Feature Name       | Type  | Range     | Description  |
+| ----------- | ----------- | ----------- | ----------- |
+| S No       | Int       | 1-10754      | Unique serial number for article       |
+| Title   | String        | NA     | The headline of the article. |
+| Decisions   | Dictionary were the key is the topic and value is the sentiment.          | Positive, Negative, Neutral for sentiment     | Label used for supervised learning to train model for sentiment analysis.        |
+| Words   | Integer | 3 to 23   | The number of words in the news headline.  |
 
 ## Acknowledgements
 Sinha, A., Kedas, S., Kumar, R., & Malo, P. (2022). SEntFiN 1.0: Entity‐aware sentiment analysis for financial news. Journal of the Association for Information Science and Technology.

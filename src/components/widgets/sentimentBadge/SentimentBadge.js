@@ -3,7 +3,8 @@ import {Badge} from "react-bootstrap";
 /// SentimentBadge ///
 //  Passed to it is the sentiment of positive, Neutral or Negative
 //  Returned is a badge which changes colour depedning upon sentiment
-function SentimentBadge({sentiment}){
+function SentimentBadge({sentiment,customStyle}){
+    console.log(customStyle)
     /// Decide the class value 
     //      If this this not resolve to a value then badge cmponent will resolve to default bootsrap class 
     let classVal = ''
@@ -15,7 +16,7 @@ function SentimentBadge({sentiment}){
         classVal = 'negativeSentimentBadge'
     }
     return(
-        <Badge className={classVal}>{sentiment}</Badge>
+        <Badge style={customStyle} className={classVal}>{sentiment}</Badge>
     )
 }
 

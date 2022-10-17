@@ -26,12 +26,13 @@ function NewsArticleCard({article}){
              <Card.Title
                 className='newsArticleCardTitle'
             >{article.headline}</Card.Title>
-            <ListGroup className="list-group-flush">
                 <ListGroup.Item> <SentimentBadge sentiment={article.sentiment}/></ListGroup.Item>
-                <ListGroup.Item><Card.Text className='newsArticleCardSourceandDate'>
-                {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
-            </Card.Text></ListGroup.Item>
-            </ListGroup>
+                <ListGroup.Item>
+                    <Card.Text className='newsArticleCardSourceandDate'>
+                    {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
+                </Card.Text>
+            </ListGroup.Item>
+           
           </Card.Body>     
         </Card>
         <Modal
@@ -44,8 +45,9 @@ function NewsArticleCard({article}){
             </Modal.Header>
             <Image className="newsArticleCardModalImage" thumbnail={false} src={article.image}/>
             <Modal.Body>
+                <SentimentBadge customStyle={{fontSize:"0.80rem"}} sentiment={article.sentiment}/>
                 <p className='newsArticleCardModalInfoText'>
-                <SentimentBadge sentiment={article.sentiment}/> • {article.category} •  {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
+                {article.category} •  {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
                 </p>
                 <p>{article.description}</p>
                 <p>Access the full article <a href={article.link} target="_blank" rel="noreferrer">here</a></p>
@@ -55,6 +57,7 @@ function NewsArticleCard({article}){
         
 
     )
-}
-
+} 
+//</ListGroup>
+//<ListGroup style={{"align":"right"}} className="list-group-flush align-items-right">
 export default NewsArticleCard;

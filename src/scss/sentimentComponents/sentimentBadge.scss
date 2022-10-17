@@ -1,16 +1,20 @@
+$positiveSentiment: #32CD32;
+$negativeSentiment: #FF0000;
+$neutralSentiment: #FFA500;
+
 .positiveSentimentBadge{
     font-size: 85%;
-    background-color:#32CD32 !important;
+    background-color: $positiveSentiment !important;
 }
 
 .negativeSentimentBadge{
     font-size: 85%;
-    background-color:#FF0000 !important;
+    background-color:$negativeSentiment !important;
 }
 
 .neutralSentimentBadge{
     font-size: 85%;
-    background-color:#FFA500 !important;
+    background-color: $neutralSentiment !important;
 }
 
 @media only screen and (max-width: 600px){

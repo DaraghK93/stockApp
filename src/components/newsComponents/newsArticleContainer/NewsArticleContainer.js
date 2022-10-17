@@ -32,7 +32,6 @@ function NewsArticleContainer({symbol,shortname,longname}){
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setArticles(res);
-                setError("")
                 setLoading(false);
             } catch (error) {
                 // Log the error 

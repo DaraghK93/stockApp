@@ -1,5 +1,6 @@
 import { Container, Card } from "react-bootstrap";
-import InfoButton from "../../widgets/InfoButton/InfoButton";
+import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
+import InfoButtonHover from "../../widgets/InfoButtonHover/InfoButtonHover";
 
 const PlainCard = ({ longname, symbol, logo, info }) => {
 
@@ -12,13 +13,15 @@ const PlainCard = ({ longname, symbol, logo, info }) => {
                     <div>
                         <dl style={{ marginTop: "10px" }}>
                    
-                                <dt><h2>{longname}  
-                                <InfoButton 
+                                <dt><h2>{longname} 
+                                <br></br> 
+                                {/* <InfoButtonModal 
                                 title="Company Information"
                                 info={info}
                                 
-                                />
+                                /> */}
 
+                                <InfoButtonHover setPlacement="left"/>
                                 </h2>
                                 </dt>
                

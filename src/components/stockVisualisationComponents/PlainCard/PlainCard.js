@@ -14,14 +14,10 @@ const PlainCard = ({ longname, symbol, logo, info }) => {
                         <dl style={{ marginTop: "10px" }}>
                    
                                 <dt><h2>{longname} 
-                                <br></br> 
-                                {/* <InfoButtonModal 
+                                <InfoButtonModal 
                                 title="Company Information"
-                                info={info}
-                                
-                                /> */}
-
-                                <InfoButtonHover setPlacement="left"/>
+                                info={info} />
+                                {/* <InfoButtonHover setPlacement="left"/> */}
                                 </h2>
                                 </dt>
                

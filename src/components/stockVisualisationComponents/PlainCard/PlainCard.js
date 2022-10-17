@@ -21,8 +21,6 @@ const PlainCard = ({ longname, symbol, logo, info }) => {
                             <dt>$200</dt>
                             <dt>+$50 (25%)</dt>
                         </dl>
-             
-
                     </div>
 
                 </Container>

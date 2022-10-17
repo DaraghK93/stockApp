@@ -68,6 +68,7 @@ function StockPage() {
         getStockInfo();
     }, [])
 
+
     return (
 
         <>
@@ -85,7 +86,7 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col>
-                            <StockPriceChart />
+                            <StockPriceChart symbol={stock.symbol}/>
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
@@ -97,10 +98,6 @@ function StockPage() {
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col sm md={8} className="stockInfoCol">
                         </Col>
                     </Row>
                 </Container>

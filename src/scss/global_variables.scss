@@ -1,0 +1,28 @@
+/* README:
+
+As variables have a scope, if a variable is only used in one place, 
+they should be placed in their own separate file as below:
+
+scss/
+      globalVariables.scss
+      /sampleComponent/
+                     sampleComponent.scss
+                     sampleComponentVariables.scss 
+
+Otherwise, place them in this file and state where they are used in the app. */
+
+// Used for navbar in custom.scss
+$primary: #006195; 
+// Used for body background and text colour when on non white background in custom.scss
+$background: #ffffff;
+// Used for colouring text on white backgrounds in custom.scss
+$text-colour: #020202;
+// Used for the submit button classes in custom.scss
+$submit: #e16202;
+// Used in sentimentComponents/sentimentbadges.scss and will be extracted for graphs
+$positiveSentiment: #32CD32;
+$negativeSentiment: #FF0000;
+$neutralSentiment: #FFA500;
+
+// used in widgetsComponents/infobutten.scss for infobutton
+$info: #595959;

@@ -15,6 +15,7 @@ function NewsArticleContainer({symbol,shortname,longname}){
     const [loading, setLoading] = useState(true);
     const [articles, setArticles] = useState('');
     const [error, setError] = useState("");
+    const [infoMsg, setInfoMsg] = useState("");
 
     useEffect(() => {
         /// getArticles ///
@@ -31,7 +32,11 @@ function NewsArticleContainer({symbol,shortname,longname}){
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
-                setArticles(res);
+                if (res.length == 0){
+                    setInfoMsg(`No Articles found relating to ${shortname}`)
+                }else{
+                    setArticles(res);
+                }
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -49,7 +54,7 @@ function NewsArticleContainer({symbol,shortname,longname}){
         <Card id="newsCardContainer" className="newsCardContainer">
         <h2 className="newsCardContainerHeading">News Feed</h2>
         <Card.Body className="newsCardContainerBody">
-             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> : infoMsg ? <MessageAlert variant='info'>{infoMsg} </MessageAlert>:
              <>
              <Row xs={1} md={1}>
             {articles.map((article) => (

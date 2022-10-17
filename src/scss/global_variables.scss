@@ -1,16 +1,3 @@
-/* README:
-
-As variables have a scope, if a variable is only used in one place, 
-they should be placed in their own separate file as below:
-
-scss/
-      globalVariables.scss
-      /sampleComponent/
-                     sampleComponent.scss
-                     sampleComponentVariables.scss 
-
-Otherwise, place them in this file and state where they are used in the app. */
-
 // Used for navbar in custom.scss
 $primary: #006195; 
 // Used for body background and text colour when on non white background in custom.scss

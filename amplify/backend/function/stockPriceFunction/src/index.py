@@ -104,10 +104,10 @@ def handler(event,context):
   
   
   try:
-
-        # update the DB with the data from API
-        # db.sample_stock_data.bulk_write(data_request_current_price_change)
+        # create the array with all of the UpdateOne requests
         requests_database = create_data_request(data_current_price, time_stamp_str)
+
+        # write these requests to the Database
         collection.bulk_write(requests_database)
 
         return {

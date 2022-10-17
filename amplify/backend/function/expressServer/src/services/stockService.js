@@ -11,7 +11,7 @@ const getTopESG = (array,rating) => {
       scores.push(newobj)
     })
     //sort them and get top 20
-    scores.sort((a,b) => b.e -a.e)
+    scores.sort((a,b) => b[rating] -a[rating])
     top20Scores = scores.slice(0,20)
     
     return top20Scores

@@ -38,8 +38,8 @@ const getAllStocks = async (req, res, next) => {
     const topSocial = stockService.getTopESG(stocks,'social_score')
     const topGovernance = stockService.getTopESG(stocks,'governance_score')
  
-
-
+    const listAll = [topEnvironmental,topSocial,topGovernance]
+    res.json(listAll)
   } catch (err) {
     console.error(err.message);
     res.errormessage = 'Server error';

@@ -1,10 +1,25 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../node_modules/bootstrap/scss/variables";
 
+/* News SCSS */
+@import "./newsComponents/newsArticleCard.scss";
+@import "./newsComponents/newsArticleContainer.scss";
+
+/* Sentiment */
+@import "./sentimentComponents/sentimentBadge.scss";
+
+/* Widgets */
+/* Infobutton */
+
+@import "./widgetsComponents/infoButton.scss";
+
+
+
 $primary: #006195;
 $background: #ffffff;
 $text-colour: #020202;
 $submit: #e16202;
+
 
 body {
     background-color: $background;
@@ -53,81 +68,3 @@ h1, .h1 {
 }
 
 
-
-.newsArticleCard{
-    flex-direction: column;
-    align-items:center;
-}
-
-@media only screen and (max-width: 600px){
-    .newsArticleCard{
-        flex-direction: row;
-    }
-    .newsArticleCardImage{
-        height: 100%;
-        align-items:center;
-        width: 30%;
-        padding: 0.25rem;
-        border-radius:25px;
-    }
-    .newsArticleCardTitle{
-        font-size:70%;
-        margin-bottom:1%;
-
-    }
-    .newsArticleCardSourceandDate{
-        font-size: 55% !important;
-    }
-    .newsArticleDescription{
-        font-size:55% !important;
-    }
-    .positiveSentimentBadge{
-        font-size: 55% !important;
-    }
-
-    .negativeSentimentBadge{
-        font-size: 55% !important;
-    }
-
-    .neutralSentimentBadge{
-        font-size: 55% !important;
-    }
-
-}
-
-.newsArticleCardBody{
-    align-items:center
-}
-
-.newsArticleCardTitle{
-    font-weight:bold
-}
-
-.newsArticleCardSourceandDate{
-    font-style: normal;
-    font-weight: lighter;
-    font-size: 85%;
-}
-
-.newsArticleDescription{
-    font-size: 90%;
-}
-
-
-.positiveSentimentBadge{
-    margin-bottom:2%;
-    font-size: 85%;
-    background-color:#32CD32 !important;
-}
-
-.negativeSentimentBadge{
-    margin-bottom:2%;
-    font-size: 85%;
-    background-color:#FF0000 !important;
-}
-
-.neutralSentimentBadge{
-    margin-bottom:2%;
-    font-size: 85%;
-    background-color:#FFA500 !important;
-}

@@ -1,0 +1,14 @@
+/* ***************************** News Article Card Container ***************************** */
+.newsCardContainer{
+        max-height: 30rem;
+        margin: 10px;
+        margin-bottom: 20px;
+    }
+
+.newsCardContainerBody{
+        overflow-y: auto;
+    }
+
+.newsCardContainerHeading{
+    margin:5%;
+}

@@ -6,4 +6,4 @@ This directory contains code relating to the training of models and any data pre
 There are 2 subdirectories.
 
 1. **sentimentAnalysis** - Contains code relating to the sentiment analysis machine learning components. 
-2. **Stock Recommender System** -  Contains code related to the stock recommendation system. 
+2. **stockRecommendationSystem** -  Contains code related to the stock recommendation system. 

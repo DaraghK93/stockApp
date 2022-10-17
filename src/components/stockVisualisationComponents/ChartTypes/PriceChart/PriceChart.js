@@ -9,13 +9,28 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, PureComponent } from "react";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 
 /// API ///
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
+
+
+class CustomizedAxisTick extends PureComponent {
+    render() {
+      const { x, y, stroke, payload } = this.props;
+  
+      return (
+        <g transform={`translate(${x},${y})`}>
+          <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
+            {payload.value}
+          </text>
+        </g>
+      );
+    }
+  }
 
 function StockPriceChart({ symbol }) {
 
@@ -102,8 +117,8 @@ function StockPriceChart({ symbol }) {
                                     <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                                     <XAxis dataKey="date"
                                         stroke="black"
-                                        // tick={<CustomizedAxisTick />}
-                                        tick={false}
+                                         tick={<CustomizedAxisTick />}
+                            
                                     >
                                     </XAxis>
                                     <YAxis />

@@ -12,7 +12,7 @@ const InfoButtonModal = ({ title, info }) => {
     return (
         <>
             <sup>
-                <Info size={20} className="infobuttonStyle" onClick={handleShow}></Info>
+                <Info className="infobuttonStyle" onClick={handleShow}></Info>
             </sup>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

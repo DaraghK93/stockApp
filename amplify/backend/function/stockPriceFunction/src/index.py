@@ -1,14 +1,13 @@
 import json
 import requests
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 import pandas as pd
 from bs4 import BeautifulSoup
 import datetime
 
 client = MongoClient("mongodb+srv://joeycor:X867a684!@cluster0.xzwrimn.mongodb.net/?retryWrites=true&w=majority")
 # client = MongoClient(connection)
-db = client["test_database"]
-collection = db['test_collection']
+database = client.test
 
 def get_current_price(time_stamp):
   URL = "https://www.slickcharts.com/sp500"
@@ -34,35 +33,40 @@ def get_current_price(time_stamp):
 
   output = {}
   for i in range(0, len(data)):
-    output[data[i][2]] = {"longname": data[i][1], "symbol": data[i][2], "prices": {time_stamp: data[i][4]}, "daily_movement": data[i][5]}
+    output[data[i][2]] = data[i][4]
   return output
 
-def get_all_data(data_curr_price,  time_stamp):
-  all_data = {}
-  prices_dictionary = {}
-  for company in data_curr_price:
-    prices_dictionary[company] = {}
-  for company in data_curr_price:
-    prices_dictionary[company][time_stamp] = data_curr_price[company]['prices'][time_stamp] #["prices"][time_stamp]
+def create_data_request(data_curr_price, time_stamp):
+  # all_data = {}
+  data_request = []
+  # name = "Prices." + time_stamp
+  for i in data_curr_price:
+    if i == "BRK.B":
+      i = "BRK-B"
+    data_request.append(UpdateOne({"Symbol": i}, {'$set': {"Prices.currentprice": {"time": time_stamp, "4. close": data_curr_price[i]}}}))
 
-  for key in data_curr_price:
-    # print(prices_dictionary[key])
-    all_data[key] = {"longname": data_curr_price[key]["longname"], "symbol": data_curr_price[key]["symbol"], 
-    "prices": prices_dictionary[key],
-    "daily_movement": data_curr_price[key]["daily_movement"]}
-  # print(all_data)
-  return all_data
+  return data_request
 
 
 def handler(event,context):
   time_stamp = datetime.datetime.now()
   time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M:%S')
   data_current_price = get_current_price(time_stamp_str)
-  # data_combined = get_all_data(data_current_price, time_stamp_str)
-  # data = json.dumps(data_current_price)
-  # print(data_combined)
-  # collection.insert_one(data_combined
-  print(data_current_price)
+  x = database.sample_stock_data.find({})
+  data_request_current_price_to_timestamp = []
+  for i in x:
+    try:
+      if i["Symbol"] == "BRK.B":
+        i["Symbol"] = "BRK-B"
+      time_stamp_key = "Prices." + i["Prices"]["currentprice"]["time"]
+      print(i["Symbol"])
+      print(i["Symbol"], time_stamp_key)
+      data_request_current_price_to_timestamp.append(UpdateOne({"Symbol": i["Symbol"]}, {'$set': {time_stamp_key: i["Prices"]["currentprice"]["4. close"]}}))
+    except KeyError:
+      continue
+  database.sample_stock_data.bulk_write(data_request_current_price_to_timestamp)
+  requests_database = create_data_request(data_current_price, time_stamp_str)
+  database.sample_stock_data.bulk_write(requests_database)
 
   return {
       'statusCode': 200,
@@ -71,5 +75,5 @@ def handler(event,context):
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
       },
-      'body': json.dumps("data_current_price")
+      'body': json.dumps("HELLO")
   }

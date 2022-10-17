@@ -1,0 +1,147 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-stockapp-dev-151619-authRole",
+      "UnauthRoleArn": "arn:aws:iam::211862813211:role/amplify-stockapp-dev-151619-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::211862813211:role/amplify-stockapp-dev-151619-authRole",
+      "Region": "eu-north-1",
+      "DeploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+      "UnauthRoleName": "amplify-stockapp-dev-151619-unauthRole",
+      "StackName": "amplify-stockapp-dev-151619",
+      "StackId": "arn:aws:cloudformation:eu-north-1:211862813211:stack/amplify-stockapp-dev-151619/23863fa0-35ca-11ed-a679-0a949fa94238",
+      "AmplifyAppId": "d2l3aeky8jssr5"
+    }
+  },
+  "function": {
+    "expressServer": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "eu-north-1",
+        "Arn": "arn:aws:lambda:eu-north-1:211862813211:function:expressServer-dev",
+        "Name": "expressServer-dev",
+        "LambdaExecutionRole": "stockappLambdaRole986b7679-dev"
+      },
+      "lastPushTimeStamp": "2022-10-13T19:40:27.685Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-stockapp-dev-151619-deployment/amplify-cfn-templates/function/expressServer-cloudformation-template.json",
+        "logicalId": "functionexpressServer"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+        "s3Key": "amplify-builds/expressServer-6f7063777a54714a734a-build.zip"
+      },
+      "lastBuildTimeStamp": "2022-10-13T19:38:47.676Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-10-13T19:38:50.827Z",
+      "distZipFilename": "expressServer-6f7063777a54714a734a-build.zip",
+      "lastPushDirHash": "Cwe6ojV0Lw6zc0JIMiTaJd51kJ4="
+    },
+    "esgDataIngress": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "eu-north-1",
+        "CloudWatchEventRule": "amplify-stockapp-dev-151619-functi-CloudWatchEvent-1TSQHWHJ5I0QY",
+        "Arn": "arn:aws:lambda:eu-north-1:211862813211:function:esgDataIngress-dev",
+        "Name": "esgDataIngress-dev",
+        "LambdaExecutionRole": "stockappLambdaRole7b48d43a-dev"
+      },
+      "lastPushTimeStamp": "2022-10-13T19:40:27.685Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-stockapp-dev-151619-deployment/amplify-cfn-templates/function/esgDataIngress-cloudformation-template.json",
+        "logicalId": "functionesgDataIngress"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+        "s3Key": "amplify-builds/esgDataIngress-736b2f482b65426c6130-build.zip"
+      },
+      "lastBuildTimeStamp": "2022-10-13T19:39:07.232Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-10-13T19:39:13.153Z",
+      "distZipFilename": "esgDataIngress-736b2f482b65426c6130-build.zip",
+      "lastPushDirHash": "sk/H+eBla034DU8eHSn2M6ByTzA="
+    },
+    "newsArticleScrapingAndSentimentAnalysis": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "eu-north-1",
+        "CloudWatchEventRule": "amplify-stockapp-dev-151619-functi-CloudWatchEvent-AN3M7YIY610Y",
+        "Arn": "arn:aws:lambda:eu-north-1:211862813211:function:newsArticleScrapingAndSentimentAnalysis-dev",
+        "Name": "newsArticleScrapingAndSentimentAnalysis-dev",
+        "LambdaExecutionRole": "stockappLambdaRole246282d9-dev"
+      },
+      "lastPushTimeStamp": "2022-10-13T19:40:27.685Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-stockapp-dev-151619-deployment/amplify-cfn-templates/function/newsArticleScrapingAndSentimentAnalysis-cloudformation-template.json",
+        "logicalId": "functionnewsArticleScrapingAndSentimentAnalysis"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+        "s3Key": "amplify-builds/newsArticleScrapingAndSentimentAnalysis-74384430423870446956-build.zip"
+      },
+      "lastBuildTimeStamp": "2022-10-13T19:39:08.810Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-10-13T19:39:14.574Z",
+      "distZipFilename": "newsArticleScrapingAndSentimentAnalysis-74384430423870446956-build.zip",
+      "lastPushDirHash": "t8D0B8pDiVWb+WNQINmE74CvdC8="
+    },
+    "twitterScraping": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "output": {
+        "Region": "eu-north-1",
+        "CloudWatchEventRule": "amplify-stockapp-dev-151619-functi-CloudWatchEvent-PB0LL0FNWDSP",
+        "Arn": "arn:aws:lambda:eu-north-1:211862813211:function:twitterScraping-dev",
+        "Name": "twitterScraping-dev",
+        "LambdaExecutionRole": "stockappLambdaRole9af44378-dev"
+      },
+      "lastPushTimeStamp": "2022-10-13T19:40:27.685Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-stockapp-dev-151619-deployment/amplify-cfn-templates/function/twitterScraping-cloudformation-template.json",
+        "logicalId": "functiontwitterScraping"
+      },
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
+        "s3Key": "amplify-builds/twitterScraping-534e3856674b77417152-build.zip"
+      },
+      "lastBuildTimeStamp": "2022-10-13T19:39:16.781Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2022-10-13T19:39:24.974Z",
+      "distZipFilename": "twitterScraping-534e3856674b77417152-build.zip",
+      "lastPushDirHash": "SN8VgKwAqRym7gWcRe6Px8Jv5K8="
+    }
+  },
+  "api": {
+    "stockapi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "expressServer",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "output": {
+        "ApiName": "stockapi",
+        "RootUrl": "https://en25cblgmf.execute-api.eu-north-1.amazonaws.com/dev",
+        "ApiId": "en25cblgmf"
+      },
+      "lastPushTimeStamp": "2022-10-13T19:40:27.685Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-stockapp-dev-151619-deployment/amplify-cfn-templates/api/stockapi-cloudformation-template.json",
+        "logicalId": "apistockapi"
+      },
+      "lastPushDirHash": "RtFgA2Bf2gbTxEqc9dbh8nvY7DY="
+    }
+  }
+}

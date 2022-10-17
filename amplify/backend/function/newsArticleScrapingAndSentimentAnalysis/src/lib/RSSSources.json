@@ -55,6 +55,13 @@
    "ImageTag": "media_content",
    "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/new_york_times_logo.jpg"
  },
+  {
+   "Source": "Reuters",
+   "Topic": "Business",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
+  },
  {
    "Source": "Reuters",
    "Topic": "Deals",
@@ -64,8 +71,15 @@
  },
  {
    "Source": "Reuters",
-   "Topic": "Business",
-   "URL": "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+   "Topic": "Politics",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=political-general&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Energy Environment",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=environment&post_type=best",
    "ImageTag": "",
    "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
  },
@@ -73,6 +87,34 @@
    "Source": "Reuters",
    "Topic": "Technology",
    "URL": "https://www.reutersagency.com/feed/?best-topics=tech&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Health",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=health&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Sports",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=sports&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Media",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=lifestyle-entertainment&post_type=best",
+   "ImageTag": "",
+   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
+ },
+ {
+   "Source": "Reuters",
+   "Topic": "Human Interest",
+   "URL": "https://www.reutersagency.com/feed/?best-topics=human-interest&post_type=best",
    "ImageTag": "",
    "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/reuters_logo.png"
  },
@@ -122,6 +164,55 @@
   "Source":"CNBC",
   "Topic":"World News",
   "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100727362",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Energy Environment",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19836768",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Economy",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=20910258",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Health",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000108",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Retail",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000116",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Auto",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000101",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Media",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000110",
+  "ImageTag": "",
+  "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
+ },
+ {
+  "Source":"CNBC",
+  "Topic":"Politics",
+  "URL":"https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000113",
   "ImageTag": "",
   "DefaultImage": "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/cnbc_logo.png"
  },

@@ -10,6 +10,7 @@ src = {editable = true, path = "./src"}
 feedparser = "*"
 boto3 = "*"
 pymongo = "*"
+bs4 = "*"
 
 [requires]
 python_version = "3.9"

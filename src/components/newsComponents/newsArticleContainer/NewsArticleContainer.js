@@ -58,7 +58,7 @@ function NewsArticleContainer({symbol,shortname,longname}){
              <>
              <Row xs={1} md={1}>
             {articles.map((article) => (
-                        <Col className='pb-3'>
+                        <Col key={`${article.link}`} className='pb-3'>
                             <NewsArticleCard article={article}/>
                         </Col>                        
                             ))}

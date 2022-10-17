@@ -3,7 +3,7 @@ This directory contains code relating to the training of models and any data pre
 
 **The code in this directory will not be deployed on the cloud.**
 
-There are 2 subdirectory.
+There are 2 subdirectories.
 
-1. Sentiment Analysis - Contains code relating to the sentiment analysis machine learning components. 
-2. Stock Recommender System -  Contains code related to the stock recommendation system. 
+1. **sentimentAnalysis** - Contains code relating to the sentiment analysis machine learning components. 
+2. **Stock Recommender System** -  Contains code related to the stock recommendation system. 

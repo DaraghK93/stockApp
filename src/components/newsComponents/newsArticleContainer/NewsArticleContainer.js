@@ -32,7 +32,7 @@ function NewsArticleContainer({symbol,shortname,longname}){
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
-                if (res.length == 0){
+                if (res.length === 0){
                     setInfoMsg(`No Articles found relating to ${shortname}`)
                 }else{
                     setArticles(res);

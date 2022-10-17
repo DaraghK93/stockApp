@@ -12,7 +12,6 @@ import { useNavigate } from 'react-router-dom'
 // was installed for this.
 import 'bootstrap/dist/css/bootstrap.css'
 import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
-import CountrySelect from 'react-bootstrap-country-select'
 
 /// Widgets ///
 // Message alert. Will need to add more message alerts.
@@ -36,8 +35,6 @@ function RegistrationPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  // const [dateOfBirth, setDateOfBirth] = useState('')
-  // const [location, setLocation] = useState('')
   const [errorMessage, setErrorMessage] = useState(null)
 
   const navigate = useNavigate()
@@ -67,7 +64,6 @@ function RegistrationPage() {
           overEighteen,
         ),
       )
-      // dispatch(registerUser(firstName,lastName,email,username,password,dateOfBirth,location.name));
     }
   }
 
@@ -117,21 +113,6 @@ function RegistrationPage() {
             required
           />
         </Form.Group>
-        {/* <Form.Group className="py-2" controlId="dateOfBirth">
-          <Form.Label>Date of Birth</Form.Label>
-          <Form.Control
-            type="date"
-            placeholder="Date of Birth"
-            value={dateOfBirth}
-            onChange={(e) => setDateOfBirth(e.target.value)}
-            required
-          />
-        </Form.Group> */}
-
-        {/* <Form.Group className="py-2" controlId="country">
-          <Form.Label>Location</Form.Label>
-          <CountrySelect value={location} onChange={setLocation} required />
-        </Form.Group> */}
         <Form.Group className="py-2" controlId="username">
           <Form.Label>Username</Form.Label>
           <Form.Control
@@ -173,7 +154,6 @@ function RegistrationPage() {
             required
             onChange={(e) => {
               setoverEighteen(e.target.checked)
-              console.log(e.target.checked)
             }}
           />
         </Form.Group>

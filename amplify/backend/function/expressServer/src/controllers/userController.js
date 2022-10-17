@@ -16,9 +16,7 @@ const registerUser = async (req, res, next) => {
       email,
       username,
       password,
-      overeighteen,
-      // dob,
-      // location,
+      overeighteen
     } = req.body
 
     // check for nulls. all fields must be filled
@@ -28,9 +26,6 @@ const registerUser = async (req, res, next) => {
       typeof email === 'undefined' ||
       typeof username === 'undefined' ||
       typeof password === 'undefined'
-
-      // typeof dob === 'undefined'
-      // typeof location === 'undefined'
     ) {
       // data is missing bad request
       res.status(400)
@@ -67,8 +62,7 @@ const registerUser = async (req, res, next) => {
       username,
       email,
       password,
-      overeighteen,
-      // location,
+      overeighteen
     })
 
     /// Hash the password ///
@@ -162,7 +156,6 @@ const loginUser = async (req, res, next) => {
           email,
           username: user.username,
           dob: user.dob,
-          // location: user.location,
           image: user.image,
           bio: user.bio,
           token,
@@ -205,8 +198,6 @@ const getUserInfo = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const user = await User.findByIdAndDelete(req.user.id).select('-password')
-    console.log(req.user.id)
-    console.log('user = ' + user)
 
     if (!user) {
       res.status(404)

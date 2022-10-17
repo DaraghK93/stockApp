@@ -76,8 +76,6 @@ export function registerUser(
           username: username,
           password: password,
           overeighteen: overEighteen,
-          // dob: dob
-          // location:location
         },
       }
       //// Sent the request to backend

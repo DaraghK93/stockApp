@@ -122,10 +122,6 @@ function StockPriceChart({ symbol }) {
                                     >
                                     </XAxis>
                                     <YAxis />
-                                    {/* dataKey="price"
-                                    stroke="false">
-                                    <Label value="Price $" position="left" angle="-90"></Label>
-                                </YAxis> */}
                                     <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>

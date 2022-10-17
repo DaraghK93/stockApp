@@ -26,17 +26,6 @@ const PlainCard = ({ longname, symbol, logo, info }) => {
 
                 </Container>
             </Card>
-            {/* <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Company Information</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>{info}</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal> */}
         </>
     )
 }

@@ -13,13 +13,8 @@
 
 @import "./widgetsComponents/infoButton.scss";
 
-
-
-$primary: #006195;
-$background: #ffffff;
-$text-colour: #020202;
-$submit: #e16202;
-
+/* Variables */
+@import "./variables.scss";
 
 body {
     background-color: $background;
@@ -56,14 +51,14 @@ h1, .h1 {
 }
 
 .stockInfoCol {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
 }
 
 .infoCardStyle {
-    padding: 10px;
-    margin: 10px;
-    margin-bottom:20px;
-    padding-bottom:50px;
+    padding: 0.625rem;
+    margin: 0.625rem;
+    margin-bottom: 1.25rem;
+    padding-bottom: 3.125rem;
     display:flex;
 }
 

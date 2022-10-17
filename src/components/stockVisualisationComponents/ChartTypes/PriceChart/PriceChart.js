@@ -20,7 +20,7 @@ import { API } from "aws-amplify";
 
 class CustomizedAxisTick extends PureComponent {
     render() {
-      const { x, y, stroke, payload } = this.props;
+      const { x, y, payload } = this.props;
   
       return (
         <g transform={`translate(${x},${y})`}>

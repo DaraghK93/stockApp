@@ -2,7 +2,7 @@ import { Info } from "react-feather";
 import { useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 
-const InfoButtonModal = ({  title, info }) => {
+const InfoButtonModal = ({ title, info }) => {
 
     const [show, setShow] = useState(false);
 
@@ -12,7 +12,7 @@ const InfoButtonModal = ({  title, info }) => {
     return (
         <>
             <sup>
-                <Info size={20} color="#595959" onClick={handleShow}></Info>
+                <Info size={20} className="infobuttonStyle" onClick={handleShow}></Info>
             </sup>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

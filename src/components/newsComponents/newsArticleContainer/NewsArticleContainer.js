@@ -32,6 +32,7 @@ function NewsArticleContainer({symbol,shortname,longname}){
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setArticles(res);
+                setError("")
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -47,17 +48,15 @@ function NewsArticleContainer({symbol,shortname,longname}){
 
     return(
         <Card id="newsCardContainer" className="newsCardContainer">
-
+        <h2 className="newsCardContainerHeading">News Feed</h2>
         <Card.Body className="newsCardContainerBody">
              {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
              <>
-            <h2>News Feed</h2>
              <Row xs={1} md={1}>
             {articles.map((article) => (
                         <Col className='pb-3'>
                             <NewsArticleCard article={article}/>
                         </Col>                        
-                                
                             ))}
         </Row>
              </>

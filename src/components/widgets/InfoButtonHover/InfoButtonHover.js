@@ -1,14 +1,12 @@
 import { Info } from "react-feather";
 import { useState, useRef } from "react";
-import { Overlay, Tooltip, Button } from 'react-bootstrap';
+import { Overlay, Tooltip } from 'react-bootstrap';
 
 const InfoButtonHover = ({ info, setPlacement }) => {
 
     const [show, setShow] = useState(false);
     const target = useRef(null);
-
-    const myInfo = "Some string"
-
+    
     return (
         <>
             <sup>
@@ -20,7 +18,7 @@ const InfoButtonHover = ({ info, setPlacement }) => {
           <Tooltip id="overlay-example"
            {...props}
            >
-            {myInfo}
+            {info}
           </Tooltip>
         )}
       </Overlay>

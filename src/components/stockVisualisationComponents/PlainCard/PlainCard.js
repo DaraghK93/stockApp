@@ -1,9 +1,8 @@
 import { Container, Card } from "react-bootstrap";
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
-import InfoButtonHover from "../../widgets/InfoButtonHover/InfoButtonHover";
+// import InfoButtonHover from "../../widgets/InfoButtonHover/InfoButtonHover";
 
 const PlainCard = ({ longname, symbol, logo, info }) => {
-
 
     return (
         <>

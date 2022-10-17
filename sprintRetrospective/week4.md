@@ -44,4 +44,5 @@
 
 
 ## **Actions - Things we will be doing:**
-- Ask Paul for clarification on this.
+- Swap scrum lead - Warren in Joey out
+- Prioritise 

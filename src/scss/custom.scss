@@ -8,12 +8,18 @@
 /* Sentiment */
 @import "./sentimentComponents/sentimentBadge.scss";
 
+/* Widgets */
+/* Infobutton */
+
+@import "./widgetsComponents/infoButton.scss";
+
 
 
 $primary: #006195;
 $background: #ffffff;
 $text-colour: #020202;
 $submit: #e16202;
+
 
 body {
     background-color: $background;
@@ -60,3 +66,5 @@ h1, .h1 {
     padding-bottom:50px;
     display:flex;
 }
+
+

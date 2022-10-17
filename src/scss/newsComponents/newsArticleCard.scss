@@ -1,0 +1,55 @@
+/* ***************************** News Article Card ***************************** */
+.newsArticleCard{
+    align-items: center;
+    flex-direction: row; 
+    height: 100%;
+    cursor: pointer; 
+}
+
+.newsArticleCardImage{
+        width: 5vw;
+        height: 5vw;
+        border-radius: 10%;
+        padding: 0.2rem;
+        margin-left: 3%;
+    }
+
+.newsArticleCardSourceandDate{
+    font-weight: lighter;
+}
+
+.newsArticleCardModalImage{
+    height: 25rem;
+}
+
+.newsArticleCardModalInfoText{
+    font-weight: lighter;
+}
+
+
+
+@media only screen and (max-width: 600px){
+    .newsArticleCard{
+        flex-direction: row; 
+        min-height: 30vw;
+    }
+    .newsArticleCardImage{
+        width: 25vw;
+        height: 25vw;
+        border-radius: 10%;
+        padding: 0.2rem;
+    }
+    .newsArticleCardTitle{
+        font-size: 0.8rem;
+
+    }
+    .newsArticleCardSourceandDate{
+        font-size: 0.6rem !important;
+    }
+    .newsArticleDescription{
+        font-size:55% !important;
+    } 
+    .newsArticleCardModalImage{
+        height: 12rem;
+    }
+}

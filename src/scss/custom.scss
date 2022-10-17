@@ -1,6 +1,15 @@
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 @import "../../node_modules/bootstrap/scss/variables";
 
+/* News SCSS */
+@import "./newsComponents/newsArticleCard.scss";
+@import "./newsComponents/newsArticleContainer.scss";
+
+/* Sentiment */
+@import "./sentimentComponents/sentimentBadge.scss";
+
+
+
 $primary: #006195;
 $background: #ffffff;
 $text-colour: #020202;
@@ -50,103 +59,4 @@ h1, .h1 {
     margin-bottom:20px;
     padding-bottom:50px;
     display:flex;
-}
-
-
-
-/* ***************************** News Article Card ***************************** */
-.newsArticleCard{
-    align-items: center;
-    flex-direction: row; 
-    height: 100%;
-    cursor: pointer; 
-}
-
-.newsArticleCardImage{
-        width: 100%;
-        width: 10vw;
-        height: 10vw;
-        border-radius: 10%;
-        padding: 0.2rem;
-    }
-
-.newsArticleCardSourceandDate{
-    font-weight: lighter;
-}
-
-.newsArticleCardModalImage{
-    height: 25rem;
-}
-
-
-
-@media only screen and (max-width: 600px){
-    .newsArticleCard{
-        flex-direction: row; 
-        min-height: 30vw;
-    }
-    .newsArticleCardImage{
-        width: 25vw;
-        height: 25vw;
-        border-radius: 10%;
-        padding: 0.2rem;
-    }
-    .newsArticleCardTitle{
-        font-size: 0.8rem;
-
-    }
-    .newsArticleCardSourceandDate{
-        font-size: 0.6rem !important;
-    }
-    .newsArticleDescription{
-        font-size:55% !important;
-    }
-    .positiveSentimentBadge{
-        font-size: 0.7rem !important;
-    }
-
-    .negativeSentimentBadge{
-        font-size: 0.7rem !important;
-    }
-
-    .neutralSentimentBadge{
-        font-size: 0.65rem !important;
-    }
-    .newsArticleCardModalImage{
-        height: 12rem;
-    }
-}
-
-
-
-
-/* ***************************** News Article Card Container ***************************** */
-
-.newsCardContainer{
-        max-height: 30rem;
-        margin: 10px;
-        margin-bottom: 20px;
-    }
-.newsCardContainerBody{
-        overflow-y: auto;
-    }
-
-
-
-/* ***************************** Sentiment Badge ***************************** */
-.positiveSentimentBadge{
-    margin-bottom:2%;
-    font-size: 85%;
-    background-color:#32CD32 !important;
-}
-
-.negativeSentimentBadge{
-    margin-bottom:2%;
-    font-size: 85%;
-    background-color:#FF0000 !important;
-}
-
-.neutralSentimentBadge{
-    font-size: 85%;
-    background-color:#FFA500 !important;
 }

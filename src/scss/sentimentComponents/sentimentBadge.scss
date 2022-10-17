@@ -1,0 +1,29 @@
+.positiveSentimentBadge{
+    font-size: 85%;
+    background-color:#32CD32 !important;
+}
+
+.negativeSentimentBadge{
+    font-size: 85%;
+    background-color:#FF0000 !important;
+}
+
+.neutralSentimentBadge{
+    font-size: 85%;
+    background-color:#FFA500 !important;
+}
+
+@media only screen and (max-width: 600px){
+    .positiveSentimentBadge{
+        font-size: 0.65rem !important;
+    }
+
+    .negativeSentimentBadge{
+        font-size: 0.65rem !important;
+    }
+
+    .neutralSentimentBadge{
+        font-size: 0.65rem !important;
+    }
+
+}

@@ -42,18 +42,14 @@ function NewsArticleCard({article}){
             <Modal.Header closeButton>
                 <Modal.Title>{article.headline}</Modal.Title>
             </Modal.Header>
-            <Image className="newsArticleCardModalImage" thumbnail={true} src={article.image}/>
+            <Image className="newsArticleCardModalImage" thumbnail={false} src={article.image}/>
             <Modal.Body>
-                <p>
-                <SentimentBadge sentiment={article.sentiment}/> • {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
+                <p className='newsArticleCardModalInfoText'>
+                <SentimentBadge sentiment={article.sentiment}/> • {article.category} •  {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
                 </p>
                 <p>{article.description}</p>
                 <p>Access the full article <a href={article.link} target="_blank"> here </a></p>
-                
-               
             </Modal.Body>
-            
-
         </Modal>
         </>
         

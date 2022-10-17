@@ -21,12 +21,7 @@ function StockPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-
-    const esgData = [
-        { name: 'E Rating', value: 600 },
-        { name: 'S Rating', value: 700 },
-        { name: 'G Rating', value: 200 }
-    ]
+    const [esgData,setESGData] = useState([])
 
     const newsSentimentData = [
         { name: 'Positive', value: 600 },
@@ -46,7 +41,7 @@ function StockPage() {
         //  Makes a GET request to the backend route /stock/:symbol
         const getStockInfo = async () => {
             try {
-                // Request is being sent set loading true 
+                // Request is being sent set loading true   
                 setLoading(true);
                 // get the symbol from the url string, use regex to extract capital letters only
                 const symbol = window.location.href.replace(/[^A-Z]/g, '');
@@ -56,6 +51,9 @@ function StockPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res[0]);
+                setESGData([{name: "E Rating",value: res[0]['esgrating']["environment_score"]},
+                            {name: "S Rating",value: res[0]['esgrating']["social_score"]},
+                            {name: "G Rating",value: res[0]['esgrating']["governance_score"]}])
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -67,6 +65,7 @@ function StockPage() {
         }
         getStockInfo();
     }, [])
+
 
 
     return (

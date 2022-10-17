@@ -1,5 +1,6 @@
 const Stock = require('../models/stock.model');
 var moment = require('moment')
+const stockService = require('../services/stockService');
 
 // @desc get individual stock price
 // @route GET /api/stock/price/:name
@@ -30,7 +31,15 @@ const getStockPrice = async (req, res, next) => {
 const getAllStocks = async (req, res, next) => {
   try {
     const stocks = await Stock.find().select({prices: 0});
-    res.json(stocks);
+
+    // get top ESG stocks
+    // array for each category
+    const topEnvironmental = stockService.getTopESG(stocks,'environment_score')
+    const topSocial = stockService.getTopESG(stocks,'social_score')
+    const topGovernance = stockService.getTopESG(stocks,'governance_score')
+ 
+
+
   } catch (err) {
     console.error(err.message);
     res.errormessage = 'Server error';

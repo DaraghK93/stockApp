@@ -35,7 +35,7 @@ function RegistrationPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [errorMessage, setErrorMessage] = useState(null)
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(null)
 
   const navigate = useNavigate()
 
@@ -51,8 +51,14 @@ function RegistrationPage() {
     event.preventDefault()
     // Check whether password and confirm password are the same. More messages will need to be added.
     if (password !== confirmPassword) {
-      setErrorMessage('Password and Confirm Password must be the same!')
-    } else {
+      setPasswordErrorMessage('Password and Confirm Password must be the same!')
+    } 
+    // Checks if the password is less than 8 characters. Gives a popup warning if it is.
+    else if (validatePasswordLength(password !== true)) {
+      setPasswordErrorMessage('Password must be at least 8 characters!')
+    } 
+    
+    else {
       // location returns a dictionary of items such as country ID and name, but we only want name here.
       dispatch(
         registerUser(
@@ -67,6 +73,16 @@ function RegistrationPage() {
     }
   }
 
+  // Function that checks if the user entered password is longer than 8 characters
+  function validatePasswordLength(password) {
+    var p = password
+    if (p.length <= 8) {
+      return false
+    } else {
+      return true
+    }
+  }
+
   // Redirect if the user is logged in (stock disovery for now will change to profile later)
   useEffect(() => {
     if (userInfo) {
@@ -77,9 +93,6 @@ function RegistrationPage() {
   return (
     <FormContainer>
       <h1>Register</h1>
-      {errorMessage && (
-        <MessageAlert variant="danger">{errorMessage}</MessageAlert>
-      )}
       {error && <MessageAlert variant="danger">{error}</MessageAlert>}
       {loading && <LoadingSpinner />}
       <Form onSubmit={handleSubmit}>
@@ -145,6 +158,9 @@ function RegistrationPage() {
             required
           />
         </Form.Group>
+        {passwordErrorMessage && (
+          <MessageAlert variant="danger">{passwordErrorMessage}</MessageAlert>
+        )}
         <br></br>
         <Form.Group>
           <Form.Check

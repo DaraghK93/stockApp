@@ -45,4 +45,22 @@
 
 ## **Actions - Things we will be doing:**
 - Swap scrum lead - Warren in Joey out
-- Prioritise 
+- Zenhub (everyone):
+  - Make sure to connect pull request to issue
+  - Update Timelines
+  - Add complexity (Score)
+- GitHub (everyone):
+  - Delete Branches when done
+  - Pull requests often, and for small components
+- Readme files for subfolders. Include anything needed to run locally (everyone)
+- Let people know that there's only a small review needed. (everyone)
+- Include as many images as possible, e.g. console with no errors, terminal with no errors (everyone)
+- Prototype - Get a user evaluation before starting the page (everyone)
+- Finish off full pages. Don't leave things things unfinished for weeks(everyone)
+- Communicate with the team as to where the data will be used. Who will need the data and in what format will it be needed. Check before you start doing it (everyone)
+- Create spreadsheet of routes for both teams (WHO?)
+  - Inputs
+  - Outputs
+  - If something needs to be calculated, provide overview of what the function needs to do
+- Need to create a rule for branch/issue naming, everyone should follow this - "Epic - Issue". Help to link them back (everyone)
+- Reject pull request if not linked to issue (everyone)

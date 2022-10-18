@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 import datetime
 import os
 import boto3
+from urllib.error import HTTPError, URLError
 
 def connectToDB(URI):
   """Creates a connection to the Database
@@ -54,37 +55,43 @@ def get_current_price():
   """
   scrapeURL = "https://www.slickcharts.com/sp500"
   agent = {"User-Agent":'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}
-  page = requests.get(scrapeURL, headers=agent)
-  soup = BeautifulSoup(page.content, "html.parser")
+  try:
+    page = requests.get(scrapeURL, headers=agent)
+    soup = BeautifulSoup(page.content, "html.parser")
 
-  # Method for scraping a table taken from:
-  # stack overflow https://stackoverflow.com/questions/23377533/python-beautifulsoup-parsing-table
-  data = []
+    # Method for scraping a table taken from:
+    # stack overflow https://stackoverflow.com/questions/23377533/python-beautifulsoup-parsing-table
+    data = []
 
-  #  finds a table tag with attribute named here
-  table = soup.find('table', attrs={'class': 'table table-hover table-borderless table-sm'})
-  table_body = table.find('tbody')
+    #  finds a table tag with attribute named here
+    table = soup.find('table', attrs={'class': 'table table-hover table-borderless table-sm'})
+    table_body = table.find('tbody')
 
-  # loops through each row of the table and find all of the data and puts it in an array
-  rows = table_body.find_all('tr')
-  for row in rows:
-      cols = row.find_all('td')
-      cols = [ele.text.strip()for ele in cols]
-      # As there are two tables on the page with exactly the same data, it would run through
-      # twice. This checks whether the data is already in the table, and if it is, this would mean that
-      # the code has started going through the second table. If this happens the loop should break.
-      # Otherwise, add the column to the data array.
-      if cols[2] in data:
-        break
-      else:
-        data.append(cols)
-      
+    # loops through each row of the table and find all of the data and puts it in an array
+    rows = table_body.find_all('tr')
+    for row in rows:
+        cols = row.find_all('td')
+        cols = [ele.text.strip()for ele in cols]
+        # As there are two tables on the page with exactly the same data, it would run through
+        # twice. This checks whether the data is already in the table, and if it is, this would mean that
+        # the code has started going through the second table. If this happens the loop should break.
+        # Otherwise, add the column to the data array.
+        if cols[2] in data:
+          break
+        else:
+          data.append(cols)
+  except HTTPError as hp:
+    print(hp)
+  except URLError as ue:
+    print("The Server Could Not be Found")
+  else:
+    output = {}
+    for i in range(0, len(data)):
+      # add to dictionary in the form Symbol: Price
+      output[data[i][2]] = {"currentprice": data[i][4], "absoluteChange": data[i][5], "percentageChange": data[i][6].strip("()")}
+    return output
 
-  output = {}
-  for i in range(0, len(data)):
-    # add to dictionary in the form Symbol: Price
-    output[data[i][2]] = {"currentprice": data[i][4], "absoluteChange": data[i][5], "percentageChange": data[i][6].strip("()")}
-  return output
+  
 
 def create_data_request(data_curr_price, time_stamp):
   """

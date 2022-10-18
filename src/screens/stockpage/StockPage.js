@@ -12,6 +12,7 @@ import PlainCard from '../../components/stockVisualisationComponents/PlainCard/P
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
+import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
 
 
 /// API ///
@@ -77,6 +78,7 @@ function StockPage() {
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
+
                     <Row lg={3} md={2} xs={1}>
                         <Col className="stockInfoCol">
                             <PlainCard
@@ -86,10 +88,13 @@ function StockPage() {
                                 info={stock.longbusinesssummary}
                             />
                         </Col>
+                        <Col className="stockInfoCol">
+                            <TradeButton />
+                        </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <StockPriceChart symbol={stock.symbol}/>
+                            <StockPriceChart symbol={stock.symbol} />
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
@@ -104,14 +109,14 @@ function StockPage() {
                         </Col>
                     </Row>
                     <Row md={2} xs={1}>
-                         <Col className="stockInfoCol">
-                            <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname}/>
+                        <Col className="stockInfoCol">
+                            <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname} />
                         </Col>
                         <Col className="stockInfoCol">
                             {/*THINK THE TWITTER FEED WOULD WORK WELL HERE*/}
                         </Col>
                     </Row>
-                    
+
                 </Container>
             }
         </>

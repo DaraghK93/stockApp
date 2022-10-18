@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 const stockSchema = new mongoose.Schema(
   { 
-    idnumber: { type: String, trim: true },
     exchange: { type: String, trim: true },
     symbol: { type: String, trim: true },
     shortname: { type: String, trim: true },
@@ -18,7 +17,6 @@ const stockSchema = new mongoose.Schema(
     country: { type: String, trim: true },
     fulltimeemployees: { type: String, trim: true },
     businessummary: { type: String, trim: true },
-    esgrating: { type: Object, trim: true }
   },
   { collection: 'sample_stock_data' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated

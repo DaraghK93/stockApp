@@ -16,6 +16,9 @@
 /* Variables */
 @import "./global_variables.scss";
 
+/*Stock components */
+@import "./stockComponents/stockComponents.scss";
+
 body {
     background-color: $background;
 }

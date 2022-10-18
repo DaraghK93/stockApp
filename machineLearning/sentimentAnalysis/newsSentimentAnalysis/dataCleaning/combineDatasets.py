@@ -1,5 +1,5 @@
 ## Description:
-#   This file is used to combine cleaned datasets 
+#   This file is used to combine cleaned datasets. There will be multiple combinations. 
 
 ### Imports ###
 import sys
@@ -15,7 +15,9 @@ if __name__ == "__main__":
     dfOne = cleaningFunctions.readCSVFile(datasetOne)
     dfTwo = cleaningFunctions.readCSVFile(datasetTwo)
     dfThree = cleaningFunctions.readCSVFile(datasetThree)
-    print(dfOne)
-    print(dfTwo)
-    print(dfThree)
+    # combine the datasets
+    combinationOne = cleaningFunctions.combineDatasets([dfOne,dfTwo,dfThree])
+    # Write to file 
+    cleaningFunctions.writeToFile(combinationOne,'../data/cleanedDatasets/combinedDatasets/combinationOne.csv')
+
 

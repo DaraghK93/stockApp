@@ -164,6 +164,14 @@ def removeColumn(df,col):
         print(f'Error in removing column. Exception details {e}')
 
 
+def combineDatasets(frames):
+    try:
+        df = pd.concat(frames,ignore_index=True)
+        return df
+    except Exception as e:
+        print(f'Error in combining datasets. Exception details {e}')
+
+
 
     
 

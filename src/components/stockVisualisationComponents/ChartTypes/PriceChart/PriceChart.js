@@ -79,7 +79,10 @@ function StockPriceChart({ symbol }) {
 
     return (
         <>
-            <Card className="infoCardStyle">
+            <Card 
+            // style={{border:"none"}}
+            className="infoCardStyle"
+            >
                 <Container>
                     <h2>Price Chart</h2>
                     <Row>

@@ -10,10 +10,14 @@ import cleaningFunctions
 import dataExploration
 
 
+visulisationOutputDir = './visulizations/combinedDatasets/'
+
 if __name__ == "__main__":
     # Orginal file and Cleaned File 
     cleanedFile = "../data/cleanedDatasets/combinedDatasets/combinationOne.csv"
     # Read the file in original and cleaned file 
     cleanedDF  = cleaningFunctions.readCSVFile(cleanedFile)
     # Plot the sentiment spread 
-    dataExploration.plotSentimentSplit(cleanedDF,f'Combined Datasets - {len(cleanedDF.index)} Total News Headlines')
+    dataExploration.plotSentimentSplit(cleanedDF,f'Combined Datasets - {len(cleanedDF.index)} Total News Headlines',f'{visulisationOutputDir}/sentimentSplit.png')
+
+    

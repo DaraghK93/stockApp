@@ -24,7 +24,7 @@ const getStockPrice = async (req, res, next) => {
   }
 };
 
-// @route   GET api/stocks
+// @route   GET api/stock
 // @desc    Get all stocks
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {

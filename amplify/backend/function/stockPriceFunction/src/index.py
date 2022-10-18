@@ -154,13 +154,7 @@ def handler(event,context):
     # specify db and collection
     db = client[os.environ["DATABASENAME"]]
     collection = db.sample_stock_data
-    # doc_list = collection.find({})
-    # doc_list_count = []
-    # for doc in doc_list:
-    #   doc_list_count.append(doc)
-    # doc_list_count_length = len(doc_list_count)
 
-    # print(length_collection, "length")
   except Exception as e:
     print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')
     return {

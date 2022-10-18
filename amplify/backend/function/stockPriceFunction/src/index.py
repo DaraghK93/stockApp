@@ -70,9 +70,15 @@ def get_current_price():
   for row in rows:
       cols = row.find_all('td')
       cols = [ele.text.strip()for ele in cols]
-      data.append(cols)
-      if len(data) > 495:
+      # As there are two tables on the page with exactly the same data, it would run through
+      # twice. This checks whether the data is already in the table, and if it is, this would mean that
+      # the code has started going through the second table. If this happens the loop should break.
+      # Otherwise, add the column to the data array.
+      if cols[2] in data:
         break
+      else:
+        data.append(cols)
+      
 
   output = {}
   for i in range(0, len(data)):
@@ -141,16 +147,18 @@ def handler(event,context):
     # specify db and collection
     db = client[os.environ["DATABASENAME"]]
     collection = db.sample_stock_data
+    # doc_list = collection.find({})
+    # doc_list_count = []
+    # for doc in doc_list:
+    #   doc_list_count.append(doc)
+    # doc_list_count_length = len(doc_list_count)
+
+    # print(length_collection, "length")
   except Exception as e:
     print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')
     return {
         'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
     }   
-
-
-  # get the current time and convert to the correct format YYYY-MM-DDTHH:MM:SS
-  time_stamp = datetime.datetime.now()
-  time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M:%S')
 
   # run the web scraping program to get the current prices
   data_current_price = get_current_price()
@@ -159,6 +167,9 @@ def handler(event,context):
   
   try:
     # create the array with all of the UpdateOne requests
+    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM:SS
+    time_stamp = datetime.datetime.now()
+    time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M:%S')
     requests_database = create_data_request(data_current_price, time_stamp_str)
 
     # write these requests to the Database

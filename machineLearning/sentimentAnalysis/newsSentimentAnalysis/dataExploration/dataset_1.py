@@ -16,4 +16,4 @@ if __name__ == "__main__":
     # Read the file in original and cleaned file 
     cleanedDF  = cleaningFunctions.readCSVFile(cleanedFile)
     # Plot the sentiment spread 
-    dataExploration.plotSentimentSplit(cleanedDF,f'Dataset One - {len(cleanedDF.index)} Total News Headlines')
+    dataExploration.plotSentimentSplit(cleanedDF,f'Dataset One Multiple Topics Removed - {len(cleanedDF.index)} Total News Headlines')

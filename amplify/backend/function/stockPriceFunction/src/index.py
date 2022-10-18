@@ -104,9 +104,9 @@ def create_data_request(data_curr_price, time_stamp):
       # This if statement needs to be done as slickcharts.com lists the company as BRK.B, but the
       # database has their symbol as BRK-B. As such this would result in a KeyError if not updated.
       if i == "BRK.B":
-        i_new = "BRK-B"
-        data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i_new]}}))
-        data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
+          i_new = "BRK-B"
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
       else:
         # The first append here relates to the field daily_change. This will be overwritten every time.
         data_request.append(UpdateOne({"symbol": i}, {'$set': {"daily_change": data_curr_price[i]}}))
@@ -120,7 +120,7 @@ def create_data_request(data_curr_price, time_stamp):
       # this KeyError will flag if a stock is missing from the input dictionary. 
       # It shouldn't stop the program from running as the rest of the values should be updated.
       # It should let inform which stocks are missing from the web scrape.
-      print("Check: Stock {i} missing from the web scrape or the database. This could be due to a change in allocation for the S&P500 where a stock was added or removed.")
+      print("Check: Stock ", {i}, " missing from the web scrape or the database. This could be due to a change in allocation for the S&P500 where a stock was added or removed.")
       continue
   
   return data_request
@@ -128,16 +128,19 @@ def create_data_request(data_curr_price, time_stamp):
 
 def handler(event,context):
   try:
-    # get the URI from secret
-    mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
-
-    # connect to DB
+    mongoURI = '' 
+    environment = os.environ['ENVIRONMENT']
+    if environment == 'prod':
+        mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
+    elif environment == 'dev':
+        mongoURI = os.environ['MONGOURI']
+    # Get the mongo connection 
     client = connectToDB(mongoURI)
     
 
     # specify db and collection
-    db = client[os.environ["DATABASE"]]
-    collection = db[os.environ["COLLECTION"]]
+    db = client[os.environ["DATABASENAME"]]
+    collection = db.sample_stock_data
   except Exception as e:
     print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')
     return {
@@ -155,16 +158,16 @@ def handler(event,context):
   
   
   try:
-        # create the array with all of the UpdateOne requests
-        requests_database = create_data_request(data_current_price, time_stamp_str)
+    # create the array with all of the UpdateOne requests
+    requests_database = create_data_request(data_current_price, time_stamp_str)
 
-        # write these requests to the Database
-        collection.bulk_write(requests_database)
+    # write these requests to the Database
+    collection.bulk_write(requests_database)
 
-        return {
-            'Message': 'Data Successfully Updated',
-            'Time': time_stamp_str
-        }
+    return {
+        'Message': 'Data Successfully Updated',
+        'Time': time_stamp_str
+    }
   except Exception as e:
         print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
         return {

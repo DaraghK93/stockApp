@@ -43,14 +43,13 @@ const getAllStocks = async (req, res, next) => {
  
     // const listAll = [topEnvironmental,topSocial,topGovernance]
     // res.json(listAll)
-const stocks = await Stock.aggregate(
-  [
-    {find: {prices:0}},
-    { $sort: {environment_score: -1}},
-    {$limit: 20}
 
-  ]
-)
+
+    const stocks = await Stock.find()
+    .select({symbol:1, 'esgrating.environment_score':1 })
+    .sort({ 'esgrating.environment_score': -1 })
+    .limit(20);
+
 
 res.json(stocks)
 

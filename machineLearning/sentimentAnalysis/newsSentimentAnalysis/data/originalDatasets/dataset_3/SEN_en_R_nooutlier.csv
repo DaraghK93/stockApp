@@ -1,0 +1,1121 @@
+,headline,entity,majority_label
+0,Boris Johnson Joins Trump in Redefining Conservatism,Trump,neutr
+1,Trump Praises Controversial Hungarian Leader,Trump,neg
+2,"Stung by Trump’s Criticisms of Russian Gas Deal, Germany Makes Its Own Threats",Trump,neutr
+3,What ‘America First’ Means Under Trump Is Coming Into Focus,Trump,neutr
+4,Trump Set to Meet With Russia’s Top Diplomat Tuesday,Trump,neutr
+5,"Trump Clashes With Macron on NATO, Trade and Islamic State",Trump,neutr
+6,"Donald Trump Won’t Slow Efforts to Fight Climate Change, John Kerry Predicts",Trump,pos
+7,Trump to Attend NATO Summit in London,Trump,neutr
+8,"Trump-Erdogan Rapport Tested by Tensions Over Syria, Russia",Trump,neutr
+9,Trump Says Erdogan Visit to U.S. Is On U.S. Officials Travel to Ankara,Trump,neutr
+10,Ukrainian President Denies Trump Pressured Him During July Call,Trump,neutr
+11,"In Months Before Trump Call, Ukraine Officials Sweated White House Pressure",Trump,neg
+12,Ukraine to Review Investigations Into Firm Linked to Biden’s Son,Biden,neutr
+13,Taliban Negotiators Meet With Russian Officials After Trump Ends Talks,Trump,neg
+14,"U.S. Sanctions Tighten Putin’s Circle, Extend Kremlin’s Reach",Putin,neutr
+15,New York State Sues Trump Administration Over Global Entry Ban,Trump,neutr
+16,Trump’s NASA Budget Will Earmark 12% Boost for Agency in 2021,Trump,pos
+17,Trump Says War With Iran Was ‘Closer Than You Thought’,Trump,neg
+18,Trump’s Impeachment Is Virtually Over. What Did It Change?,Trump,neutr
+19,Fewer Asylum Seekers Have Lawyers Under Trump Administration Policy,Trump,neg
+20,Trump Announces Coronavirus Task Force,Trump,neutr
+21,Trump Mideast Plan Said to Favor Israeli Goals,Trump,neutr
+22,How Putin Outfoxed Trump in Venezuela,Putin,pos
+23,"U.S., India Draft Trade Pact for Unveiling in Possible Trump Visit",Trump,pos
+24,Ex-Treasury Official Pleads Guilty to Leaks on Trump Campaign Officials,Trump,neutr
+25,"Ex-Trump Campaign Official Richard Gates Sentenced to 45 Days in Jail, Three Years Probation",Trump,neg
+26,Athletes Seeking Green Cards Find Proving They’re Exceptional Has Gotten Tougher Under Trump,Trump,neutr
+27,"Trump Administration Considers 14,000 More Troops for Mideast",Trump,neutr
+28,Trump Administration Asks Supreme Court to Reinstate Blocked Executions,Trump,neutr
+29,"A Tight Job Market Insulates a Slowing Economy-and Perhaps Trump, Too",Trump,unk
+30,Judges Quietly Disrupt Trump Immigration Policy in San Diego,Trump,neg
+31,"Bloomberg’s controversial comments on stop and frisk, China and more",Bloomberg,neg
+32,"Fox News Poll: Sanders gains among Democrats, Biden still best against Trump",Biden,pos
+33,"Fox News Poll: Record economy ratings, as half say Senate should remove Trump",Trump,neutr
+34,"Fox News Poll: Biden and Sanders vie for lead in Nevada, Biden tops Trump",Sanders,pos
+35,"Fox News Poll: Biden and Sanders vie for lead in Nevada, Biden tops Trump",Trump,neg
+36,Rep. Tim Ryan says Joe Biden does really well in the broader electorate,Biden,pos
+37,Bloomberg catching heat from black Democratic lawmakers for stop-and-frisk,Bloomberg,pos
+38,"Brad Parscale on Joe Biden leaving New Hampshire early, Mike Bloomberg's 'stop and frisk' comments",Bloomberg,neutr
+39,Guy Benson says the 'total collapse' of Joe Biden's campaign has been fascinating to watch,Biden,neg
+40,Elizabeth Warren rips rivals ‘sucking up to billionaires’ as 2020 rancor extends into primary day,Warren,neg
+41,"Biden abruptly cancels New Hampshire primary party appearance, heads to South Carolina",Biden,neutr
+42,Pete Buttigieg looks to ride Iowa success to victory in New Hampshire,Buttigieg,pos
+43,Stealing the spotlight: Lisa Boothe praises President Trump's 'smart' campaign rally strategy,Trump,pos
+44,"After impeachment acquittal, Senate confirms another Trump court pick over Dem objections",Trump,neg
+45,Sen. Lindsey Graham says President Trump can run on a record that Democrats can't refute,Trump,pos
+46,Republican Bill Weld explains why he is running against President Trump,Trump,neg
+47,Trump stirs pardon speculation with condemnation of DOJ’s Roger Stone treatment,Trump,neutr
+48,Peter Doocy recounts tough exchanges with Joe Biden on the campaign trail,Biden,neutr
+49,"Dr. Jill Biden discusses life on the campaign trail, responding to political attacks",Biden,neutr
+50,Sen. Rick Scott explains why he hopes Bernie Sanders wins the Democratic presidential nomination,Sanders,pos
+51,Gov. Hutchinson on Trump's Governors' Ball,Trump,neutr
+52,"Trump, Klobuchar see strong showing in New Hampshire's midnight voting towns",Trump,pos
+53,2020 hopeful Pete Buttigieg claims to be the 'moderate' choice for New Hampshire,Buttigieg,neg
+54,Trump digging into Democrats ahead of New Hampshire primary,Trump,unk
+55,"Trump, looking to 'shake up the Dems a little bit,' hits 'mumbling' Pelosi in rally ahead of key NH primary",Trump,neutr
+56,Trump cuts New Hampshire rally short to receive remains of 2 soldiers killed in Afghanistan,Trump,pos
+57,AG Barr accepts Hunter Biden information from Rudy Giuliani,Biden,neutr
+58,Melania Trump urges governors' spouses to spread 'Be Best' initiative in home states,Trump,pos
+59,Sean Hannity attends Joe Biden rally in New Hampshire,Biden,neutr
+60,How could Bloomberg shake up the 2020 race?,Bloomberg,neutr
+61,Trump calls out Nancy Pelosi for mumbling behind him during State of the Union,Trump,neg
+62,Buttigieg campaign official: We need a candidate who's not polarizing,Buttigieg,pos
+63,"Biden campaign adviser on New Hampshire: Whatever happens, Biden will still be in this race",Biden,pos
+64,Democracy 2020 Digest: Klobuchar sees an opening - Can she take it?,Klobuchar,neutr
+65,Sanders holds lead as Klobuchar surges ahead of New Hampshire primary,Klobuchar,neutr
+66,Senator Amy Klobuchar: We need a president with empathy,Klobuchar,neutr
+67,Trump unveils $4.8 trillion election year budget,Trump,neutr
+68,Lieberman: I hope Bernie Sanders is not the Democratic nominee,Sanders,neg
+69,Will Bernie Sanders see a repeat of his 2016 win in New Hampshire?,Sanders,neutr
+70,Howard Kurtz on divergent media strategies of Pete Buttigieg and Joe Biden,Biden,neutr
+71,Sanders overtakes Biden in national poll for first time,Biden,neg
+72,"Trump supporters, lining up for post-impeachment rally, predict big 2020 win: ‘He’ll beat them all’",Trump,pos
+73,"Brit Hume on bounces for Amy Klobuchar and Pete Buttigieg, slides for Joe Biden and Elizabeth Warren",Klobuchar,neutr
+74,"Sanders in lead, Buttigieg slipping, Klobuchar surging in New Hampshire poll on primary eve",Klobuchar,neutr
+75,Pete Buttigieg praised Bernie Sanders in prize-winning high school essay,Buttigieg,neutr
+76,Where does Tom Steyer stand on the issues?,Steyer,neutr
+77,Bernie Sanders and Pete Buttigieg spar ahead of New Hampshire primary,Sanders,neutr
+78,Self-made billionaire weighs in on Bernie Sanders' proposed wealth-tax,Sanders,neutr
+79,Marc Lotter: Pelosi ripping speech was disrespectful to President Trump and the American people,Trump,neg
+80,Trump plans to ask Congress for $2B in border wall construction,Trump,neutr
+81,"Biden, in New Hampshire, jokingly calls student 'a lying, dog-faced pony soldier'",Biden,pos
+82,"Iowa Democratic Party awards Buttigieg 14 delegates, Sanders 12 after caucus meltdown",Buttigieg,pos
+83,President Trump fires major impeachment figures Colonel Vindman and Ambassador Sondland,Trump,neg
+84,Biden calls New Hampshire voter a 'lying dog-faced pony solider' when asked about his performance in the Iowa caucus,Biden,neg
+85,Latest New Hampshire polls show Bernie Sanders leading Pete Buttigieg,Sanders,neutr
+86,"Biden admits Buttigieg, Sanders were 'better organized' in Iowa, his campaign took 'gut punch'",Sanders,neutr
+87,Giuliani: Trump should 100 percent investigate Biden after Senate acquittal,Biden,pos
+88,Giuliani: Trump should 100 percent investigate Biden after Senate acquittal,Trump,neutr
+89,Bloomberg uses Romney’s impeachment vote speech to bash Trump in new ad,Bloomberg,neutr
+90,Bloomberg uses Romney’s impeachment vote speech to bash Trump in new ad,Trump,neg
+91,Warren remains optimistic despite financial woes: ‘I’ve been winning unwinnable fights my whole life’,Warren,pos
+92,Furor over Trump firing witnesses,Trump,neg
+93,"Buttigieg comes out swinging at Sanders, Biden after being targeted following Iowa victory",Buttigieg,neutr
+94,"Buttigieg comes out swinging at Sanders, Biden after being targeted following Iowa victory",Sanders,neutr
+95,Biden zings Buttigieg: 'This guy's not a Barack Obama',Biden,neutr
+96,Biden zings Buttigieg: 'This guy's not a Barack Obama',Buttigieg,neg
+97,Sanders: 'Common sense suggests' Buttigieg would be compromised by wealthy donors,Sanders,neutr
+98,"Sen. Bernie Sanders on boost from Iowa caucuses, tight race for New Hampshire, 'Democratic-socialist' label",Sanders,pos
+99,"Rep. Tulsi Gabbard on feud with Hillary Clinton, Iowa caucus chaos",Gabbard,neg
+100,Kellyanne Conway reacts to President Trump's acquittal at Senate impeachment trial,Trump,neutr
+101,"Rudy Giuliani on Trump's big week, investigating Hunter Biden",Trump,neutr
+102,Brutal Biden campaign ad mocks Buttigieg’s experience as South Bend mayor,Biden,neg
+103,What the SOTU revealed about Trump's future agenda and reelection strategy,Trump,neutr
+104,"Trump, RNC cash in on impeachment, raising $117M more in funds",Trump,neg
+105,President Trump to release his fiscal 2021 budget,Trump,neutr
+106,Rep. Andy Biggs on calls from Democrats to continue investigating President Trump,Trump,neutr
+107,"Dems demand Twitter, Facebook take down edited video of Pelosi ripping up State of the Union speech posted by Trump",Trump,neutr
+108,Rep. Tulsi Gabbard on importance of New Hampshire primary,Gabbard,neutr
+109,"John Sununu: Klobuchar did the best in the debate, she looked more presidential than anyone on stage",Klobuchar,pos
+110,2020 Democrats blast Sanders over ‘socialist’ label,Sanders,neg
+111,Sanders with edge in two new polls in NH Buttigieg edges Sanders in a third,Buttigieg,neutr
+112,Pete Buttigieg discusses his debate performance,Buttigieg,neutr
+113,Amy Klobuchar talks to Fox News after the Democratic debate,Klobuchar,neutr
+114,Warren appears to target Buttigieg as she slams people who 'suck up to billionaires',Warren,neg
+115,Senate investigators obtain Hunter Biden's confidential banking records,Biden,neutr
+116,Yang tells Dem rivals: 'Donald Trump is the not the cause of all of our problems',Yang,neutr
+117,"Biden to Trump: Give Vindman, not Rush Limbaugh, a medal",Biden,neutr
+118,Joe Biden looks to rally in New Hampshire primary following disappointing Iowa caucus results,Biden,neutr
+119,Biden campaign adviser: Joe Biden is the greatest retail politician in America,Biden,pos
+120,"Trump ousts key impeachment figures Sondland, Vindman days after Senate acquittal",Trump,neutr
+121,"Sanders slams Buttigieg in New Hampshire over 'billionaire donors,' as race tightens",Buttigieg,neg
+122,"Sanders slams Buttigieg in New Hampshire over 'billionaire donors,' as race tightens",Sanders,neutr
+123,"Pete Buttigieg, Bernie Sanders say they want to move past the Iowa caucuses",Buttigieg,neutr
+124,"Pete Buttigieg, Bernie Sanders say they want to move past the Iowa caucuses",Sanders,neg
+125,Joe Biden retreats home before New Hampshire debate,Biden,neutr
+126,GOP senators accuse Dems of 'selectively leaking' Hunter Biden investigation details,Biden,neg
+127,"Warren appears to agree with supporter that AIPAC is an 'unholy alliance' of 'Islamophobes,' 'white nationalists'",Warren,neutr
+128,Bernie Sanders blasts Pete Buttigieg's support from 'billionaire donors',Sanders,pos
+129,"Mainstream media slam Trump post-acquittal speech as 'vindictive,' 'mean-spirited' and 'disturbing'",Trump,neg
+130,Buttigieg surges in New Hampshire poll ahead of primary,Buttigieg,neutr
+131,"Appeals court hands Trump win, rules Dem lawmakers cannot sue over business payments",Trump,pos
+132,"Iowa caucus results too close to call as Sanders, Buttigieg finish in virtual tie",Sanders,neutr
+133,"Trump hits Pelosi, Romney on impeachment at National Prayer Breakfast",Trump,neg
+134,"Mike Huckabee on Trump and Pelosi clashing after acquittal, Iowa caucus fallout",Trump,neutr
+135,"Pastor Robert Jeffress reacts to Trump ripping Romney, Pelosi for 'phony' faith remarks",Trump,neutr
+136,Trump Impeachment 2.0: Historic fight spurs new probes and clashes even after trial,Trump,neg
+137,Buttigieg catches up with Sanders in New Hampshire due to polling surge,Buttigieg,pos
+138,Buttigieg catches up with Sanders in New Hampshire due to polling surge,Sanders,neutr
+139,Trump claims he was saved by firing former FBI director Comey,Trump,neg
+140,Pete Buttigieg says Trump has 'very different take on faith' than he does after comments at prayer breakfast,Buttigieg,neutr
+141,Sen. Mazie Hirono says Trump 'wasn't acquitted' because he had a 'rigged' impeachment trial,Trump,neg
+142,"Warren, in apology, cites America's 'long legacy' of 'racism and oppression' after women of color quit Nevada campaign",Warren,neutr
+143,"Sanders declares victory in Iowa, says he can 'defeat the most dangerous president in modern American history'",Sanders,pos
+144,Kellyanne Conway on Trump's impeachment trial victory,Trump,pos
+145,"Trump allies Jordan, Meadows selected for top House GOP committee roles",Trump,neutr
+146,Congressional Democrats mull continuing investigations of President Trump,Trump,neutr
+147,Bernie Sanders declares victory in chaotic Iowa caucuses,Sanders,neutr
+148,Andrew Yang lays off staffers after poor showing in Iowa,Yang,neutr
+149,Dem-controlled House votes to kill GOP resolution condemning Pelosi for ripping up Trump's speech,Trump,neutr
+150,Sen. Martha McSally on whether Senate will investigate Hunter Biden following Trump's impeachment acquittal,Trump,neutr
+151,Sen. Bob Casey says President Trump's claim that he did nothing wrong is insulting to the country,Trump,neg
+152,Bret Baier on President Trump taking victory lap after acquittal in Senate impeachment trial,Trump,pos
+153,"Sanders, Warren campaigns pay to offset almost 4,000 tons in carbon emissions: report",Sanders,neutr
+154,Trump claims he wouldn't be 'standing here' if he hadn't fired 'sleazebag' Comey,Trump,neg
+155,John Yoo warns Democrats that renewing impeachment charges against President Trump would be a mistake,Trump,neutr
+156,"President Trump breaks with tradition, slams opponents at National Prayer Breakfast",Trump,neg
+157,Newt Gingrich says the Iowa caucuses process is rigged against Bernie Sanders,Sanders,neg
+158,President Trump: We come together as one nation blessed to live in freedom and worship in peace,Trump,pos
+159,"Buttigieg soars, Biden slips, Sanders still on top in newest New Hampshire poll",Biden,neg
+160,"Buttigieg soars, Biden slips, Sanders still on top in newest New Hampshire poll",Sanders,pos
+161,Buttigieg narrowly leads Sanders in Iowa caucuses with 97% of precincts reporting,Sanders,neutr
+162,What’s the fallout following President Trump’s acquittal?,Trump,neutr
+163,"Michael Goodwin: Trump won, Pelosi lost, it’s a real acquittal",Trump,pos
+164,President Trump attends 68th annual National Prayer Breakfast,Trump,neutr
+165,Newt Gingrich on President Trump acquitted by Senate,Trump,pos
+166,"Fox News voter analysis shows Biden, Buttigieg, Klobuchar, Sanders, Warren in the hunt",Buttigieg,neutr
+167,"Fox News voter analysis shows Biden, Buttigieg, Klobuchar, Sanders, Warren in the hunt",Klobuchar,neutr
+168,"Fox News voter analysis shows Biden, Buttigieg, Klobuchar, Sanders, Warren in the hunt",Warren,neg
+169,Trump acquitted in impeachment trial after fiery State of the Union speech,Trump,neutr
+170,Warren says male candidates 'wrong' if they think they have a better chance of beating Trump,Trump,neg
+171,Republicans seek Hunter Biden travel records from Secret Service shortly after Trump acquittal,Biden,neutr
+172,Sen. Kennedy calls Pelosi 'over the top' and 'juvenile' for tearing up copy of Trump's speech,Trump,neg
+173,"Manchin, swing-state senators swarmed with Dem hugs after voting to convict Trump",Trump,neg
+174,GOP introduces resolution to condemn Pelosi for ripping up Trump’s State of the Union speech,Trump,neutr
+175,Biden heads to South Carolina before New Hampshire polls close,Biden,neutr
+176,Pete Buttigieg speculates that Trump 'can't figure out what to do' with him,Trump,neg
+177,Trump: I'd rather run against Bloomberg than Bernie Sanders,Trump,neg
+178,Joe Biden takes aim at Pete Buttigieg after 'gut punch' in Iowa,Buttigieg,neutr
+179,Pete Buttigieg holds slim lead in Iowa caucuses following partial release of results,Buttigieg,neutr
+180,"White House claims 'full vindication' after Trump acquittal, slams Romney as 'failed' candidate",Trump,neutr
+181,Trial over: Trump acquitted by Senate on both impeachment articles in historic decision,Trump,pos
+182,Fallout from Nancy Pelosi's decision to shred her copy of President Trump's State of the Union address,Trump,neutr
+183,"Trump’s brawling style is about projecting strength, no matter the cost",Trump,neg
+184,"Trump easily beats impeachment, Romney vote stirs backlash",Trump,pos
+185,Source of Bloomberg stop-and-frisk audio blasts CNN for 'dismissing' story,Bloomberg,neutr
+186,Meet the New Hampshire voter who made $12G from Andrew Yang's 'Freedom Dividend',Yang,neutr
+187,Biden leaves New Hampshire early for South Carolina,Biden,neutr
+188,"Sanders Won, Klobuchar Surged: What We Learned From New Hampshire",Klobuchar,neutr
+189,How Amy Klobuchar Pulled Off the Big Surprise of the New Hampshire Primary,Klobuchar,pos
+190,"For Joe Biden, Two Bad Losses and a Precarious Path Forward",Biden,neg
+191,Sanders Is Victorious in New Hampshire Primary,Sanders,pos
+192,"‘You May See Me Once Again,’ Bennet Says",Bennet,neutr
+193,Trump Takes On Bloomberg and Once Again Hijacks a News Cycle,Bloomberg,neutr
+194,Michael Bennet Drops Out of the 2020 Presidential Race,Bennet,neutr
+195,"The Federal Budget Under Trump, Per Person",Trump,neutr
+196,Trump Travels to New Hampshire to Rally Republicans and Distract Democrats,Trump,neutr
+197,Some Experts Worry as a Germ-Phobic Trump Confronts a Growing Epidemic,Trump,neg
+198,Trump Budget Would Fray Social Safety Net,Trump,unk
+199,Sanders and Buttigieg Close Out New Hampshire Pitching Different Visions,Buttigieg,neutr
+200,Sanders and Buttigieg Close Out New Hampshire Pitching Different Visions,Sanders,neutr
+201,Trump’s $4.8 Trillion Budget Would Cut Safety Net Programs and Boost Defense,Trump,neutr
+202,"Sanders and Buttigieg Clash, Aiming for a Two-Person Race",Buttigieg,neg
+203,Trump to Propose $4.8 Trillion Budget With More Border Wall Funding,Trump,neutr
+204,Iowa Democrats Give Buttigieg the Most Delegates as Sanders Team Seeks Recanvass,Sanders,neutr
+205,Biden Slashes Into Buttigieg: ‘This Guy’s Not a Barack Obama!’,Biden,neg
+206,Republican Senators Tried to Stop Trump From Firing Impeachment Witness,Trump,neg
+207,Jeff Sessions Was ‘Trump Before Trump.’ Will Alabama Voters Remember?,Trump,neutr
+208,Biden Tells Voters to Look to the Past. (Just Not the Last Week.),Biden,neutr
+209,Joe Biden Attacks Bernie Sanders’s Record on Guns,Sanders,neg
+210,"Victors in Iowa, Sanders and Buttigieg Are Targets in Democratic Debate",Buttigieg,pos
+211,Amy Klobuchar Compares ‘Cool Newcomer’ Pete Buttigieg to Trump,Trump,neutr
+212,The Latest New Hampshire Polls: Buttigieg Looks Competitive,Buttigieg,pos
+213,"Buttigieg Leads Sanders in Iowa Delegates, 13-12. So, Who Won?",Buttigieg,pos
+214,Trump Fires Impeachment Witnesses Gordon Sondland and Alexander Vindman in Post-Acquittal Purge,Trump,neg
+215,Joe Walsh Ends Presidential Campaign Against Trump,Trump,neutr
+216,What It Was Like to Work for Andrew Yang,Yang,neutr
+217,"Democratic Candidates Reject Trump’s Foreign Policy, but Don’t Agree on Theirs",Trump,neg
+218,Navy Secretary Richard Spencer Says He’ll Endorse Bloomberg,Bloomberg,pos
+219,Tom Steyer - Foreign Policy,Steyer,neutr
+220,Deval Patrick - Foreign Policy,Patrick,neutr
+221,Bernie Sanders - Foreign Policy,Sanders,neutr
+222,Elizabeth Warren - Foreign Policy,Warren,neutr
+223,Michael Bennet - Foreign Policy,Bennet,neutr
+224,"Democrats, Knocked Back by Trump’s Acquittal, Ponder Their Next Steps",Trump,neutr
+225,"After Acquittal, Trump Repeats Inaccurate Claims on Impeachment and Ukraine",Trump,neg
+226,What Are Iowa’s Satellite Caucuses? And How Did They Help Bernie Sanders?,Sanders,neutr
+227,Republicans in Senate Press On With Investigation Into Hunter Biden,Biden,neg
+228,"Trump Celebrates Acquittal, and Denounces Democrats as ‘Vicious’",Trump,pos
+229,Pelosi Rebukes Trump for Prayer Breakfast Remarks,Trump,neutr
+230,Trump Hails Acquittal and Lashes Out at His ‘Evil’ and ‘Corrupt’ Opponents,Trump,neg
+231,Full Video: Trump Speaks After Impeachment Acquittal,Trump,neutr
+232,"Sanders Raises $25 Million in January, a Huge Show of Financial Strength",Sanders,neutr
+233,Trump Gives Venezuela’s Guaidó the Embrace He Wanted,Trump,neutr
+234,"Biden and Warren Seek Revival, With Two Very Different Strategies",Biden,neutr
+235,"Biden and Warren Seek Revival, With Two Very Different Strategies",Warren,neutr
+236,Draft Executive Order Would Give Trump a New Target: Modern Design,Trump,neutr
+237,Trump Called for Paid Family Leave. Here’s Why Few Democrats Clapped.,Trump,neutr
+238,Senate Votes to Acquit President Trump,Trump,pos
+239,Trump Acquitted of Two Impeachment Charges in Near Party-Line Vote,Trump,pos
+240,What Went Wrong for Joe Biden in Iowa,Biden,neg
+241,Full Transcript of Trump's State of The Union Address,Trump,neutr
+242,Six Takeaways From Trump’s State of the Union Address,Trump,neutr
+243,"Trump and Pelosi: Snubs, Then a Torn-Up Speech",Trump,neutr
+244,Full Analysis of Trump's 2020 State of the Union Speech,Trump,neutr
+245,"Thailand, Coronavirus, Trump: Your Monday Briefing",Trump,neutr
+246,New York to Sue Trump Administration Over Global Entry Freeze,Trump,neg
+247,"Putin Rejects Oil Deal With Belarus, Increasing Pressure for Merger",Putin,neutr
+248,"Nigeria ‘Blindsided’ by Trump Travel Ban, Its Top Diplomat Says",Trump,neg
+249,Trump Warns Senate Not to Approve War Powers Resolution on Iran,Trump,neg
+250,Buttigieg Faces New Urgency in Bid to Win Minority Voters,Buttigieg,neutr
+251,Trump and Kushner Saw Super Bowl Ad as Way of Making Inroads With Black Voters,Trump,neutr
+252,AP VoteCast: Iowa Dems Split on Best Challenger for Trump,Trump,neutr
+253,"Sans Gavel, Roberts Is Among 4 Justices at Trump Speech",Trump,neutr
+254,Trump Uses State of Union to Campaign Pelosi Rips Up Speech,Trump,neutr
+255,Hunting Conference With Beach Boys and Trump Jr. Draws Protests,Trump,neg
+256,Hunting Conference With Beach Boys and Trump Jr. Draws Protests,Trump,neg
+257,Guests Help Trump Highlight State of the Union Themes,Trump,neutr
+258,Bloomberg Doubles Ad Spending After Chaos of Iowa Caucuses,Bloomberg,neutr
+259,Trump Says Prosecutors ‘Ought to Apologize’ to Roger Stone,Trump,neutr
+260,New York Governor Signals Possible Compromise With Trump in Immigration Dispute,Trump,neutr
+261,Moderate Democrats Fear Bernie Sanders Could Cost Them the House,Sanders,neg
+262,"Deval Patrick, Latecomer to the 2020 Race, Drops Out",Patrick,neg
+263,Lawmakers Want Ivanka Trump's Women's Program to Become Law,Trump,pos
+264,U.S. Presidential Candidate Bloomberg Endorsed by Three Black Lawmakers,Bloomberg,pos
+265,Buttigieg Lands Black South Carolina Lawmaker's Endorsement,Buttigieg,neutr
+266,Charges Dropped Against Guard Accused of Threatening Trump,Trump,neutr
+267,"After New Hampshire Surge, Klobuchar Turns to Nevada, Beyond",Klobuchar,neutr
+268,Bernie Sanders Scores Narrow Victory in New Hampshire Primary,Sanders,pos
+269,Former Massachusetts Governor Patrick to End 2020 Presidential Bid: CBS,Patrick,neutr
+270,Trump’s War Against ‘the Deep State’ Enters a New Stage,Trump,pos
+271,Senator Bennet Drops Out of 2020 Democratic Presidential Race,Bennet,neg
+272,Trump Takes On Bloomberg and Once Again Hijacks a News Cycle,Trump,pos
+273,Michael Bennet Drops Out of the 2020 Presidential Race,Bennet,neg
+274,"Exit Polls: Sanders, Buttigieg, Klobuchar Locked in Tight Race for New Hampshire",Sanders,pos
+275,Andrew Yang Drops Out of Presidential Race,Yang,neutr
+276,Trump Adviser Pushes Utah Congressman for Top Intelligence Post,Trump,neg
+277,"Responding to Critics, Bloomberg Omits Role in Expanding Stop-and-Frisk",Bloomberg,neutr
+278,Steyer's Wife Moves to S. Carolina for Rest of 2020 Campaign,Steyer,neutr
+279,U.S. Justice Department Declines to Offer Court Sentencing Guidance on Trump Adviser Stone,Trump,neutr
+280,Amy Klobuchar Is Pressed on ‘The View’ Over Her Record as a Prosecutor,Klobuchar,neutr
+281,"Elizabeth Warren, in New Memo, Outlines Her Path and Rivals’ Flaws",Warren,neutr
+282,Warren Betting That Getting Personal Can Help Her Rebound,Warren,neg
+283,Trump and Bloomberg Call Each Other Racist as 2020 Election Fight Heats Up,Bloomberg,neg
+284,Bloomberg’s Blunt Defense of Stop-and-Frisk Policy Draws Scrutiny,Bloomberg,neg
+285,Biden Heading to South Carolina Sanders Steady as New Hampshire Votes,Biden,neutr
+286,Klobuchar Surge in New Hampshire Could Reshuffle Democratic White House Race,Klobuchar,pos
+287,"Angry With Trump, Most New Hampshire Democratic Primary Voters Will Back Party's Nominee 'Regardless': Edison Research",Trump,neg
+288,U.S. Justice Department Declines to Offer Court Sentencing Guidance on Trump Adviser Stone,Trump,neutr
+289,"Democrats Get the Attention, but Trump Aims to Put New Hampshire in Play",Trump,neutr
+290,Amy Klobuchar Is Pressed on ‘The View’ Over Her Record as a Prosecutor,Klobuchar,neg
+291,Lawmakers Want Ivanka Trump's Women's Program to Become Law,Trump,neutr
+292,"U.S. Election: Klobuchar Up, Three Men Out",Klobuchar,neutr
+293,"Trump, First Lady to Host State Dinner in April for Spain",Trump,neutr
+294,Bloomberg Embraces Stop and Frisk in Resurfaced 2015 Audio,Bloomberg,neutr
+295,Bloomberg’s Blunt Defense of Stop-and-Frisk Policy Draws Scrutiny,Bloomberg,neutr
+296,Biden Heading to South Carolina Sanders Steady as New Hampshire Votes,Sanders,neutr
+297,Klobuchar Surge in New Hampshire Could Reshuffle Democratic White House Race,Klobuchar,pos
+298,"Sanders Edges Buttigieg in NH, Giving Dems 2 Front-Runners",Sanders,neutr
+299,Biden Shows Tenderness and Temper on 2020 Presidential Trail,Biden,pos
+300,Trump Says Call for 7-9 Years Prison Term for Adviser Stone Is 'Horrible',Trump,neutr
+301,Trump Campaigns as a 2nd Amendment Warrior,Trump,neutr
+302,"Sanders Narrowly Wins New Hampshire Democratic Primary, Biden Lags Badly",Biden,neg
+303,Some Experts Worry as a Germ-Phobic Trump Confronts a Growing Epidemic,Trump,neg
+304,Trump Budget Would Fray Social Safety Net,Trump,unk
+305,Sanders and Buttigieg Close Out New Hampshire Pitching Different Visions,Sanders,neg
+306,U.S. Seeks Prison Term of 7-9 Years for Trump's Longtime Adviser Roger Stone,Trump,neutr
+307,Biden Shows Tenderness and Temper on 2020 Presidential Trail,Biden,pos
+308,"With Democrats in New Hampshire, Steyer Has SC to Himself",Steyer,neutr
+309,"Biden Slumps, Bloomberg Surges Nationally as Democratic Race Heats Up: Poll",Biden,neg
+310,"Trump, Manchin Trading Barbs as Impeachment Feud Boils Over",Trump,neutr
+311,"Trump Plunges Into New Hampshire Race, Aiming to Rattle Dems",Trump,neutr
+312,Highlights of President Trump's 2021 Budget Plan,Trump,neutr
+313,"Buttigieg, Sanders Campaigns Request Iowa Recanvass: Iowa Democrats",Buttigieg,neutr
+314,Andrew Yang’s Campaign Is Riding on New Hampshire,Yang,pos
+315,The Latest: Klobuchar Optimistic Before New Hampshire Vote,Klobuchar,pos
+316,Bernie Sanders Formally Requests Partial Recount of Iowa Democratic Results,Sanders,neutr
+317,Trump Calls for Slashing Funding for Toxic Superfund Cleanup,Trump,neutr
+318,New York Sues Trump Administration Over 'Punitive' Ban From Traveler Programs,Trump,neg
+319,Trump's $4.8 Trillion Budget Gets Chilly Reception From Congress,Trump,neutr
+320,"On the Trail: Sanders, Buttigieg Lead Charge as Democrats Barnstorm New Hampshire",Buttigieg,pos
+321,"On the Trail: Sanders, Buttigieg Lead Charge as Democrats Barnstorm New Hampshire",Sanders,pos
+322,Buttigieg on Defense as Rivals Aim to Blunt His Momentum,Buttigieg,neutr
+323,"Trump Hosts Governors, Claims Credit for Their Performance",Trump,neutr
+324,Trump to Propose $4.8 Trillion Budget With More Border Wall Funding,Trump,neutr
+325,Exclusive: Trump Proposes 21% Cut in U.S. Foreign Aid in Budget Proposal-Officials,Trump,neutr
+326,The Latest: Warren Says She's Best Positioned to Beat Trump,Warren,pos
+327,Iowa Democrats Give Buttigieg the Most Delegates as Sanders Team Seeks Recanvass,Buttigieg,pos
+328,Iowa Democrats Give Buttigieg the Most Delegates as Sanders Team Seeks Recanvass,Sanders,neutr
+329,Biden Faces Competition for Black Vote in His SC 'Firewall',Biden,neutr
+330,On the 2020 Trail: Sanders Blasts Buttigieg for Taking Billionaire Bucks,Buttigieg,neg
+331,Pelosi Clashes With Facebook and Twitter Over Video Posted by Trump,Trump,neg
+332,Trump Has Reshaped the Judiciary. Here’s How the 2020 Democrats Would Address That.,Trump,pos
+333,Republican Senators Tried to Stop Trump From Firing Impeachment Witness,Trump,neg
+334,"The Latest: Biden: First Two States Important, Not Critical",Biden,neutr
+335,Trump's 2020 Re-Election Challenges and Strategy to Win,Trump,neutr
+336,"AP FACT CHECK: Trump, Dems and the State of Disunion",Trump,neutr
+337,Trump Reprises State of the Union Message in North Carolina,Trump,neutr
+338,Amy Klobuchar Compares ‘Cool Newcomer’ Pete Buttigieg to Trump,Trump,neutr
+339,Buttigieg Says He's Raised $4M Since Strong Showing in Iowa,Buttigieg,pos
+340,"Nevada Union Warns Members of Sanders, Warren Health Plans",Sanders,neg
+341,Elizabeth Warren Has a Pete Buttigieg Problem,Warren,neg
+342,Biden Shuffles Campaign Leadership After 4th-Place Finish,Biden,neutr
+343,Appeals Court Dismisses Democrats' Lawsuit Against Trump,Trump,pos
+344,"Buttigieg Leads Sanders in Iowa Delegates, 13-12. So, Who Won?",Sanders,neutr
+345,How Pete Buttigieg Became the Surprise of the Iowa Caucuses,Buttigieg,pos
+346,"Trump Says Will Keep Mulvaney as Chief of Staff, Will Decide on Vindman",Trump,neutr
+347,Trump's Ex-Navy Secretary Endorses Bloomberg for President,Bloomberg,pos
+348,"The Latest: Bloomberg Isn't at Debate, but He's Name-Dropped",Bloomberg,neg
+349,Delaware University Pulls Art Depicting Trump Decapitation,Trump,neutr
+350,Former Trump Navy Secretary Backs Bloomberg for President,Bloomberg,pos
+351,Trump's Acquittal Confronts Dems With Election Year Choices,Trump,neutr
+352,Buttigieg Narrowly Defeats Sanders in Iowa Caucus: Iowa Democratic Party,Buttigieg,pos
+353,Buttigieg Narrowly Defeats Sanders in Iowa Caucus: Iowa Democratic Party,Sanders,neg
+354,"Trump Halts Support for Yucca Mountain, Nevada Nuclear Waste Dump",Trump,neutr
+355,Trump Tweets Reversal of Push for Nevada Nuclear Waste Dump,Trump,neutr
+356,Trump Praises 2 Republicans Seeking Georgia Senate Seat,Trump,neutr
+357,"McConnell Remaking Senate in Age of Trump, Impeachment",Trump,neutr
+358,"Forty-Three Percent of Americans Back Trump Acquittal, 41 Percent Opposed: Reuters/Ipsos Poll",Trump,neutr
+359,Trump Unbound at White House Celebration of His Acquittal,Trump,neutr
+360,Trump Exults Over Acquittal in U.S. Senate Impeachment Trial,Trump,pos
+361,Trump Seeks to Delay Woman's Suit After Request for His DNA,Trump,neutr
+362,Biden Reaches for 'Comeback Kid' Mantle in New Hampshire,Biden,neutr
+363,"Trump Courts Black Voters, but Opposition Remains Deep",Trump,neutr
+364,Key Dates in the Impeachment Inquiry Into President Trump,Trump,neg
+365,Black Lawmakers Demand Biden Disavow Surrogate's Comments,Biden,neutr
+366,Trump Aide Ties Israeli Settlements to Rising Anti-Semitism,Trump,neutr
+367,Factbox: Trump Impeachment-What Happens Next?,Trump,neg
+368,Trump Seen Heading to Acquittal in U.S. Senate Impeachment Vote on Wednesday,Trump,neutr
+369,Rosy Polls but Few Yard Signs: How Joe Biden Stumbled in Iowa,Biden,neg
+370,"Buttigieg Has Narrow Iowa Lead on Sanders, Biden Lags in Democratic Race",Buttigieg,pos
+371,"Buttigieg Has Narrow Iowa Lead on Sanders, Biden Lags in Democratic Race",Sanders,neutr
+372,"In Political Speech to Congress, Trump Pokes at Democrats' Divide on Healthcare",Trump,neg
+373,"Impeachment Takeaways: Trump's Iron Grip, McConnell Delivers",Trump,pos
+374,"With Made-For-TV Flourish, Trump Makes Case for Bringing Troops Home",Trump,neutr
+375,"Trump Spurns Pelosi Handshake, She Tears Up His Speech",Trump,unk
+376,Vulnerable Democrat Doug Jones Votes to Convict Trump,Trump,neg
+377,Pelosi Shreds Trump's Speech. Right There on the Podium.,Trump,neutr
+378,Text of President Trump's 2020 State of the Union Address,Trump,neutr
+379,AP FACT CHECK: Trump's Exaggerated 'Great American Comeback',Trump,neg
+380,Bloomberg Plans to Double Ad Spending After Iowa Caucus Problem,Bloomberg,neutr
+381,"Susan Collins Announces She Will Vote to Acquit Trump, Calling Conduct ‘Wrong’",Trump,pos
+382,Verbal Fireworks Likely at Trump's State of the Union Speech,Trump,pos
+383,'No Fair Trial': Quotes From Trump's Senate Impeachment Trial,Trump,neutr
+384,Trump Revels in Democrats' Dysfunction in the Iowa Caucuses,Trump,neutr
+385,Factbox: 'Midnight in Washington'-Quotes From Trump's Impeachment Trial,Trump,neutr
+386,Iowa's Anger Over Trump's Ethanol Policy Gives Democrats Opening,Trump,neg
+387,Pelosi Tears Up Trump's Speech to Congress as Impeachment Trial Nears End,Trump,neg
+388,"As Democrats Fight for Iowa, Bloomberg Makes a Play for Delegate-Rich California",Bloomberg,neutr
+389,Democrats Condemn Trump at Trial as Threat to American Democracy,Trump,neg
+390,What to Expect Ahead of Trump’s State of the Union Address,Trump,neutr
+391,Amy Klobuchar’s Caucus-Day in Iowa Visit Pays Off,Klobuchar,pos
+392,Pelosi Says Democrats Have ‘Pulled Back a Veil’ on Trump’s ‘Unacceptable’ Behavior,Trump,neg
+393,Trump or Obama? Lawmakers Fight Over SC Interchange Name,Trump,neutr
+394,America Has Had a Year to Learn How to Say Buttigieg. And Yet.,Buttigieg,neutr
+395,"Trump, Bloomberg Trade Schoolyard Taunts as Spending War Heats Up",Trump,neg
+396,Black Democratic Group Co-Chair Endorses Steyer in South Carolina,Steyer,neutr
+397,Billionaire U.S. Candidate Bloomberg Floats Plan to Tax Rich People 'Like Me',Bloomberg,neutr
+398,Joe Walsh Also Wants to Beat Donald Trump,Trump,neutr
+399,The Latest: Warren Assures Supporters a Woman Can Win,Warren,neg
+400,Trump Speech to Project Optimism at Time of Bitter Division,Trump,pos
+401,Trump Impeachment: What Happens Next?,Trump,neutr
+402,"Echoing His Campaign Pitch, Trump Will Focus on Economic Boom in Annual Speech",Trump,pos
+403,Democrats Announce New Debate Rules Likely to Allow Bloomberg to Join,Bloomberg,pos
+404,Democrat Michael Bloomberg Spent $200 Million of Own Wealth on Presidential Bid in 2019,Bloomberg,neutr
+405,Warren Raises 'Significant Concerns' in Letter to Trump's Fed Pick Shelton,Trump,neutr
+406,Warren Raises 'Significant Concerns' in Letter to Trump's Fed Pick Shelton,Warren,neutr
+407,Biden Slams Trump for Cutting Health Programs Before Coronavirus Outbreak,Trump,neg
+408,Emails Show the Fallout From Trump's Claims About Dorian,Trump,neg
+409,Analysis: GOP Sends Message That Trump’s Actions Were OK,Trump,pos
+410,Bloomberg Proposes $5 Trillion in Taxes on the Rich and Corporations,Bloomberg,neutr
+411,Democratic Candidates Focus on All-Consuming Hunger to Unseat Trump,Trump,neg
+412,Trump State of the Union Won't Be 1st Delivered Amid Turmoil,Trump,neutr
+413,Billionaire Bloomberg Floods Democratic Primary With Cash,Bloomberg,neg
+414,"Clinton Jabs Again at Sanders, Says He Didn't Unite Party",Sanders,neg
+415,"Once Skeptical, Senate Republicans Are All In on Trump",Trump,pos
+416,Biden Cash Reserves Lag Behind Top 2020 Rivals,Biden,neutr
+417,"Despite Evidence, Republicans Rallied Behind Trump. This Was Their Reasoning.",Trump,neutr
+418,Biden Camp Prepping Backers for Extended Fight Beyond Iowa,Biden,neutr
+419,Former White House Counsel Says Trump Thinks Differently,Trump,neutr
+420,Trump Hotel Patrons Relish Impeachment Finale,Trump,unk
+421,GOP Senators Seek to Acquit Trump Without Condoning Conduct,Trump,neutr
+422,Trump Administration Adds Six Countries to Travel Ban,Trump,neg
+423,Bloomberg Fueled His Campaign With $200 Million From His Own Fortune,Bloomberg,neutr
+424,"Trump Told Bolton to Help His Ukraine Pressure Campaign, Book Says",Trump,neg
+425,Bernie Sanders’s Surge Owes a Lot to Voters of Color,Sanders,neg
+426,Biden: Sanders 'Changed His Mind' on Gun Policies,Biden,neutr
+427,Good Economy May Mask Trump Vulnerability in Key States: Study,Trump,neg
+428,"Bloomberg Tackles Gun Violence, Trump Touts Victories in Super Bowl Ads",Bloomberg,pos
+429,"Bloomberg Tackles Gun Violence, Trump Touts Victories in Super Bowl Ads",Trump,neg
+430,"Trump Mocks Democrats, Revives Border Wall Promise in Iowa Campaign Speech",Trump,neutr
+431,A Second Video Shows Trump With Former Ukraine Fixer Lev Parnas,Trump,neutr
+432,"In Iowa's Small Black Community, Little Love for the Caucuses or Joe Biden",Biden,neg
+433,Republican Senators to Watch in Battle Over Trump Impeachment Trial Witnesses,Trump,neutr
+434,McConnell's Democratic Rival McGrath Endorses Biden for 2020,Biden,pos
+435,Movin' on Up: Bloomberg Glides Past Warren to No. 3 in Democratic Race-Reuters/Ipsos Poll,Warren,neg
+436,Buttigieg Courts 'Future Former Republicans' to Expand Vote,Buttigieg,neutr
+437,Trump Signs Order Creating Post Focused on Human Trafficking,Trump,neutr
+438,Trump Lawyer’s Impeachment Argument Stokes Fears of Unfettered Power,Trump,neg
+439,Trump Travels to Iowa to Energize Supporters for Caucuses Next Week,Trump,neutr
+440,Note-Passing and Power: Moderates Team Up at Trump Trial,Trump,neutr
+441,Exclusive: Utah Sen. Mike Lee thankful for Trump plan to allow use of lands previously designated as monuments,Trump,pos
+442,Feeling the Bern: New Hampshire narrowly goes for Sanders,Sanders,pos
+443,Trump: Don't want to say yet whether I'd pardon Roger Stone,Trump,neutr
+444,"Biden campaign says race isn't over, turns focus to South Carolina and Nevada",Biden,neutr
+445,"Booming economy, Trump immigration crackdown create labor shortage in construction industry",Trump,neg
+446,2020 Democrats in growing battle over who can defeat President Trump,Trump,neutr
+447,Deval Patrick drops out of presidential race,Patrick,neutr
+448,"Howard Kurtz: Media spotlight on Klobuchar, despite Sanders winning in New Hampshire primary",Sanders,neutr
+449,President Trump congratulates Attorney General Barr for taking control of Roger Stone case,Trump,pos
+450,Baier on Biden’s decision to leave New Hampshire early to rally in South Carolina,Biden,neutr
+451,Progressive platform fuels Bernie Sanders' victory in New Hampshire,Sanders,pos
+452,President Trump victorious in New Hampshire primary,Trump,pos
+453,Cuomo to meet with Trump over Trusted Traveler Program enrollment ban for New Yorkers,Trump,neutr
+454,"Sanders, Buttigieg and Klobuchar look to seize momentum from New Hampshire results",Buttigieg,neutr
+455,"Sanders narrowly beats Buttigieg to win New Hampshire, Klobuchar surges disappointing night for Biden, Warren",Buttigieg,neutr
+456,"Sanders narrowly beats Buttigieg to win New Hampshire, Klobuchar surges disappointing night for Biden, Warren",Sanders,pos
+457,"Sanders narrowly beats Buttigieg to win New Hampshire, Klobuchar surges disappointing night for Biden, Warren",Warren,neutr
+458,Joe Scarborough says Trump is a 'would-be dictator' who wants to arrest journalists,Trump,neg
+459,"Trump doubles Obama's 2012 vote total in New Hampshire, signaling fired up base",Trump,pos
+460,"Sanders narrowly beats Buttigieg, Biden places 5th in New Hampshire primary",Biden,neutr
+461,"Sanders narrowly beats Buttigieg, Biden places 5th in New Hampshire primary",Sanders,pos
+462,"Biden finishes 5th in New Hampshire primary, says ‘It ain’t over’",Biden,neutr
+463,What might be Andrew Yang's next move?,Yang,neutr
+464,Is Sanders really the candidate Democrats can rally behind?,Sanders,neg
+465,How does Trump plan to win the state of New Hampshire in the general election?,Trump,neutr
+466,What would a brokered Democratic convention mean for Trump?,Trump,neutr
+467,Will an 'outsider candidate' stand the best chance against President Trump in 2020?,Trump,neutr
+468,"Sanders edges out Buttigieg to win New Hampshire, as Klobuchar surges to third",Buttigieg,neutr
+469,Biden finishes fifth in New Hampshire primary,Biden,neg
+470,Trump trolls Democrats with rally on eve of New Hampshire primary,Trump,neutr
+471,Buttigieg calls for Dem unity following strong showing in New Hampshire primary,Buttigieg,pos
+472,"Biden, Warren won’t get any delegates from New Hampshire",Warren,neg
+473,Joe Biden speaks at a kick off rally for his South Carolina campaign,Biden,neutr
+474,"Trump mocks 'Pocahontas' Warren, 'Impeachment King' Steyer after poor showing in New Hampshire",Steyer,neg
+475,How will New Hampshire play out for President Trump?,Trump,neutr
+476,Trump taunts Roger Stone prosecutors who 'cut and ran' from case,Trump,neg
+477,Klobuchar gives proud speech after strong New Hampshire showing: 'Beaten the odds every step of the way',Klobuchar,neutr
+478,Trump pulls former US attorney Jessie Liu’s nomination for Treasury role,Trump,neutr
+479,"Michael Bennet drops out of 2020 presidential race, after New Hampshire primary",Bennet,neg
+480,Trump easily wins New Hampshire Republican primary,Trump,pos
+481,Andrew Yang: We accelerated the eradication of poverty,Yang,pos
+482,Buttigieg surrogate on campaign momentum from Iowa to New Hampshire,Buttigieg,neutr
+483,Trump tries to steal Democrats' thunder in New Hampshire,Trump,neg
+484,Lewandowski: Tonight is going to be a big night for Sanders and Buttigieg,Buttigieg,pos
+485,Wallace: I think Joe Biden is in serious trouble,Biden,neg
+486,Yang: Our goal is to finish top 4 in New Hampshire,Yang,neutr
+487,Trump calls Romney a ‘disgrace’ for impeachment vote,Trump,neg
+488,"Biden, Buttigieg Amplify Sanders Criticism Before Iowa Vote",Biden,neutr
+489,"Biden, Buttigieg Amplify Sanders Criticism Before Iowa Vote",Sanders,neutr
+490,Trump Administration Expected to Loosen Military’s Limits on Land Mines,Trump,neutr
+491,Bernie Sanders Is Still Sad About the Dodgers,Sanders,neutr
+492,"Buttigieg Sharpens Biden, Sanders Attacks as Caucuses Near",Biden,neg
+493,"Buttigieg Sharpens Biden, Sanders Attacks as Caucuses Near",Buttigieg,pos
+494,How Iowa Could Decide Joe Biden’s Fund-Raising Future,Biden,neutr
+495,Pompeo Plays Clean-Up in Ukraine as Trump Trial Nears End,Trump,neutr
+496,‘I’m a Democrat’: Biden Accuses Sanders of Not Being a Party Member,Biden,neutr
+497,"Bloomberg Backed by DC Mayor, Biden Endorsed by Richmond's",Biden,neutr
+498,"Aiming at Trump, Biden Says a President's Character Matters",Trump,neg
+499,"Postal Workers Union With 200,000 Members Endorses Sanders",Sanders,pos
+500,"Bloomberg, Trump Detail Campaign Ads to Air on Super Bowl",Bloomberg,neutr
+501,Trump: Justice Department corrected 'horribleness' of Stone sentencing,Trump,neutr
+502,Elizabeth Warren under fire for saying she accepted broke college student's 'last few dollars' for her campaign,Warren,neg
+503,Biden Under Pressure to Prove He Can Thwart New GOP Attacks,Biden,neg
+504,"As Other Democrats Feud, Bloomberg Hammers Trump on Health Care",Bloomberg,pos
+505,Biden Aides Weigh Pursuing an Iowa Caucus Alliance With Klobuchar,Klobuchar,neg
+506,"At Rally, Trump Praises Van Drew for Leaving ‘Deranged’ Democratic Party",Trump,neutr
+507,"On the Day Democrats Vote in Iowa, Trump Plans to Flood the Zone",Trump,neutr
+508,Bolton Book Puts New Focus on Trump’s Actions in Turkey and China Cases,Trump,neutr
+509,Joni Ernst Asks if Impeachment Trial Will Turn Iowa Caucusgoers Against Biden. They Answer.,Biden,neutr
+510,On Politics: A Sanders Scenario,Sanders,neutr
+511,How People of Color Inside the Buttigieg Campaign Sought to Be Heard,Buttigieg,neutr
+512,A Primary From the Right? Not in Trump’s G.O.P.,Trump,neutr
+513,"Bolton Was Concerned That Trump Did Favors for Autocratic Leaders, Book Says",Trump,neg
+514,How Pete Buttigieg Tailors His Message to Black and White Voters,Buttigieg,neutr
+515,"Bloomberg Is Taunting Trump, and Trump Is Taking the Bait",Bloomberg,neg
+516,"Bloomberg Is Taunting Trump, and Trump Is Taking the Bait",Trump,neg
+517,"John Bolton’s Account Upends Trump’s Denials, but Will It Upend Trump?",Trump,neutr
+518,Bernie Sanders and His Internet Army,Sanders,neutr
+519,5 Takeaways on Trump and Ukraine From John Bolton’s Book,Trump,neutr
+520,Tape Made Public of Trump Discussing Ukraine With Donors,Trump,neutr
+521,Cities Prepare for the Worst as Trump’s Food Stamp Cuts Near,Trump,neg
+522,"Trump Team, Opening Defense, Accuses Democrats of Plot to Subvert Election",Trump,neutr
+523,Who are Trump's Impeachment Defense Lawyers,Trump,neutr
+524,What to Watch For in Trump’s Impeachment Trial on Saturday,Trump,neutr
+525,"Sanders, Biden, Clinton? This Week in the 2020 Race",Sanders,neutr
+526,Trump Tries to Upstage Drama in the Senate With His Own Programming,Trump,neg
+527,Lev Parnas Says He Has Recording of Trump Calling for Ambassador’s Firing,Trump,neutr
+528,Why a Joe Rogan Endorsement Could Help (or Backfire on) Bernie Sanders,Sanders,neutr
+529,"Trump Gives Speech at 2020 March for Life Rally in Washington, D.C.",Trump,pos
+530,What to Watch For in Trump’s Impeachment Trial on Friday,Trump,neutr
+531,Now Testifying for the Prosecution: President Trump,Trump,neutr
+532,Kamala Harris Is Said to Be Weighing an Endorsement of Joe Biden,Biden,pos
+533,"Seeing a Bloomberg Ad on Fox News, Trump Takes the Bait",Trump,neg
+534,Tom Steyer Exaggerates Fossil Fuel Divestment,Steyer,neg
+535,What to Watch For in the Trump Impeachment Trial,Trump,neutr
+536,‘Where Is Kevin?’ McCarthy Finds a Place in the Trump Camp,Trump,neutr
+537,Why Bernie Sanders Went on the Attack Against Joe Biden,Sanders,neutr
+538,Trump Impeachment Trial: Live Updates,Trump,neutr
+539,Pete Buttigieg Once Led in Iowa. Can He Get His Groove Back?,Buttigieg,neutr
+540,Trump Considering an Expansion of His 2017 Travel Ban,Trump,neutr
+541,Barr Once Contradicted Trump’s Claim That Abuse of Power Is Not Impeachable,Trump,neutr
+542,Sanders Apologizes to Biden for Surrogate’s Critique,Biden,neutr
+543,‘Constitutional Nonsense’: Trump’s Impeachment Defense Defies Legal Consensus,Trump,neutr
+544,McConnell Pushes to Speed Impeachment Trial as Trump Requests Swift Acquittal,Trump,neutr
+545,Biden and Sanders Clash Over Social Security,Biden,neutr
+546,Sanders and Warren Try to Tone Down Rift. Some of Their Supporters Seem Less Willing.,Sanders,neutr
+547,Sanders and Warren Try to Tone Down Rift. Some of Their Supporters Seem Less Willing.,Warren,neutr
+548,Sanders vs. Warren: This Week in the 2020 Race,Sanders,neutr
+549,Impeachment Briefing: Team Trump,Trump,neutr
+550,"How Trump Is Spreading a Conspiracy Theory About Pelosi, Biden and Sanders",Biden,neg
+551,"How Trump Is Spreading a Conspiracy Theory About Pelosi, Biden and Sanders",Trump,neg
+552,"Jane Raskin, Who Helped Trump in Mueller Inquiry, Joins President’s Defense Team",Trump,neutr
+553,Pat Cipollone: White House Counsel Who Will Help Lead Trump Legal Team,Trump,neutr
+554,"In Jay Sekulow, Trump Taps Longtime Loyalist for Impeachment Defense",Trump,neg
+555,"Joe Biden’s Poll Numbers Are Steady, but Are They Immovable?",Biden,neutr
+556,California Governor Wants Truce With Trump in Homelessness Fight,Trump,neutr
+557,"Angry Trump Says Focus Should Be on a Trade Deal, Not a ‘Hoax’",Trump,neg
+558,"Sanders-Warren: An Alliance, if Not a Close Friendship, Suddenly Fractures",Warren,neutr
+559,Senate Opens Trump Impeachment Trial as New Ukraine Revelations Emerge,Trump,neg
+560,Key Moments as Trump’s Impeachment Trial Formally Begins,Trump,neutr
+561,G.A.O. Report Says Trump Administration Broke Law in Withholding Ukraine Aid,Trump,neg
+562,Trump Falsely Calls China Trade Agreement ‘Biggest Deal There Is’,Trump,neg
+563,Elizabeth Warren Confronts the Skeptics Who Fear Her Plans Go Too Far,Warren,pos
+564,"Warren Told Sanders After Debate, ‘I Think You Called Me a Liar on National TV’",Sanders,neg
+565,Judge Halts Trump Policy That Allows States to Bar Refugees,Trump,neg
+566,Warren and Sanders Seemed to Calm Things. Then the Debate Ended.,Sanders,pos
+567,"Trump, Like Obama, Seeks Change in Iran. But He Differs in How to Do It.",Trump,neutr
+568,"Senate Has Votes to Pass Limits on Trump’s Iran War Power, Likely Drawing a Veto",Trump,neutr
+569,An Ad From Bernie Sanders Invokes J.F.K.,Sanders,neg
+570,Documents Provide New Details of Trump’s Pressure Campaign on Ukraine,Trump,neutr
+571,Tonight’s Democratic Debate in Iowa: Will Sanders and Warren Clash or De-Escalate?,Sanders,neutr
+572,Tonight’s Democratic Debate in Iowa: Will Sanders and Warren Clash or De-Escalate?,Warren,neutr
+573,Bernie Sanders Says He’d Consider Releasing List of Supreme Court Picks,Sanders,neutr
+574,The Trump Administration’s Fluctuating Explanations for the Suleimani Strike,Trump,neg
+575,Joe Biden’s Vote for War,Biden,neg
+576,"Trump, Shifting Arguments, Urges Swift Dismissal of Impeachment Charges",Trump,neutr
+577,Judge Judy Has Issued Her Decision: She Likes Michael Bloomberg,Bloomberg,pos
+578,Trump Took Credit for Lower Cancer Death Rates. Advocates Say Not So Fast.,Trump,neg
+579,"Former Marine Posed as Security Member for Trump’s Marine One, Officials Say",Trump,neutr
+580,Logjam Over Impeachment Trial Leaves Trump Prosecutors Little Time to Prepare,Trump,neutr
+581,Sanders and Biden Look for Dominance in Early States,Sanders,neutr
+582,"F.B.I. Apologizes to Court for Botching Surveillance of Trump Adviser, and Pledges Fixes",Trump,neutr
+583,"Texas Governor Shuts State to Refugees, Using New Power Granted by Trump",Trump,neutr
+584,Why Pete Buttigieg Has Made Religion Central to His Campaign,Buttigieg,neutr
+585,How the Public Feels About Trump’s Iran Strategy,Trump,neg
+586,He Was Cruising in a G.O.P. Primary. Then Trump Endorsed an Ex-Democrat.,Trump,neutr
+587,Twin Court Rulings Buoy Construction of Trump’s Border Wall,Trump,neutr
+588,Competing for Sanders’s New Hampshire Voters: Yang and Gabbard,Sanders,neg
+589,Competing for Sanders’s New Hampshire Voters: Yang and Gabbard,Yang,neutr
+590,Trump Claims Iranians Were Plotting to Blow Up American Embassy,Trump,neutr
+591,Around the Country in 17 Hours With Michael Bloomberg,Bloomberg,neutr
+592,The Trump Doctrine Tests the G.O.P.,Trump,neutr
+593,Pelosi Announces Vote to Limit Trump’s War-Making Power Against Iran,Trump,neg
+594,Full Transcript: President Trump’s Address on Iran,Trump,neutr
+595,A Strategy for the Mideast That Has Even Trump’s Allies Scratching Their Heads,Trump,neg
+596,Connecticut Man Admits He Threatened to Kill President Trump,Trump,neg
+597,"Pressed for Details on Suleimani Strike, Trump Administration Gives Few",Trump,neg
+598,Donor to Trump Inauguration Charged With Obstructing Investigation,Trump,neg
+599,"Days After Suleimani Killing, Trump Campaign Promotes It on Facebook",Trump,neg
+600,"Joe Biden, Seeking Commander-in-Chief Moment, Denounces Trump’s Iran Escalation",Biden,neg
+601,Bloomberg and Trump Buy Super Bowl Ads at $10 Million Each,Bloomberg,neutr
+602,Bloomberg and Trump Buy Super Bowl Ads at $10 Million Each,Trump,neutr
+603,"Deval Patrick Hopes for an Unlikely Surge, but for Many, ‘It’s Awfully Late’",Patrick,neg
+604,Julián Castro Endorses Elizabeth Warren for President,Warren,pos
+605,Biden and Sanders Differ on Foreign Policy. They’re Happy to Tell You So.,Biden,pos
+606,Biden and Sanders Differ on Foreign Policy. They’re Happy to Tell You So.,Sanders,neutr
+607,"For Trump, the Burden May Be Proving This Is Not the Moment His Critics Predicted",Trump,neg
+608,"Buttigieg’s Bet: After Iran Strike, Military Experience Matters Even More",Buttigieg,neg
+609,"As Tensions With Iran Escalated, Trump Opted for Most Extreme Measure",Trump,neutr
+610,White House Withholds 20 Emails Between Two Trump Aides on Ukraine Aid,Trump,neg
+611,"Impeachment Impasse Deepens in Senate, Leaving Trump’s Trial in Doubt",Trump,neutr
+612,Pete Buttigieg’s Campaign Says It Raised $24.7 Million in the Fourth Quarter,Buttigieg,neutr
+613,Elizabeth Warren Isn’t Talking Much About ‘Medicare for All’ Anymore,Warren,neutr
+614,Dizzying Day for Trump Caps a Year Full of Them,Trump,neutr
+615,Firings at Trump Property Cap Year of Purging Undocumented Workers,Trump,neg
+616,Trump Says U.S. and China Will Sign Trade Deal in January,Trump,neutr
+617,"Bernie Sanders Is in ‘Good Health,’ His Doctors Say",Sanders,pos
+618,"A Biden-G.O.P. Ticket? He’s Open to It, but Doesn’t See Options",Biden,neutr
+619,"Joe Biden Says He Would Comply With a Senate Subpoena, Reversing Course",Biden,neutr
+620,Congress Wants to Force Trump’s Hand on Human Rights in China and Beyond,Trump,neutr
+621,Why Bernie Sanders Is Tough to Beat,Sanders,pos
+622,The ‘But I Would Vote for Joe Biden’ Republicans,Biden,neutr
+623,How Bernie Sanders Learned to Love Campaigning in California,Sanders,pos
+624,Klobuchar Is Banking on Iowa Moderates. Her Problem: So Is Buttigieg.,Klobuchar,neutr
+625,Trump Largely Ignores Impeachment as He Rallies Young Conservatives,Trump,neutr
+626,Trump to Give State of the Union Address Feb. 4,Trump,neutr
+627,Sarah Huckabee Sanders Apologizes for Mocking Biden’s Remarks on Stuttering,Sanders,neutr
+628,Who’s Best to Beat Trump? 7 Answers When 7 Democrats Debate,Trump,neutr
+629,Buttigieg and Warren Clash Over ‘Wine Cave’ Fund-Raiser,Buttigieg,neg
+630,"After Impeachment, an Angry Trump Looks to Voters for Vindication",Trump,neg
+631,How a Trump Trade Deal Won Over Democrats,Trump,pos
+632,Debbie Dingell Gets Support From Another Widow Whose Husband Trump Has Mocked: Cindy McCain,Trump,neg
+633,Elizabeth Warren to Meet With Native American Leaders in Oklahoma,Warren,pos
+634,Trump Impeachment Trial in Doubt as Democrats Weigh Withholding Articles,Trump,pos
+635,"Andrew Yang Is Onstage, but Offstage, Asian-Americans Wonder Where They Fit In",Yang,neutr
+636,Timing of Trump Impeachment Trial in Limbo as Pelosi Holds Out for Assurances,Trump,neutr
+637,"Where Impeachment Crosses Party Lines, but Fixates on Trump",Trump,neutr
+638,Trump Administration Proposes Adding Minor Crimes to List of Offenses That Bar Asylum,Trump,neg
+639,Trump Impeached for Abuse of Power and Obstruction of Congress,Trump,unk
+640,Pete Buttigieg Quit Playing Nice. Will He Pay for It at the Debate?,Buttigieg,neg
+641,Trump Impeachment Vote Schedule: What to Expect,Trump,neutr
+642,Trump Diatribe Belittles Impeachment as ‘Attempted Coup’ on Eve of Votes,Trump,neutr
+643,Sanders and Buttigieg in tight race for delegates,Buttigieg,neutr
+644,Sanders and Buttigieg in tight race for delegates,Sanders,neutr
+645,Trump budget proposal draws partisan ire,Trump,neg
+646,Sanders narrowly defeats Buttigieg in New Hampshire,Sanders,neutr
+647,Why isn't Sen. Bernie Sanders taking a stand against Venezuelan regime?,Sanders,neg
+648,Biden turns attention to next contests after New Hampshire,Biden,neutr
+649,Biden vows comeback after defeat in Iowa and New Hampshire,Biden,pos
+650,Trump slams Roger Stone prosecution as a 'disgrace',Trump,neutr
+651,Trump campaign manager reacts to New Hampshire primary results,Trump,neutr
+652,"Ben Shapiro: Sanders wants us to believe in alternate realities, while Bloomberg wrongly accused of racism",Sanders,neg
+653,Don Jr.: The one thing Bloomberg can't buy is personality,Bloomberg,neg
+654,New Yorkers react to controversial Bloomberg audio,Bloomberg,unk
+655,Don Jr calls up pro-Trump 15-year-old who was attacked in NH: ‘My family has your back',Trump,unk
+656,Trump slams Manchin as a 'puppet' - even after West Virginia Democrat signals he’s open to endorsing president,Trump,neg
+657,Blow to Biden? Powerful Nevada union declines to endorse Democratic presidential candidate,Biden,neg
+658,Dr. Bill Bennett reacts to Sanders momentum alarming House Democrats,Sanders,pos
+659,Trump becomes first president named Daytona 500 grand marshal,Trump,pos
+660,"Trump slams Manchin as a 'puppet,' even after West Virginia Democrat signals he’s open to endorsing president",Trump,neg
+661,Rep. Dan Crenshaw shuts down Bernie Sanders over his Green New Deal claim,Sanders,neg
+662,"Joe Manchin, who voted to oust Trump, says he may endorse his reelection",Trump,pos
+663,"Biden faces NYC protesters chanting ‘Drop out, Joe!’",Biden,neg
+664,'The Ingraham Angle' sends Dinesh D'Souza to a Bloomberg campaign event,Bloomberg,neutr
+665,Attorney General Barr wants President Trump to stop tweeting about the Justice Department,Trump,neutr
+666,Mike Bloomberg says he's willing to spend whatever it takes to beat President Trump,Bloomberg,neutr
+667,Powerful Nevada union declines to endorse a candidate in Dem race in major snub to Biden,Biden,neg
+668,Palestinian president dismisses Trump's Mideast peace plan at UN Security Council meeting,Trump,neg
+669,Trump’s NASA Budget Will Earmark 12% Boost for Agency in 2021,Trump,pos
+670,Trump Says War With Iran Was ‘Closer Than You Thought’,Trump,neutr
+671,Trump’s Impeachment Is Virtually Over. What Did It Change?,Trump,neutr
+672,How Putin Outfoxed Trump in Venezuela,Putin,pos
+673,Veterans Differ With Trump Over Injuries From Iran Missile Attack,Trump,neutr
+674,Trade-Court Lawsuits Take On Trump’s Tariff Campaign,Trump,neutr
+675,House Democrats May Vote on Trump Impeachment Charges This Week,Trump,neg
+676,Judges Quietly Disrupt Trump Immigration Policy in San Diego,Trump,neg
+677,Barr Attacks Trump on Live TV Defends Deep-State DOJ (VIDEO),Trump,neutr
+678,"""""""Not Terribly Encouraging"""": Mitt Romney Hints He Might Oppose Fed Nominee Judy Shelton In Latest Attack On Trump""",Trump,neutr
+679,George Conway calls for Trump to be impeached…again,Trump,neutr
+680,"Amy Klobuchar Vows to Resettle 500 Percent More Refugees, None in Her Neighborhood",Klobuchar,neg
+681,WATCH: Rep. Sheila Jackson Lee declares Trump’s budget cuts are “slavery” because minorities will be encouraged to work,Trump,neutr
+682,Yang: ‘I Can’t Believe I Lost to These People’,Yang,neg
+683,WATCH: Warren boasts about taking HALF of broke college student’s savings for campaign,Warren,neg
+684,"RED SCARE: Bernie Sanders Wins New Hampshire, Takes Command of Democratic Party",Sanders,pos
+685,Audio: Mike Bloomberg Tells Aspen Elites ‘All the Crime’ Is in Minority Areas ‘Throw Them Against the Wall and Frisk Them’,Bloomberg,neutr
+686,Trump Flies Unannounced To Dover AFB After N.H. Rally To Pay Respects To Two Soldiers Killed In Afghanistan,Trump,pos
+687,"""WATCH: Harrison Ford Calls Trump a """"Son of a Bitch""""""",Trump,neg
+688,Utah GOP resolution would demand Mitt Romney support Trump or vacate his seat,Trump,neutr
+689,Report: Michael Bloomberg Paying Social Media Influencers to Make Him ‘Seem Cool’,Bloomberg,neg
+690,DOJ Has ‘Established An Intake Process’ To Review Biden-Ukraine Info From Giuliani,Biden,neutr
+691,Melania Trump Preparing for Larger Role in 2020 Campaign,Trump,unk
+692,Sanders Calls Medicare for All ‘The Least Disruptive Approach’ (VIDEO),Sanders,neutr
+693,Trump’s Manufacturing Jobs Record Is Even Stronger Than We Thought,Trump,pos
+694,WATCH: Dem senator still in denial about Trump’s acquittal slapped back to reality by ... CNN’s Wolf Blitzer,Trump,neutr
+695,WATCH: Warren Suggests Blacks Only Matter To Democrats During Elections,Warren,neg
+696,Republicans raise $117 million throughout Trump’s impeachment,Trump,neutr
+697,Pete Buttigieg Argues for End of Electoral College After Iowa ‘Victory’ Without Popular Vote,Buttigieg,neutr
+698,Sanders Dodges on Unfulfilled Promise to Release Medical Records (VIDEO),Sanders,neg
+699,WATCH: Joe Biden calls a young woman voter a 'lying dog-faced pony soldier' in New Hampshire,Biden,unk
+700,WATCH: Susan Collins Calls Enraged Voicemails She Received ‘a Sad Commentary’ After Voting to Acquit Trump,Trump,neg
+701,"'It was all bulls**t': Trump hits Romney, Democrats, and Russia probe in post-acquittal victory speech (VIDEO)",Trump,pos
+702,"Man Deliberately Rams Vehicle Into GOP Tent Full Of Volunteers, Trump Responds",Trump,neg
+703,"WATCH: Bernie, Buttigieg, Biden Lash Out At Trump For Killing Top Terrorist Soleimani",Buttigieg,neg
+704,"WATCH: Sanders Declares Victory in Iowa, Claims Media Are Distorting Results",Sanders,neutr
+705,WATCH: Democrat Pete Buttigieg Refuses To Disavow Infanticide,Buttigieg,unk
+706,White House Confirms Trump Has Killed Two More Top Terrorists,Trump,neutr
+707,Senator Warns Biden Could Be ‘Immediately’ Impeached If Elected Because Dems Have Opened Pandora’s Box,Biden,neutr
+708,IOWA RESULTS: Buttigieg (Kind of) Won. So Did Bernie. Warren Persisted. Biden Definitely Lost.,Buttigieg,pos
+709,IOWA RESULTS: Buttigieg (Kind of) Won. So Did Bernie. Warren Persisted. Biden Definitely Lost.,Warren,neg
+710,Biden admits IA ‘gut punch’ - as he plays to ‘two rows’ of supporters in NH (VIDEO),Biden,neutr
+711,Ex-Spokesman For Romney Campaign Says Trump Guilty Vote Was ‘Motivated By Bitterness And Jealousy’,Trump,neg
+712,WATCH: Biden blames Trump surrogates for botched Iowa caucus count,Biden,neutr
+713,WATCH: Biden blames Trump surrogates for botched Iowa caucus count,Trump,neg
+714,Biden Threatens Lawsuit To Halt Release Of Real Iowa Caucus Results,Biden,neutr
+715,WATCH: Trump Won’t Shake Nancy Pelosi’s Hand at State of the Union,Trump,neutr
+716,Al Sharpton Slams Trump for ‘Mocking’ the National Anthem With ‘Fake Conducting’,Trump,neg
+717,Trump honors one of the last surviving Tuskegee Airmen during State of the Union address,Trump,pos
+718,"AOC announces she won't attend State of the Union, 'normalize Trump's lawless conduct'",Trump,unk
+719,"Bloomberg ‘Fuming’ Over Trump’s Attacks On His Height, Already Has Revenge Plan, Report Says",Trump,neg
+720,Donald Trump: ‘Little’ Michael Bloomberg Wants a Box to Stand on at Next Debate,Bloomberg,neg
+721,Never Trump Republican Bill Kristol comes out of the 'political closet' and declares he's a Democrat for now,Trump,neutr
+722,Bloomberg Enjoys Armed Guards While Fighting to Disarm Americans,Bloomberg,neg
+723,Jill Biden: Donald Trump’s Attacks on My Kid Are ‘Disgraceful’,Trump,neg
+724,Steve Hilton: Why is Trump hounded while Biden's alleged corruption gets a pass? The 'Swamp' knows,Biden,neutr
+725,Adam Schiff Warns Donald Trump Could Give Alaska to the Russians If Not Impeached,Trump,neg
+726,"New poll finds Trump at record highs and more liked than Biden, Pelosi, and Schiff",Biden,neg
+727,"New poll finds Trump at record highs and more liked than Biden, Pelosi, and Schiff",Trump,pos
+728,Nasty Biden Fumes at NBC News Reporter for Asking About Hunter Biden: ‘You Do Not Know What You’re Talking About’ (VIDEO),Biden,neg
+729,Trump Lawyer to Schiff’s Team: You’re Conducting ‘Massive Election Interference’ And Americans Will Make You Pay (VIDEO),Trump,neutr
+730,"Major Iowa newspaper endorses Warren, says she will 'treat truth as something that matters'",Warren,pos
+731,Mike Bloomberg Offers ’60 Million’ Latinos: $15 Per Hour Plus Mass Migration,Bloomberg,pos
+732,Top Democrats fume after Trump expands travel ban to six new countries,Trump,neutr
+733,RNC Chair: Polling Suggests Trump Is in ‘Good Shape’ to Win Re-Election (VIDEO),Trump,pos
+734,"CPAC takes action against Mitt Romney after voting for new witnesses, evidence in Trump trial",Trump,neutr
+735,WATCH: Rand Paul Says President Trump Would Be ‘Going Against The Law If He Didn’t Investigate The Bidens’,Biden,neg
+736,WATCH: Rand Paul Says President Trump Would Be ‘Going Against The Law If He Didn’t Investigate The Bidens’,Trump,neg
+737,Senator Hirono: Trump ‘Believes He Is King Now’ - ‘I Think Our Country Is in Great Danger’,Trump,neg
+738,Dem leaders signal they won’t accept Trump acquittal as legitimate,Trump,neg
+739,Trump Takes Out Another Top Terrorist In The Middle East,Trump,pos
+740,Warren: My Secretary Of Education Will Have To Be Vetted By A Trans Child,Warren,neutr
+741,Dave Chappelle: 'I don’t look at Trump supporters as my enemy' (VIDEO),Trump,neutr
+742,"Pelosi argues Trump 'cannot be acquitted,' suggests defense team should be disbarred",Trump,neutr
+743,"Bernie Sanders Plans To Sign ‘Dozens’ Of Executive Orders To End Immigration Enforcement, Close Prisons, End Exportation Of Crude Oil",Sanders,neutr
+744,"Swing-vote GOP Sen. Alexander comes out against witnesses, paving way for imminent Trump acquittal",Trump,neutr
+745,Michael Bloomberg Pays $10 Million for Super Bowl Gun Control Ad,Bloomberg,neutr
+746,Alec Baldwin: Trump’s Impeachment Centers on a Hate Crime. He Hates the Constitution’,Trump,neg
+747,Gabbard’s Lawyer Says Clinton Is Too ‘Intimated’ to Be Served Defamation Lawsuit: Report,Gabbard,neutr
+748,WATCH: Jill Biden plays to tens next to pool table in Des Moines gay bar,Biden,neutr
+749,Dem Senator: Hunter Biden Is a Relevant Witness (VIDEO),Biden,pos
+750,"Bloomberg: Transgender Rights Should Include Federally Funded Sex Surgery, Housing Based on Gender Identity",Bloomberg,neutr
+751,Warren Can’t Name Any GOP Senate Colleagues With Character (VIDEO),Warren,neg
+752,"Trump Signs ‘Cutting-Edge’ USMCA, Says the Future Will Be ‘Raised, Grown, Built and Made’ in the US",Trump,pos
+753,Ex-Trump aide Carter Page files suit against DNC over dossier: ‘This is only the first salvo’,Trump,neutr
+754,"Joe Biden Suggests Making Michelle Obama Running Mate, Appointing Barack to Supreme Court",Biden,neutr
+755,"'GAME OVER,' Trump declares, as old Bolton, Schiff videos surface amid Senate impeachment trial",Trump,neutr
+756,Poll Gives Trump Best Economic Rating in Almost Twenty Years,Trump,neutr
+757,Trump Admin Says Israel Has Accepted Plan for Palestinian State,Trump,neutr
+758,Biden to Iowa Voter: ‘Go Vote for Someone Else’ (VIDEO),Biden,neg
+759,"Trump lawyer calls Bolton book 'inadmissible,' as defense team wraps impeachment arguments",Trump,neg
+760,Ossoff: We Need to Beat Trump Backers So Badly They Can’t Show Their Faces in Public (VIDEO),Trump,neg
+761,Trump on Virginia: Gun Confiscation Not Happening on My Watch,Trump,neutr
+762,Warren Endorses Prosecutor Who Dropped Charges Against Jussie Smollett For Fabricating Hate Crime,Warren,neg
+763,Joe Biden’s Sister Valerie Sent Millions of Joe’s Campaign Dollars to Her Own Consulting Firm,Biden,neg
+764,Massive crowds form for Trump's New Jersey rally amid impeachment fight,Trump,pos
+765,Biden Blasts Trump as the ‘Worst Possible Person’ to Handle Coronavirus Outbreak,Biden,unk
+766,Biden Blasts Trump as the ‘Worst Possible Person’ to Handle Coronavirus Outbreak,Trump,neg
+767,MSNBC Anchor: Everyone’s Drawing Huge Crowds in Iowa Except Biden (VIDEO),Biden,neg
+768,Elizabeth Warren’s Daughter Amelia Piggybacked off Mom to Cash In on Corporate Contracts,Warren,neg
+769,CA mayor unilaterally ends Pledge of Allegiance over ‘disdain for Trump’,Trump,pos
+770,BIDEN: Trump impeachment trial ‘because he’s afraid to run against me’ (VIDEO),Trump,neg
+771,"Pam Bondi Lays Out Case Against Joe Biden, Hunter Biden, Burisma",Biden,neg
+772,WATCH: Harvard Law Professor Dismantles Democrats’ Hopes Of Using Bolton Book To Convict Trump,Trump,neutr
+773,CBS Anchor to Warren: Are You Saying ‘Tough Luck’ to People Who Saved for College? (VIDEO),Warren,neg
+774,WATCH: Jon Voight Calls on America to Pray for President Trump amid Impeachment Battle,Trump,pos
+775,Pete Buttigieg Tells Woman Her Pro-Life Views Not Welcomed In Democrat Party (VIDEO),Buttigieg,neutr
+776,"Migrants say they will wait out Trump's presidency in Mexico, and try to enter again once a Democrat gets into office",Trump,unk
+777,"Senator Hawley Drafts Motions To Subpoena Bidens, Schiff, Whistleblower",Biden,neutr
+778,Bombshell report: Schiff may have hid 'potentially exculpatory' evidence from Trump's lawyers,Trump,neutr
+779,"Trump legal team goes on offense in impeachment trial, accuse Democrats of 'massive' election interference",Trump,neutr
+780,Tom Cotton Defends Trump’s Decision to Fire Ukrainian Ambassador: ‘Badmouthing’ Is a Good Reason to Fire Her (VIDEO),Trump,pos
+781,WATCH: Trump Legal Team Lays Out 6-Point Case Crushing Democrats’ Impeachment Claims,Trump,pos
+782,Steve Mnuchin Says He Will Listen to Greta Thunberg After She Gets an Economics Degree in College,Thunberg,neg
+783,"Ted Cruz: Democrats Made ‘Very Serious Strategic Error,’ Hunter Biden Testimony Now Needed (VIDEO)",Biden,neutr
+784,DOJ Determines 2 FISA Spy Warrants on Trump Campaign Adviser Were “Not Valid”,Trump,neg
+785,"Trump-Barr divide worsens as the president bucks a request to stop tweeting, and the Justice Dept. declines to charge ex-FBI official McCabe",Trump,neutr
+786,It’s hard to wrap your mind around how much money Bloomberg could spend on his campaign,Bloomberg,neg
+787,"The Daily 202: Donald Trump, the Houston Astros and the fear of the asterisk",Trump,neg
+788,"Patrick Bradley arrested after assaulting teen Trump supporter during New Hampshire primary, police say",Patrick,unk
+789,Power Up: Everybody is now a pundit in the Democratic primary race to beat President Trump,Trump,neutr
+790,Trump brings in loyalists and attacks enemies as post-impeachment drama escalates,Trump,neutr
+791,Trump allies targe Buttigieg's sexuality,Buttigieg,neutr
+792,Trump allies targe Buttigieg's sexuality,Trump,neutr
+793,"Trump to headline a $580,600-per-couple fundraiser, the most expensive of his reelection bid",Trump,neutr
+794,Trump renews his national emergency despite losing the primary rationale for it,Trump,neg
+795,"Hope Hicks, former top aide to Trump, to return to the White House as reelection campaign heats up",Trump,neutr
+796,"On social media, Bloomberg and Trump are fighting two very different fights",Trump,neutr
+797,Septuagenarians Trump and Bloomberg exchange middle-school-like taunts,Bloomberg,neg
+798,"John Kelly, essentially: Trump is doing everything wrong",Trump,neg
+799,The Finance 202: Judy Shelton tests Trump's bid to remake the Federal Reserve,Trump,neg
+800,"What changed for Sanders in New Hampshire since 2016? The electorate, for one.",Sanders,neutr
+801,The Daily 202: Ten reasons Bernie Sanders should celebrate winning New Hampshire – or feel cause for concern,Sanders,neutr
+802,Deval Patrick suspends presidential bid,Patrick,neutr
+803,House Democrats ask Secret Service for details about its payments to Trump’s company,Trump,neg
+804,Trump implicates Barr directly in Roger Stone intervention,Trump,neutr
+805,The Technology 202: Bernie Sanders is no friend of Big Tech. And he keeps winning.,Sanders,pos
+806,Bernie Sanders wins New Hampshire Democratic primary,Sanders,pos
+807,Power Up: Bernie Sanders's 'revolution' may not materialize after narrow New Hampshire primary win,Sanders,neg
+808,Biden looks to South Carolina to revive faltering campaign,Biden,neutr
+809,Michael Bennet drops out of presidential race,Bennet,neg
+810,Trump escalates campaign of retribution as Republican senators shrug,Trump,neg
+811,"Pete Buttigieg Democratic candidate: Biography, issues, fundraising",Buttigieg,neutr
+812,"Bernie Sanders Democratic candidate: Biography, issues, fundraising",Sanders,neutr
+813,Trump’s approach to crime and punishment is centered on his own power,Trump,neg
+814,"After a ‘gut punch’ in Iowa, a surreal feeling surrounds Biden’s campaign",Biden,neg
+815,"AFGE, the largest federal employee union punches back at Trump",Trump,neg
+816,Trump’s no-injuries claim about Iran keeps looking worse,Trump,neg
+817,"Sanders, Buttigieg seek second straight good showing in New Hampshire.",Buttigieg,neutr
+818,"Sanders, Buttigieg seek second straight good showing in New Hampshire.",Sanders,neutr
+819,"Trump barges in on Democratic primary races, seeking to steal the spotlight",Trump,neg
+820,Billionaires Bloomberg and Steyer may be accelerating a Biden collapse,Bloomberg,neutr
+821,Klobuchar tries to turn a debate moment into momentum in New Hampshire,Klobuchar,neutr
+822,"Iowa Democratic Party projects Pete Buttigieg the winner of the delegate race, with Bernie Sanders preparing a challenge",Buttigieg,neutr
+823,"Iowa Democratic Party projects Pete Buttigieg the winner of the delegate race, with Bernie Sanders preparing a challenge",Sanders,neutr
+824,"Biden, Warren battle for third place in New Hampshire",Warren,neutr
+825,Biden jokingly calls voter who asked about Iowa a ‘lying dog-faced pony soldier’,Biden,neg
+826,Sanders and Buttigieg fight for different New Hampshire voters.,Sanders,neg
+827,"Trump eliminates funding for program honoring Ambassador Stevens, who was killed in Benghazi",Trump,neg
+828,Michael Bloomberg: 55 hours in the life of a 2020 presidential candidate,Bloomberg,neutr
+829,"Iowa Democratic Party projects Pete Buttigieg the winner of the delegate race, with Bernie Sanders preparing a challenge",Buttigieg,pos
+830,"Iowa Democratic Party projects Pete Buttigieg the winner of the delegate race, with Bernie Sanders preparing a challenge",Sanders,neutr
+831,"Buttigieg responds to Biden’s Obama jab: ‘I’m not, and neither is he’",Biden,neutr
+832,Bernie Sanders and Joe Biden continue to spar about the Iraq war ? nearly 18 years later,Biden,neutr
+833,"Buttigieg, Biden, Klobuchar, fight as New Hampshire primary nears",Biden,neutr
+834,Trump’s new budget proposal will show how far he has moved away from 2016 campaign promises,Trump,neg
+835,"Ed McGinty stages a viral, one-man anti-Trump protest in the GOP-heavy Florida town The Villages",Trump,neg
+836,"Trump ousts Vindman and Sondland, punishing key impeachment witnesses in post-acquittal campaign of retribution",Trump,neg
+837,"With Vindman firing, Trump gets especially vindictive",Trump,neg
+838,Sanders steps up attacks on Bloomberg ahead of Nevada caucuses,Bloomberg,neutr
+839,Sanders steps up attacks on Bloomberg ahead of Nevada caucuses,Sanders,neutr
+840,Biden shakes up campaign staff,Biden,neg
+841,The Daily 202: Pete Buttigieg is emerging as a unity candidate in New Hampshire – with a bounce from Iowa,Buttigieg,pos
+842,Sanders goes after Buttigieg for billionaire backers as the two vie for early-state dominance,Buttigieg,neutr
+843,Sanders goes after Buttigieg for billionaire backers as the two vie for early-state dominance,Sanders,pos
+844,Secret Service spending at Trump hotels: Rooms for agents cost up to $650 per night,Trump,neutr
+845,Joe Walsh ends long-shot bid to challenge Trump for Republican nomination,Trump,neutr
+846,Power Up: Pete Buttigieg could deliver another surprise in the New Hampshire primary,Buttigieg,pos
+847,How Michael Bloomberg could win,Bloomberg,pos
+848,Trump lambastes his critics as he moves to target perceived enemies like Vindman over impeachment,Trump,neg
+849,How Pete Buttigieg and Bernie Sanders finished on top Iowa,Buttigieg,neutr
+850,"His campaign on the line, Joe Biden goes missing in New Hampshire",Biden,neutr
+851,Trump lashes out at Democrats in cheering his acquittal as Pelosi declares him ‘impeached forever’,Trump,neg
+852,Trump uses cultural fights to hold his base — but expects black Americans to be transactional,Trump,unk
+853,"Yeah, Trump didn’t learn any new lessons from impeachment as his comments Thursday made clear",Trump,neg
+854,Trump’s attack on Romney’s 2012 performance isn’t the lay-up he thinks it is,Trump,neg
+855,Trump is out for revenge -- after the GOP swore he didn’t threaten them,Trump,neg
+856,Pete Buttigieg builds an electability case in Iowa,Buttigieg,neutr
+857,The Health 202: How Pete Buttigieg's health-care strategy helped him gain traction in the Iowa caucus,Buttigieg,pos
+858,"Bernie Sanders raised $25 million in January, a hefty sum",Sanders,pos
+859,Trump remains in office after Senate votes to acquit impeached president on obstruction of Congress charge,Trump,neg
+860,How the Senate voted on the Trump impeachment charges - Washington Post,Trump,neg
+861,Mitt Romney dismantles the GOP’s strained defenses of Trump,Trump,neutr
+862,White House national security adviser says Trump didn’t seek Ukraine’s help with investigations despite evidence to the contrary,Trump,neutr
+863,"In West Palm Beach, President Trump’s name has disappeared from the skyline",Trump,neg
+864,The Technology 202: Trump's made-for-meme State of the Union shows strategy to win the Internet in 2020,Trump,neutr
+865,The Energy 202: Trump pumped up claims about oil and gas during State of the Union,Trump,neg
+866,"Trump invokes ‘manifest destiny’ in State of the Union address, resurfacing a defunct concept",Trump,neg
+867,"The Finance 202: Trump claimed in the State of the Union address he rebooted a failing economy. The facts don't support him, but voters might.",Trump,neutr
+868,"During State of the Union, Trump makes his most direct appeal to black voters yet",Trump,neutr
+869,"Nancy Pelosi at State of the Union: Speaker rips up Trump's speech, reflecting tumultuous year",Trump,neg
+870,Trump’s prepared speech included a guarantee to protect preexisting conditions. He didn’t say it.,Trump,neg
+871,These Republicans said they hope Trump has learned a lesson from impeachment. He said he hasn’t.,Trump,neutr
+872,Trump paints strong economy as vindication as he tries to move past impeachment,Trump,neutr
+873,"With chants, walkouts and a ripped-up speech, bitter partisanship dominates Trump’s State of the Union",Trump,neutr
+874,First set of Iowa Democratic caucus results shows Sanders and Buttigieg leading,Buttigieg,neutr
+875,"President Trump’s 2020 State of the Union address, annotated",Trump,neutr
+876,"Buttigieg and Sanders take lead, Biden fades in partial results from marred Iowa caucuses",Buttigieg,pos
+877,The 75 times Trump insisted he’d done ‘nothing wrong’ in his interactions with Ukraine,Trump,neutr
+878,Susan Collins says Trump will be ‘much more cautious’ after impeachment. The evidence suggests otherwise.,Trump,neg
+879,It was a confusing night for Democrats on Monday. President Trump is smiling.,Trump,pos
+880,Mike Bloomberg to double spending on television advertising after Iowa debacle,Bloomberg,neutr
+881,President Donald Trump seen at Super Bowl party conducting imaginary orchestra during anthem,Trump,neutr
+882,"The Daily 202: A bad night for Biden in Iowa is good news for Buttigieg, Klobuchar and Bloomberg",Biden,neg
+883,"The Daily 202: A bad night for Biden in Iowa is good news for Buttigieg, Klobuchar and Bloomberg",Bloomberg,pos
+884,"The Daily 202: A bad night for Biden in Iowa is good news for Buttigieg, Klobuchar and Bloomberg",Klobuchar,neutr
+885,The team that rigged the GOP primaries accuses Democrats of rigging Iowa against Sanders ,Sanders,neutr
+886,The Health 202: Bernie Sanders and Pete Buttigieg are the favorites among Iowa voters for whom health care is top issue,Sanders,pos
+887,Trump allies use Twitter to sow confusion about voting on the eve of the Iowa caucuses,Trump,neutr
+888,What Trump will say in the State of the Union address ,Trump,neutr
+889,Manchin calls for censuring Trump over pressuring Ukraine to investigate a domestic political rival,Trump,neg
+890,"Jill Biden says Lindsey Graham, once close with Joe, no longer a friend",Biden,neutr
+891,How Trump’s impeachment defense wantonly misled the U.S. Senate,Trump,neg
+892,Trump's Kansas City tweet flub is part of a pattern,Trump,neg
+893,Power Up: Bernie Sanders may have the edge in tonight's Iowa's caucuses. But it's complicated.,Sanders,neutr
+894,Democratic donor race: Bernie Sanders won in 2019 - Washington Post,Sanders,pos
+895,The Trailer: 'Beat Trump': The Democrats' closing arguments in Iowa,Trump,neg
+896,Pete Buttigieg’s mom opens up about her son,Buttigieg,neutr
+897,Sanders’s caucus target: Latino voters usually overlooked in mostly white Iowa,Sanders,neg
+898,Justice Department acknowledges 24 emails reveal Trump’s thinking on Ukraine,Trump,neutr
+899,Senate to vote Wednesday on whether to remove or acquit Trump on impeachment charges,Trump,neutr
+900,Senate set to acquit Trump next week after bid for witnesses in impeachment trial is defeated,Trump,pos
+901,Republicans agree it was no ?perfect call? ? but will vote to acquit Trump anyway,Trump,neg
+902,Amy Klobuchar’s political rise: The Democratic presidential candidate was kicked out of hospital after giving birth,Klobuchar,neutr
+903,Trump administration announces mandatory quarantines in response to coronavirus,Trump,neutr
+904,"Surrogates carry the bulk of the Iowa campaign for D.C.-bound senators Klobuchar, Warren and Sanders",Klobuchar,neutr
+905,"Surrogates carry the bulk of the Iowa campaign for D.C.-bound senators Klobuchar, Warren and Sanders",Sanders,neutr
+906,Senator Amy Klobuchar campaigns in Iowa while balancing Senate impeachment trial,Klobuchar,neutr
+907,A new Bolton revelation ties Trump to Giuliani’s early efforts in Ukraine — and implicates Trump allies like Mulvaney,Trump,neutr
+908,"Trump’s impeachment defense, distilled: he’s innocent and his opponents are guilty",Trump,pos
+909,Sen. Alexander calls Trump’s actions ‘inappropriate’ but rejects witnesses in impeachment trial,Trump,neutr
+910,Takeaways from day 2 of questions in Trump’s impeachment trial,Trump,neutr
+911,Trump and Republicans join forces to attack Biden ahead of the Iowa caucuses,Trump,neutr
+912,"Andrew Yang Democratic candidate: Biography, issues, fundraising",Yang,neutr
+913,"In mostly white Iowa, Pete Buttigieg confronts worry about his lack of support among African Americans",Buttigieg,neutr
+914,Where the goal posts are: Trump’s legal team argues he didn’t ask for an investigation into Biden,Trump,neg
+915,What Michael Bloomberg’s $11 million Super Bowl ad would cost you on your budget - Washington Post,Bloomberg,neutr
+916,D.C. Mayor Muriel Bowser endorses Mike Bloomberg for president,Bloomberg,pos
+917,Voters call on Buttigieg to embrace a diverse view of the ‘American Heartland’,Buttigieg,neutr
+918,"Bernie Sanders, with Iowa caucuses nearing, considers set of executive actions",Sanders,neutr
+919,"Bloomberg’s Super Bowl ad focuses on the ‘national crisis’ of gun violence, not Trump",Bloomberg,neutr
+920,Dershowitz says that if Trump believes his reelection is in the public interest his actions aren’t impeachable,Trump,neutr
+921,Wavering Democrats face pressure as GOP eyes bipartisan vote for Trump acquittal,Trump,neutr
+922,"Days before Iowa, the Warren campaign brings out a key surrogate: Her dog",Warren,neutr
+923,What’s next in Trump impeachment,Trump,neutr
+924,"Biden, Sanders allies try to cut caucus deal with Yang's campaign",Biden,neutr
+925,"Biden, Sanders allies try to cut caucus deal with Yang's campaign",Sanders,neutr
+926,The Daily 202: Senate Republicans move the goal posts again after Bolton’s book and Dershowitz’s defense of Trump,Trump,neutr
+927,"If witnesses are called in Trump's impeachment trial, what could happen?",Trump,neutr
+928,John Bolton joins a select group: Those once praised and now derided by President Trump,Trump,neg
+929,Trump’s effort to block Bolton’s testimony makes little sense — unless he’s guilty,Trump,neg
+930,Power Up: The Senate impeachment trial of President Trump is at its most crucial phase,Trump,neutr
+931,McConnell tells senators he doesn’t yet have votes to block witnesses in Trump impeachment trial,Trump,neg
+932,Trump announces long-awaited Israeli-Palestinian peace package amid doubts it will lead to progress,Trump,pos
+933,The Trailer: Warren and Klobuchar get more frank about electability,Klobuchar,pos
+934,The gaping hole in Trump’s impeachment defense,Trump,neg
+935,"Senate Republicans seize on Dershowitz argument, say Trump’s actions aren’t impeachable",Trump,pos
+936,Trump makes clear that he’d happily have Republicans ignore even Trump-friendly Fox News,Trump,neg
+937,"The Trump actions that raised even William Barr’s eyebrows, according to John Bolton",Trump,pos
+938,CNN Don Lemon segment mocking Trump supporters gets criticism,Trump,neutr
+939,The Health 202: Trump can enforce his 'public charge' immigration crackdown -- for now,Trump,neg
+940,Gun-control group co-founded by Bloomberg announces $60 million spending plan for 2020 elections,Bloomberg,neg
+941,Did Trump undercut his ability to exert executive privilege over John Bolton with a tweet?,Trump,neutr
+942,Why the Bidens are part of Trump's impeachment,Biden,neg
+943,Why the Bidens are part of Trump's impeachment,Trump,neg
+944,"Mike Bloomberg Democratic candidate: Biography, issues, fundraising",Bloomberg,neutr
+945,Warren's urgent bet to win Iowa,Warren,neutr
+946,"Trump’s legal team outlined its case. One day later, John Bolton appears to have kneecapped it.",Trump,neutr
+947,"Mike Bloomberg pitches himself to Jewish Americans, in a presidential race with two very different Jewish candidates",Bloomberg,neutr
+948,"Trump should apologize for minimizing troops’ injuries, VFW says",Trump,neg
+949,Trump’s lawyers begin their defense in impeachment trial as Republicans rally around the president,Trump,neutr
+950,Video shows Trump telling associates to ‘get rid of’ Ukraine ambassador Maria Yovanovitch,Trump,neg
+951,"For Amy Klobuchar, the impeachment trial means bombarding Iowa voters from distant D.C.",Klobuchar,neg
+952,Trump impeachment trial live updates,Trump,neutr
+953,White House eyes Joe Manchin in impeachment trial as Trump wants a Senate Democrat to vote for acquittal.,Trump,neutr
+954,Assessing the Trump team’s 6-point impeachment defense,Trump,neutr
+955,"What case will Trump’s team present, one focused on the evidence or one focused on his base?",Trump,neutr
+956,Trump’s defense team to target Bidens in counterpunch to impeachment charges,Biden,neutr
+957,Trump’s defense team to target Bidens in counterpunch to impeachment charges,Trump,neutr
+958,Bernie Sanders criticized for embracing support from Joe Rogan,Sanders,neg
+959,Democrats focus on Trump’s character as they argue for removing him from office in impeachment trial,Trump,neutr
+960,Joe Biden unspools an endless supply of ‘Bidenisms’ on the campaign trail,Biden,neutr
+961,"Warren’s team will go extra mile to help her win, including painting giant farm signs",Warren,pos
+962,Trump’s March for Life appearance: A reminder to conservative Christians as he prepares for a tight race,Trump,neutr
+963,Schiff puts a fine point on the argument for removal: Trump will always put Trump first,Trump,neg
+964,When Senate Republicans were quite concerned about Trump and Ukraine,Trump,neutr
+965,Fox News has circled the wagons and Trump is welcoming everyone inside,Trump,pos
+966,The Finance 202: Wall Street shrugs off Bernie Sanders's chances to win 2020 Democratic primary. And to beat President Trump.,Sanders,neg
+967,The Health 202: March for Life activists credit Trump with wholeheartedly embracing their antiabortion agenda,Trump,pos
+968,Sen. Mike Braun wants Trump and the GOP to take climate change seriously,Trump,neutr
+969,House managers focus on alleged abuse of power on second day of opening arguments against Trump,Trump,neutr
+970,Assessing a key impeachment argument: Trump’s desired investigations were only for his own benefit,Trump,neg
+971,The ‘prophetic’ Alexander Hamilton quote Democrats say predicted the need to impeach Trump,Trump,neg
+972,Bloomberg gets under Trump?s skin as he ramps up spending on 2020 ads,Trump,neutr
+973,"Sanders wants supporters to pipe down, but they don't always listen",Sanders,neutr
+974,The Energy 202: Trump made nearly 500 false or misleading claims about the environment while in office,Trump,neg
+975,Trump’s second-heaviest Twitter day mirrored the heaviest: Lots of feedback about things on TV,Trump,neg
+976,Democrats scale back language as Trump and GOP press ahead with attacks on Senate impeachment trial,Trump,neutr
+977,Gordon Sondland plugs away in Brussels while playing a central role in Trump’s impeachment trial,Trump,neg
+978,"As House Democrats lay out their case for impeachment, Trump’s campaign and White House offer a different narrative",Trump,neutr
+979,How Trump’s Senate trial lawyers could complicate the case his DOJ lawyers are making in court,Trump,neutr
+980,"Andrew Yang, shut out of tonight’s debate, hosts a pre-debate rally with MATH pins and birthday cake",Yang,pos
+981,The Energy 202: Trump administration delays Arctic refuge oil leasing to strengthen legal case,Trump,neutr
+982,The Cybersecurity 202: Sanders and Warren still mum on campaign protections against hackers,Warren,neg
+983,Power Up: Elizabeth Warren and Bernie Sanders's private conversation sparks debate on sexism in politics,Warren,neg
+984,Why Elizabeth Warren and Bernie Sanders are fighting,Warren,neutr
+985,Preparations accelerate this week for historic Senate trial of Trump,Trump,pos
+986,Warren and Sanders fued over gender,Warren,neutr
+987,Top Senate Republicans reject Trump’s renewed call for immediate dismissal of impeachment charges,Trump,neg
+988,Buttigieg woos moderates — and Republicans — in his push to close the deal in Iowa,Buttigieg,neutr
+989,"Trump turns his fire on Sanders amid polling, fundraising surge",Trump,neutr
+990,Mike Bloomberg's two campaigns: Running for the Democratic nomination and the general election,Bloomberg,neutr
+991,Bernie Sanders's campaign attacks Elizabeth Warren and Joe Biden as Iowa caucuses near.,Biden,neg
+992,"Esper contradicts Trump, Pompeo on Soleimani attacking embassies",Trump,neg
+993,The Health 202: Medicare-for-all goes MIA on the 2020 trail. Only Bernie Sanders remains a purist.,Sanders,pos
+994,The Trailer: Mike Bloomberg's transactional campaign pitch,Bloomberg,neutr
+995,"At Las Vegas events, Joe Biden and Pete Buttigieg woo Hispanic voters",Biden,neutr
+996,Tom Steyer is surging in South Carolina and Nevada. Does it matter?,Steyer,neutr
+997,"Buttigieg’s black-voter problem, by the numbers",Buttigieg,neg
+998,Trump angered by House ally’s push to limit his authority on Iran,Trump,neg
+999,Questions pile up about Trump’s claim that Soleimani was going to ‘blow up’ a U.S. embassy,Trump,neutr
+1000,Trump has a rare public moment of self-awareness,Trump,neg
+1001,Rudy Giuliani’s amazingly bad column asking the Supreme Court to strike down Trump’s impeachment,Trump,neutr
+1002,What the War Powers resolutions and Iran tell us about Trump supporters and presidential power,Trump,neutr
+1003,This is perhaps Trump’s most cynical comment about the environment yet,Trump,neg
+1004,Sanders offers measure to limit Trump's action on Iran,Trump,neutr
+1005,The Daily 202: The ghosts of 1979 still haunt U.S. policy toward Iran and shadow Trump’s response to missile strikes,Trump,neg
+1006,The Cybersecurity 202: Threat of Iran cyberattack remains high even as Trump backs away from potential war,Trump,neutr
+1007,Puerto Rico earthquakes pit Trump administration in another fight with Democrats over disaster funding,Trump,neg
+1008,Trump uses sanctions as a favorite form of retribution — against friend and foe alike,Trump,neg
+1009,Buttigieg wins first endorsement from black member of Congress,Buttigieg,pos
+1010,United States and Iran back away from imminent conflict as Trump says he is ready for peace ‘with all who seek it’,Trump,pos
+1011,"Trump seeks to celebrate a victory, even in the wake of a foreign attack",Trump,neg
+1012,Iran gives Trump an off-ramp — for now,Trump,neutr
+1013,"The Daily 202: Mike Bloomberg wants more engagement with Iran, North Korea and China",Bloomberg,neutr
+1014,Power Up: Trump has a big choice to make on Iran,Trump,neutr
+1015,McConnell says he’s ready to begin Trump impeachment trial with no deal on witnesses,Trump,neg
+1016,"New York’s highest court can hear sexual misconduct lawsuit against Trump, judges rule",Trump,neg
+1017,The Trailer: Who's voting for Tom Steyer?,Steyer,neutr
+1018,"Michael Flynn deserves up to six months in prison, U.S. Justice Department says in reversal for former Trump national security adviser",Trump,neutr
+1019,The Soleimani aftermath pivots to a key Trump talking point: Democrats are traitors,Trump,neutr
+1020,The Technology 202: Women in tech wanted more female CES keynotes. But Ivanka Trump is drawing controversy.,Trump,neg
+1021,Anatomy of a Trump rally: 67 percent of claims are false or lacking evidence,Trump,neg
+1022,Biden touts foreign policy credentials but faces questions,Biden,neg
+1023,Trump’s go-it-alone strategy leaves him isolated on Iran,Trump,neg
+1024,Trump’s insistence on proving his toughness is in open conflict with America’s actual strength,Trump,neg
+1025,Julián Castro endorses Elizabeth Warren for president,Warren,pos
+1026,Trump threatens to strike Iranian cultural sites and impose ‘very big’ sanctions on Iraq as tensions rise,Trump,neutr
+1027,"The Trailer: How history, and Trump, affect Iowa Democrats' war fears",Trump,neutr
+1028,Trump plunges toward the kind of Middle Eastern conflict he pledged to avoid,Trump,neg
+1029,Trump’s order to strike Iranian commander sparks fresh debate in Congress over war powers,Trump,neutr
+1030,"Elizabeth Warren raised $21.2 million, Amy Klobuchar $11.4 million in fourth quarter of 2019, campaigns say",Klobuchar,neutr
+1031,"Elizabeth Warren raised $21.2 million, Amy Klobuchar $11.4 million in fourth quarter of 2019, campaigns say",Warren,pos
+1032,Washington developer Brian Friedman says he is interested in buying President Trump’s D.C. hotel lease,Trump,neutr
+1033,Americans roughly divided on whether voters should decide Trump’s fate rather than the Senate,Trump,neg
+1034,Campaign fundraising hauls solidify Democratic leaders as Trump continues to amass financial firepower,Trump,pos
+1035,Ascendant Bernie Sanders turns his focus to Joe Biden as Iowa nears,Biden,neutr
+1036,Ascendant Bernie Sanders turns his focus to Joe Biden as Iowa nears,Sanders,pos
+1037,Trump impeachment live updates,Trump,neutr
+1038,"Nearly a third of the days he’s been president, Trump has visited a Trump-branded property",Trump,neutr
+1039,Sanders releases doctors' letters saying he's fit for presidency,Sanders,pos
+1040,Giuliani’s Ukraine efforts are just a formalization of the rumor-to-Trump pipeline,Trump,neg
+1041,Trump’s lawyer and the Venezuelan president: How Giuliani got involved in back-channel talks with Maduro,Trump,neutr
+1042,Some Democrats urge Trump to more strongly condemn anti-Semitism in wake of Monsey attack,Trump,neutr
+1043,Ivanka Trump declines to say whether she would remain in Washington if her father wins reelection,Trump,unk
+1044,Biden says he would testify in Senate impeachment trial if subpoenaed,Biden,neutr
+1045,Trump campaign launches snowflakevictory.com to offer advice on winning holiday political arguments,Trump,neutr
+1046,"Trump lashes out at Pelosi, Democrats after exchanging holiday greetings with troops",Trump,neg
+1047,Warren's Oklahoma homecoming: It's complicated,Warren,neutr
+1048,What we know and don’t know about Trump’s intentions on Ukraine aid,Trump,neutr
+1049,What President Trump was talking about in his baffling rant about wind energy,Trump,neg
+1050,Key Democratic senator remains undecided on whether Trump should be removed from office,Trump,neutr
+1051,White House official directed hold on Ukraine aid shortly after Trump’s July 25 call with Zelensky,Trump,neutr
+1052,Trump touts Putin’s speaking out against his impeachment,Putin,neutr
+1053,How Trump’s conversations with Putin overlapped with his emerging Ukraine conspiracy theories,Putin,neutr
+1054,"Yes, Donald Trump has been impeached",Trump,neg
+1055,Democrats fail to call out Warren on a central falsehood: Those aren’t selfies she’s taking,Warren,neg
+1056,"Bloomberg, missing from Democratic debate stage, uses pricey ads to try to grab the spotlight",Bloomberg,neg
+1057,Power Up: Andrew Yang is still standing. That's how unpredictable the 2020 race has been.,Yang,pos
+1058,"Democrats spar over how to combat Trump, a roaring economy and impeachment",Trump,neutr
+1059,"‘Billionaires in wine caves should not pick the next president’: Warren vs. Buttigieg on purity tests, explained",Buttigieg,neutr
+1060,Trump now bears the indelible mark of impeachment,Trump,neg
+1061,"Trump welcomes Rep. Van Drew, an impeachment foe switching parties to join GOP",Trump,neutr
+1062,"To avoid removal, Trump needs senators representing only 7 percent of the country to support him",Trump,neg
+1063,"Trump sends Dingell to hell, demands refunds from Schumer, Maloney",Trump,neutr
+1064,Power Up: Pelosi calls impeachment a ‘very sad day.’ Trump says he's ‘having a good time.’,Trump,pos
+1065,"Meadows, close ally of Trump, to retire from Congress",Trump,neutr
+1066,Brian Fitzpatrick won't back impeachment but refuses to defend Trump on Ukraine,Trump,neutr
+1067,"As goes his presidency, so goes his impeachment: Trump disrupts and divides",Trump,neg
+1068,Assessing the ‘four facts’ that a prominent Republican insists prove Trump’s innocence,Trump,pos
+1069,"President Trump’s jab at Pelosi’s prayers, and what it says about how he sees his opponents",Trump,neutr
+1070,"Paul Manafort’s fraud case in New York was dismissed, blocking local prosecutors’ effort to undercut a potential Trump pardon",Trump,neutr
+1071,The Health 202: Trump looks to Canada in bid to lower high drug prices,Trump,neg
+1072,"Pete Buttigieg’s struggles and stumbles with black voters, explained",Buttigieg,neg
+1073,"House Democrats have enough votes to impeach Trump, according to a Post analysis",Trump,neg
+1074,Trump rips Democrats on eve of likely impeachment,Trump,pos
+1075,Federal agencies will be closed Dec. 24 as Trump issues executive order ,Trump,neutr
+1076,House passes $1.4 trillion spending bill with Trump support that would gut parts of Affordable Care Act,Trump,neutr
+1077,"Foiled in 2016, ‘Never Trump’ Republicans launch new super PAC in effort to oust Trump in 2020",Trump,neg
+1078,"Trump makes his closing argument on impeachment, cobbling together his greatest Twitter hits",Trump,neutr
+1079,"Trump's letter to Nancy Pelosi, annotated",Trump,neutr
+1080,Partisanship is helping Trump in the impeachment fight more than it’s hurting him,Trump,pos
+1081,Trump raises possibility of skipping debates hosted by traditional group,Trump,neutr
+1082,"President Trump has made 15,413 false or misleading claims over 1,055 days",Trump,neg
+1083,The Trailer: Andrew Yang's increasingly normal campaign,Yang,neutr
+1084,"Trump, allies target vulnerable Democrats ahead of House impeachment vote",Trump,neg
+1085,"Amid adversity and missteps, Biden’s resilience has been one theme of 2019",Biden,pos
+1086,Sanders retracts controversial endorsement after backlash,Sanders,neg
+1087,Trump says Democrats have become ‘Party of Hate’ after House panel votes to oust him,Trump,neutr
+1088,"Warren, Sanders, Biden, Yang, Klobuchar, Steyer, Buttigieg may skip next debate over Loyola Marymount labor dispute ",Buttigieg,neg
+1089,"Warren, Sanders, Biden, Yang, Klobuchar, Steyer, Buttigieg may skip next debate over Loyola Marymount labor dispute ",Klobuchar,neutr
+1090,McConnell to Hannity on impeachment: Trump lawyers will give me cues,Trump,neg
+1091,What happens to the Trump D.C. hotel? Five questions and answers on Trump's emoluments battle,Trump,neutr
+1092,‘I really like you’: Iowa voters give Amy Klobuchar another look,Klobuchar,pos
+1093,"Warren refocuses message, takes shots at rivals",Warren,neutr
+1094,Trump’s strongest supporters agree with a key argument of his: The media can’t be trusted,Trump,pos
+1095,"77-year-old Mike Bloomberg in “outstanding health,” says personal doctor",Bloomberg,pos
+1096,"These Iowa voters loved Joe Biden in 2008. Now, they’re not sure he’s the one.",Biden,neutr
+1097,"The Cybersecurity 202: Trump administration scooping up Americans' data in effort to track undocumented immigrants, ACLU says",Trump,neutr
+1098,Ex-Trump employees share stage with Biden to blast their former boss,Biden,neg
+1099,Trump ditches effort to kill OPM after bipartisan pushback,Trump,neg
+1100,Senate Republicans look to hold short impeachment trial despite Trump’s desire for an aggressive defense,Trump,neg
+1101,"Biden clearly doesn’t like talking about his son’s overseas business dealings. Lately, it’s been an unavoidable topic on the campaign trail.",Biden,neg
+1102,House Democrats unveil two articles of impeachment against Trump White House predicts ‘full exoneration’ in GOP-led Senate,Trump,neutr
+1103,"Under pressure, Buttigieg releases names of former McKinsey clients",Buttigieg,neg
+1104,A day of history accentuates America’s divide and the distortions of truth in the Trump era,Trump,neg
+1105,House Democrats say Trump is unfit for office but eagerly deal with him on trade,Trump,neutr
+1106,Trump’s already running the race he wants: Against an opponent as unpopular as he is,Trump,neg
+1107,Giuliani says Trump asked him to brief Justice Dept. and GOP senators on his Ukraine findings,Trump,neutr
+1108,Trump?s moves to salvage North Korea nuclear talks amid threats from Pyongyang draw rebukes from Bolton and Biden ,Trump,neg
+1109,William P. Barr continues to prove that he’s precisely the attorney general President Trump was looking for,Trump,neutr
+1110,The annotated articles of impeachment against Trump,Trump,neutr
+1111,The Daily 202: FBI director shows independence from Trump and Barr in responding to IG report on Russia probe,Trump,neutr
+1112,The Finance 202: Pete Buttigieg is poised to rake in even more Wall Street money,Buttigieg,neutr
+1113,Power Up: Trump and his allies see a different inspector general report than everyone else,Trump,neg
+1114,Trump’s NATO parade of falsehoods and misstatements,Trump,neg
+1115,Lawyer for Democrats calls Trump ‘a clear and present danger’ as he argues case for removal,Trump,neg
+1116,"Democrats expected to unveil articles of impeachment against Trump, focusing on abuse of power, obstruction of Congress",Trump,neg
+1117,How could 63 million people be wrong? The GOP strains to make precedent-related defenses of Trump.,Trump,neg
+1118,What Trump claimed about the Russia probe — and what the Justice Department inspector general determined,Trump,neutr
+1119,"If officials objecting to Trump’s candidacy was 2016 interference, interference by allies was rampant",Trump,neutr

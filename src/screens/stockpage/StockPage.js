@@ -12,6 +12,7 @@ import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButton
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
+import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
 
 
 /// API ///

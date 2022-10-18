@@ -13,13 +13,9 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
-
-
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
-
-
 
 function StockPage() {
 
@@ -78,48 +74,27 @@ function StockPage() {
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
-                    <Row
-                        xs={2}
-                    >
-                        <Col
-                            className="col-3"
-                            style={{
-                                paddingTop: "5px",
-                                paddingRight: "2px"
-                            }}
-
-
-                        >
+                    <Row xs={2}>
+                        <Col className="col-md-2 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%" }} />
                         </Col>
-                        <Col
-                            className="col-8"
-
-                            style={{ paddingLeft: 0 }}
-                        >
-                            <dl style={{ marginTop: "10px" }}>
-
-                                <dt style={{ fontSize: "large" }}>
-                                    {stock.longname}
-                                    <InfoButtonModal
-                                        title="Company Information"
-                                        info={stock.longbusinesssummary} />
+                        <Col className="col-sm-8 col-8" style={{ paddingLeft: 0 }}>
+                            <dl className='infoList'>
+                                <dt>
+                                    <h1>
+                                        {stock.longname}<InfoButtonModal
+                                            title="Company Information"
+                                            info={stock.longbusinesssummary} /></h1>
                                 </dt>
-                                <dt style={{ fontSize: "80%" }}>
-                                    {/* <h5 style={{ fontFamily: 'Courier New' }}> */}
-                                    {stock.symbol}
-                                    {/* </h5> */}
-                                </dt>
-                                <dt style={{ fontSize: "110%" }}>$200</dt>
-                                <dt style={{ fontSize: "80%" }}>+$50 (25%)</dt>
+                                <dt>{stock.symbol}</dt>
+                                <dt style={{ fontSize: "150%" }}>$200</dt>
+                                <dt>+$50 (25%)</dt>
                             </dl>
 
                         </Col>
                         <Col className="stockInfoCol">
                             <TradeButton />
                         </Col>
-
-
                     </Row>
                     <Row>
                         <Col>

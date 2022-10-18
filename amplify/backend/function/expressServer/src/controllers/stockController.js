@@ -33,16 +33,27 @@ const getStockPrice = async (req, res, next) => {
 const getAllStocks = async (req, res, next) => {
 
   try {
-    const stocks = await Stock.find().select({prices: 0});
+    // const stocks = await Stock.find().select({prices: 0});
 
-    // get top ESG stocks
-    // array for each category
-    const topEnvironmental = stockService.getTopESG(stocks,'environment_score')
-    const topSocial = stockService.getTopESG(stocks,'social_score')
-    const topGovernance = stockService.getTopESG(stocks,'governance_score')
+    // // get top ESG stocks
+    // // array for each category
+    // const topEnvironmental = stockService.getTopESG(stocks,'environment_score')
+    // const topSocial = stockService.getTopESG(stocks,'social_score')
+    // const topGovernance = stockService.getTopESG(stocks,'governance_score')
  
-    const listAll = [topEnvironmental,topSocial,topGovernance]
-    res.json(listAll)
+    // const listAll = [topEnvironmental,topSocial,topGovernance]
+    // res.json(listAll)
+const stocks = await Stock.aggregate(
+  [
+    {find: {prices:0}},
+    { $sort: {environment_score: -1}},
+    {$limit: 20}
+
+  ]
+)
+
+res.json(stocks)
+
   } catch (err) {
     console.error(err.message);
     res.errormessage = 'Server error';

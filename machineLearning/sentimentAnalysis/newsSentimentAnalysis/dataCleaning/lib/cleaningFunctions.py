@@ -2,18 +2,20 @@ import pandas as pd
 import json 
 import chardet
 
-def readCSVFile(filepath,encoding='utf8'):
+def readCSVFile(filepath,encoding='utf8',index_col=None):
     """
     Reads in csv file to Pandas dataframe
 
     Args:
         filepath (string): relative file path 
+        encoding (string): The encoding of the file being read - Optional 
+        index_col (Int): If there is an index column to be used - Optional 
 
     Returns:
         df (pandas Dataframe): Pandas dataframe with csv in it 
     """
     try:
-        df = pd.read_csv(filepath,encoding=encoding)
+        df = pd.read_csv(filepath,encoding=encoding,index_col=index_col)
         return df
     except Exception as e:
         print(f'Error reading in file. Exception details\n{e}')
@@ -100,6 +102,51 @@ def addWordCount(df):
         return df
     except Exception as e:
         print(f'Error in getting word count in addWordCount function. Exception details\n{e}')
+
+
+def deleteValues(df,col,val):
+    """
+    Used to delete entries based upon the value in particular column. 
+    The entire row will be deleted. 
+
+    Args:
+        df (Pandas Dataframe): Dataframe to delete values in 
+        col (String): Column name to delete values in 
+        val (String): The value to delete
+
+    Returns:
+        _type_: _description_
+    """
+    try:
+        df = df[df[col] != val]
+        df.reset_index(drop=True, inplace=True)
+        return df
+    except Exception as e:
+        print(f'Error in deleteing words in deleteValues function. Exception details\n{e}')
+    
+
+
+def replaceValues(df,values,replacementValues,col):
+    """
+    Used to replace values in a dataframe. 
+
+    Args:
+        df (Pandas Dataframe): The pandas dataframe to replace values. 
+        values (List): List of values to replace, must be same length as replacementValues input. 
+        replacementValues (List): List of values to replace with, must be same length as replacementValues input.
+        col (string): The column name the values will be replaced in
+
+    Returns:
+        df (Pandas Dataframe): Updated pandas dataframe with removed values. 
+    """
+    try:
+        df[col] = df[[col]].replace(values,replacementValues)
+        return df
+    except Exception as e:
+        print(f'Error in replacig values function. Exception details {e}')
+
+
+
     
 
 

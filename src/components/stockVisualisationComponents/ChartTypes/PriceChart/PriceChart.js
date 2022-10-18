@@ -17,6 +17,7 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
 
+
 function StockPriceChart({ symbol }) {
 
     const [loading, setLoading] = useState(true);
@@ -101,16 +102,10 @@ function StockPriceChart({ symbol }) {
                                     />
                                     <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                                     <XAxis dataKey="date"
-                                        stroke="black"
-                                        // tick={<CustomizedAxisTick />}
-                                        tick={false}
+                                        stroke="black"                            
                                     >
                                     </XAxis>
                                     <YAxis />
-                                    {/* dataKey="price"
-                                    stroke="false">
-                                    <Label value="Price $" position="left" angle="-90"></Label>
-                                </YAxis> */}
                                     <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>

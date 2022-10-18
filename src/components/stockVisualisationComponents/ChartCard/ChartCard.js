@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
-import { Info } from "react-feather"
-//TODO
-// Move dropdown to right hand side without losing functionality of button
 
 const ChartCard = ({ title, data }) => {
 
@@ -52,7 +49,7 @@ const ChartCard = ({ title, data }) => {
         <>
             <Card className="infoCardStyle">
                 <Container>
-                    <h2>{title}  <Info size={20}/></h2>
+                    <h2>{title}  </h2>
                         <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                 Graph Type

@@ -1,0 +1,31 @@
+@import "../global_variables.scss";
+
+.positiveSentimentBadge{
+    font-size: 85%;
+    background-color: $positiveSentiment !important;
+}
+
+.negativeSentimentBadge{
+    font-size: 85%;
+    background-color:$negativeSentiment !important;
+}
+
+.neutralSentimentBadge{
+    font-size: 85%;
+    background-color: $neutralSentiment !important;
+}
+
+@media only screen and (max-width: 600px){
+    .positiveSentimentBadge{
+        font-size: 0.65rem;
+    }
+
+    .negativeSentimentBadge{
+        font-size: 0.65rem;
+    }
+
+    .neutralSentimentBadge{
+        font-size: 0.65rem;
+    }
+
+}

@@ -11,10 +11,14 @@ import ChartCard from '../../components/stockVisualisationComponents/ChartCard/C
 import PlainCard from '../../components/stockVisualisationComponents/PlainCard/PlainCard';
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
+import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
+
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
+
+
 
 function StockPage() {
 
@@ -69,7 +73,6 @@ function StockPage() {
 
 
     return (
-
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
@@ -99,6 +102,15 @@ function StockPage() {
                             <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />
                         </Col>
                     </Row>
+                    <Row md={2} xs={1}>
+                         <Col className="stockInfoCol">
+                            <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname}/>
+                        </Col>
+                        <Col className="stockInfoCol">
+                            {/*THINK THE TWITTER FEED WOULD WORK WELL HERE*/}
+                        </Col>
+                    </Row>
+                    
                 </Container>
             }
         </>

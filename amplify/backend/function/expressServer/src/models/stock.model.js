@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const stockSchema = new mongoose.Schema(
-  {
+  { 
     exchange: { type: String, trim: true },
     symbol: { type: String, trim: true },
     shortname: { type: String, trim: true },

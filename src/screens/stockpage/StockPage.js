@@ -5,7 +5,7 @@
 //  This screen contains the components rendered to the user when they click on an individual stock 
 
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButtonModal';

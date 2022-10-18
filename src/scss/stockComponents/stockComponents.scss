@@ -31,6 +31,7 @@
     border-color: darken($secondary, 10%) !important;
 }
 
+// Desktop version
 @media only screen and (min-width: 1200px) {
     .btn-secondary {
         width: 18.75;

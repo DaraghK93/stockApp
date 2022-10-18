@@ -26,9 +26,12 @@ const getStockPrice = async (req, res, next) => {
 };
 
 // @route   GET api/stocks
-// @desc    Get all stocks
+// @desc    this route gets all stocks but uses the stock servies functions to sort them into and array
+//          this array will hold sub arrays for each category listed below, each category will be
+//          called by front end in its own component
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
+
   try {
     const stocks = await Stock.find().select({prices: 0});
 

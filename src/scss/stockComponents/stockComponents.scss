@@ -1,6 +1,4 @@
 @import "../global_variables.scss";
-
-@media only screen and (max-width: 1200px) {
     
 .tradeButtonCard {
     width: 100%;
@@ -13,18 +11,29 @@
     bottom: 0;
     right: 0;
     z-index: 1;
+    border-left: $background;
+    border-right: $background;
 }
 
+.btn-secondary {
+    background-color: $secondary;
+    border-color: $secondary;
+    width: 12.5rem;
+}
+
+.btn-secondary:hover {
+    background-color: darken($secondary, 10%);
+    border-color: darken($secondary, 10%);
+}
+
+.btn-secondary:focus {
+    background-color: darken($secondary, 10%) !important;
+    border-color: darken($secondary, 10%) !important;
 }
 
 @media only screen and (min-width: 1200px) {
-.tradeButtonCard {
-    display: flex;
-    justify-content: center;
-    position:relative;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    border: $background
-}
+    .btn-secondary {
+        width: 18.75;
+        font-size:150%;
+    }
 }

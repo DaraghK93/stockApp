@@ -3,9 +3,9 @@ import { Card, Button } from 'react-bootstrap';
 
 function TradeButton() {
     return (
-        <Card className="tradeButtonCard">
+        <Card className="tradeButtonCard rounded-0" >
             <Card.Body>
-                <Button variant="primary" className="btn btn-primary btn-lg">Trade</Button>
+                <Button variant="seconday" className="btn btn-secondary btn-lg">Trade</Button>
             </Card.Body>
         </Card>
 

@@ -1,6 +1,5 @@
 const Stock = require('../models/stock.model');
 var moment = require('moment')
-const stockService = require('../services/stockService');
 
 // @desc get individual stock price
 // @route GET /api/stock/price/:name
@@ -26,33 +25,31 @@ const getStockPrice = async (req, res, next) => {
 };
 
 // @route   GET api/stocks
-// @desc    this route gets all stocks but uses the stock servies functions to sort them into and array
-//          this array will hold sub arrays for each category listed below, each category will be
-//          called by front end in its own component
+// @desc    this route gets all stocks but uses aggregate queries to 
+//          get particular objects related to what will be shown in front end
+//          in a series of side scrolling menu components
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
 
   try {
-    // const stocks = await Stock.find().select({prices: 0});
-
-    // // get top ESG stocks
-    // // array for each category
-    // const topEnvironmental = stockService.getTopESG(stocks,'environment_score')
-    // const topSocial = stockService.getTopESG(stocks,'social_score')
-    // const topGovernance = stockService.getTopESG(stocks,'governance_score')
- 
-    // const listAll = [topEnvironmental,topSocial,topGovernance]
-    // res.json(listAll)
-
-
-    const stocks = await Stock.find()
-    .select({symbol:1, 'esgrating.environment_score':1 })
-    .sort({ 'esgrating.environment_score': -1 })
-    .limit(20);
-
-
-res.json(stocks)
-
+    // aggregate query that uses $facet to run 3 queries and return all in
+    // one response
+        const stocks = await Stock.aggregate([
+          { $facet: 
+              // agg query for top environment
+              { topEnvironment: [{$match :{}},{$unset: ['prices','longbusinesssummary','logo']},
+              {$sort: {'esgrating.environment_score': -1}},
+              { $limit: 20}],
+              // agg query for top social
+                topSocial: [{$match :{}},{$unset: ['prices','longbusinesssummary','logo']},
+                {$sort: {'esgrating.social_score': -1}},
+              { $limit: 20}],
+              // agg query for top governance
+              topGovernance: [{$match :{}},{$unset: ['prices','longbusinesssummary','logo']},
+              {$sort: {'esgrating.governance_score': -1}},
+              { $limit: 20}]}
+        }])
+    res.json(stocks)
   } catch (err) {
     console.error(err.message);
     res.errormessage = 'Server error';

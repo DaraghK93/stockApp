@@ -27,4 +27,3 @@ The dataset was part of a research paper, it is a restricted dataset and access 
 
 ## Acknowledgements
 Baraniak, K., & Sydow, M. (2021). A dataset for Sentiment analysis of Entities in News headlines (SEN). Procedia Computer Science, 192, 3627–3636. doi:10.1016/j.procs.2021.09.136
-

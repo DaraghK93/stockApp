@@ -7,29 +7,51 @@ import os
 import boto3
 
 def connectToDB(URI):
-    # connect to the mongo instance
-    # return error if connection fails
-    client = MongoClient(URI)
-    if client is None:
-        print(f'ERROR:Could not connect to MongoDB, client obeject is none')
-    else:
-        return client
+  """Creates a connection to the Database
+
+  Args:
+      URI (string): URL string which is the address of the database
+
+  Returns:
+      Mongo Client: MongoClient object which can be used to execute commands on the database. 
+  """
+  client = MongoClient(URI)
+  if client is None:
+      print(f'ERROR:Could not connect to MongoDB, client obeject is none')
+  else:
+      return client
 
 
 def getSecret(secretName,region="eu-north-1"):
-    # get the secret from AWS
-    client = boto3.client('ssm',region)
-    try:
-        response = client.get_parameter(
-            Name=secretName,
-            WithDecryption=True
-        )
-        return response
-    except Exception as e:
-        print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
+  """Description:
+        This function is used to get a secret from the parameter store in AWS. 
+
+    Args:
+        secretName (string): The name of the secret found in the parameter store. 
+        region (string): The region the secret is stored in, default to eu-north-1. 
+
+    Returns:
+        response (dict): Dictonary object with the secret name under "Name" key and value under "Value" key
+  """
+  client = boto3.client('ssm',region)
+  try:
+      response = client.get_parameter(
+          Name=secretName,
+          WithDecryption=True
+      )
+      return response
+  except Exception as e:
+      print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
 
 
 def get_current_price():
+  """
+  Description: Scrapes slickcharts.com to get the prices of the stocks within the S&P500
+
+  Returns:
+      dictionary: Returns a dictionary in the form 
+      {output["Symbol"]: {currentprice: , absolutechange: , percentagechange: }}
+  """
   scrapeURL = "https://www.slickcharts.com/sp500"
   agent = {"User-Agent":'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}
   page = requests.get(scrapeURL, headers=agent)
@@ -59,19 +81,48 @@ def get_current_price():
   return output
 
 def create_data_request(data_curr_price, time_stamp):
+  """
+    Description:  Creates an array of data requests that will be used to bulk write. Uses 
+                  UpdateOne as the method for the bulk write. These requests will be used to
+                  update the daily_change and prices.time_stamp fields in the database. It will
+                  overwrite the values in daily changes and just add a new field to the prices object.
+  
+
+  Args:
+      data_curr_price (dictionary): dictionary of all the current prices in the form
+      {output["Symbol"]: {currentprice: , absolutechange: , percentagechange: }}
+
+      time_stamp (string): the timestamp for all of the current prices in the form YYYY-MM-DDThh:mm:ss
+
+  Returns:
+      array: array of requests for the bulk write
+  """
   data_request = []
   name = "prices." + time_stamp
   for i in data_curr_price:
     try:
+      # This if statement needs to be done as slickcharts.com lists the company as BRK.B, but the
+      # database has their symbol as BRK-B. As such this would result in a KeyError if not updated.
       if i == "BRK.B":
         i_new = "BRK-B"
         data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i_new]}}))
         data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
       else:
+        # The first append here relates to the field daily_change. This will be overwritten every time.
         data_request.append(UpdateOne({"symbol": i}, {'$set': {"daily_change": data_curr_price[i]}}))
-        data_request.append(UpdateOne({"symbol": i}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
+
+        # This append relates to the prices.time_stamp field. It will add a new field to prices in the form
+        # prices: {"YYYY-MM-DDThh:mm:ss": {"4. close": price at that time}}
+        # Needs to be in the format "4. close" as this is the field name for the rest of the historic values.
+        data_request.append(UpdateOne({"symbol": i}, {'$set': {name: {"4. close": data_curr_price[i]["currentprice"]}}}))
+    
     except KeyError:
+      # this KeyError will flag if a stock is missing from the input dictionary. 
+      # It shouldn't stop the program from running as the rest of the values should be updated.
+      # It should let inform which stocks are missing from the web scrape.
+      print("Check: Stock {i} missing from the web scrape or the database. This could be due to a change in allocation for the S&P500 where a stock was added or removed.")
       continue
+  
   return data_request
 
 
@@ -88,7 +139,7 @@ def handler(event,context):
     db = client[os.environ["DATABASE"]]
     collection = db[os.environ["COLLECTION"]]
   except Exception as e:
-    print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
+    print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')
     return {
         'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
     }   
@@ -111,13 +162,8 @@ def handler(event,context):
         collection.bulk_write(requests_database)
 
         return {
-            'statusCode': 200,
-            'headers': {
-                'Access-Control-Allow-Headers': '*',
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST,GET'
-            },
-            'body': json.dumps("Updated")
+            'Message': 'Data Successfully Updated',
+            'Time': time_stamp_str
         }
   except Exception as e:
         print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')

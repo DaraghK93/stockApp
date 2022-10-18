@@ -20,5 +20,7 @@ if __name__ == "__main__":
     df = cleaningFunctions.deleteValues(df,'sentiment','unk')
     # Add the word count 
     df = cleaningFunctions.addWordCount(df)
+    # Drop the topics columns completely for now 
+    df = cleaningFunctions.removeColumn(df,'topic')
     # Write to the file 
     cleaningFunctions.writeToFile(df,'../data/cleanedDatasets/dataset_3/sentimentTagsUpdated.csv')

@@ -146,6 +146,24 @@ def replaceValues(df,values,replacementValues,col):
         print(f'Error in replacig values function. Exception details {e}')
 
 
+def removeColumn(df,col):
+    """
+    Removes a specific column within a dataframe
+
+    Args:
+        df (Pandas Dataframe): Pandas dataframe with a column to drop in it
+        col (String): The name of the column to drop. 
+
+    Returns:
+        df(Pandas Dataframe): Dataframe with the column removed 
+    """
+    try:
+        df = df.drop(col,axis=1)
+        return df
+    except Exception as e:
+        print(f'Error in removing column. Exception details {e}')
+
+
 
     
 

@@ -81,25 +81,34 @@ function StockPage() {
                         xs={2}
                     >
                         <Col
-                            className="col-4"
+                            className="col-3"
+                            style={{ paddingTop: "5px",
+                        paddingRight: "2px" }}
+
 
                         >
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%" }} />
                         </Col>
                         <Col
-                            className="col-6"
+                            className="col-8"
+
+                            style={{ paddingLeft: 0 }}
                         >
                             <dl style={{ marginTop: "10px" }}>
 
-                                <dt><h2>{stock.longname}
+                                <dt style={{fontSize: "large"}}>
+                                    {stock.longname}
                                     <InfoButtonModal
                                         title="Company Information"
                                         info={stock.longbusinesssummary} />
-                                </h2>
                                 </dt>
-                                <dt><h5 style={{ fontFamily: 'Courier New' }}>{stock.symbol}</h5></dt>
-                                <dt>$200</dt>
-                                <dt>+$50 (25%)</dt>
+                                <dt style={{fontSize: "80%"}}>
+                                    {/* <h5 style={{ fontFamily: 'Courier New' }}> */}
+                                    {stock.symbol}
+                                    {/* </h5> */}
+                                </dt>
+                                <dt style={{fontSize: "110%"}}>$200</dt>
+                                <dt style={{fontSize: "80%"}}>+$50 (25%)</dt>
                             </dl>
 
                         </Col>

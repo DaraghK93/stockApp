@@ -1,6 +1,4 @@
-$positiveSentiment: #32CD32;
-$negativeSentiment: #FF0000;
-$neutralSentiment: #FFA500;
+@import "../global_variables.scss";
 
 .positiveSentimentBadge{
     font-size: 85%;

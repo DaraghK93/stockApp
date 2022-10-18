@@ -83,8 +83,10 @@ function StockPage() {
                     >
                         <Col
                             className="col-3"
-                            style={{ paddingTop: "5px",
-                        paddingRight: "2px" }}
+                            style={{
+                                paddingTop: "5px",
+                                paddingRight: "2px"
+                            }}
 
 
                         >
@@ -97,21 +99,24 @@ function StockPage() {
                         >
                             <dl style={{ marginTop: "10px" }}>
 
-                                <dt style={{fontSize: "large"}}>
+                                <dt style={{ fontSize: "large" }}>
                                     {stock.longname}
                                     <InfoButtonModal
                                         title="Company Information"
                                         info={stock.longbusinesssummary} />
                                 </dt>
-                                <dt style={{fontSize: "80%"}}>
+                                <dt style={{ fontSize: "80%" }}>
                                     {/* <h5 style={{ fontFamily: 'Courier New' }}> */}
                                     {stock.symbol}
                                     {/* </h5> */}
                                 </dt>
-                                <dt style={{fontSize: "110%"}}>$200</dt>
-                                <dt style={{fontSize: "80%"}}>+$50 (25%)</dt>
+                                <dt style={{ fontSize: "110%" }}>$200</dt>
+                                <dt style={{ fontSize: "80%" }}>+$50 (25%)</dt>
                             </dl>
 
+                        </Col>
+                        <Col className="stockInfoCol">
+                            <TradeButton />
                         </Col>
 
 

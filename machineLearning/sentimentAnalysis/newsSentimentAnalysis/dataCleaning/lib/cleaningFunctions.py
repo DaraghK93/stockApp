@@ -1,7 +1,8 @@
 import pandas as pd
 import json 
+import chardet
 
-def readCSVFile(filepath):
+def readCSVFile(filepath,encoding='utf8'):
     """
     Reads in csv file to Pandas dataframe
 
@@ -12,7 +13,7 @@ def readCSVFile(filepath):
         df (pandas Dataframe): Pandas dataframe with csv in it 
     """
     try:
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(filepath,encoding=encoding)
         return df
     except Exception as e:
         print(f'Error reading in file. Exception details\n{e}')
@@ -31,6 +32,24 @@ def writeToFile(df,filepath):
         print(f'File {filepath} written to')
     except Exception as e:
         print(f'Error in writing dataframe to file. Exception details\n{e}')
+
+def detectFileEncoding(filepath):
+    """
+    Detects the file encoding of a file. 
+
+    Args:
+        filepath (string): The file path. 
+
+    Returns:
+        (string): The file enconding 
+    """
+    try:
+        with open(filepath, 'rb') as rawdata:
+            # Detect the file format 
+            result = chardet.detect(rawdata.read(100000))
+        return result['encoding']
+    except Exception as e:
+        print(f'Error in detecting file format in detectFileFormat function. Exception details\n{e}')
 
 
 def datasetOneRemoveMultipleTopics(df):
@@ -63,3 +82,25 @@ def datasetOneRemoveMultipleTopics(df):
         return newDF
     except Exception as e:
         print(f'Error in removng multiple topics from datasetOne. Exception details\n{e}')
+
+
+
+def addWordCount(df):
+    """
+    This function counts the words in the "headline" column.
+
+    Args:
+        df (Pandas Dataframe): A pandas dataframe with a column called "headline"
+
+    Returns:
+        df (Pandas Dataframe): Pandas dataframe with new column called "words"
+    """
+    try:
+        df['words'] = df['headline'].str.count(' ') + 1
+        return df
+    except Exception as e:
+        print(f'Error in getting word count in addWordCount function. Exception details\n{e}')
+    
+
+
+

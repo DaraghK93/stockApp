@@ -58,7 +58,7 @@
 - Prototype - Get a user evaluation before starting the page (everyone)
 - Finish off full pages. Don't leave things things unfinished for weeks(everyone)
 - Communicate with the team as to where the data will be used. Who will need the data and in what format will it be needed. Check before you start doing it (everyone)
-- Create spreadsheet of routes for both teams (WHO?)
+- Create spreadsheet of routes for both teams (WK)
   - Inputs
   - Outputs
   - If something needs to be calculated, provide overview of what the function needs to do

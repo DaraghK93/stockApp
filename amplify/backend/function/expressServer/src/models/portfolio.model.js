@@ -1,15 +1,5 @@
 const mongoose = require('mongoose')
 
-const UserPortfolioSchema = new mongoose.Schema(
-  {
-    username: { type: String, trim: true, required: true, unique: true },
-    portfolios: { type: PortfolioSchema }
-  },
-  { collection: 'portfolio-data' },
-  // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
-  { timestamps: true },
-)
-
 const PortfolioSchema = mongoose.Schema(
   {
     portfolioName: { type: String, trim: true, required: true },
@@ -23,4 +13,4 @@ const PortfolioSchema = mongoose.Schema(
   }
 )
 
-module.exports = mongoose.model('PortfolioData', UserPortfolioSchema)
+module.exports = mongoose.model('PortfolioData', PortfolioSchema)

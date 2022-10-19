@@ -14,7 +14,8 @@ function App() {
         <Route path='/' element={<RegistrationPage />} />
         <Route path='/register' element={<RegistrationPage />} />
         <Route path='/login' element={<LoginPage />} />
-        <Route path='/stockdiscovery' element={<StockDiscoveryPage />} />
+        <Route path='/stockdiscovery/:category' element={<StockDiscoveryPage />} />
+        <Route path='/search/stockdiscovery/:category/:keyword' element={<StockDiscoveryPage />} />
         <Route path='/stock/:symbol' element={<StockPage />} />
       </Routes>
     </Router>

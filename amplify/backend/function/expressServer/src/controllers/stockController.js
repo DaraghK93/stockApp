@@ -30,22 +30,33 @@ const getStockPrice = async (req, res, next) => {
 //          in a series of side scrolling menu components
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
-
+  const category = req.query.category; 
+  console.log(category)
+  if ( category !== 'summary') {
+    try {
+      const stocks = await Stock.find().select({prices: 0});
+      res.json(stocks);
+    } catch (err) {
+      console.error(err.message);
+      res.errormessage = 'Server error';
+      return next(err);
+    }
+  } else {
   try {
     // aggregate query that uses $facet to run 3 queries and return all in
     // one response
         const stocks = await Stock.aggregate([
           { $facet: 
               // agg query for top environment
-              { topEnvironment: [{$match :{}},{$unset: ['prices','longbusinesssummary','logo']},
+              { topEnvironment: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
               {$sort: {'esgrating.environment_score': -1}},
               { $limit: 20}],
               // agg query for top social
-                topSocial: [{$match :{}},{$unset: ['prices','longbusinesssummary','logo']},
+                topSocial: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
                 {$sort: {'esgrating.social_score': -1}},
               { $limit: 20}],
               // agg query for top governance
-              topGovernance: [{$match :{}},{$unset: ['prices','longbusinesssummary','logo']},
+              topGovernance: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
               {$sort: {'esgrating.governance_score': -1}},
               { $limit: 20}]}
         }])
@@ -55,7 +66,7 @@ const getAllStocks = async (req, res, next) => {
     res.errormessage = 'Server error';
     return next(err);
   }
-};
+}}
 
 // @desc Add new stock data
 // @route POST /api/stock/addStock/

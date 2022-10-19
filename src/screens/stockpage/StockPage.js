@@ -26,7 +26,6 @@ function StockPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-    const [esgData,setESGData] = useState([])
 
     const newsSentimentData = [
         { name: 'Positive', value: 600 },
@@ -56,9 +55,6 @@ function StockPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res[0]);
-                setESGData([{name: "E Rating",value: res[0]['esgrating']["environment_score"]},
-                            {name: "S Rating",value: res[0]['esgrating']["social_score"]},
-                            {name: "G Rating",value: res[0]['esgrating']["governance_score"]}])
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -98,7 +94,10 @@ function StockPage() {
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md className="stockInfoCol">
-                            <ChartCard title={"ESG Rating"} data={esgData} />
+                            <ChartCard title={"ESG Rating"} data={
+                        [{name: "E Score",value: stock.esgrating.environment_score},
+                         {name: "S Score",value: stock.esgrating.social_score},
+                         {name: "G Score",value: stock.esgrating.governance_score}]} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />

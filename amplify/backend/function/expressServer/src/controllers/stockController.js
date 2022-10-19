@@ -31,7 +31,10 @@ const getStockPrice = async (req, res, next) => {
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
   const category = req.query.category; 
-  console.log(category)
+  
+// check if category is summary and if not, return all stocks, else 
+// return the aggregate query for different stock categories
+
   if ( category !== 'summary') {
     try {
       const stocks = await Stock.find().select({prices: 0});

@@ -39,11 +39,10 @@
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
           "s3Key": "amplify-builds/esgDataIngress-5765794c526a776d7831-build.zip"
         },
-        "stockPriceFunction": {
+        "stockPriceIntraDay": {
           "environment": "prod",
-          "database": "test",
-          "collection": "sample_stock_data",
-          "deploymentBucketName": "amplify-stockapp-dev-151619-deployment"
+          "databasename": "test",
+          "collection": "sample_stock_data"
         }
       }
     }

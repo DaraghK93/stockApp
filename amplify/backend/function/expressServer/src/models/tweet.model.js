@@ -16,10 +16,22 @@ const TweetSchema = new mongoose.Schema(
     username: {
       type: String,
     },
+    imageUrl: {
+      type: String,
+    },
     content: {
       type: String,
     },
     sentiment: {
+      type: String,
+    },
+    isVerified: {
+      type: String,
+    },
+    displayname: {
+      type: String,
+    },
+    likeCount: {
       type: String,
     },
   },

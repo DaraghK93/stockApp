@@ -27,7 +27,7 @@ export type AmplifyDependentResourcesAttributes = {
             "LambdaExecutionRole": "string",
             "CloudWatchEventRule": "string"
         },
-        "stockPriceFunction": {
+        "stockPriceIntraDay": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

@@ -17,4 +17,6 @@ if __name__ == "__main__":
     print(len(tokenzedHeadlines))
     tokenzedHeadlines = featureEngineeringFunctions.removeStopWords(tokenzedHeadlines)
     print(len(tokenzedHeadlines))
+    posFreqDist = featureEngineeringFunctions.getFreqDist(tokenzedHeadlines)
+    print(posFreqDist.most_common(10))
     #posTokens = featureEngineeringFunctions.processText(posHeadlines)

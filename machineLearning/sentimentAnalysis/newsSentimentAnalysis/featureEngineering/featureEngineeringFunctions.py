@@ -3,7 +3,7 @@
 
 import nltk 
 
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import RegexpTokenizer
 
 
 def getHeadlineBySentiment(df,sentiment):
@@ -34,7 +34,9 @@ def tokenize(headline):
         tokens(List): List of strings, each element is a word in the headline.
     """
     try:
-        tokens = word_tokenize(headline)
+        # Only match words not symbols 
+        tokenizer = RegexpTokenizer(r'\w+')
+        tokens = tokenizer.tokenize(headline)
         tokens = [t.lower() for t in tokens]
         return tokens 
     except Exception as e:
@@ -71,7 +73,13 @@ def removeStopWords(wordsList):
         print(f'Error in removing stop words in function removeStopWords.\nException details\n{e}')
 
 
-    
+def getFreqDist(tokens):
+    try:
+        return nltk.FreqDist(tokens)
+    except Exception as e:
+        print(f'Error in creating freq distribution in getFreqDist function.\nException details\n{e}')
+
+
 
 
 

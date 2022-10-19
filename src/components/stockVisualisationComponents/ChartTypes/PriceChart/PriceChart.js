@@ -9,7 +9,7 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect, PureComponent } from "react";
+import { useState, useEffect } from "react";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 

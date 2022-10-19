@@ -19,5 +19,6 @@ if __name__ == "__main__":
     print(len(tokenzedHeadlines))
     posFreqDist = featureEngineeringFunctions.getFreqDist(tokenzedHeadlines)
     featureEngineeringFunctions.getWordCount('Hello my name is Bang',["Bang",'boom',"Hello","/"])
+    featureEngineeringFunctions.getPolarityScore("This is a great sentence")
     
     #posTokens = featureEngineeringFunctions.processText(posHeadlines)

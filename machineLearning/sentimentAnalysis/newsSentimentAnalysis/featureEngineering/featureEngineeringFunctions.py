@@ -4,6 +4,8 @@
 import nltk 
 
 from nltk.tokenize import RegexpTokenizer
+from nltk.sentiment import SentimentIntensityAnalyzer
+sia = SentimentIntensityAnalyzer()
 
 
 def getHeadlineBySentiment(df,sentiment):
@@ -129,6 +131,22 @@ def getWordCount(sentence,listOfWords):
             wordCount+=1
     return wordCount
 
+
+def getPolarityScore(sentence):
+    """
+    Calculates polarity scores using NLTK's sentiment analyiser.
+
+    Args:
+        sentence (String): Sentence string to calculate polarity of. 
+
+    Returns:
+        scores (dict): A dictionary with the keys 'neg', 'neu', 'pos' and 'compound'
+    """
+    try:
+        scores = sia.polarity_scores(sentence)
+        return scores
+    except Exception as e:
+        print(f'Error in calculating polarity scores in function getPolarityScore.n\nException details\n{e}' )
 
 
 if __name__ == "__main__":

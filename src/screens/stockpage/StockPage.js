@@ -5,7 +5,7 @@
 //  This screen contains the components rendered to the user when they click on an individual stock 
 
 import { useState, useEffect } from 'react';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButtonModal';
@@ -13,6 +13,7 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
+import FollowButton from '../../components/stockComponents/FollowButton/FollowButton';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -22,6 +23,10 @@ function StockPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+
+    var lineColor;
+    var gradientColor;
+    var positiveSymbol;
 
     const newsSentimentData = [
         { name: 'Positive', value: 600 },
@@ -34,6 +39,19 @@ function StockPage() {
         { name: 'Negative', value: 98 },
         { name: 'Neutral', value: 26 }
     ];
+
+    function redOrGreen() {
+        if (parseFloat(stock.daily_change.absoluteChange) >= 0) {
+            lineColor = "#00C49F"
+            gradientColor = "#b5e8df"
+            positiveSymbol = "+"
+        }
+        else {
+            lineColor = "#d61e1e"
+            gradientColor = "#ffc9c9"
+        }
+        return lineColor
+    }
 
     useEffect(() => {
         /// getStockInfo ///
@@ -69,39 +87,47 @@ function StockPage() {
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
-                    <Row xs={2}>
+                    <Row
+                    // xs={3}
+                    >
                         <Col className="col-md-2 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
-                        <Col className="col-sm-8 col-8" style={{ paddingLeft: 0 }}>
+                        <Col className="col-sm-8 col-5" style={{ paddingLeft: 0, paddingRight: 0 }}>
                             <dl className='infoList'>
                                 <dt>
-                                    <h1>
-                                        {stock.longname}<InfoButtonModal
-                                            title="Company Information"
-                                            info={stock.longbusinesssummary} /></h1>
+                                    <h1 style={{ fontSize: "150%" }}>
+                                        {stock.longname}</h1>
                                 </dt>
-                                <dt>{stock.symbol}</dt>
-                                <dt style={{ fontSize: "150%" }}>$200</dt>
-                                <dt>+$50 (25%)</dt>
+                                <dt>{stock.symbol}
+                                    <InfoButtonModal
+                                        title="Company Information"
+                                        info={stock.longbusinesssummary} /></dt>
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
+                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange})
+                                </dt>
                             </dl>
-
                         </Col>
+                        <Col className="col-md-2 col-sm-3 col-3" style={{ marginTop: "20px" }}>
+                            <FollowButton />
+                        </Col>
+                    </Row>
+                    <Row>
                         <Col className="stockInfoCol">
                             <TradeButton />
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <StockPriceChart symbol={stock.symbol} />
+                            <StockPriceChart symbol={stock.symbol} lineColor={lineColor} gradientColor={gradientColor} />
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md className="stockInfoCol">
                             <ChartCard title={"ESG Rating"} data={
-                        [{name: "E Score",value: stock.esgrating.environment_score},
-                         {name: "S Score",value: stock.esgrating.social_score},
-                         {name: "G Score",value: stock.esgrating.governance_score}]} />
+                                [{ name: "E Score", value: stock.esgrating.environment_score },
+                                { name: "S Score", value: stock.esgrating.social_score },
+                                { name: "G Score", value: stock.esgrating.governance_score }]} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />

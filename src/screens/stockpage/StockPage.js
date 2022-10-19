@@ -13,7 +13,6 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
-import Footer from '../../components/layout/Footer/footer';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";

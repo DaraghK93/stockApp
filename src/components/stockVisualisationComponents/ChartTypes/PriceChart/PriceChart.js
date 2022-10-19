@@ -1,11 +1,11 @@
 import {
     AreaChart,
-    Legend,
     Area,
     XAxis,
     YAxis,
     CartesianGrid,
     ResponsiveContainer,
+    Tooltip
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
@@ -17,19 +17,22 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
 
-class CustomizedAxisTick extends PureComponent {
-    render() {
-      const { x, y, payload } = this.props;
-  
-      return (
-        <g transform={`translate(${x},${y})`}>
-          <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-            {payload.value}
-          </text>
-        </g>
-      );
-    }
-  }
+// class CustomizedAxisTick extends PureComponent {
+//     render() {
+
+//         const { x, y, payload } = this.props;
+
+//         return (
+//             <g transform={`translate(${x},${y})`}>
+//                 <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
+//                     {payload.value}
+//                 </text>
+//             </g>
+
+
+//         );
+//     }
+// }
 
 
 function StockPriceChart({ symbol }) {
@@ -38,7 +41,16 @@ function StockPriceChart({ symbol }) {
     const [oneMonthPrices, setOneMonthPrices] = useState();
     const [oneYearPrices, setOneYearPrices] = useState();
     const [error, setError] = useState("");
+    const [tickBoolean, setTickBoolean] = useState(false);
 
+    function showTick() {
+        if (window.innerWidth >= 576) {
+            setTickBoolean(true)
+        }
+        else {
+            setTickBoolean(false)
+        } 
+    }
 
     useEffect(() => {
         /// getStockInfo ///
@@ -57,6 +69,7 @@ function StockPriceChart({ symbol }) {
                 setOneYearPrices(res);
                 setOneMonthPrices(res2);
                 setLoading(false);
+                showTick();
             } catch (error) {
                 // Log the error 
                 console.log(error);
@@ -69,11 +82,11 @@ function StockPriceChart({ symbol }) {
     }, [symbol])
 
     const day = [
-        { date: '2022-01-10', price: 400 },
-        { date: '2022-01-11', price: 700 },
-        { date: '2022-01-12', price: 60 },
-        { date: '2022-01-13', price: 700 },
-        { date: '2022-01-1', price: 500 }]
+        { date: '01-10', price: 400 },
+        { date: '01-11', price: 700 },
+        { date: '01-12', price: 60 },
+        { date: '01-13', price: 700 },
+        { date: '01-01', price: 500 }]
 
     const DayData = event => {
         // toggle shown data
@@ -89,18 +102,32 @@ function StockPriceChart({ symbol }) {
     };
 
     const [data, setData] = useState(day);
-    //  const [data, setData] = useState();
 
     return (
         <>
-            <Card 
-
-            className="infoCardStyle"
-
-            style={{border:"none"}}
+            <Card
+                style={{ border: "none", paddingBottom: "none", marginBottom: "none" }}
             >
                 <Container>
-                    {/* <h2>Price Chart</h2> */}
+                    <Row
+                        style={{
+                            justifyContent: "center"
+                        }}>
+                        <Col className="centeredCol">
+                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={DayData}>1D</Button>
+                        </Col>
+                        <Col className="centeredCol">
+                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={DayData}>1W</Button>
+
+                        </Col>
+                        <Col className="centeredCol">
+                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={MonthData}>1M</Button>
+
+                        </Col>
+                        <Col className="centeredCol">
+                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={YearData}>1Y</Button>
+                        </Col>
+                    </Row>
                     <Row>
                         {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                             <ResponsiveContainer width="100%" height={400} margin={100}>
@@ -108,47 +135,29 @@ function StockPriceChart({ symbol }) {
                                     margin={{
                                         top: 10,
                                         right: 30,
-                                        left: -25,
-                                        bottom: 30
+                                        left: -35,
+                                        bottom: 0
                                     }}>
                                     <defs>
                                         <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#00C49F" stopOpacity={0.8} />
-                                            <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
+                                            <stop offset="5%" stopColor="#b5e8df" stopOpacity={0.8} />
                                         </linearGradient>
                                     </defs>
-                                    {/* <Legend verticalAlign="top" height={36}
-                                    /> */}
                                     <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
+                                    <Tooltip />
                                     <XAxis dataKey="date"
-                                        stroke="black"       
-                                        tick={<CustomizedAxisTick />}       
-                                        height={50}
+                                        stroke="black"
+                                        tick={tickBoolean}
+                                    // tick={<CustomizedAxisTick />}
+                                    // height={0}
                                     >
                                     </XAxis>
-                                    <YAxis unit='$' 
-                                    width={80}/>
+                                    <YAxis unit='$'
+                                        width={80} />
                                     <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         }
-                    </Row>
-                    <Row
-                        style={{
-                            justifyContent: "center"
-                        }}>
-                        <Col style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            marginTop:"20px"
-                        }}>
-                            {/* <span className="m-1">Filter By: </span> */}
-                            <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>
-
-                            <Button className="btn btn-primary btn-sm m-1" onClick={MonthData}>Month</Button>
-
-                            <Button className="btn btn-primary btn-sm m-1" onClick={YearData}>Year</Button>
-                        </Col>
                     </Row>
                 </Container>
             </Card>

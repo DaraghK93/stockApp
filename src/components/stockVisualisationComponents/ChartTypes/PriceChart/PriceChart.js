@@ -17,24 +17,6 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
 
-// class CustomizedAxisTick extends PureComponent {
-//     render() {
-
-//         const { x, y, payload } = this.props;
-
-//         return (
-//             <g transform={`translate(${x},${y})`}>
-//                 <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
-//                     {payload.value}
-//                 </text>
-//             </g>
-
-
-//         );
-//     }
-// }
-
-
 function StockPriceChart({ symbol }) {
 
     const [loading, setLoading] = useState(true);
@@ -106,7 +88,7 @@ function StockPriceChart({ symbol }) {
     return (
         <>
             <Card
-                style={{ border: "none", paddingBottom: "none", marginBottom: "none" }}
+                style={{ border: "none", paddingBottom: "20px", marginBottom: "20px" }}
             >
                 <Container>
                     <Row
@@ -148,8 +130,6 @@ function StockPriceChart({ symbol }) {
                                     <XAxis dataKey="date"
                                         stroke="black"
                                         tick={tickBoolean}
-                                    // tick={<CustomizedAxisTick />}
-                                    // height={0}
                                     >
                                     </XAxis>
                                     <YAxis unit='$'

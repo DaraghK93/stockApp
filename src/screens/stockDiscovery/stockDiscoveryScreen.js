@@ -10,7 +10,7 @@ import StockSearchBar from '../../components/stockDiscoveryComponents/stockSearc
 import { useState, useEffect } from 'react';
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
-
+import { useParams } from 'react-router-dom';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -21,6 +21,7 @@ function StockDiscoveryPage() {
     const [stocks, setStock] = useState('');
     const [error, setError] = useState("");
 
+    let {category, keyword} = useParams()
 
     useEffect(() => {
         /// getStocks ///
@@ -31,11 +32,11 @@ function StockDiscoveryPage() {
                 // Request is being sent set loading true 
                 setLoading(true);
                 // Set the path 
-                let path = '/api/stock'
+                let path = `/api/stock?category=${category}&keyword=${keyword}`
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stocks and loading to false 
-                setStock(res);
+                setStock(res)
                 setLoading(false);
             } catch (error) {
                 // Log the error 
@@ -46,29 +47,40 @@ function StockDiscoveryPage() {
             }
         }
         getStocks();
-    }, [])
+    }, [category,keyword])
 
 
     return (
+        // check if category param is summary, then bring them to main page with stock discover
+        // in side scrolling ribbons
+        // if not then brings them to all stocks page. this will change when search is implemented
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            category === "summary" ? 
                 <Container>
                     <h1>Stock Discovery Page</h1>
-                    <h2> Search/ Filter stocks</h2>
                     <StockSearchBar />
-                    <br />
-                    <h2>Suggested Stocks</h2>
-                    <h2>Top Movers</h2>
-                    <h2>Compare Stocks</h2>
-                    <h2>All Stocks</h2>
+                    
                     <Row md={4} xs={1}>
+                        {stocks[0].topEnvironment.map((stockObj) => (
+                            <Col className="py-2" key={stockObj._id}>
+                                <TickerCard stock={stockObj}  />
+                            </Col>
+                        ))}
+                    </Row>
+                </Container> :
+
+                     <Container>
+                     <h1>Stock Discovery Page</h1>
+                     <Row md={4} xs={1}>
                         {stocks.map((stockObj) => (
                             <Col className="py-2" key={stockObj._id}>
                                 <TickerCard stock={stockObj} />
                             </Col>
                         ))}
                     </Row>
-                </Container>
+                 </Container>
+
             }
         </>
     )

@@ -9,13 +9,27 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
+import { useState, useEffect, PureComponent } from "react";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 
 /// API ///
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
+
+class CustomizedAxisTick extends PureComponent {
+    render() {
+      const { x, y, payload } = this.props;
+  
+      return (
+        <g transform={`translate(${x},${y})`}>
+          <text x={0} y={0} dy={16} textAnchor="end" fill="#666" transform="rotate(-35)">
+            {payload.value}
+          </text>
+        </g>
+      );
+    }
+  }
 
 
 function StockPriceChart({ symbol }) {
@@ -79,9 +93,14 @@ function StockPriceChart({ symbol }) {
 
     return (
         <>
-            <Card className="infoCardStyle">
+            <Card 
+
+            className="infoCardStyle"
+
+            style={{border:"none"}}
+            >
                 <Container>
-                    <h2>Price Chart</h2>
+                    {/* <h2>Price Chart</h2> */}
                     <Row>
                         {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                             <ResponsiveContainer width="100%" height={400} margin={100}>
@@ -98,14 +117,17 @@ function StockPriceChart({ symbol }) {
                                             <stop offset="95%" stopColor="#00C49F" stopOpacity={0} />
                                         </linearGradient>
                                     </defs>
-                                    <Legend verticalAlign="top" height={36}
-                                    />
+                                    {/* <Legend verticalAlign="top" height={36}
+                                    /> */}
                                     <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                                     <XAxis dataKey="date"
-                                        stroke="black"                            
+                                        stroke="black"       
+                                        tick={<CustomizedAxisTick />}       
+                                        height={50}
                                     >
                                     </XAxis>
-                                    <YAxis />
+                                    <YAxis unit='$' 
+                                    width={80}/>
                                     <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>
@@ -114,12 +136,13 @@ function StockPriceChart({ symbol }) {
                     <Row
                         style={{
                             justifyContent: "center"
-                        }}><br></br><br></br>
+                        }}>
                         <Col style={{
                             display: "flex",
                             justifyContent: "center",
+                            marginTop:"20px"
                         }}>
-                            <span className="m-1">Filter By: </span>
+                            {/* <span className="m-1">Filter By: </span> */}
                             <Button className="btn btn-primary btn-sm m-1" onClick={DayData}>Day</Button>
 
                             <Button className="btn btn-primary btn-sm m-1" onClick={MonthData}>Month</Button>

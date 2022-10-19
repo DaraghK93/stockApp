@@ -77,7 +77,7 @@ function StockPage() {
                 <Container>
                     <Row xs={2}>
                         <Col className="col-md-2 col-sm-3 col-3">
-                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%" }} />
+                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
                         <Col className="col-sm-8 col-8" style={{ paddingLeft: 0 }}>
                             <dl className='infoList'>

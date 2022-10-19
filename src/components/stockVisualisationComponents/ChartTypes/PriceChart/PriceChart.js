@@ -26,8 +26,7 @@ function StockPriceChart({ symbol }) {
     const [tickBoolean, setTickBoolean] = useState(false);
 
     function showTick() {
-        const window_innerwidth = window.innerWidth;
-        if (window_innerwidth >= 576) {
+        if (window.innerWidth >= 576) {
             setTickBoolean(true)
         }
         else {
@@ -91,7 +90,7 @@ function StockPriceChart({ symbol }) {
     return (
         <>
             <Card
-                style={{ border: "none", paddingBottom: "20px", marginBottom: "20px" }}
+                style={{ border: "none", marginBottom: "1.25rem" }}
             >
                 <Container>
                     <Row

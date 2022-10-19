@@ -2,9 +2,9 @@
 #   This file holds functions for feature extraction 
 
 import nltk 
-
 from nltk.tokenize import RegexpTokenizer
 from nltk.sentiment import SentimentIntensityAnalyzer
+from statistics import mean
 sia = SentimentIntensityAnalyzer()
 
 
@@ -147,6 +147,60 @@ def getPolarityScore(sentence):
         return scores
     except Exception as e:
         print(f'Error in calculating polarity scores in function getPolarityScore.n\nException details\n{e}' )
+
+
+def extractFeatures(headline,posWords,negWords):
+    """
+    This function uses other functions to extract features of an inputted headline. 
+    The result of this function will be a dictonary object with the feature name as the key and value of that feature as the value. 
+
+    Args:
+        headline (String): The headline string to generate features for
+        posWords (List): A positive words list to use in counting the positive words in the headline 
+        negWords (List): A negative words list to use in counting the negative words in the headline. 
+
+    Returns:
+        features(dict): Dictionary where the keys are the feauture names. 
+    """
+    try:
+        posWordCount   = 0 
+        negWordCount   = 0 
+        compoundScores  = list()
+        positiveScores = list()
+        negativeScores = list()
+        neutralScores  = list()
+        features       = {}
+        # Do it by sentence as there could be multiple sentences in a headline with different polarity scores 
+        for sentence in nltk.sent_tokenize(headline):
+            # Update the positive and negative word count 
+            posWordCount   += getWordCount(sentence,posWords)
+            negWordCount   += getWordCount(sentence,negWords)
+            # Get the polarity score of the sentence 
+            polarityScores = getPolarityScore(sentence)
+            compoundScores.append(polarityScores["compound"])
+            positiveScores.append(polarityScores["pos"])
+            negativeScores.append(polarityScores["neg"])
+            neutralScores.append(polarityScores["neu"])
+        
+        # Calculate the mean of the headlines polarity scores, +1 to meanCompund as some nltk models wont work with negative 
+        features["meanCompound"] = mean(compoundScores)+1
+        features["meanPositive"] = mean(positiveScores)
+        features["meanNegative"] = mean(negativeScores)
+        features["meanNeutral"]  = mean(neutralScores)
+
+        # Add the word count to the features 
+        features["posWordCount"] = posWordCount
+        features["negWordCount"] = negWordCount
+        return features
+    except Exception as e:
+        print(f'Error in extraing features in function extractFeatures.\nException details:\n{e}')
+
+
+    
+
+
+    
+     
 
 
 if __name__ == "__main__":

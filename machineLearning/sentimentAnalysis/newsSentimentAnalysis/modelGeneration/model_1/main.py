@@ -12,6 +12,7 @@ if __name__ == "__main__":
     datasetFile = "../../data/cleanedDatasets/combinedDatasets/combinationOne.csv"
     # Read in the csv file 
     df = cleaningFunctions.readCSVFile(datasetFile)
-    posHeadlines = featureEngineeringFunctions.getHeadlineBySentiment(df,'positive')
-    print(len(posHeadlines))
+    posHeadlines      = featureEngineeringFunctions.getHeadlineBySentiment(df,'positive')
+    tokenzedHeadlines =  featureEngineeringFunctions.tokenizeHeadlines(posHeadlines)
+    print(tokenzedHeadlines)
     #posTokens = featureEngineeringFunctions.processText(posHeadlines)

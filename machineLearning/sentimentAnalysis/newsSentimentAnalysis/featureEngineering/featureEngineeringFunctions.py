@@ -3,7 +3,7 @@
 
 import nltk 
 
-from nltk.tokenize import word_tokenize, RegexpTokenizer
+from nltk.tokenize import word_tokenize
 
 
 def getHeadlineBySentiment(df,sentiment):
@@ -23,12 +23,45 @@ def getHeadlineBySentiment(df,sentiment):
     except Exception as e:
         print(f'Error in extracting given sentiment headlines in function getHeadlineBySentiment.\nException details\n{e}')
 
+def tokenize(headline):
+    """
+    Tokenizes and individual headline. Headlines also converted to lower case in this process. 
 
-def processText(headlines):
-    tokens = [] 
-    tokenizer = RegexpTokenizer(r'\w+')
-    stopwords = nltk.corpus.stopwords.words("english")
-    print(stopwords)
+    Args:
+        headline (String): A string representing a headline 
+
+    Returns:
+        tokens(List): List of strings, each element is a word in the headline.
+    """
+    try:
+        tokens = word_tokenize(headline)
+        tokens = [t.lower() for t in tokens]
+        return tokens 
+    except Exception as e:
+        print(f'Error in tokenizing headline in function tokenize .\nException details\n{e}')
+
+
+def tokenizeHeadlines(headlines):
+    """
+    Tokenizes a list of headlines and returns all tokens in one dimentional array.
+
+    Args:
+        headlines (list): List of string where each string is a headline.
+
+    Returns:
+        tokens(List): List of stings where each element is a word. 
+    """
+    try:
+        tokens = [] 
+        for headline in headlines:
+            toks = tokenize(headline)
+            tokens.extend(toks)
+        return tokens
+    except Exception as e:
+        print(f'Error in tokenizing headlines in function tokenizeHeadlines .\nException details\n{e}')
+ 
+    
+
 
 
 if __name__ == "__main__":

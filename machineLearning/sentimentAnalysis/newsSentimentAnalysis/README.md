@@ -12,7 +12,7 @@ The classifier will classify news headlines into either positive, negative or ne
 ## Running the scripts 
 Create a virtual environemnt 
 ```
-python -m venv MyEnv 
+python -m venv venv 
 ```
 Activate the virtual environment and use the ```requirements.txt``` file to install dependencies. 
 

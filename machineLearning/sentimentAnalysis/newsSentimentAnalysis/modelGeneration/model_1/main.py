@@ -14,5 +14,7 @@ if __name__ == "__main__":
     df = cleaningFunctions.readCSVFile(datasetFile)
     posHeadlines      = featureEngineeringFunctions.getHeadlineBySentiment(df,'positive')
     tokenzedHeadlines =  featureEngineeringFunctions.tokenizeHeadlines(posHeadlines)
-    print(tokenzedHeadlines)
+    print(len(tokenzedHeadlines))
+    tokenzedHeadlines = featureEngineeringFunctions.removeStopWords(tokenzedHeadlines)
+    print(len(tokenzedHeadlines))
     #posTokens = featureEngineeringFunctions.processText(posHeadlines)

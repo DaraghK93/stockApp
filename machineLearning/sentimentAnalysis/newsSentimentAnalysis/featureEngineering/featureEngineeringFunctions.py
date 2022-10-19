@@ -59,7 +59,18 @@ def tokenizeHeadlines(headlines):
         return tokens
     except Exception as e:
         print(f'Error in tokenizing headlines in function tokenizeHeadlines .\nException details\n{e}')
- 
+
+def removeStopWords(wordsList):
+    try:
+        # Get the stopwords from nltk 
+        stopwords = nltk.corpus.stopwords.words("english")
+        # Remove them and create a new list 
+        stopWordsRemoved = [word.lower() for word in wordsList if word.lower() not in stopwords]
+        return stopWordsRemoved
+    except Exception as e:
+        print(f'Error in removing stop words in function removeStopWords.\nException details\n{e}')
+
+
     
 
 

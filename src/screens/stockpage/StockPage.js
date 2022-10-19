@@ -23,12 +23,6 @@ function StockPage() {
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
 
-    const esgData = [
-        { name: 'E Rating', value: 600 },
-        { name: 'S Rating', value: 700 },
-        { name: 'G Rating', value: 200 }
-    ]
-
     const newsSentimentData = [
         { name: 'Positive', value: 600 },
         { name: 'Negative', value: 300 },
@@ -47,7 +41,7 @@ function StockPage() {
         //  Makes a GET request to the backend route /stock/:symbol
         const getStockInfo = async () => {
             try {
-                // Request is being sent set loading true 
+                // Request is being sent set loading true   
                 setLoading(true);
                 // get the symbol from the url string, use regex to extract capital letters only
                 const symbol = window.location.href.replace(/[^A-Z]/g, '');
@@ -68,6 +62,7 @@ function StockPage() {
         }
         getStockInfo();
     }, [])
+
 
 
     return (
@@ -103,7 +98,10 @@ function StockPage() {
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md className="stockInfoCol">
-                            <ChartCard title={"ESG Rating"} data={esgData} />
+                            <ChartCard title={"ESG Rating"} data={
+                        [{name: "E Score",value: stock.esgrating.environment_score},
+                         {name: "S Score",value: stock.esgrating.social_score},
+                         {name: "G Score",value: stock.esgrating.governance_score}]} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />

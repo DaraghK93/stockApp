@@ -26,13 +26,16 @@ function StockPriceChart({ symbol }) {
     const [tickBoolean, setTickBoolean] = useState(false);
 
     function showTick() {
-        if (window.innerWidth >= 576) {
+        const window_innerwidth = window.innerWidth;
+        if (window_innerwidth >= 576) {
             setTickBoolean(true)
         }
         else {
             setTickBoolean(false)
         } 
     }
+
+    window.addEventListener("resize", showTick);
 
     useEffect(() => {
         /// getStockInfo ///
@@ -51,7 +54,6 @@ function StockPriceChart({ symbol }) {
                 setOneYearPrices(res);
                 setOneMonthPrices(res2);
                 setLoading(false);
-                showTick();
             } catch (error) {
                 // Log the error 
                 console.log(error);
@@ -61,6 +63,7 @@ function StockPriceChart({ symbol }) {
             }
         }
         getOneMonthPrices();
+        showTick();
     }, [symbol])
 
     const day = [

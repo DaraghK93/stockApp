@@ -18,5 +18,6 @@ if __name__ == "__main__":
     tokenzedHeadlines = featureEngineeringFunctions.removeStopWords(tokenzedHeadlines)
     print(len(tokenzedHeadlines))
     posFreqDist = featureEngineeringFunctions.getFreqDist(tokenzedHeadlines)
-    print(posFreqDist.most_common(10))
+    featureEngineeringFunctions.getWordCount('Hello my name is Bang',["Bang",'boom',"Hello","/"])
+    
     #posTokens = featureEngineeringFunctions.processText(posHeadlines)

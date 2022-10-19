@@ -74,12 +74,60 @@ def removeStopWords(wordsList):
 
 
 def getFreqDist(tokens):
+    """
+    Returns a frequency distribution object for list of tokens. 
+    Read more about frequency distribution here https://tedboy.github.io/nlps/generated/generated/nltk.FreqDist.html
+
+    Args:
+        tokens (List): List of tokens, for example could be list of words. 
+
+    Returns:
+        (FreqDist): A frequency distribution object. 
+    """
     try:
         return nltk.FreqDist(tokens)
     except Exception as e:
         print(f'Error in creating freq distribution in getFreqDist function.\nException details\n{e}')
 
+def convertListToLowerCase(wordsList):
+    """
+    Converts a list of words to lower case.
 
+    Args:
+        wordsList (List): List of strings. 
+
+    Returns:
+        wordsLower(List): A list of strings converted to lower case
+    """
+    try:
+        wordsLower = []
+        for word in wordsList:
+            wordsLower.append(word.lower())
+        return wordsLower
+    except Exception as e:
+        print(f'Error in cinverting words to lower case in function convertListToLowerCase.\n Exception Details {e}')
+
+
+def getWordCount(sentence,listOfWords):
+    """
+    Gets the word count of certain words appearing in sentence. 
+
+    Args:
+        sentence (String): The sentence to search in 
+        listOfWords (List): The words to search for
+
+    Returns:
+        wordCount(Int): Integer representing the word count. 
+    """
+    wordCount = 0
+    # Make sure words are tokenized and lower case 
+    words = tokenize(sentence)
+    # Make sure words list is lower case, will already be tokenized as its list 
+    wordsList = convertListToLowerCase(listOfWords)
+    for word in words:
+        if word.lower() in wordsList:
+            wordCount+=1
+    return wordCount
 
 
 

@@ -153,7 +153,7 @@ def handler(event,context):
 
     # specify db and collection
     db = client[os.environ["DATABASENAME"]]
-    collection = db[os.environ["DATABASENAME"]]
+    collection = db[os.environ["COLLECTION"]]
 
   except Exception as e:
     print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')

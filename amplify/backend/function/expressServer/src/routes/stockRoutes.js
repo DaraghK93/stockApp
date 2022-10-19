@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getOneMonthStockData, getOneYearStockData } = require('../controllers/stockController');
+const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getOneMonthStockData, getOneYearStockData, searchResults } = require('../controllers/stockController');
 const { errorHandler } = require("../middleware/errorMiddleware");
 
 // maybe change name to ticker symbol instead
@@ -19,5 +19,8 @@ router.get('/:symbol', getStockBySymbol)
 router.get('/OneMonthStockData/:symbol', getOneMonthStockData)
 // get stock data for one year before today
 router.get('/OneYearStockData/:symbol', getOneYearStockData)
+// Get search results
+router.get('/search', searchResults)
+
 
 module.exports = router;

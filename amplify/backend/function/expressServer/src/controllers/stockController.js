@@ -234,6 +234,25 @@ const getOneYearStockData = async (req, res, next) => {
   }
 };
 
+function searchResults() {
+  return async (req, res, next) => {
+    const results = {}
+    let term = req.query.searchTerm
+    try {
+      results.results = await Stock.find({
+        $or: [
+          { shortname: { '$regex': term, '$options': 'i' } },
+          { longname: { '$regex': term, '$options': 'i' } }
+        ]})
+        .sort({_id: 1})
+        .exec()
+        res.searchResults
+    } catch (e) {
+      res.status(500).json({ message: 'An Error Occured' })
+    }
+  }
+}
+
 module.exports = {
   getStockPrice,
   updateStock,
@@ -242,4 +261,5 @@ module.exports = {
   getStockBySymbol,
   getOneMonthStockData,
   getOneYearStockData,
+  searchResults
 };

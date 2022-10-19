@@ -16,7 +16,10 @@
     "s3Key": {
       "Type": "String"
     },
-    "database": {
+    "environment": {
+      "Type": "String"
+    },
+    "databasename": {
       "Type": "String"
     },
     "collection": {
@@ -53,12 +56,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "stockPriceFunction",
+            "stockPriceIntraDay",
             {
               "Fn::Join": [
                 "",
                 [
-                  "stockPriceFunction",
+                  "stockPriceIntraDay",
                   "-",
                   {
                     "Ref": "env"
@@ -76,8 +79,11 @@
             "REGION": {
               "Ref": "AWS::Region"
             },
-            "DATABASE": {
-              "Ref": "database"
+            "ENVIRONMENT": {
+              "Ref": "environment"
+            },
+            "DATABASENAME": {
+              "Ref": "databasename"
             },
             "COLLECTION": {
               "Ref": "collection"
@@ -90,9 +96,9 @@
             "Arn"
           ]
         },
-        "Runtime": "python3.9",
+        "Runtime": "python3.8",
         "Layers": [],
-        "Timeout": 80
+        "Timeout": 25
       }
     },
     "LambdaExecutionRole": {
@@ -101,12 +107,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "stockappLambdaRole2c4f49d6",
+            "stockappLambdaRole07be6b90",
             {
               "Fn::Join": [
                 "",
                 [
-                  "stockappLambdaRole2c4f49d6",
+                  "stockappLambdaRole07be6b90",
                   "-",
                   {
                     "Ref": "env"

@@ -8,18 +8,14 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
-import PlainCard from '../../components/stockVisualisationComponents/PlainCard/PlainCard';
+import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButtonModal';
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
-
-
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
-
-
 
 function StockPage() {
 
@@ -73,15 +69,23 @@ function StockPage() {
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
+                    <Row xs={2}>
+                        <Col className="col-md-2 col-sm-3 col-3">
+                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
+                        </Col>
+                        <Col className="col-sm-8 col-8" style={{ paddingLeft: 0 }}>
+                            <dl className='infoList'>
+                                <dt>
+                                    <h1>
+                                        {stock.longname}<InfoButtonModal
+                                            title="Company Information"
+                                            info={stock.longbusinesssummary} /></h1>
+                                </dt>
+                                <dt>{stock.symbol}</dt>
+                                <dt style={{ fontSize: "150%" }}>$200</dt>
+                                <dt>+$50 (25%)</dt>
+                            </dl>
 
-                    <Row lg={3} md={2} xs={1}>
-                        <Col className="stockInfoCol">
-                            <PlainCard
-                                longname={stock.longname}
-                                symbol={stock.symbol}
-                                logo={stock.logo}
-                                info={stock.longbusinesssummary}
-                            />
                         </Col>
                         <Col className="stockInfoCol">
                             <TradeButton />
@@ -114,7 +118,7 @@ function StockPage() {
                             {/*THINK THE TWITTER FEED WOULD WORK WELL HERE*/}
                         </Col>
                     </Row>
-
+                    <div className='footerStyle'></div>
                 </Container>
             }
         </>

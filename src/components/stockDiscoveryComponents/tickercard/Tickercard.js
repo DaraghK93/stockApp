@@ -54,7 +54,7 @@ function TickerCard({ stock }) {
             style={{width:"1.25rem"}}/> <strong>News Sentiment: </strong><SentimentBadge sentiment='Negative'/>
           </ListGroupItem>
           <ListGroupItem><strong>Did you know?<InfoButtonHover info="There's no information here!" setPlacement="right"></InfoButtonHover></strong>
-          <br></br>This company was voted least evil by Donald Trump!</ListGroupItem>
+          <br></br>This company is in one of the top ten environmentally friendly companies</ListGroupItem>
         </ListGroup>
       </Card>
     </Link>

@@ -122,6 +122,7 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                                     <XAxis dataKey="date"
                                         stroke="black"
                                         tick={tickBoolean}
+                                        // color="#595959"
                                     >
                                     </XAxis>
                                     <YAxis unit='$'

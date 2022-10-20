@@ -31,6 +31,32 @@
     border-color: darken($secondary, 10%) !important;
 }
 
+.btn-light {
+    background-color: $background;
+    border-color: $background;
+    font-weight:bolder;
+    color: $info;
+}
+
+
+.btn-light:hover {
+    color:$secondary;
+    background-color: $background;
+    border-color: $background;
+    font-weight:bolder;
+    text-decoration: underline;
+}
+
+
+.btn-light:focus {
+    color:$secondary;
+    background-color: $background;
+    border-color: $background;
+    font-weight:bolder;
+    text-decoration: underline;
+}
+
+
 // Desktop version
 @media only screen and (min-width: 1200px) {
     .btn-secondary {
@@ -38,3 +64,28 @@
         font-size:150%;
     }
 }
+
+.infoList{
+    margin-top: 0.625rem; 
+}
+
+.footerStyle {
+    width: 100%;
+    justify-content: center;
+    position: relative;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height:80px
+}
+
+.centeredCol {
+    display: flex;
+    justify-content: center
+}
+
+// @media (max-width: 669px) {
+//     .recharts-cartesian-axis-ticks, .recharts-cartesian-axis-tick {
+//       display: none;
+//     }
+//   }

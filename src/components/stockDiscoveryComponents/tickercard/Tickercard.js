@@ -45,13 +45,12 @@ function TickerCard({ stock }) {
         <ListGroup className="list-group-flush">
           <ListGroupItem><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>
             <strong>Change (24h)</strong> <span style={{ color: redOrGreen() }}>${stock.daily_change.absoluteChange} ({postiveSymbol}{stock.daily_change.percentageChange})</span>
-
           </ListGroupItem>
           <ListGroupItem>
-            <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png" 
+            <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png" alt="twitter symbol"
             style={{width:"1.25rem"}}/> <strong>Twitter Sentiment: </strong><SentimentBadge sentiment='Positive'/>
             <br></br>
-            <img src= "https://cdn-icons-png.flaticon.com/512/1042/1042782.png"
+            <img src= "https://cdn-icons-png.flaticon.com/512/1042/1042782.png" alt="news symbol"
             style={{width:"1.25rem"}}/> <strong>News Sentiment: </strong><SentimentBadge sentiment='Negative'/>
           </ListGroupItem>
           <ListGroupItem><strong>Did you know?<InfoButtonHover info="There's no information here!" setPlacement="right"></InfoButtonHover></strong>

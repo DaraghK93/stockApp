@@ -19,6 +19,10 @@
 /*Stock components */
 @import "./stockComponents/stockComponents.scss";
 
+/* Tweet components */
+@import "./tweetComponents/tweetCard.scss";
+
+
 body {
     background-color: $background;
 }

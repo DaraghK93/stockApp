@@ -1,0 +1,76 @@
+/* Credit to Clever Programmer on Youtube for design ideas and code format https://www.youtube.com/watch?v=rJjaqSTzOxI */
+
+
+@import "../global_variables.scss";
+
+
+.tweet{
+    align-items: flex-start;
+    border: 0.063rem solid rgb(200, 195, 195);
+    padding-bottom: 0.063rem;
+    border-radius: 3%;
+    cursor: pointer;
+    margin-bottom:4%;
+}
+  
+.hashtag{
+    color: $secondary;
+}
+
+.tweet_body {
+padding: 0.625rem;
+align-items: left;
+}
+
+.tweet_date{
+    font-weight: lighter;
+    align-items: right;
+    font-size: small;
+}
+
+.tweet_footer {
+justify-content: space-between;
+margin-top: 0.625rem;
+align-items:left;
+}
+
+.tweet_headerDescription {
+    margin-top: 0.313rem;
+margin-bottom: 0.625rem;
+font-size: 0.938rem;
+}
+
+.tweet_headerText {
+    font-size: 1.063rem;
+    margin-bottom: 5px;
+    margin-left: 0.5rem;
+}
+
+.tweet_headerText > h3 {
+    margin-top: 0.625rem;
+font-size: 1.063rem;
+margin-bottom: 0.313rem;
+}
+
+.tweet_badge {
+font-size: 1.25rem !important;
+color: $secondary;
+}
+
+.tweet_headerSpecial {
+    margin-right: 0.625rem;
+font-weight: 600;
+font-size: 0.75rem;
+color: gray;
+}
+
+.tweet_avatar {
+padding: 1.25rem;
+margin-right: 0;
+}
+
+a:link, a:visited, a:hover, a:active {
+    text-decoration: none;
+    color: $text-colour;
+  }
+  

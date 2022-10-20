@@ -40,6 +40,26 @@ def getTrainTestSplit(features,trainPercent):
     except Exception as e:
         print(f'Error in getting train and test split in getTrainTestSplit function.\nException details\n{e}')
 
+def trainNLTKModels(train,naiveBayesClassifier=False,decisiontree=False):
+    """
+    Trains the NLTK classifiers 
+
+    Args:
+        train (List): List of tuples in the form [({features},goal)]
+        naiveBayesClassifier (bool, optional): If True will train naiveBayes classifier. Defaults to False.
+        decisiontree (bool, optional): If True will train decisiontree classifier. Defaults to False.
+
+    Returns:
+        classifiers(dict): Dictionary containing trained classifiers. 
+    """
+    try:
+        classifiers = {}
+        if naiveBayesClassifier: classifiers["NaiveBayesClassifier"] = nltk.NaiveBayesClassifier.train(train)
+        if decisiontree: classifiers["DecisionTreeClassifier"] = nltk.DecisionTreeClassifier.train(train)
+        return classifiers
+    except Exception as e:
+        print(f'Error in getting the NLTK classifiers in function trainNLTKModels.\nException details\n{e}')
+
 
 
 def trainSKLearnClassifers(

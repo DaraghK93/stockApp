@@ -60,16 +60,19 @@ if __name__ == "__main__":
     ### Step5. Train the model ###
     # Get the training set and testing set 
     train, test = modelFunctions.getTrainTestSplit(features,0.25)
-    # Get the skLearn Classifiers 
-    skLearnClassifiers = modelFunctions.trainSKLearnClassifers(
-        train=train, 
-        bernoulliNB=True,
-        multinomialNB=True,
-        complementNB=True,
-        kNeighborsClassifier=True,
-        decisionTreeClassifier=True,
-        randomeForestClassifier=True,
-        logisticRegression=True,
-        mLPClassifer=True,
-        adaBoostClassifier=True)
+    # Get the NLTK classifiers
+    nltkClassifiers = modelFunctions.trainNLTKModels(train,naiveBayesClassifier=True,decisiontree=True)
+    
+    # Get the skLearn Classifiers     
+    #skLearnClassifiers = modelFunctions.trainSKLearnClassifers(
+    #    train=train, 
+    #    bernoulliNB=True,
+    #    multinomialNB=True,
+    #    complementNB=True,
+    #    kNeighborsClassifier=True,
+    #    decisionTreeClassifier=True,
+    #    randomeForestClassifier=True,
+    #    logisticRegression=True,
+    #    mLPClassifer=True,
+    #    adaBoostClassifier=True)
     

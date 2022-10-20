@@ -5,7 +5,7 @@
 //  This screen contains the components rendered to the user when they click on an individual stock 
 
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButtonModal';
@@ -48,13 +48,7 @@ function StockPage() {
         }
         else {
             lineColor = "#d61e1e"
-
-            // lineColor = 
-            // "#1E90FF"
             gradientColor = "#ffc9c9"
-            // "#B2D9FF"
-            
-        
         }
         return lineColor
     }
@@ -96,10 +90,10 @@ function StockPage() {
                     <Row
                     // xs={3}
                     >
-                        <Col className="col-md-2 col-sm-3 col-3">
+                        <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
-                        <Col className="col-sm-8 col-5" style={{ paddingLeft: 0, paddingRight: 0 }}>
+                        <Col className="stockInfoCol col-md-4 col-sm-8 col-5">
                             <dl className='infoList'>
                                 <dt>
                                     <h1>
@@ -114,7 +108,7 @@ function StockPage() {
                                 </dt>
                             </dl>
                         </Col>
-                        <Col className="col-md-2 col-sm-3 col-3" style={{ marginTop: "20px" }}>
+                        <Col className="followButtonCol col-md-2 col-sm-3 col-3">
                             <FollowButton />
                         </Col>
                     </Row>

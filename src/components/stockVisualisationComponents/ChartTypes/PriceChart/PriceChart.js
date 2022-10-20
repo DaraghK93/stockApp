@@ -17,6 +17,10 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
 
+//TODO style tooltip
+// button underline then completely lined?
+
+
 function StockPriceChart({ symbol, lineColor, gradientColor }) {
 
     const [loading, setLoading] = useState(true);
@@ -114,6 +118,7 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                                     <Tooltip />
+                                
                                     <XAxis dataKey="date"
                                         stroke="black"
                                         tick={tickBoolean}

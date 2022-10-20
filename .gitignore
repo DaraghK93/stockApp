@@ -14,9 +14,6 @@
 # Python Virtual Environments
 venv/
 
-# Machince Learning
-models/
-evaluationResults.csv
 
 # misc
 .env

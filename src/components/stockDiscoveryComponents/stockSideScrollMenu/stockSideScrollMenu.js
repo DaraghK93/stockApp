@@ -13,7 +13,7 @@ function StockSideScrollMenu(props){
         <Card>
             <div className='cardContainer'>
                 {props.data.map((stockObj) => (
-                    <div className='tickercard'>
+                    <div className='tickercard' key={stockObj._id}>
                     <TickerCard key={stockObj._id} stock={stockObj}/>
                     </div>
                  ))}

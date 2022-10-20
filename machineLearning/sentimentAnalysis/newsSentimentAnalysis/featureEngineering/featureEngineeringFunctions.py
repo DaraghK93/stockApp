@@ -198,7 +198,7 @@ def extractFeatures(headline,posWords,negWords,neuWords=False):
     except Exception as e:
         print(f'Error in extraing features in function extractFeatures.\nException details:\n{e}')
 
-def writeWordsListToCSV(freqDist,file):
+def writeWordsListToCSV(freqDist,file,numWords=100):
     """
     Writes a list of words to a csv file 
 
@@ -209,7 +209,7 @@ def writeWordsListToCSV(freqDist,file):
     with open(file,'w',newline='') as f:
         write = csv.writer(f)
         write.writerow(['word','occurences'])
-        for row in freqDist.most_common(100):
+        for row in freqDist.most_common(numWords):
             write.writerow(row)
         f.close()
 

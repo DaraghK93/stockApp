@@ -49,6 +49,10 @@ if __name__ == "__main__":
     top100PositiveWords = {word for word, _ in posFreqDist.most_common(100)}
     top100Negative      = {word for word, _ in negFreqDist.most_common(100)}
     top100Neutral       = {word for word, _ in neuFreqDist.most_common(100)}
+    # Write to a file 
+    featureEngineeringFunctions.writeWordsListToCSV(posFreqDist,'data/positiveWords.csv',numWords=100)
+    featureEngineeringFunctions.writeWordsListToCSV(negFreqDist,'data/negativeWords.csv',numWords=100)
+    featureEngineeringFunctions.writeWordsListToCSV(neuFreqDist,'data/neutralWords.csv',numWords=100)
 
     ### Step 4 - Feature Extraction ###
     #   Extract the features for the postive, negative and neutral headlines

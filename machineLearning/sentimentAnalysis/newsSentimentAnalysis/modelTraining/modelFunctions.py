@@ -61,7 +61,6 @@ def trainNLTKModels(train,naiveBayesClassifier=False,decisiontree=False):
         print(f'Error in getting the NLTK classifiers in function trainNLTKModels.\nException details\n{e}')
 
 
-
 def trainSKLearnClassifers(
             train,
             bernoulliNB=False,
@@ -115,5 +114,17 @@ def trainSKLearnClassifers(
         return trainedClassifiers
     except Exception as e:
         print(f'Error in training sklearn classifiers in trainSKLearnClassifers function.\nException details\n{e}')
+
+
+def getAccuracyofClassifier(classifier,test):
+    try:
+        return nltk.classify.accuracy(classifier, test)
+    except Exception as e:
+        print(f'Error in getting accuracy of the model.\nException details {e}')
+
+
+#def evaluateClassifier(classifier,test):
+#    print(f'Accuracy of model {*100}%')
+
     
     

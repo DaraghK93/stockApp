@@ -1,5 +1,5 @@
 ## Description:
-#       This file relates to model_1 training and feature engineering
+#       This file relates to model_2 training and feature engineering
 #       Running this script will generate a report and pickle files to the "models" directory
 #       ***DO NOT MAKE MASSIVE CHANGES TO THIS FILE OR PREFERABLY NONE AT ALL, GOOD FOR REPORT TO KEEP VERSIONS OF ITERATIONS***
 

@@ -70,16 +70,18 @@ function StockDiscoveryPage() {
                     </Row>
                 </Container> :
 
-                     <Container>
-                     <h1>Stock Discovery Page</h1>
-                     <Row md={4} xs={1}>
-                        {stocks.map((stockObj) => (
-                            <Col className="py-2" key={stockObj._id}>
-                                <TickerCard stock={stockObj} />
-                            </Col>
-                        ))}
-                    </Row>
-                 </Container>
+                    <Container>
+                        <h1>Stock Discovery Page</h1>
+                        <h2>Showing results for :"{keyword}"</h2>
+                        <StockSearchBar />
+                        <Row md={4} xs={1}>
+                            {stocks.map((stockObj) => (
+                                <Col className="py-2" key={stockObj._id}>
+                                    <TickerCard stock={stockObj} />
+                                </Col>
+                            ))}
+                        </Row>
+                    </Container>
 
             }
         </>

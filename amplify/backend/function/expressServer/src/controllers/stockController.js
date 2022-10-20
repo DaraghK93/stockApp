@@ -30,21 +30,48 @@ const getStockPrice = async (req, res, next) => {
 //          in a series of side scrolling menu components
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
-  const category = req.query.category; 
-  
+  const category = req.query.category;
+  const keyword = req.query.keyword;   // This is the search term entered into the search box
+
 // check if category is summary and if not, return all stocks, else 
 // return the aggregate query for different stock categories
 
-  if ( category !== 'summary') {
+  if (category === 'usersearch') {
     try {
-      const stocks = await Stock.find().select({prices: 0});
+      // Regex/pattern matching across the below fields
+      const stocks = await Stock.find({
+        "$or": [
+          { symbol: { '$regex': keyword, '$options': 'i' } },
+          { longname: { '$regex': keyword, '$options': 'i' } },
+          { shortname: { '$regex': keyword, '$options': 'i' } },
+          { industry: { '$regex': keyword, '$options': 'i' } },
+          { sector: { '$regex': keyword, '$options': 'i' } }
+        ]
+      // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings) 
+      }).sort({ symbol: 1 })
       res.json(stocks);
     } catch (err) {
       console.error(err.message);
       res.errormessage = 'Server error';
       return next(err);
     }
-  } else {
+  }   
+  else if (category === 'usersearch' && keyword === "all") {
+    console.log("Keyword not entered")
+    try {
+    console.log("Keyword not entered")
+      const stocks = await Stock.find().select({ prices: 0 });
+      res.json(stocks);
+    } catch (err) {
+    console.log("Keyword not entered")
+
+      console.error(err.message);
+      res.errormessage = 'Server error';
+      return next(err);
+    }
+  } 
+
+  else {
   try {
     // aggregate query that uses $facet to run 3 queries and return all in
     // one response
@@ -267,25 +294,6 @@ const getOneYearStockData = async (req, res, next) => {
   }
 };
 
-function searchResults() {
-  return async (req, res, next) => {
-    const results = {}
-    let term = req.query.searchTerm
-    try {
-      results.results = await Stock.find({
-        $or: [
-          { shortname: { '$regex': term, '$options': 'i' } },
-          { longname: { '$regex': term, '$options': 'i' } }
-        ]})
-        .sort({_id: 1})
-        .exec()
-        res.searchResults
-    } catch (e) {
-      res.status(500).json({ message: 'An Error Occured' })
-    }
-  }
-}
-
 module.exports = {
   getStockPrice,
   updateStock,
@@ -293,6 +301,5 @@ module.exports = {
   getAllStocks,
   getStockBySymbol,
   getOneMonthStockData,
-  getOneYearStockData,
-  searchResults
+  getOneYearStockData
 };

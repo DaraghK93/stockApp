@@ -57,14 +57,10 @@ const getAllStocks = async (req, res, next) => {
     }
   }   
   else if (category === 'usersearch' && keyword === "all") {
-    console.log("Keyword not entered")
     try {
-    console.log("Keyword not entered")
       const stocks = await Stock.find().select({ prices: 0 });
       res.json(stocks);
     } catch (err) {
-    console.log("Keyword not entered")
-
       console.error(err.message);
       res.errormessage = 'Server error';
       return next(err);

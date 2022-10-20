@@ -6,6 +6,7 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.sentiment import SentimentIntensityAnalyzer
 from statistics import mean
 sia = SentimentIntensityAnalyzer()
+import csv
 
 
 def getHeadlineBySentiment(df,sentiment):
@@ -148,7 +149,6 @@ def getPolarityScore(sentence):
     except Exception as e:
         print(f'Error in calculating polarity scores in function getPolarityScore.n\nException details\n{e}' )
 
-
 def extractFeatures(headline,posWords,negWords,neuWords=False):
     """
     This function uses other functions to extract features of an inputted headline. 
@@ -176,7 +176,7 @@ def extractFeatures(headline,posWords,negWords,neuWords=False):
             # Update the positive and negative word count 
             posWordCount   += getWordCount(sentence,posWords)
             negWordCount   += getWordCount(sentence,negWords)
-            neuWordCount  += getWordCount(sentence,neuWords) if neuWords else None
+            if neuWords: neuWordCount  += getWordCount(sentence,neuWords)
             # Get the polarity score of the sentence 
             polarityScores = getPolarityScore(sentence)
             compoundScores.append(polarityScores["compound"])
@@ -198,9 +198,20 @@ def extractFeatures(headline,posWords,negWords,neuWords=False):
     except Exception as e:
         print(f'Error in extraing features in function extractFeatures.\nException details:\n{e}')
 
+def writeWordsListToCSV(freqDist,file):
+    """
+    Writes a list of words to a csv file 
 
-    
-
+    Args:
+        freqDist (Frequency distribution Object): A frequency distribution of tokenized words
+        file (String): The location of the file to write to
+    """
+    with open(file,'w',newline='') as f:
+        write = csv.writer(f)
+        write.writerow(['word','occurences'])
+        for row in freqDist.most_common(100):
+            write.writerow(row)
+        f.close()
 
     
      

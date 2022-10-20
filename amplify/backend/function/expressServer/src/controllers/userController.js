@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const Portfolio = require('../models/portfolio.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const config = require('config')
@@ -62,7 +63,8 @@ const registerUser = async (req, res, next) => {
       username,
       email,
       password,
-      overeighteen
+      overeighteen,
+      portfolios
     })
 
     /// Hash the password ///
@@ -162,6 +164,7 @@ const loginUser = async (req, res, next) => {
         })
       },
     )
+    console.log(token)
   } catch (err) {
     console.error(err.message)
     res.errormessage = 'Server error'
@@ -213,9 +216,32 @@ const deleteUser = async (req, res, next) => {
   }
 }
 
+// @desc get user data
+// route get /api/users/info
+// @access private
+
+const createPortfolio = async (req, res, next) => {
+  try {
+      const newPortfolio = new Portfolio({
+      name: "Joey's Portfolio"
+    });
+      await User.updateOne({ email: email }, {$push: {portfolios: newPortfolio}})
+      
+      // const portfolio = await User.updateOne();
+  
+      res.json({ newPortfolio });
+    } catch (err) {
+      console.error(err.message);
+      res.errormessage = 'Server error';
+      return next(err);
+    }
+  }
+
+
 module.exports = {
   registerUser,
   loginUser,
   getUserInfo,
   deleteUser,
+  createPortfolio
 }

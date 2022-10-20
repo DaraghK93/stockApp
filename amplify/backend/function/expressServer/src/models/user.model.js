@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const {ObjectId} = mongoose.Schema
+
 
 const validateEmail = (email) => {
   const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -30,6 +32,7 @@ const UserSchema = new mongoose.Schema(
     location: { type: String, trim: true },
     image: { type: String },
     bio: { type: String },
+    portfolio: {type: mongoose.Schema.Types.ObjectID, ref: "portfolioData"}
   },
   { collection: 'user-data' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated

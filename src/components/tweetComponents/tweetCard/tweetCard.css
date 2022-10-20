@@ -1,0 +1,66 @@
+/* Credit to Clever Programmer on Youtube for design ideas and code format https://www.youtube.com/watch?v=rJjaqSTzOxI */
+
+
+.tweet{
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid rgb(200, 195, 195);
+  padding-bottom: 1px;
+  border-radius: 3%;
+  cursor: pointer;
+  margin-bottom:4%;
+}
+
+.hashtag{
+    color: rgb(0, 94, 255);
+}
+
+.tweet_body {
+  flex: 1;
+  padding: 10px;
+}
+
+.tweet_date{
+    font-weight: lighter;
+    align-items: right;
+    font-size: small;
+}
+
+.tweet_body > img {
+  border-radius: 10px;
+  max-width: 110%;
+}
+
+.tweet_footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items:left;
+}
+
+.tweet_headerDescription {
+    margin-top: 5px;
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.tweet_headerText > h3 {
+  font-size: 17px;
+  margin-bottom: 5px;
+}
+
+.tweet_badge {
+  font-size: 20px !important;
+  color: rgb(0, 136, 255);
+}
+
+.tweet_headerSpecial {
+    margin-right: 10px;
+  font-weight: 600;
+  font-size: 12px;
+  color: gray;
+}
+
+.tweet_avatar {
+  padding: 20px;
+}

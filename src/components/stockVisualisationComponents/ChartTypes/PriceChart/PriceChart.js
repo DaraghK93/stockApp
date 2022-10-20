@@ -17,13 +17,42 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import { APIName } from "../../../../constants/APIConstants";
 import { API } from "aws-amplify";
 
-function StockPriceChart({ symbol }) {
+//TODO style tooltip
+// button underline then completely lined?
+
+
+function StockPriceChart({ symbol, lineColor, gradientColor }) {
 
     const [loading, setLoading] = useState(true);
     const [oneMonthPrices, setOneMonthPrices] = useState();
     const [oneYearPrices, setOneYearPrices] = useState();
     const [error, setError] = useState("");
     const [tickBoolean, setTickBoolean] = useState(false);
+
+    const day = [
+        { date: '01-10', price: 400 },
+        { date: '01-11', price: 700 },
+        { date: '01-12', price: 60 },
+        { date: '01-13', price: 700 },
+        { date: '01-01', price: 500 }]
+
+    // Move this up with the rest of the constants when we have the daily data. For now it cant be called before the dummy data is initialized
+    const [data, setData] = useState(day); 
+
+    const DayData = event => {
+        // toggle shown data
+        setData(day);
+    };
+    const MonthData = event => {
+        // toggle shown data
+        setData(oneMonthPrices);
+    };
+    const YearData = event => {
+        // toggle shown data
+        setData(oneYearPrices);
+    };
+
+    window.addEventListener("resize", showTick);
 
     function showTick() {
         if (window.innerWidth >= 576) {
@@ -33,8 +62,6 @@ function StockPriceChart({ symbol }) {
             setTickBoolean(false)
         } 
     }
-
-    window.addEventListener("resize", showTick);
 
     useEffect(() => {
         /// getStockInfo ///
@@ -65,27 +92,7 @@ function StockPriceChart({ symbol }) {
         showTick();
     }, [symbol])
 
-    const day = [
-        { date: '01-10', price: 400 },
-        { date: '01-11', price: 700 },
-        { date: '01-12', price: 60 },
-        { date: '01-13', price: 700 },
-        { date: '01-01', price: 500 }]
 
-    const DayData = event => {
-        // toggle shown data
-        setData(day);
-    };
-    const MonthData = event => {
-        // toggle shown data
-        setData(oneMonthPrices);
-    };
-    const YearData = event => {
-        // toggle shown data
-        setData(oneYearPrices);
-    };
-
-    const [data, setData] = useState(day);
 
     return (
         <>
@@ -93,25 +100,7 @@ function StockPriceChart({ symbol }) {
                 style={{ border: "none", marginBottom: "1.25rem" }}
             >
                 <Container>
-                    <Row
-                        style={{
-                            justifyContent: "center"
-                        }}>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={DayData}>1D</Button>
-                        </Col>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={DayData}>1W</Button>
 
-                        </Col>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={MonthData}>1M</Button>
-
-                        </Col>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={YearData}>1Y</Button>
-                        </Col>
-                    </Row>
                     <Row>
                         {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                             <ResponsiveContainer width="100%" height={400} margin={100}>
@@ -124,22 +113,43 @@ function StockPriceChart({ symbol }) {
                                     }}>
                                     <defs>
                                         <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#b5e8df" stopOpacity={0.8} />
+                                            <stop offset="5%" stopColor={gradientColor} stopOpacity={0.8} />
                                         </linearGradient>
                                     </defs>
                                     <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                                     <Tooltip />
+                                
                                     <XAxis dataKey="date"
-                                        stroke="black"
+                                        stroke="#595959"
                                         tick={tickBoolean}
+                                        // color="#595959"
                                     >
                                     </XAxis>
                                     <YAxis unit='$'
-                                        width={80} />
-                                    <Area type="monotone" dataKey="price" stroke="#00C49F" fillOpacity={1} fill="url(#colorPrice)" />
+                                        width={80} 
+                                        stroke="#595959"/>
+                                    <Area type="monotone" dataKey="price" stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>
                         }
+                    </Row>
+                    <Row
+                        style={{
+                            justifyContent: "center"
+                        }}>
+                        <Col className="centeredCol">
+                            <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1D</Button>
+                        </Col>
+                        <Col className="centeredCol">
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1W</Button>
+                        </Col>
+                        <Col className="centeredCol">
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={MonthData}>1M</Button>
+
+                        </Col>
+                        <Col className="centeredCol">
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={YearData}>1Y</Button>
+                        </Col>
                     </Row>
                 </Container>
             </Card>

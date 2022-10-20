@@ -62,8 +62,13 @@ function StockDiscoveryPage() {
                     <h1>Stock Discovery Page</h1>
                     <StockSearchBar />
                     
-                    <Row >
-                       <StockSideScrollMenu />
+                    <Row md={1} xs={1}>
+                       <h3>Companies That Are Good For The Environment</h3>
+                       <StockSideScrollMenu data = {stocks[0].topEnvironment}/>
+                       <h3>Companies That Have Great Social Structures</h3>
+                       <StockSideScrollMenu data = {stocks[0].topSocial}/>
+                       <h3>Companies That Have Great Governance</h3>
+                       <StockSideScrollMenu data = {stocks[0].topGovernance}/>
 
                     </Row>
                 </Container> :

@@ -1,27 +1,17 @@
-/* ***************************** News Article Card Container ***************************** */
-// .stockCardContainer{
-//   max-height: 30rem;
-//   margin: 10px;
-//   margin-bottom: 20px;
-// }
+/* ***************************** Stock Card Container ***************************** */
 
-// .stockCardContainerBody{
-  
-  
-
-// }
-
-.stockCardContainerBody{
-  max-height: 30rem;
-  margin: 10px;
-  margin-bottom: 20px;
-  display: inline-block;
-  overflow-x: auto ;
+// side scrolling
+.cardContainer {
+  overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  width: 85%;
 
-}
 
-.stockCardContainerHeading{
-margin:5%;
+  margin: auto;
+  .tickercard {
+    display: inline-block;
+    padding: 1rem;
+  }
+
 }

@@ -23,7 +23,7 @@ function TickerCard({ stock }) {
     <Card className="h-100">
       <Card.Body style={{ textDecoration: 'none'}}>
         <Card.Img variant="top"  src={stock.logo}
-          styel={{ width: "100%", height: "15vw",
+          style={{ width: "10rem", height: "15vw",
           margin: "20px",textDecoration: 'none'
         }}
         />

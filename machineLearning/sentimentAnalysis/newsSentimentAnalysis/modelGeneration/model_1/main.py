@@ -57,19 +57,19 @@ if __name__ == "__main__":
     for neutralHeadline in neuHeadlines:
         features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
 
-    #print(features)
-    #print(features)
-    modelFunctions.getTrainTestSplit(features,0.33)
-
     ### Step5. Train the model ###
-    #modelFunctions.trainSKLearnClassifers(
-    #    features=features,
-    #    bernoulliNB=True,
-    #    multinomialNB=True,
-    #    complementNB=True,
-    #    kNeighborsClassifier=True,
-    #    decisionTreeClassifier=True,
-    #    randomeForeseClassifier=True,
-    #    logisticRegression=True,
-    #    mLPClassifer=True,
-    #    adaBoostClassifier=True)
+    # Get the training set and testing set 
+    train, test = modelFunctions.getTrainTestSplit(features,0.25)
+    # Get the skLearn Classifiers 
+    skLearnClassifiers = modelFunctions.trainSKLearnClassifers(
+        train=train, 
+        bernoulliNB=True,
+        multinomialNB=True,
+        complementNB=True,
+        kNeighborsClassifier=True,
+        decisionTreeClassifier=True,
+        randomeForestClassifier=True,
+        logisticRegression=True,
+        mLPClassifer=True,
+        adaBoostClassifier=True)
+    

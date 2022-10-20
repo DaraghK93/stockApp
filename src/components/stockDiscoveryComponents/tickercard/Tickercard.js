@@ -5,12 +5,17 @@
 import { Card, ListGroupItem, ListGroup, Row, Col } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
+import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge';
+import InfoButtonHover from "../../widgets/InfoButtonHover/InfoButtonHover"
 
 
 function TickerCard({ stock }) {
 
+  var postiveSymbol;
+
   function redOrGreen() {
     if (parseFloat(stock.daily_change.percentageChange) >= 0) {
+      postiveSymbol= "+"
       return "green"
     }
     else {
@@ -29,60 +34,32 @@ function TickerCard({ stock }) {
             xs={5}
           ><span
             style={{ float: "right" }}
-          > {stock.symbol} | {stock.exchange}</span></Col> </Row>
-
-
+          > {stock.symbol} | {stock.exchange}</span></Col></Row>
           </ListGroupItem>
         </ListGroup>
-
-
         <Card.Body style={{ textDecoration: 'none' }}>
-          <Row style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}>
-
-            <Col style={{
-              display: "flex", justifyContent: "center",
-              alignItems: "center"
-            }}>
-
-
               <Card.Img
-                // variant="middle"  
-                src={stock.logo}
-                // style={{
-                //   display: "flex",
-                //   justifyContent: "center",
-                //   alignItems: "center"
-
-                // }}
-              />
-
-            </Col>
-          </Row>
-
-
+                variant="top"  
+                src={stock.logo} />
         </Card.Body>
-
         <ListGroup className="list-group-flush">
           <ListGroupItem><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>
-            <strong>Change (24h)</strong> <span style={{ color: redOrGreen() }}>{stock.daily_change.absoluteChange} ({stock.daily_change.percentageChange})</span>
+            <strong>Change (24h)</strong> <span style={{ color: redOrGreen() }}>${stock.daily_change.absoluteChange} ({postiveSymbol}{stock.daily_change.percentageChange})</span>
 
           </ListGroupItem>
-          <ListGroupItem>Twitter Sentiment:
+          <ListGroupItem>
+            <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png" 
+            style={{width:"1.25rem"}}/> <strong>Twitter Sentiment: </strong><SentimentBadge sentiment='Positive'/>
             <br></br>
-            News Sentiment:
+            <img src= "https://cdn-icons-png.flaticon.com/512/1042/1042782.png"
+            style={{width:"1.25rem"}}/> <strong>News Sentiment: </strong><SentimentBadge sentiment='Negative'/>
           </ListGroupItem>
-          <ListGroupItem><strong>Did you know?</strong> <br></br>This company was voted least evil by Donald Trump!</ListGroupItem>
+          <ListGroupItem><strong>Did you know?<InfoButtonHover info="There's no information here!" setPlacement="right"></InfoButtonHover></strong>
+          <br></br>This company was voted least evil by Donald Trump!</ListGroupItem>
         </ListGroup>
       </Card>
     </Link>
   );
 }
 
-
 export default TickerCard;
-
-// "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png"

@@ -6,7 +6,6 @@ import VerifiedIcon from '@mui/icons-material/Verified';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Avatar } from '@mui/material';
 import { Col, Row, Container } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 
 const HASHTAG_FORMATTER = (string) => {
   return string.split(/((?:^|\s)(?:#[a-z\d-]+))/gi).map((v, i) => {

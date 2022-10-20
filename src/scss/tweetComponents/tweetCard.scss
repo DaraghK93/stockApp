@@ -73,4 +73,17 @@ a:link, a:visited, a:hover, a:active {
     text-decoration: none;
     color: $text-colour;
   }
+
+
+.twitter_header {
+    margin: 0.5rem;
+}
+
+.twitter_image >img {
+    margin-left: 10rem;
+    margin-top: 5%;
+ max-width: 3rem;
+ align-items: right;
+}
+
   

@@ -45,7 +45,17 @@ function TweetContainer({ stock }) {
 
   return (
     <Card id='newsCardContainer' className='newsCardContainer'>
-      <h2 className='newsCardContainerHeading'>Twitter Feed</h2>
+      <Row className='twitter_header'>
+        <Col>
+          <h2 className='newsCardContainerHeading'>Twitter Feed</h2>
+        </Col>
+        <Col className='twitter_image'>
+          <img
+            src='https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png'
+            alt=''
+          ></img>
+        </Col>
+      </Row>
       <Card.Body className='newsCardContainerBody'>
         {loading ? (
           <LoadingSpinner />

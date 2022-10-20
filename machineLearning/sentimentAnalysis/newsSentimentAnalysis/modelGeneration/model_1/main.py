@@ -1,5 +1,7 @@
 ### Description:
-#       This file relates to model_1
+#       This file relates to model_1 training and feature engineering
+#       Running this script will generate a report and pickle files to the "models" directory
+#       ***DO NOT MAKE MASSIVE CHANGES TO THIS FILE OR PREFERABLY NONE AT ALL, GOOD FOR REPORT TO KEEP VERSIONS OF ITERATIONS***
 
 ### Imports ###
 import sys
@@ -88,11 +90,4 @@ if __name__ == "__main__":
         modelFunctions.saveClassifier(classifier,modelFile)
     # Write the results to a csv 
     evalFile = "evaluationResults.csv"
-    modelFunctions.generateEvaluationReport(evaluations,evalFile)
-
-    ### Step 7 - Save the models ###
-
-
-    
-
-    
+    modelFunctions.generateEvaluationReport(evaluations,evalFile)   

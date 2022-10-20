@@ -80,14 +80,11 @@ if __name__ == "__main__":
     evaluations = [] 
     for name,classifier in classifiers.items():
         accuracy= modelFunctions.getAccuracyofClassifier(classifier,test)
-        evaluations.append({'model':name,'accuracy':accuracy})
+        evaluations.append({'classifier':name,'accuracy':f'{accuracy:.2%}'})
         print(F"{accuracy:.2%} - {name}")
-
-    print(evaluations)
-    #for name,classifier in nltkClassifiers.items():
-    #    accuracy = modelFunctions.getAccuracyofClassifier(classifier,test)
-    #    print(F"{accuracy:.2%} - {name}")
-
+    # Write the results to a csv 
+    evalFile = "evaluationResults.csv"
+    modelFunctions.generateEvaluationReport(evaluations,evalFile)
 
     ### Step 7 - Save the models ###
 

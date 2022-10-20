@@ -4,6 +4,7 @@ import nltk
 from nltk.classify.scikitlearn import SklearnClassifier
 from random import shuffle
 import pickle 
+import pandas as pd
 
 from sklearn.model_selection import train_test_split
 
@@ -142,6 +143,23 @@ def saveClassifier(classifier,file):
         saveFile.close()
     except Exception as e:
         print(f'Error in saving classifier to file in dunction saveClassifier.\nException details\n{e}')
+
+def generateEvaluationReport(results,file):
+    """
+    Writes the evaluation results to a csv file. 
+
+    Args:
+        results (dict): Dictionary of row values for evaluation
+        file (Sting): File to save the evaluation results to. 
+    """
+    try:
+        df = pd.DataFrame.from_dict(results) 
+        df.to_csv(file, index = False, header=True)
+    except Exception as e:
+        print(f'Error in writing evaluation results to csv.\nException detials:\n{e}')
+    
+
+
 
 
 

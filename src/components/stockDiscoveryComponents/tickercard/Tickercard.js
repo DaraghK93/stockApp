@@ -2,7 +2,7 @@
 //  This component is used to display stocks to the user
 //  It is a card which shows an overview of the stock showing some key details 
 
-import { Card, ListGroupItem, ListGroup} from 'react-bootstrap';
+import { Card, ListGroupItem, ListGroup, Row, Col } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 function TickerCard({ stock }) {
 
   function redOrGreen() {
-    if (parseInt(stock.changepercent) >= 0) {
+    if (parseFloat(stock.daily_change.percentageChange) >= 0) {
       return "green"
     }
     else {
@@ -19,30 +19,70 @@ function TickerCard({ stock }) {
   }
 
   return (
-    <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none'}}>
-    <Card className="h-100">
-      <Card.Body style={{ textDecoration: 'none'}}>
-        <Card.Img variant="top"  src={stock.logo}
-          styel={{ width: "100%", height: "15vw",
-          margin: "20px",textDecoration: 'none'
-        }}
-        />
-        <Card.Title style={{ fontSize: "3vh"  }}> <strong>{stock.longname}</strong></Card.Title>
-        <Card.Text style={{ fontFamily: 'Courier New', fontSize: "2vh" }}>{stock.symbol}</Card.Text>
+    <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
 
-      </Card.Body>
+      <Card className="h-100">
+        <ListGroup className="list-group-flush">
+          <ListGroupItem><Row xs={2}><Col
+            xs={6}
+          ><h5>{stock.longname}</h5></Col><Col style={{ paddingRight: 0 }}
+            xs={5}
+          ><span
+            style={{ float: "right" }}
+          > {stock.symbol} | {stock.exchange}</span></Col> </Row>
 
-      <ListGroup className="list-group-flush">
-        <ListGroupItem><strong>Current price:</strong> ${stock.currentprice}</ListGroupItem>
-        <ListGroupItem><strong>Absolute change:</strong> {stock.changeabs}</ListGroupItem>
-        <ListGroupItem style={{ color: redOrGreen() } }><strong>Percent change: </strong>{stock.changepercent}</ListGroupItem>
-        <ListGroupItem><strong>Sector:</strong> {stock.industry}</ListGroupItem>
-        <ListGroupItem><strong>Exchange:</strong> {stock.exchange}</ListGroupItem>
-      </ListGroup>
-    </Card>
+
+          </ListGroupItem>
+        </ListGroup>
+
+
+        <Card.Body style={{ textDecoration: 'none' }}>
+          <Row style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
+
+            <Col style={{
+              display: "flex", justifyContent: "center",
+              alignItems: "center"
+            }}>
+
+
+              <Card.Img
+                // variant="middle"  
+                src={stock.logo}
+                // style={{
+                //   display: "flex",
+                //   justifyContent: "center",
+                //   alignItems: "center"
+
+                // }}
+              />
+
+            </Col>
+          </Row>
+
+
+        </Card.Body>
+
+        <ListGroup className="list-group-flush">
+          <ListGroupItem><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>
+            <strong>Change (24h)</strong> <span style={{ color: redOrGreen() }}>{stock.daily_change.absoluteChange} ({stock.daily_change.percentageChange})</span>
+
+          </ListGroupItem>
+          <ListGroupItem>Twitter Sentiment:
+            <br></br>
+            News Sentiment:
+          </ListGroupItem>
+          <ListGroupItem><strong>Did you know?</strong> <br></br>This company was voted least evil by Donald Trump!</ListGroupItem>
+        </ListGroup>
+      </Card>
     </Link>
   );
 }
 
 
 export default TickerCard;
+
+// "https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png"

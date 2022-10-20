@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
+import StockSideScrollMenu from '../../components/stockDiscoveryComponents/stockSideScrollMenu/stockSideScrollMenu';
 
 function StockDiscoveryPage() {
 
@@ -61,12 +62,9 @@ function StockDiscoveryPage() {
                     <h1>Stock Discovery Page</h1>
                     <StockSearchBar />
                     
-                    <Row md={4} xs={1}>
-                        {stocks[0].topEnvironment.map((stockObj) => (
-                            <Col className="py-2" key={stockObj._id}>
-                                <TickerCard stock={stockObj}  />
-                            </Col>
-                        ))}
+                    <Row >
+                       <StockSideScrollMenu />
+
                     </Row>
                 </Container> :
 

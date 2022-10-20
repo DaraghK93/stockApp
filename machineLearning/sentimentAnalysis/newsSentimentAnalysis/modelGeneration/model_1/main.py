@@ -48,18 +48,18 @@ if __name__ == "__main__":
     #   features is an array in the form [({featureOne:value,featureTwo:value},Goal)] where Goal is positive, negative or neutral 
     features = [] 
     ## positive  
-    for posHeadline in posHeadlines[0:3000]:
+    for posHeadline in posHeadlines:
         features.append((featureEngineeringFunctions.extractFeatures(posHeadline,top100PositiveWords,top100Negative), 'positive'))
     ## negative
-    for negHeadline in negHeadlines[0:3000]:
+    for negHeadline in negHeadlines:
         features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'negative'))
     ## neutral 
-    for neutralHeadline in neuHeadlines[0:3000]:
+    for neutralHeadline in neuHeadlines:
         features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
 
     ### Step5. Train the models ###
     classifiers = {}
-    # Get the training set and testing set 
+    # Get the training set and testing set, use 25% of data to train 
     train, test = modelFunctions.getTrainTestSplit(features,0.25)
     # Get the NLTK classifiers
     classifiers.update(modelFunctions.trainNLTKModels(train,naiveBayesClassifier=True,decisiontree=True))
@@ -76,17 +76,22 @@ if __name__ == "__main__":
         mLPClassifer=True,
         adaBoostClassifier=True))
 
-    ### Step 6 - Evaluate the models ###
+    ### Step 6 - Evaluate the models and save them ###
     evaluations = [] 
     for name,classifier in classifiers.items():
+        # Evaluation 
         accuracy= modelFunctions.getAccuracyofClassifier(classifier,test)
         evaluations.append({'classifier':name,'accuracy':f'{accuracy:.2%}'})
         print(F"{accuracy:.2%} - {name}")
+        # Save to pickle file
+        modelFile = f'./models/{name}.pickle'
+        modelFunctions.saveClassifier(classifier,modelFile)
     # Write the results to a csv 
     evalFile = "evaluationResults.csv"
     modelFunctions.generateEvaluationReport(evaluations,evalFile)
 
     ### Step 7 - Save the models ###
+
 
     
 

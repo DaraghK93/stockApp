@@ -3,7 +3,7 @@
 import nltk
 from nltk.classify.scikitlearn import SklearnClassifier
 from random import shuffle
-import numpy as np
+import pickle 
 
 from sklearn.model_selection import train_test_split
 
@@ -83,7 +83,6 @@ def trainSKLearnClassifers(
         multinomialNB (bool, optional): Train multinomialNB classifier. Defaults to False.
         complementNB (bool, optional): Train multinomialNB classifier. Defaults to False.
         kNeighborsClassifier (bool, optional): Train kNeighborsClassifier classifier. Defaults to False.
-        decisionTreeClassifier (bool, optional): Train decisionTreeClassifier classifier. Defaults to False.
         randomeForestClassifier (bool, optional): Train randomeForestClassifier. Defaults to False.
         logisticRegression (bool, optional): Train logisticRegression classifier. Defaults to False.
         mLPClassifer (bool, optional): Train logisticRegression classifier. Defaults to False.
@@ -99,7 +98,6 @@ def trainSKLearnClassifers(
         if multinomialNB: classifiers["MultinomialNB"] = MultinomialNB() 
         if complementNB: classifiers["ComplementNB"] =  ComplementNB()   
         if kNeighborsClassifier: classifiers["KNeighborsClassifier"] = KNeighborsClassifier()  
-        if decisionTreeClassifier: classifiers["DecisionTreeClassifier"] = DecisionTreeClassifier()  
         if randomeForestClassifier: classifiers["RandomForestClassifier"] = RandomForestClassifier()  
         if logisticRegression: classifiers["LogisticRegression"] = LogisticRegression(max_iter=1000)  
         if mLPClassifer: classifiers["MLPClassifier"] = MLPClassifier(max_iter=1000) 
@@ -109,8 +107,6 @@ def trainSKLearnClassifers(
             classifier = nltk.classify.SklearnClassifier(sklearn_classifier)
             classifier.train(train)
             trainedClassifiers[name] = classifier
-            #accuracy  = nltk.classify.accuracy(classifier, test)
-            #print(F"{accuracy:.2%} - {name}")
         return trainedClassifiers
     except Exception as e:
         print(f'Error in training sklearn classifiers in trainSKLearnClassifers function.\nException details\n{e}')
@@ -132,7 +128,21 @@ def getAccuracyofClassifier(classifier,test):
     except Exception as e:
         print(f'Error in getting accuracy of the model.\nException details {e}')
 
-    
+def saveClassifier(classifier,file):
+    """
+    This function saves the classifier to a pickle file. 
+
+    Args:
+        classifier (Classifier Obj): the classifier to be saved.
+        file (String): The file path to save the classifier too. 
+    """
+    try:
+        saveFile = open(file,"wb")
+        pickle.dump(classifier,saveFile)
+        saveFile.close()
+    except Exception as e:
+        print(f'Error in saving classifier to file in dunction saveClassifier.\nException details\n{e}')
+
 
 
     

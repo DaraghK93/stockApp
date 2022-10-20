@@ -58,13 +58,13 @@ if __name__ == "__main__":
         features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
 
     ### Step5. Train the models ###
+    classifiers = {}
     # Get the training set and testing set 
     train, test = modelFunctions.getTrainTestSplit(features,0.25)
     # Get the NLTK classifiers
-    nltkClassifiers = modelFunctions.trainNLTKModels(train,naiveBayesClassifier=True,decisiontree=True)
-    
+    classifiers.update(modelFunctions.trainNLTKModels(train,naiveBayesClassifier=True,decisiontree=True))
     # Get the skLearn Classifiers     
-    skLearnClassifiers = modelFunctions.trainSKLearnClassifers(
+    classifiers.update(modelFunctions.trainSKLearnClassifers(
         train=train, 
         bernoulliNB=True,
         multinomialNB=True,
@@ -74,19 +74,23 @@ if __name__ == "__main__":
         randomeForestClassifier=True,
         logisticRegression=True,
         mLPClassifer=True,
-        adaBoostClassifier=True)
+        adaBoostClassifier=True))
 
     ### Step 6 - Evaluate the models ###
-    for name,classifier in skLearnClassifiers.items():
-        accuracy = modelFunctions.getAccuracyofClassifier(classifier,test)
+    evaluations = [] 
+    for name,classifier in classifiers.items():
+        accuracy= modelFunctions.getAccuracyofClassifier(classifier,test)
+        evaluations.append({'model':name,'accuracy':accuracy})
         print(F"{accuracy:.2%} - {name}")
 
-    for name,classifier in nltkClassifiers.items():
-        accuracy = modelFunctions.getAccuracyofClassifier(classifier,test)
-        print(F"{accuracy:.2%} - {name}")
+    print(evaluations)
+    #for name,classifier in nltkClassifiers.items():
+    #    accuracy = modelFunctions.getAccuracyofClassifier(classifier,test)
+    #    print(F"{accuracy:.2%} - {name}")
 
 
     ### Step 7 - Save the models ###
+
     
 
     

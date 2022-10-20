@@ -6,6 +6,7 @@ import sys
 sys.path.append('../../')
 from dataCleaning.lib import cleaningFunctions
 from featureEngineering import featureEngineeringFunctions
+from modelTraining import modelFunctions
 
 
 if __name__ == "__main__":
@@ -54,4 +55,21 @@ if __name__ == "__main__":
         features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'negative'))
     ## neutral 
     for neutralHeadline in neuHeadlines:
-        features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'neutral'))
+        features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
+
+    #print(features)
+    #print(features)
+    modelFunctions.getTrainTestSplit(features,0.33)
+
+    ### Step5. Train the model ###
+    #modelFunctions.trainSKLearnClassifers(
+    #    features=features,
+    #    bernoulliNB=True,
+    #    multinomialNB=True,
+    #    complementNB=True,
+    #    kNeighborsClassifier=True,
+    #    decisionTreeClassifier=True,
+    #    randomeForeseClassifier=True,
+    #    logisticRegression=True,
+    #    mLPClassifer=True,
+    #    adaBoostClassifier=True)

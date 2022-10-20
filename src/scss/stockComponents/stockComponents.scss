@@ -1,5 +1,5 @@
 @import "../global_variables.scss";
-    
+
 .tradeButtonCard {
     width: 100%;
     display: flex;
@@ -34,25 +34,25 @@
 .btn-light {
     background-color: $background;
     border-color: $background;
-    font-weight:bolder;
-    color: $info;
+    font-weight: bolder;
+    color: $secondary;
 }
 
 
 .btn-light:hover {
-    color:$secondary;
+    color: $secondary;
     background-color: $background;
     border-color: $background;
-    font-weight:bolder;
+    font-weight: bolder;
     text-decoration: underline;
 }
 
 
 .btn-light:focus {
-    color:$secondary;
+    color: $secondary;
     background-color: $background;
     border-color: $background;
-    font-weight:bolder;
+    font-weight: bolder;
     text-decoration: underline;
 }
 
@@ -61,12 +61,12 @@
 @media only screen and (min-width: 1200px) {
     .btn-secondary {
         width: 18.75;
-        font-size:150%;
+        font-size: 150%;
     }
 }
 
-.infoList{
-    margin-top: 0.625rem; 
+.infoList {
+    margin-top: 0.625rem;
 }
 
 .footerStyle {
@@ -76,7 +76,7 @@
     left: 0;
     bottom: 0;
     right: 0;
-    height:80px
+    height: 80px
 }
 
 .centeredCol {
@@ -84,8 +84,66 @@
     justify-content: center
 }
 
-// @media (max-width: 669px) {
-//     .recharts-cartesian-axis-ticks, .recharts-cartesian-axis-tick {
-//       display: none;
-//     }
-//   }
+.btn-outline-info {
+    color: $info;
+    background-color: $background;
+    border-color: $info;
+    font-weight: bolder;
+    --bs-btn-active-bg: $secondary;
+    --bs-btn-active-color: $background;
+    --bs-btn-hover-color: $background;
+    --bs-btn-active-border-color: $secondary;
+}
+
+.btn-outline-info:hover {
+    color: $background;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight: bolder;
+}
+
+
+.btn-outline-info:focus {
+    color: $background;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight: bolder;
+}
+
+.btn-outline-info:active {
+    color: $background;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight: bolder;
+}
+
+.stockInfoCol {
+    padding-left: 0;
+    padding-right: 0
+}
+
+.followButton {
+    width: 6.25rem;
+}
+
+.followButtonCol {
+    margin-top: 1.25rem;
+}
+
+@media only screen and (min-width: 800px) {
+
+    .stockInfoCol {
+        padding-left: 1.25rem;
+        padding-top: 0.625rem;
+    }
+
+    .followButton {
+        width: 12.5rem;
+    }
+    
+    .followButtonCol {
+        margin-top: 3rem;
+        padding-left: 3rem;
+        justify-content: center;
+    }
+}

@@ -96,25 +96,7 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                 style={{ border: "none", marginBottom: "1.25rem" }}
             >
                 <Container>
-                    <Row
-                        style={{
-                            justifyContent: "center"
-                        }}>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={DayData}>1D</Button>
-                        </Col>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={DayData}>1W</Button>
 
-                        </Col>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={MonthData}>1M</Button>
-
-                        </Col>
-                        <Col className="centeredCol">
-                            <Button variant="light" className="btn btn-light btn-sm m-1" onClick={YearData}>1Y</Button>
-                        </Col>
-                    </Row>
                     <Row>
                         {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                             <ResponsiveContainer width="100%" height={400} margin={100}>
@@ -143,6 +125,24 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                                 </AreaChart>
                             </ResponsiveContainer>
                         }
+                    </Row>
+                    <Row
+                        style={{
+                            justifyContent: "center"
+                        }}>
+                        <Col className="centeredCol">
+                            <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1D</Button>
+                        </Col>
+                        <Col className="centeredCol">
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1W</Button>
+                        </Col>
+                        <Col className="centeredCol">
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={MonthData}>1M</Button>
+
+                        </Col>
+                        <Col className="centeredCol">
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={YearData}>1Y</Button>
+                        </Col>
                     </Row>
                 </Container>
             </Card>

@@ -1,5 +1,5 @@
 
-import { Card, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 function FollowButton() {
     return (

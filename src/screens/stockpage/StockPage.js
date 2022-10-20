@@ -48,7 +48,13 @@ function StockPage() {
         }
         else {
             lineColor = "#d61e1e"
+
+            // lineColor = 
+            // "#1E90FF"
             gradientColor = "#ffc9c9"
+            // "#B2D9FF"
+            
+        
         }
         return lineColor
     }
@@ -96,7 +102,7 @@ function StockPage() {
                         <Col className="col-sm-8 col-5" style={{ paddingLeft: 0, paddingRight: 0 }}>
                             <dl className='infoList'>
                                 <dt>
-                                    <h1 style={{ fontSize: "150%" }}>
+                                    <h1>
                                         {stock.longname}</h1>
                                 </dt>
                                 <dt>{stock.symbol}

@@ -35,7 +35,7 @@
     background-color: $background;
     border-color: $background;
     font-weight:bolder;
-    color: $info;
+    color: $secondary;
 }
 
 
@@ -89,3 +89,41 @@
 //       display: none;
 //     }
 //   }
+
+
+.btn-outline-info {
+    color: $info;
+    background-color: $background;
+    border-bottom: $info;
+    border-color: $background;
+    font-weight:bolder;
+    --bs-btn-active-bg:$secondary;
+    --bs-btn-active-color:$background;
+    --bs-btn-hover-color: $background;
+    --bs-btn-active-border-color: $secondary;
+}
+
+.btn-outline-info:hover {
+    color:$background;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight:bolder;
+    // text-decoration: underline;
+}
+
+
+.btn-outline-info:focus {
+    color:$background;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight:bolder;
+    // text-decoration: underline;
+}
+
+.btn-outline-info:active {
+    color:$background;
+    background-color: $secondary;
+    border-color: $secondary;
+    font-weight:bolder;
+    // text-decoration: underline;
+}

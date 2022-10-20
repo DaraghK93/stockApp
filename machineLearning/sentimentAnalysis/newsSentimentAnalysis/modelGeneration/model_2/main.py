@@ -48,6 +48,7 @@ if __name__ == "__main__":
     #   Using the positive and negative frequency distributions create a positive and egative words list 
     top100PositiveWords = {word for word, _ in posFreqDist.most_common(100)}
     top100Negative      = {word for word, _ in negFreqDist.most_common(100)}
+    top100Neutral       = {word for word, _ in neuFreqDist.most_common(100)}
 
     ### Step 4 - Feature Extraction ###
     #   Extract the features for the postive, negative and neutral headlines
@@ -55,13 +56,13 @@ if __name__ == "__main__":
     features = [] 
     ## positive  
     for posHeadline in posHeadlines:
-        features.append((featureEngineeringFunctions.extractFeatures(posHeadline,top100PositiveWords,top100Negative), 'positive'))
+        features.append((featureEngineeringFunctions.extractFeatures(posHeadline,top100PositiveWords,top100Negative,neuWords=top100Neutral), 'positive'))
     ## negative
     for negHeadline in negHeadlines:
-        features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'negative'))
+        features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative,neuWords=top100Neutral), 'negative'))
     ## neutral 
     for neutralHeadline in neuHeadlines:
-        features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
+        features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative,neuWords=top100Neutral), 'neutral'))
 
     ### Step5. Train the models ###
     classifiers = {}

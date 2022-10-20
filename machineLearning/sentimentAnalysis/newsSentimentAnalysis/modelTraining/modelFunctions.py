@@ -117,14 +117,23 @@ def trainSKLearnClassifers(
 
 
 def getAccuracyofClassifier(classifier,test):
+    """
+    Returns the accuracy of the model based upon input training data. 
+
+    Args:
+        classifier (NLTK Classifier or SKLeanr Classifier): A trained classifier object. 
+        test (List): List of tuples in the form [({features},goal)]
+
+    Returns:
+        float: Accuracy of model between 0 and 1. 
+    """
     try:
         return nltk.classify.accuracy(classifier, test)
     except Exception as e:
         print(f'Error in getting accuracy of the model.\nException details {e}')
 
+    
 
-#def evaluateClassifier(classifier,test):
-#    print(f'Accuracy of model {*100}%')
 
     
     

@@ -48,13 +48,13 @@ if __name__ == "__main__":
     #   features is an array in the form [({featureOne:value,featureTwo:value},Goal)] where Goal is positive, negative or neutral 
     features = [] 
     ## positive  
-    for posHeadline in posHeadlines:
+    for posHeadline in posHeadlines[0:3000]:
         features.append((featureEngineeringFunctions.extractFeatures(posHeadline,top100PositiveWords,top100Negative), 'positive'))
     ## negative
-    for negHeadline in negHeadlines:
+    for negHeadline in negHeadlines[0:3000]:
         features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'negative'))
     ## neutral 
-    for neutralHeadline in neuHeadlines:
+    for neutralHeadline in neuHeadlines[0:3000]:
         features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
 
     ### Step5. Train the models ###
@@ -84,5 +84,9 @@ if __name__ == "__main__":
     for name,classifier in nltkClassifiers.items():
         accuracy = modelFunctions.getAccuracyofClassifier(classifier,test)
         print(F"{accuracy:.2%} - {name}")
+
+
+    ### Step 7 - Save the models ###
+    
 
     

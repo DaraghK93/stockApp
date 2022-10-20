@@ -3,10 +3,10 @@
 
 import React from 'react';
 import './tweetCard.css';
-import { Avatar } from '@material-ui/core';
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge';
 import VerifiedIcon from '@mui/icons-material/Verified';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Avatar } from '@mui/material';
 
 const HASHTAG_FORMATTER = (string) => {
   return string
@@ -64,3 +64,4 @@ function TweetCard({ tweet }) {
 }
 
 export default TweetCard;
+

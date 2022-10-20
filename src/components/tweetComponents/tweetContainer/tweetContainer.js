@@ -4,7 +4,7 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
-import TweetCard from '../tweetCard/TweetCard';
+import TweetCard from '../tweetCard/tweetCard';
 
 /// API ///
 import { APIName } from '../../../constants/APIConstants';
@@ -14,7 +14,6 @@ function TweetContainer({ stock }) {
   const [loading, setLoading] = useState(true);
   const [tweets, setTweets] = useState('');
   const [error, setError] = useState('');
-  const [infoMsg, setInfoMsg] = useState('');
 
   useEffect(() => {
     /// getStockInfo ///
@@ -52,8 +51,6 @@ function TweetContainer({ stock }) {
           <LoadingSpinner />
         ) : error ? (
           <MessageAlert variant='danger'>{error}</MessageAlert>
-        ) : infoMsg ? (
-          <MessageAlert variant='info'>{infoMsg} </MessageAlert>
         ) : (
           <>
             <Row xs={1} md={1}>

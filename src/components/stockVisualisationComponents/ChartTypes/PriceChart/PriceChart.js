@@ -120,13 +120,14 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                                     <Tooltip />
                                 
                                     <XAxis dataKey="date"
-                                        stroke="black"
+                                        stroke="#595959"
                                         tick={tickBoolean}
                                         // color="#595959"
                                     >
                                     </XAxis>
                                     <YAxis unit='$'
-                                        width={80} />
+                                        width={80} 
+                                        stroke="#595959"/>
                                     <Area type="monotone" dataKey="price" stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>

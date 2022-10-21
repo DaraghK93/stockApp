@@ -40,7 +40,11 @@ function TickerCard({ stock }) {
         <Card.Body style={{ textDecoration: 'none' }}>
               <Card.Img
                 variant="top"  
-                src={stock.logo} />
+                src={stock.logo} 
+                style={{ width: "10rem", height: "15vw",
+                margin: "20px",textDecoration: 'none'
+              }}
+         />
         </Card.Body>
         <ListGroup className="list-group-flush">
           <ListGroupItem><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>

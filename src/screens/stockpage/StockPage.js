@@ -2,7 +2,7 @@
 // Route:
 //  <URL>/stock/:symbol
 // Description:
-//  This screen contains the components rendered to the user when they click on an individual stock 
+//  This screen contains the components rendered to the user when they click on an individual stock
 
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
@@ -14,15 +14,17 @@ import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
 import FollowButton from '../../components/stockComponents/FollowButton/FollowButton';
+import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
+
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 function StockPage() {
 
-    const [loading, setLoading] = useState(true);
-    const [stock, setStock] = useState('');
-    const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [stock, setStock] = useState('');
+  const [error, setError] = useState("");
 
     var lineColor;
     var gradientColor;
@@ -34,11 +36,11 @@ function StockPage() {
         { name: 'Neutral', value: 100 }
     ];
 
-    const twitterSentimentData = [
-        { name: 'Positive', value: 100 },
-        { name: 'Negative', value: 98 },
-        { name: 'Neutral', value: 26 }
-    ];
+  const twitterSentimentData = [
+    { name: 'Positive', value: 100 },
+    { name: 'Negative', value: 98 },
+    { name: 'Neutral', value: 26 }
+  ];
 
     function redOrGreen() {
         if (parseFloat(stock.daily_change.absoluteChange) >= 0) {
@@ -141,7 +143,7 @@ function StockPage() {
                             <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname} />
                         </Col>
                         <Col className="stockInfoCol">
-                            {/*THINK THE TWITTER FEED WOULD WORK WELL HERE*/}
+                        <TweetContainer stock={stock.symbol}></TweetContainer>
                         </Col>
                     </Row>
                     <div className='footerStyle'></div>
@@ -150,6 +152,5 @@ function StockPage() {
         </>
     )
 };
-
 
 export default StockPage;

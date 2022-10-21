@@ -1,0 +1,17 @@
+/* ***************************** Stock Card Container ***************************** */
+
+// side scrolling
+.cardContainer {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+  width: 85%;
+
+
+  margin: auto;
+  .tickercard {
+    display: inline-block;
+    padding: 1rem;
+  }
+
+}

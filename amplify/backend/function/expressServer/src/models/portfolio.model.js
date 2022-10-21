@@ -13,7 +13,10 @@ const PortfolioSchema = new mongoose.Schema(
     transactions: [{type: mongoose.Schema.Types.ObjectID, ref: 'transactionsSchema'}],
     marketOrders: [{type: mongoose.Schema.Types.ObjectID, ref: 'marketOrdersSchema'}],
     valueHistory: [{type: mongoose.Schema.Types.ObjectID, ref: 'dailyValuesSchema'}]
-  }
+  },
+  { collection: 'portfolio-data' },
+  // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
+  { timestamps: true },
 )
 
 const holdingsSchema = mongoose.Schema(

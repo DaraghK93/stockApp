@@ -1,5 +1,5 @@
 {
 "jwtSecret": "itsasecret",
-"MONGO_URI": "mongodb://admin:pass@ec2-3-249-145-103.eu-west-1.compute.amazonaws.com:27017"
+"MONGO_URI": "mongodb+srv://joeycor:X867a684%21@cluster0.xzwrimn.mongodb.net/test?authSource=admin&replicaSet=atlas-10c8c5-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true"
 }
 

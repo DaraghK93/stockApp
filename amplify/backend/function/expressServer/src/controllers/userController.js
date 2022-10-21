@@ -152,6 +152,7 @@ const loginUser = async (req, res, next) => {
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err
+        console.log(token)
         res.json({
           firstname: user.firstname,
           lastname: user.lastname,
@@ -164,7 +165,7 @@ const loginUser = async (req, res, next) => {
         })
       },
     )
-    console.log(token)
+    
   } catch (err) {
     console.error(err.message)
     res.errormessage = 'Server error'
@@ -223,9 +224,9 @@ const deleteUser = async (req, res, next) => {
 const createPortfolio = async (req, res, next) => {
   try {
       const newPortfolio = new Portfolio({
-      name: "Joey's Portfolio"
+      portfolioName: "Joey's Portfolio"
     });
-      await User.updateOne({ email: email }, {$push: {portfolios: newPortfolio}})
+      await User.updateOne({ email: "joey_the_lips@mail.com" }, {$push: {portfolios: newPortfolio}})
       
       // const portfolio = await User.updateOne();
   

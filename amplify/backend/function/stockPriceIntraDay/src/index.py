@@ -89,7 +89,7 @@ def get_current_price():
     for i in range(0, len(data)):
       # add to dictionary in the form Symbol: Price
       # the data is also converted from string to float where possible
-      output[data[i][2]] = {"currentprice": float(data[i][4].replace(',', '')), "absoluteChange": float(data[i][5]), "percentageChange": data[i][6].strip("()")}
+      output[data[i][2]] = {"currentprice": float(data[i][4].replace(',', '')), "absoluteChange": float(data[i][5]), "percentageChange": float(data[i][6].strip("()%"))}
     return output
 
   

@@ -151,14 +151,40 @@ const updateStock = async (req, res, next) => {
 const getStockBySymbol = async (req, res, next) => {
   try {
     const stocks = await Stock.find({ symbol: req.params.symbol });
-
     if (!stocks.length) {
       // No stock found
       res.status(404);
       res.errormessage = 'Stock not found';
       return next(new Error('Stock not found'));
     }
-    res.json(stocks);
+    const oneMonth = getOneMonthStockData(stocks)
+    // var stockjson = JSON.stringify(stocks)
+    // stockjson.month = oneMonth
+    // stocks[0]["month"] = oneMonth
+    const returnStocks = {
+      id: stocks[0]._id,
+      idnumber: stocks[0].idnumber,
+      exchange: stocks[0].exchange, 
+      symbol: stocks[0].symbol, 
+      shortname: stocks[0].shortname, 
+      longname: stocks[0].longname, 
+      sector: stocks[0].sector, 
+      industry: stocks[0].industry, 
+      marketcap: stocks[0].marketcap, 
+      ebitda: stocks[0].ebitda, 
+      revenuegrowth: stocks[0].revenuegrowth, 
+      city: stocks[0].city, 
+      state: stocks[0].state, 
+      country: stocks[0].country, 
+      longbusinesssummary: stocks[0].longbusinesssummary, 
+      weight: stocks[0].weight, 
+      esgrating: stocks[0].esgrating, 
+      logo: stocks[0].logo, 
+      daily_change: stocks[0].daily_change, 
+      month: oneMonth 
+    }
+    // console.log(stocks)
+    res.json(returnStocks);
   } catch (err) {
     console.error(err.message);
     res.errormessage = 'Server error';
@@ -169,16 +195,11 @@ const getStockBySymbol = async (req, res, next) => {
 // @route   GET api/oneMonthStockData/:symbol
 // @desc    Get stock information for the entire
 // @access  Private - add auth middleware to make it private
-const getOneMonthStockData = async (req, res, next) => {
-  try {
-    const stock = await Stock.find({ symbol: req.params.symbol });
-    const monthly_prices = stock[0].prices
-    if (!stock.length) {
-      // No stock found
-      res.status(404);
-      res.errormessage = 'Stock not found';
-      return next(new Error('Stock not found'));
-    }
+function getOneMonthStockData (stocks) {
+
+    // const stock = await Stock.find({ symbol: req.params.symbol });
+    const monthly_prices = stocks[0].prices
+
     // Use moment - npm i 
     const end_Date = moment( moment().subtract(1, 'month') ).format("YYYY-MM-DD")
 
@@ -216,14 +237,12 @@ const getOneMonthStockData = async (req, res, next) => {
     // loop through the date range list and extract the data
     for (var i = 0; i < date_range.length; i++) { 
       // the format of the data keys is "YYYY-MM-DDT20:00:00"
+      // console.log(monthly_prices[date_range[i]+"T20:00:00"])
       if(typeof(monthly_prices[date_range[i]+"T20:00:00"]) != 'undefined'){
+        
         prices_month.push({"date": date_range[i], "price": monthly_prices[date_range[i]+"T20:00:00"]["4. close"] })}}
-    res.json(prices_month);
-  } catch (err) {
-    console.error(err.message);
-    res.errormessage = 'Server error';
-    return next(err);
-  }
+    return prices_month;
+
 };
 
 
@@ -296,6 +315,5 @@ module.exports = {
   addStock,
   getAllStocks,
   getStockBySymbol,
-  getOneMonthStockData,
   getOneYearStockData
 };

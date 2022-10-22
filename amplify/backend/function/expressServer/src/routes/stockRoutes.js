@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getOneYearStockData } = require('../controllers/stockController');
+const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol} = require('../controllers/stockController');
 const { errorHandler } = require("../middleware/errorMiddleware");
 
 // maybe change name to ticker symbol instead
@@ -13,11 +13,7 @@ router.put('/updateStock/:symbol', updateStock)
 router.post('/addStock/', addStock)
 // returns all stocks
 router.get('/', getAllStocks)
-// search stock by ticker symbol
+// search stock by ticker symbol. This will give all data except prices for that ticker
 router.get('/:symbol', getStockBySymbol)
-// get stock data for one month before today
-// router.get('/OneMonthStockData/:symbol', getOneMonthStockData)
-// get stock data for one year before today
-router.get('/OneYearStockData/:symbol', getOneYearStockData)
 
 module.exports = router;

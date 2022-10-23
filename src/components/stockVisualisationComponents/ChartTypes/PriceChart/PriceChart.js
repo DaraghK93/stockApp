@@ -17,9 +17,6 @@ import { useState }  from "react";
 
 function StockPriceChart({ stock, lineColor, gradientColor }) {
 
-    // const [loading, setLoading] = useState(false);
-
-    // const [error, setError] = useState("");
     const [tickBoolean, setTickBoolean] = useState(false)
 
     const day = [
@@ -52,7 +49,11 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
     const YearData = event => {
         // toggle shown data
         setData(oneYearPrices);
-    };
+    }
+
+    useEffect(()=>{
+        showTick()
+    }, [])
     
 
     window.addEventListener("resize", showTick);

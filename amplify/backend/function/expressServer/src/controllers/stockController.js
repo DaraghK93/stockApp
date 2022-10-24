@@ -84,7 +84,14 @@ const getAllStocks = async (req, res, next) => {
               // agg query for top governance
               topGovernance: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
               {$sort: {'esgrating.governance_score': -1}},
-              { $limit: 20}]}
+              { $limit: 20}],
+              topGainers: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+              {$sort: {'daily_change.percentageChange': -1}},
+              { $limit: 20}],
+              topLosers: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+              {$sort: {'daily_change.percentageChange': 1}},
+              { $limit: 20}]
+            }
         }])
     res.json(stocks)
   } catch (err) {

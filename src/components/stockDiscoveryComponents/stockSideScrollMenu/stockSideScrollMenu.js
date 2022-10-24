@@ -17,7 +17,6 @@ function StockSideScrollMenu(props){
                     <TickerCard key={stockObj._id} stock={stockObj}/>
                     </div>
                  ))}
-         
              </div>
         </Card>
         </>

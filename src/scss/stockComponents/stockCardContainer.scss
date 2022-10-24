@@ -6,12 +6,29 @@
   overflow-y: hidden;
   white-space: nowrap;
   width: 85%;
-
-
   margin: auto;
+
   .tickercard {
     display: inline-block;
     padding: 1rem;
   }
+}
 
+
+.tickercardstyle{
+  width: 15.625rem;
+  height: 100%;
+  display: block
+
+}
+
+@media only screen and (min-width: 990px){
+  .tickercardstyle{
+    width: 18.75rem;
+  }
+  
+}
+
+.stockdiscoveryRow{
+  margin-top: 50px;
 }

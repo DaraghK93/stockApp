@@ -173,7 +173,7 @@ def handler(event,context):
   
   try:
     # create the array with all of the UpdateOne requests
-    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM:SS
+    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM
     time_stamp = datetime.datetime.now()
     time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M')
     requests_database = create_data_request(data_current_price, time_stamp_str)

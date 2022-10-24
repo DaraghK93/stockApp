@@ -14,9 +14,6 @@ function OrderConfirmationPage() {
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
                     <h1>Order Confirmation</h1>
-
-
-
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                 </Container>
 

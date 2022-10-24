@@ -54,7 +54,7 @@ function TickerCard({ stock }) {
 
           </ListGroupItem>
           <ListGroupItem><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>
-            <strong>Change (24h)</strong> <span style={{ color: redOrGreen() }}>${stock.daily_change.absoluteChange} ({postiveSymbol}{stock.daily_change.percentageChange})</span>
+            <strong>Change (24h):</strong> <span style={{ color: redOrGreen() }}>${stock.daily_change.absoluteChange} ({postiveSymbol}{stock.daily_change.percentageChange}%)</span>
           </ListGroupItem>
           <ListGroupItem>
             <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png" alt="twitter symbol"

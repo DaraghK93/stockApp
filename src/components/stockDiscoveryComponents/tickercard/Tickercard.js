@@ -2,7 +2,7 @@
 //  This component is used to display stocks to the user
 //  It is a card which shows an overview of the stock showing some key details 
 
-import { Card, ListGroupItem, ListGroup, Row, Col, Container } from 'react-bootstrap';
+import { Card, ListGroupItem, ListGroup, Container } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge';

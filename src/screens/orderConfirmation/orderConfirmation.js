@@ -65,6 +65,13 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
+                    <Row>
+                        <h5>Buy//Sell</h5>
+                        <h5>Order Type</h5>
+                        <h5>Quantity</h5>
+                        <h5>New Portfolio Balance</h5>
+                        <h5>Order Summary</h5>
+                    </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                 </Container>
             }

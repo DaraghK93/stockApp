@@ -42,7 +42,7 @@ function TickerCard({ stock }) {
               src={stock.logo}
               style={{
                 display: "block",
-                width: "60%",
+                width: "65%",
                 margin:"auto"
               }}
             />

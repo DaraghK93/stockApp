@@ -53,7 +53,7 @@ function OrderConfirmationPage() {
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
-                        <Col className="stockInfoCol col-md-4 col-sm-8 col-5">
+                        <Col className="stockInfoCol col-md-4 col-sm-8 col-6">
                             <dl className='infoList'>
                                 <dt>
                                     <h1>

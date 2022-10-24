@@ -18,7 +18,7 @@ function App() {
         <Route path='/stockdiscovery/:category' element={<StockDiscoveryPage />} />
         <Route path='/search/stockdiscovery/:category/:keyword' element={<StockDiscoveryPage />} />
         <Route path='/stock/:symbol' element={<StockPage />} />
-        <Route path='/confirmorder' element={<OrderConfirmationPage />} />
+        <Route path='/stock/:symbol/confirmorder' element={<OrderConfirmationPage />} />
       </Routes>
     </Router>
   );

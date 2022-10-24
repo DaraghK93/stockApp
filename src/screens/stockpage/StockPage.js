@@ -3,7 +3,7 @@
 //  <URL>/stock/:symbol
 // Description:
 //  This screen contains the components rendered to the user when they click on an individual stock
-
+import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
@@ -116,7 +116,9 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col className="stockInfoCol">
+                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
                             <BottomStickyButton text="Trade" />
+                            </Link>
                         </Col>
                     </Row>
                     <Row>

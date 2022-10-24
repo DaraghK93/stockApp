@@ -23,12 +23,11 @@ function OrderConfirmationPage() {
                 // Request is being sent set loading true   
                 setLoading(true);
                 // get the symbol from the url string, use regex to extract capital letters only
-                // const symbol = window.location.href.replace(/[^A-Z]/g, '');
+                const symbol = window.location.href.replace(/[^A-Z]/g, '');
                 // Set the path and use symbol to get single stock
 
-                // let path = `/api/stock/${symbol}`
+                let path = `/api/stock/${symbol}`
 
-                let path = `/api/stock/MSFT`
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
@@ -61,7 +60,7 @@ function OrderConfirmationPage() {
                                         {stock.longname}</h1>
                                 </dt>
                                 <dt>{stock.symbol}</dt>
-                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
+                                {/* <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt> */}
                             </dl>
                         </Col>
                     </Row>

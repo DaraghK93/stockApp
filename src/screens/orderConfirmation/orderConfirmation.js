@@ -66,10 +66,16 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
-                    <Row>
-                        <BuyOrSellButton />
-                        <OrderType />
-                        <QuantitySelect />
+                    <Row xl={3} lg={2} md={2} xs={1}>
+                        <Col>
+                            <BuyOrSellButton />
+                        </Col>
+                        <Col>
+                            <OrderType />
+                        </Col>
+                        <Col>
+                            <QuantitySelect />
+                        </Col>
                         <h5>New Portfolio Balance</h5>
                         <h5>Order Summary</h5>
                     </Row>

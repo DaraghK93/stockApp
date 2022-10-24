@@ -6,11 +6,11 @@ function OrderType() {
             <Card>
                 <Container>
                     <h5>Order Type</h5>
-                    <Row style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
-                        <Col style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    <Row style={{display:"flex", alignItems:"center", justifyContent:"center", marginBottom: "10px"}}>
+                        <Col style={{display:"flex", alignItems:"center", justifyContent:"center", padding:"5px"}}>
                             <Button>Market Order</Button>
                         </Col>
-                        <Col>
+                        <Col style={{display:"flex", alignItems:"center", justifyContent:"center", padding:"5px"}}>
                             <Button>Limit Order</Button>
                         </Col>
                     </Row>

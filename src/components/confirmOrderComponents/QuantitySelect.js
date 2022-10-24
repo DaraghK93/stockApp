@@ -1,4 +1,4 @@
-import { Card, Container } from 'react-bootstrap';
+import { Card, Container, Col, Row } from 'react-bootstrap';
 import { useState } from 'react';
 
 function QuantitySelect() {
@@ -11,9 +11,10 @@ function QuantitySelect() {
             <Card>
                 <Container>
                     <h5>Quantity</h5>
-                    <h2>{value}</h2>
-                    <p>$1400</p>
-
+                    <Row style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>
+                        <h2>{value}</h2>
+                        <p>$1400</p>
+                    </Row>
                     <input type="range" className="form-range" min={0} max={100} value={value}
                         onChange={e => setValue(e.target.value)}
                     />

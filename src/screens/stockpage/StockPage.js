@@ -15,7 +15,6 @@ import NewsArticleContainer from '../../components/newsComponents/newsArticleCon
 import BottomStickyButton from '../../components/widgets/BottomStickyButton/BottomStickyButton';
 import FollowButton from '../../components/widgets/FollowButton/FollowButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
-import { useNavigate } from 'react-router-dom';
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -30,12 +29,6 @@ function StockPage() {
     var lineColor;
     var gradientColor;
     var positiveSymbol;
-
-    let navigate = useNavigate()
-    function navigateToConfirmOrder () {
-        // 👇️ navigate to /confirmorder screen
-        navigate('/confirmorder');
-      };
 
     const newsSentimentData = [
         { name: 'Positive', value: 600 },
@@ -123,7 +116,7 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col className="stockInfoCol">
-                            <BottomStickyButton text="Trade" onClick={navigateToConfirmOrder()}/>
+                            <BottomStickyButton text="Trade" />
                         </Col>
                     </Row>
                     <Row>

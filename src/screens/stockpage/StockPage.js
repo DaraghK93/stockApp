@@ -12,8 +12,8 @@ import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButton
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
-import TradeButton from '../../components/stockComponents/TradeButton/TradeButton';
-import FollowButton from '../../components/stockComponents/FollowButton/FollowButton';
+import BottomStickyButton from '../../components/widgets/BottomStickyButton/BottomStickyButton';
+import FollowButton from '../../components/widgets/FollowButton/FollowButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
 
 /// API ///
@@ -116,7 +116,7 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col className="stockInfoCol">
-                            <TradeButton />
+                            <BottomStickyButton text="Trade" />
                         </Col>
                     </Row>
                     <Row>

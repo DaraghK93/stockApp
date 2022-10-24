@@ -6,8 +6,6 @@ import { Card, ListGroupItem, ListGroup, Row, Col, Container } from 'react-boots
 
 import { Link } from "react-router-dom";
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge';
-import InfoButtonHover from "../../widgets/InfoButtonHover/InfoButtonHover"
-
 
 function TickerCard({ stock }) {
 

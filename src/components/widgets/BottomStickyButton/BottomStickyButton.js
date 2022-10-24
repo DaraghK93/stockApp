@@ -1,15 +1,15 @@
 
 import { Card, Button } from 'react-bootstrap';
 
-function TradeButton() {
+function BottomyStickyButton({ text }) {
     return (
         <Card className="tradeButtonCard rounded-0" >
             <Card.Body>
-                <Button variant="seconday" className="btn btn-secondary btn-lg">Trade</Button>
+                <Button variant="seconday" className="btn btn-secondary btn-lg">{text}</Button>
             </Card.Body>
         </Card>
 
     );
 }
 
-export default TradeButton;
+export default BottomyStickyButton;

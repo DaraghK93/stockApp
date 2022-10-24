@@ -9,7 +9,7 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState }  from "react";
+import { useState, useEffect }  from "react";
 
 //TODO style tooltip
 // button underline then completely lined?

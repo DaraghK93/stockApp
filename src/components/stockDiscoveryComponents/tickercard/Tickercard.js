@@ -43,6 +43,7 @@ function TickerCard({ stock }) {
               style={{
                 display: "block",
                 width: "60%",
+                margin:"auto"
               }}
             />
           </Card.Body>

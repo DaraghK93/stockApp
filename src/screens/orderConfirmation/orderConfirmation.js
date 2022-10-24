@@ -3,6 +3,9 @@ import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import { Container, Row, Col } from "react-bootstrap";
 import BottomStickyButton from "../../components/widgets/BottomStickyButton/BottomStickyButton";
 import { useState, useEffect } from 'react';
+import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
+import OrderType from "../../components/confirmOrderComponents/OrderType";
+import BuyOrSellButton from "../../components/confirmOrderComponents/BuyOrSellButton";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -60,18 +63,18 @@ function OrderConfirmationPage() {
                                         {stock.longname}</h1>
                                 </dt>
                                 <dt>{stock.symbol}</dt>
-                                {/* <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt> */}
                             </dl>
                         </Col>
                     </Row>
                     <Row>
-                        <h5>Buy//Sell</h5>
-                        <h5>Order Type</h5>
-                        <h5>Quantity</h5>
+                        <BuyOrSellButton />
+                        <OrderType />
+                        <QuantitySelect />
                         <h5>New Portfolio Balance</h5>
                         <h5>Order Summary</h5>
                     </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
+
                 </Container>
             }
         </>

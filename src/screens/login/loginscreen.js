@@ -15,7 +15,6 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 
 /// Layout ///
 import FormContainer from '../../components/layout/FormContainer/FormContainer'
-import QuantitySelect from '../../components/confirmOrderComponents/QuantitySelect'
 
 function LoginPage() {
   // constant email holds the value of the input email address
@@ -51,8 +50,6 @@ function LoginPage() {
     <FormContainer>
       {error && <MessageAlert variant="danger">{error}</MessageAlert>}
       {loading && <LoadingSpinner />}
-<QuantitySelect />
-
       <h1>Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="py-2" controlId="email">

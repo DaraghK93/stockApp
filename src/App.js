@@ -5,6 +5,7 @@ import RegistrationPage from './screens/registration/registrationScreen';
 import LoginPage from './screens/login/loginscreen';
 import StockDiscoveryPage from './screens/stockDiscovery/stockDiscoveryScreen';
 import StockPage from './screens/stockpage/StockPage';
+import OrderConfirmationPage from './screens/orderConfirmation/orderConfirmation';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path='/stockdiscovery/:category' element={<StockDiscoveryPage />} />
         <Route path='/search/stockdiscovery/:category/:keyword' element={<StockDiscoveryPage />} />
         <Route path='/stock/:symbol' element={<StockPage />} />
+        <Route path='/stock/:symbol/confirmorder' element={<OrderConfirmationPage />} />
       </Routes>
     </Router>
   );

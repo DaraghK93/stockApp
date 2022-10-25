@@ -13,7 +13,7 @@ import { API } from "aws-amplify";
 
 function OrderConfirmationPage() {
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [stock, setStock] = useState('');
 
@@ -58,21 +58,23 @@ function OrderConfirmationPage() {
                             <dl className='infoList'>
                                 <dt>
                                     <h1>
-                                        {stock.longname}</h1>
+                                        {stock.longname}
+                                    </h1>
                                 </dt>
                                 <dt>{stock.symbol}</dt>
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
                             </dl>
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col style={{marginBottom:"10px"}}>
+                        <Col style={{ marginBottom: "10px" }}>
                             <BuyOrSellButton />
                         </Col>
-                        <Col style={{marginBottom:"10px"}}>
+                        <Col style={{ marginBottom: "10px" }}>
                             <OrderType />
                         </Col>
-                        <Col style={{marginBottom:"10px"}}>
-                            <QuantitySelect portfolioBalance={2000}/>
+                        <Col style={{ marginBottom: "10px" }}>
+                            <QuantitySelect portfolioBalance={2000} />
                         </Col>
                         <h5>New Portfolio Balance</h5>
                         <h5>Order Summary</h5>

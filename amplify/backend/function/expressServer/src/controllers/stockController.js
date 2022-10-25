@@ -74,21 +74,36 @@ const getAllStocks = async (req, res, next) => {
         const stocks = await Stock.aggregate([
           { $facet: 
               // agg query for top environment
-              { topEnvironment: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+              { topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                          'daily_change.absoluteChange':1,
+                                                          'daily_change.percentageChange':1,
+                                                          'daily_change.currentprice':1}},
               {$sort: {'esgrating.environment_score': -1}},
-              { $limit: 20}],
+              { $limit: 20}], 
               // agg query for top social
-                topSocial: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+                topSocial: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                    'daily_change.absoluteChange':1,
+                                                    'daily_change.percentageChange':1,
+                                                    'daily_change.currentprice':1}},
                 {$sort: {'esgrating.social_score': -1}},
               { $limit: 20}],
               // agg query for top governance
-              topGovernance: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+              topGovernance: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                        'daily_change.absoluteChange':1,
+                                                        'daily_change.percentageChange':1,
+                                                        'daily_change.currentprice':1}},
               {$sort: {'esgrating.governance_score': -1}},
               { $limit: 20}],
-              topGainers: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+              topGainers: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                          'daily_change.absoluteChange':1,
+                                                          'daily_change.percentageChange':1,
+                                                          'daily_change.currentprice':1}},
               {$sort: {'daily_change.percentageChange': -1}},
               { $limit: 20}],
-              topLosers: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
+              topLosers: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                    'daily_change.absoluteChange':1,
+                                                    'daily_change.percentageChange':1,
+                                                    'daily_change.currentprice':1}},
               {$sort: {'daily_change.percentageChange': 1}},
               { $limit: 20}]
             }

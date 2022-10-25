@@ -5,8 +5,8 @@
 
 ### Imports ###
 import sys
-sys.path.append('../../')
-from dataCleaning.lib import cleaningFunctions
+sys.path.append('../../../bin')
+from dataCleaning import cleaningFunctions
 from featureEngineering import featureEngineeringFunctions
 from modelTraining import modelFunctions
 

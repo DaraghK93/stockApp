@@ -3,8 +3,8 @@
 
 ### Imports ###
 import sys
-sys.path.append('../../bin/dataCleaning')
-import cleaningFunctions
+sys.path.append('../../bin/')
+from dataCleaning import cleaningFunctions
 
 if __name__ == "__main__":
     file = "../data/originalDatasets/dataset_1/dataset_1.csv"

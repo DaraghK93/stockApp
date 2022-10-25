@@ -45,9 +45,6 @@ function OrderConfirmationPage() {
         getStockInfo();
     }, [])
 
-    console.log(stock);
-
-
     return (
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :

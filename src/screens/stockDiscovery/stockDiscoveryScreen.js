@@ -62,7 +62,7 @@ function StockDiscoveryPage() {
                         <h1>Stock Discovery Page</h1>
                         <StockSearchBar />
 
-                        <Row md={1} xs={1}>
+                        <Row md={1} xs={1} style={{paddingLeft:"0.625rem", paddingRight:"0.625rem"}}>
                             <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
                             <StockSideScrollMenu data={stocks[0].topEnvironment} />
                             <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>

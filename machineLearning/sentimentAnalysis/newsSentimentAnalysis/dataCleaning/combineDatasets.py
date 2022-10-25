@@ -3,7 +3,7 @@
 
 ### Imports ###
 import sys
-sys.path.append('./lib')
+sys.path.append('../../bin/dataCleaning')
 import cleaningFunctions
 
 

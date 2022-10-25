@@ -2,7 +2,7 @@
 #   This file relates to the cleaning of dataset_3.csv
 
 import sys
-sys.path.append('./lib')
+sys.path.append('../../bin/dataCleaning')
 import cleaningFunctions
 
 if __name__ == "__main__":

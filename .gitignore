@@ -14,6 +14,7 @@
 # Python Virtual Environments
 venv/
 
+
 # misc
 .env
 .DS_Store

@@ -2,8 +2,8 @@
 #   This file relates to the cleaning of dataset_3.csv
 
 import sys
-sys.path.append('./lib')
-import cleaningFunctions
+sys.path.append('../../bin/')
+from dataCleaning import cleaningFunctions
 
 if __name__ == "__main__":
     file = "../data/originalDatasets/dataset_3/SEN_en_R_nooutlier.csv"

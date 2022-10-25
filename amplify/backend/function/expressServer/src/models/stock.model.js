@@ -16,8 +16,10 @@ const stockSchema = new mongoose.Schema(
     state: { type: String, trim: true },
     country: { type: String, trim: true },
     fulltimeemployees: { type: String, trim: true },
-    businessummary: { type: String, trim: true },
-    esgrating: {type:Object}
+    longbusinessummary: { type: String, trim: true },
+    logo: {type:String, trim: true},
+    esgrating: {type:Object},
+    daily_change: {type:Object}
   },
   { collection: 'sample_stock_data' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated

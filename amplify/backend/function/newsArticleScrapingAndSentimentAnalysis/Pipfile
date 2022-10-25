@@ -9,6 +9,7 @@ boto3 = "*"
 pymongo = "*"
 beautifulsoup4 = "*"
 pandas = "*"
+nltk = "*"
 
 [dev-packages]
 

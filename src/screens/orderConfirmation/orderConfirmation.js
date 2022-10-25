@@ -69,13 +69,13 @@ function OrderConfirmationPage() {
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col style={{ marginBottom: "0.625" }}>
+                        <Col style={{ marginBottom: "0.625rem" }}>
                             <BuyOrSellButton />
                         </Col>
-                        <Col style={{ marginBottom: "0.625" }}>
+                        <Col style={{ marginBottom: "0.625rem" }}>
                             <OrderType />
                         </Col>
-                        <Col style={{ marginBottom: "0.625" }}>
+                        <Col style={{ marginBottom: "0.625rem" }}>
                             <QuantitySelect portfolioBalance={2000} stockPrice={stock.daily_change.currentprice} />
                         </Col>
                         <h5>New Portfolio Balance</h5>

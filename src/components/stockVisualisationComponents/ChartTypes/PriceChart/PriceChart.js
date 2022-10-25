@@ -9,25 +9,15 @@ import {
 } from "recharts";
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
-import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
-
-/// API ///
-import { APIName } from "../../../../constants/APIConstants";
-import { API } from "aws-amplify";
+import { useState, useEffect }  from "react";
 
 //TODO style tooltip
 // button underline then completely lined?
 
 
-function StockPriceChart({ symbol, lineColor, gradientColor }) {
+function StockPriceChart({ stock, lineColor, gradientColor }) {
 
-    const [loading, setLoading] = useState(true);
-    const [oneMonthPrices, setOneMonthPrices] = useState();
-    const [oneYearPrices, setOneYearPrices] = useState();
-    const [error, setError] = useState("");
-    const [tickBoolean, setTickBoolean] = useState(false);
+    const [tickBoolean, setTickBoolean] = useState(false)
 
     const day = [
         { date: '01-10', price: 400 },
@@ -36,12 +26,21 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
         { date: '01-13', price: 700 },
         { date: '01-01', price: 500 }]
 
+    // data coming directly from the stock object provided above. This means that another request is not needed
+    const oneWeekPrices = stock.week
+    const oneMonthPrices = stock.month
+    const oneYearPrices = stock.year
+    
     // Move this up with the rest of the constants when we have the daily data. For now it cant be called before the dummy data is initialized
     const [data, setData] = useState(day); 
 
     const DayData = event => {
         // toggle shown data
         setData(day);
+    };
+    const WeekData = event => {
+        // toggle shown data
+        setData(oneWeekPrices);
     };
     const MonthData = event => {
         // toggle shown data
@@ -50,7 +49,12 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
     const YearData = event => {
         // toggle shown data
         setData(oneYearPrices);
-    };
+    }
+
+    useEffect(()=>{
+        showTick()
+    }, [])
+    
 
     window.addEventListener("resize", showTick);
 
@@ -63,34 +67,9 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
         } 
     }
 
-    useEffect(() => {
-        /// getStockInfo ///
-        // Description:
-        //  Makes a GET request to the backend route /stock/OneYearStockData/:symbol
-        const getOneMonthPrices = async () => {
-            try {
-                // Request is being sent set loading true 
-                setLoading(true);
-                // Set the path and use symbol to get single stock
-                let path = `/api/stock/OneYearStockData/${symbol}`
-                // Send the request with API package
-                const res = await API.get(APIName, path);
-                let path2 = `/api/stock/OneMonthStockData/${symbol}`
-                const res2 = await API.get(APIName, path2);
-                setOneYearPrices(res);
-                setOneMonthPrices(res2);
-                setLoading(false);
-            } catch (error) {
-                // Log the error 
-                console.log(error);
-                // Set the error message to be displayed on the page 
-                setError(error.response.data.errormessage);
-                setLoading(false);
-            }
-        }
-        getOneMonthPrices();
-        showTick();
-    }, [symbol])
+    useEffect(()=>{
+        showTick()
+    }, [])
 
 
     return (
@@ -101,7 +80,7 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                 <Container>
 
                     <Row>
-                        {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+
                             <ResponsiveContainer width="100%" height={400} margin={100}>
                                 <AreaChart width="100%" height={250} data={data}
                                     margin={{
@@ -130,7 +109,6 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                                     <Area type="monotone" dataKey="price" stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
                                 </AreaChart>
                             </ResponsiveContainer>
-                        }
                     </Row>
                     <Row
                         style={{
@@ -140,7 +118,7 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
                             <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1D</Button>
                         </Col>
                         <Col className="centeredCol">
-                        <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1W</Button>
+                        <Button className="btn btn-outline-info btn-sm m-1" onClick={WeekData}>1W</Button>
                         </Col>
                         <Col className="centeredCol">
                         <Button className="btn btn-outline-info btn-sm m-1" onClick={MonthData}>1M</Button>

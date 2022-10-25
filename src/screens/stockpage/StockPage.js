@@ -70,14 +70,14 @@ function StockPage() {
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
-                setStock(res[0]);
-                setLoading(false);
+                setStock(res)
+                setLoading(false)
             } catch (error) {
                 // Log the error 
-                console.log(error);
+                console.log(error)
                 // Set the error message to be displayed on the page 
-                setError(error.response.data.errormessage);
-                setLoading(false);
+                setError(error.response.data.errormessage)
+                setLoading(false)
             }
         }
         getStockInfo();
@@ -123,7 +123,7 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col>
-                            <StockPriceChart symbol={stock.symbol} lineColor={lineColor} gradientColor={gradientColor} />
+                            <StockPriceChart stock={stock} lineColor={lineColor} gradientColor={gradientColor} />
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>

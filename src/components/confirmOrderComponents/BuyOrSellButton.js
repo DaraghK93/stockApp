@@ -7,7 +7,7 @@ function BuyOrSellButton() {
                 <Container>
                     <Row style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
                         <Col style={{display:"flex", alignItems:"center", justifyContent:"center", padding:"5px"}}>
-                            <Button className="btn-outline-primary">Buy</Button>
+                            <Button className="selectorButtons">Buy</Button>
                         </Col>
                         <Col style={{display:"flex", alignItems:"center", justifyContent:"center", padding:"5px"}}>
                             <Button>Sell</Button>

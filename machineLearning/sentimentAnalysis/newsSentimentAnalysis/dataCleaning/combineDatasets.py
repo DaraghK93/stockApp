@@ -3,8 +3,8 @@
 
 ### Imports ###
 import sys
-sys.path.append('./lib')
-import cleaningFunctions
+sys.path.append('../../bin/')
+from dataCleaning import cleaningFunctions
 
 
 if __name__ == "__main__":

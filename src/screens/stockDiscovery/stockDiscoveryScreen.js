@@ -63,13 +63,17 @@ function StockDiscoveryPage() {
                         <StockSearchBar />
 
                         <Row md={1} xs={1}>
-                            <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
+                            <h3 className="stockdiscoveryRow">Today's Biggest Positive Movers</h3>
+                            <StockSideScrollMenu data={stocks[0].topGainers} />
+                            <h3 className="stockdiscoveryRow">Today's Biggest Negative Movers</h3>
+                            <StockSideScrollMenu data={stocks[0].topLosers} />
+                            <h3 className="stockdiscoveryRow">Companies That Have Great Environmental Policies</h3>
                             <StockSideScrollMenu data={stocks[0].topEnvironment} />
-                            <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
+                            <h3 className="stockdiscoveryRow">Companies That Have Great Social Structures</h3>
                             <StockSideScrollMenu data={stocks[0].topSocial} />
-                            <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
-
+                            <h3 className="stockdiscoveryRow">Companies That Have Great Governance</h3>
                             <StockSideScrollMenu data={stocks[0].topGovernance} />
+                       
 
                         </Row>
                     </Container> :

@@ -15,6 +15,7 @@ from datetime import datetime
 from datetime import timedelta
 from time import mktime
 from bs4 import  BeautifulSoup
+import pandas as pd
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running 
@@ -257,7 +258,12 @@ def writeArticlestoDatabase(client,articles):
     except Exception as e:
         print(f'ERROR:Could not insert articles into database.\nException Details:\n\t{e}')
 
-
+def readWordFileToList(file):
+    try:
+        df = pd.read_csv(file)
+        return df['word'].to_list()
+    except Exception as e:
+        print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}')
 
 
 
@@ -288,7 +294,15 @@ def handler(event, context):
 
         ## Step Two - Implment week 5  ##
         #   Get the features required for machine learning classifier 
-
+        negativeWords = readWordFileToList(f'{dir_path}/lib/negativeWords.csv')
+        positiveWords = readWordFileToList(f'{dir_path}/lib/positiveWords.csv')
+        neutralWords = readWordFileToList(f'{dir_path}/lib/neutralWords.csv')
+        print(positiveWords)
+        print("******")
+        print(negativeWords)
+        print("******")
+        print(neutralWords)
+        return
         ## Step Three - Implement week 5 ##
         #   Load in the classifier 
 

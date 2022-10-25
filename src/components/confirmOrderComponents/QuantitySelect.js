@@ -1,13 +1,10 @@
 import { Card, Container, Row } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 
-function QuantitySelect({ portfolioBalance }) {
+function QuantitySelect({ portfolioBalance, stockPrice }) {
     const [max, setMax] = useState();
     const [value, setValue] = useState(0);
     const [balance, setBalance] = useState(portfolioBalance);
-    
-
-    const stockPrice = 100
 
     useEffect(() => {
         if (portfolioBalance - (stockPrice * value) < 0) {

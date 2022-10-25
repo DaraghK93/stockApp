@@ -458,27 +458,26 @@ def handler(event, context):
         for feed in feeds:
             articles.extend(getArticles(feed))
 
-        ## Step Two - Featrue extraction ##
+        ## Step Two - Load in the classifier  ##
+        # This is the trained classifier used to classify the sentiment of a headline 
+        classifierName = "MLPClassifier.pickle"
+        classifier = loadClassifier(f'{dir_path}/lib/MLPClassifier.pickle')
+
+        ## Step Three - Featrue extraction and prediction ##
         #   Get the features required for machine learning classifier 
+        #   Then make the prediction 
+        # Read in the word dictionaries 
         negativeWords = readWordFileToList(f'{dir_path}/lib/negativeWords.csv')
         positiveWords = readWordFileToList(f'{dir_path}/lib/positiveWords.csv')
         neutralWords = readWordFileToList(f'{dir_path}/lib/neutralWords.csv')
+        # Loop through each article 
         for article in articles:
+            # Extract the features for the headline
             features = extractFeatures(article["headline"],positiveWords,negativeWords,neutralWords)
-            print(features)
-        
-        
-        ## Step Three - Implement week 5 ##
-        #   Load in the classifier 
-        classifierName = "MLPClassifier.pickle"
-        classifier = loadClassifier(f'{dir_path}/lib/MLPClassifier.pickle')
-        print(classifier)
-
-        return
-        ## Step Four - Implement week 5 ##
-        #   Classify each news article    
-
-        ## Step Five ##
+            # Make a predction onheadline sentiment based upon the features 
+            article["sentiment"] = classifier.classify(features)
+            
+        ## Step Four ##
         #   Log the articles to the database 
         # If the enviroment is production then get the production URI 
         # ***NOTE*** Create a local .env file newsArticleScrapingAndSentimentAnalysis directory with ENVIRONMENT and MONGOURI in it, this will set "dev" variables 

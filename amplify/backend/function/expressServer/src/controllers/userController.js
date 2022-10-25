@@ -97,7 +97,7 @@ const registerUser = async (req, res, next) => {
   } catch (err) {
     if (User) {
       console.error(err.message)
-      res.errormessage = 'Server error'
+      res.errormessage = 'Server error in registerUser'
       return next(err)
     }
   }
@@ -187,7 +187,7 @@ const getUserInfo = async (req, res, next) => {
     res.json(userDetails)
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error'
+    res.errormessage = 'Server error in loginUser'
     return next(err)
   }
 }
@@ -208,7 +208,7 @@ const deleteUser = async (req, res, next) => {
     res.json(user.name)
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error'
+    res.errormessage = 'Server error in deleteUser'
     return next(err)
   }
 }

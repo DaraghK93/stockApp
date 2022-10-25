@@ -20,7 +20,7 @@ const addTweet = async (req, res, next) => {
     res.json({ tweet });
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error';
+    res.errormessage = 'Server error in addTweet';
     return next(err);
   }
 };
@@ -31,7 +31,7 @@ const addTweet = async (req, res, next) => {
 
 const getTweets = async (req, res, next) => {
   try {
-    const tweet = await Tweet.find({ stock: req.params.stock });
+    const tweet = await Tweet.find({ stock: req.params.stock }).limit(5);
     if (!tweet.length) {
       // No stock found
       res.status(404);
@@ -42,7 +42,7 @@ const getTweets = async (req, res, next) => {
     res.json({ tweet });
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error';
+    res.errormessage = 'Server error in getTweets';
     return next(err);
   }
 };
@@ -64,7 +64,7 @@ const getAllTweets = async (req, res, next) => {
     res.json(tweet);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error';
+    res.errormessage = 'Server error in getAllTweets';
     return next(err);
   }
 };

@@ -28,9 +28,7 @@ function OrderConfirmationPage() {
                 // get the symbol from the url string, use regex to extract capital letters only
                 const symbol = window.location.href.replace(/[^A-Z]/g, '');
                 // Set the path and use symbol to get single stock
-
                 let path = `/api/stock/${symbol}`
-
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
@@ -67,20 +65,19 @@ function OrderConfirmationPage() {
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col>
+                        <Col style={{marginBottom:"10px"}}>
                             <BuyOrSellButton />
                         </Col>
-                        <Col>
+                        <Col style={{marginBottom:"10px"}}>
                             <OrderType />
                         </Col>
-                        <Col>
-                            <QuantitySelect />
+                        <Col style={{marginBottom:"10px"}}>
+                            <QuantitySelect portfolioBalance={2000}/>
                         </Col>
                         <h5>New Portfolio Balance</h5>
                         <h5>Order Summary</h5>
                     </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
-
                 </Container>
             }
         </>

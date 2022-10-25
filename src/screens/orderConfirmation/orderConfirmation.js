@@ -14,8 +14,8 @@ import { API } from "aws-amplify";
 function OrderConfirmationPage() {
 
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
     const [stock, setStock] = useState('');
+    const [error, setError] = useState("");
 
     useEffect(() => {
         /// getStockInfo ///
@@ -32,18 +32,20 @@ function OrderConfirmationPage() {
                 // Send the request with API package
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
-                setStock(res[0]);
-                setLoading(false);
+                setStock(res)
+                setLoading(false)
             } catch (error) {
                 // Log the error 
-                console.log(error);
+                console.log(error)
                 // Set the error message to be displayed on the page 
-                setError(error.response.data.errormessage);
-                setLoading(false);
+                setError(error.response.data.errormessage)
+                setLoading(false)
             }
         }
         getStockInfo();
     }, [])
+
+    console.log(stock);
 
 
     return (

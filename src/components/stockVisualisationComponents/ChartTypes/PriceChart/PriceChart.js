@@ -93,7 +93,6 @@ function StockPriceChart({ symbol, lineColor, gradientColor }) {
     }, [symbol])
 
 
-
     return (
         <>
             <Card

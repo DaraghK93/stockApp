@@ -1,11 +1,14 @@
 ### Description:
-#       This file relates to model_1
+#       This file relates to model_1 training and feature engineering
+#       Running this script will generate a report and pickle files to the "models" directory
+#       ***DO NOT MAKE MASSIVE CHANGES TO THIS FILE OR PREFERABLY NONE AT ALL, GOOD FOR REPORT TO KEEP VERSIONS OF ITERATIONS***
 
 ### Imports ###
 import sys
 sys.path.append('../../')
 from dataCleaning.lib import cleaningFunctions
 from featureEngineering import featureEngineeringFunctions
+from modelTraining import modelFunctions
 
 
 if __name__ == "__main__":
@@ -41,6 +44,11 @@ if __name__ == "__main__":
     #   Using the positive and negative frequency distributions create a positive and egative words list 
     top100PositiveWords = {word for word, _ in posFreqDist.most_common(100)}
     top100Negative      = {word for word, _ in negFreqDist.most_common(100)}
+    # Write the words to a file alse 
+    featureEngineeringFunctions.writeWordsListToCSV(posFreqDist,'data/positiveWords.csv')
+    featureEngineeringFunctions.writeWordsListToCSV(negFreqDist,'data/negativeWords.csv')
+
+
 
     ### Step 4 - Feature Extraction ###
     #   Extract the features for the postive, negative and neutral headlines
@@ -54,4 +62,37 @@ if __name__ == "__main__":
         features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'negative'))
     ## neutral 
     for neutralHeadline in neuHeadlines:
-        features.append((featureEngineeringFunctions.extractFeatures(negHeadline,top100PositiveWords,top100Negative), 'neutral'))
+        features.append((featureEngineeringFunctions.extractFeatures(neutralHeadline,top100PositiveWords,top100Negative), 'neutral'))
+
+    ### Step5. Train the models ###
+    classifiers = {}
+    # Get the training set and testing set, use 25% of data to train 
+    train, test = modelFunctions.getTrainTestSplit(features,0.25)
+    # Get the NLTK classifiers
+    classifiers.update(modelFunctions.trainNLTKModels(train,naiveBayesClassifier=True,decisiontree=True))
+    # Get the skLearn Classifiers     
+    classifiers.update(modelFunctions.trainSKLearnClassifers(
+        train=train, 
+        bernoulliNB=True,
+        multinomialNB=True,
+        complementNB=True,
+        kNeighborsClassifier=True,
+        decisionTreeClassifier=True,
+        randomeForestClassifier=True,
+        logisticRegression=True,
+        mLPClassifer=True,
+        adaBoostClassifier=True))
+
+    ### Step 6 - Evaluate the models and save them ###
+    evaluations = [] 
+    for name,classifier in classifiers.items():
+        # Evaluation 
+        accuracy= modelFunctions.getAccuracyofClassifier(classifier,test)
+        evaluations.append({'classifier':name,'accuracy':f'{accuracy:.2%}'})
+        print(F"{accuracy:.2%} - {name}")
+        # Save to pickle file
+        modelFile = f'./models/{name}.pickle'
+        modelFunctions.saveClassifier(classifier,modelFile)
+    # Write the results to a csv 
+    evalFile = "evaluationResults.csv"
+    modelFunctions.generateEvaluationReport(evaluations,evalFile)   

@@ -89,8 +89,8 @@ function getStockPriceData (stocks) {
 
 };
 
-const getStockSummary =  async (schema) => {
-const stocks = await schema.aggregate([
+const getStockSummary =  (schema) => {
+const stocks =  schema.aggregate([
     { $facet: 
         // agg query for top environment
         { topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
@@ -132,6 +132,48 @@ const stocks = await schema.aggregate([
                                               'daily_change.absoluteChange':1,
                                               'daily_change.percentageChange':1,
                                               'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Technology: [{$match :{sector:"Technology"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                                    'daily_change.absoluteChange':1,
+                                                                    'daily_change.percentageChange':1,
+                                                                    'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Financial: [{$match :{sector:"Financial Services"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Healthcare: [{$match :{sector:"Healthcare"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        ConsumerCyc: [{$match :{sector:"Consumer Cyclical"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        ConsumerDef: [{$match :{sector:"Consumer Defensive"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+         RealEstate: [{$match :{sector:"Real Estate"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Utilities: [{$match :{sector:"Utilities"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
         {$sort: {'daily_change.percentageChange': -1}},
         { $limit: 20}],
       }

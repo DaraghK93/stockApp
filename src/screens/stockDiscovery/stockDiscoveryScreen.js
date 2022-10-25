@@ -73,6 +73,10 @@ function StockDiscoveryPage() {
                             <StockSideScrollMenu data={stocks[0].topSocial} />
                             <h3 className="stockdiscoveryRow">Companies That Have Great Governance</h3>
                             <StockSideScrollMenu data={stocks[0].topGovernance} />
+                            <h3 className="stockdiscoveryRow">Today's Top Moving Tech Stocks</h3>
+                            <StockSideScrollMenu data={stocks[0].Technology} />
+                            <h3 className="stockdiscoveryRow">Today's Top Moving Financial Service Stocks </h3>
+                            <StockSideScrollMenu data={stocks[0].Financial} />
                        
 
                         </Row>

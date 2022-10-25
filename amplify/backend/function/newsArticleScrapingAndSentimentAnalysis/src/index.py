@@ -276,6 +276,24 @@ def readWordFileToList(file):
         print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}')
 
 
+def loadClassifier(file):
+    """
+    Loads in a pickle file containing the machine learning classifier.
+
+    Args:
+        file (String): The path to the classifier. 
+
+    Returns:
+        (SklearnClassifier or NLTKClassifier): The classifier which can be used to classify news headlines. 
+    """
+    try:
+        classifierFile = open(file,"rb")
+        classifier = pickle.load(classifierFile)
+        classifierFile.close()
+        return classifier
+    except Exception as e:
+        print(f'ERROR:Occured in the loadClassifier function.\nException Details:\n\t{e}')
+
 
 ### Handler ###
 def handler(event, context):
@@ -312,7 +330,8 @@ def handler(event, context):
         ## Step Three - Implement week 5 ##
         #   Load in the classifier 
         classifierName = "MLPClassifier.pickle"
-
+        classifier = loadClassifier(f'{dir_path}/lib/MLPClassifier.pickle')
+        print(classifier)
 
         return
         ## Step Four - Implement week 5 ##

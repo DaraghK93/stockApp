@@ -1,0 +1,11 @@
+classifier,accuracy
+NaiveBayesClassifier,58.95%
+DecisionTreeClassifier,55.11%
+BernoulliNB,66.38%
+MultinomialNB,68.33%
+ComplementNB,62.55%
+KNeighborsClassifier,64.33%
+RandomForestClassifier,67.92%
+LogisticRegression,70.40%
+MLPClassifier,70.69%
+AdaBoostClassifier,70.06%

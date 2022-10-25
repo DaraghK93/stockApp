@@ -76,7 +76,7 @@ function OrderConfirmationPage() {
                             <OrderType />
                         </Col>
                         <Col style={{ marginBottom: "10px" }}>
-                            <QuantitySelect portfolioBalance={20000} stockPrice={stock.daily_change.currentprice} />
+                            <QuantitySelect portfolioBalance={2000} stockPrice={stock.daily_change.currentprice} />
                         </Col>
                         <h5>New Portfolio Balance</h5>
                         <h5>Order Summary</h5>

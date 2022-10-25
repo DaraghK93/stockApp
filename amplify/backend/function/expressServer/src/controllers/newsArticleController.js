@@ -42,7 +42,7 @@ const getNewsArticles = async (req, res, next) => {
         }
     }catch (err) {
         console.error(err.message);
-        res.errormessage = 'Server error';
+        res.errormessage = 'Server error in getNewsArticles';
         return next(err);
   }
 }

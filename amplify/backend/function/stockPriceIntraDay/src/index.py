@@ -88,7 +88,8 @@ def get_current_price():
     output = {}
     for i in range(0, len(data)):
       # add to dictionary in the form Symbol: Price
-      output[data[i][2]] = {"currentprice": data[i][4], "absoluteChange": data[i][5], "percentageChange": data[i][6].strip("()")}
+      # the data is also converted from string to float where possible
+      output[data[i][2]] = {"currentprice": float(data[i][4].replace(',', '')), "absoluteChange": float(data[i][5]), "percentageChange": float(data[i][6].strip("()%"))}
     return output
 
   
@@ -118,6 +119,10 @@ def create_data_request(data_curr_price, time_stamp):
       # database has their symbol as BRK-B. As such this would result in a KeyError if not updated.
       if i == "BRK.B":
           i_new = "BRK-B"
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
+      elif i == "BF.B":
+          i_new = "BF-B"
           data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
           data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
       else:
@@ -168,9 +173,9 @@ def handler(event,context):
   
   try:
     # create the array with all of the UpdateOne requests
-    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM:SS
+    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM
     time_stamp = datetime.datetime.now()
-    time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M:%S')
+    time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M')
     requests_database = create_data_request(data_current_price, time_stamp_str)
 
     # write these requests to the Database

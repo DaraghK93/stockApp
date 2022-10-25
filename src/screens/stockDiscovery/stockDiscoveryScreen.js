@@ -22,7 +22,7 @@ function StockDiscoveryPage() {
     const [stocks, setStock] = useState('');
     const [error, setError] = useState("");
 
-    let {category, keyword} = useParams()
+    let { category, keyword } = useParams()
 
     useEffect(() => {
         /// getStocks ///
@@ -48,7 +48,7 @@ function StockDiscoveryPage() {
             }
         }
         getStocks();
-    }, [category,keyword])
+    }, [category, keyword])
 
 
     return (
@@ -57,21 +57,22 @@ function StockDiscoveryPage() {
         // if not then brings them to all stocks page. this will change when search is implemented
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-            category === "summary" ? 
-                <Container>
-                    <h1>Stock Discovery Page</h1>
-                    <StockSearchBar />
-                    
-                    <Row md={1} xs={1}>
-                       <h3>Companies That Are Good For The Environment</h3>
-                       <StockSideScrollMenu data = {stocks[0].topEnvironment}/>
-                       <h3>Companies That Have Great Social Structures</h3>
-                       <StockSideScrollMenu data = {stocks[0].topSocial}/>
-                       <h3>Companies That Have Great Governance</h3>
-                       <StockSideScrollMenu data = {stocks[0].topGovernance}/>
+                category === "summary" ?
+                    <Container>
+                        <h1>Stock Discovery Page</h1>
+                        <StockSearchBar />
 
-                    </Row>
-                </Container> :
+                        <Row md={1} xs={1}>
+                            <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
+                            <StockSideScrollMenu data={stocks[0].topEnvironment} />
+                            <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
+                            <StockSideScrollMenu data={stocks[0].topSocial} />
+                            <h3 className="stockdiscoveryRow">Companies That Are Good For The Environment</h3>
+
+                            <StockSideScrollMenu data={stocks[0].topGovernance} />
+
+                        </Row>
+                    </Container> :
 
                     <Container>
                         <h1>Stock Discovery Page</h1>

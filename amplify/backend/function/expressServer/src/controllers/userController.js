@@ -36,11 +36,7 @@ const registerUser = async (req, res, next) => {
           'The client has not sent the required information to register the user',
         ),
       )
-    } else if (typeof overeighteen == false) {
-      res.status(400)
-      res.errormessage = 'You must show that you are over 18'
-    }
-
+    } 
     let user = await User.findOne({ email })
 
     // Check for existing user
@@ -50,10 +46,16 @@ const registerUser = async (req, res, next) => {
       return next(new Error('User already exists'))
     }
     // Check if user ticked over eighteen checkbox
-    else if (overeighteen === 'false') {
+    if (overeighteen !== true) {
       res.status(400)
       res.errormessage = 'User is not over 18'
       return next(new Error('User is not over 18'))
+    }
+    // Checks for minimum password length, if contains a lower case character (a-z), an upper case character (A-Z), and a number (0-9)
+    if ((password.length < 8) || (!/[a-z]/.test(password)) || (!/[A-Z]/.test(password)) ||  (!/[0-9]/.test(password)) ) {
+      res.status(400)
+      res.errormessage = 'Password must be at least 8 characters long, contain at least one lower case English character (a-z), at least one upper case English character (A-Z) and at least one number (0-9)!'
+      return next(new Error('Password must be at least 8 characters long, contain at least one lower case English character (a-z), at least one upper case English character (A-Z) and at least one number (0-9)!'))
     }
 
     // Create a new user
@@ -99,7 +101,7 @@ const registerUser = async (req, res, next) => {
   } catch (err) {
     if (User) {
       console.error(err.message)
-      res.errormessage = 'Server error'
+      res.errormessage = 'Server error in registerUser'
       return next(err)
     }
   }
@@ -191,7 +193,7 @@ const getUserInfo = async (req, res, next) => {
     res.json(userDetails)
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error'
+    res.errormessage = 'Server error in loginUser'
     return next(err)
   }
 }
@@ -212,7 +214,7 @@ const deleteUser = async (req, res, next) => {
     res.json(user.name)
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error'
+    res.errormessage = 'Server error in deleteUser'
     return next(err)
   }
 }

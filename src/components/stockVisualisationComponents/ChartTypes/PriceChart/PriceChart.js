@@ -67,6 +67,10 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
         } 
     }
 
+    useEffect(()=>{
+        showTick()
+    }, [])
+
 
     return (
         <>

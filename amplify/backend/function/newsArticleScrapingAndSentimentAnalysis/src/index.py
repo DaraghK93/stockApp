@@ -259,6 +259,15 @@ def writeArticlestoDatabase(client,articles):
         print(f'ERROR:Could not insert articles into database.\nException Details:\n\t{e}')
 
 def readWordFileToList(file):
+    """
+    Takes in file name for words list in csv format and returns qwords in one dimensional array. 
+
+    Args:
+        file (String): The path of the file to read
+
+    Returns:
+        (List): One dimensional list of words. 
+    """
     try:
         df = pd.read_csv(file)
         return df['word'].to_list()
@@ -297,15 +306,13 @@ def handler(event, context):
         negativeWords = readWordFileToList(f'{dir_path}/lib/negativeWords.csv')
         positiveWords = readWordFileToList(f'{dir_path}/lib/positiveWords.csv')
         neutralWords = readWordFileToList(f'{dir_path}/lib/neutralWords.csv')
-        print(positiveWords)
-        print("******")
-        print(negativeWords)
-        print("******")
-        print(neutralWords)
-        return
+        
+        
         ## Step Three - Implement week 5 ##
         #   Load in the classifier 
+        classifierName = "MLPClassifier.pickle"
 
+        return
         ## Step Four - Implement week 5 ##
         #   Classify each news article    
 

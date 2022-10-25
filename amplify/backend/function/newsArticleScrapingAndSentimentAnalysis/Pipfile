@@ -10,6 +10,7 @@ pymongo = "*"
 beautifulsoup4 = "*"
 pandas = "*"
 nltk = "*"
+scikit-learn = "*"
 
 [dev-packages]
 

@@ -16,6 +16,7 @@ from datetime import timedelta
 from time import mktime
 from bs4 import  BeautifulSoup
 import pandas as pd
+import pickle
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running 
@@ -311,6 +312,7 @@ def handler(event, context):
         ## Step Three - Implement week 5 ##
         #   Load in the classifier 
         classifierName = "MLPClassifier.pickle"
+
 
         return
         ## Step Four - Implement week 5 ##

@@ -5,6 +5,7 @@ import nltk
 from nltk.tokenize import RegexpTokenizer
 from nltk.sentiment import SentimentIntensityAnalyzer
 from statistics import mean
+import pandas as pd
 sia = SentimentIntensityAnalyzer()
 import csv
 
@@ -212,6 +213,22 @@ def writeWordsListToCSV(freqDist,file,numWords=100):
         for row in freqDist.most_common(numWords):
             write.writerow(row)
         f.close()
+
+def readWordFileToList(file):
+    """
+    Takes in file name for words list in csv format and returns qwords in one dimensional array. 
+
+    Args:
+        file (String): The path of the file to read
+
+    Returns:
+        (List): One dimensional list of words. 
+    """
+    try:
+        df = pd.read_csv(file)
+        return df['word'].to_list()
+    except Exception as e:
+        print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}')
 
     
      

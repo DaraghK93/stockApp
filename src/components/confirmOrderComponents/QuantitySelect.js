@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 function QuantitySelect({ portfolioBalance }) {
     const [max, setMax] = useState();
-    const [value, setValue] = useState(max/2);
+    const [value, setValue] = useState(0);
     const [balance, setBalance] = useState(portfolioBalance);
     
 

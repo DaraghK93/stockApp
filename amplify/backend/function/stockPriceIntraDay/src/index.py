@@ -121,6 +121,10 @@ def create_data_request(data_curr_price, time_stamp):
           i_new = "BRK-B"
           data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
           data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
+      elif i == "BF.B":
+          i_new = "BF-B"
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
       else:
         # The first append here relates to the field daily_change. This will be overwritten every time.
         data_request.append(UpdateOne({"symbol": i}, {'$set': {"daily_change": data_curr_price[i]}}))
@@ -169,9 +173,9 @@ def handler(event,context):
   
   try:
     # create the array with all of the UpdateOne requests
-    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM:SS
+    # get the current time and convert to the correct format YYYY-MM-DDTHH:MM
     time_stamp = datetime.datetime.now()
-    time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M:%S')
+    time_stamp_str = time_stamp.strftime('%Y-%m-%dT%H:%M')
     requests_database = create_data_request(data_current_price, time_stamp_str)
 
     # write these requests to the Database

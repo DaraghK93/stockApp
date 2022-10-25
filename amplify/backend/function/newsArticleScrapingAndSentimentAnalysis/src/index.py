@@ -259,6 +259,8 @@ def writeArticlestoDatabase(client,articles):
 
 
 
+
+
 ### Handler ###
 def handler(event, context):
     try:

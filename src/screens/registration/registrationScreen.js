@@ -7,6 +7,7 @@
 import { useState, useEffect } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import InfoButtonHover from '../../components/widgets/InfoButtonHover/InfoButtonHover';
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select
 // was installed for this.
@@ -54,12 +55,23 @@ function RegistrationPage() {
       setPasswordErrorMessage('Password and Confirm Password must be the same!')
     } 
     // Checks if the password is less than 8 characters. Gives a popup warning if it is.
-    else if (validatePasswordLength(password !== true)) {
+    else if (password.length < 8) {
       setPasswordErrorMessage('Password must be at least 8 characters!')
-    } 
+    }
+    // Checks if the password contains a lower case character (a-z).
+    else if (!/[a-z]/.test(password)) {
+      setPasswordErrorMessage('Password must contain at least one lower case English character (a-z)!')
+    }
+    // Checks if the password contains an upper case character (A-Z).
+    else if (!/[A-Z]/.test(password)) {
+      setPasswordErrorMessage('Password must contain at least one upper case English character (A-Z)!')
+    }
+    // Checks if the password contains number (0-9).
+    else if (!/[0-9]/.test(password)) {
+      setPasswordErrorMessage('Password must contain at least one number (0-9)!')
+    }
     
     else {
-      // location returns a dictionary of items such as country ID and name, but we only want name here.
       dispatch(
         registerUser(
           firstName,
@@ -70,16 +82,6 @@ function RegistrationPage() {
           overEighteen,
         ),
       )
-    }
-  }
-
-  // Function that checks if the user entered password is longer than 8 characters
-  function validatePasswordLength(password) {
-    var p = password
-    if (p.length <= 8) {
-      return false
-    } else {
-      return true
     }
   }
 
@@ -96,26 +98,33 @@ function RegistrationPage() {
       {error && <MessageAlert variant="danger">{error}</MessageAlert>}
       {loading && <LoadingSpinner />}
       <Form onSubmit={handleSubmit}>
-        <Form.Group className="py-2" controlId="firstName">
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="First Name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="py-2" controlId="lastName">
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </Form.Group>
+        <br></br>
+        <Row>
+          <Col>
+            <Form.Group className="py-2" controlId="firstName">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="First Name"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group className="py-2" controlId="lastName">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Last Name"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+              />
+            </Form.Group>
+          </Col>
+        </Row>
         <Form.Group className="py-2" controlId="email">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
@@ -138,6 +147,7 @@ function RegistrationPage() {
         </Form.Group>
         <Form.Group className="py-2" controlId="password">
           <Form.Label>Password</Form.Label>
+          <InfoButtonHover title="Password Requirements" info={"Passwords must be at least 8 characters long, contain at least one lower case character (a-z), one upper case character (A-Z) and one number [0-9]!"} />
           <Form.Control
             type="password"
             placeholder="Password"

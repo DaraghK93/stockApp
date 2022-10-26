@@ -72,23 +72,10 @@ const getAllStocks = async (req, res, next) => {
 
   else {
   try {
-    // aggregate query that uses $facet to run 3 queries and return all in
-    // one response
-        const stocks = await Stock.aggregate([
-          { $facet: 
-              // agg query for top environment
-              { topEnvironment: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
-              {$sort: {'esgrating.environment_score': -1}},
-              { $limit: 20}],
-              // agg query for top social
-                topSocial: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
-                {$sort: {'esgrating.social_score': -1}},
-              { $limit: 20}],
-              // agg query for top governance
-              topGovernance: [{$match :{}},{$unset: ['prices','longbusinesssummary']},
-              {$sort: {'esgrating.governance_score': -1}},
-              { $limit: 20}]}
-        }])
+    // aggregate query that uses $facet to run several queries and return all in
+    // one response. query can be found in ../services/stockRoutesServices
+    // gets top E, S, G, TopGainers, TopLosers, then by sector -  sorting by daily change
+    const stocks = await stockService.getStockSummary(Stock)
     res.json(stocks)
   } catch (err) {
     console.error(err.message);

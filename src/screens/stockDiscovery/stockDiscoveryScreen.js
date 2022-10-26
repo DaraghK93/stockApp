@@ -19,10 +19,10 @@ import StockSideScrollMenu from '../../components/stockDiscoveryComponents/stock
 function StockDiscoveryPage() {
 
     const [loading, setLoading] = useState(true);
-    const [stocks, setStock] = useState('');
+    const [stocks, setStock] = useState({});
     const [error, setError] = useState("");
 
-    let { category, keyword } = useParams()
+    const { category, keyword } = useParams()
 
     useEffect(() => {
         /// getStocks ///
@@ -39,6 +39,7 @@ function StockDiscoveryPage() {
                 // Set the state for the stocks and loading to false 
                 setStock(res)
                 setLoading(false);
+                console.log(res)
             } catch (error) {
                 // Log the error 
                 console.log(error);
@@ -48,6 +49,7 @@ function StockDiscoveryPage() {
             }
         }
         getStocks();
+        
     }, [category, keyword])
 
 
@@ -56,7 +58,7 @@ function StockDiscoveryPage() {
         // in side scrolling ribbons
         // if not then brings them to all stocks page. this will change when search is implemented
         <>
-            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 category === "summary" ?
                     <Container>
                         <h1>Stock Discovery Page</h1>
@@ -77,8 +79,6 @@ function StockDiscoveryPage() {
                             <StockSideScrollMenu data={stocks[0].Technology} />
                             <h3 className="stockdiscoveryRow">Today's Top Moving Financial Service Stocks </h3>
                             <StockSideScrollMenu data={stocks[0].Financial} />
-                       
-
                         </Row>
                     </Container> :
 
@@ -89,7 +89,7 @@ function StockDiscoveryPage() {
                         <Row md={4} xs={1}>
                             {stocks.map((stockObj) => (
                                 <Col className="py-2" key={stockObj._id}>
-                                    <TickerCard stock={stockObj} key={stockObj._id} />
+                                    <TickerCard stock={stockObj}  />
                                 </Col>
                             ))}
                         </Row>

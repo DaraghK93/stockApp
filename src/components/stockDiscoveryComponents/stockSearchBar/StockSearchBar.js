@@ -14,8 +14,18 @@ function StockSearchBar() {
   // const onChangeSearch = (event) => {
   //   setkeyword(event.target.value)
   // }
+  // const onSubmitSearch = (event) => {
+  //   event.preventDefault();
+    
+  //   if ( keyword === '') {
+  //     navigate(`/stockdiscovery/`)
+
+  //   } else {
+     
+  //    navigate(`/stockdiscovery/search/${keyword}`)
+  //   }
+  // }
   const onSubmitSearch = (event) => {
-    console.log(keyword)
     event.preventDefault();
     
     if ( keyword === '') {
@@ -26,6 +36,7 @@ function StockSearchBar() {
      navigate(`/stockdiscovery/search/${keyword}`)
     }
   }
+
 
   // Returns the searchfeature component
   return (

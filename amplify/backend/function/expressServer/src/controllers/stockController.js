@@ -73,7 +73,7 @@ const getAllStocks = async (req, res, next) => {
           { sector: { '$regex': keyword, '$options': 'i' } }
         ]
       // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings) 
-      }).sort({ symbol: 1 }).select({prices:0})
+      }).select({prices:0})
       res.json(stocks);
     } catch (err) {
       console.error(err.message);

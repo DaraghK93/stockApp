@@ -35,8 +35,6 @@ function OrderConfirmationPage() {
                 setStock(res)
                 setLoading(false)
             } catch (error) {
-                // Log the error 
-                console.log(error)
                 // Set the error message to be displayed on the page 
                 setError(error.response.data.errormessage)
                 setLoading(false)

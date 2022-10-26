@@ -15,8 +15,8 @@ from datetime import datetime
 from datetime import timedelta
 from time import mktime
 from bs4 import  BeautifulSoup
-import pandas as pd
 import pickle
+import csv
 from statistics import mean
 import nltk 
 
@@ -273,16 +273,24 @@ def writeArticlestoDatabase(client,articles):
 def readWordFileToList(file):
     """
     Takes in file name for words list in csv format and returns qwords in one dimensional array. 
+    It assumes the words file has two columns, column headers and the first column contains the words. 
 
     Args:
         file (String): The path of the file to read
 
     Returns:
-        (List): One dimensional list of words. 
+        words (List): One dimensional list of words. 
     """
     try:
-        df = pd.read_csv(file)
-        return df['word'].to_list()
+        words = [] 
+        with open(file,"r") as wordFile:
+            csvReader = csv.reader(wordFile)
+            # Skip the header in first lin
+            next(csvReader)
+            for line in csvReader:
+                # 0th eleeent as the word is here, occurences in 1st element 
+                words.append(line[0])
+        return words
     except Exception as e:
         print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}')
 
@@ -470,6 +478,7 @@ def handler(event, context):
         negativeWords = readWordFileToList(f'{dir_path}/lib/negativeWords.csv')
         positiveWords = readWordFileToList(f'{dir_path}/lib/positiveWords.csv')
         neutralWords = readWordFileToList(f'{dir_path}/lib/neutralWords.csv')
+        
         # Loop through each article 
         for article in articles:
             # Extract the features for the headline

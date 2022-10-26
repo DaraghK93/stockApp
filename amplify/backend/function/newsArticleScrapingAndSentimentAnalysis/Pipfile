@@ -8,7 +8,6 @@ feedparser = "*"
 boto3 = "*"
 pymongo = "*"
 beautifulsoup4 = "*"
-pandas = "*"
 nltk = "*"
 scikit-learn = "*"
 

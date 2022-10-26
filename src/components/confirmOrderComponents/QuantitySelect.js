@@ -13,7 +13,7 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
     useEffect(() => {
         setStockPrice(stockprice)
         if (parseFloat(displayBalance) < 0) {
-            setMax(quantity - 0.10)
+            setMax(parseFloat(quantity - 0.10))
             setError("")
         }
     }, [quantity, stockprice, displayBalance])
@@ -31,9 +31,11 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
                 setError("Can't have less than 0 balance")
             }
         }
-        else if (e.target.value===""){
+        else if (e.target.value === "" || e.target.value == 0){
+            setAmount(0)
+            setQuantity(0.00)
             setError("")
-
+            setDisplayBalance(portfolioBalance)
         }
         else if (typeof e.target.value === 'string' ||  e.target.value instanceof String) 
         {

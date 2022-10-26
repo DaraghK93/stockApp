@@ -219,32 +219,10 @@ const deleteUser = async (req, res, next) => {
   }
 }
 
-// @desc get user data
-// route get /api/users/info
-// @access private
-
-const createPortfolio = async (req, res, next) => {
-  try {
-      const newPortfolio = new Portfolio({
-      portfolioName: "Joey's Portfolio"
-    });
-      await User.updateOne({ email: "joey_the_lips@mail.com" }, {$push: {portfolios: newPortfolio}})
-      
-      // const portfolio = await User.updateOne();
-  
-      res.json({ newPortfolio });
-    } catch (err) {
-      console.error(err.message);
-      res.errormessage = 'Server error';
-      return next(err);
-    }
-  }
-
 
 module.exports = {
   registerUser,
   loginUser,
   getUserInfo,
   deleteUser,
-  createPortfolio
 }

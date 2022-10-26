@@ -38,7 +38,11 @@ if __name__ == "__main__":
     neutralWords = featureEngineeringFunctions.readWordFileToList(neutralWords)
     # Load the classifier 
     classifier = modelFunctions.loadClassifier(modelFile)
+    articleCount = 0 
     for article in articles:
         features = featureEngineeringFunctions.extractFeatures(article['headline'],positiveWords,negativeWords,neutralWords)
         prediction = classifier.classify(features)
-        print(article['headline'],prediction)
+        query = {'$set': {'sentiment':prediction}}
+        databaseFunctions.updateArticle(con,article['_id'],query)
+        articleCount+=1
+    print(f'{articleCount} articles updated in the database {mongoURI}')

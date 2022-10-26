@@ -69,22 +69,14 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
                                         placeholder={parseFloat(amount).toFixed(2)}
                                         onChange={boxCall} />
                                 </Col>
-
                             </Form.Group>
                         </Form>
-
-
-
-
                     </Row>
                     <input type="range" className="form-range" min={0} max={max} value={quantity} step={0.01}
                         onChange={sliderCall}
                     />
-
-
                 </Container>
             </Card>
-
         </>
     );
 }

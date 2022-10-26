@@ -5,7 +5,6 @@ import BottomStickyButton from "../../components/widgets/BottomStickyButton/Bott
 import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
-import BuyOrSellButton from "../../components/confirmOrderComponents/BuyOrSellButton";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -59,24 +58,23 @@ function OrderConfirmationPage() {
                                     </h1>
                                 </dt>
                                 <dt>{stock.symbol}</dt>
-                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
+                                </dt>
                             </dl>
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col style={{ marginBottom: "0.625rem" }}>
-                            <BuyOrSellButton />
-                        </Col>
-                        <Col style={{ marginBottom: "0.625rem" }}>
                             <OrderType />
                         </Col>
                         <Col style={{ marginBottom: "0.625rem" }}>
-                            <QuantitySelect portfolioBalance={2000} stockPrice={stock.daily_change.currentprice} />
+                            <QuantitySelect portfolioBalance={2000} stockprice={stock.daily_change.currentprice} />
                         </Col>
                         <h5>New Portfolio Balance</h5>
                         <h5>Order Summary</h5>
                     </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
+                    <div className='footerStyle'></div>
                 </Container>
             }
         </>

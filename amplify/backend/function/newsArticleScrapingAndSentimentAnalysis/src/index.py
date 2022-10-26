@@ -468,7 +468,7 @@ def handler(event, context):
 
         ## Step Two - Load in the classifier  ##
         # This is the trained classifier used to classify the sentiment of a headline 
-        classifierName = "MLPClassifier.pickle"
+        classifierName = "NaiveBayesClassifier.pickle"
         classifier = loadClassifier(f'{dir_path}/lib/{classifierName}')
 
         ## Step Three - Featrue extraction and prediction ##

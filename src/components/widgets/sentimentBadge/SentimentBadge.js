@@ -15,7 +15,7 @@ function SentimentBadge({sentiment,customStyle}){
         classVal = 'negativeSentimentBadge'
     }
     return(
-        <Badge style={customStyle} className={classVal}>{sentiment}</Badge>
+        <Badge style={customStyle} className={classVal}>{sentiment.charAt(0).toUpperCase()+sentiment.slice(1)}</Badge>
     )
 }
 

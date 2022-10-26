@@ -89,7 +89,7 @@ function StockDiscoveryPage() {
                         <Row md={4} xs={1}>
                             {stocks.map((stockObj) => (
                                 <Col className="py-2" key={stockObj._id}>
-                                    <TickerCard stock={stockObj} />
+                                    <TickerCard stock={stockObj} key={stockObj._id} />
                                 </Col>
                             ))}
                         </Row>

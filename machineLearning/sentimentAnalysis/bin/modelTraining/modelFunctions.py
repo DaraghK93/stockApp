@@ -157,7 +157,25 @@ def generateEvaluationReport(results,file):
         df.to_csv(file, index = False, header=True)
     except Exception as e:
         print(f'Error in writing evaluation results to csv.\nException detials:\n{e}')
-    
+
+
+def loadClassifier(file):
+    """
+    Loads in a pickle file containing the machine learning classifier.
+
+    Args:
+        file (String): The path to the classifier. 
+
+    Returns:
+        (SklearnClassifier or NLTKClassifier): The classifier which can be used to classify news headlines. 
+    """
+    try:
+        classifierFile = open(file,"rb")
+        classifier = pickle.load(classifierFile)
+        classifierFile.close()
+        return classifier
+    except Exception as e:
+        print(f'ERROR:Occured in the loadClassifier function.\nException Details:\n\t{e}')
 
 
 

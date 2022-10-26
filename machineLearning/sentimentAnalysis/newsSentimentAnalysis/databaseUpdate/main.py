@@ -19,6 +19,9 @@ negativeWordsFile = f'{modelDir}/data/negativeWords.csv'
 neutralWords      = f'{modelDir}/data/neutralWords.csv' 
 
 ### The Classifier ###
+# The classifier to use
+modelName = "MLPClassifier"
+modelFile = f'{modelDir}/models/{modelName}.pickle'
 
 
 
@@ -33,5 +36,9 @@ if __name__ == "__main__":
     positiveWords = featureEngineeringFunctions.readWordFileToList(positveWordsFile)
     negativeWords = featureEngineeringFunctions.readWordFileToList(negativeWordsFile)
     neutralWords = featureEngineeringFunctions.readWordFileToList(neutralWords)
+    # Load the classifier 
+    classifier = modelFunctions.loadClassifier(modelFile)
     for article in articles:
-        print(article)
+        features = featureEngineeringFunctions.extractFeatures(article['headline'],positiveWords,negativeWords,neutralWords)
+        prediction = classifier.classify(features)
+        print(article['headline'],prediction)

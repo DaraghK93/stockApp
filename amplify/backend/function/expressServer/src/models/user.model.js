@@ -32,7 +32,7 @@ const UserSchema = new mongoose.Schema(
     location: { type: String, trim: true },
     image: { type: String },
     bio: { type: String },
-    portfolios: [{type: mongoose.Schema.Types.Object, ref: "portfolioData"}]
+    portfolios: [{type: mongoose.Schema.Types.Object, ref: "PortfolioData"}]
   },
   { collection: 'user-data' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated

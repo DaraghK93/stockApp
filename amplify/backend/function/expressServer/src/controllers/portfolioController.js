@@ -1,8 +1,6 @@
 const User = require('../models/user.model')
 const Portfolio = require('../models/portfolio.model')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcryptjs')
-const config = require('config')
+
 
 
 // @desc create new portfolio
@@ -12,12 +10,18 @@ const config = require('config')
 const createPortfolio = async (req, res, next) => {
   try {
       dateCreated = new Date()
+      if (!req.body.remainder){
+        remainder = 10000
+      }
+      else {
+        remainder = req.body.remainder
+      }
       const newPortfolio = new Portfolio({
-        portfolioName: req.query.portfolioName,
-        remainder: req.query.remainder,
+        portfolioName: req.body.portfolioName,
+        remainder: remainder,
         dateCreated: dateCreated
       });
-      await User.updateOne({ email: req.query.email }, {$push: {portfolios: newPortfolio}})
+      await User.updateOne({ _id: req.user.id }, {$push: {portfolios: newPortfolio}})
         
       res.json({ newPortfolio });
     } catch (err) {
@@ -26,6 +30,7 @@ const createPortfolio = async (req, res, next) => {
       return next(err);
     }
   }
+
 
 
 module.exports = {

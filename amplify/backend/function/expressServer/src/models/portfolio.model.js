@@ -61,7 +61,3 @@ module.exports = mongoose.model('marketOrdersSchema', marketOrdersSchema)
 module.exports = mongoose.model('dailyValuesSchema', dailyValueSchema)
 
 module.exports = mongoose.model('PortfolioData', PortfolioSchema)
-// module.exports = mongoose.model('PortfolioData', PortfolioSchema)
-// module.exports = mongoose.model('transactionsSchema', Transactions)
-// module.exports = mongoose.model('PortfolioData', PortfolioSchema)
-// module.exports = mongoose.model('PortfolioData', PortfolioSchema)

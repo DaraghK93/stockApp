@@ -9,8 +9,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 ## Model Directory##
+# This is the directory of the trained model 
 modelDir = "../modelGeneration/model_3"
-
 
 ## Words List ##
 # Words lists to use in this script 

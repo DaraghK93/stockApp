@@ -1,0 +1,42 @@
+/* Variables */
+@import "../global_variables.scss";
+
+.selectionButton {
+    color: $text-colour;
+    background-color: $background;
+    border-bottom-color: $info;
+    border-left-color: $shadow;
+    border-top-color: $shadow;
+    border-right-color: $shadow;
+    border-bottom-width: 0.1875rem;
+    width: 9.375rem;
+}
+
+
+.selectionButton:hover {
+    color: $text-colour;
+    background-color: $background;
+    border-bottom-color: $secondary;
+    border-left-color: $shadow;
+    border-top-color: $shadow;
+    border-right-color: $shadow;
+}
+
+
+.selectionButton:focus {
+    color: $text-colour;
+    background-color: $background;
+    border-bottom-color: $secondary;
+    border-left-color: $shadow;
+    border-top-color: $shadow;
+    border-right-color: $shadow;
+}
+
+.selectionButton:active {
+    color: $text-colour;
+    background-color: $background;
+    border-bottom-color: $secondary;
+    border-left-color: $shadow;
+    border-top-color: $shadow;
+    border-right-color: $shadow;
+}

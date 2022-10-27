@@ -17,9 +17,9 @@ function MyPortfolios() {
             {/* {noPortfolios && <div> */}
                 <p> Looks like you have no porfolios yet! Would you like to <Link to="/createportfolio"><strong>create a portfolio?</strong></Link></p>
             {/* </div> */}
-            }
+        
             {/* {isShownPortfolios && */}
-                <div>
+                {/* <div>
                     <Row>
                         <Link to="/createportfolio">
                             <Button style={{marginBottom:"10px"}}>Create portfolio</Button>
@@ -30,8 +30,8 @@ function MyPortfolios() {
                         <PortfolioCard portfolioName={"Portfolio 1"} />
                         </Col>
                     </Row>
-                </div>
-            {/* } */}
+                </div> 
+         } */}
         </Container>
     )
 }

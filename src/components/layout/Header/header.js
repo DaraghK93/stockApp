@@ -39,7 +39,7 @@ function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" >
             <Nav.Link as={Link} style={{color:'white'}} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} style={{color:'white'}} to="/stockdiscovery/summary">Stocks</Nav.Link>
+            <Nav.Link as={Link} style={{color:'white'}} to="/stockdiscovery/">Stocks</Nav.Link>
           </Nav>
           <Nav>
              {userInfo ?

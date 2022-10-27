@@ -31,7 +31,7 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
                 setError("Can't have less than 0 balance")
             }
         }
-        else if (e.target.value === "" || e.target.value == 0){
+        else if (e.target.value === "" || e.target.value === 0){
             setAmount(0)
             setQuantity(0.00)
             setError("")

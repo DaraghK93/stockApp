@@ -34,7 +34,7 @@ function Header() {
     <Navbar expand="lg" 
     className="navbar">
       <Container>
-        <Navbar.Brand style={{color:'white'}} as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMIZE</span></Navbar.Brand>
+        <Navbar.Brand style={{color:'white'}} as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto" >

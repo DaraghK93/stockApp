@@ -213,31 +213,6 @@ def writeWordsListToCSV(freqDist,file,numWords=100):
             write.writerow(row)
         f.close()
 
-
-def readWordFileToList(file):
-    """
-    Takes in file name for words list in csv format and returns qwords in one dimensional array. 
-    It assumes the words file has two columns, column headers and the first column contains the words. 
-
-    Args:
-        file (String): The path of the file to read
-
-    Returns:
-        words (List): One dimensional list of words. 
-    """
-    try:
-        words = [] 
-        with open(file,"r") as wordFile:
-            csvReader = csv.reader(wordFile)
-            # Skip the header in first lin
-            next(csvReader)
-            for line in csvReader:
-                # 0th eleeent as the word is here, occurences in 1st element 
-                words.append(line[0])
-        return words
-    except Exception as e:
-        print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}')
-
     
      
 

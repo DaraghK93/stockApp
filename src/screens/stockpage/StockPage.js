@@ -133,12 +133,6 @@ function StockPage() {
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md={8} className="stockInfoCol">
                         <ChartCardESG title={"ESG Rating"} edata={((stock.esgrating.environment_score)/1000)*5} sdata={((stock.esgrating.social_score)/1000)*5} gdata={((stock.esgrating.governance_score)/1000)*5}/>
-                            {/* <ChartCard title={"ESG Rating"} data={
-                                [{ name: "E Score", value: stock.esgrating.environment_score },
-                                { name: "S Score", value: stock.esgrating.social_score },
-                                { name: "G Score", value: stock.esgrating.governance_score }]} /> */}
-                        <br></br>
-                        <br></br>
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />

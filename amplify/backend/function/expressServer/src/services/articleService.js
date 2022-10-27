@@ -45,7 +45,61 @@ const searchNewsArticles = async (searchQuerys) => {
     }
 }
 
+/// buildSearchQueryForCompany ///
+// Inputs:
+//      shortname - Companies shortname
+//      longname - Companies long name
+//      symbol   - Companies stock symbl 
+//  Returns:
+//      searchQuery - A mongo search query which can be used to get companies info 
+const buildSearchQueryForCompany = async (shortname, longname, symbol) => {
+    try{
+        /// Clean the company names for the search 
+        var shortnameNoIncOrCom = await cleanCompanyName(shortname)
+        var longnameNoIncOrCom  = await cleanCompanyName(longname)
+        const searchQuery = [
+            /// Official company name 
+            {"headline":{$regex:shortname,$options: 'i'}},
+            {"description":{$regex:longname,$options: 'i'}},
+            /// shortname no Inc or .com 
+            {"headline":{$regex:shortnameNoIncOrCom,$options: 'i'}},
+            {"description":{$regex:shortnameNoIncOrCom,$options: 'i'}},
+            // longname no Inc or .com
+            {"headline":{$regex:longnameNoIncOrCom,$options: 'i'}},
+            {"description":{$regex:longnameNoIncOrCom,$options: 'i'}},
+            // Stock Symbol 
+            {"headline":{$regex:symbol,$options:'i'}},
+            {"description":{$regex:symbol,$options:'i'}}
+        ]
+        return searchQuery
+    }catch(error){
+        throw new Error(`Error has occured in the buildSearchQueryForCompany function.\nError details:\n\t${error}`)
+    }
+}
+
+const getOverallSentiment = async (searchQuery) => {
+    try{
+        console.log(searchQuery)
+        const articles = await Article.aggregate([
+        {
+            $match:{ $or: searchQuery}},
+
+            {$group:{_id: '$sentiment', count: {$sum: 1}}}
+        ])
+
+    console.log(articles)
+
+    }catch(error){
+        throw new Error(`Error has occured in the getOverallSentiment function.\nError details:\n\t${error}`)
+    }
+}
+
+
+
+
 module.exports = {
     cleanCompanyName,
-    searchNewsArticles
+    searchNewsArticles,
+    buildSearchQueryForCompany,
+    getOverallSentiment
 }

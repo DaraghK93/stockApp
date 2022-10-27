@@ -1,0 +1,16 @@
+([{
+	$match:{ $or: [ 
+		{ headline: { '$regex': 'Apple Inc.', '$options': 'i' } },
+  		{ description: { '$regex': 'Apple Inc.', '$options': 'i' } },
+  		{ headline: { '$regex': 'Apple ', '$options': 'i' } },
+  		{ description: { '$regex': 'Apple ', '$options': 'i' } },
+  		{ headline: { '$regex': 'Apple ', '$options': 'i' } },
+  		{ description: { '$regex': 'Apple ', '$options': 'i' } },
+  		{ headline: { '$regex': 'AAPL', '$options': 'i' } },
+  		{ description: { '$regex': 'AAPL', '$options': 'i' } }
+	]}},
+
+	{$group:{_id: '$sentiment', count: {$sum: 1}}}
+	
+
+}]) 

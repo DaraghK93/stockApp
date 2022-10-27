@@ -3,6 +3,7 @@ const Stock = require('../models/stock.model');
 
 /// Imports ///
 const stockService = require('../services/stockRoutesServices')
+const articleService = require('../services/articleService');
 
 // @desc get individual stock price
 // @route GET /api/stock/price/:name
@@ -123,6 +124,7 @@ const updateStock = async (req, res, next) => {
 // @access  Private - add auth middleware to make it private
 const getStockBySymbol = async (req, res, next) => {
   try {
+    /// Get the stock object 
     const stocks = await Stock.find({ symbol: req.params.symbol });
     if (!stocks.length) {
       // No stock found
@@ -130,10 +132,18 @@ const getStockBySymbol = async (req, res, next) => {
       res.errormessage = 'Stock not found';
       return next(new Error('Stock not found'));
     }
+    /// Get the price breakdown 
     const stockPriceData = stockService.getStockPriceData(stocks)
     const oneWeek = stockPriceData[0]
     const oneMonth = stockPriceData[1]
     const oneYear = stockPriceData[2]
+    /// Get the search query for news articles
+    const newsQuery = await articleService.buildSearchQueryForCompany(stocks[0].shortname,stocks[0].longname, stocks[0].symbol )
+    /// Execute the query to get the articles 
+    const newsSentiment = await articleService.getOverallSentiment(newsQuery)
+    
+
+
     // var stockjson = JSON.stringify(stocks)
     // stockjson.month = oneMonth
     // stocks[0]["month"] = oneMonth

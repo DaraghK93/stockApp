@@ -16,6 +16,8 @@ function StockSearchBar() {
     }else{
       navigate(`/stockdiscovery/`)
     }
+    // reset form to blank after search
+    e.target.reset()
   }
 
 

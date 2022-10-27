@@ -79,15 +79,28 @@ const buildSearchQueryForCompany = async (shortname, longname, symbol) => {
 
 const getOverallSentiment = async (searchQuery) => {
     try{
-        console.log(searchQuery)
+        //const articles = await Article.aggregate([
+        //{
+        //    $match:{ $or: searchQuery}},
+        //    {$group:{_id: '$sentiment', count: {$sum: 1}}}
+        //])
+
         const articles = await Article.aggregate([
-        {
-            $match:{ $or: searchQuery}},
 
-            {$group:{_id: '$sentiment', count: {$sum: 1}}}
+            {
+                $facet:
+                    {
+                        positive: [
+                            {$match:
+                                { $or: searchQuery}},
+                            
+                            
+                        
+                        ]
+                    }
+            }
         ])
-
-    console.log(articles)
+        console.log(articles)
 
     }catch(error){
         throw new Error(`Error has occured in the getOverallSentiment function.\nError details:\n\t${error}`)

@@ -24,7 +24,7 @@ function StockDiscoveryPage(){
                     </Row>
                    
                 ) : (
-                    <Row md={4} xs={1}>
+                    <Row md={1} xs={1}>
                           <StockSearchResults keyword={keyword}/>
                     </Row>
                 )}

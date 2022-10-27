@@ -1,11 +1,10 @@
-import {Col } from 'react-bootstrap';
+import {Row, Container } from 'react-bootstrap';
 import { APIName } from '../../../constants/APIConstants'
 import { useState, useEffect } from 'react';
 import { API } from "aws-amplify";
 import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
-import TickerCard from '../tickercard/Tickercard';
-
+import StockSideScrollMenu from '../stockSideScrollMenu/stockSideScrollMenu';
 
 function StockSearchResults({keyword}) {
     const [stocks, setStock] = useState({});
@@ -36,11 +35,11 @@ function StockSearchResults({keyword}) {
         <>
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <>
-         {stocks.map((stockObj) => (
-                                <Col className="py-2" key={stockObj._id}>
-                                    <TickerCard stock={stockObj}  />
-                                </Col>
-                            ))}
+        <Container>
+        <Row md={1} xs={1}>
+         <StockSideScrollMenu data={stocks}/>
+         </Row>
+         </Container>       
         </>
          
         }</>

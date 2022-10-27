@@ -15,11 +15,24 @@ from datetime import datetime
 from datetime import timedelta
 from time import mktime
 from bs4 import  BeautifulSoup
+import pickle
+import csv
+from statistics import mean
+import nltk 
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running 
 # This will change dynamically when running locallly or on AWS Lambda 
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
+### NLTK Data ###
+# NLTK reads its data from download files from a directory on local machine 
+# like the location C:\Users\<USER>\nltk_data\
+# This wont be present on the cloud but can tell nltk where to look for it by uploading data to lambda function 
+nltk.data.path.append(f'{dir_path}/nltk_data')
+from nltk.tokenize import RegexpTokenizer
+from nltk.sentiment import SentimentIntensityAnalyzer
+sia = SentimentIntensityAnalyzer()
 
 
 def readSources(file):
@@ -257,7 +270,176 @@ def writeArticlestoDatabase(client,articles):
     except Exception as e:
         print(f'ERROR:Could not insert articles into database.\nException Details:\n\t{e}')
 
+def readWordFileToList(file):
+    """
+    Takes in file name for words list in csv format and returns qwords in one dimensional array. 
+    It assumes the words file has two columns, column headers and the first column contains the words. 
 
+    Args:
+        file (String): The path of the file to read
+
+    Returns:
+        words (List): One dimensional list of words. 
+    """
+    try:
+        words = [] 
+        with open(file,"r") as wordFile:
+            csvReader = csv.reader(wordFile)
+            # Skip the header in first lin
+            next(csvReader)
+            for line in csvReader:
+                # 0th eleeent as the word is here, occurences in 1st element 
+                words.append(line[0])
+        return words
+    except Exception as e:
+        print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}')
+
+
+def loadClassifier(file):
+    """
+    Loads in a pickle file containing the machine learning classifier.
+
+    Args:
+        file (String): The path to the classifier. 
+
+    Returns:
+        (SklearnClassifier or NLTKClassifier): The classifier which can be used to classify news headlines. 
+    """
+    try:
+        classifierFile = open(file,"rb")
+        classifier = pickle.load(classifierFile)
+        classifierFile.close()
+        return classifier
+    except Exception as e:
+        print(f'ERROR:Occured in the loadClassifier function.\nException Details:\n\t{e}')
+
+def convertListToLowerCase(wordsList):
+    """
+    Converts a list of words to lower case.
+
+    Args:
+        wordsList (List): List of strings. 
+
+    Returns:
+        wordsLower(List): A list of strings converted to lower case
+    """
+    try:
+        wordsLower = []
+        for word in wordsList:
+            wordsLower.append(word.lower())
+        return wordsLower
+    except Exception as e:
+        print(f'Error in cinverting words to lower case in function convertListToLowerCase.\n Exception Details {e}')
+
+def getPolarityScore(sentence):
+    """
+    Calculates polarity scores using NLTK's sentiment analyiser.
+
+    Args:
+        sentence (String): Sentence string to calculate polarity of. 
+
+    Returns:
+        scores (dict): A dictionary with the keys 'neg', 'neu', 'pos' and 'compound'
+    """
+    try:
+        scores = sia.polarity_scores(sentence)
+        return scores
+    except Exception as e:
+        print(f'Error in calculating polarity scores in function getPolarityScore.n\nException details\n{e}' )
+
+def tokenize(headline):
+    """
+    Tokenizes and individual headline. Headlines also converted to lower case in this process. 
+
+    Args:
+        headline (String): A string representing a headline 
+
+    Returns:
+        tokens(List): List of strings, each element is a word in the headline.
+    """
+    try:
+        # Only match words not symbols 
+        tokenizer = RegexpTokenizer(r'\w+')
+        tokens = tokenizer.tokenize(headline)
+        tokens = [t.lower() for t in tokens]
+        return tokens 
+    except Exception as e:
+        print(f'Error in tokenizing headline in function tokenize .\nException details\n{e}')
+
+
+def getWordCount(sentence,listOfWords):
+    """
+    Gets the word count of certain words appearing in sentence. 
+
+    Args:
+        sentence (String): The sentence to search in 
+        listOfWords (List): The words to search for
+
+    Returns:
+        wordCount(Int): Integer representing the word count. 
+    """
+    try:
+        wordCount = 0
+        # Make sure words are tokenized and lower case 
+        words = tokenize(sentence)
+        # Make sure words list is lower case, will already be tokenized as its list 
+        wordsList = convertListToLowerCase(listOfWords)
+        for word in words:
+            if word.lower() in wordsList:
+                wordCount+=1
+        return wordCount
+    except Exception as e:
+        print(f'Error in getting word count in the function getWordCount.\nException details:\n{e}')
+
+def extractFeatures(headline,posWords,negWords,neuWords=False):
+    """
+    This function uses other functions to extract features of an inputted headline. 
+    The result of this function will be a dictonary object with the feature name as the key and value of that feature as the value. 
+
+    Args:
+        headline (String): The headline string to generate features for
+        posWords (List): A positive words list to use in counting the positive words in the headline 
+        negWords (List): A negative words list to use in counting the negative words in the headline. 
+        neuWords (List): Optional a neutral words list to use in counting the negative words in the headline. 
+
+    Returns:
+        features(dict): Dictionary where the keys are the feauture names. 
+    """
+    try:
+        posWordCount   = 0 
+        negWordCount   = 0 
+        neuWordCount   = 0 
+        compoundScores  = list()
+        positiveScores = list()
+        negativeScores = list()
+        neutralScores  = list()
+        features       = {}
+        # Do it by sentence as there could be multiple sentences in a headline with different polarity scores 
+        for sentence in nltk.sent_tokenize(headline):
+            # Update the positive and negative word count 
+            posWordCount   += getWordCount(sentence,posWords)
+            negWordCount   += getWordCount(sentence,negWords)
+            if neuWords: neuWordCount  += getWordCount(sentence,neuWords)
+            # Get the polarity score of the sentence 
+            polarityScores = getPolarityScore(sentence)
+            compoundScores.append(polarityScores["compound"])
+            positiveScores.append(polarityScores["pos"])
+            negativeScores.append(polarityScores["neg"])
+            neutralScores.append(polarityScores["neu"])
+        
+        # Calculate the mean of the headlines polarity scores, +1 to meanCompund as some nltk models wont work with negative 
+        features["meanCompound"] = mean(compoundScores)+1
+        features["meanPositive"] = mean(positiveScores)
+        features["meanNegative"] = mean(negativeScores)
+        features["meanNeutral"]  = mean(neutralScores)
+
+        # Add the word count to the features 
+        features["posWordCount"] = posWordCount
+        features["negWordCount"] = negWordCount
+        if neuWords: features["neuWordCount"] = neuWordCount
+        return features
+    except Exception as e:
+        print(f'Error in extraing features in function extractFeatures.\nException details:\n{e}')
 
 ### Handler ###
 def handler(event, context):
@@ -284,16 +466,27 @@ def handler(event, context):
         for feed in feeds:
             articles.extend(getArticles(feed))
 
-        ## Step Two - Implment week 5  ##
+        ## Step Two - Load in the classifier  ##
+        # This is the trained classifier used to classify the sentiment of a headline 
+        classifierName = "NaiveBayesClassifier.pickle"
+        classifier = loadClassifier(f'{dir_path}/lib/{classifierName}')
+
+        ## Step Three - Featrue extraction and prediction ##
         #   Get the features required for machine learning classifier 
-
-        ## Step Three - Implement week 5 ##
-        #   Load in the classifier 
-
-        ## Step Four - Implement week 5 ##
-        #   Classify each news article    
-
-        ## Step Five ##
+        #   Then make the prediction 
+        # Read in the word dictionaries 
+        negativeWords = readWordFileToList(f'{dir_path}/lib/negativeWords.csv')
+        positiveWords = readWordFileToList(f'{dir_path}/lib/positiveWords.csv')
+        neutralWords = readWordFileToList(f'{dir_path}/lib/neutralWords.csv')
+        
+        # Loop through each article 
+        for article in articles:
+            # Extract the features for the headline
+            features = extractFeatures(article["headline"],positiveWords,negativeWords,neutralWords)
+            # Make a predction onheadline sentiment based upon the features 
+            article["sentiment"] = classifier.classify(features)
+            
+        ## Step Four ##
         #   Log the articles to the database 
         # If the enviroment is production then get the production URI 
         # ***NOTE*** Create a local .env file newsArticleScrapingAndSentimentAnalysis directory with ENVIRONMENT and MONGOURI in it, this will set "dev" variables 

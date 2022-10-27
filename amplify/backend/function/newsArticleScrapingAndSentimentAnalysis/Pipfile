@@ -1,16 +1,16 @@
 [[source]]
-name = "pypi"
 url = "https://pypi.org/simple"
 verify_ssl = true
-
-[dev-packages]
+name = "pypi"
 
 [packages]
-src = {editable = true, path = "./src"}
 feedparser = "*"
 boto3 = "*"
 pymongo = "*"
-bs4 = "*"
+beautifulsoup4 = "*"
+nltk = "*"
+
+[dev-packages]
 
 [requires]
 python_version = "3.9"

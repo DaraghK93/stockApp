@@ -10,9 +10,9 @@ const myStyles = {
   itemShapes: Person,
   boxBorderWidth: 3,
 
-  activeFillColor: ['#FEE2E2', '#FFEDD5', '#FEF9C3', '#ECFCCB', '#D1FAE5'],
-  activeBoxColor: ['#da1600', '#db711a', '#dcb000', '#61bb00', '#009664'],
-  activeBoxBorderColor: ['#c41400', '#d05e00', '#cca300', '#498d00', '#00724c'],
+  activeFillColor: ['#FFBB28', '#FFEDD5', '#FF8042', '#ECFCCB', '#00C49F'],
+  activeBoxColor: ['#FF8042', '#FF9E35', '#FFBB28', '#80C064', '#00C49F'],
+  activeBoxBorderColor: ['#FFBB28', '#d05e00', '#cca300', '#498d00', '#00724c'],
 
   inactiveFillColor: 'white',
   inactiveBoxColor: '#dddddd',
@@ -27,7 +27,7 @@ function SocialRating({srating}) {
   return (
     <Rating
       readOnly
-      style={{ maxWidth: 400, margin:'auto'}}
+      style={{ maxWidth: 300, margin:'auto'}}
       value={srating}
       halfFillMode="box"
       // onChange={setRating}

@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
+import ChartCardESG from "../../components/stockVisualisationComponents/ChartCard/ChartCard(ESG)";
 import InfoButtonModal from '../../components/widgets/InfoButtonModal/InfoButtonModal';
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
@@ -86,7 +87,10 @@ function StockPage() {
 
 
     return (
+        
         <>
+        
+        
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
                     <Row
@@ -127,11 +131,14 @@ function StockPage() {
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col sm md className="stockInfoCol">
-                            <ChartCard title={"ESG Rating"} data={
+                        <Col sm md={8} className="stockInfoCol">
+                        <ChartCardESG title={"ESG Rating"} edata={((stock.esgrating.environment_score)/1000)*5} sdata={((stock.esgrating.social_score)/1000)*5} gdata={((stock.esgrating.governance_score)/1000)*5}/>
+                            {/* <ChartCard title={"ESG Rating"} data={
                                 [{ name: "E Score", value: stock.esgrating.environment_score },
                                 { name: "S Score", value: stock.esgrating.social_score },
-                                { name: "G Score", value: stock.esgrating.governance_score }]} />
+                                { name: "G Score", value: stock.esgrating.governance_score }]} /> */}
+                        <br></br>
+                        <br></br>
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={newsSentimentData} />

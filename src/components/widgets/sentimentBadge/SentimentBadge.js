@@ -7,15 +7,15 @@ function SentimentBadge({sentiment,customStyle}){
     /// Decide the class value 
     //      If this this not resolve to a value then badge cmponent will resolve to default bootsrap class 
     let classVal = ''
-    if (sentiment.toLowerCase() === 'positive'){
+    if (sentiment === 'Positive'){
         classVal = 'positiveSentimentBadge'
-    }else if (sentiment.toLowerCase() === 'neutral'){
+    }else if (sentiment === 'Neutral'){
         classVal = 'neutralSentimentBadge'
-    }else if (sentiment.toLowerCase() === 'negative'){
+    }else if (sentiment === 'Negative'){
         classVal = 'negativeSentimentBadge'
     }
     return(
-        <Badge style={customStyle} className={classVal}>{sentiment.charAt(0).toUpperCase()+sentiment.slice(1)}</Badge>
+        <Badge style={customStyle} className={classVal}>{sentiment}</Badge>
     )
 }
 

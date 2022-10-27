@@ -34,12 +34,19 @@ function StockSearchResults({keyword}) {
     return(
         <>
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+        Object.keys(stocks).length !== 0  ?
         <>
+        
         <Container>
         <Row md={1} xs={1}>
          <StockSideScrollMenu data={stocks}/>
          </Row>
          </Container>       
+        </> :
+    
+        <>
+        <MessageAlert variant='danger'>No results match your search term "{keyword}"</MessageAlert>
+        
         </>
          
         }</>

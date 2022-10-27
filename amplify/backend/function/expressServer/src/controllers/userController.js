@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const Portfolio = require('../models/portfolio.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const config = require('config')
@@ -64,7 +65,7 @@ const registerUser = async (req, res, next) => {
       username,
       email,
       password,
-      overeighteen
+      overeighteen,
     })
 
     /// Hash the password ///
@@ -160,10 +161,12 @@ const loginUser = async (req, res, next) => {
           dob: user.dob,
           image: user.image,
           bio: user.bio,
+          portfolios: user.portfolios,
           token,
         })
       },
     )
+    
   } catch (err) {
     console.error(err.message)
     res.errormessage = 'Server error'
@@ -214,6 +217,7 @@ const deleteUser = async (req, res, next) => {
     return next(err)
   }
 }
+
 
 module.exports = {
   registerUser,

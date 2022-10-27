@@ -45,7 +45,7 @@ function Header() {
              {userInfo ?
               (<NavDropdown  align="end" title={userInfo.firstname}>
                 <NavDropdown.Item as={Link}  to="/profile">My Profile</NavDropdown.Item>
-                <NavDropdown.Item as={Link}  to="/portfolio">My Portfolio</NavDropdown.Item>
+                <NavDropdown.Item as={Link}  to="/myportfolios">My Portfolios</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
               </NavDropdown>)
               :

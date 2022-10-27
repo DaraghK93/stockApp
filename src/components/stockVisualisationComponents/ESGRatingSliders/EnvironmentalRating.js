@@ -2,7 +2,7 @@
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 
-// Set the path for the leaf SVG
+// Set the path for the leaf SVG. This was taken from https://www.svgrepo.com/
 const Leaf = (
   <path d="M210.214,0.106l-0.336,0.004c-49.919,1.145-96.832,21.196-132.095,56.46C6.057,128.295,2.659,242.868,67.586,318.656
   L0,386.24l21.213,21.213l67.583-67.583c34.955,29.999,78.987,46.363,125.537,46.363c51.578,0,100.078-20.089,136.549-56.561

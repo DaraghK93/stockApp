@@ -2,7 +2,7 @@
 import { Rating } from '@smastrom/react-rating';
 import '@smastrom/react-rating/style.css';
 
-// Set the path for the governance SVG
+// Set the path for the governance SVG. This was taken from https://www.svgrepo.com/
 const Governance = (
   <path d="M390.133,275.665V244.79c0-4.225-3.425-7.65-7.65-7.65H252.439v-23.224c55.496-3.936,99.446-50.34,99.446-106.821
   C351.885,48.043,303.842,0,244.789,0c-59.053,0-107.095,48.043-107.095,107.096c0,56.481,43.95,102.885,99.446,106.821v23.224

@@ -16,7 +16,7 @@ function StockDiscoveryPage(){
     let {keyword} = useParams()
     return(
             <Container>
-                <h1>Stock Discovery Page</h1>
+                <h1 style={{textAlign:"center"}}>Stock Discovery</h1>
                 <StockSearchBar/>
                 {keyword === undefined ? (
                     <Row md={1} xs={1}>

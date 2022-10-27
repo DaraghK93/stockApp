@@ -36,7 +36,7 @@ function StockSearchResults({keyword}) {
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         Object.keys(stocks).length !== 0  ?
         <>
-        
+        <h3>Showing Results for "{keyword}"</h3>
         <Container>
         <Row md={1} xs={1}>
          <StockSideScrollMenu data={stocks}/>

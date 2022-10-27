@@ -18,6 +18,7 @@ function StockSearchBar() {
     }
     // reset form to blank after search
     e.target.reset()
+    setKeyword("")
   }
 
 

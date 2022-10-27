@@ -33,16 +33,22 @@ const getStockPrice = async (req, res, next) => {
 //          in a series of side scrolling menu components
 // @access  Private - add auth middleware to make it private
 const getAllStocks = async (req, res, next) => {
-  const category = req.query.category;
-  const keyword = req.query.keyword;   // This is the search term entered into the search box
+     // This is the search term entered into the search box
 
 // check if category is summary and if not, return all stocks, else 
 // return the aggregate query for different stock categories
+  try{
+    /// keyword is query param 
+    const keyword = req.query.keyword;
 
-  if (category === 'usersearch') {
-    try {
-      // Regex/pattern matching across the below fields
-      const stocks = await Stock.find({
+    /// if undefined return the stock summary 
+    if(keyword == "undefined"){
+      // Keyword undefied just return the top stocks 
+      const stocks = await stockService.getStockSummary(Stock)
+      res.json(stocks)
+    }else{ 
+      // Keyword defined search for the stocks 
+       const stocks = await Stock.find({
         "$or": [
           { symbol: { '$regex': keyword, '$options': 'i' } },
           { longname: { '$regex': keyword, '$options': 'i' } },
@@ -51,38 +57,15 @@ const getAllStocks = async (req, res, next) => {
           { sector: { '$regex': keyword, '$options': 'i' } }
         ]
       // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings) 
-      }).sort({ symbol: 1 })
+      }).select({prices:0})
       res.json(stocks);
-    } catch (err) {
-      console.error(err.message);
-      res.errormessage = 'Server error in getAllStocks-sorting';
-      return next(err);
     }
-  }   
-  else if (category === 'usersearch' && keyword === "all") {
-    try {
-      const stocks = await Stock.find().select({ prices: 0 });
-      res.json(stocks);
-    } catch (err) {
-      console.error(err.message);
-      res.errormessage = 'Server error in getAllStocks';
-      return next(err);
-    }
-  } 
-
-  else {
-  try {
-    // aggregate query that uses $facet to run several queries and return all in
-    // one response. query can be found in ../services/stockRoutesServices
-    // gets top E, S, G, TopGainers, TopLosers, then by sector -  sorting by daily change
-    const stocks = await stockService.getStockSummary(Stock)
-    res.json(stocks)
-  } catch (err) {
+  }catch(err){
     console.error(err.message);
-    res.errormessage = 'Server error in getAllStocks aggregation';
+    res.errormessage = 'Server error in getAllStocks';
     return next(err);
   }
-}}
+}
 
 // @desc Add new stock data
 // @route POST /api/stock/addStock/

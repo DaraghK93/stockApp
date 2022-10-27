@@ -31,7 +31,7 @@ function TickerCard({ stock }) {
             whiteSpace: "initial"
           }}
         >
-          <ListGroupItem>
+          <ListGroupItem >
             <h5 style={{ float: "left" }}>{stock.longname}</h5>
           </ListGroupItem>
         </ListGroup>
@@ -49,15 +49,15 @@ function TickerCard({ stock }) {
           </Card.Body>
         </Container>
         <ListGroup className="list-group-flush">
-          <ListGroupItem>
+          <ListGroupItem >
 
             {stock.symbol} | {stock.exchange}
 
           </ListGroupItem>
-          <ListGroupItem><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>
+          <ListGroupItem ><strong>Current price:</strong> ${stock.daily_change.currentprice}<br></br>
             <strong>Change (24h):</strong> <span style={{ color: redOrGreen() }}>${stock.daily_change.absoluteChange} ({postiveSymbol}{stock.daily_change.percentageChange}%)</span>
           </ListGroupItem>
-          <ListGroupItem>
+          <ListGroupItem >
             <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png" alt="twitter symbol"
               style={{ width: "1.25rem" }} /> <strong>Twitter Sentiment: </strong><SentimentBadge sentiment='Positive' />
             <br></br>

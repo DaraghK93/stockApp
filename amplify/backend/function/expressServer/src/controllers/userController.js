@@ -66,7 +66,6 @@ const registerUser = async (req, res, next) => {
       email,
       password,
       overeighteen,
-      portfolios
     })
 
     /// Hash the password ///

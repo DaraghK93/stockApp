@@ -11,7 +11,7 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 
 function NotFound() {
   return (
-    <div>
+    <div className='notFound'>
       <h1>Something went wrong!</h1>
       <h2>We couldn't find this page.</h2>
       <p>Here are some useful links:</p>

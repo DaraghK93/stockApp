@@ -1,0 +1,32 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 1rem;
+  background-image: linear-gradient(to bottom right, white,rgb(168, 168, 168));
+}
+
+.notFoundButton {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+.notFoundButtonDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-height: 30rem;
+  margin: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-group {
+  // padding-right: 20px;
+}

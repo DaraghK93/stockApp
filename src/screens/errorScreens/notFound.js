@@ -1,23 +1,25 @@
-import { useState, useEffect } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../../actions/userActions'
-import { useNavigate } from 'react-router-dom'
+import { Button, ButtonGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
-/// Widgets ///
-import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert'
-import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner'
 
 function NotFound() {
   return (
     <div className='notFound'>
+      <br></br>
+      <br></br>
       <h1>Something went wrong!</h1>
       <h2>We couldn't find this page.</h2>
       <p>Here are some useful links:</p>
-      <Link to='/'>Home</Link>
-      <Link to='/stockdiscovery/'>Stock Discovery</Link>
-      <Link to='/register'>Registration</Link>
+      <ButtonGroup vertical>
+        <Link to='/'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm">Home</Button></Link>
+        <Link to='/stockdiscovery/'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm mr-1">Stock Discovery</Button></Link>
+        <Link to='/register'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm mr-1">Registration</Button></Link>
+        <Link to='/login'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm mr-1">Login</Button></Link>
+      </ButtonGroup>
+
+      {/* <Link to='/'><Button variant="secondary" className="btn btn-secondary btn-sm">Home</Button></Link>
+      <Link to='/stockdiscovery/'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm mr-1">Stock Discovery</Button></Link>
+      <Link to='/register'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm mr-1">Registration</Button></Link>
+      <Link to='/login'><Button variant="secondary" className="notFoundButton btn btn-secondary btn-sm mr-1">Login</Button></Link> */}
     </div>
   )
 

@@ -12,6 +12,7 @@
 /* Infobutton */
 
 @import "./widgetsComponents/infoButton.scss";
+@import "./widgetsComponents/searchBar.scss";
 
 /* Variables */
 @import "./global_variables.scss";
@@ -24,6 +25,7 @@
 /* Order confirmation components */
 @import "./orderConfirmationComponents/orderConfirmation.scss";
 
+@import "./esgComponents/esgSlider.scss";
 
 body {
     background-color: $background;

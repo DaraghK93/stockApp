@@ -6,6 +6,8 @@ import LoginPage from './screens/login/loginscreen';
 import StockDiscoveryPage from './screens/stockDiscovery/stockDiscoveryScreen';
 import StockPage from './screens/stockpage/StockPage';
 import OrderConfirmationPage from './screens/orderConfirmation/orderConfirmation';
+import MyPortfolios from './screens/myPortfolios/myPortfolios';
+import CreatePortfolio from './screens/createPortfolio/createPortfolio';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
 
         <Route path='/stock/:symbol' element={<StockPage />} />
         <Route path='/stock/:symbol/confirmorder' element={<OrderConfirmationPage />} />
+        <Route path='/myportfolios' element={<MyPortfolios />} />
+        <Route path='/createportfolio' element={<CreatePortfolio />} />
       </Routes>
     </Router>
   );

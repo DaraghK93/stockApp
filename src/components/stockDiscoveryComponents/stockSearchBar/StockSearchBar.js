@@ -16,6 +16,9 @@ function StockSearchBar() {
     }else{
       navigate(`/stockdiscovery/`)
     }
+    // reset form to blank after search
+    e.target.reset()
+    setKeyword("")
   }
 
 
@@ -24,6 +27,7 @@ function StockSearchBar() {
          <Form
         onSubmit={submitHandler}
       >
+        <div className='searchForm'>
         <Form.Control
           type='text'
           name='search'
@@ -32,9 +36,12 @@ function StockSearchBar() {
         >
           
         </Form.Control>
+        <div className='searchButton'>
         <Button type='submit'>
           Search
         </Button>
+        </div>
+        </div>
         
       </Form>
       </FormContainer>

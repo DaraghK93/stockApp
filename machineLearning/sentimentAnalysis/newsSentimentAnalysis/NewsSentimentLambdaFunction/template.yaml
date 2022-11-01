@@ -9,6 +9,12 @@ Description: >
 Globals:
   Function:
     Timeout: 3
+    Environment:
+      Variables:
+        ENVIRONMENT: prod
+        MONGOURI: mongodb://localhost:27017/
+        DATABASENAME: test
+        CRONTIME: 30
 
 Resources:
   NewsSentimentFunction:

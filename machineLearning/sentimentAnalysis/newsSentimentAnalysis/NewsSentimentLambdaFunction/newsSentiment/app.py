@@ -20,10 +20,24 @@ import csv
 from statistics import mean
 import nltk 
 
+### Directory Setup ###
+# For relative imports use the directory where script is running 
+# This will change dynamically when running locallly or on AWS Lambda 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
+### NLTK Data ###
+# NLTK reads its data from download files from a directory on local machine 
+# like the location C:\Users\<USER>\nltk_data\
+# This wont be present on the cloud but can tell nltk where to look for it by uploading data to lambda function 
+nltk.download('vader_lexicon')
+#nltk.data.path.append(f'{dir_path}/nltk_data')
+from nltk.tokenize import RegexpTokenizer
+from nltk.sentiment import SentimentIntensityAnalyzer
+sia = SentimentIntensityAnalyzer()
 
 #################################################################################################################
 def lambda_handler(event, context):
-    
+    print(dir_path)
 
     return {
         "statusCode": 200,

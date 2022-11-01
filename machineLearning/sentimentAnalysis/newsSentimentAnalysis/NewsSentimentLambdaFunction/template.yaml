@@ -8,11 +8,11 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 60
+    Timeout: 100
     Environment:
       Variables:
-        ENVIRONMENT: dev
-        MONGOURI: mongodb://localhost:27017/
+        ENVIRONMENT: prod
+        MONGOURI: mongodb://host.docker.internal:27017/
         DATABASENAME: test
         CRONTIME: 30
 
@@ -30,7 +30,7 @@ Resources:
             Schedule: 'rate(30 minutes)'
             Name: NewsSentimentSchedule
             Description: This schedule triggers the newsSentimentLambdaFunction to execute every 30 minutes scraping news headlines and classifying them into positive, neutral or negative. 
-            Enabled: false
+            Enabled: true
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./newsSentiment

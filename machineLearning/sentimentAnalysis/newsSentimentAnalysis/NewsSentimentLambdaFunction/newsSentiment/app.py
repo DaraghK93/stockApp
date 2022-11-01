@@ -29,8 +29,7 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 # NLTK reads its data from download files from a directory on local machine 
 # like the location C:\Users\<USER>\nltk_data\
 # This wont be present on the cloud but can tell nltk where to look for it by uploading data to lambda function 
-nltk.download('vader_lexicon')
-#nltk.data.path.append(f'{dir_path}/nltk_data')
+nltk.data.path.append(f'{dir_path}/nltk_data')
 from nltk.tokenize import RegexpTokenizer
 from nltk.sentiment import SentimentIntensityAnalyzer
 sia = SentimentIntensityAnalyzer()
@@ -414,7 +413,6 @@ def extractFeatures(headline,posWords,negWords,neuWords=False):
 
 
 
-#################################################################################################################
 def lambda_handler(event, context):
     try:
         ## Step One ###
@@ -462,9 +460,8 @@ def lambda_handler(event, context):
         ## Step Four ##
         #   Log the articles to the database 
         # If the enviroment is production then get the production URI 
-        # ***NOTE*** Create a local .env file newsArticleScrapingAndSentimentAnalysis directory with ENVIRONMENT and MONGOURI in it, this will set "dev" variables 
-        # ENVIRONMENT=dev
-        # MONGOURI=mongodb://localhost:27017/StocksApplication
+        # If it is dev then get the dev MONGO URI
+        # This is based upon the value of ENVIRONMENT in the template.yaml file 
         mongoURI = '' 
         environment = os.environ['ENVIRONMENT']
         if environment == 'prod':

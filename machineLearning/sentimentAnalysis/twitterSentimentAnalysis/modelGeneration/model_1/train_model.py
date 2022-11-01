@@ -91,6 +91,8 @@ def main():
         evaluations = modelFunctions.evaluateModel(classifier, test)
         print(f"For {name}, The results are:\n {evaluations}\n")
         evals.append({"name": name, "evaluations": evaluations})
+        modelFile = f'./models/{name}.pickle'
+        modelFunctions.saveClassifier(classifier,modelFile)
     modelFunctions.generateEvaluationReport2(evals, evalFile)
 
 

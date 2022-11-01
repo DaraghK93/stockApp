@@ -18,23 +18,19 @@ Resources:
       Architectures:
         - x86_64
       Events:
-        HelloWorld:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        NewsSentimentSchedule:
+          Type: Schedule # More info about schedule Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-schedule.html
           Properties:
-            Path: /hello
-            Method: get
+            Schedule: 'rate(30 minutes)'
+            Name: NewsSentimentSchedule
+            Description: This schedule triggers the newsSentimentLambdaFunction to execute every 30 minutes scraping news headlines and classifying them into positive, neutral or negative. 
+            Enabled: false
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./newsSentiment
       DockerTag: python3.9-v1
 
 Outputs:
-  # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
-  # Find out more about other implicit resources you can reference within SAM
-  # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
-  HelloWorldApi:
-    Description: "API Gateway endpoint URL for Prod stage for Hello World function"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
   HelloWorldFunction:
     Description: "Hello World Lambda Function ARN"
     Value: !GetAtt HelloWorldFunction.Arn

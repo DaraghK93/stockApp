@@ -20,7 +20,7 @@ neutralWords      = f'{modelDir}/data/neutralWords.csv'
 
 ### The Classifier ###
 # The classifier to use
-modelName = "MLPClassifier"
+modelName = "NaiveBayesClassifier"
 modelFile = f'{modelDir}/models/{modelName}.pickle'
 
 

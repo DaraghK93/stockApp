@@ -414,6 +414,18 @@ def extractFeatures(headline,posWords,negWords,neuWords=False):
 
 
 def lambda_handler(event, context):
+    """
+    Description:
+        This is the entry point to the script and will be run when the lambda function is invoked.
+        It uses other functions within this file to scrape and classify news headlines into positive, negative and neutral. 
+
+    Args:
+        event (Dict): Not used but if function was invoked by API Gateway it would contain HTTP request information 
+        context (Object): Context lambda object see docs here https://docs.aws.amazon.com/lambda/latest/dg/python-context.html 
+
+    Returns:
+        (Dict): Message on how many articles scraped. 
+    """
     try:
         ## Step One ###
         #   Get the feeds source, topic and URL 

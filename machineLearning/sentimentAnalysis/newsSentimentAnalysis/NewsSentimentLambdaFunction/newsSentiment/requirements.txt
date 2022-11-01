@@ -1,1 +1,6 @@
 requests
+feedparser
+boto3
+pymongo
+beautifulsoup4
+nltk

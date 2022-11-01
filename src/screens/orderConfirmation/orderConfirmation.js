@@ -46,24 +46,6 @@ function OrderConfirmationPage() {
         getStockInfo();
     }, [])
 
-    // const buySellHandleBuy = (e) => {
-    //     setBuySell("Buy")
-    //     // this = true
-    // }
-
-    // const buySellHandleSell = (e) => {
-    //     setBuySell("Sell")
-    // }
-
-    // const orderTypeHandleMarket = (e) => {
-    //     setOrderType("Market Order")
-    // }
-
-    // const orderTypeHandleLimit = (e) => {
-    //     setOrderType("Limit Order")
-    // }
-
-
     return (
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
@@ -85,25 +67,34 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
-                    <Row xl={3} lg={2} md={2} xs={1}>
+        
                         <Col style={{ marginBottom: "0.625rem" }}>
 
                             <OrderType 
-                            // orderType={orderType} buySell={buySell}
+                            orderType
+                            // ={orderType} 
+                            buySell
+                            // ={buySell}
+                            setOrderType
+                            setBuySell
                             />
                         </Col>
                         <Col style={{ marginBottom: "0.625rem" }}>
                             <QuantitySelect portfolioBalance={2000} stockprice={stock.daily_change.currentprice} />
                         </Col>
+
+                 
                         <Col style={{ marginBottom: "0.625rem" }}>
                             <BalanceComponent />
                         </Col>
+
+            
                         <Col style={{ marginBottom: "0.625rem" }}>
                             <OrderSummary 
                             // orderType={orderType} buySell={buySell} 
                             />
                         </Col>
-                    </Row>
+
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

@@ -13,7 +13,7 @@
 }
 
 
-.selectionButton:hover, .selectionButton:active, .selectionButton:focus, .selectionButton.active {
+.selectionButton:hover, .selectionButton:active, .selectionButton:focus, .selectionButton.active .selectionButton:active:focus {
     color: $text-colour;
     background-color: $background;
     border-bottom-color: $secondary;

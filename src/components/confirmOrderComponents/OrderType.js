@@ -1,12 +1,23 @@
 import { Card, Container, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
+// import { setOrderType } from "../../screens/orderConfirmation/orderConfirmation"
 
-function OrderType({ }) {
+function OrderType({                    
+    orderType,
+    // ={orderType} 
+    buySell,
+    // ={buySell}
+    // setOrderType,
+    setBuySell
+
+
+}) {
     const [active, setActive] = useState("");
     const [active2, setActive2] = useState("");
 
     const handleClick = (event) => {
         setActive(event.target.id);
+
     }
 
     const handleClick2 = (event) => {

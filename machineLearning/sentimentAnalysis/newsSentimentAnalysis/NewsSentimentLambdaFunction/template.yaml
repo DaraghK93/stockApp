@@ -8,10 +8,10 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 60
     Environment:
       Variables:
-        ENVIRONMENT: prod
+        ENVIRONMENT: dev
         MONGOURI: mongodb://localhost:27017/
         DATABASENAME: test
         CRONTIME: 30

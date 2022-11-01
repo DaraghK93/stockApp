@@ -55,9 +55,12 @@ const dailyValueSchema = mongoose.Schema(
   }
 )
 
+
 module.exports = mongoose.model('holdingsSchema', holdingsSchema)
 module.exports = mongoose.model('transactionsSchema', transactionsSchema)
 module.exports = mongoose.model('marketOrdersSchema', marketOrdersSchema)
 module.exports = mongoose.model('dailyValuesSchema', dailyValueSchema)
 
-module.exports = mongoose.model('PortfolioData', PortfolioSchema)
+module.exports = Portfolio =  mongoose.model('PortfolioSchema', PortfolioSchema)
+
+

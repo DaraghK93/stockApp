@@ -10,10 +10,11 @@
     border-right-color: $shadow;
     border-bottom-width: 0.1875rem;
     width: 9.375rem;
+    // --bs-btn-hover-bg: $background;
 }
 
 
-.selectionButton:hover {
+.selectionButton:hover, .selectionButton:active, .selectionButton:focus, .selectionButton.active {
     color: $text-colour;
     background-color: $background;
     border-bottom-color: $secondary;
@@ -22,21 +23,14 @@
     border-right-color: $shadow;
 }
 
-
-.selectionButton:focus {
+.selectionButtonActive {
     color: $text-colour;
     background-color: $background;
     border-bottom-color: $secondary;
     border-left-color: $shadow;
     border-top-color: $shadow;
     border-right-color: $shadow;
+    border-bottom-width: 0.1875rem;
+    width: 9.375rem;
 }
 
-.selectionButton:active {
-    color: $text-colour;
-    background-color: $background;
-    border-bottom-color: $secondary;
-    border-left-color: $shadow;
-    border-top-color: $shadow;
-    border-right-color: $shadow;
-}

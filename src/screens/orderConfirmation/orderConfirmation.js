@@ -1,8 +1,8 @@
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import BottomStickyButton from "../../components/widgets/BottomStickyButton/BottomStickyButton";
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
 import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
@@ -17,6 +17,8 @@ function OrderConfirmationPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+    const [buySell, setBuySell] = useState("");
+    const [orderType, setOrderType] = useState("");
 
     useEffect(() => {
         /// getStockInfo ///
@@ -44,6 +46,24 @@ function OrderConfirmationPage() {
         getStockInfo();
     }, [])
 
+    const buySellHandleBuy = (e) => {
+        setBuySell("Buy")
+        // this = true
+    }
+
+    const buySellHandleSell = (e) => {
+        setBuySell("Sell")
+    }
+
+    const orderTypeHandleMarket = (e) => {
+        setOrderType("Market Order")
+    }
+
+    const orderTypeHandleLimit = (e) => {
+        setOrderType("Limit Order")
+    }
+
+
     return (
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
@@ -67,7 +87,10 @@ function OrderConfirmationPage() {
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col style={{ marginBottom: "0.625rem" }}>
-                            <OrderType />
+
+                            <OrderType 
+                            orderType={orderType} buySell={buySell}
+                            />
                         </Col>
                         <Col style={{ marginBottom: "0.625rem" }}>
                             <QuantitySelect portfolioBalance={2000} stockprice={stock.daily_change.currentprice} />
@@ -76,7 +99,7 @@ function OrderConfirmationPage() {
                             <BalanceComponent />
                         </Col>
                         <Col style={{ marginBottom: "0.625rem" }}>
-                            <OrderSummary />
+                            <OrderSummary orderType={orderType} buySell={buySell} />
                         </Col>
                     </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>

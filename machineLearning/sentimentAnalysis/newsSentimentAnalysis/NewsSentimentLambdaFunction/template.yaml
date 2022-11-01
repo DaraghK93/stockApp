@@ -29,11 +29,3 @@ Resources:
       Dockerfile: Dockerfile
       DockerContext: ./newsSentiment
       DockerTag: python3.9-v1
-
-Outputs:
-  HelloWorldFunction:
-    Description: "Hello World Lambda Function ARN"
-    Value: !GetAtt HelloWorldFunction.Arn
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
-    Value: !GetAtt HelloWorldFunctionRole.Arn

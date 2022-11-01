@@ -10,7 +10,7 @@ load_dotenv()
 
 ## Model Directory##
 # This is the directory of the trained model 
-modelDir = "../modelGeneration/model_3"
+modelDir = os.getenv('MODEL_DIR')
 
 ## Words List ##
 # Words lists to use in this script 
@@ -20,10 +20,8 @@ neutralWords      = f'{modelDir}/data/neutralWords.csv'
 
 ### The Classifier ###
 # The classifier to use
-modelName = "NaiveBayesClassifier"
+modelName = os.getenv('MODEL_NAME')
 modelFile = f'{modelDir}/models/{modelName}.pickle'
-
-
 
 if __name__ == "__main__":
     # Get mngo uri form .env

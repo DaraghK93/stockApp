@@ -11,7 +11,7 @@ Globals:
     Timeout: 3
 
 Resources:
-  HelloWorldFunction:
+  NewsSentimentFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
       PackageType: Image
@@ -25,7 +25,7 @@ Resources:
             Method: get
     Metadata:
       Dockerfile: Dockerfile
-      DockerContext: ./hello_world
+      DockerContext: ./newsSentiment
       DockerTag: python3.9-v1
 
 Outputs:

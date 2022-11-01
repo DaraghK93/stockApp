@@ -35,6 +35,13 @@ from nltk.tokenize import RegexpTokenizer
 from nltk.sentiment import SentimentIntensityAnalyzer
 sia = SentimentIntensityAnalyzer()
 
+
+
+
+
+
+
+
 #################################################################################################################
 def lambda_handler(event, context):
     print(dir_path)

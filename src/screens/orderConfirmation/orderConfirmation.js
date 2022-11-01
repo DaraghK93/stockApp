@@ -17,8 +17,8 @@ function OrderConfirmationPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-    const [buySell, setBuySell] = useState("");
-    const [orderType, setOrderType] = useState("");
+    // const [buySell, setBuySell] = useState("");
+    // const [orderType, setOrderType] = useState("");
 
     useEffect(() => {
         /// getStockInfo ///
@@ -46,22 +46,22 @@ function OrderConfirmationPage() {
         getStockInfo();
     }, [])
 
-    const buySellHandleBuy = (e) => {
-        setBuySell("Buy")
-        // this = true
-    }
+    // const buySellHandleBuy = (e) => {
+    //     setBuySell("Buy")
+    //     // this = true
+    // }
 
-    const buySellHandleSell = (e) => {
-        setBuySell("Sell")
-    }
+    // const buySellHandleSell = (e) => {
+    //     setBuySell("Sell")
+    // }
 
-    const orderTypeHandleMarket = (e) => {
-        setOrderType("Market Order")
-    }
+    // const orderTypeHandleMarket = (e) => {
+    //     setOrderType("Market Order")
+    // }
 
-    const orderTypeHandleLimit = (e) => {
-        setOrderType("Limit Order")
-    }
+    // const orderTypeHandleLimit = (e) => {
+    //     setOrderType("Limit Order")
+    // }
 
 
     return (
@@ -89,7 +89,7 @@ function OrderConfirmationPage() {
                         <Col style={{ marginBottom: "0.625rem" }}>
 
                             <OrderType 
-                            orderType={orderType} buySell={buySell}
+                            // orderType={orderType} buySell={buySell}
                             />
                         </Col>
                         <Col style={{ marginBottom: "0.625rem" }}>
@@ -99,7 +99,9 @@ function OrderConfirmationPage() {
                             <BalanceComponent />
                         </Col>
                         <Col style={{ marginBottom: "0.625rem" }}>
-                            <OrderSummary orderType={orderType} buySell={buySell} />
+                            <OrderSummary 
+                            // orderType={orderType} buySell={buySell} 
+                            />
                         </Col>
                     </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>

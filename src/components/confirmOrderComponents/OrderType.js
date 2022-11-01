@@ -59,35 +59,3 @@ function OrderType({ }) {
 }
 
 export default OrderType;
-
-
-
-    // const buySellHandleBuy = (e) => {
-    //     buySell = "Buy"
-    // }
-
-    // const buySellHandleSell = (e) => {
-    //     buySell = "Sell"
-    // }
-
-    // const orderTypeHandleMarket = (e) => {
-    //     orderType = "Market Order"
-    // }
-
-    // const orderTypeHandleLimit = (e) => {
-    //     orderType = "Limit Order"
-
-
-
-    // {choices.map(choice => (
-    //     <Button
-    //         key={choice.id}
-    //         onClick={() => {
-    //             selectChoice(choice.id);
-    //         }}
-    //         className={buttonStyleClass}
-    //     >
-    //         {choice.text}
-    //     </Button>
-
-    // ))}

@@ -5,6 +5,8 @@ import BottomStickyButton from "../../components/widgets/BottomStickyButton/Bott
 import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
+import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
+import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -70,8 +72,12 @@ function OrderConfirmationPage() {
                         <Col style={{ marginBottom: "0.625rem" }}>
                             <QuantitySelect portfolioBalance={2000} stockprice={stock.daily_change.currentprice} />
                         </Col>
-                        <h5>New Portfolio Balance</h5>
-                        <h5>Order Summary</h5>
+                        <Col style={{ marginBottom: "0.625rem" }}>
+                            <BalanceComponent />
+                        </Col>
+                        <Col style={{ marginBottom: "0.625rem" }}>
+                            <OrderSummary />
+                        </Col>
                     </Row>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>

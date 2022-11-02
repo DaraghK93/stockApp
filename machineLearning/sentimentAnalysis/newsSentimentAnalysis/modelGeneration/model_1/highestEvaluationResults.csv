@@ -1,0 +1,8 @@
+evaulation metric,model,score
+accuracy,LogisticRegression,57.31%
+positive precision,MultinomialNB,56.48%
+negative precision,MultinomialNB,76.02%
+positive recall,BernoulliNB,53.62%
+negative recall,BernoulliNB,60.20%
+positive f_measure,ComplementNB,51.52%
+negative f_measure,BernoulliNB,59.40%

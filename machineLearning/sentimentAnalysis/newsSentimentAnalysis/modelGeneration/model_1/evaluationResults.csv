@@ -1,11 +1,11 @@
-classifier,accuracy
-NaiveBayesClassifier,54.79%
-DecisionTreeClassifier,50.08%
-BernoulliNB,54.25%
-MultinomialNB,50.25%
-ComplementNB,56.59%
-KNeighborsClassifier,39.92%
-RandomForestClassifier,55.80%
-LogisticRegression,56.95%
-MLPClassifier,56.39%
-AdaBoostClassifier,57.09%
+model,accuracy,positive precision,negative precision,positive recall,negative recall,positive f_measure,negative f_measure
+NaiveBayesClassifier,54.65%,51.72%,59.39%,40.53%,43.76%,45.45%,50.39%
+DecisionTreeClassifier,50.56%,44.38%,51.51%,35.32%,34.80%,39.33%,41.54%
+BernoulliNB,54.71%,48.04%,58.63%,53.62%,60.20%,50.67%,59.40%
+MultinomialNB,50.62%,56.48%,76.02%,22.16%,26.88%,31.84%,39.72%
+ComplementNB,56.49%,53.56%,59.94%,49.63%,58.84%,51.52%,59.39%
+KNeighborsClassifier,55.32%,56.29%,56.55%,33.60%,51.28%,42.08%,53.79%
+RandomForestClassifier,55.48%,54.27%,58.41%,37.83%,48.48%,44.58%,52.98%
+LogisticRegression,57.31%,55.16%,64.08%,45.59%,52.52%,49.92%,57.73%
+MLPClassifier,56.92%,53.54%,62.38%,48.25%,53.80%,50.76%,57.77%
+AdaBoostClassifier,56.91%,55.90%,59.92%,38.75%,56.52%,45.77%,58.17%

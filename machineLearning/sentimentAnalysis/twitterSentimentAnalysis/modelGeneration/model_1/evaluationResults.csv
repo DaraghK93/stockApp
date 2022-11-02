@@ -1,11 +1,11 @@
-name,evaluations
-NaiveBayesClassifier,"[{'accuracy': '71.14%'}, {'positive precision': '78.66%'}, {'positive recall': '64.88%'}, {'positive f_measure': '71.11%'}, {'negative precision': '64.95%'}, {'negative recall': '64.95%'}, {'negative f_measure': '64.95%'}]"
-DecisionTreeClassifier,"[{'accuracy': '68.18%'}, {'positive precision': '68.58%'}, {'positive recall': '77.29%'}, {'positive f_measure': '72.67%'}, {'negative precision': '67.54%'}, {'negative recall': '67.54%'}, {'negative f_measure': '67.54%'}]"
-BernoulliNB,"[{'accuracy': '69.43%'}, {'positive precision': '69.91%'}, {'positive recall': '77.53%'}, {'positive f_measure': '73.52%'}, {'negative precision': '68.69%'}, {'negative recall': '68.69%'}, {'negative f_measure': '68.69%'}]"
-MultinomialNB,"[{'accuracy': '72.11%'}, {'positive precision': '68.09%'}, {'positive recall': '92.31%'}, {'positive f_measure': '78.37%'}, {'negative precision': '83.67%'}, {'negative recall': '83.67%'}, {'negative f_measure': '83.67%'}]"
-ComplementNB,"[{'accuracy': '71.09%'}, {'positive precision': '76.42%'}, {'positive recall': '68.25%'}, {'positive f_measure': '72.10%'}, {'negative precision': '65.99%'}, {'negative recall': '65.99%'}, {'negative f_measure': '65.99%'}]"
-KNeighborsClassifier,"[{'accuracy': '69.56%'}, {'positive precision': '77.03%'}, {'positive recall': '63.26%'}, {'positive f_measure': '69.47%'}, {'negative precision': '63.46%'}, {'negative recall': '63.46%'}, {'negative f_measure': '63.46%'}]"
-RandomForestClassifier,"[{'accuracy': '70.71%'}, {'positive precision': '69.46%'}, {'positive recall': '83.00%'}, {'positive f_measure': '75.63%'}, {'negative precision': '73.09%'}, {'negative recall': '73.09%'}, {'negative f_measure': '73.09%'}]"
-LogisticRegression,"[{'accuracy': '70.98%'}, {'positive precision': '75.71%'}, {'positive recall': '69.18%'}, {'positive f_measure': '72.30%'}, {'negative precision': '66.24%'}, {'negative recall': '66.24%'}, {'negative f_measure': '66.24%'}]"
-MLPClassifier,"[{'accuracy': '73.21%'}, {'positive precision': '70.82%'}, {'positive recall': '86.84%'}, {'positive f_measure': '78.02%'}, {'negative precision': '78.09%'}, {'negative recall': '78.09%'}, {'negative f_measure': '78.09%'}]"
-AdaBoostClassifier,"[{'accuracy': '73.39%'}, {'positive precision': '70.89%'}, {'positive recall': '87.20%'}, {'positive f_measure': '78.21%'}, {'negative precision': '78.55%'}, {'negative recall': '78.55%'}, {'negative f_measure': '78.55%'}]"
+model,accuracy,positive precision,negative precision,positive recall,negative recall,positive f_measure,negative f_measure
+NaiveBayesClassifier,72.44%,71.32%,74.53%,83.91%,58.24%,77.10%,65.39%
+DecisionTreeClassifier,66.30%,65.19%,69.06%,83.85%,44.59%,73.35%,54.19%
+BernoulliNB,69.63%,70.50%,68.28%,77.52%,59.86%,73.84%,63.79%
+MultinomialNB,71.98%,68.54%,81.57%,91.20%,48.20%,78.26%,60.59%
+ComplementNB,71.72%,78.12%,65.79%,67.86%,76.49%,72.63%,70.74%
+KNeighborsClassifier,70.02%,79.34%,62.94%,61.91%,80.06%,69.55%,70.48%
+RandomForestClassifier,70.99%,70.36%,72.14%,82.16%,57.17%,75.80%,63.79%
+LogisticRegression,71.67%,77.44%,66.08%,68.81%,75.20%,72.87%,70.35%
+MLPClassifier,73.26%,71.75%,76.15%,85.19%,58.50%,77.90%,66.17%
+AdaBoostClassifier,73.26%,71.43%,76.92%,86.08%,57.40%,78.07%,65.74%

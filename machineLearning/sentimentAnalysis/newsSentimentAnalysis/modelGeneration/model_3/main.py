@@ -88,7 +88,7 @@ if __name__ == "__main__":
         mLPClassifer=True,
         adaBoostClassifier=True))
 
-     ### Step 6 - Evaluate the models and save them ###
+    ### Step 6 - Evaluate the models and save them ###
     evaluations = [] 
     for name,classifier in classifiers.items():
         # Evaluate the model and add it to the evulations list 

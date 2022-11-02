@@ -248,24 +248,4 @@ def evaluateTopModels(evalFile):
             writer.writerow([index,value,f'{df[index][value]:.2%}'])
         
     except Exception as e:
-        print(f'ERROR:Occured in the showResults function.\nException Details:\n\t{e}')
-
-def generateEvaluationReport2(results, file):
-    """
-    Writes the evaluation results to a csv file. 
-
-    Args:
-        results (dict): Dictionary of row values for evaluation
-        file (Sting): File to save the evaluation results to. 
-    """
-    try:
-        df = pd.DataFrame.from_dict(results)
-        df.to_csv(file, index=False, header=True)
-    except Exception as e:
-        print(f"Error in writing evaluation results to csv.\nException detials:\n{e}")
-
-
-
-
-    
-    
+        print(f'ERROR:Occured in the showResults function.\nException Details:\n\t{e}')    

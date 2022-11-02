@@ -7,7 +7,7 @@ const LeagueSchema = new mongoose.Schema(
       budget: { type: String, trim: true, required: true},
       leagueType: {type: String, enum: ["timeBased","valueBased"], required: true},
       tradingFee: {type: Number, required: true},
-      users: [{type: Schema.Types.ObjectId, ref: 'UserData'}],
+      users: [{type: Schema.Types.ObjectId, ref: 'UserData'}], 
       portfolios: [{type: Schema.Types.ObjectId, ref: 'PortfolioData'}]
     },
     { collection: 'league-data' },

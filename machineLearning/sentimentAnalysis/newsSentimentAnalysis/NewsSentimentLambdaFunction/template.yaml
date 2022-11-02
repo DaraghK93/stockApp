@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  python3.9
+
+  Sample SAM Template for NewsSentimentLambdaFunction
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 100
+    Environment:
+      Variables:
+        ENVIRONMENT: prod
+        MONGOURI: mongodb://host.docker.internal:27017/
+        DATABASENAME: test
+        CRONTIME: 30
+
+Resources:
+  NewsSentimentFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        NewsSentimentSchedule:
+          Type: Schedule # More info about schedule Event Source: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-property-function-schedule.html
+          Properties:
+            Schedule: 'rate(30 minutes)'
+            Name: NewsSentimentSchedule
+            Description: This schedule triggers the newsSentimentLambdaFunction to execute every 30 minutes scraping news headlines and classifying them into positive, neutral or negative. 
+            Enabled: true
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./newsSentiment
+      DockerTag: python3.9-v1

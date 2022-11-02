@@ -50,7 +50,7 @@ const createLeague = async (req, res, next) => {
         portfolios: [portfolios]
       });
 
-    // ave league to league-data collection in DB
+    // save league to league-data collection in DB
     await league.save()
 
     res.json({league})

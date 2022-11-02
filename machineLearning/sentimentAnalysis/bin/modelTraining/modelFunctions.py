@@ -6,6 +6,7 @@ from random import shuffle
 import pickle 
 import pandas as pd
 import collections
+import csv
 
 from sklearn.model_selection import train_test_split
 
@@ -216,7 +217,39 @@ def evaluateModel(classifier, test):
     evaluations["positive f_measure"] = f"{f_measure_score:.2%}"
     evaluations["negative f_measure"] =  f"{f_measure_score_neg:.2%}"
     return evaluations
-    
+
+def evaluateTopModels(evalFile):
+    """
+    Description:
+        This function reads in the evaluation file gnerated by the function generateEvaluationReport. 
+        It then gets the top models for each metric outpus them to the console and generates a report to
+        highestEvaluationResults.csv file. 
+
+    Args:
+        evalFile (String): Path to the evaluation report
+    """
+    try:
+        # Read in the csv file 
+        df = pd.read_csv(evalFile,index_col=[0])
+        # Obtained from stack overflow
+        for col in df:
+            if col != "model":
+                df[col] = df[col].str.rstrip('%').astype('float') /100.0
+        # Get the maxIds  
+        maxIds = (df.idxmax())
+        # Open file to write results to and write header 
+        f = open('./highestEvaluationResults.csv', 'w', newline='')
+        writer = csv.writer(f)
+        writer.writerow(['evaulation metric','model','score'])
+        # Print results to terminal and write them to csv file 
+        print(f'\t******Highest Evaluation Results*******')
+        for index, value in maxIds.items():
+            print(f' \033[1m{index :<20}\033[0m - {value :>20} ({df[index][value]:.2%})')
+            writer.writerow([index,value,f'{df[index][value]:.2%}'])
+        
+    except Exception as e:
+        print(f'ERROR:Occured in the showResults function.\nException Details:\n\t{e}')
+
 def generateEvaluationReport2(results, file):
     """
     Writes the evaluation results to a csv file. 

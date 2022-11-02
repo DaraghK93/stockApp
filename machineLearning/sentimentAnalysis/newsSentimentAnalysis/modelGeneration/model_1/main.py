@@ -97,3 +97,5 @@ if __name__ == "__main__":
     # Write the results to a csv 
     evalFile = "evaluationResults.csv"
     modelFunctions.generateEvaluationReport(evaluations,evalFile)   
+    # show the results 
+    modelFunctions.evaluateTopModels(evalFile)

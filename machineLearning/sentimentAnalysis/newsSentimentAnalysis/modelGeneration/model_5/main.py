@@ -74,4 +74,38 @@ if __name__ == "__main__":
 
     ### Step 5. Get the train/test split and over sample the train data ###
     train, test = modelFunctions.getTrainTestSplit(features,0.25)
-    modelFunctions.upsampleTrainData(train)
+    train = modelFunctions.upsampleTrainData(train)
+
+    ### Step 6. Train the classifiers 
+    classifiers = {}
+    # Get the NLTK classifiers
+    classifiers.update(modelFunctions.trainNLTKModels(train,naiveBayesClassifier=True,decisiontree=True))
+    # Get the skLearn Classifiers     
+    classifiers.update(modelFunctions.trainSKLearnClassifers(
+        train=train, 
+        bernoulliNB=True,
+        multinomialNB=True,
+        complementNB=True,
+        kNeighborsClassifier=True,
+        decisionTreeClassifier=True,
+        randomeForestClassifier=True,
+        logisticRegression=True,
+        mLPClassifer=True,
+        adaBoostClassifier=True))
+    
+    ### Step 7. Evvaluate the models 
+    evaluations = [] 
+    for name,classifier in classifiers.items():
+        # Evaluate the model and add it to the evulations list 
+        evaluation = {}
+        evaluation["model"] = name
+        evaluation.update(modelFunctions.evaluateModel(classifier,test))
+        evaluations.append(evaluation)
+        # Save to pickle file
+        modelFile = f'./models/{name}.pickle'
+        modelFunctions.saveClassifier(classifier,modelFile)
+    # Write the results to a csv 
+    evalFile = "evaluationResults.csv"
+    modelFunctions.generateEvaluationReport(evaluations,evalFile)   
+    # show the results 
+    modelFunctions.evaluateTopModels(evalFile) 

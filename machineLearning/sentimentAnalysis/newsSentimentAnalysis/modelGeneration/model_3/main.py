@@ -88,16 +88,19 @@ if __name__ == "__main__":
         mLPClassifer=True,
         adaBoostClassifier=True))
 
-    ### Step 6 - Evaluate the models and save them ###
+     ### Step 6 - Evaluate the models and save them ###
     evaluations = [] 
     for name,classifier in classifiers.items():
-        # Evaluation 
-        accuracy= modelFunctions.getAccuracyofClassifier(classifier,test)
-        evaluations.append({'classifier':name,'accuracy':f'{accuracy:.2%}'})
-        print(F"{accuracy:.2%} - {name}")
+        # Evaluate the model and add it to the evulations list 
+        evaluation = {}
+        evaluation["model"] = name
+        evaluation.update(modelFunctions.evaluateModel(classifier,test))
+        evaluations.append(evaluation)
         # Save to pickle file
         modelFile = f'./models/{name}.pickle'
         modelFunctions.saveClassifier(classifier,modelFile)
     # Write the results to a csv 
     evalFile = "evaluationResults.csv"
     modelFunctions.generateEvaluationReport(evaluations,evalFile)   
+    # show the results 
+    modelFunctions.evaluateTopModels(evalFile) 

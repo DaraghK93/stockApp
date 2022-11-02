@@ -1,6 +1,7 @@
 import pandas as pd
 import json 
 import chardet
+import string
 
 def readCSVFile(filepath,encoding='utf8',index_col=None):
     """
@@ -172,6 +173,129 @@ def combineDatasets(frames):
         print(f'Error in combining datasets. Exception details {e}')
 
 
+def convert_sentiment_score_to_word(data):
+    """This function is for twitter sentiment datasets where the classification
+    results are either 0,2,4 for neg, neu, pos. 
+    OR VADER sentiment scores -1 -> +1 
+
+    Args:
+        dataFrame with data
+
+    Returns:
+        Same dataFrame but with new sentiment col with 'positive' or 'negative' instead of numbers
+    """
+    values = []
+    for index, row in data.iterrows():
+        if row["sentiment"] < 0 and row["sentiment"] > -1 or row["sentiment"] == 0:
+            values.append("Negative")
+        elif row["sentiment"] > 0 and row["sentiment"] < 1 or row["sentiment"] == 4:
+            values.append("Positive")
+        elif row["sentiment"] == 2:
+            values.append("Neutral")
+
+    values = pd.DataFrame(values)
+
+    data.drop(["sentiment"], axis=1)
+    data["sentiment"] = values
+
+    return data
+
+def remove_unwanted_columns(data):
+    """Takes datasets of tweet data and remoes any col that is not labelled tweet or sentiment
+
+    Args:
+        dataframe
+
+    Returns:
+        cleaned dataframe with unwanted columns dropped
+    """
+    columns_to_drop = []
+    for column in data.columns:
+        if column != "sentiment" and column != "tweet":
+            columns_to_drop.append(column)
+
+    clean_data = data.drop(columns_to_drop, axis=1)
+    clean_data = clean_data.reindex(columns=["tweet", "sentiment"])
+    return clean_data
+    
+def removeUrlAndHashtag(data):
+    """
+    This function takes in a dataframe and returns the same dataframe free of URLs, tagged users, hashtags
+    and all in lower case. Punctuation is also removed here
+
+    The 'tweet' column is the column that's changed. Can easily expand this to be any column if needed
+
+    Args:
+        dataframe
+
+    Returns:
+        cleaned dataframe
+    """
+    tweetCol = []
+
+    for index, row in data.iterrows():
+        newTweet = []
+        for word in row["tweet"].split(" "):
+            if word.startswith("@") and len(word) > 1:
+                word = "@user"
+            elif word.startswith("http"):
+                word = "http"
+            elif word.startswith("#") and len(word) > 1:
+                word = "#"
+            elif word.startswith("$") and len(word) > 1:
+                word = "$"
+            # remove punctuation from the words also
+            word = word.translate(str.maketrans("", "", string.punctuation))
+            # create new tweet - list of words
+            newTweet.append(word.lower())
+        # join the words in tweet list together separated by a space and add to tweet column list
+        tweetCol.append(" ".join(newTweet))
+    # create a dataframe to replace old tweet column
+    tweetCol = pd.DataFrame(tweetCol)
+
+    data.drop(["tweet"], axis=1)
+    data["tweet"] = tweetCol
+
+    return data
+
+def drop_columns(data, col):
+    """This function takes in a data frame and drops the columns in col
+
+    used for financial dictionary to drop all non necessary sentiment cols
+
+    Args:
+        data: dataframe
+        col: columns to drop
+
+    Returns:
+        cleaned dataframe
+    """
+    data_cleaned = data.drop(col, axis=1)
+    return data_cleaned
+
+def getSentimentWordsFromDict(data, sentiment):
+    """This function takes in a dataframe and returns all the entries of that 'sentiment'
+
+    Positive neutral or negative from the financial dictionary
+
+    Args:
+        data (_type_): dataframe
+        sentiment (_type_): string of sentiment 'positive' 'negative' etc
+
+    Returns:
+        dataframe of the words of that sentiment
+    """
+    sentiment_words = []
+    sentiment_count = []
+    sentiment_word_df = pd.DataFrame()
+
+    for index, row in data.iterrows():
+        if row[f"{sentiment}"] > 0:
+            sentiment_words.append(row["Word"].lower())
+            sentiment_count.append(row["Word Count"])
+    sentiment_word_df["Word"] = sentiment_words
+    sentiment_word_df["Count"] = sentiment_count
+    return sentiment_word_df
 
     
 

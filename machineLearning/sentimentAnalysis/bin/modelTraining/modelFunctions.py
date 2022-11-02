@@ -5,6 +5,7 @@ from nltk.classify.scikitlearn import SklearnClassifier
 from random import shuffle
 import pickle 
 import pandas as pd
+import collections
 
 from sklearn.model_selection import train_test_split
 
@@ -20,6 +21,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
 
+from nltk.metrics.scores import precision, recall, f_measure, accuracy
 
 
 def getTrainTestSplit(features,trainPercent):
@@ -157,8 +159,75 @@ def generateEvaluationReport(results,file):
         df.to_csv(file, index = False, header=True)
     except Exception as e:
         print(f'Error in writing evaluation results to csv.\nException detials:\n{e}')
-    
 
+def loadClassifier(file):
+    """
+    Loads in a pickle file containing the machine learning classifier.
+    Args:
+        file (String): The path to the classifier. 
+    Returns:
+        (SklearnClassifier or NLTKClassifier): The classifier which can be used to classify news headlines. 
+    """
+    try:
+        classifierFile = open(file,"rb")
+        classifier = pickle.load(classifierFile)
+        classifierFile.close()
+        return classifier
+    except Exception as e:
+        print(f'ERROR:Occured in the loadClassifier function.\nException Details:\n\t{e}')
+
+def evaluateModel(classifier, test):
+    """This function takes in a classifier and generates a reference and a test set for
+    calculating the precision, recall, accuracy and f_measure
+
+    Args:
+        classifier : A trained model
+        test : the test data
+
+    Returns:
+        A dict of each classifier with name of metric as key and the related scores as values
+    """
+    evaluations = []
+
+    referenceSets = collections.defaultdict(set)
+    testsets = collections.defaultdict(set)
+
+    for i, (feats, label) in enumerate(test):
+        referenceSets[label].add(i)
+        observed = classifier.classify(feats)
+        testsets[observed].add(i)
+
+    accuracy_score = nltk.classify.accuracy(classifier, test)
+    precision_score = precision(referenceSets["positive"], testsets["positive"])
+    recall_score = recall(referenceSets["positive"], testsets["positive"])
+    f_measure_score = f_measure(referenceSets["positive"], testsets["positive"])
+    precision_score_neg = precision(referenceSets["negative"], testsets["negative"])
+    recall_score_neg = recall(referenceSets["negative"], testsets["negative"])
+    f_measure_score_neg = f_measure(referenceSets["negative"], testsets["negative"])
+
+    evaluations.append({"accuracy": f"{accuracy_score:.2%}"})
+    evaluations.append({"positive precision": f"{precision_score:.2%}"})
+    evaluations.append({"positive recall": f"{recall_score:.2%}"})
+    evaluations.append({"positive f_measure": f"{f_measure_score:.2%}"})
+    evaluations.append({"negative precision": f"{precision_score_neg:.2%}"})
+    evaluations.append({"negative recall": f"{precision_score_neg:.2%}"})
+    evaluations.append({"negative f_measure": f"{precision_score_neg:.2%}"})
+
+    return evaluations
+    
+def generateEvaluationReport2(results, file):
+    """
+    Writes the evaluation results to a csv file. 
+
+    Args:
+        results (dict): Dictionary of row values for evaluation
+        file (Sting): File to save the evaluation results to. 
+    """
+    try:
+        df = pd.DataFrame.from_dict(results)
+        df.to_csv(file, index=False, header=True)
+    except Exception as e:
+        print(f"Error in writing evaluation results to csv.\nException detials:\n{e}")
 
 
 

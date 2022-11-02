@@ -9,12 +9,16 @@ const createOrder = async (req, res, next) => {
           limitPrice: req.body.limitPrice,
           quantity: req.body.quantity,
           orderType: req.body.orderType
-
         });
-       await Order.save()
-            .populate("portfolioID") 
-          
-        res.json({ newOrder });
+    //    await newOrder.save().then(result => {
+    //     Order 
+    //         .populate(newOrder, {path: 'portfolioID'})
+    //         .then(result => { 
+    //             
+    //         })
+    //    })
+          await newOrder.save()
+          res.json({ newOrder })
       } catch (err) {
         console.error(err.message);
         res.errormessage = 'Server error';
@@ -22,7 +26,30 @@ const createOrder = async (req, res, next) => {
       }
     }
   
+const getOrders = async (req, res, next) => { 
+    try {
+        // get all their details except their password
+        const orders = await Order.find()
+            .populate('portfolioID')
+            // .exec()
+
+        if (!orders) {
+        res.status(400)
+        res.errormessage = 'There is no such order'
+        return next(new Error('No order'))
+        }
+
+        res.json(orders)
+    } catch (err) {
+        console.error(err.message)
+        res.errormessage = 'Server error in getallorders'
+        return next(err)
+      }
+
+    }
+
   module.exports = {
-    createOrder
+    createOrder,
+    getOrders
   }
   

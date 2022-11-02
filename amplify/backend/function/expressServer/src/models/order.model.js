@@ -4,7 +4,7 @@
 /// Imports ///
 const mongoose = require('mongoose')
 const {Schema} = mongoose
-const Portfolio = require("./portfolio.model")
+// const Portfolio = require("./portfolio.model")
 
 // Order Schema //
 // this schema is used to create limit orders
@@ -13,7 +13,7 @@ const Portfolio = require("./portfolio.model")
 // to see whether the orders can be fulfilled
 const orderSchema = new mongoose.Schema(
     {
-      portfolioID: { type: Schema.Types.ObjectId, ref: 'Portfolio' },
+      portfolioID: { type: Schema.Types.Object, ref: 'PortfolioData' },
       symbol: { type: String, trim: true, required: true},
       limitPrice: {type: Number, required: true},
       quantity: {type: Number, required: true},

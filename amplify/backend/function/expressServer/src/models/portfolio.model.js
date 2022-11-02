@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {Schema} = mongoose
 // const { propfind } = require('../routes/userRoutes')
 // // var stockSchema = mongoose.model('stockSchema')
 
@@ -54,13 +55,10 @@ const dailyValueSchema = mongoose.Schema(
 //     // two options, buy or sell
   }
 )
-
-
 module.exports = mongoose.model('holdingsSchema', holdingsSchema)
 module.exports = mongoose.model('transactionsSchema', transactionsSchema)
 module.exports = mongoose.model('marketOrdersSchema', marketOrdersSchema)
 module.exports = mongoose.model('dailyValuesSchema', dailyValueSchema)
-
-module.exports = Portfolio =  mongoose.model('PortfolioSchema', PortfolioSchema)
+module.exports = mongoose.model('PortfolioData', PortfolioSchema)
 
 

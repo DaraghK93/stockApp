@@ -21,6 +21,7 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
+from sklearn.utils import resample
 
 from nltk.metrics.scores import precision, recall, f_measure, accuracy
 
@@ -249,3 +250,49 @@ def evaluateTopModels(evalFile):
         
     except Exception as e:
         print(f'ERROR:Occured in the showResults function.\nException Details:\n\t{e}')    
+
+
+def upsampleTrainData(train):
+    """
+    Description:
+        Used to upsample training data if skewness exists. Samples will be replicated another to acheive noraml distribution. 
+        See article here https://towardsdatascience.com/what-to-do-when-your-classification-dataset-is-imbalanced-6af031b12a36
+
+    Args:
+        train (List): List of training data. 
+
+    Returns:
+        upSampledTrain(List): The upsampled training data. 
+    """
+    try:
+        posTrainData = []
+        negTrainData = []
+        neuTrainData = [] 
+        for val in train:
+            if val[1] == "neutral":
+                neuTrainData.append(val)
+            elif val[1] == "positive":
+                posTrainData.append(val)
+            elif val[1] == "negative":
+                negTrainData.append(val)
+        # Get the maxium lenght as this is what we want to sample up to
+        maxLength = max(len(posTrainData), len(negTrainData), len(neuTrainData))
+        # Upsample each of the categoreis, read docs on resample function here https://scikit-learn.org/stable/modules/generated/sklearn.utils.resample.html 
+        posTrainUpSampled = resample(posTrainData,
+                        replace=True, 
+                        n_samples=maxLength, 
+                        random_state=34) 
+        negTrainUpSampled = resample(negTrainData,
+                        replace=True, 
+                        n_samples=maxLength, 
+                        random_state=34) 
+        neuTrainUpSampled = resample(neuTrainData,
+                        replace=True,
+                        n_samples=maxLength, 
+                        random_state=34) 
+        # Combine the the arrays back into one training array 
+        upSampledTrain = posTrainUpSampled + negTrainUpSampled + neuTrainUpSampled
+        return upSampledTrain
+    except Exception as e:
+        print(f'ERROR:Occured in the upsampleTrainData function.\nException Details:\n\t{e}')    
+    

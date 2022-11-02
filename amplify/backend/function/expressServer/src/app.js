@@ -40,6 +40,9 @@ app.use('/api/user', require('./routes/portfolioRoutes'));
 app.use('/api/stock', require('./routes/stockRoutes'));
 app.use('/api/tweet', require('./routes/tweetRoutes'));
 app.use('/api/newsarticles',require('./routes/newsArticleRoutes'));
+app.use('/api/league',require('./routes/leagueRoutes'));
+
+
 
 
 // Custom Middleware here

@@ -1,13 +1,14 @@
 const mongoose = require('mongoose')
+const {Schema} = mongoose
 
 const LeagueSchema = new mongoose.Schema(
     {
-      leadgueName: { type: String, trim: true, required: true },
+      leagueName: { type: String, trim: true, required: true },
       budget: { type: String, trim: true, required: true},
       leagueType: {type: String, enum: ["timeBased","valueBased"], required: true},
       tradingFee: {type: Number, required: true},
-      users: [{type: mongoose.Schema.Types.ObjectID, ref: 'UserData'}],
-      portfolios: [{type: mongoose.Schema.Types.ObjectID, ref: 'PortfolioData'}]
+      users: [{type: Schema.Types.ObjectId, ref: 'UserData'}],
+      portfolios: [{type: Schema.Types.ObjectId, ref: 'PortfolioData'}]
     },
     { collection: 'league-data' },
 

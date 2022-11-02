@@ -7,3 +7,4 @@ The classifier will classify news headlines into either positive, negative or ne
 1. data - Contains any data files read/written to by the scripts. 
 2. dataCleaning - Any scripts relating to data cleaning. 
 3. modelGenration - Iterations of different models. 
+4. databaseUpdate - Script to update the headlines classified in the database already using a newly trained model. 

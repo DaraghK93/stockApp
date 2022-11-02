@@ -6,6 +6,7 @@ from random import shuffle
 import pickle 
 import pandas as pd
 import collections
+import csv
 
 from sklearn.model_selection import train_test_split
 
@@ -187,7 +188,7 @@ def evaluateModel(classifier, test):
     Returns:
         A dict of each classifier with name of metric as key and the related scores as values
     """
-    evaluations = []
+    evaluations = {}
 
     referenceSets = collections.defaultdict(set)
     testsets = collections.defaultdict(set)
@@ -197,40 +198,54 @@ def evaluateModel(classifier, test):
         observed = classifier.classify(feats)
         testsets[observed].add(i)
 
+    # Accuracy 
     accuracy_score = nltk.classify.accuracy(classifier, test)
+    evaluations["accuracy"] = f"{accuracy_score:.2%}"
+    # Precision 
     precision_score = precision(referenceSets["positive"], testsets["positive"])
-    recall_score = recall(referenceSets["positive"], testsets["positive"])
-    f_measure_score = f_measure(referenceSets["positive"], testsets["positive"])
     precision_score_neg = precision(referenceSets["negative"], testsets["negative"])
+    evaluations["positive precision"] = f"{precision_score:.2%}"
+    evaluations["negative precision"] = f"{precision_score_neg:.2%}"
+    # Recall
+    recall_score = recall(referenceSets["positive"], testsets["positive"])
     recall_score_neg = recall(referenceSets["negative"], testsets["negative"])
+    evaluations["positive recall"] = f"{recall_score:.2%}"
+    evaluations["negative recall"] = f"{recall_score_neg:.2%}"
+    # F Measure
+    f_measure_score = f_measure(referenceSets["positive"], testsets["positive"])
     f_measure_score_neg = f_measure(referenceSets["negative"], testsets["negative"])
-
-    evaluations.append({"accuracy": f"{accuracy_score:.2%}"})
-    evaluations.append({"positive precision": f"{precision_score:.2%}"})
-    evaluations.append({"positive recall": f"{recall_score:.2%}"})
-    evaluations.append({"positive f_measure": f"{f_measure_score:.2%}"})
-    evaluations.append({"negative precision": f"{precision_score_neg:.2%}"})
-    evaluations.append({"negative recall": f"{precision_score_neg:.2%}"})
-    evaluations.append({"negative f_measure": f"{precision_score_neg:.2%}"})
-
+    evaluations["positive f_measure"] = f"{f_measure_score:.2%}"
+    evaluations["negative f_measure"] =  f"{f_measure_score_neg:.2%}"
     return evaluations
-    
-def generateEvaluationReport2(results, file):
+
+def evaluateTopModels(evalFile):
     """
-    Writes the evaluation results to a csv file. 
+    Description:
+        This function reads in the evaluation file gnerated by the function generateEvaluationReport. 
+        It then gets the top models for each metric outpus them to the console and generates a report to
+        highestEvaluationResults.csv file. 
 
     Args:
-        results (dict): Dictionary of row values for evaluation
-        file (Sting): File to save the evaluation results to. 
+        evalFile (String): Path to the evaluation report
     """
     try:
-        df = pd.DataFrame.from_dict(results)
-        df.to_csv(file, index=False, header=True)
+        # Read in the csv file 
+        df = pd.read_csv(evalFile,index_col=[0])
+        # Obtained from stack overflow
+        for col in df:
+            if col != "model":
+                df[col] = df[col].str.rstrip('%').astype('float') /100.0
+        # Get the maxIds  
+        maxIds = (df.idxmax())
+        # Open file to write results to and write header 
+        f = open('./highestEvaluationResults.csv', 'w', newline='')
+        writer = csv.writer(f)
+        writer.writerow(['evaulation metric','model','score'])
+        # Print results to terminal and write them to csv file 
+        print(f'\t******Highest Evaluation Results*******')
+        for index, value in maxIds.items():
+            print(f' \033[1m{index :<20}\033[0m - {value :>20} ({df[index][value]:.2%})')
+            writer.writerow([index,value,f'{df[index][value]:.2%}'])
+        
     except Exception as e:
-        print(f"Error in writing evaluation results to csv.\nException detials:\n{e}")
-
-
-
-
-    
-    
+        print(f'ERROR:Occured in the showResults function.\nException Details:\n\t{e}')    

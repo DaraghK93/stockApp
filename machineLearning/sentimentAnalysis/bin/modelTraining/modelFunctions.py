@@ -173,7 +173,7 @@ def evaluateModel(classifier, test):
     Returns:
         A dict of each classifier with name of metric as key and the related scores as values
     """
-    evaluations = []
+    evaluations = {}
 
     referenceSets = collections.defaultdict(set)
     testsets = collections.defaultdict(set)
@@ -183,22 +183,24 @@ def evaluateModel(classifier, test):
         observed = classifier.classify(feats)
         testsets[observed].add(i)
 
+    # Accuracy 
     accuracy_score = nltk.classify.accuracy(classifier, test)
+    evaluations["accuracy"] = f"{accuracy_score:.2%}"
+    # Precision 
     precision_score = precision(referenceSets["positive"], testsets["positive"])
-    recall_score = recall(referenceSets["positive"], testsets["positive"])
-    f_measure_score = f_measure(referenceSets["positive"], testsets["positive"])
     precision_score_neg = precision(referenceSets["negative"], testsets["negative"])
+    evaluations["positive precision"] = f"{precision_score:.2%}"
+    evaluations["negative precision"] = f"{precision_score_neg:.2%}"
+    # Recall
+    recall_score = recall(referenceSets["positive"], testsets["positive"])
     recall_score_neg = recall(referenceSets["negative"], testsets["negative"])
+    evaluations["positive recall"] = f"{recall_score:.2%}"
+    evaluations["negative recall"] = f"{recall_score_neg:.2%}"
+    # F Measure
+    f_measure_score = f_measure(referenceSets["positive"], testsets["positive"])
     f_measure_score_neg = f_measure(referenceSets["negative"], testsets["negative"])
-
-    evaluations.append({"accuracy": f"{accuracy_score:.2%}"})
-    evaluations.append({"positive precision": f"{precision_score:.2%}"})
-    evaluations.append({"positive recall": f"{recall_score:.2%}"})
-    evaluations.append({"positive f_measure": f"{f_measure_score:.2%}"})
-    evaluations.append({"negative precision": f"{precision_score_neg:.2%}"})
-    evaluations.append({"negative recall": f"{precision_score_neg:.2%}"})
-    evaluations.append({"negative f_measure": f"{precision_score_neg:.2%}"})
-
+    evaluations["positive f_measure"] = f"{f_measure_score:.2%}"
+    evaluations["negative f_measure"] =  f"{f_measure_score_neg:.2%}"
     return evaluations
     
 def generateEvaluationReport2(results, file):

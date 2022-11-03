@@ -89,19 +89,19 @@ const getCompanySentimentCount = async (searchQuery) => {
             },
             {
                 $facet:{
-                    positive:[
+                    Positive:[
                         {
                             $match:{_id:"positive"}
                         },
                         {$project: {"sentiment": "$_id", _id: 0, "count": 1}},
                     ],
-                    negative:[
+                    Negative:[
                         {
                             $match:{_id:"negative"}
                         },
                         {$project: {"sentiment": "$_id", _id: 0, "count": 1}},
                     ],
-                    neutral:[
+                    Neutral:[
                         {
                             $match:{_id:"neutral"}
                         },

@@ -134,7 +134,7 @@ function StockPage() {
                                 { name: "G Score", value: stock.esgrating.governance_score }]} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"News Sentiment"} data={newsSentimentData} />
+                            <ChartCard title={"News Sentiment"} data={stock.newsSentiment} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />

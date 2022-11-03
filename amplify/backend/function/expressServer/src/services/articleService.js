@@ -78,6 +78,12 @@ const buildSearchQueryForCompany = async (shortname, longname, symbol) => {
     }
 }
 
+
+/// getCompanySentimentCount ///
+// Inputs:
+//      searchQuery - A mongo search query which can be used to get companies info 
+//  Returns:
+//      results - An array containing information on the number of positive, neutral and negative articles in the database 
 const getCompanySentimentCount = async (searchQuery) => {
     try{
         /// Query can be updated later if we want to get actual articles not just count 

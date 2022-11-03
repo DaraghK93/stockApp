@@ -169,7 +169,7 @@ def getPolarityScore(sentence):
     except Exception as e:
         print(f'Error in calculating polarity scores in function getPolarityScore.n\nException details\n{e}' )
 
-def extractFeatures(headline,posWords,negWords,neuWords=False):
+def extractFeatures(posWords,negWords,headline="neutral sentiment",neuWords=False):
     """
     This function uses other functions to extract features of an inputted headline. 
     The result of this function will be a dictonary object with the feature name as the key and value of that feature as the value. 

@@ -1,8 +1,7 @@
 import { Card, Container } from "react-bootstrap";
 import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
 
-function BalanceComponent({ 
-    newPortfolioBalance, amountSelected }) {
+function BalanceComponent({ newPortfolioBalance, amountSelected }) {
     const data = [{ value: amountSelected }, { value: newPortfolioBalance }];
 
     const CustomLabel = ({ viewBox, balance = 0 }) => {

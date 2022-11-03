@@ -9,7 +9,6 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
     const [amount, setAmount] = useState(0);
     const [stockPrice, setStockPrice] = useState("");
     const [error, setError] = useState("");
-    const [focusedInput, setFocus] = useState(null)
 
     // sets the quantity for the slider
     useEffect(() => {
@@ -19,12 +18,13 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
 
     const boxCall = (e) => {
         if ((portfolioBalance - e.target.value) >= 0) {
-            setQuantity((e.target.value / stockPrice))
-            setQty((e.target.value / stockPrice))
+            setQuantity(e.target.value / stockPrice)
+            setQty(e.target.value / stockPrice)
             setAmount(e.target.value)
-            setAmountSelected(e.target.value)
+            setAmountSelected(parseFloat(e.target.value))
             setDisplayBalance(portfolioBalance - (e.target.value))
             setNewPortfolioBalance(portfolioBalance - (e.target.value))
+            setError("")
         }
         else if ((portfolioBalance - e.target.value) < 0) {
             setError("Can't have less than 0 balance")
@@ -68,7 +68,6 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                         type="number"
                                         value={amount.toString()}
                                         placeholder={parseFloat(amount).toFixed(2).toString()}
-                                        onFocus={() => setFocus("amount")}
                                         onChange={boxCall} />
                                 </Col>
                             </Form.Group>

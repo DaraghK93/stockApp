@@ -17,6 +17,7 @@ function OrderConfirmationPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+    const [newPortfolioBalance, setNewPortfolioBalance] = useState("")
     // const [buySell, setBuySell] = useState("");
     // const [orderType, setOrderType] = useState("");
 
@@ -67,33 +68,28 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
-        
-                        <Col style={{ marginBottom: "0.625rem" }}>
 
-                            <OrderType 
-                            orderType
-                            // ={orderType} 
-                            buySell
-                            // ={buySell}
-                            setOrderType
-                            setBuySell
-                            />
-                        </Col>
-                        <Col style={{ marginBottom: "0.625rem" }}>
-                            <QuantitySelect portfolioBalance={2000} stockprice={stock.daily_change.currentprice} />
-                        </Col>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <OrderType />
+                    </Col>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <QuantitySelect
+                            portfolioBalance={2000}
+                            stockprice={stock.daily_change.currentprice}
+                            setNewPortfolioBalance={setNewPortfolioBalance} />
+                    </Col>
 
-                 
-                        <Col style={{ marginBottom: "0.625rem" }}>
-                            <BalanceComponent />
-                        </Col>
 
-            
-                        <Col style={{ marginBottom: "0.625rem" }}>
-                            <OrderSummary 
-                            // orderType={orderType} buySell={buySell} 
-                            />
-                        </Col>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <BalanceComponent newPortfolioBalance={newPortfolioBalance}/>
+                    </Col>
+
+
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <OrderSummary
+                        // orderType={orderType} buySell={buySell} 
+                        />
+                    </Col>
 
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>

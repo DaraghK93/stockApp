@@ -2,7 +2,7 @@ import { Card, Container, Row, Form, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 
-function QuantitySelect({ portfolioBalance, stockprice }) {
+function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance }) {
     const [max, setMax] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [displayBalance, setDisplayBalance] = useState(portfolioBalance);
@@ -19,12 +19,12 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
     }, [quantity, stockprice, displayBalance])
 
     const boxCall = (e) => {
-
         if (parseFloat(e.target.value)) {
             if ((portfolioBalance - e.target.value) >= 0) {
                 setAmount(e.target.value)
                 setQuantity((e.target.value / stockPrice))
                 setDisplayBalance(portfolioBalance - (e.target.value))
+                setNewPortfolioBalance(portfolioBalance - (e.target.value))
                 setError("")
             }
             else {
@@ -36,6 +36,7 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
             setQuantity(0.00)
             setError("")
             setDisplayBalance(portfolioBalance)
+            setNewPortfolioBalance(portfolioBalance)
         }
         else if (typeof e.target.value === 'string' ||  e.target.value instanceof String) 
         {
@@ -47,8 +48,8 @@ function QuantitySelect({ portfolioBalance, stockprice }) {
         setQuantity(e.target.value)
         setAmount(stockPrice * e.target.value)
         setDisplayBalance((portfolioBalance - (stockPrice * e.target.value)))
+        setNewPortfolioBalance((portfolioBalance - (stockPrice * e.target.value)))
         setError("")
-
     }
 
     return (

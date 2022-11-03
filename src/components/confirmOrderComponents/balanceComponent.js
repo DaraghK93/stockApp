@@ -1,8 +1,8 @@
 import { Card, Container } from "react-bootstrap";
 import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
 
-function BalanceComponent() {
-    const data = [{ value: 500 }, { value: 1500 }];
+function BalanceComponent({ newPortfolioBalance }) {
+    const data = [{ value: 500 }, { value: newPortfolioBalance }];
     return (
         <>
             <Card>
@@ -20,7 +20,7 @@ function BalanceComponent() {
                             >
                                 <Cell fill="#1E90FF" />
                                 <Cell fill="#595959" />
-                                <Label value="$700" position="center" />
+                                <Label value={parseFloat(newPortfolioBalance).toFixed(2)} position="center" />
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>

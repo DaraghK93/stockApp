@@ -30,12 +30,6 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
-    const newsSentimentData = [
-        { name: 'Positive', value: 600 },
-        { name: 'Negative', value: 300 },
-        { name: 'Neutral', value: 100 }
-    ];
-
   const twitterSentimentData = [
     { name: 'Positive', value: 100 },
     { name: 'Negative', value: 98 },

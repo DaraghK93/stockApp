@@ -100,7 +100,9 @@ def output_cosSim_to_csv(X):
 # Reading in user data from Mongo
 from pymongo import MongoClient
 
-mongo_uri = "mongodb://admin:pass@ec2-3-249-145-103.eu-west-1.compute.amazonaws.com:27017/"
+from dotenv import load_dotenv
+load_dotenv()
+mongo_uri = os.getenv('MONGO_URI')
 
 def push_rec_to_db():
     # Setting the MongoDB connection

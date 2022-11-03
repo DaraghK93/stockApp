@@ -78,7 +78,7 @@ if __name__ == "__main__":
     classifier = modelFunctions.loadClassifier(modelFile)
     for index, row in df.iterrows():
         features = featureEngineeringFunctions.extractFeatures(
-            posWordsList, negWordsList, row["tweet"]
+            row["tweet"], posWordsList, negWordsList
         )
         prediction = classifier.classify(features)
         query = {"$set": {"sentiment": prediction}}

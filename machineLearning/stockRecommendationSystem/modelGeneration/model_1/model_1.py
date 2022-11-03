@@ -11,7 +11,7 @@ from sentence_transformers import SentenceTransformer
 
 def read_data():
     # Read in the s&p dataset
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\sp500.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_1\sp500.csv')
 
     # Create array X of the all long business summaries
     X = np.array(stocks.longbusinesssummary)

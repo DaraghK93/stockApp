@@ -5,6 +5,8 @@ import BottomStickyButton from "../../components/widgets/BottomStickyButton/Bott
 import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
+import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
+import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -12,9 +14,15 @@ import { API } from "aws-amplify";
 
 function OrderConfirmationPage() {
 
+    const portfolioBalance = 2000
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+    const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
+    const [amountSelected, setAmountSelected] = useState("")
+    const [buyOrSell, setBuyOrSell] = useState("");
+    const [orderType, setOrderType] = useState("");
+    const [qty, setQty] = useState("");
 
     useEffect(() => {
         /// getStockInfo ///
@@ -63,16 +71,35 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
-                    <Row xl={3} lg={2} md={2} xs={1}>
-                        <Col style={{ marginBottom: "0.625rem" }}>
-                            <OrderType />
-                        </Col>
-                        <Col style={{ marginBottom: "0.625rem" }}>
-                            <QuantitySelect portfolioBalance={2000} stockprice={stock.daily_change.currentprice} />
-                        </Col>
-                        <h5>New Portfolio Balance</h5>
-                        <h5>Order Summary</h5>
-                    </Row>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <OrderType
+                            setBuyOrSell={setBuyOrSell}
+                            setOrderType={setOrderType}
+                        />
+                    </Col>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <QuantitySelect
+                            portfolioBalance={portfolioBalance}
+                            stockprice={stock.daily_change.currentprice}
+                            setNewPortfolioBalance={setNewPortfolioBalance}
+                            setAmountSelected={setAmountSelected}
+                            setQty={setQty} />
+                    </Col>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <BalanceComponent
+                            newPortfolioBalance={newPortfolioBalance}
+                            amountSelected={amountSelected}
+                        />
+                    </Col>
+                    <Col style={{ marginBottom: "0.625rem" }}>
+                        <OrderSummary
+                            buyOrSell={buyOrSell}
+                            orderType={orderType}
+                            newPortfolioBalance={newPortfolioBalance}
+                            amountSelected={amountSelected}
+                            qty={qty}
+                        />
+                    </Col>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

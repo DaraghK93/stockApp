@@ -1,6 +1,6 @@
 import { Card, Container, Table } from "react-bootstrap";
 
-function OrderSummary({ buyOrSell, orderType }) {
+function OrderSummary({ buyOrSell, orderType, amountSelected, newPortfolioBalance, qty }) {
     return (
         <>
             <Card>
@@ -18,15 +18,15 @@ function OrderSummary({ buyOrSell, orderType }) {
                             </tr>
                             <tr>
                                 <td>Quantity</td>
-                                <td></td>
+                                <td>{parseFloat(qty).toFixed(2)}</td>
                             </tr>
                             <tr>
                                 <td>New Portfolio Balance</td>
-                                <td></td>
+                                <td>{parseFloat(newPortfolioBalance).toFixed(2)}</td>
                             </tr>
                             <tr>
                                 <td>Total Cost</td>
-                                <td></td>
+                                <td>{parseFloat(amountSelected).toFixed(2).toString()}</td>
                             </tr>
                         </tbody>
                     </Table>

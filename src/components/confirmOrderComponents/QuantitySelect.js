@@ -2,7 +2,7 @@ import { Card, Container, Row, Form, Col } from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 
-function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, setAmountSelected }) {
+function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, setAmountSelected, setQty }) {
     const [max, setMax] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [displayBalance, setDisplayBalance] = useState(portfolioBalance);
@@ -18,20 +18,22 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
             setMax(parseFloat(quantity - 0.10))
             setError("")
         }
-        if (focusedInput === "amount") {
-            setQuantity((amount / stockPrice))
-            setAmount(amount)
-            setAmountSelected(amount)
-            setDisplayBalance(portfolioBalance - (amount))
-            setNewPortfolioBalance(portfolioBalance - (amount))
-            setError("")
-        }
+        // if (focusedInput === "amount") {
+        //     setQuantity((amount / stockPrice))
+        //     setQty(amount / stockPrice)
+        //     setAmount(amount)
+        //     setAmountSelected(amount)
+        //     setDisplayBalance(portfolioBalance - (amount))
+        //     setNewPortfolioBalance(portfolioBalance - (amount))
+        //     setError("")
+        // }
     }, [quantity, stockprice, displayBalance, amount, portfolioBalance, focusedInput, setAmountSelected, setNewPortfolioBalance, stockPrice])
 
     const boxCall = (e) => {
         if (parseFloat(e.target.value)) {
             if ((portfolioBalance - e.target.value) >= 0) {
                 setQuantity((e.target.value / stockPrice))
+                setQty((e.target.value / stockPrice))
                 setAmount(e.target.value)
                 setAmountSelected(e.target.value)
                 setDisplayBalance(portfolioBalance - (e.target.value))
@@ -57,6 +59,7 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
 
     const sliderCall = (e) => {
         setQuantity(e.target.value)
+        setQty(e.target.value)
         setAmount(stockPrice * e.target.value)
         setAmountSelected(stockPrice * e.target.value)
         setDisplayBalance((portfolioBalance - (stockPrice * e.target.value)))

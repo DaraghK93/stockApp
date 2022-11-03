@@ -22,6 +22,7 @@ function OrderConfirmationPage() {
     const [amountSelected, setAmountSelected] = useState("")
     const [buyOrSell, setBuyOrSell] = useState("");
     const [orderType, setOrderType] = useState("");
+    const [qty, setQty] = useState("");
 
     useEffect(() => {
         /// getStockInfo ///
@@ -81,7 +82,8 @@ function OrderConfirmationPage() {
                             portfolioBalance={portfolioBalance}
                             stockprice={stock.daily_change.currentprice}
                             setNewPortfolioBalance={setNewPortfolioBalance}
-                            setAmountSelected={setAmountSelected} />
+                            setAmountSelected={setAmountSelected}
+                            setQty={setQty} />
                     </Col>
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <BalanceComponent
@@ -93,6 +95,9 @@ function OrderConfirmationPage() {
                         <OrderSummary
                             buyOrSell={buyOrSell}
                             orderType={orderType}
+                            newPortfolioBalance={newPortfolioBalance}
+                            amountSelected={amountSelected}
+                            qty={qty}
                         />
                     </Col>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>

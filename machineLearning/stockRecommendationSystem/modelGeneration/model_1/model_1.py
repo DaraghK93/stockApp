@@ -1,23 +1,13 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
-import time
 import os
 
-# Text
-import re
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.metrics.pairwise import linear_kernel
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import PCA
 
 # Capture similarity
 from sentence_transformers import SentenceTransformer
-
-import pymongo
 
 def read_data():
     # Read in the s&p dataset
@@ -149,3 +139,4 @@ cos_sim_data, X, stocks = read_data()
 recs = give_recommendations(0, cos_sim_data, stocks,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False)
 
 final_recs = recs["Stocks"]
+print(final_recs)

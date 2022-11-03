@@ -140,7 +140,7 @@ const getStockBySymbol = async (req, res, next) => {
     /// Get the search query for news articles
     const newsQuery = await articleService.buildSearchQueryForCompany(stocks[0].shortname,stocks[0].longname, stocks[0].symbol )
     /// Execute the query to get the articles 
-    const newsSentiment = await articleService.getOverallSentiment(newsQuery)
+    const newsSentiment = await articleService.getCompanySentimentCount(newsQuery)
     
 
 

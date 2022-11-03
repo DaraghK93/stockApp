@@ -4,9 +4,9 @@ const express = require("express");
 const router = express.Router()
 const auth = require('../middleware/authMiddleware');
 
-const {createLeague, getLeagues} = require('../controllers/leagueController');
+const {createLeague, getPublicLeagues} = require('../controllers/leagueController');
 
 router.post('/createleague',auth,createLeague)
-router.get('/', getLeagues)
+router.get('/', getPublicLeagues)
 
 module.exports = router 

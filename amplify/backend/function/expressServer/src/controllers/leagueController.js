@@ -1,3 +1,4 @@
+const { FOCUSABLE_SELECTOR } = require('@testing-library/user-event/dist/utils')
 const League = require('../models/league.model')
 
 // @desc create new league. a league is created and sent to the league-data
@@ -14,7 +15,8 @@ const createLeague = async (req, res, next) => {
             budget,
             leagueType,
             tradingFee,
-            portfolios
+            portfolios,
+            private
           } = req.body
 
     // check they have sent all fields
@@ -22,7 +24,8 @@ const createLeague = async (req, res, next) => {
       typeof leagueName === 'undefined' ||
       typeof budget === 'undefined' ||
       typeof leagueType === 'undefined' ||
-      typeof tradingFee === 'undefined' 
+      typeof tradingFee === 'undefined' ||
+      typeof private === 'undefined'
     ) {
       // data is missing bad request
       res.status(400)
@@ -40,7 +43,8 @@ const createLeague = async (req, res, next) => {
         budget,
         leagueType,
         tradingFee,
-        users: [req.user.id],   // gets this from JWT
+        private,
+        leagueAdmin: req.user.id,   // gets this from JWT
         portfolios: [portfolios]
       });
 
@@ -56,10 +60,11 @@ const createLeague = async (req, res, next) => {
     }
 }
 
-const getLeagues = async (req, res, next) => {
+const getPublicLeagues = async (req, res, next) => {
     try {
-        const leagues = await League.find({ })
-        .populate('users') // adds the user objects to the query
+      // just get the leagues that aren't private
+        const leagues = await League.find({private: false })
+       
     
     // check if there are leagues
      if (!leagues) {
@@ -80,5 +85,5 @@ const getLeagues = async (req, res, next) => {
 
 module.exports = {
     createLeague,
-    getLeagues
+    getPublicLeagues
   }

@@ -74,7 +74,7 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                             </Form.Group>
                         </Form>
                     </Row>
-                    <input type="range" className="form-range" min={0} max={max} value={quantity} step={0.00001}
+                    <input type="range" className="form-range" min={0} max={max} value={quantity} step={0.001}
                         onChange={sliderCall}
                     />
                 </Container>

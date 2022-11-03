@@ -1,4 +1,3 @@
-const { FOCUSABLE_SELECTOR } = require('@testing-library/user-event/dist/utils')
 const League = require('../models/league.model')
 
 // @desc create new league. a league is created and sent to the league-data
@@ -64,6 +63,7 @@ const getPublicLeagues = async (req, res, next) => {
     try {
       // just get the leagues that aren't private
         const leagues = await League.find({private: false })
+            .select('-leagueAdmin -users -portfolios')
        
     
     // check if there are leagues

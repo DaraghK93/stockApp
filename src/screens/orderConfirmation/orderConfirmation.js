@@ -7,6 +7,8 @@ import QuantitySelect from "../../components/confirmOrderComponents/QuantitySele
 import OrderType from "../../components/confirmOrderComponents/OrderType";
 import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
 import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
+import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQuantitySelect";
+import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -20,9 +22,12 @@ function OrderConfirmationPage() {
     const [error, setError] = useState("");
     const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
     const [amountSelected, setAmountSelected] = useState("")
-    const [buyOrSell, setBuyOrSell] = useState("");
-    const [orderType, setOrderType] = useState("");
+    const [buyOrSell, setBuyOrSell] = useState("Buy");
+    const [orderType, setOrderType] = useState("Market Order");
     const [qty, setQty] = useState("");
+    const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
+    const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
+    const [limitPrice, setLimitPrice] = useState(0)
 
     useEffect(() => {
         /// getStockInfo ///
@@ -49,6 +54,19 @@ function OrderConfirmationPage() {
         }
         getStockInfo();
     }, [])
+
+    useEffect(() => {
+        if (orderType === "Market Order") {
+            setIsShownMarketOrder(true)
+            setIsShownLimitOrder(false)
+        }
+        else if (orderType === "Limit Order") {
+            setIsShownMarketOrder(false)
+            setIsShownLimitOrder(true)
+        }
+
+    }, [orderType])
+
 
     return (
         <>
@@ -77,20 +95,48 @@ function OrderConfirmationPage() {
                             setOrderType={setOrderType}
                         />
                     </Col>
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <QuantitySelect
-                            portfolioBalance={portfolioBalance}
-                            stockprice={stock.daily_change.currentprice}
-                            setNewPortfolioBalance={setNewPortfolioBalance}
-                            setAmountSelected={setAmountSelected}
-                            setQty={setQty} />
-                    </Col>
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <BalanceComponent
-                            newPortfolioBalance={newPortfolioBalance}
-                            amountSelected={amountSelected}
-                        />
-                    </Col>
+                    {isShownMarketOrder &&
+                        <>
+                            <Col style={{ marginBottom: "0.625rem" }}>
+                                <QuantitySelect
+                                    portfolioBalance={portfolioBalance}
+                                    stockprice={stock.daily_change.currentprice}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                    setAmountSelected={setAmountSelected}
+                                    setQty={setQty}
+                                />
+                            </Col>
+                            <Col style={{ marginBottom: "0.625rem" }}>
+                                <BalanceComponent
+                                    portfolioBalance={portfolioBalance}
+                                    newPortfolioBalance={newPortfolioBalance}
+                                    amountSelected={amountSelected}
+                                />
+                            </Col>
+                        </>
+                    }
+                    {isShownLimitOrder &&
+                        <>
+                            <Col style={{ marginBottom: "0.625rem" }}>
+                                <LimitQuantitySelect
+                                    portfolioBalance={portfolioBalance}
+                                    setQty={setQty}
+                                    limitPrice={limitPrice}
+                                    setAmountSelected={setAmountSelected}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                />
+                            </Col>
+                            <Col style={{ marginBottom: "0.625rem" }}>
+                                <LimitPriceSelect
+                                    portfolioBalance={portfolioBalance}
+                                    setAmountSelected={setAmountSelected}
+                                    qty={qty}
+                                    setLimitPrice={setLimitPrice}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                />
+                            </Col>
+                        </>
+                    }
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <OrderSummary
                             buyOrSell={buyOrSell}

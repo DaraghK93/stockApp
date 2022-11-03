@@ -72,6 +72,8 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                 <Col sm={5} xs={6}>
                                     <Form.Control
                                         style={{ width: "150px" }}
+                                        type="number"
+                                        // value={amount}
                                         placeholder={parseFloat(amount).toFixed(2)}
                                         onChange={boxCall} />
                                 </Col>

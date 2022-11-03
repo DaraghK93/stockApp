@@ -14,7 +14,6 @@ function BalanceComponent({
                         style={{
                             fontWeight: 700,
                             fontSize: "1.5em",
-                            // fill: "#2B5CE7"
                         }}
                     >
                        ${balance}

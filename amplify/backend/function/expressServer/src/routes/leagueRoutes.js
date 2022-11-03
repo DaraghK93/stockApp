@@ -7,6 +7,6 @@ const auth = require('../middleware/authMiddleware');
 const {createLeague, getPublicLeagues} = require('../controllers/leagueController');
 
 router.post('/createleague',auth,createLeague)
-router.get('/', getPublicLeagues)
+router.get('/',auth, getPublicLeagues)
 
 module.exports = router 

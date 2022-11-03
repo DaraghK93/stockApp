@@ -78,7 +78,7 @@ const getPublicLeagues = async (req, res, next) => {
     
     } catch (err) {
       console.error(err.message);
-      res.errormessage = 'Server error in get all leagues';
+      res.errormessage = 'Server error in get public leagues';
       return next(err);
     }
 }

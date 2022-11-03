@@ -1,1 +1,4 @@
 requests
+pymongo
+snscrape
+boto3

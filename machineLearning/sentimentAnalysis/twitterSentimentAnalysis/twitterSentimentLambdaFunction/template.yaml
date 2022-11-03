@@ -8,7 +8,14 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 600
+    Environment:
+      Variables:
+        ENVIRONMENT: prod
+        MONGOURI: mongodb://host.docker.internal:27017/
+        DATABASENAME: test
+        LIMIT: 1
+        CRONTIME: 30
 
 Resources:
   twitterSentimentFunction:
@@ -21,4 +28,3 @@ Resources:
       Dockerfile: Dockerfile
       DockerContext: ./twitterSentiment
       DockerTag: python3.9-v1
-

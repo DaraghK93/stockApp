@@ -46,7 +46,7 @@ def updateArticle(client, articleId, query, databaseName="test"):
     """
     try:
         db  = client[databaseName]
-        db.articles.update_one({'_id': articleId}, query) 
+        db.articles.update_one({'_id':articleId},query) 
     except Exception as e:
         print(f'ERROR: Could not execute update in datbase wihtin function exceuteUpdate.\nException detials:\n{e}')
 

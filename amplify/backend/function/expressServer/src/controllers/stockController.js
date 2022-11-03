@@ -141,12 +141,7 @@ const getStockBySymbol = async (req, res, next) => {
     const newsQuery = await articleService.buildSearchQueryForCompany(stocks[0].shortname,stocks[0].longname, stocks[0].symbol )
     /// Execute the query to get the articles 
     const newsSentiment = await articleService.getCompanySentimentCount(newsQuery)
-    
-
-
-    // var stockjson = JSON.stringify(stocks)
-    // stockjson.month = oneMonth
-    // stocks[0]["month"] = oneMonth
+    /// Return stock data 
     const returnStocks = {
       id: stocks[0]._id,
       idnumber: stocks[0].idnumber,
@@ -167,6 +162,7 @@ const getStockBySymbol = async (req, res, next) => {
       esgrating: stocks[0].esgrating, 
       logo: stocks[0].logo, 
       daily_change: stocks[0].daily_change,
+      newsSentiment:newsSentiment,
       week: oneWeek, 
       month: oneMonth,
       year: oneYear

@@ -9,7 +9,7 @@ function BalanceComponent({ newPortfolioBalance, amountSelected }) {
                 <Container>
                     <h5 style={{ marginTop: "10px" }}>New Portfolio Balance</h5>
                     <ResponsiveContainer width="100%" height={300} margin={100}>
-      
+
                         <PieChart height={260} width={500}>
                             <Pie
                                 startAngle={220}
@@ -20,7 +20,10 @@ function BalanceComponent({ newPortfolioBalance, amountSelected }) {
                             >
                                 <Cell fill="#1E90FF" />
                                 <Cell fill="#595959" />
-                                <Label value={parseFloat(newPortfolioBalance).toFixed(2)} position="center" />
+                                <Label
+                                    content={<CustomLabel balance={newPortfolioBalance} />}
+                                    position="center"
+                                />
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>

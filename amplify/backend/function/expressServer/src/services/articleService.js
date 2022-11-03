@@ -38,7 +38,7 @@ const searchNewsArticles = async (searchQuerys) => {
     try{
         const articles = await Article.find({
                 $or:searchQuerys
-        })
+        }).sort({"pubDate":-1})
         return articles
     }catch(error){
         /// Put in custom message will be caught by error handler and displayed in logs 

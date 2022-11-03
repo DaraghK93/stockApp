@@ -9,7 +9,8 @@ const PortfolioSchema = new mongoose.Schema(
     dateCreated: {type: String, trim: true},
     totalValue: {type: String, trim: true, required: true},
     transactions: [{stock: {type: Schema.Types.ObjectID, ref: 'stock'}, units: {type:Number}, transactionType: {type: String}, date: {type: Date}}],
-    valueHistory: [{stock: {type: Schema.Types.ObjectID, ref: 'stock'}, units: {type:Number}, date: {type: Date}}],
+    valueHistory: [{date: {type: Date}, value: {type: Number}}],
+    // value history would contain the totalValue, pushed to array at the end of each day 
     leagues: [{type: Schema.Types.ObjectID, ref: 'leagues'}],
     user: {type: Schema.Types.ObjectID, ref: 'UserData'}
   },

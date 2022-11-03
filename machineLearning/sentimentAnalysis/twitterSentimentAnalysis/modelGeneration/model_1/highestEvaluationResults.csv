@@ -1,0 +1,8 @@
+evaulation metric,model,score
+accuracy,MLPClassifier,73.26%
+positive precision,KNeighborsClassifier,79.34%
+negative precision,MultinomialNB,81.57%
+positive recall,MultinomialNB,91.20%
+negative recall,KNeighborsClassifier,80.06%
+positive f_measure,MultinomialNB,78.26%
+negative f_measure,ComplementNB,70.74%

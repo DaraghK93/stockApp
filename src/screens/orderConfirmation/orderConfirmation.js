@@ -27,6 +27,7 @@ function OrderConfirmationPage() {
     const [qty, setQty] = useState("");
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
+    const [limitPrice, setLimitPrice] = useState(0)
 
     useEffect(() => {
         /// getStockInfo ///
@@ -102,7 +103,8 @@ function OrderConfirmationPage() {
                                     stockprice={stock.daily_change.currentprice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                     setAmountSelected={setAmountSelected}
-                                    setQty={setQty} />
+                                    setQty={setQty}
+                                />
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <BalanceComponent
@@ -117,13 +119,20 @@ function OrderConfirmationPage() {
                         <>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitQuantitySelect
-                                setQty={setQty} />
+                                    portfolioBalance={portfolioBalance}
+                                    setQty={setQty}
+                                    limitPrice={limitPrice}
+                                    setAmountSelected={setAmountSelected}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                />
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
-                                <LimitPriceSelect 
-                                portfolioBalance={portfolioBalance}
-                                setAmountSelected={setAmountSelected}
-                                qty={qty}
+                                <LimitPriceSelect
+                                    portfolioBalance={portfolioBalance}
+                                    setAmountSelected={setAmountSelected}
+                                    qty={qty}
+                                    setLimitPrice={setLimitPrice}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
                                 />
                             </Col>
                         </>

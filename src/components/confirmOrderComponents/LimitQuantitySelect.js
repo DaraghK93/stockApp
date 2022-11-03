@@ -1,12 +1,14 @@
 import { Card, Container, Row } from "react-bootstrap";
 import { useState } from 'react';
 
-function LimitQuantitySelect({ setQty }) {
+function LimitQuantitySelect({ setQty, limitPrice, setAmountSelected, setNewPortfolioBalance, portfolioBalance }) {
     const [quantity, setQuantity] = useState(0);
 
     const sliderCall = (e) => {
         setQuantity(e.target.value)
         setQty(e.target.value)
+        setAmountSelected(e.target.value * limitPrice)
+        setNewPortfolioBalance(portfolioBalance - (e.target.value * limitPrice))
     }
 
     return (

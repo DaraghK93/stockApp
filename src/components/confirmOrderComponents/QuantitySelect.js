@@ -41,7 +41,7 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
     const sliderCall = (e) => {
         setQuantity(e.target.value)
         setQty(e.target.value)
-        setAmount(stockPrice * e.target.value)
+        setAmount(parseFloat(stockPrice * e.target.value).toFixed(2))
         setAmountSelected(stockPrice * e.target.value)
         setDisplayBalance((portfolioBalance - (stockPrice * e.target.value)))
         setNewPortfolioBalance((portfolioBalance - (stockPrice * e.target.value)))
@@ -66,9 +66,10 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                     <Form.Control
                                         style={{ width: "150px" }}
                                         type="number"
-                                        value={amount.toString()}
+                                        value={amount}
                                         placeholder={parseFloat(amount).toFixed(2).toString()}
-                                        onChange={boxCall} />
+                                        onChange={boxCall}
+                                        />
                                 </Col>
                             </Form.Group>
                         </Form>

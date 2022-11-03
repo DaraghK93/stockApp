@@ -9,42 +9,32 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
     const [amount, setAmount] = useState(0);
     const [stockPrice, setStockPrice] = useState("");
     const [error, setError] = useState("");
-    const [focusedInput, setFocus ] = useState(null)
+    const [focusedInput, setFocus] = useState(null)
 
     // sets the quantity for the slider
     useEffect(() => {
         setStockPrice(stockprice)
-        if (parseFloat(displayBalance) < 0) {
-            setMax(parseFloat(quantity - 0.10))
-            setError("")
-        }
-    }, [quantity, stockprice, displayBalance, amount, portfolioBalance, focusedInput ])
+        setMax(parseFloat(portfolioBalance / stockPrice))
+    }, [stockprice, portfolioBalance, stockPrice])
 
     const boxCall = (e) => {
-        if (parseFloat(e.target.value)) {
-            if ((portfolioBalance - e.target.value) >= 0) {
-                setQuantity((e.target.value / stockPrice))
-                setQty((e.target.value / stockPrice))
-                setAmount(e.target.value)
-                setAmountSelected(e.target.value)
-                setDisplayBalance(portfolioBalance - (e.target.value))
-                setNewPortfolioBalance(portfolioBalance - (e.target.value))
-                setError("")
-            }
-            else {
-                setError("Can't have less than 0 balance")
-            }
+        if ((portfolioBalance - e.target.value) >= 0) {
+            setQuantity((e.target.value / stockPrice))
+            setQty((e.target.value / stockPrice))
+            setAmount(e.target.value)
+            setAmountSelected(e.target.value)
+            setDisplayBalance(portfolioBalance - (e.target.value))
+            setNewPortfolioBalance(portfolioBalance - (e.target.value))
+        }
+        else if ((portfolioBalance - e.target.value) < 0) {
+            setError("Can't have less than 0 balance")
         }
         else if (e.target.value === "" || e.target.value === 0) {
             setQuantity(0.00)
-            setAmount("")
+            setAmount(0)
             setAmountSelected(0)
             setDisplayBalance(portfolioBalance)
             setNewPortfolioBalance(portfolioBalance)
-            setError("")
-        }
-        else if (typeof e.target.value === 'string' || e.target.value instanceof String) {
-            setError("You need to input a number!")
         }
     }
 
@@ -78,7 +68,7 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                         type="number"
                                         value={amount.toString()}
                                         placeholder={parseFloat(amount).toFixed(2).toString()}
-                                        onFocus={()=> setFocus ("amount")}
+                                        onFocus={() => setFocus("amount")}
                                         onChange={boxCall} />
                                 </Col>
                             </Form.Group>

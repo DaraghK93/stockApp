@@ -5,7 +5,6 @@ import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, setAmountSelected, setQty }) {
     const [max, setMax] = useState("");
     const [quantity, setQuantity] = useState(0);
-    const [displayBalance, setDisplayBalance] = useState(portfolioBalance);
     const [amount, setAmount] = useState(0);
     const [stockPrice, setStockPrice] = useState("");
     const [error, setError] = useState("");
@@ -22,7 +21,6 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
             setQty(e.target.value / stockPrice)
             setAmount(e.target.value)
             setAmountSelected(parseFloat(e.target.value))
-            setDisplayBalance(portfolioBalance - (e.target.value))
             setNewPortfolioBalance(portfolioBalance - (e.target.value))
             setError("")
         }
@@ -33,7 +31,6 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
             setQuantity(0.00)
             setAmount(0)
             setAmountSelected(0)
-            setDisplayBalance(portfolioBalance)
             setNewPortfolioBalance(portfolioBalance)
         }
     }
@@ -43,7 +40,6 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
         setQty(e.target.value)
         setAmount(parseFloat(stockPrice * e.target.value).toFixed(2))
         setAmountSelected(stockPrice * e.target.value)
-        setDisplayBalance((portfolioBalance - (stockPrice * e.target.value)))
         setNewPortfolioBalance((portfolioBalance - (stockPrice * e.target.value)))
         setError("")
     }

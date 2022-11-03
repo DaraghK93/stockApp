@@ -17,7 +17,8 @@ const Article = require('../models/article.model');
 function cleanCompanyName(companyName){
     try{
         /// For companyName if it contains ".com" or "Inc" or ",Inc" remove it 
-        var cleanedCompanyName  = companyName.replace(/(\.)?(com)?(,\s)?(Inc)(.)?/,'')
+        var removeCoportation   = companyName.replace(/(Corporation)/,'')
+        var cleanedCompanyName  = removeCoportation.replace(/(Corporation)?(\.)?(com)?(,\s)?(Inc)(.)?/,'')
         return cleanedCompanyName
     }catch{
         throw new Error(`Error has occured in the cleanCompanyName function.\nError details:\n\t${error}`)

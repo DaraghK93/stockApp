@@ -22,6 +22,7 @@ const createPortfolio = async (req, res, next) => {
         dateCreated: dateCreated
       });
       await User.updateOne({ _id: req.user.id }, {$push: {portfolios: newPortfolio}})
+      await newPortfolio.save()
         
       res.json({ newPortfolio });
     } catch (err) {

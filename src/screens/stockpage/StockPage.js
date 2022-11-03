@@ -110,7 +110,7 @@ function StockPage() {
                                         title="Company Information"
                                         info={stock.longbusinesssummary} /></dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
-                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange})
+                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange}%)
                                 </dt>
                             </dl>
                         </Col>

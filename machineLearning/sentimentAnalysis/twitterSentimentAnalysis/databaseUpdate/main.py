@@ -32,7 +32,7 @@ if __name__ == "__main__":
     mongoURI = os.getenv("MONGO_URI")
     # Get a database connect
     con = databaseFunctions.getMongoConnection(mongoURI)
-    # Get the articles headlines
+    # Get the tweets and their ids
     tweets = databaseFunctions.getTweets(con)
     tweets_list = []
     ids = []
@@ -40,6 +40,7 @@ if __name__ == "__main__":
         tweets_list.append(tweet["content"])
         ids.append(tweet["id"])
 
+    ## Crate DataFrame out of these
     tweet_ids = pd.DataFrame(ids)
     tweets_list = pd.DataFrame(tweets_list)
     df = pd.DataFrame()
@@ -51,34 +52,23 @@ if __name__ == "__main__":
     negWordsList = cleaningFunctions.readCSVFile(negWords_loc)
     neuWordsList = cleaningFunctions.readCSVFile(neuWords_loc)
 
+    ## Clean the tweets - removing stopwords and urls, hashtags, punctuation as before
     df = featureEngineeringFunctions.removeStopWordsFromTweet(df)
     df = cleaningFunctions.removeUrlAndHashtag(df)
 
     ## remove empty strings after cleaning
-    # df = [i.strip() for i in df]
-    # df = [i for i in df if i]
     indeces_to_drop = []
     for index, row in df.iterrows():
         tweet = row["tweet"].strip()
         if not tweet or len(row["tweet"]) == 0:
-
-            print("found one ")
-            print(row["id"])
-            print(index)
-            print(row["tweet"])
             indeces_to_drop.append(index)
-    print(indeces_to_drop)
-    print(len(df))
     df.drop(indeces_to_drop, axis=0, inplace=True)
-
-    print(len(df))
-    print(df)
 
     # Load the classifier
     classifier = modelFunctions.loadClassifier(modelFile)
     for index, row in df.iterrows():
         features = featureEngineeringFunctions.extractFeatures(
-            posWordsList, negWordsList, row["tweet"]
+            row["tweet"], posWordsList, negWordsList
         )
         prediction = classifier.classify(features)
         query = {"$set": {"sentiment": prediction}}

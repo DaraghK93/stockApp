@@ -83,7 +83,8 @@ function OrderConfirmationPage() {
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <BalanceComponent
                             newPortfolioBalance={newPortfolioBalance}
-                            amountSelected={amountSelected} />
+                            amountSelected={amountSelected}
+                         />
                     </Col>
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <OrderSummary

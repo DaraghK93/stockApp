@@ -1,8 +1,40 @@
 import { Card, Container } from "react-bootstrap";
 import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
 
-function BalanceComponent({ newPortfolioBalance, amountSelected }) {
+function BalanceComponent({ 
+    newPortfolioBalance, amountSelected }) {
     const data = [{ value: amountSelected }, { value: newPortfolioBalance }];
+
+    const CustomLabel = ({ viewBox, balance = 0 }) => {
+        const { cx, cy } = viewBox;
+        return (
+            <>
+                <text x={cx - 45} y={cy - 5}>
+                    <tspan
+                        style={{
+                            fontWeight: 700,
+                            fontSize: "1.5em",
+                            // fill: "#2B5CE7"
+                        }}
+                    >
+                       ${balance}
+                    </tspan>
+                </text>
+                <text x={cx - 37} y={cy + 15}>
+                    <tspan
+                        style={{
+                            fontSize: "0.8em",
+                            fill: "#A9A9A9"
+                        }}
+                    >
+                        Left to spend
+                    </tspan>
+                </text>
+            </>
+        );
+    };
+
+
     return (
         <>
             <Card>
@@ -21,7 +53,7 @@ function BalanceComponent({ newPortfolioBalance, amountSelected }) {
                                 <Cell fill="#1E90FF" />
                                 <Cell fill="#595959" />
                                 <Label
-                                    content={<CustomLabel balance={newPortfolioBalance} />}
+                                    content={<CustomLabel balance={parseFloat(newPortfolioBalance).toFixed(2)} />}
                                     position="center"
                                 />
                             </Pie>

@@ -55,12 +55,13 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                     <h5 style={{ marginTop: "10px" }}>Quantity</h5>
                     {error ? <MessageAlert variant='danger'>{error}</MessageAlert> : <div></div>}
                     <Row style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>
-                        <h2>Quantity: {parseFloat(quantity).toFixed(2)}</h2>
-                        <p><strong>Your Balance: </strong>${parseFloat(displayBalance).toFixed(2)}</p>
-                        <Form>
+
+                        <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>{parseFloat(quantity).toFixed(2)} stocks</h2>
+                        <br></br><br></br><br></br>
+                        <Form style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                             <Form.Group as={Row} className="mb-3" controlId="formHorizontalPassword">
-                                <Form.Label column sm={5} xs={6}>
-                                    <strong>Amount Selected:</strong> $
+                                <Form.Label column sm={5} xs={4}>
+                                    Cost: $
                                 </Form.Label>
                                 <Col sm={5} xs={6}>
                                     <Form.Control
@@ -69,12 +70,12 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                         value={amount}
                                         placeholder={parseFloat(amount).toFixed(2).toString()}
                                         onChange={boxCall}
-                                        />
+                                    />
                                 </Col>
                             </Form.Group>
                         </Form>
                     </Row>
-                    <input type="range" className="form-range" min={0} max={max} value={quantity} step={0.001}
+                    <input type="range" className="form-range" min={0} max={max} value={quantity} step={0.00001}
                         onChange={sliderCall}
                     />
                 </Container>

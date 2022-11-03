@@ -16,7 +16,7 @@ const stockSchema = new mongoose.Schema(
     state: { type: String, trim: true },
     country: { type: String, trim: true },
     fulltimeemployees: { type: String, trim: true },
-    longbusinessummary: { type: String, trim: true },
+    longbusinesssummary: { type: String, trim: true },
     logo: {type:String, trim: true},
     esgrating: {type:Object},
     daily_change: {type:Object}

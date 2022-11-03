@@ -1,5 +1,5 @@
 import { Card, Container, Row, Form, Col } from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 
 function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, setAmountSelected }) {
@@ -9,14 +9,16 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
     const [amount, setAmount] = useState(0);
     const [stockPrice, setStockPrice] = useState("");
     const [error, setError] = useState("");
+    const [ focusedInput, setFocus ] = useState(null)
 
+    // sets the quantity for the slider
     useEffect(() => {
         setStockPrice(stockprice)
         if (parseFloat(displayBalance) < 0) {
             setMax(parseFloat(quantity - 0.10))
             setError("")
         }
-    }, [quantity, stockprice, displayBalance])
+    }, [quantity, stockprice, displayBalance, amount, portfolioBalance])
 
     const boxCall = (e) => {
         if (parseFloat(e.target.value)) {
@@ -32,16 +34,15 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                 setError("Can't have less than 0 balance")
             }
         }
-        else if (e.target.value === "" || e.target.value === 0){
-            setAmount(0)
+        else if (e.target.value === "" || e.target.value === 0) {
+            setAmount("")
             setAmountSelected(0)
             setQuantity(0.00)
             setError("")
             setDisplayBalance(portfolioBalance)
             setNewPortfolioBalance(portfolioBalance)
         }
-        else if (typeof e.target.value === 'string' ||  e.target.value instanceof String) 
-        {
+        else if (typeof e.target.value === 'string' || e.target.value instanceof String) {
             setError("You need to input a number!")
         }
     }
@@ -73,8 +74,9 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                     <Form.Control
                                         style={{ width: "150px" }}
                                         type="number"
-                                        // value={amount}
+                                        value={amount.toString()}
                                         placeholder={parseFloat(amount).toFixed(2)}
+                                        onFocus={()=>setFocus("amount")}
                                         onChange={boxCall} />
                                 </Col>
                             </Form.Group>

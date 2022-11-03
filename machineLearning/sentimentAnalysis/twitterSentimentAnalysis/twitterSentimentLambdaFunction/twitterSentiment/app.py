@@ -4,12 +4,16 @@ from pymongo import MongoClient
 import snscrape.modules.twitter as sntwitter
 import os
 import pymongo
-
+import pandas as pd
+import pickle
+import nltk
+import string
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running
 # This will change dynamically when running locallly or on AWS Lambda
 dir_path = os.path.dirname(os.path.realpath(__file__))
+nltk.data.path.append(f"{dir_path}/nltk_data")
 
 
 def lambda_handler(event, context):
@@ -30,9 +34,9 @@ def lambda_handler(event, context):
 
     ids = []
     tweets_to_write = []
-
+    list_of_tickerss = ["aapl", "tsla", "msft"]
     try:
-        for stock in list_of_tickers:
+        for stock in list_of_tickerss:
             currIteration = 0
             query = "(#{}) lang:en".format(stock)
 
@@ -60,13 +64,36 @@ def lambda_handler(event, context):
                     tweets_to_write.append(tweetObject)
                     currIteration += 1
 
+        ## Load the classifier
+        classifierName = "NaiveBayesClassifier.pickle"
+        classifier = loadClassifier(f"{dir_path}/MLData/{classifierName}")
+
+        # Read in the words files
+        posWordsList = readCSVFile(f"{dir_path}/MLData/pos_words.csv")
+        negWordsList = readCSVFile(f"{dir_path}/MLData/neg_words.csv")
+        neuWordsList = readCSVFile(f"{dir_path}/MLData/neutral_words.csv")
+
+        ## Create DataFrame of the tweets for cleaning
+        df = pd.DataFrame(tweets_to_write)
+        df["tweet_cleaning"] = df.loc[:, "content"]
+
+        ## Clean the data
+        print(df)
+        df = removeUrlAndHashtag(df)
+        print(df)
+        df = removeStopWordsFromTweet(df)
+        print(df)
+        ## write the tweets to the db
+        writeTweetsToDatabase(collection, tweets_to_write)
     except:
         return json.dumps({"errormessage": "Error with snscrape"})
-    print(tweets_to_write)
-    writeTweetsToDatabase(collection, tweets_to_write)
 
     return json.dumps({"Result": "SUCCESS"})
 
+
+###############################################
+###############################################
+###############################################
 
 # Create tweet object. Hardcoding a sentiment in for now
 def createTweetObject(
@@ -185,3 +212,114 @@ def getMongoConnection(URI):
         print(f"ERROR:Could not connect to MongoDB, client obeject is none")
     else:
         return client
+
+
+def loadClassifier(file):
+    """
+    Loads in a pickle file containing the machine learning classifier.
+    Args:
+        file (String): The path to the classifier.
+    Returns:
+        (SklearnClassifier or NLTKClassifier): The classifier which can be used to classify news headlines.
+    """
+    try:
+        classifierFile = open(file, "rb")
+        classifier = pickle.load(classifierFile)
+        classifierFile.close()
+        return classifier
+    except Exception as e:
+        print(
+            f"ERROR:Occured in the loadClassifier function.\nException Details:\n\t{e}"
+        )
+
+
+def removeUrlAndHashtag(data):
+    """
+    This function takes in a dataframe and returns the same dataframe free of URLs, tagged users, hashtags
+    and all in lower case. Punctuation is also removed here
+
+    The 'tweet' column is the column that's changed. Can easily expand this to be any column if needed
+
+    Args:
+        dataframe
+
+    Returns:
+        cleaned dataframe
+    """
+    tweetCol = []
+
+    for index, row in data.iterrows():
+        newTweet = []
+        for word in row["tweet_cleaned"].split(" "):
+            if word.startswith("@") and len(word) > 1:
+                word = "@user"
+            elif word.startswith("http"):
+                word = "http"
+            elif word.startswith("#") and len(word) > 1:
+                word = "#"
+            elif word.startswith("$") and len(word) > 1:
+                word = "$"
+            # remove punctuation from the words also
+            word = word.translate(str.maketrans("", "", string.punctuation))
+            # create new tweet - list of words
+            newTweet.append(word.lower())
+        # join the words in tweet list together separated by a space and add to tweet column list
+        tweetCol.append(" ".join(newTweet))
+    # create a dataframe to replace old tweet column
+    tweetCol = pd.DataFrame(tweetCol)
+
+    data.drop(["tweet"], axis=1)
+    data["tweet"] = tweetCol
+
+    return data
+
+
+def removeStopWordsFromTweet(data):
+    """
+    This function takes in a dataframe of tweets and returns each string free of stopwords
+
+    Args:
+        data (_type_): dataframe of tweets
+
+    Returns:
+        _type_: cleaned dataframe
+    """
+    tweetCol = []
+
+    stopwords = nltk.corpus.stopwords.words("english")
+    print(stopwords, "these are the stopwords!!!!!!!!!!!!")
+    for index, row in data.iterrows():
+        newTweet = []
+        for word in row["tweet_cleaning"].split(" "):
+            if word not in stopwords:
+                # create new tweet - list of words
+                newTweet.append(word.lower())
+        # join the words in tweet list together separated by a space and add to tweet column list
+        tweetCol.append(" ".join(newTweet))
+    # create a dataframe to replace old tweet column
+    tweetCol = pd.DataFrame(tweetCol)
+
+    # replace old tweet with newly created one stopwords free
+    data.drop(["tweet_cleaning"], axis=1)
+    data["tweet_cleaning"] = tweetCol
+
+    return data
+
+
+def readCSVFile(filepath, encoding="utf8", index_col=None):
+    """
+    Reads in csv file to Pandas dataframe
+
+    Args:
+        filepath (string): relative file path
+        encoding (string): The encoding of the file being read - Optional
+        index_col (Int): If there is an index column to be used - Optional
+
+    Returns:
+        df (pandas Dataframe): Pandas dataframe with csv in it
+    """
+    try:
+        df = pd.read_csv(filepath, encoding=encoding, index_col=index_col)
+        return df
+    except Exception as e:
+        print(f"Error reading in file. Exception details\n{e}")

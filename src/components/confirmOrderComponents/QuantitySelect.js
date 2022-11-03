@@ -1,5 +1,5 @@
 import { Card, Container, Row, Form, Col } from 'react-bootstrap';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 
 function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, setAmountSelected }) {
@@ -9,7 +9,7 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
     const [amount, setAmount] = useState(0);
     const [stockPrice, setStockPrice] = useState("");
     const [error, setError] = useState("");
-    const [ focusedInput, setFocus ] = useState(null)
+    const [focusedInput, setFocus ] = useState(null)
 
     // sets the quantity for the slider
     useEffect(() => {
@@ -18,14 +18,22 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
             setMax(parseFloat(quantity - 0.10))
             setError("")
         }
-    }, [quantity, stockprice, displayBalance, amount, portfolioBalance])
+        if (focusedInput === "amount") {
+            setQuantity((amount / stockPrice))
+            setAmount(amount)
+            setAmountSelected(amount)
+            setDisplayBalance(portfolioBalance - (amount))
+            setNewPortfolioBalance(portfolioBalance - (amount))
+            setError("")
+        }
+    }, [quantity, stockprice, displayBalance, amount, portfolioBalance, focusedInput, setAmountSelected, setNewPortfolioBalance, stockPrice])
 
     const boxCall = (e) => {
         if (parseFloat(e.target.value)) {
             if ((portfolioBalance - e.target.value) >= 0) {
+                setQuantity((e.target.value / stockPrice))
                 setAmount(e.target.value)
                 setAmountSelected(e.target.value)
-                setQuantity((e.target.value / stockPrice))
                 setDisplayBalance(portfolioBalance - (e.target.value))
                 setNewPortfolioBalance(portfolioBalance - (e.target.value))
                 setError("")
@@ -35,12 +43,12 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
             }
         }
         else if (e.target.value === "" || e.target.value === 0) {
+            setQuantity(0.00)
             setAmount("")
             setAmountSelected(0)
-            setQuantity(0.00)
-            setError("")
             setDisplayBalance(portfolioBalance)
             setNewPortfolioBalance(portfolioBalance)
+            setError("")
         }
         else if (typeof e.target.value === 'string' || e.target.value instanceof String) {
             setError("You need to input a number!")
@@ -75,8 +83,8 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
                                         style={{ width: "150px" }}
                                         type="number"
                                         value={amount.toString()}
-                                        placeholder={parseFloat(amount).toFixed(2)}
-                                        onFocus={()=>setFocus("amount")}
+                                        placeholder={parseFloat(amount).toFixed(2).toString()}
+                                        onFocus={()=> setFocus ("amount")}
                                         onChange={boxCall} />
                                 </Col>
                             </Form.Group>

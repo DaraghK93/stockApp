@@ -1,18 +1,28 @@
 import { Card, Container, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
 
-function OrderType({  }) {
+function OrderType({ setBuyOrSell, setOrderType }) {
     const [active, setActive] = useState("");
     const [active2, setActive2] = useState("");
 
     const handleClick = (event) => {
         setActive(event.target.id);
-        
-
+        if (event.target.id === "1") {
+            setBuyOrSell("Buy")
+        }
+        else if (event.target.id === "2") {
+            setBuyOrSell("Sell")
+        }
     }
 
     const handleClick2 = (event) => {
         setActive2(event.target.id);
+        if (event.target.id === "1") {
+            setOrderType("Market Order")
+        }
+        else if (event.target.id === "2") {
+            setOrderType("Limit Order")
+        }
     }
 
     return (

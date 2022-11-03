@@ -1,8 +1,8 @@
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
-import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import BottomStickyButton from "../../components/widgets/BottomStickyButton/BottomStickyButton";
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
 import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
@@ -20,8 +20,8 @@ function OrderConfirmationPage() {
     const [error, setError] = useState("");
     const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
     const [amountSelected, setAmountSelected] = useState("")
-    // const [buyOrSell, setBuyOrSell] = useState("");
-    // const [orderType, setOrderType] = useState("");
+    const [buyOrSell, setBuyOrSell] = useState("");
+    const [orderType, setOrderType] = useState("");
 
     useEffect(() => {
         /// getStockInfo ///
@@ -71,7 +71,10 @@ function OrderConfirmationPage() {
                         </Col>
                     </Row>
                     <Col style={{ marginBottom: "0.625rem" }}>
-                        <OrderType />
+                        <OrderType
+                            setBuyOrSell={setBuyOrSell}
+                            setOrderType={setOrderType}
+                        />
                     </Col>
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <QuantitySelect
@@ -84,10 +87,12 @@ function OrderConfirmationPage() {
                         <BalanceComponent
                             newPortfolioBalance={newPortfolioBalance}
                             amountSelected={amountSelected}
-                         />
+                        />
                     </Col>
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <OrderSummary
+                            buyOrSell={buyOrSell}
+                            orderType={orderType}
                         />
                     </Col>
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>

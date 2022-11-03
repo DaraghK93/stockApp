@@ -1,18 +1,35 @@
-import { Card, Container } from "react-bootstrap";
+import { Card, Container, Table } from "react-bootstrap";
 
-function OrderSummary({ buySell, orderType }) {
+function OrderSummary({ buyOrSell, orderType }) {
     return (
         <>
             <Card>
                 <Container>
                     <h5 style={{ marginTop: "10px" }}>Order Summary</h5>
-                    <ul>
-                        <li>Buy/Sell {buySell}</li>
-                        <li>Order Type {orderType}</li>
-                        <li>Quantity</li>
-                        <li>New Porfolio Balance</li>
-                        <li>Total Cost </li>
-                    </ul>
+                    <Table>
+                        <tbody>
+                            <tr>
+                                <td>Buy/ Sell</td>
+                                <td>{buyOrSell}</td>
+                            </tr>
+                            <tr>
+                                <td>Order Type</td>
+                                <td>{orderType}</td>
+                            </tr>
+                            <tr>
+                                <td>Quantity</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>New Portfolio Balance</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total Cost</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </Table>
                 </Container>
             </Card>
         </>

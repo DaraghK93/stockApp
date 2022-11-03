@@ -4,7 +4,7 @@ const {Schema} = mongoose
 const LeagueSchema = new mongoose.Schema(
     {
       leagueName: { type: String, trim: true, required: true },
-      budget: { type: String, trim: true, required: true},
+      budget: { type: Number, trim: true, required: true},
       leagueType: {type: String, enum: ["timeBased","valueBased"], required: true},
       tradingFee: {type: Number, required: true},
       users: [{type: Schema.Types.ObjectId, ref: 'UserData'}], 

@@ -10,29 +10,16 @@ function BalanceComponent({
         return (
             <>
                 <text x={cx - 45} y={cy - 5}>
-                    <tspan
-                        style={{
-                            fontWeight: 700,
-                            fontSize: "1.5em",
-                        }}
-                    >
-                       ${balance}
-                    </tspan>
+                    <tspan style={{ fontWeight: 700, fontSize: "1.5em", }}>${balance}</tspan>
                 </text>
                 <text x={cx - 37} y={cy + 15}>
-                    <tspan
-                        style={{
-                            fontSize: "0.8em",
-                            fill: "#A9A9A9"
-                        }}
-                    >
+                    <tspan style={{ fontSize: "0.8em", fill: "#A9A9A9" }}>
                         Left to spend
                     </tspan>
                 </text>
             </>
         );
     };
-
 
     return (
         <>

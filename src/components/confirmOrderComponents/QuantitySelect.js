@@ -18,16 +18,7 @@ function QuantitySelect({ portfolioBalance, stockprice, setNewPortfolioBalance, 
             setMax(parseFloat(quantity - 0.10))
             setError("")
         }
-        // if (focusedInput === "amount") {
-        //     setQuantity((amount / stockPrice))
-        //     setQty(amount / stockPrice)
-        //     setAmount(amount)
-        //     setAmountSelected(amount)
-        //     setDisplayBalance(portfolioBalance - (amount))
-        //     setNewPortfolioBalance(portfolioBalance - (amount))
-        //     setError("")
-        // }
-    }, [quantity, stockprice, displayBalance, amount, portfolioBalance, focusedInput, setAmountSelected, setNewPortfolioBalance, stockPrice])
+    }, [quantity, stockprice, displayBalance, amount, portfolioBalance, focusedInput ])
 
     const boxCall = (e) => {
         if (parseFloat(e.target.value)) {

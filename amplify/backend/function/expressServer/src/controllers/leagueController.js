@@ -33,15 +33,9 @@ const createLeague = async (req, res, next) => {
         ),
       )
     } 
-    let league = await League.findOne({ leagueName })
-    // Check for existing league
-    if (league) {
-      res.status(400)
-      res.errormessage = 'league already exists, need a unique league name'
-      return next(new Error('league already exists'))
-    }
+
     // create new league object
-      league = new League({
+    const league = new League({
         leagueName,
         budget,
         leagueType,

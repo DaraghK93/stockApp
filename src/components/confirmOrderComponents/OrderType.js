@@ -1,6 +1,5 @@
 import { Card, Container, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
-// import { setOrderType } from "../../screens/orderConfirmation/orderConfirmation"
 
 function OrderType({  }) {
     const [active, setActive] = useState("");

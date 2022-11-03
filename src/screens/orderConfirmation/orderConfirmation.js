@@ -14,11 +14,13 @@ import { API } from "aws-amplify";
 
 function OrderConfirmationPage() {
 
+    const portfolioBalance = 2000
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-    const [newPortfolioBalance, setNewPortfolioBalance] = useState("")
-    // const [buySell, setBuySell] = useState("");
+    const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
+    const [amountSelected, setAmountSelected] = useState("")
+    // const [buyOrSell, setBuyOrSell] = useState("");
     // const [orderType, setOrderType] = useState("");
 
     useEffect(() => {
@@ -68,29 +70,25 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
-
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <OrderType />
                     </Col>
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <QuantitySelect
-                            portfolioBalance={2000}
+                            portfolioBalance={portfolioBalance}
                             stockprice={stock.daily_change.currentprice}
-                            setNewPortfolioBalance={setNewPortfolioBalance} />
+                            setNewPortfolioBalance={setNewPortfolioBalance}
+                            setAmountSelected={setAmountSelected} />
                     </Col>
-
-
                     <Col style={{ marginBottom: "0.625rem" }}>
-                        <BalanceComponent newPortfolioBalance={newPortfolioBalance}/>
+                        <BalanceComponent
+                            newPortfolioBalance={newPortfolioBalance}
+                            amountSelected={amountSelected} />
                     </Col>
-
-
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <OrderSummary
-                        // orderType={orderType} buySell={buySell} 
                         />
                     </Col>
-
                     <BottomStickyButton text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

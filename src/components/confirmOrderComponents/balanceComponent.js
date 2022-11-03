@@ -1,8 +1,8 @@
 import { Card, Container } from "react-bootstrap";
 import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
 
-function BalanceComponent({ newPortfolioBalance }) {
-    const data = [{ value: 500 }, { value: newPortfolioBalance }];
+function BalanceComponent({ newPortfolioBalance, amountSelected }) {
+    const data = [{ value: amountSelected }, { value: newPortfolioBalance }];
     return (
         <>
             <Card>

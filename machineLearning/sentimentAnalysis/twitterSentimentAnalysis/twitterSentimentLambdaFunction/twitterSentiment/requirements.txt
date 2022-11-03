@@ -4,4 +4,3 @@ snscrape
 boto3
 pandas
 nltk
-string

@@ -8,12 +8,17 @@ import pandas as pd
 import pickle
 import nltk
 import string
+from statistics import mean
 
 ### Directory Setup ###
 # For relative imports use the directory where script is running
 # This will change dynamically when running locallly or on AWS Lambda
 dir_path = os.path.dirname(os.path.realpath(__file__))
 nltk.data.path.append(f"{dir_path}/nltk_data")
+from nltk.tokenize import RegexpTokenizer
+from nltk.sentiment import SentimentIntensityAnalyzer
+
+sia = SentimentIntensityAnalyzer()
 
 
 def lambda_handler(event, context):
@@ -78,11 +83,33 @@ def lambda_handler(event, context):
         df["tweet_cleaning"] = df.loc[:, "content"]
 
         ## Clean the data
-        print(df)
         df = removeUrlAndHashtag(df)
-        print(df)
         df = removeStopWordsFromTweet(df)
-        print(df)
+
+        ### Remove empties after cleaning
+        indeces_to_drop = []
+        for index, row in df.iterrows():
+            tweet = row["tweet_cleaning"].strip()
+            if not tweet or len(row["tweet_cleaning"]) == 0:
+                print("here we are")
+                indeces_to_drop.append(index)
+        df.drop(indeces_to_drop, axis=0, inplace=True)
+
+        ## extract features
+        sentiment_list = []
+        for index, row in df.iterrows():
+            features = extractFeatures(
+                row["tweet_cleaning"], posWordsList, negWordsList
+            )
+            prediction = classifier.classify(features)
+            sentiment_list.append(prediction)
+
+        sentiment_list = pd.DataFrame(sentiment_list)
+        df.drop(["sentiment"], axis=1)
+        df["sentiment"] = sentiment_list
+        df.drop(["tweet_cleaning"], axis=1)
+
+
         ## write the tweets to the db
         writeTweetsToDatabase(collection, tweets_to_write)
     except:
@@ -250,7 +277,7 @@ def removeUrlAndHashtag(data):
 
     for index, row in data.iterrows():
         newTweet = []
-        for word in row["tweet_cleaned"].split(" "):
+        for word in row["tweet_cleaning"].split(" "):
             if word.startswith("@") and len(word) > 1:
                 word = "@user"
             elif word.startswith("http"):
@@ -268,8 +295,8 @@ def removeUrlAndHashtag(data):
     # create a dataframe to replace old tweet column
     tweetCol = pd.DataFrame(tweetCol)
 
-    data.drop(["tweet"], axis=1)
-    data["tweet"] = tweetCol
+    data.drop(["tweet_cleaning"], axis=1)
+    data["tweet_cleaning"] = tweetCol
 
     return data
 
@@ -287,7 +314,6 @@ def removeStopWordsFromTweet(data):
     tweetCol = []
 
     stopwords = nltk.corpus.stopwords.words("english")
-    print(stopwords, "these are the stopwords!!!!!!!!!!!!")
     for index, row in data.iterrows():
         newTweet = []
         for word in row["tweet_cleaning"].split(" "):
@@ -323,3 +349,137 @@ def readCSVFile(filepath, encoding="utf8", index_col=None):
         return df
     except Exception as e:
         print(f"Error reading in file. Exception details\n{e}")
+
+
+def extractFeatures(headline, posWords, negWords, neuWords=False):
+    """
+    This function uses other functions to extract features of an inputted headline.
+    The result of this function will be a dictonary object with the feature name as the key and value of that feature as the value.
+
+    Args:
+        headline (String): The headline string to generate features for
+        posWords (List): A positive words list to use in counting the positive words in the headline
+        negWords (List): A negative words list to use in counting the negative words in the headline.
+
+    Returns:
+        features(dict): Dictionary where the keys are the feauture names.
+    """
+    try:
+        posWordCount = 0
+        negWordCount = 0
+        neuWordCount = 0
+        compoundScores = list()
+        positiveScores = list()
+        negativeScores = list()
+        neutralScores = list()
+        features = {}
+        # Do it by sentence as there could be multiple sentences in a headline with different polarity scores
+        for sentence in nltk.sent_tokenize(headline):
+            # Update the positive and negative word count
+            posWordCount += getWordCount(sentence, posWords)
+            negWordCount += getWordCount(sentence, negWords)
+            if neuWords:
+                neuWordCount += getWordCount(sentence, neuWords)
+            # Get the polarity score of the sentence
+            polarityScores = getPolarityScore(sentence)
+            compoundScores.append(polarityScores["compound"])
+            positiveScores.append(polarityScores["pos"])
+            negativeScores.append(polarityScores["neg"])
+            neutralScores.append(polarityScores["neu"])
+
+        # Calculate the mean of the headlines polarity scores, +1 to meanCompund as some nltk models wont work with negative
+        features["meanCompound"] = mean(compoundScores) + 1
+        features["meanPositive"] = mean(positiveScores)
+        features["meanNegative"] = mean(negativeScores)
+        features["meanNeutral"] = mean(neutralScores)
+
+        # Add the word count to the features
+        features["posWordCount"] = posWordCount
+        features["negWordCount"] = negWordCount
+        if neuWords:
+            features["neuWordCount"] = neuWordCount
+        return features
+    except Exception as e:
+        print(
+            f"Error in extraing features in function extractFeatures.\nException details:\n{e}"
+        )
+
+
+def getWordCount(sentence, listOfWords):
+    """
+    Gets the word count of certain words appearing in sentence.
+
+    Args:
+        sentence (String): The sentence to search in
+        listOfWords (List): The words to search for
+
+    Returns:
+        wordCount(Int): Integer representing the word count.
+    """
+    wordCount = 0
+    # Make sure words are tokenized and lower case
+    words = tokenize(sentence)
+    # Make sure words list is lower case, will already be tokenized as its list
+    wordsList = convertListToLowerCase(listOfWords)
+    for word in words:
+        if word.lower() in wordsList:
+            wordCount += 1
+    return wordCount
+
+
+def getPolarityScore(sentence):
+    """
+    Calculates polarity scores using NLTK's sentiment analyiser.
+
+    Args:
+        sentence (String): Sentence string to calculate polarity of.
+
+    Returns:
+        scores (dict): A dictionary with the keys 'neg', 'neu', 'pos' and 'compound'
+    """
+    try:
+        scores = sia.polarity_scores(sentence)
+        return scores
+    except Exception as e:
+        print(
+            f"Error in calculating polarity scores in function getPolarityScore.n\nException details\n{e}"
+        )
+
+
+def tokenize(headline):
+    """
+    Tokenizes and individual headline. Headlines also converted to lower case in this process.
+    Args:
+        headline (String): A string representing a headline
+    Returns:
+        tokens(List): List of strings, each element is a word in the headline.
+    """
+    try:
+        # Only match words not symbols
+        tokenizer = RegexpTokenizer(r"\w+")
+        tokens = tokenizer.tokenize(headline)
+        tokens = [t.lower() for t in tokens]
+        return tokens
+    except Exception as e:
+        print(
+            f"Error in tokenizing headline in function tokenize .\nException details\n{e}"
+        )
+
+
+def convertListToLowerCase(wordsList):
+    """
+    Converts a list of words to lower case.
+    Args:
+        wordsList (List): List of strings.
+    Returns:
+        wordsLower(List): A list of strings converted to lower case
+    """
+    try:
+        wordsLower = []
+        for word in wordsList:
+            wordsLower.append(word.lower())
+        return wordsLower
+    except Exception as e:
+        print(
+            f"Error in cinverting words to lower case in function convertListToLowerCase.\n Exception Details {e}"
+        )

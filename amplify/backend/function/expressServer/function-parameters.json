@@ -4,6 +4,10 @@
     {
       "cloudFormationParameterName": "jwtSecret",
       "environmentVariableName": "JWT_SECRET"
+    },
+    {
+      "cloudFormationParameterName": "environment",
+      "environmentVariableName": "ENVIRONMENT"
     }
   ]
 }

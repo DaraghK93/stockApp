@@ -22,9 +22,6 @@ AWS.config.update({region:'eu-north-1'});
 
 
 connectDB();
-console.log(process.env.ENVIRONMENT)
-console.log(process.env.MONGO_URI)
-
 
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());

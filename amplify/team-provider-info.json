@@ -41,8 +41,8 @@
         },
         "stockPriceIntraDay": {
           "environment": "prod",
-          "databasename": "test",
-          "collection": "sample_stock_data"
+          "databasename": "dev",
+          "collection": "stock-data"
         }
       }
     }

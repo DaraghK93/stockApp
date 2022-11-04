@@ -31,12 +31,6 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
-    const newsSentimentData = [
-        { name: 'Positive', value: 600 },
-        { name: 'Negative', value: 300 },
-        { name: 'Neutral', value: 100 }
-    ];
-
   const twitterSentimentData = [
     { name: 'Positive', value: 100 },
     { name: 'Negative', value: 98 },
@@ -110,7 +104,7 @@ function StockPage() {
                                         title="Company Information"
                                         info={stock.longbusinesssummary} /></dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
-                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange})
+                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange}%)
                                 </dt>
                             </dl>
                         </Col>
@@ -135,7 +129,7 @@ function StockPage() {
                         <ChartCardESG title={"ESG Rating"} edata={((stock.esgrating.environment_score)/1000)*5} sdata={((stock.esgrating.social_score)/1000)*5} gdata={((stock.esgrating.governance_score)/1000)*5}/>
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"News Sentiment"} data={newsSentimentData} />
+                            <ChartCard title={"News Sentiment"} data={stock.newsSentiment} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />

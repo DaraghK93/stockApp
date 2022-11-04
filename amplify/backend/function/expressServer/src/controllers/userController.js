@@ -2,7 +2,6 @@ const User = require('../models/user.model')
 const Portfolio = require('../models/portfolio.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const config = require('config')
 
 // @desc Register new user
 // @route POST /api/users
@@ -84,7 +83,7 @@ const registerUser = async (req, res, next) => {
 
     jwt.sign(
       payload,
-      config.get('jwtSecret'),
+      process.env.JWT_SECRET,
       { expiresIn: '360000' },
       (err, token) => {
         if (err) throw err
@@ -127,7 +126,7 @@ const loginUser = async (req, res, next) => {
 
   try {
     let user = await User.findOne({ email })
-
+    
     if (!user) {
       res.status(404)
       res.errormessage = 'Invalid credentials'
@@ -149,7 +148,7 @@ const loginUser = async (req, res, next) => {
 
     jwt.sign(
       payload,
-      config.get('jwtSecret'),
+      process.env.JWT_SECRET,
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err

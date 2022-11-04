@@ -22,7 +22,6 @@ AWS.config.update({region:'eu-north-1'});
 
 
 connectDB();
-
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 app.use(express.json());

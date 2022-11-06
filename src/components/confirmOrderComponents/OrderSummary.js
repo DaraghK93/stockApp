@@ -18,15 +18,15 @@ function OrderSummary({ buyOrSell, orderType, amountSelected, newPortfolioBalanc
                             </tr>
                             <tr>
                                 <td>Quantity</td>
-                                <td>{parseFloat(qty).toFixed(2)}</td>
+                                <td>{parseFloat(qty).toFixed(2)} stocks</td>
                             </tr>
                             <tr>
                                 <td>New Portfolio Balance</td>
-                                <td>{parseFloat(newPortfolioBalance).toFixed(2)}</td>
+                                <td>${parseFloat(newPortfolioBalance).toFixed(2)}</td>
                             </tr>
                             <tr>
                                 <td>Total Cost</td>
-                                <td>{parseFloat(amountSelected).toFixed(2).toString()}</td>
+                                <td>${parseFloat(amountSelected).toFixed(2).toString()}</td>
                             </tr>
                         </tbody>
                     </Table>

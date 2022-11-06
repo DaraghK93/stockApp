@@ -29,7 +29,7 @@ def lambda_handler(event, context):
     # Select the Database
     database = client[os.environ["DATABASENAME"]]
     # Select the collection
-    collection = database["sample_tweet_data"]
+    collection = database["tweets"]
 
     ## Get the tickers to scrape
 
@@ -108,7 +108,6 @@ def lambda_handler(event, context):
         df.drop(["sentiment"], axis=1)
         df["sentiment"] = sentiment_list
         df.drop(["tweet_cleaning"], axis=1)
-
 
         ## write the tweets to the db
         writeTweetsToDatabase(collection, tweets_to_write)

@@ -9,9 +9,14 @@ from sklearn.decomposition import PCA
 # Capture similarity
 from sentence_transformers import SentenceTransformer
 
+from pymongo import MongoClient
+from dotenv import load_dotenv
+
 def read_data():
     # Read in the s&p dataset
     stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_1\sp500.csv')
+    # Remove some columns that won't be used
+    stocks.drop(['idnumber', 'exchange','longnamesort','prices','esgrating','logo', 'weight'], inplace=True, axis=1)
 
     # Create array X of the all long business summaries
     X = np.array(stocks.longbusinesssummary)
@@ -31,8 +36,8 @@ def read_data():
     # Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4
     cos_sim_data = pd.DataFrame(cosine_similarity(X))
     # Write cosine similarity dataframe to .csv
-    cos_sim_data.to_csv("cosine_sim_data.csv", encoding='utf-8', index=False)
-    stocks.to_csv("stock_data.csv", encoding='utf-8', index=False)
+    cos_sim_data.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.csv", encoding='utf-8', index=False)
+    stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv", encoding='utf-8', index=False)
     return cos_sim_data, X, stocks
 
 def give_recommendations(index, cos_sim_data, stocks,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
@@ -100,14 +105,10 @@ def output_cosSim_to_csv(X):
     # Write dataframe to .csv
     recomm_data.to_csv("cosine_sim.csv", encoding='utf-8', index=False)
 
-# Reading in user data from Mongo
-from pymongo import MongoClient
-
-from dotenv import load_dotenv
-load_dotenv()
-mongo_uri = os.getenv('MONGO_URI')
 
 def push_rec_to_db():
+    load_dotenv()
+    mongo_uri = os.getenv('MONGO_URI')
     # Setting the MongoDB connection
     mongoClient = MongoClient(mongo_uri)
     db = mongoClient.test
@@ -138,8 +139,13 @@ def push_rec_to_db():
 
 
 cos_sim_data, X, stocks = read_data()
+print(cos_sim_data)
+print("-"*40)
+print(X)
+print("-"*40)
+print(stocks)
 
-recs = give_recommendations(0, cos_sim_data, stocks,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False)
+# recs = give_recommendations(0, cos_sim_data, stocks,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False)
 
-final_recs = recs["Stocks"]
-print(final_recs)
+# final_recs = recs["Stocks"]
+# print(final_recs)

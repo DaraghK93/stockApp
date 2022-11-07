@@ -85,21 +85,21 @@ def main():
     )
 
     ### Evaluation
-    evaluations = [] 
-    for name,classifier in classifiers.items():
-        # Evaluate the model and add it to the evulations list 
+    evaluations = []
+    for name, classifier in classifiers.items():
+        # Evaluate the model and add it to the evulations list
         evaluation = {}
         evaluation["model"] = name
-        evaluation.update(modelFunctions.evaluateModel(classifier,test))
+        evaluation.update(modelFunctions.evaluateModel(classifier, test))
         evaluations.append(evaluation)
         # Save to pickle file
-        modelFile = f'./models/{name}.pickle'
-        modelFunctions.saveClassifier(classifier,modelFile)
-    # Write the results to a csv 
+        modelFile = f"./models/{name}.pickle"
+        modelFunctions.saveClassifier(classifier, modelFile)
+    # Write the results to a csv
     evalFile = "evaluationResults.csv"
-    modelFunctions.generateEvaluationReport(evaluations,evalFile)   
-    # show the results 
-    modelFunctions.evaluateTopModels(evalFile) 
+    modelFunctions.generateEvaluationReport(evaluations, evalFile)
+    # show the results
+    modelFunctions.evaluateTopModels(evalFile)
 
 
 if __name__ == "__main__":

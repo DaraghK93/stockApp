@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {ObjectId} = mongoose.Schema
+const {Schema} = mongoose
 
 
 const validateEmail = (email) => {
@@ -26,15 +26,15 @@ const UserSchema = new mongoose.Schema(
         'Please enter a valid email address',
       ],
     },
-    dob: { type: Date, trim: true },
     overeighteen: { type: Boolean, trim: true, required: true, default: true },
     password: { type: String, trim: true, required: true },
     location: { type: String, trim: true },
     image: { type: String },
     bio: { type: String },
-    portfolios: [{type: mongoose.Schema.Types.Object, ref: "PortfolioData"}]
+    portfolios: [{type: Schema.Types.ObjectId, ref: "PortfolioData"}],
+    leagues: [{type: Schema.Types.ObjectId, ref: "league" }]
   },
-  { collection: 'user-data' },
+  { collection: 'users' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
   { timestamps: true },
 )

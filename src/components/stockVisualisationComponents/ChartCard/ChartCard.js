@@ -3,25 +3,36 @@ import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
+import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 
 const ChartCard = ({ title, data }) => {
 
     const [isShownBarChart, setIsShownBarChart] = useState(false);
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
+    const [noDataMessage, setNoDataMessage] = useState("");
 
     useEffect(() => {
-
-        if (String(title) === "ESG Rating") {
-            setIsShownBarChart(true);
+        // value totoal will be 0 if these is no data 
+        let valueTotal = 0 
+        /// if there is no data to show 
+        data.forEach(function (item,index){
+            valueTotal = valueTotal + item.value
+        })
+        if (valueTotal === 0){
+            setNoDataMessage("No data to show at the minute")
+        }else{
+           if (String(title) === "ESG Rating") {
+                setIsShownBarChart(true);
+            }
+            else if (String(title) === "News Sentiment") {
+                setIsShownPieChart(true);
+            }
+            else if (String(title) === "Twitter Sentiment") {
+                setIsShownRadarChart(true);
+            } 
         }
-        else if (String(title) === "News Sentiment") {
-            setIsShownPieChart(true);
-        }
-        else if (String(title) === "Twitter Sentiment") {
-            setIsShownRadarChart(true);
-        }
-    }, [title]); // <-- empty dependancies array
+    }, [data,title]);
 
 
     const showBarChart = event => {
@@ -44,13 +55,16 @@ const ChartCard = ({ title, data }) => {
         setIsShownBarChart(false);
         setIsShownPieChart(false);
     };
-
     return (
         <>
             <Card className="infoCardStyle">
-                <Container>
+                <Container className="infoCardContainer">
                     <h2>{title}  </h2>
-                        <Dropdown>
+                    {noDataMessage 
+                    ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert> 
+
+                    :<>
+                    <Dropdown>
                             <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                 Graph Type
                             </Dropdown.Toggle>
@@ -60,10 +74,11 @@ const ChartCard = ({ title, data }) => {
                                 <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
                             </Dropdown.Menu>
                         </Dropdown>
-                    {/* show component on click */}
                     {isShownBarChart && <BarChartViz data={data}/>}
                     {isShownPieChart && <PieChartViz data={data}/>}
-                    {isShownRadarChart && <RadarChartViz data={data}/>}
+                    {isShownRadarChart && <RadarChartViz data={data}/>} 
+                    </>
+    }
                 </Container>
             </Card>
         </>

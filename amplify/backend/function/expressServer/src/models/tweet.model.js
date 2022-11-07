@@ -35,7 +35,7 @@ const TweetSchema = new mongoose.Schema(
       type: String,
     },
   },
-  { collection: 'sample_tweet_data' }
+  { collection: 'tweets' }
 );
 
 module.exports = Tweet = mongoose.model('tweet', TweetSchema);

@@ -31,14 +31,18 @@
 }
 
 .tickercardstyle {
-  width: 11.5rem;
+  width: 10rem;
   height: 100%;
   display: block
 }
 
 @media only screen and (min-width: 990px) {
   .tickercardstyle {
-    width: 15.625rem;
+    width: 10rem;
+  }
+
+  ::-webkit-scrollbar {
+    height: 1rem;
   }
 
 }

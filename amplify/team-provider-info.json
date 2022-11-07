@@ -35,16 +35,16 @@
           "s3Key": "amplify-builds/newsArticleScrapingAndSentimentAnalysis-74384430423870446956-build.zip"
         },
         "esgDataIngress": {
-          "environment": "prod",
-          "database": "test",
-          "collection": "sample_stock_data",
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
-          "s3Key": "amplify-builds/esgDataIngress-5765794c526a776d7831-build.zip"
+          "s3Key": "amplify-builds/esgDataIngress-5765794c526a776d7831-build.zip",
+          "environment": "prod",
+          "database": "dev",
+          "collection": "stocks"
         },
         "stockPriceIntraDay": {
           "environment": "prod",
-          "databasename": "test",
-          "collection": "sample_stock_data"
+          "databasename": "dev",
+          "collection": "stocks"
         }
       }
     }

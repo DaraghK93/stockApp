@@ -1,4 +1,5 @@
 /* ***************************** Stock Card Container ***************************** */
+@import "../global_variables.scss";
 
 
 ::-webkit-scrollbar {
@@ -8,12 +9,12 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: white;
+  background: $background;
 }
 ::-webkit-scrollbar-thumb {
-  background: grey;
+  background: $info;
   border-radius: 100vw;
-  border: .20em solid white;
+  border: .20em solid $background;
 
 }
 
@@ -37,10 +38,6 @@
 }
 
 @media only screen and (min-width: 990px) {
-  .tickercardstyle {
-    width: 10rem;
-  }
-
   ::-webkit-scrollbar {
     height: 1rem;
   }
@@ -48,6 +45,5 @@
 }
 
 .stockdiscoveryRow {
-  margin-top: 3.125rem;
-  padding: 1rem;
+  margin-top: 2rem;
 }

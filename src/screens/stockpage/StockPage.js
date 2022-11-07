@@ -17,25 +17,15 @@ import BottomStickyButton from '../../components/widgets/BottomStickyButton/Bott
 import FollowButton from '../../components/widgets/FollowButton/FollowButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
 
-import {useNavigate} from 'react-router-dom';
-
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
-/// Redux ///
-import {useSelector} from 'react-redux';
 
 function StockPage() {
-    /// Get the user state from redux 
-    const user = useSelector((state) => state.user)
-    const {userInfo} = user; 
-
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-
-    const navigate = useNavigate(); 
 
     var lineColor;
     var gradientColor;
@@ -85,12 +75,8 @@ function StockPage() {
                 setLoading(false)
             }
         }
-         if(userInfo === null){
-            navigate(`/`)
-        }else{
-            getStockInfo();
-        }
-    }, [userInfo,navigate])
+        getStockInfo();
+    }, [])
 
 
 

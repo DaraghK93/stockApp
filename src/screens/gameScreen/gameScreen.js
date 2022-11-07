@@ -5,6 +5,7 @@ import { Container, Row, Col} from "react-bootstrap"
 
 //// Components ///
 import ScreenSelectionRadioButton from "../../components/gameComponents/gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton";
+import CreateGameCard from '../../components/gameComponents/gameScreenComponents/createGameCard/createGameCard';
 
 
 
@@ -22,16 +23,13 @@ function GameScreen(){
 
     return(
         <Container>
-            <Row>
-                <Col><h1>GameScreen</h1></Col>
-            </Row>
-            <Row lg={1} md={1} xs={1}>
+            <Row className="py-3" lg={1} md={1} xs={1}>
                 <ScreenSelectionRadioButton choices={screenChocies} state={screen} setter={setScreen}/>
             </Row>
             {screen === "1" ?(
             <>
-            <Row>
-                <Col>Create a Game Component</Col>
+            <Row className="px-2" lg={1} md={1} xs={1}>
+                <CreateGameCard/>
             </Row>
             <Row>
                 <Col>

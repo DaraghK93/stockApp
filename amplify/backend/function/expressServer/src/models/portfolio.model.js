@@ -14,7 +14,7 @@ const PortfolioSchema = new mongoose.Schema(
     leagues: [{type: Schema.Types.ObjectID, ref: 'leagues'}],
     user: {type: Schema.Types.ObjectID, ref: 'UserData'}
   },
-  { collection: 'portfolio-data' },
+  { collection: 'portfolios' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
   { timestamps: true },
 )

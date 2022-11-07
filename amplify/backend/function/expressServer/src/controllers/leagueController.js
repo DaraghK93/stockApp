@@ -11,17 +11,22 @@ const createLeague = async (req, res, next) => {
         // parse the body and destructure
         const {
             leagueName,
-            budget,
+            startingBalance,
             leagueType,
             tradingFee,
             portfolios,
-            private
+            private,
+            startDate,
+            WinningValue,
+            maxDailyTrades,
+            active,
+            accessCode,
           } = req.body
 
     // check they have sent all fields
      if (
       typeof leagueName === 'undefined' ||
-      typeof budget === 'undefined' ||
+      typeof startingBalance === 'undefined' ||
       typeof leagueType === 'undefined' ||
       typeof tradingFee === 'undefined' ||
       typeof private === 'undefined'
@@ -39,13 +44,20 @@ const createLeague = async (req, res, next) => {
     // create new league object
     const league = new League({
         leagueName,
-        budget,
+        startingBalance,
         leagueType,
         tradingFee,
         private,
+        startDate,
+        WinningValue,
+        maxDailyTrades,
+        accessCode,
+        active,
         leagueAdmin: req.user.id,   // gets this from JWT
         portfolios: [portfolios]
       });
+
+   
 
     // save league to league-data collection in DB
     await league.save()
@@ -81,6 +93,16 @@ const getPublicLeagues = async (req, res, next) => {
       res.errormessage = 'Server error in get public leagues';
       return next(err);
     }
+}
+
+const joinLeaguebyCode = async (req, res, next) => {
+  try {
+    const {accessCode,
+           userId} = req.body
+
+} catch {
+
+  }
 }
 
 module.exports = {

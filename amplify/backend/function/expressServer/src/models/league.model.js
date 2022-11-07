@@ -27,7 +27,7 @@ const LeagueSchema = new mongoose.Schema(
             required: true
         }, // could we have a trigger that changes this depending on start/end?
         startDate: {
-            type: Date, 
+            type: Number, //just changed this to test 
             required: true 
         }, 
         endDate: {

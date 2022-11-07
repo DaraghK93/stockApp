@@ -1,31 +1,44 @@
 /* ***************************** Stock Card Container ***************************** */
 
+
+::-webkit-scrollbar {
+  width: 0;
+  overflow: none;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: white;
+}
+::-webkit-scrollbar-thumb {
+  background: grey;
+  border-radius: 100vw;
+  border: .20em solid white;
+
+}
+
 // side scrolling
 .cardContainer {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  width: 85%;
-  margin: auto;
-  
-
+  display: flex;
+  overflow-x: auto;
 
   .tickercard {
     display: inline-block;
-    padding: 1rem;
+    padding: 5px;
+    padding-top:0px;
   }
 
 }
 
 .tickercardstyle {
-  width: 15.625rem;
+  width: 11.5rem;
   height: 100%;
   display: block
 }
 
 @media only screen and (min-width: 990px) {
   .tickercardstyle {
-    width: 18.75rem;
+    width: 15.625rem;
   }
 
 }

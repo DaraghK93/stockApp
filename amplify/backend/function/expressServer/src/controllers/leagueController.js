@@ -1,5 +1,5 @@
 const League = require('../models/league.model')
-
+const User = require('../models/user.model')
 // @desc create new league. a league is created and sent to the league-data
 // collection in the DB. the user's id is sent through the auth middleware,
 // this id is added to the users array as the first user in the league
@@ -97,15 +97,27 @@ const getPublicLeagues = async (req, res, next) => {
 
 const joinLeaguebyCode = async (req, res, next) => {
   try {
-    const {accessCode,
-           userId} = req.body
+      const {accessCode} = req.body
+      let league = await League.findOne({ accessCode })
+    
+      if (!league) {
+        res.status(404)
+        res.errormessage = 'Invalid Access Code'
+        return next(new Error('Invalid Access Code'))
+      }
+      league = await League.updateOne({accessCode},{$push: {users:req.user.id}})
+      const user = await User.updateOne({_id:req.user.id}, {$push: {leagues:league._id}})
+      res.json({league,user})
 
-} catch {
-
-  }
+} catch (err) {
+      console.error(err.message);
+      res.errormessage = 'Server error in join league';
+      return next(err);
+    }
 }
 
 module.exports = {
     createLeague,
-    getPublicLeagues
+    getPublicLeagues,
+    joinLeaguebyCode
   }

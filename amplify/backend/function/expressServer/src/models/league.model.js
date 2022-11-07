@@ -12,7 +12,7 @@ const LeagueSchema = new mongoose.Schema(
       users: [{type: Schema.Types.ObjectId, ref: 'UserData'}], 
       portfolios: [{type: Schema.Types.ObjectId, ref: 'PortfolioData'}]
     },
-    { collection: 'league-data' },
+    { collection: 'leagues' },
 
     { timestamps: true },
   )

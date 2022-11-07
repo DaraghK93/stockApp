@@ -2,7 +2,7 @@ const User = require('../models/user.model')
 const Portfolio = require('../models/portfolio.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-
+const getJWTSecret = require('../utils/JWT')
 // @desc Register new user
 // @route POST /api/users
 // @access Public
@@ -80,10 +80,12 @@ const registerUser = async (req, res, next) => {
         },
       },
     }
-
+    // Get the JWT secret 
+    const jwtSecret = await getJWTSecret()
+    /// Sign the Payload 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: '360000' },
       (err, token) => {
         if (err) throw err
@@ -145,10 +147,12 @@ const loginUser = async (req, res, next) => {
         id: user.id,
       },
     }
-
+     // Get the JWT secret 
+    const jwtSecret = await getJWTSecret()
+    /// Sign the Payload 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      jwtSecret,
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err

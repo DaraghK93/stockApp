@@ -23,7 +23,6 @@ const getDBSecret = async () => {
     }catch(error){
         console.log("ERROR: Cannot get secret cannot get MONGO_URI from aws ssm")
         console.log(error)
-        process.exit(1)
     }
 }
 

@@ -9,14 +9,19 @@ const port = 3001;
 const express = require('express');
 const bodyParser = require('body-parser');
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
-const connectDB = require('./config/db');
+const connectDB = require('./database/db');
 // declare a new express app
 const app = express();
 const cors = require('cors');
 const { errorHandler } = require('./middleware/errorMiddleware');
+// Read in the dotenv file 
+require('dotenv').config();
+/// Set defualt region 
+const AWS = require('aws-sdk');
+AWS.config.update({region:'eu-north-1'});
+
 
 connectDB();
-
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
 app.use(express.json());

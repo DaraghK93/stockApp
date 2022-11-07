@@ -97,16 +97,24 @@ const getPublicLeagues = async (req, res, next) => {
 
 const joinLeaguebyCode = async (req, res, next) => {
   try {
+      // get the accessCode
       const {accessCode} = req.body
+      // get league object from db
       let league = await League.findOne({ accessCode })
-      
-      const {_id} = league
+      // get _id from league
+      const {_id} = league 
+
+      // 404 for no such league
       if (!league) {
         res.status(404)
         res.errormessage = 'Invalid Access Code'
         return next(new Error('Invalid Access Code'))
       }
+
+      // update the league object in db, find by accesscode and push user_id
       await League.updateOne({accessCode},{$push: {users:req.user.id}})
+
+      // push leagues to user
       await User.updateOne({_id}, {$push: {leagues:_id}})
       res.json({league})
 

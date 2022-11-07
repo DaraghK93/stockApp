@@ -32,6 +32,9 @@
 /*Layout components */
 @import "./layoutComponents/header.scss";
 
+/*Game Components */
+@import "./gameComponents/screenSelectionRadioButtons.scss";
+
 
 body {
     background-color: $background;

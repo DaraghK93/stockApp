@@ -28,6 +28,8 @@ function GameScreen(){
             <Row lg={1} md={1} xs={1}>
                 <ScreenSelectionRadioButton choices={screenChocies} state={screen} setter={setScreen}/>
             </Row>
+            {screen === "1" ?(
+            <>
             <Row>
                 <Col>Create a Game Component</Col>
             </Row>
@@ -41,6 +43,13 @@ function GameScreen(){
                     Inactive Games 
                 </Col>
             </Row>
+            </>)
+            :
+            (
+                <Row>
+                    Join a Game Screen
+                </Row>
+            )}
         </Container>
     
         )

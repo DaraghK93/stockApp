@@ -2,8 +2,7 @@ const User = require('../models/user.model')
 const Portfolio = require('../models/portfolio.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
-const config = require('config')
-
+const getJWTSecret = require('../utils/JWT')
 // @desc Register new user
 // @route POST /api/users
 // @access Public
@@ -81,10 +80,12 @@ const registerUser = async (req, res, next) => {
         },
       },
     }
-
+    // Get the JWT secret 
+    const jwtSecret = await getJWTSecret()
+    /// Sign the Payload 
     jwt.sign(
       payload,
-      config.get('jwtSecret'),
+      jwtSecret,
       { expiresIn: '360000' },
       (err, token) => {
         if (err) throw err
@@ -127,7 +128,7 @@ const loginUser = async (req, res, next) => {
 
   try {
     let user = await User.findOne({ email })
-
+    
     if (!user) {
       res.status(404)
       res.errormessage = 'Invalid credentials'
@@ -146,10 +147,12 @@ const loginUser = async (req, res, next) => {
         id: user.id,
       },
     }
-
+     // Get the JWT secret 
+    const jwtSecret = await getJWTSecret()
+    /// Sign the Payload 
     jwt.sign(
       payload,
-      config.get('jwtSecret'),
+      jwtSecret,
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err

@@ -14,8 +14,8 @@ async function protectedRoute(req, res, next){
     try {
         // Get the JWT secret 
         const jwtSecret = await getJWTSecret()
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
+        // Decode the token sent 
+        const decoded = jwt.verify(token, jwtSecret);
         req.user = decoded.user;
         next();
     } catch(err) {

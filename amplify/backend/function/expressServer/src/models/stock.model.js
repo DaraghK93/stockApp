@@ -21,7 +21,7 @@ const stockSchema = new mongoose.Schema(
     esgrating: {type:Object},
     daily_change: {type:Object}
   },
-  { collection: 'sample_stock_data' },
+  { collection: 'stocks' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
   { timestamps: true }
 );

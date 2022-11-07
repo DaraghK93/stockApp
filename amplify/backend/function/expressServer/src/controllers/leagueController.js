@@ -99,15 +99,16 @@ const joinLeaguebyCode = async (req, res, next) => {
   try {
       const {accessCode} = req.body
       let league = await League.findOne({ accessCode })
-    
+      
+      const {_id} = league
       if (!league) {
         res.status(404)
         res.errormessage = 'Invalid Access Code'
         return next(new Error('Invalid Access Code'))
       }
-      league = await League.updateOne({accessCode},{$push: {users:req.user.id}})
-      const user = await User.updateOne({_id:req.user.id}, {$push: {leagues:league._id}})
-      res.json({league,user})
+      await League.updateOne({accessCode},{$push: {users:req.user.id}})
+      await User.updateOne({_id}, {$push: {leagues:_id}})
+      res.json({league})
 
 } catch (err) {
       console.error(err.message);

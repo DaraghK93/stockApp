@@ -39,9 +39,8 @@ def lambda_handler(event, context):
 
     ids = []
     tweets_to_write = []
-    list_of_tickerss = ["aapl", "tsla", "msft"]
     try:
-        for stock in list_of_tickerss:
+        for stock in list_of_tickers:
             currIteration = 0
             query = "(#{}) lang:en".format(stock)
 
@@ -91,7 +90,6 @@ def lambda_handler(event, context):
         for index, row in df.iterrows():
             tweet = row["tweet_cleaning"].strip()
             if not tweet or len(row["tweet_cleaning"]) == 0:
-                print("here we are")
                 indeces_to_drop.append(index)
         df.drop(indeces_to_drop, axis=0, inplace=True)
 

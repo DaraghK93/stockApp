@@ -1,5 +1,6 @@
 const League = require('../models/league.model')
 const User = require('../models/user.model')
+const leagueService = require('../services/leagueServices')
 // @desc create new league. a league is created and sent to the league-data
 // collection in the DB. the user's id is sent through the auth middleware,
 // this id is added to the users array as the first user in the league
@@ -20,7 +21,7 @@ const createLeague = async (req, res, next) => {
             WinningValue,
             maxDailyTrades,
             active,
-            accessCode,
+            // accessCode, 
           } = req.body
 
     // check they have sent all fields
@@ -40,9 +41,9 @@ const createLeague = async (req, res, next) => {
         ),
       )
     } 
-
+    // const accessCode = Math.floor(Math.random() * 6) + 1
     // create new league object
-    const league = new League({
+    const league = {
         leagueName,
         startingBalance,
         leagueType,
@@ -51,25 +52,23 @@ const createLeague = async (req, res, next) => {
         startDate,
         WinningValue,
         maxDailyTrades,
-        accessCode,
+        // accessCode,
         active,
         leagueAdmin: req.user.id,   // gets this from JWT
         portfolios: [portfolios]
-      });
-
+      };
    
+  
+   let newLeague = await leagueService.saveLeague(league)
 
-    // save league to league-data collection in DB
-    await league.save()
-
-    res.json({league})
+    res.json({newLeague})
 
     } catch (err) {
       console.error(err.message);
       res.errormessage = 'Server error creating a league';
       return next(err);
-    }
-}
+    }}
+
 
 const getPublicLeagues = async (req, res, next) => {
     try {

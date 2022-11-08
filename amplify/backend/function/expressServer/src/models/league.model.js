@@ -73,7 +73,7 @@ const LeagueSchema = new mongoose.Schema(
           default: 0
         },
         accessCode: {
-          type: String, 
+          type: Number, 
           trim: true,
           unique: true
         },

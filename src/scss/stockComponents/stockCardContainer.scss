@@ -37,9 +37,9 @@
   display: block
 }
 
-@media only screen and (min-width: 990px) {
+@media only screen and (min-width: 500px) {
   ::-webkit-scrollbar {
-    height: 1rem;
+    height: 0.75rem;
   }
 
 }

@@ -1,5 +1,6 @@
 const User = require('../models/user.model')
-const Portfolio = require('../models/portfolio.model')
+const Portfolio = require('../models/portfolio.model');
+const PortfolioService = require('../services/portfolioServices');
 
 
 
@@ -7,24 +8,19 @@ const Portfolio = require('../models/portfolio.model')
 // route post portfolio/createPortfolio
 // @access private
 
-const createPortfolio = async (req, res, next) => {
+const createHangingPortfolio = async (req, res, next) => {
   try {
       dateCreated = new Date()
-      if (!req.body.remainder){
-        remainder = 10000
-      }
-      else {
-        remainder = req.body.remainder
-      }
-      const newPortfolio = new Portfolio({
+      const portfolioData = {
         portfolioName: req.body.portfolioName,
-        remainder: remainder,
-        dateCreated: dateCreated
-      });
-      await User.updateOne({ _id: req.user.id }, {$push: {portfolios: newPortfolio}})
-      await newPortfolio.save()
-        
-      res.json({ newPortfolio });
+        startingBalance: req.body.startingBalance,
+        leagueId: req.body.leagueId,
+        dateCreated: dateCreated,
+        userId: req.user.id
+      }
+
+      var createdPortfolio = PortfolioService.createPortfolio(portfolioData)
+      res.json({ createdPortfolio });
     } catch (err) {
       console.error(err.message);
       res.errormessage = 'Server error';
@@ -35,5 +31,5 @@ const createPortfolio = async (req, res, next) => {
 
 
 module.exports = {
-  createPortfolio
+  createHangingPortfolio
 }

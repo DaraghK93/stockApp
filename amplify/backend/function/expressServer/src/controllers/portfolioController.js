@@ -1,4 +1,3 @@
-const User = require('../models/user.model')
 const Portfolio = require('../models/portfolio.model');
 const PortfolioService = require('../services/portfolioServices');
 

@@ -11,13 +11,34 @@ const PortfolioService = require('../services/portfolioServices');
 const createHangingPortfolio = async (req, res, next) => {
   try {
     // create object to be used in createPortfolio service
+      console.log(parseFloat(req.body.startingBalance))
+      if (
+        typeof req.body.portfolioName === 'undefined' ||
+        typeof req.body.startingBalance === 'undefined'
+      ) {
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'All details are needed to create a portfolio'
+        return next(
+          new Error(
+            'The client has not sent the required information to create a portfolio',
+          ),
+        )
+      }
+      else if (typeof req.body.startingBalance !== 'number'){
+        res.status(400)
+        res.errormessage = 'Starting balance should be a number'
+        return next(new Error('Starting balance should be a number'))
+      }
+      else {
       const portfolioData = {
         portfolioName: req.body.portfolioName,
-        startingBalance: req.body.startingBalance,
+        startingBalance: parseFloat(req.body.startingBalance),
         userId: req.user.id
       }
-      const createdPortfolio = PortfolioService.createPortfolio(portfolioData)
-      res.json(createdPortfolio);
+        const createdPortfolio = await PortfolioService.createPortfolio(portfolioData)
+        res.json(createdPortfolio)
+    }
     } catch (err) {
       console.error(err.message);
       res.errormessage = 'Server error';

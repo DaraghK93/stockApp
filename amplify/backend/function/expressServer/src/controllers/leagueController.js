@@ -102,13 +102,20 @@ const joinLeaguebyCode = async (req, res, next) => {
       // get league object from db
       let league = await League.findOne({ accessCode })
       // get _id from league
-      const {_id} = league 
+      const {_id,users} = league 
 
       // 404 for no such league
       if (!league) {
         res.status(404)
         res.errormessage = 'Invalid Access Code'
         return next(new Error('Invalid Access Code'))
+      }
+
+      // check if user is already in the league
+      if (users.includes(req.user.id)){
+        res.status(400)
+        res.errormessage = 'User already in league'
+        return next(new Error('User already in league'))
       }
 
       // update the league object in db, find by accesscode and push user_id

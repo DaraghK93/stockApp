@@ -4,23 +4,20 @@ const PortfolioService = require('../services/portfolioServices');
 
 
 
-// @desc create new portfolio
+// @desc create new hanging portfolio
 // route post portfolio/createPortfolio
 // @access private
 
 const createHangingPortfolio = async (req, res, next) => {
   try {
-      dateCreated = new Date()
+    // create object to be used in createPortfolio service
       const portfolioData = {
         portfolioName: req.body.portfolioName,
         startingBalance: req.body.startingBalance,
-        leagueId: req.body.leagueId,
-        dateCreated: dateCreated,
         userId: req.user.id
       }
-
-      var createdPortfolio = PortfolioService.createPortfolio(portfolioData)
-      res.json({ createdPortfolio });
+      const createdPortfolio = PortfolioService.createPortfolio(portfolioData)
+      res.json(createdPortfolio);
     } catch (err) {
       console.error(err.message);
       res.errormessage = 'Server error';

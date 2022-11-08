@@ -6,18 +6,34 @@
 const Portfolio = require('../models/portfolio.model');
 const User = require('../models/user.model');
 
+// This function will create a portfolio in the portfolios collection and also add a reference to 
+// the object in the user schema
 const createPortfolio = async (portfolioData) => {
     try {
-        const newPortfolio = new Portfolio({
+        dateCreated = new Date()
+        let newPortfolio;
+        // this checks if league ID is entered
+        // league Id needed if the portfolio is part of a game
+        if (!portfolioData.leagueId) {
+            newPortfolio = new Portfolio({
+                portfolioName: portfolioData.portfolioName,
+                remainder: portfolioData.startingBalance,
+                dateCreated: dateCreated,
+                userId: portfolioData.userId
+        })}
+        else{
+            newPortfolio = new Portfolio({
                 portfolioName: portfolioData.portfolioName,
                 remainder: portfolioData.startingBalance,
                 leagueId: portfolioData.leagueId,
-                dateCreated: portfolioData.dateCreated,
+                dateCreated: dateCreated,
                 userId: portfolioData.userId
-        })
-        await User.updateOne({ _id: req.user.id }, {$push: {portfolios: newPortfolio._id}})
+        })}
+        // adds an object reference to the portfolio
+        await User.updateOne({ _id: newPortfolio.userId }, {$push: {portfolios: newPortfolio._id}})
+        // creates a portfolio
         await newPortfolio.save()
-        res.json({ newPortfolio });
+        return newPortfolio
       } catch (err) {
         console.error(err.message);
         res.errormessage = 'Server error. Portfolio not created.';

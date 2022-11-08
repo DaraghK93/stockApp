@@ -67,7 +67,6 @@ def lambda_handler(event, context):
                     # collect tweets to write to db
                     tweets_to_write.append(tweetObject)
                     currIteration += 1
-        print("finished scraping... loading classifier")
 
         ## Load the classifier
         # classifierName = "NaiveBayesClassifier.pickle"
@@ -102,18 +101,12 @@ def lambda_handler(event, context):
                 row["tweet_cleaning"], posWordsList, negWordsList
             )
             prediction = classifier.classify(features)
-            if prediction == "Positive":
-                print("Positive found")
-            elif prediction == "Negative":
-                print("Negative found")
             sentiment_list.append(prediction)
 
         sentiment_list = pd.DataFrame(sentiment_list)
         df.drop(["sentiment"], axis=1)
         df["sentiment"] = sentiment_list
         df.drop(["tweet_cleaning"], axis=1)
-
-        print("writing to db....")
 
         ## write the tweets to the db
         writeTweetsToDatabase(collection, tweets_to_write)

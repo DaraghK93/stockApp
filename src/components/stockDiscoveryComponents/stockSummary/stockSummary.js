@@ -43,7 +43,7 @@ function StockSummary() {
         <StockSideScrollMenu data={stocks[0].topGovernance} />
         <h3 className="stockdiscoveryRow">Today's Top Moving Tech Stocks</h3>
         <StockSideScrollMenu data={stocks[0].Technology} />
-        <h3 className="stockdiscoveryRow">Today's Top Moving Financial Service Stocks </h3>
+        <h3 className="stockdiscoveryRow">Today's Top Moving Financial Service Stocks</h3>
         <StockSideScrollMenu data={stocks[0].Financial} />
         </>}
         </>

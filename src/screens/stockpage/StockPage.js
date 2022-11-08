@@ -21,11 +21,11 @@ import TweetContainer from '../../components/tweetComponents/tweetContainer/twee
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
-function StockPage() {
 
-  const [loading, setLoading] = useState(true);
-  const [stock, setStock] = useState('');
-  const [error, setError] = useState("");
+function StockPage() {
+    const [loading, setLoading] = useState(true);
+    const [stock, setStock] = useState('');
+    const [error, setError] = useState("");
 
     var lineColor;
     var gradientColor;

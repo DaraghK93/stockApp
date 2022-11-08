@@ -11,7 +11,6 @@ const PortfolioService = require('../services/portfolioServices');
 const createHangingPortfolio = async (req, res, next) => {
   try {
     // create object to be used in createPortfolio service
-      console.log(parseFloat(req.body.startingBalance))
       if (
         typeof req.body.portfolioName === 'undefined' ||
         typeof req.body.startingBalance === 'undefined'

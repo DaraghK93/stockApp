@@ -74,7 +74,8 @@ const LeagueSchema = new mongoose.Schema(
         },
         accessCode: {
           type: String, 
-          trim: true
+          trim: true,
+          unique: true
         },
         leagueAdmin: {
           type: Schema.Types.ObjectId, 

@@ -29,6 +29,10 @@
 
 @import "./notFoundComponent/notFoundComponent.scss";
 
+/*Layout components */
+@import "./layoutComponents/header.scss";
+
+
 body {
     background-color: $background;
 }

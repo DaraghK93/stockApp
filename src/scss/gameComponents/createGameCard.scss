@@ -1,14 +1,28 @@
 .createGameCard{
-    max-width: 35%;
+    max-width: 30%;
     max-height: fit-content;
     color: white;
-    font-weight: bolder;
     margin: auto;
     display: flex;
+    align-items: center;
     justify-content: center;
     text-align: center;
-    align-items: center;
 }
+
+.createGameCardHeading{
+    font-size: xx-large;
+}
+
+.creatGameCardImage{
+    filter: blur(0.094rem);
+}
+
+.createGameCardTextBody{
+    font-weight: bold;
+    font-size: large;
+}
+
+
 
 @media only screen and (max-width: 600px){
     .createGameCard{

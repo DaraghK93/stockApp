@@ -12,14 +12,14 @@ function CreateGameCard(){
     const {userInfo} = user; 
 
     return(
-        <Link to={'/game/creategame}'} style={{ textDecoration: 'none' }}>
+        <Link to={'/game/creategame'} style={{ textDecoration: 'none' }}>
            <Card className="createGameCard">
-            <Card.Img  style={{"opacity": 0.8}} src="stock_photo_2.jpg" alt="Card image" />
+            <Card.Img className="creatGameCardImage" src="create_game_photo.jpg" alt="Card image" />
             <Card.ImgOverlay >
             <Card.Body>
-                <Card.Title>Create a Game</Card.Title>
-                <Card.Text>{userInfo.firstname} as the host</Card.Text>
-                <Card.Text>Invite friends and see who will come out on top</Card.Text>
+                <Card.Title className="createGameCardHeading">Create a Game</Card.Title>
+                <Card.Text className="createGameCardTextBody">{userInfo.firstname} as the host</Card.Text>
+                <Card.Text className="createGameCardTextBody">Invite friends and see who will come out on top</Card.Text>
                 <AddCircleOutlineIcon fontSize="large"/>
             </Card.Body>
         </Card.ImgOverlay>

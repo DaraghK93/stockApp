@@ -5,7 +5,6 @@ function PortfolioPage() {
     return (
         <Container>
             <h1>Portfolio Page</h1>
-            <h2>Portfolio Overall Viz</h2>
             <PortfolioOverallViz />
             <h2>My Balances</h2>
             <h2>Transaction History</h2>

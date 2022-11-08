@@ -51,11 +51,6 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
         setData(oneYearPrices);
     }
 
-    useEffect(()=>{
-        showTick()
-    }, [])
-    
-
     window.addEventListener("resize", showTick);
 
     function showTick() {
@@ -86,7 +81,7 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
                                     margin={{
                                         top: 10,
                                         right: 30,
-                                        left: -35,
+                                        left: -25,
                                         bottom: 0
                                     }}>
                                     <defs>
@@ -100,7 +95,6 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
                                     <XAxis dataKey="date"
                                         stroke="#595959"
                                         tick={tickBoolean}
-                                        // color="#595959"
                                     >
                                     </XAxis>
                                     <YAxis unit='$'

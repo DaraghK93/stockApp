@@ -10,7 +10,7 @@ function StockSideScrollMenu(props){
 // the array of stocks relating to that category is passed in as "data" props
     return(
         <>
-        <Card>
+        <Card style={{  border:"none"}}>
             <div className='cardContainer'>
                 {props.data.map((stockObj) => (
                     <div className='tickercard' key={stockObj._id}>

@@ -1,4 +1,4 @@
-import {Row,Card} from "react-bootstrap"
+import {Row,Col} from "react-bootstrap"
 import {useState, useEffect } from 'react'
 
 /// Components ///
@@ -56,26 +56,49 @@ function ActiveInactiveScheduledGames({games}){
         {loading ? <LoadingSpinner /> :
         <>
         <Row md={1} xs={1}>
-            <h2>Active Games</h2>
-            <SideScrollMenu className="h100">
-                {activeGames.map((game) => (
-                    <div className='sideScrollCard' key={game.leagueName}>
-                        <GameCard game={game}/>
-                    </div>         
-                            ))}
-            </SideScrollMenu>
+            <Col>
+                <h2>Active Games</h2>
+            </Col>
+            <Col>
+                <SideScrollMenu className="h100">
+                    {activeGames.map((game) => (
+                        <div className='sideScrollCard' key={game.leagueName}>
+                            <GameCard game={game}/>
+                        </div>         
+                                ))}
+                </SideScrollMenu>
+            </Col>
+            
         </Row>
-        <Row>
-            <h2>Scheduled Games</h2>
-            {scheduledGames.map((game) => (
-                <GameCard game={game}/>                       
-                            ))}
+        <Row md={1} xs={1}>
+            <Col>
+                <h2>Scheduled Games</h2>
+            </Col>
+            <Col>
+                <SideScrollMenu className="h100">
+                    {scheduledGames.map((game) => (
+                        <div className='sideScrollCard' key={game.leagueName}>
+                            <GameCard game={game}/>
+                        </div>         
+                                ))}
+                </SideScrollMenu>  
+            </Col>
+                           
         </Row>
-        <Row>
-            <h2>Complete Games</h2>
-            {completeGames.map((game) => (
-                <GameCard game={game}/>                       
-                            ))}
+        <Row md={1} xs={1}>
+            <Col>
+                <h2>Complete Games</h2>
+            </Col>
+            <Col>
+                <SideScrollMenu className="h100">
+                    {completeGames.map((game) => (
+                        <div className='sideScrollCard' key={game.leagueName}>
+                            <GameCard game={game}/>
+                        </div>         
+                                ))}
+                </SideScrollMenu>
+            </Col>
+            
         </Row>
         </>}
         </>

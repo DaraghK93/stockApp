@@ -4,8 +4,8 @@ import moment from "moment";
 function GameCard({game}){
 
     return(
-        <Card className="h-100 gameCard">
-            <Card.Img className="gameCardImage" src="create_game_photo.jpg" alt="Card image" />
+        <Card className=" gameCard">
+            <Card.Img className="gameCardImage" src={game.image} alt="Card image" />
             <Card.ImgOverlay >
             <Card.Body>
                 <Card.Title>{game.leagueName}</Card.Title>

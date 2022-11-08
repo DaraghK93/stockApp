@@ -6,6 +6,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import PCA
 from sentence_transformers import SentenceTransformer
 
+
 # This function is used to read in the original dataset and save the computed vectors as a pickle file.
 def read_data():
     # Read in the s&p dataset
@@ -19,14 +20,19 @@ def read_data():
     embeddings = model.encode(text_data, show_progress_bar=True)
     embed_data = embeddings
     X = np.array(embed_data)
-
     cos_sim_data = pd.DataFrame(cosine_similarity(X))
-    # Write cosine similarity dataframe to pickle file
+
+    # Write cosine similarity dataframe to pickle file. Pickle was needed as saving as csv caused indexing errors
     cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
-    stocks.to_csv("stock_data.csv", encoding='utf-8', index=False)
+    # Write stock data to csv file
+    stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv", encoding='utf-8', index=False)
+    
+    # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
     
+    
 # Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4
+# This function takes in the index of a stock and returns 20 recommended stocks based on cosine similarity.
 def give_recommendations(index,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     # Read in stock data from the csv file
     stocks = pd.read_csv('stock_data.csv')
@@ -36,6 +42,8 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
     index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
     stocks_recomm = stocks['symbol'].loc[index_recomm].values
     result = {'Stocks': stocks_recomm, 'Index': index_recomm}
+    
+    # If statements are used to print more information about the recommendations such as the longbusiness summary. Used mainly during development.
     if print_recommendation == True:
         print('The watched stock is this one: %s \n' %(stocks['symbol'].loc[index]))
         k = 1
@@ -58,11 +66,8 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
             print('The sector of the number %i recommended stock is this one:\n %s \n' % (
                 k, plot_q))
             k = k+1
+    # Returns only the ticker symbols for the 20 recommendations  
     return result["Stocks"]
 
-
-# recs = give_recommendations(0, print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False)
-# final_recs = recs["Stocks"]
-# print(final_recs)
 
 print(give_recommendations(1))

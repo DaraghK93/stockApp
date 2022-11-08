@@ -6,7 +6,7 @@ import os
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn.decomposition import PCA
 
-# Capture similarity
+# Sentence transformer used to vectorise features
 from sentence_transformers import SentenceTransformer
 
 def read_data():
@@ -140,6 +140,5 @@ def push_rec_to_db():
 cos_sim_data, X, stocks = read_data()
 
 recs = give_recommendations(0, cos_sim_data, stocks,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False)
-
 final_recs = recs["Stocks"]
 print(final_recs)

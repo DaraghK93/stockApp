@@ -3,13 +3,17 @@ const League = require('../models/league.model')
 const saveLeague = async (league) => {
 
     try {
-      league.accessCode = Math.floor(Math.random() * 80) + 1
-      console.log(league.accessCode)
-      const newLeague = new League(league)
-    //   console.log(newLeague)
-        // return("hello")
+    // set the access code to the random number
+        league.accessCode = Math.floor(Math.random() * 2000) + 1
+
+        console.log(league.accessCode)
+      // new League object
+        const newLeague = new League(league)
+
         return await newLeague.save()
-    }  catch (err) {
+
+    } catch (err) {
+
       if (err.code === 11000 ) { 
         return saveLeague(league)
       } else {

@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import { API } from "aws-amplify";
 import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
-import StockSideScrollMenu from '../stockSideScrollMenu/stockSideScrollMenu';
+import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
+import TickerCard from '../tickercard/Tickercard';
 
 function StockSearchResults({keyword}) {
     const [stocks, setStock] = useState({});
@@ -39,7 +40,14 @@ function StockSearchResults({keyword}) {
         <h3 className="stockdiscoveryRow">Showing Results for "{keyword.trim()}"</h3>
         <Container>
         <Row md={1} xs={1}>
-         <StockSideScrollMenu data={stocks}/>
+            <SideScrollMenu>
+                {stocks.map((stockObj) => (
+                        <div className='tickercard' key={stockObj._id}>
+                            <TickerCard key={stockObj._id} stock={stockObj}/>
+                        </div>
+                     ))}
+            </SideScrollMenu>
+         
          </Row>
          </Container>       
         </> :

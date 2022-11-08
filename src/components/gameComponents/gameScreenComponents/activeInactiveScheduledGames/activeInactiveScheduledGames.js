@@ -1,8 +1,9 @@
-import {Col} from "react-bootstrap"
+import {Col,Card} from "react-bootstrap"
 import {useState, useEffect } from 'react'
 
 /// Components ///
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner"
+import SideScrollMenu from "../../../widgets/SideScrollMenu/SideScrollMenu"
 
 
 function ActiveInactiveScheduledGames({games}){
@@ -55,9 +56,16 @@ function ActiveInactiveScheduledGames({games}){
         <>
         <Col>
             <h2>Active Games</h2>
-             {activeGames.map((game) => (
-                <p key={game.leagueName}>{game.leagueName}</p>                        
+            <SideScrollMenu>
+                {activeGames.map((game) => (
+                    <div className='tickercard' key={game.leagueName}>
+                        <Card>
+                             <p key={game.leagueName}>{game.leagueName}</p> 
+                        </Card>
+                    </div>         
                             ))}
+            </SideScrollMenu>
+             
         </Col>
         <Col>
             <h2>Scheduled Games</h2>

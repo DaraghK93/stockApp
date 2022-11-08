@@ -51,6 +51,22 @@ function GameScreen(){
                 "winningValue": 300000,
                 "finished": false,
                 "user": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Governance Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-5T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "user": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Governance Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-5T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "user": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             }
         ],
         "inactive":[

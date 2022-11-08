@@ -3,11 +3,10 @@
 //  <URL>/login
 // Description:
 //  This screen contains the components redenred to the user when they are logging in
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/userActions'
-import { useNavigate } from 'react-router-dom'
 
 /// Widgets ///
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert'
@@ -22,13 +21,10 @@ function LoginPage() {
   // constant password holds the value of the input password
   const [password, setPassword] = useState('')
 
-  // navigate allows the page to redirected to another page
-  const navigate = useNavigate()
-
   /// Redux ///
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
-  const { loading, error, userInfo } = user
+  const { loading, error } = user
 
   // this function will allow the user to use the login function from the userActions.js file
   function handleSubmit(event) {
@@ -36,15 +32,6 @@ function LoginPage() {
     dispatch(login(email, password))
   }
 
-  /// useEffect ///
-  // Check if user is logged in then redirect to stockdiscoveery page
-  useEffect(() => {
-    if (userInfo) {
-      navigate('/stockdiscovery')
-    }
-  }, [userInfo, navigate])
-
-  //
   //
   return (
     <FormContainer>

@@ -1,0 +1,8 @@
+evaulation metric,model,score
+accuracy,LogisticRegression,70.47%
+positive precision,ComplementNB,66.72%
+negative precision,LogisticRegression,70.14%
+positive recall,MLPClassifier,69.63%
+negative recall,ComplementNB,88.57%
+positive f_measure,MLPClassifier,67.64%
+negative f_measure,LogisticRegression,69.17%

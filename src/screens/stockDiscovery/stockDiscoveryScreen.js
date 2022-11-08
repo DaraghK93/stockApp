@@ -11,7 +11,6 @@ import StockSummary from "../../components/stockDiscoveryComponents/stockSummary
 import StockSearchResults from "../../components/stockDiscoveryComponents/stockSearchResults/StockSearchResults"
 
 function StockDiscoveryPage(){
-
     // keyword wil either be a word or undefiened, its used in search 
     let {keyword} = useParams()
     return(

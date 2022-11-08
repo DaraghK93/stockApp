@@ -70,6 +70,7 @@ def lambda_handler(event, context):
 
         ## Load the classifier
         classifierName = "NaiveBayesClassifier.pickle"
+        # classifierName = "MLPClassifier.pickle"
         classifier = loadClassifier(f"{dir_path}/MLData/{classifierName}")
 
         # Read in the words files

@@ -14,7 +14,7 @@ Globals:
         ENVIRONMENT: prod
         MONGOURI: mongodb://host.docker.internal:27017/
         DATABASENAME: test
-        LIMIT: 15
+        LIMIT: 3
 
 Resources:
   twitterSentimentFunction:

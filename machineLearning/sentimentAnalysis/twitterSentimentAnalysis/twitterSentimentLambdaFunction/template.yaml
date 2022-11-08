@@ -13,7 +13,7 @@ Globals:
       Variables:
         ENVIRONMENT: prod
         MONGOURI: mongodb://host.docker.internal:27017/
-        DATABASENAME: test
+        DATABASENAME: dev
         LIMIT: 10
 
 Resources:

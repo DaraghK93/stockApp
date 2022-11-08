@@ -1,7 +1,17 @@
 .createGameCard{
-    width: 80%;
+    max-width: 35%;
+    max-height: fit-content;
+    color: white;
+    font-weight: bolder;
     margin: auto;
     display: flex;
     justify-content: center;
     text-align: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 600px){
+    .createGameCard{
+        max-width: 100%;
+}
 }

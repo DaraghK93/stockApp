@@ -42,7 +42,7 @@ function StockSearchResults({keyword}) {
         <Row md={1} xs={1}>
             <SideScrollMenu>
                 {stocks.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}

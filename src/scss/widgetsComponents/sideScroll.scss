@@ -1,8 +1,9 @@
 .cardContainer {
   display: flex;
   overflow-x: auto;
+  height: 100%;
 
-  .tickercard {
+  .sideScrollCard {
     display: inline-block;
     padding: 0.1875rem;
     padding-top:0;

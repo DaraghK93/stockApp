@@ -1,6 +1,4 @@
 .createGameCard{
-    max-width: 30%;
-    max-height: fit-content;
     color: white;
     margin: auto;
     display: flex;
@@ -10,7 +8,11 @@
 }
 
 .createGameCardHeading{
-    font-size: xx-large;
+    font-size: 2rem;
+}
+
+.createGameCardAddIcon{
+    padding-bottom: 0.4rem;
 }
 
 .creatGameCardImage{
@@ -19,13 +21,12 @@
 
 .createGameCardTextBody{
     font-weight: bold;
-    font-size: large;
+    font-size: 1.125rem;
 }
 
 
-
-@media only screen and (max-width: 600px){
+@media only screen and (min-width: 600px){
     .createGameCard{
-        max-width: 100%;
-}
+        width:30rem;
+    }
 }

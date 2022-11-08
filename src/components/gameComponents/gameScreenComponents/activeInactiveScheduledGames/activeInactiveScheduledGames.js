@@ -1,9 +1,10 @@
-import {Col,Card} from "react-bootstrap"
+import {Row,Card} from "react-bootstrap"
 import {useState, useEffect } from 'react'
 
 /// Components ///
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner"
 import SideScrollMenu from "../../../widgets/SideScrollMenu/SideScrollMenu"
+import GameCard from "../gameCard/GameCard"
 
 
 function ActiveInactiveScheduledGames({games}){
@@ -54,31 +55,28 @@ function ActiveInactiveScheduledGames({games}){
         <>
         {loading ? <LoadingSpinner /> :
         <>
-        <Col>
+        <Row md={1} xs={1}>
             <h2>Active Games</h2>
-            <SideScrollMenu>
+            <SideScrollMenu className="h100">
                 {activeGames.map((game) => (
-                    <div className='tickercard' key={game.leagueName}>
-                        <Card>
-                             <p key={game.leagueName}>{game.leagueName}</p> 
-                        </Card>
+                    <div className='sideScrollCard' key={game.leagueName}>
+                        <GameCard game={game}/>
                     </div>         
                             ))}
             </SideScrollMenu>
-             
-        </Col>
-        <Col>
+        </Row>
+        <Row>
             <h2>Scheduled Games</h2>
             {scheduledGames.map((game) => (
-                <p key={game.leagueName}>{game.leagueName}</p>                        
+                <GameCard game={game}/>                       
                             ))}
-        </Col>
-        <Col>
+        </Row>
+        <Row>
             <h2>Complete Games</h2>
             {completeGames.map((game) => (
-                <p key={game.leagueName}>{game.leagueName}</p>                        
+                <GameCard game={game}/>                       
                             ))}
-        </Col>
+        </Row>
         </>}
         </>
     )

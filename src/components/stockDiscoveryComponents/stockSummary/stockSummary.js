@@ -35,7 +35,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Today's Biggest Positive Movers</h3>
         <SideScrollMenu>
                 {stocks[0].topGainers.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}

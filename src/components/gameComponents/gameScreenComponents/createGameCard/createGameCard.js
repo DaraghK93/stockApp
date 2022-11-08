@@ -20,7 +20,7 @@ function CreateGameCard(){
                 <Card.Title className="createGameCardHeading">Create a Game</Card.Title>
                 <Card.Text className="createGameCardTextBody">{userInfo.firstname} as the host</Card.Text>
                 <Card.Text className="createGameCardTextBody">Invite friends and see who will come out on top</Card.Text>
-                <AddCircleOutlineIcon fontSize="large"/>
+                <AddCircleOutlineIcon className="createGameCardAddIcon" fontSize="large"/>
             </Card.Body>
         </Card.ImgOverlay>
         </Card> 

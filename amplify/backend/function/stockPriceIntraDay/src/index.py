@@ -120,19 +120,19 @@ def create_data_request(data_curr_price, time_stamp):
       if i == "BRK.B":
           i_new = "BRK-B"
           data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
-          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "Close": data_curr_price[i]["currentprice"]}}}))
       elif i == "BF.B":
           i_new = "BF-B"
           data_request.append(UpdateOne({"symbol": i_new}, {'$set': {"daily_change": data_curr_price[i]}}))
-          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "4. close": data_curr_price[i]["currentprice"]}}}))
+          data_request.append(UpdateOne({"symbol": i_new}, {'$set': {name: {"time": time_stamp, "Close": data_curr_price[i]["currentprice"]}}}))
       else:
         # The first append here relates to the field daily_change. This will be overwritten every time.
         data_request.append(UpdateOne({"symbol": i}, {'$set': {"daily_change": data_curr_price[i]}}))
 
         # This append relates to the prices.time_stamp field. It will add a new field to prices in the form
-        # prices: {"YYYY-MM-DDThh:mm:ss": {"4. close": price at that time}}
-        # Needs to be in the format "4. close" as this is the field name for the rest of the historic values.
-        data_request.append(UpdateOne({"symbol": i}, {'$set': {name: {"4. close": data_curr_price[i]["currentprice"]}}}))
+        # prices: {"YYYY-MM-DDThh:mm:ss": {"Close": price at that time}}
+        # Needs to be in the format "Close" as this is the field name for the rest of the historic values.
+        data_request.append(UpdateOne({"symbol": i}, {'$set': {name: {"Close": data_curr_price[i]["currentprice"]}}}))
     
     except KeyError:
       # this KeyError will flag if a stock is missing from the input dictionary. 

@@ -1,0 +1,8 @@
+evaulation metric,model,score
+accuracy,MLPClassifier,70.98%
+positive precision,MLPClassifier,69.47%
+negative precision,LogisticRegression,71.31%
+positive recall,KNeighborsClassifier,71.48%
+negative recall,MultinomialNB,87.59%
+positive f_measure,LogisticRegression,67.89%
+negative f_measure,LogisticRegression,68.65%

@@ -4,9 +4,8 @@
 // Description:
 //  This screen contains the components rendered to the user when they are registering to use the site.
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 import InfoButtonHover from '../../components/widgets/InfoButtonHover/InfoButtonHover';
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select
@@ -38,15 +37,11 @@ function RegistrationPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null)
 
-  const navigate = useNavigate()
-
   /// Redux ///
   const dispatch = useDispatch()
   /// Need loading and error from registration
   const userRegistration = useSelector((state) => state.userRegistration)
   const { loading, error } = userRegistration
-  const user = useSelector((state) => state.user)
-  const { userInfo } = user
 
   function handleSubmit(event) {
     event.preventDefault()
@@ -84,13 +79,6 @@ function RegistrationPage() {
       )
     }
   }
-
-  // Redirect if the user is logged in (stock disovery for now will change to profile later)
-  useEffect(() => {
-    if (userInfo) {
-      navigate('/stockdiscovery')
-    }
-  }, [userInfo, navigate])
 
   return (
     <FormContainer>

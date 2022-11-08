@@ -18,6 +18,7 @@ const createPortfolio = async (portfolioData) => {
             newPortfolio = new Portfolio({
                 portfolioName: portfolioData.portfolioName,
                 remainder: portfolioData.startingBalance,
+                startingBalance: portfolioData.startingBalance,
                 dateCreated: dateCreated,
                 userId: portfolioData.userId
         })}
@@ -25,6 +26,7 @@ const createPortfolio = async (portfolioData) => {
             newPortfolio = new Portfolio({
                 portfolioName: portfolioData.portfolioName,
                 remainder: portfolioData.startingBalance,
+                startingBalance: portfolioData.startingBalance,
                 leagueId: portfolioData.leagueId,
                 dateCreated: dateCreated,
                 userId: portfolioData.userId

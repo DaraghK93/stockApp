@@ -156,7 +156,6 @@ const loginUser = async (req, res, next) => {
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err
-        console.log(token)
         res.json({
           firstname: user.firstname,
           lastname: user.lastname,

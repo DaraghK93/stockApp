@@ -12,9 +12,9 @@
   background: $background;
 }
 ::-webkit-scrollbar-thumb {
-  background: $info;
+  background: $shadow;
   border-radius: 100vw;
-  border: .20em solid $background;
+  border: .20em solid $shadow;
 
 }
 

@@ -1,0 +1,8 @@
+evaulation metric,model,score
+accuracy,AdaBoostClassifier,56.56%
+positive precision,BernoulliNB,68.74%
+negative precision,LogisticRegression,64.01%
+positive recall,NaiveBayesClassifier,41.41%
+negative recall,KNeighborsClassifier,68.14%
+positive f_measure,NaiveBayesClassifier,46.19%
+negative f_measure,BernoulliNB,55.87%

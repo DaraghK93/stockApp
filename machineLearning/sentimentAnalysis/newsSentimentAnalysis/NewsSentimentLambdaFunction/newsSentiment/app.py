@@ -451,7 +451,7 @@ def lambda_handler(event, context):
 
         ## Step Two - Load in the classifier  ##
         # This is the trained classifier used to classify the sentiment of a headline 
-        classifierName = "NaiveBayesClassifier.pickle"
+        classifierName = "MLPClassifier.pickle"
         classifier = loadClassifier(f'{dir_path}/MLData/{classifierName}')
 
         ## Step Three - Featrue extraction and prediction ##

@@ -25,29 +25,19 @@ function TickerCard({ stock }) {
 
   return (
     <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
-      <Card className="h-100 tickercardstyle" style={{
-        padding: "none"
-      }}>
-        <Container style={{ height: "5.625rem", width: "7rem" }}>
+      <Card className="h-100 tickercardstyle">
+        <Container className="tickerCardImgContainer">
           <Card.Body style={{ textDecoration: 'none' }}>
-            <Card.Img
-              variant="top"
-              src={stock.logo}
-              style={{
-                display: "block",
-                margin: "auto"
-              }}
-            />
+            <Card.Img variant="top" src={stock.logo} />
           </Card.Body>
         </Container>
-        <ListGroup className="list-group-flush" style={{ border: "none" }}>
-          <ListGroupItem
-            style={{ border: "none", height: "7rem" }}><h5>
+        <ListGroup className="list-group-flush" style={{border: "none"}}>
+          <ListGroupItem className="noBorder7REMHeight"><h5>
               <center>
                 {stock.symbol}</center></h5>
-            <span style={{ color: "grey", border: "none" }}><center>{stock.longname}</center></span>
+            <span className="noBorderGreyText"><center>{stock.longname}</center></span>
           </ListGroupItem>
-          <ListGroupItem><center><span style={{ color: redOrGreen(), border: "none", fontSize:"90%" }}>
+          <ListGroupItem><center><span className="noBorderFont90"style={{ color: redOrGreen() }}>
             {postiveSymbol}{absoluteChange} ({postiveSymbol}{parseFloat(stock.daily_change.percentageChange).toFixed(2)}%)</span>
           </center>
           </ListGroupItem>

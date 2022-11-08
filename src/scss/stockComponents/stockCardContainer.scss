@@ -47,3 +47,23 @@
 .stockdiscoveryRow {
   margin-top: 2rem;
 }
+
+.tickerCardImgContainer {
+  height: 5.625rem;
+   width: 7rem;
+}
+
+.noBorderGreyText {
+  color: $shadow;
+  border: none;
+}
+
+.noBorder7REMHeight{
+  border: none;
+  height: 7rem
+}
+
+.noBorderFont90{
+  border: none;
+  font-size:90%
+}

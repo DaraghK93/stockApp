@@ -25,6 +25,7 @@ const createLeague = async (req, res, next) => {
             mingGRating,
             mingSRating,
             endDate,
+            image,
           } = req.body
 
     // check they have sent all fields
@@ -158,6 +159,7 @@ const createLeague = async (req, res, next) => {
         mingSRating,
         endDate,
         active,
+        image,
         leagueAdmin: req.user.id,   // gets this from JWT
       };
    

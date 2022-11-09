@@ -81,6 +81,9 @@ const LeagueSchema = new mongoose.Schema(
           trim: true,
           unique: true
         },
+        image: {
+          type: String
+        },
         leagueAdmin: {
           type: Schema.Types.ObjectId, 
           ref: 'UserData'

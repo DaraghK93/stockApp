@@ -20,6 +20,11 @@ const createLeague = async (req, res, next) => {
             startDate,
             WinningValue,
             maxDailyTrades,
+            sectors,
+            minERating,
+            mingGRating,
+            mingSRating,
+            endDate,
             active,
             finished
           } = req.body
@@ -54,6 +59,11 @@ const createLeague = async (req, res, next) => {
         startDate,
         WinningValue,
         maxDailyTrades,
+        sectors,
+        minERating,
+        mingGRating,
+        mingSRating,
+        endDate,
         active,
         finished,
         leagueAdmin: req.user.id,   // gets this from JWT

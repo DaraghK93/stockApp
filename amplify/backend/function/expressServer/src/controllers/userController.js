@@ -169,7 +169,6 @@ const loginUser = async (req, res, next) => {
         })
       },
     )
-    
   } catch (err) {
     console.error(err.message)
     res.errormessage = 'Server error'

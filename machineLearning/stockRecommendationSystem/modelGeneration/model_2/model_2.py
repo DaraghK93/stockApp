@@ -34,7 +34,7 @@ def read_data():
 # This function takes in the index of a stock and returns 20 recommended stocks based on cosine similarity.
 def give_recommendations(index,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     # Read in stock data from the csv file
-    stocks = pd.read_csv('stock_data.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
     # Read in pickle file of vector data
     cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
 
@@ -68,5 +68,12 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
     # Returns only the ticker symbols for the 20 recommendations  
     return result["Stocks"]
 
+def index_to_symbol(index):
+    stocks = pd.read_csv('stock_data.csv')
+    i_t_s = stocks[index]
+    return i_t_s
 
-print(give_recommendations(1))
+print(index_to_symbol(0))
+
+# Driver code for testing recommender function
+# print(give_recommendations(1))

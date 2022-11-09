@@ -25,8 +25,6 @@ const createLeague = async (req, res, next) => {
             mingGRating,
             mingSRating,
             endDate,
-            active,
-            finished
           } = req.body
 
     // check they have sent all fields
@@ -35,7 +33,6 @@ const createLeague = async (req, res, next) => {
       typeof startingBalance === 'undefined' ||
       typeof leagueType === 'undefined' ||
       typeof tradingFee === 'undefined' ||
-      typeof private === 'undefined' ||
       typeof WinningValue === 'undefined' ||
       typeof maxDailyTrades === 'undefined' 
     ) {
@@ -48,6 +45,102 @@ const createLeague = async (req, res, next) => {
         ),
       )
     } 
+
+    // ensure starting balance is at least 1000
+    if (startingBalance < 1000) {
+      res.status(400)
+      res.errormessage = 'Starting Balance must be greater than $1000'
+      return next(
+        new Error(
+          'Starting Balance is too low',
+        ),
+      )
+    } 
+
+    // ensure  winning balance is above starting balance if it is a valuebased game
+    if (leagueType === "valueBased" && WinningValue <= startingBalance) {
+      res.status(400)
+      res.errormessage = 'Winning Balance must be greater than starting Balance '
+      return next(
+        new Error(
+          'Winning Balance is not greater than starting balance',
+        ),
+      )
+    } 
+    
+    // ensure that the start date is not in the past
+    // get today's date but without the time
+    let today = new Date().setHours(0,0,0,0)
+    // get start date in the same format
+    const start = new Date(startDate).setHours(0,0,0,0)
+    
+
+
+    if (new Date(start) < today) {
+      res.status(400)
+      res.errormessage = 'Start date is in the past'
+      return next(
+        new Error(
+          'Start date must be in the future',
+        ),
+      )
+  } 
+    let active; 
+    if (start == today) {
+      console.log(start)
+      console.log(today)
+      active = true
+  }
+
+    // ensure that if it's a time based game, the endDate is sent
+    if (leagueType === "timeBased" && typeof endDate === "undefined") {
+      res.status(400)
+      res.errormessage = 'time based games must have an end date'
+      return next(
+        new Error(
+          'time based games must have an end date',
+        ),
+      )
+    }
+
+    // ensure league is at least a day long
+    if (leagueType === "timeBased") {
+      // get dates in the correct format with no hours,mins,secs
+      const end = new Date(endDate).setHours(0,0,0,0)
+
+      // check that the difference between start and end is at least 1
+      // divide to get it in terms of days
+      if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
+        res.status(400)
+        res.errormessage = 'time based games must be at least a day long'
+        return next(
+          new Error(
+            'time based games must be at least a day long',
+          ),
+        )
+      }
+    }
+
+    if (tradingFee < 0) {
+      res.status(400)
+      res.errormessage = 'trading fee must be a positive number'
+      return next(
+        new Error(
+          'trading fee must be a positive number',
+        ),
+      )
+    }
+
+    if (maxDailyTrades <= 0) {
+      res.status(400)
+      res.errormessage = 'max Daily Trades must be a positive number'
+      return next(
+        new Error(
+          'max Daily Trades must be a positive number',
+        ),
+      )
+    }
+
 
     // create new league object
     const league = {
@@ -65,7 +158,6 @@ const createLeague = async (req, res, next) => {
         mingSRating,
         endDate,
         active,
-        finished,
         leagueAdmin: req.user.id,   // gets this from JWT
       };
    

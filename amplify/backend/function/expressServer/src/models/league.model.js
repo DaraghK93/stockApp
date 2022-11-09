@@ -20,15 +20,18 @@ const LeagueSchema = new mongoose.Schema(
         },
         private: {
             type: Boolean, 
+            default: true,
             required: true
         },
         active: {
             type: Boolean, 
-            required: true
+            required: true,
+            default: false
         }, 
         finished: {
             type:Boolean,
-            required:true
+            required:true,
+            default: false,
         },
         startDate: {
             type: Date, 

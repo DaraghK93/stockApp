@@ -25,7 +25,11 @@ const LeagueSchema = new mongoose.Schema(
         active: {
             type: Boolean, 
             required: true
-        }, // could we have a trigger that changes this depending on start/end?
+        }, 
+        finished: {
+            type:Boolean,
+            required:true
+        },
         startDate: {
             type: Number, //just changed this to test 
             required: true 
@@ -73,7 +77,7 @@ const LeagueSchema = new mongoose.Schema(
           default: 0
         },
         accessCode: {
-          type: Number, 
+          type: String, 
           trim: true,
           unique: true
         },
@@ -94,4 +98,6 @@ const LeagueSchema = new mongoose.Schema(
     { timestamps: true },
   )
 
+
+  
   module.exports = League = mongoose.model('league', LeagueSchema);

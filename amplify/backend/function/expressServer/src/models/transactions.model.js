@@ -3,8 +3,8 @@ const {Schema} = mongoose
 
 const TransactionSchema = new mongoose.Schema(
   {
-    portfolioName: {type: Schema.Types.ObjectId, ref: 'portfolioData', required: true},
-    stock: {type: Schema.Types.ObjectId, ref: 'stock', required: true},
+    portfolioId: {type: Schema.Types.ObjectId, ref: 'portfolioData', required: true},
+    stockId: {type: Schema.Types.ObjectId, ref: 'stock', required: true},
     units: {type: Number, trim: true, required: true},
     value: {type: Number, trim: true, required: true},
     date: {type: Date, trim: true, required: true},

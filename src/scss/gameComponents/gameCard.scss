@@ -1,10 +1,25 @@
 .gameCard {
-    width: 20rem;
-    height: 15rem !important;
+    width: 15rem;
+    height: 10rem !important;
     color: white;
     margin: auto;
     display: flex;
     text-align: center;
     border: none;
 }
+
+.gameCardImage{
+    opacity: 0.8;
+}
+
+.gameCardTitle{
+    font-size: 1rem;
+}
+
+.gameCardText{
+    font-size: 0.85rem;
+    margin-top: 0%;
+    margin-bottom: 5%;
+}
+
 

@@ -61,7 +61,25 @@ function GameScreen(){
                 "startDate": "2022-11-05T16:46:23.000Z",
                 "winningValue": 300000,
                 "finished": false,
-                "image":"stock_photo_4.png",
+                "image":"stock_photo_4.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+              {
+                "leagueName" : "Environmental Game", 
+                "leagueType": "timeBased",
+                "startDate": "2022-11-01T16:46:23.000Z",
+                "endDate": "2022-11-20T16:46:23.000Z",
+                "finished": false,
+                "image":"stock_photo_1.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Social Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-04T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "image":"stock_photo_2.jpg",
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
@@ -70,49 +88,73 @@ function GameScreen(){
                 "startDate": "2022-11-05T16:46:23.000Z",
                 "winningValue": 300000,
                 "finished": false,
-                "image":"stock_photo_5.jpg",
+                "image":"stock_photo_3.jpg",
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
-             {
+            {
                 "leagueName" : "Governance Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-05T16:46:23.000Z",
                 "winningValue": 300000,
                 "finished": false,
-                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
-            },
-             {
-                "leagueName" : "Governance Game", 
-                "leagueType": "valueBased",
-                "startDate": "2022-11-05T16:46:23.000Z",
-                "winningValue": 300000,
-                "finished": false,
-                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
-            },
-             {
-                "leagueName" : "Governance Game", 
-                "leagueType": "valueBased",
-                "startDate": "2022-11-05T16:46:23.000Z",
-                "winningValue": 300000,
-                "finished": false,
-                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
-            },
-             {
-                "leagueName" : "Governance Game", 
-                "leagueType": "valueBased",
-                "startDate": "2022-11-05T16:46:23.000Z",
-                "winningValue": 300000,
-                "finished": false,
+                "image":"stock_photo_4.jpg",
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             }
         ],
         "inactive":[
             {
                 "leagueName" : "Next weeks Game", 
+                "leagueType": "timeBased",
+                "startDate": "2022-11-18T16:46:23.000Z",
+                "endDate": "2022-11-20T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "image":"stock_photo_2.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Next weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
                 "winningValue": 300000,
                 "finished": false,
+                "image":"stock_photo_3.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Next weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-18T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "image":"stock_photo_4.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Next weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-18T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "image":"stock_photo_1.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Next weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-18T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "image":"stock_photo_2.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+             {
+                "leagueName" : "Next weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-18T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": false,
+                "image":"stock_photo_1.jpg",
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
@@ -121,6 +163,43 @@ function GameScreen(){
                 "startDate": "2022-11-01T16:46:23.000Z",
                 "winningValue": 300000,
                 "finished": true,
+                "image":"stock_photo_2.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Previous weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-01T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": true,
+                "image":"stock_photo_4.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Previous weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-01T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": true,
+                "image":"stock_photo_3.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Previous weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-01T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": true,
+                "image":"stock_photo_1.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "leagueName" : "Previous weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-01T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": true,
+                "image":"stock_photo_2.jpg",
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             }
         ]

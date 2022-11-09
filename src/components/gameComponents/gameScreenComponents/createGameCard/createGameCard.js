@@ -14,7 +14,7 @@ function CreateGameCard(){
     return(
         <Link to={'/game/creategame'} style={{ textDecoration: 'none' }}>
            <Card className="createGameCard">
-            <Card.Img className="creatGameCardImage" src="create_game_photo.jpg" alt="Card image" />
+            <Card.Img className="creatGameCardImage" src="create_game_image.jpg" alt="Card image" />
             <Card.ImgOverlay >
             <Card.Body>
                 <Card.Title className="createGameCardHeading">Create a Game</Card.Title>

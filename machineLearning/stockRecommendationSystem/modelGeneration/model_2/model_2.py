@@ -70,18 +70,25 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
     # Returns only the ticker symbols for the 20 recommendations  
     return result["Stocks"]
 
+# Function used to convert from index number to ticker symbol.
+# Takes in 1 argument index and returns the corresponding ticker symbol  
 def index_to_symbol(index):
     stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
-    i_t_s = stocks.iloc[index]
-    return i_t_s
+    symbol = stocks.iloc[index]
+    symbol = symbol[2]
+    return symbol
 
+
+# Function used to convert from a ticker symbol input to the index of the symbol.
+# Takes in 1 argument symbol, and returns a single number index corresponding to that symbol.
 def symbol_to_index(symbol):
     stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
-    a = stocks.loc[stocks['symbol'].isin([symbol])].index
-    return a[0]
+    index = stocks.loc[stocks['symbol'].isin([symbol])].index
+    index = index[0]
+    return index
 
-# print(index_to_symbol(0))
-print(symbol_to_index("AAPL"))
+print(index_to_symbol(40))
+# print(symbol_to_index("AAPL"))
 
 # Driver code for testing recommender function
 # print(give_recommendations(1))

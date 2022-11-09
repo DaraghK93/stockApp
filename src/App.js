@@ -11,6 +11,7 @@ import MyPortfolios from './screens/myPortfolios/myPortfolios';
 import CreatePortfolio from './screens/createPortfolio/createPortfolio';
 import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
+import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -45,6 +46,9 @@ function App() {
 
         <Route path='/game'
           element={userInfo ? <GameScreen/> : <Navigate to="/"/>} />
+
+        <Route path='/game/creategame'
+          element={userInfo ? <CreateGameScreen/> : <Navigate to="/"/>} />
         
 
         <Route path="/stock/:symbol/confirmorder"

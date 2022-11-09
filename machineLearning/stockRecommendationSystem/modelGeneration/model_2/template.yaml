@@ -1,8 +1,8 @@
-Description: An AWS Serverless Specification template describing your function.
+Description: A function used to get user content recommendations.
 Resources:
   Function: 
     Type: 'AWS::Serverless::Function'
-      Properties:
-        FunctionName: FUNCTION_NAME_HERE
-        Handler: app.lambda_handler
-        Runtime: python3.9
+    Properties:
+      FunctionName: 'Recommender_System_Function'
+      Handler: app.lambda_handler
+      Runtime: python3.9

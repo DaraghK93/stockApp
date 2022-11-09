@@ -1,0 +1,8 @@
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  Function: 
+    Type: 'AWS::Serverless::Function'
+      Properties:
+        FunctionName: FUNCTION_NAME_HERE
+        Handler: app.lambda_handler
+        Runtime: python3.9

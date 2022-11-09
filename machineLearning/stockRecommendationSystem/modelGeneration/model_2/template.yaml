@@ -1,8 +1,0 @@
-Description: A function used to get user content recommendations.
-Resources:
-  Function: 
-    Type: 'AWS::Serverless::Function'
-    Properties:
-      FunctionName: 'Recommender_System_Function'
-      Handler: app.lambda_handler
-      Runtime: python3.9

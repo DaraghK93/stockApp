@@ -1,31 +1,9 @@
-import { Container, Button, Card, Row, Col, Dropdown,  Form } from "react-bootstrap";
+import { Container, Button, Card, Row, Col, Dropdown, Form } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
 
 function PortfolioOverallViz() {
-
-    const [data, setData] = useState();
-
-    // const portfolioA = { 
-    //     _id: 1,
-    //     portfolioName: "portfolioA",
-    //     valueHistory:[
-    //     { date: '01-10', value: 400 },
-    //     { date: '01-11', value: 700 },
-    //     { date: '01-12', value: 60 },
-    //     { date: '01-13', value: 700 },
-    //     { date: '01-14', value: 500 },
-    //     { date: '01-15', value: 400 },
-    //     { date: '01-16', value: 700 },
-    //     { date: '01-17', value: 60 },
-    //     { date: '01-18', value: 1000 },
-    //     { date: '01-19', value: 500 },
-    //     { date: '01-20', value: 400 },
-    //     { date: '01-21', value: 700 },
-    //     { date: '01-22', value: 60 },
-    //     { date: '01-23', value: 700 },
-    //     { date: '01-24', value: 500 }
-    // ]}
+    const [tickBoolean, setTickBoolean] = useState(false)
 
     const portfolioA = [
         { date: '01-10', value: 400 },
@@ -83,10 +61,35 @@ function PortfolioOverallViz() {
 
     const portfolioList = ["portfolioA", "portfolioB", "portfolioC"]
 
+    const [data, setData] = useState(portfolioA);
+
     const handleSelect = (e) => {
-        setData(portfolioA)
-        console.log(e.target.value)  
-    } 
+        if (e.target.id === "portfolioA") {
+            setData(portfolioA)
+        }
+        else if (e.target.id === "portfolioB") {
+            setData(portfolioB)
+        }
+        else if (e.target.id === "portfolioC") {
+            setData(portfolioC)
+        }
+    }
+
+    window.addEventListener("resize", showTick);
+
+    function showTick() {
+        if (window.innerWidth >= 576) {
+            setTickBoolean(true)
+        }
+        else {
+            setTickBoolean(false)
+        }
+    }
+
+
+    useEffect(() => {
+        showTick()
+    }, [])
 
     return (
         <>
@@ -98,7 +101,10 @@ function PortfolioOverallViz() {
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             {portfolioList.map(portfolioName => (
-                                <Dropdown.Item as="button" value={portfolioName} onClick={handleSelect}>{portfolioName}</Dropdown.Item>
+                                <Dropdown.Item
+                                    value={portfolioName}
+                                    id={portfolioName}
+                                    onClick={handleSelect}>{portfolioName}</Dropdown.Item>
                             ))}
                         </Dropdown.Menu>
                     </Dropdown>
@@ -113,11 +119,14 @@ function PortfolioOverallViz() {
                                     bottom: 0
                                 }}>
 
-                                <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="date" />
-                                <YAxis />
+                                <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                                 <Tooltip />
-                                <Line type="monotone" dataKey="value" stroke="#8884d8" />
+                                <XAxis dataKey="date" tick={tickBoolean} />
+                                <YAxis unit='$'
+                                    width={80}
+                                    stroke="#595959" />
+                                <Tooltip />
+                                <Line type="monotone" dataKey="value" stroke="#00C49F" strokeWidth={2} />
                             </LineChart>
                         </ResponsiveContainer>
                     </Row>

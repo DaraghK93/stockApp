@@ -29,6 +29,7 @@ function GameScreen(){
     var games = {
         "active": [
             {
+                "id": "1",
                 "leagueName" : "Environmental Game", 
                 "leagueType": "timeBased",
                 "startDate": "2022-11-01T16:46:23.000Z",
@@ -38,6 +39,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "2",
                 "leagueName" : "Social Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-04T16:46:23.000Z",
@@ -47,6 +49,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "3",
                 "leagueName" : "Governance Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-05T16:46:23.000Z",
@@ -56,6 +59,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "4",
                 "leagueName" : "Governance Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-05T16:46:23.000Z",
@@ -65,6 +69,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
               {
+                "id": "5",
                 "leagueName" : "Environmental Game", 
                 "leagueType": "timeBased",
                 "startDate": "2022-11-01T16:46:23.000Z",
@@ -74,6 +79,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "6",
                 "leagueName" : "Social Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-04T16:46:23.000Z",
@@ -83,6 +89,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "7",
                 "leagueName" : "Governance Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-05T16:46:23.000Z",
@@ -92,6 +99,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "8",
                 "leagueName" : "Governance Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-05T16:46:23.000Z",
@@ -103,6 +111,7 @@ function GameScreen(){
         ],
         "inactive":[
             {
+                "id": "9",
                 "leagueName" : "Next weeks Game", 
                 "leagueType": "timeBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
@@ -113,6 +122,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "10",
                 "leagueName" : "Next weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
@@ -122,6 +132,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "11",
                 "leagueName" : "Next weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
@@ -131,6 +142,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "12",
                 "leagueName" : "Next weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
@@ -140,6 +152,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "13",
                 "leagueName" : "Next weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
@@ -149,6 +162,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
              {
+                "id": "14",
                 "leagueName" : "Next weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-18T16:46:23.000Z",
@@ -158,6 +172,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "15",
                 "leagueName" : "Previous weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-01T16:46:23.000Z",
@@ -167,6 +182,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "16",
                 "leagueName" : "Previous weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-01T16:46:23.000Z",
@@ -176,6 +192,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "17",
                 "leagueName" : "Previous weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-01T16:46:23.000Z",
@@ -185,6 +202,7 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "18",
                 "leagueName" : "Previous weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-01T16:46:23.000Z",
@@ -194,6 +212,17 @@ function GameScreen(){
                 "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
             },
             {
+                "id": "19",
+                "leagueName" : "Previous weeks Game", 
+                "leagueType": "valueBased",
+                "startDate": "2022-11-01T16:46:23.000Z",
+                "winningValue": 300000,
+                "finished": true,
+                "image":"stock_photo_2.jpg",
+                "users": [{"username":"John"},{"username":"Paul"},{"username":"George"},{"username":"Ringo"}]
+            },
+            {
+                "id": "20",
                 "leagueName" : "Previous weeks Game", 
                 "leagueType": "valueBased",
                 "startDate": "2022-11-01T16:46:23.000Z",

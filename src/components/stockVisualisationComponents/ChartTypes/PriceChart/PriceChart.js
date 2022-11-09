@@ -70,8 +70,7 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
     return (
         <>
             <Card
-                style={{ border: "none", marginBottom: "1.25rem" }}
-            >
+                style={{ border: "none", marginBottom: "1.25rem" }}>
                 <Container>
 
                     <Row>

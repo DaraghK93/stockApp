@@ -38,6 +38,7 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
     # Read in pickle file of vector data
     cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
 
+    # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
     index = symbol_to_index(input)
     index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
     stocks_recomm = stocks['symbol'].loc[index_recomm].values

@@ -32,17 +32,19 @@ def read_data():
     
 # Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4
 # This function takes in the index of a stock and returns 20 recommended stocks based on cosine similarity.
-def give_recommendations(index,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
+def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     # Read in stock data from the csv file
     stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
     # Read in pickle file of vector data
     cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
 
-    
 
-    index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
-    stocks_recomm = stocks['symbol'].loc[index_recomm].values
-    result = {'Stocks': stocks_recomm, 'Index': index_recomm}
+    if (type(input) == str):
+        print("Iput is a string")
+        index = symbol_to_index(input)
+        index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
+        stocks_recomm = stocks['symbol'].loc[index_recomm].values
+        result = {'Stocks': stocks_recomm, 'Index': index_recomm}
     
     # If statements are used to print more information about the recommendations such as the longbusiness summary. Used mainly during development.
     if print_recommendation == True:
@@ -70,6 +72,7 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
     # Returns only the ticker symbols for the 20 recommendations  
     return result["Stocks"]
 
+
 # Function used to convert from index number to ticker symbol.
 # Takes in 1 argument index and returns the corresponding ticker symbol  
 def index_to_symbol(index):
@@ -87,8 +90,9 @@ def symbol_to_index(symbol):
     index = index[0]
     return index
 
-print(index_to_symbol(40))
+# print(index_to_symbol(40))
 # print(symbol_to_index("AAPL"))
 
 # Driver code for testing recommender function
-# print(give_recommendations(1))
+print(give_recommendations(1))
+# print(give_recommendations("AAPL"))

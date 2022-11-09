@@ -5,7 +5,7 @@ function CreateGameScreen(){
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
     const [gameName, setGameName]   = useState("")
-    const [gameType, setGameType]   = useState("timeBased")
+    const [gameType, setGameType]   = useState("valueBased")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
     const [gameStartDate, setGameStartDate] = useState("")
@@ -25,7 +25,6 @@ function CreateGameScreen(){
 
 
     //setGameType("valueBased")
-    console.log(screen)
     return(
         <Container>
             <Row className="containerContent">
@@ -73,13 +72,23 @@ function CreateGameScreen(){
                         }}
                     >Back</Button>
                 </Col>
-                <Col className="prevNextCol">
-                    <Button
-                        onClick={() => {
-                            setScreen(screen+1)
-                        }}
-                    >Next</Button>
-                </Col>            
+                {(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")  ?
+                    <Col className="prevNextCol">
+                        <Button
+                            onClick={() => {
+                                console.log("Im done")
+                            }}
+                        >Finish</Button>
+                    </Col>
+                    :
+                    <Col className="prevNextCol">
+                        <Button
+                            onClick={() => {
+                                setScreen(screen+1)
+                            }}
+                        >Next</Button>
+                    </Col>
+                }      
             </Row>
 
         </Container>

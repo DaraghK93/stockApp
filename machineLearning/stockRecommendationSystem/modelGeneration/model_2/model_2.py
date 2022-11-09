@@ -87,9 +87,5 @@ def symbol_to_index(symbol):
     index = index[0]
     return index
 
-# print(index_to_symbol(40))
-# print(symbol_to_index("AAPL"))
 
-# Driver code for testing recommender function
-print(give_recommendations(1))
-# print(give_recommendations("AAPL"))
+print(give_recommendations("AAPL"))

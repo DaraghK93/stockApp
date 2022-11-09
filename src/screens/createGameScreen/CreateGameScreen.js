@@ -5,7 +5,7 @@ function CreateGameScreen(){
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
     const [gameName, setGameName]   = useState("")
-    const [gameType, setGameType]   = useState("")
+    const [gameType, setGameType]   = useState("timeBased")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
     const [gameStartDate, setGameStartDate] = useState("")
@@ -24,7 +24,8 @@ function CreateGameScreen(){
     const [maxTradesPerDay,setMaxTradesPerDay] = useState("")
 
 
-
+    //setGameType("valueBased")
+    console.log(screen)
     return(
         <Container>
             <Row className="containerContent">
@@ -36,15 +37,32 @@ function CreateGameScreen(){
                 <Col>
                     <h1>Duration</h1>
                 </Col>
+                :screen === 3 && gameType === "valueBased" ?
+                <Col>
+                    <h1>The Winning Value Screen</h1>
+                </Col>
+                :(screen === 4 && gameType === "valueBased") || (screen === 3 && gameType === "timeBased")?
+                    <Col>
+                        <h1>Stock Type Screen</h1>
+                    </Col>
+                :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
+                    <Col>
+                        <h1>ESG Restrictions</h1>
+                    </Col>
+                :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
+                    <Col>
+                        <h1>Budget and Fees</h1>
+                    </Col>
+                :(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")?
+                <Col>
+                    <h1>Game Summary</h1>
+                </Col>
                 :
                 <Col>
-                    <p>Default</p>
+                    <h1>Hello</h1>
                 </Col>
                 }   
             </Row>
-
-
-
 
             <Row className="containerButtons" lg={2} md={2} xs={2}>
                 <Col className="prevNextCol">

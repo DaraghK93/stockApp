@@ -31,7 +31,7 @@ const LeagueSchema = new mongoose.Schema(
             required:true
         },
         startDate: {
-            type: Number, //just changed this to test 
+            type: Date, 
             required: true 
         }, 
         endDate: {
@@ -99,5 +99,5 @@ const LeagueSchema = new mongoose.Schema(
   )
 
 
-  
+
   module.exports = League = mongoose.model('league', LeagueSchema);

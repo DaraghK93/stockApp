@@ -16,7 +16,6 @@ const createLeague = async (req, res, next) => {
             startingBalance,
             leagueType,
             tradingFee,
-            portfolios,
             private,
             startDate,
             WinningValue,

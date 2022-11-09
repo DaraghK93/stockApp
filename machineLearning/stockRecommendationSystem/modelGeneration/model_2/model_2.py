@@ -38,6 +38,8 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
     # Read in pickle file of vector data
     cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
 
+    
+
     index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
     stocks_recomm = stocks['symbol'].loc[index_recomm].values
     result = {'Stocks': stocks_recomm, 'Index': index_recomm}
@@ -69,11 +71,17 @@ def give_recommendations(index,  print_recommendation=False, print_recommendatio
     return result["Stocks"]
 
 def index_to_symbol(index):
-    stocks = pd.read_csv('stock_data.csv')
-    i_t_s = stocks[index]
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
+    i_t_s = stocks.iloc[index]
     return i_t_s
 
-print(index_to_symbol(0))
+def symbol_to_index(symbol):
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
+    a = stocks.loc[stocks['symbol'].isin([symbol])].index
+    return a[0]
+
+# print(index_to_symbol(0))
+print(symbol_to_index("AAPL"))
 
 # Driver code for testing recommender function
 # print(give_recommendations(1))

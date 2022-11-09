@@ -4,7 +4,7 @@ import { Container, Row, Col,Button} from "react-bootstrap"
 function CreateGameScreen(){
     const [screen, setScreen] = useState(1)
 
-
+    console.log(screen)
 
     return(
         <Container>
@@ -13,12 +13,25 @@ function CreateGameScreen(){
                     <p>Hello</p>
                 </Col>
             </Row>
+
+
+
+            
             <Row className="containerButtons" lg={2} md={2} xs={2}>
                 <Col className="prevNextCol">
-                    <Button>Back</Button>
+                    <Button
+                        disabled={screen === 1} 
+                        onClick={() => {
+                            setScreen(screen-1)
+                        }}
+                    >Back</Button>
                 </Col>
                 <Col className="prevNextCol">
-                    <Button>Next</Button>
+                    <Button
+                        onClick={() => {
+                            setScreen(screen+1)
+                        }}
+                    >Next</Button>
                 </Col>            
             </Row>
 

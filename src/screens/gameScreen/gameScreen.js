@@ -12,11 +12,11 @@ import ActiveInactiveScheduledGames from '../../components/gameComponents/gameSc
 
 
 function GameScreen(){
-    // constant email holds the value of the input email address
+    // screen will either be 1 or 2, shows My games or join a game 
     const [screen, setScreen] = useState('1')
 
 
-    /// The choices for the screens, used for buttons at top o screen 
+    /// The choices for the screens, used for buttons at top of screen 
     var screenChocies = [
         {name: 'My Games', value:'1'},
         {name: 'Join a Game', value: '2'}

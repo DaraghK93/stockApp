@@ -1,3 +1,5 @@
+/// Description:
+//      This is the create a game card 
 import { Card} from 'react-bootstrap';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from "react-router-dom";

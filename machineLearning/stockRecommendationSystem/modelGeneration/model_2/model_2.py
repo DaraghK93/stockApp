@@ -38,13 +38,10 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
     # Read in pickle file of vector data
     cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
 
-
-    if (type(input) == str):
-        print("Iput is a string")
-        index = symbol_to_index(input)
-        index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
-        stocks_recomm = stocks['symbol'].loc[index_recomm].values
-        result = {'Stocks': stocks_recomm, 'Index': index_recomm}
+    index = symbol_to_index(input)
+    index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
+    stocks_recomm = stocks['symbol'].loc[index_recomm].values
+    result = {'Stocks': stocks_recomm, 'Index': index_recomm}
     
     # If statements are used to print more information about the recommendations such as the longbusiness summary. Used mainly during development.
     if print_recommendation == True:

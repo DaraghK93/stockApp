@@ -9,7 +9,7 @@ from sentence_transformers import SentenceTransformer
 # This function is used to read in the original dataset and save the computed vectors as a pickle file.
 def read_data():
     # Read in the s&p dataset
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_1\sp500.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\sp500.csv')
     # Create array X of the all long business summaries
     X = np.array(stocks.longbusinesssummary)
 
@@ -22,9 +22,9 @@ def read_data():
     cos_sim_data = pd.DataFrame(cosine_similarity(X))
 
     # Write cosine similarity dataframe to pickle file. Pickle was needed as saving as csv caused indexing errors
-    cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
+    cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\data\cosine_sim_data.pkl')
     # Write stock data to csv file
-    stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv", encoding='utf-8', index=False)
+    stocks.to_csv("machineLearning\stockRecommendationSystem\data\stock_data.csv", encoding='utf-8', index=False)
     
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
@@ -34,9 +34,9 @@ def read_data():
 # This function takes in the index of a stock and returns 20 recommended stocks based on cosine similarity.
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     # Read in stock data from the csv file
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
     # Read in pickle file of vector data
-    cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_2\cosine_sim_data.pkl')
+    cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\data\cosine_sim_data.csv')
 
     # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
     index = symbol_to_index(input)
@@ -74,7 +74,7 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
 # Function used to convert from index number to ticker symbol.
 # Takes in 1 argument index and returns the corresponding ticker symbol  
 def index_to_symbol(index):
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
     symbol = stocks.iloc[index]
     symbol = symbol[2]
     return symbol
@@ -83,7 +83,7 @@ def index_to_symbol(index):
 # Function used to convert from a ticker symbol input to the index of the symbol.
 # Takes in 1 argument symbol, and returns a single number index corresponding to that symbol.
 def symbol_to_index(symbol):
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_2\stock_data.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
     index = stocks.loc[stocks['symbol'].isin([symbol])].index
     index = index[0]
     return index

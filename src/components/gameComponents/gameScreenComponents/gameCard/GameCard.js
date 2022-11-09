@@ -2,12 +2,10 @@
 //      This is the indvidual game card 
 import {Card} from "react-bootstrap"
 import moment from "moment";
-import { Link } from "react-router-dom";
 
 function GameCard({game}){
 
     return(
-     <Link to={`/game/${game.id}`} style={{ textDecoration: 'none' }}>
         <Card className="gameCard">
                     <Card.Img className="gameCardImage" src={game.image} alt="Card image" />
                     <Card.ImgOverlay >
@@ -31,8 +29,6 @@ function GameCard({game}){
                     </Card.Body>
                 </Card.ImgOverlay>
                 </Card> 
-     </Link>
-        
     )
 }
 

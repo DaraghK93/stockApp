@@ -27,6 +27,12 @@
 
 @import "./esgComponents/esgSlider.scss";
 
+@import "./notFoundComponent/notFoundComponent.scss";
+
+/*Layout components */
+@import "./layoutComponents/header.scss";
+
+
 body {
     background-color: $background;
 }
@@ -51,10 +57,10 @@ h1, .h1 {
 }
 
 .infoCardStyle {
+    height: 100%;
     padding: 0.625rem;
     margin: 0.625rem;
     margin-bottom: 1.25rem;
     padding-bottom: 3.125rem;
     display:flex;
 }
-

@@ -1,0 +1,17 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.notFoundButton {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  max-width: 200rem;
+}

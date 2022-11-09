@@ -1,63 +1,24 @@
 const mongoose = require('mongoose')
-// const { propfind } = require('../routes/userRoutes')
-// // var stockSchema = mongoose.model('stockSchema')
-
+const {Schema} = mongoose
 
 const PortfolioSchema = new mongoose.Schema(
   {
     portfolioName: { type: String, trim: true, required: true },
-    remainder: { type: String, trim: true},
-    holdings: [{type: mongoose.Schema.Types.ObjectID, ref: 'holdingsSchema'}],
-    dateCreated: {type: String, trim: true},
-    totalValue: {type: String, trim: true, required: true},
-    transactions: [{type: mongoose.Schema.Types.ObjectID, ref: 'transactionsSchema'}],
-    marketOrders: [{type: mongoose.Schema.Types.ObjectID, ref: 'marketOrdersSchema'}],
-    valueHistory: [{type: mongoose.Schema.Types.ObjectID, ref: 'dailyValuesSchema'}]
+    remainder: { type: Number, trim: true},
+    startingBalance: {type: Number, trim: true, required: true},
+    holdings: [{stock: {type: Schema.Types.ObjectId, ref: 'stock'}, quantity: {type: Number}}],
+    dateCreated: {type: Date, trim: true},
+    totalValue: {type: String, trim: true},
+    transactions: [{stock: {type: Schema.Types.ObjectId, ref: 'stock'}, units: {type:Number}, transactionType: {type: String}, date: {type: Date}}],
+    valueHistory: [{date: {type: Date}, value: {type: Number}}],
+    // value history would contain the totalValue, pushed to array at the end of each day 
+    leagueId: {type: Schema.Types.ObjectId, ref: 'leagues'},
+    userId: {type: Schema.Types.ObjectId, ref: 'UserData'}
   },
-  { collection: 'portfolio-data' },
+  { collection: 'portfolios' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
   { timestamps: true },
 )
 
-const holdingsSchema = mongoose.Schema(
-  {
-    symbol: {type: String, trim: true},
-    unitAmount: {type: Number, trim: true},
-  }
-)
-
-const transactionsSchema = mongoose.Schema(
-  {
-    symbol: {type: String, trim: true},
-    unitAmount: {type: String, trim: true},
-    date: {type: String, trim: true},
-    buyOrSell: {type: String, trim: true}
-    // two options, buy or sell
-  }
-)
-
-const marketOrdersSchema = mongoose.Schema(
-  {
-    symbol: {type: String, trim: true},
-    marketOrderType: {type: String, trim: true},
-//     // limit order, stop buy etc
-    restriction: {type: String, trim: true}
-//     // might need to think about how this will work
-  }
-)
-
-const dailyValueSchema = mongoose.Schema(
-  {
-    symbol: {type: String, trim: true},
-    unitAmount: {type: String, trim: true},
-    date: {type: String, trim: true}
-//     // two options, buy or sell
-  }
-)
-
-module.exports = mongoose.model('holdingsSchema', holdingsSchema)
-module.exports = mongoose.model('transactionsSchema', transactionsSchema)
-module.exports = mongoose.model('marketOrdersSchema', marketOrdersSchema)
-module.exports = mongoose.model('dailyValuesSchema', dailyValueSchema)
 
 module.exports = mongoose.model('PortfolioData', PortfolioSchema)

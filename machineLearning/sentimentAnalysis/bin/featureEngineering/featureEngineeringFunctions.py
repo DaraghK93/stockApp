@@ -7,7 +7,7 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 from statistics import mean
 sia = SentimentIntensityAnalyzer()
 import csv
-
+import pandas as pd
 
 def getHeadlineBySentiment(df,sentiment):
     """
@@ -25,6 +25,26 @@ def getHeadlineBySentiment(df,sentiment):
         return headlines
     except Exception as e:
         print(f'Error in extracting given sentiment headlines in function getHeadlineBySentiment.\nException details\n{e}')
+
+### Basically the same as above but changing 'tweet' and 'headline' Don't want to change Warrens code without discussing first
+def getTweetBySentiment(df, sentiment):
+    """
+    This function gets a list of headlines with a particular sentiment
+
+    Args:
+        df (Pandas Dataframe): A dataframe object with the columns of headlines and sentiment
+        sentiment (String): The sentiment to extract.
+
+    Returns:
+        headlines (list): List of headlines all callified as input sentiment.
+    """
+    try:
+        tweets = list(df[df["sentiment"] == sentiment]["tweet"])
+        return tweets
+    except Exception as e:
+        print(
+            f"Error in extracting given sentiment headlines in function getHeadlineBySentiment.\nException details\n{e}"
+        )
 
 def tokenize(headline):
     """
@@ -214,6 +234,57 @@ def writeWordsListToCSV(freqDist,file,numWords=100):
         f.close()
 
     
+def readWordFileToList(file):
+    """
+    Takes in file name for words list in csv format and returns qwords in one dimensional array. 
+    It assumes the words file has two columns, column headers and the first column contains the words. 
+    Args:
+        file (String): The path of the file to read
+    Returns:
+        words (List): One dimensional list of words. 
+    """
+    try:
+        words = [] 
+        with open(file,"r") as wordFile:
+            csvReader = csv.reader(wordFile)
+            # Skip the header in first lin
+            next(csvReader)
+            for line in csvReader:
+                # 0th eleeent as the word is here, occurences in 1st element 
+                words.append(line[0])
+        return words
+    except Exception as e:
+        print(f'ERROR:Occured in the readWordFileToList function.\nException Details:\n\t{e}') 
+def removeStopWordsFromTweet(data):
+    """
+    This function takes in a dataframe of tweets and returns each string free of stopwords
+
+    Args:
+        data (_type_): dataframe of tweets
+
+    Returns:
+        _type_: cleaned dataframe
+    """
+    tweetCol = []
+
+    stopwords = nltk.corpus.stopwords.words("english")
+
+    for index, row in data.iterrows():
+        newTweet = []
+        for word in row["tweet"].split(" "):
+            if word not in stopwords:
+                # create new tweet - list of words
+                newTweet.append(word.lower())
+        # join the words in tweet list together separated by a space and add to tweet column list
+        tweetCol.append(" ".join(newTweet))
+    # create a dataframe to replace old tweet column
+    tweetCol = pd.DataFrame(tweetCol)
+
+    # replace old tweet with newly created one stopwords free
+    data.drop(["tweet"], axis=1)
+    data["tweet"] = tweetCol
+
+    return data    
      
 
 

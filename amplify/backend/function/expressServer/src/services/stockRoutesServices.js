@@ -66,7 +66,7 @@ function getStockPriceData (stocks) {
         // the format of the data keys is "YYYY-MM-DDT20:00"
         // console.log(monthly_prices[date_range[i]+"T20:00"])
         if(typeof(weekly_prices[dateRangeWeek[i]+"T20:00"]) != 'undefined'){     
-        prices_week.push({"date": dateRangeWeekNoYear[i], "price": weekly_prices[dateRangeWeek[i]+"T20:00"]["4. close"] })}}
+        prices_week.push({"date": dateRangeWeekNoYear[i], "price": weekly_prices[dateRangeWeek[i]+"T20:00"]["Close"] })}}
         
     // ***One Month***
     // loop through the date range list and extract the data
@@ -75,7 +75,7 @@ function getStockPriceData (stocks) {
         // console.log(monthly_prices[date_range[i]+"T20:00"])
         if(typeof(monthly_prices[dateRangeMonth[i]+"T20:00"]) != 'undefined'){
         
-        prices_month.push({"date": dateRangeMonthNoYear[i], "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["4. close"] })}}
+        prices_month.push({"date": dateRangeMonthNoYear[i], "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
     
     // ***One Year***
     // loop through the date range list and extract the data
@@ -83,7 +83,7 @@ function getStockPriceData (stocks) {
         // the format of the data keys is "YYYY-MM-DDT20:00"
         // console.log(monthly_prices[date_range[i]+"T20:00"])
         if(typeof(yearly_prices[dateRangeYear[i]+"T20:00"]) != 'undefined'){
-        prices_year.push({"date": dateRangeYearNoYear[i], "price": yearly_prices[dateRangeYear[i]+"T20:00"]["4. close"] })}}
+        prices_year.push({"date": dateRangeYearNoYear[i], "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
     
     return [prices_week, prices_month,prices_year]
 

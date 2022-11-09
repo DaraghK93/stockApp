@@ -1,0 +1,7 @@
+requests
+feedparser
+boto3
+pymongo
+beautifulsoup4
+nltk
+scikit-learn==1.1.2

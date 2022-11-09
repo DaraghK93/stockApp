@@ -1,8 +1,8 @@
 const express = require("express")
 const router = express.Router()
-const { createPortfolio } = require('../controllers/portfolioController')
-const auth = require('../middleware/authMiddleware');
+const { createHangingPortfolio } = require('../controllers/portfolioController')
+const {protectedRoute} = require('../middleware/authMiddleware');
 
-router.post('/createPortfolio', auth, createPortfolio)
+router.post('/createPortfolio', protectedRoute, createHangingPortfolio)
 
 module.exports = router

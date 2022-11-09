@@ -1,36 +1,69 @@
 /* ***************************** Stock Card Container ***************************** */
+@import "../global_variables.scss";
+
+
+::-webkit-scrollbar {
+  width: 0;
+  overflow: none;
+  height: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: $background;
+}
+::-webkit-scrollbar-thumb {
+  background: $shadow;
+  border-radius: 100vw;
+  border: .20em solid $background;
+
+}
 
 // side scrolling
 .cardContainer {
-  overflow-x: scroll;
-  overflow-y: hidden;
-  white-space: nowrap;
-  width: 85%;
-  margin: auto;
-  
-
+  display: flex;
+  overflow-x: auto;
 
   .tickercard {
     display: inline-block;
-    padding: 1rem;
+    padding: 0.1875rem;
+    padding-top:0;
   }
 
 }
 
 .tickercardstyle {
-  width: 15.625rem;
+  width: 10rem;
   height: 100%;
   display: block
 }
 
-@media only screen and (min-width: 990px) {
-  .tickercardstyle {
-    width: 18.75rem;
+@media only screen and (min-width: 500px) {
+  ::-webkit-scrollbar {
+    height: 0.75rem;
   }
 
 }
 
 .stockdiscoveryRow {
-  margin-top: 3.125rem;
-  padding: 1rem;
+  margin-top: 2rem;
+}
+
+.tickerCardImgContainer {
+  height: 5.625rem;
+   width: 7rem;
+}
+
+.noBorderGreyText {
+  color: $midgrey;
+  border: none;
+}
+
+.noBorder7REMHeight{
+  border: none;
+  height: 7rem
+}
+
+.noBorderFont90{
+  border: none;
+  font-size:90%
 }

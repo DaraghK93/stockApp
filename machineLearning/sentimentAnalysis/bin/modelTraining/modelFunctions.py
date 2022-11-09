@@ -5,6 +5,8 @@ from nltk.classify.scikitlearn import SklearnClassifier
 from random import shuffle
 import pickle 
 import pandas as pd
+import collections
+import csv
 
 from sklearn.model_selection import train_test_split
 
@@ -19,7 +21,9 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPClassifier
+from sklearn.utils import resample
 
+from nltk.metrics.scores import precision, recall, f_measure, accuracy
 
 
 def getTrainTestSplit(features,trainPercent):
@@ -157,11 +161,182 @@ def generateEvaluationReport(results,file):
         df.to_csv(file, index = False, header=True)
     except Exception as e:
         print(f'Error in writing evaluation results to csv.\nException detials:\n{e}')
-    
+
+def loadClassifier(file):
+    """
+    Loads in a pickle file containing the machine learning classifier.
+    Args:
+        file (String): The path to the classifier. 
+    Returns:
+        (SklearnClassifier or NLTKClassifier): The classifier which can be used to classify news headlines. 
+    """
+    try:
+        classifierFile = open(file,"rb")
+        classifier = pickle.load(classifierFile)
+        classifierFile.close()
+        return classifier
+    except Exception as e:
+        print(f'ERROR:Occured in the loadClassifier function.\nException Details:\n\t{e}')
+
+def evaluateModel(classifier, test):
+    """This function takes in a classifier and generates a reference and a test set for
+    calculating the precision, recall, accuracy and f_measure
+
+    Args:
+        classifier : A trained model
+        test : the test data
+
+    Returns:
+        A dict of each classifier with name of metric as key and the related scores as values
+    """
+    evaluations = {}
+
+    referenceSets = collections.defaultdict(set)
+    testsets = collections.defaultdict(set)
+
+    for i, (feats, label) in enumerate(test):
+        referenceSets[label].add(i)
+        observed = classifier.classify(feats)
+        testsets[observed].add(i)
+
+    # Accuracy 
+    accuracy_score = nltk.classify.accuracy(classifier, test)
+    evaluations["accuracy"] = f"{accuracy_score:.2%}"
+    # Precision 
+    precision_score = precision(referenceSets["positive"], testsets["positive"])
+    precision_score_neg = precision(referenceSets["negative"], testsets["negative"])
+    evaluations["positive precision"] = f"{precision_score:.2%}"
+    evaluations["negative precision"] = f"{precision_score_neg:.2%}"
+    # Recall
+    recall_score = recall(referenceSets["positive"], testsets["positive"])
+    recall_score_neg = recall(referenceSets["negative"], testsets["negative"])
+    evaluations["positive recall"] = f"{recall_score:.2%}"
+    evaluations["negative recall"] = f"{recall_score_neg:.2%}"
+    # F Measure
+    f_measure_score = f_measure(referenceSets["positive"], testsets["positive"])
+    f_measure_score_neg = f_measure(referenceSets["negative"], testsets["negative"])
+    evaluations["positive f_measure"] = f"{f_measure_score:.2%}"
+    evaluations["negative f_measure"] =  f"{f_measure_score_neg:.2%}"
+    return evaluations
+
+def evaluateTopModels(evalFile):
+    """
+    Description:
+        This function reads in the evaluation file gnerated by the function generateEvaluationReport. 
+        It then gets the top models for each metric outpus them to the console and generates a report to
+        highestEvaluationResults.csv file. 
+
+    Args:
+        evalFile (String): Path to the evaluation report
+    """
+    try:
+        # Read in the csv file 
+        df = pd.read_csv(evalFile,index_col=[0])
+        # Obtained from stack overflow
+        for col in df:
+            if col != "model" or col != "model number":
+                df[col] = df[col].str.rstrip('%').astype('float') /100.0
+        # Get the maxIds  
+        maxIds = (df.idxmax())
+        # Open file to write results to and write header 
+        f = open('./highestEvaluationResults.csv', 'w', newline='')
+        writer = csv.writer(f)
+        writer.writerow(['evaulation metric','model','score'])
+        # Print results to terminal and write them to csv file 
+        print(f'\t******Highest Evaluation Results*******')
+        for index, value in maxIds.items():
+            print(f' \033[1m{index :<20}\033[0m - {value :>20} ({df[index][value]:.2%})')
+            writer.writerow([index,value,f'{df[index][value]:.2%}'])
+        
+    except Exception as e:
+        print(f'ERROR:Occured in the showResults function.\nException Details:\n\t{e}')    
 
 
+def upsampleTrainData(train):
+    """
+    Description:
+        Used to upsample training data if skewness exists. Samples will be replicated another to acheive noraml distribution. 
+        See article here https://towardsdatascience.com/what-to-do-when-your-classification-dataset-is-imbalanced-6af031b12a36
 
+    Args:
+        train (List): List of training data. 
 
+    Returns:
+        upSampledTrain(List): The upsampled training data. 
+    """
+    try:
+        posTrainData = []
+        negTrainData = []
+        neuTrainData = [] 
+        for val in train:
+            if val[1] == "neutral":
+                neuTrainData.append(val)
+            elif val[1] == "positive":
+                posTrainData.append(val)
+            elif val[1] == "negative":
+                negTrainData.append(val)
+        # Get the maxium lenght as this is what we want to sample up to
+        maxLength = max(len(posTrainData), len(negTrainData), len(neuTrainData))
+        # Upsample each of the categoreis, read docs on resample function here https://scikit-learn.org/stable/modules/generated/sklearn.utils.resample.html 
+        posTrainUpSampled = resample(posTrainData,
+                        replace=True, 
+                        n_samples=maxLength, 
+                        random_state=34) 
+        negTrainUpSampled = resample(negTrainData,
+                        replace=True, 
+                        n_samples=maxLength, 
+                        random_state=34) 
+        neuTrainUpSampled = resample(neuTrainData,
+                        replace=True,
+                        n_samples=maxLength, 
+                        random_state=34) 
+        # Combine the the arrays back into one training array 
+        upSampledTrain = posTrainUpSampled + negTrainUpSampled + neuTrainUpSampled
+        return upSampledTrain
+    except Exception as e:
+        print(f'ERROR:Occured in the upsampleTrainData function.\nException Details:\n\t{e}')    
 
-    
+def underSampleTrainData(train):
+    """
+    Description:
+        Used to undersample training data if skewness exists. Samples will be removed another to acheive normal distrubution in training data.
+        See article here https://towardsdatascience.com/what-to-do-when-your-classification-dataset-is-imbalanced-6af031b12a36
+
+    Args:
+        train (List): List of training data. 
+
+    Returns:
+        underSampledTrain(List): The upsampled training data. 
+    """
+    try:
+        posTrainData = []
+        negTrainData = []
+        neuTrainData = [] 
+        for val in train:
+            if val[1] == "neutral":
+                neuTrainData.append(val)
+            elif val[1] == "positive":
+                posTrainData.append(val)
+            elif val[1] == "negative":
+                negTrainData.append(val)
+        # Get the maxium lenght as this is what we want to sample up to
+        minLength = min(len(posTrainData), len(negTrainData), len(neuTrainData))
+        # Undersample each of the categoreis, read docs on resample function here https://scikit-learn.org/stable/modules/generated/sklearn.utils.resample.html 
+        posTrainUnderSampled = resample(posTrainData,
+                        replace=True, 
+                        n_samples=minLength, 
+                        random_state=34) 
+        negTrainUnderSampled = resample(negTrainData,
+                        replace=True, 
+                        n_samples=minLength, 
+                        random_state=34) 
+        neuTrainUnderSampled = resample(neuTrainData,
+                        replace=True,
+                        n_samples=minLength, 
+                        random_state=34) 
+        # Combine the the arrays back into one training array 
+        underSampledTrain = posTrainUnderSampled + negTrainUnderSampled + neuTrainUnderSampled
+        return underSampledTrain
+    except Exception as e:
+        print(f'ERROR:Occured in the underSampleTrainData function.\nException Details:\n\t{e}')
     

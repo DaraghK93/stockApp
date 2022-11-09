@@ -1,0 +1,2 @@
+This directory holds 2 files. One is the Jupyter notebook that was used to carry out the initial EDA and exploration and the other is that Jupyter notebook converted to a Python file.
+For best results, use the Jupyter notebook file as it's much easier to run individual cells and to be able to scroll through all the plots.

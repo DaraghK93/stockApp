@@ -1,10 +1,21 @@
 import { useState } from 'react'
 import { Container, Row, Col,Button} from "react-bootstrap"
 
+/// Componeents ///
+import GameNameTypeImage from '../../components/gameComponents/createGameScreenComponents/gameNameTypeAndImage'
+import {useSelector} from 'react-redux';
+
 function CreateGameScreen(){
+    /// Redux ///
+    const user = useSelector((state) => state.user)
+    // Get the userInfo piece of state, dont need loading and error
+    const {userInfo} = user; 
+
+
+
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
-    const [gameName, setGameName]   = useState("")
+    const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
     const [gameType, setGameType]   = useState("valueBased")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
@@ -26,12 +37,10 @@ function CreateGameScreen(){
 
     //setGameType("valueBased")
     return(
-        <Container>
+        <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
                 {screen === 1 ?
-                <Col>
-                    <h1>Game Name</h1>
-                </Col>
+                    <GameNameTypeImage gameName={gameName} setGameName={setGameName}/>
                 :screen === 2 ?
                 <Col>
                     <h1>Duration</h1>

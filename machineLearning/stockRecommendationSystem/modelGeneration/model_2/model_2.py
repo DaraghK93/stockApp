@@ -89,3 +89,5 @@ def symbol_to_index(symbol):
     return index
 
 
+print(index_to_symbol(40))
+print(symbol_to_index("AAPL"))

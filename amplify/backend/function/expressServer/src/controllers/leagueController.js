@@ -73,10 +73,10 @@ const createLeague = async (req, res, next) => {
     // ensure that if it's a time based game, the endDate is sent
     if (leagueType === "timeBased" && typeof endDate === "undefined") {
       res.status(400)
-      res.errormessage = 'time based games must have an end date'
+      res.errormessage = 'Time based games must have an end date'
       return next(
         new Error(
-          'time based games must have an end date',
+          'Time based games must have an end date',
         ),
       )
     }
@@ -231,7 +231,7 @@ const joinLeaguebyCode = async (req, res, next) => {
       ) {
         // data is missing bad request
         res.status(400)
-        res.errormessage = 'an access code is needed'
+        res.errormessage = 'An access code is needed'
         return next(
           new Error(
             'An Access Code is Needed',

@@ -1,5 +1,14 @@
+/// Description:
+//      This coponent is used for the game creation screen
+//      It is used to display the options for creating a game along with the pagination
 import {Card,Row,Col,Button} from "react-bootstrap"
 
+/// GameCreationOptionsCard ///
+//  poprs:
+//      children  - The children of the component https://reactjs.org/docs/composition-vs-inheritance.html
+//      setScreen - Setter to set createGameScreen state
+//      screen    - The screen state set by setScreen
+//      gameType  - The type of game, depedning upon game type there will  be extra screen for valueBased game 
 function GameCreationOptionsCard({children, setScreen, screen, gameType}){
     return(
         <Card className="mt-5">
@@ -18,7 +27,7 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType}){
                         <Col className="prevNextCol">
                             <Button
                                 onClick={() => {
-                                    console.log("Im done")
+                                    console.log("Im done this will eventually be redirect")
                                 }}
                             >Finish</Button>
                         </Col>

@@ -8,7 +8,7 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 200
     Tracing: Active
   Api:
     TracingEnabled: True
@@ -28,5 +28,5 @@ Resources:
             Method: get
     Metadata:
       Dockerfile: Dockerfile
-      DockerContext: ./stock_recommender
+      DockerContext: ./hello_world
       DockerTag: python3.9-v1

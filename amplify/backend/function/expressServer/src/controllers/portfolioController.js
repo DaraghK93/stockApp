@@ -75,7 +75,17 @@ const buyStock = async (req, res, next) => {
       )
     }
     if (!req.body.stockId.match((/^[0-9a-fA-F]{24}$/))){
-      // check that the type is buy
+      // check that the stock ID is correct
+      res.status(400)
+      res.errormessage = 'Invlaid Stock ID length'
+      return next(
+        new Error(
+          'Stock ID length is incorrect'
+        )
+      )
+    }
+    if (!req.body.portfolioId.match((/^[0-9a-fA-F]{24}$/))){
+      // check that the portfolio ID is correct
       res.status(400)
       res.errormessage = 'Invlaid Stock ID length'
       return next(
@@ -86,7 +96,6 @@ const buyStock = async (req, res, next) => {
     }
     const stock = await Stock.findOne({_id: req.body.stockId}).select({prices: 0})
     // check that the stock exists
-    console.log(stock)
     if(stock===null){
       res.status(404)
       res.errormessage = 'No such stock'
@@ -114,6 +123,15 @@ const buyStock = async (req, res, next) => {
       return next(
         new Error(
           'Portfolio must be associated to the user.'
+        )
+      )
+    }
+    if(req.body.orderType!== "MARKET" || req.body.orderType != "LIMIT"){
+      res.status(400)
+      res.errormessage = 'Invalid Order Type.'
+      return next(
+        new Error(
+          'Order type should be MARKET or LIMIT.'
         )
       )
     }

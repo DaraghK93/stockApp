@@ -4,6 +4,6 @@ const { createHangingPortfolio, buyStock } = require('../controllers/portfolioCo
 const {protectedRoute} = require('../middleware/authMiddleware');
 
 router.post('/createPortfolio', protectedRoute, createHangingPortfolio)
-router.post('/buyStock', buyStock)
+router.post('/buyStock', protectedRoute, buyStock)
 
 module.exports = router

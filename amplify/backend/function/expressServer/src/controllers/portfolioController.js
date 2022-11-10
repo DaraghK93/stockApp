@@ -95,14 +95,14 @@ const buyStock = async (req, res, next) => {
         )
       )
     }
-    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId})
+    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, userId: req.user.id})
     // check that the portfolio exists
     if(portfolio===null){
       res.status(404)
-      res.errormessage = 'No such portfolio'
+      res.errormessage = 'Invalid portfolio.'
       return next(
         new Error(
-          'The chosen portfolio does not exist.'
+          'Portfolio must be associated to the user.'
         )
       )
     }

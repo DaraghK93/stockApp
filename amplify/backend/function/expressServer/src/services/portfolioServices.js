@@ -91,6 +91,7 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
     await newHoldings.save()
     // a new transaction is added to the db
     await transaction.save()
+    const newRemainder = portfolioRemainder - transaction.value
     // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
     const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
     return newPortfolio

@@ -10,7 +10,11 @@ import NotFound from './screens/errorScreens/notFound';
 import MyPortfolios from './screens/myPortfolios/myPortfolios';
 import CreatePortfolio from './screens/createPortfolio/createPortfolio';
 import HomeScreen from './screens/home/homeScreen';
+<<<<<<< HEAD
 import PortfolioPage from './screens/portfolio/portfolio';
+=======
+import GameScreen from './screens/gameScreen/gameScreen';
+>>>>>>> 8763cb4fae44056bcece231a74c7870d260fb25e
 
 /// Redux ///
 import { useSelector } from 'react-redux';
@@ -42,6 +46,10 @@ function App() {
 
         <Route path='/stock/:symbol'
           element={userInfo ? <StockPage /> : <Navigate to="/" />} />
+
+        <Route path='/game'
+          element={userInfo ? <GameScreen/> : <Navigate to="/"/>} />
+        
 
         <Route path="/stock/:symbol/confirmorder"
           element={userInfo ? <OrderConfirmationPage /> : <Navigate to="/" />} />

@@ -9,6 +9,7 @@
 @import "./sentimentComponents/sentimentBadge.scss";
 
 /* Widgets */
+@import "./widgetsComponents/sideScroll.scss";
 /* Infobutton */
 
 @import "./widgetsComponents/infoButton.scss";
@@ -34,6 +35,12 @@
 
 /* Portfolio components */
 @import "./portfolioComponents/portfoliocomponents.scss";
+
+/*Game Components */
+@import "./gameComponents/screenSelectionRadioButtons.scss";
+@import "./gameComponents/createGameCard.scss";
+@import "./gameComponents/gameCard.scss";
+
 
 body {
     background-color: $background;

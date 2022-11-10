@@ -27,10 +27,6 @@ function ResetPage() {
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  /// Redux ///
-  // const user = useSelector((state) => state.user);
-  // const { loading, error } = user;
-
   // this function will allow the user to use the reset function from the userActions.js file
   // Password check functions taken from registration page to ensure consistency
   function handleSubmit(event) {

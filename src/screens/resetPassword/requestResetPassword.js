@@ -25,7 +25,7 @@ function RequestResetPassword() {
   // Password check functions taken from registration page to ensure consistency
   function handleSubmit(event) {
     event.preventDefault();
-    dispatch(requestResetPassword(email));
+    requestResetPassword();
   }
 
   const requestResetPassword = async () => {
@@ -39,9 +39,7 @@ function RequestResetPassword() {
       };
       // Sent the request to backend
       const data = await API.post(APIName, path, requestConfig);
-    } catch (error) {
-        
-    }
+    } catch (error) {}
   };
 
   //

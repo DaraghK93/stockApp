@@ -86,6 +86,7 @@ const buyStock = async (req, res, next) => {
     }
     const stock = await Stock.findOne({_id: req.body.stockId}).select({prices: 0})
     // check that the stock exists
+    console.log(stock)
     if(stock===null){
       res.status(404)
       res.errormessage = 'No such stock'

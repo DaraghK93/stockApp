@@ -18,7 +18,6 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType}){
                     <Col className="prevNextCol">
                         {screen > 1 &&
                         <Button
-                            disabled={screen === 1} 
                             onClick={() => {
                                 setScreen(screen-1)
                             }}

@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 /// Componeents ///
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
 import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
+import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -19,8 +20,8 @@ function CreateGameScreen(){
     const [gameType, setGameType]   = useState("")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
-    //const [gameStartDate, setGameStartDate] = useState("")
-    //const [gameEndDate, setGameEndDate] = useState("")
+    const [gameStartDate, setGameStartDate] = useState("")
+    const [gameEndDate, setGameEndDate] = useState("")
     /// Page 3 - Target value, only used if the game is value based 
     //const [gameTargetValue, setGameTargetValue] = useState()
     /// Page 4 - Stock types, user can define custom stocks to trade 
@@ -52,7 +53,13 @@ function CreateGameScreen(){
                 :screen === 2 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the duration screen</h1>
+                        <GameDurationSelection 
+                            gameStartDate={gameStartDate} 
+                            setGameStartDate={setGameStartDate}
+                            gameEndDate={gameEndDate}
+                            setGameEndDate={setGameEndDate}
+                            gameType={gameType}
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 3 && gameType === "valueBased" ?

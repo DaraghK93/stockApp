@@ -1,6 +1,6 @@
 import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Line } from "recharts";
 import { useState, useEffect } from "react";
-import { Container } from "react-bootstrap"
+import CustomToolTip from "../../widgets/ToolTip/ToolTip";
 
 function PortfolioGraph({ data }) {
     const [tickBoolean, setTickBoolean] = useState(false)
@@ -19,28 +19,6 @@ function PortfolioGraph({ data }) {
         showTick()
     }, [])
 
-
-    const CustomToolTip = props => {
-        const { active, payload, label } = props;
-        if (!active || !payload) {
-            return null;
-        }
-        return (
-            <div className="toolTipStyle">
-                <Container>
-                    <p>
-                        Date: {label}
-                    </p>
-                    {payload.map((item, i) => (
-                        <p key={i}>
-                            Value: ${parseFloat(item.value).toFixed(2)}
-                        </p>
-                    ))}
-                </Container>
-            </div>
-        );
-    };
-
     return (
         <ResponsiveContainer width="100%" height={400} margin={100}>
             <LineChart width="100%" height={250} data={data}
@@ -57,9 +35,7 @@ function PortfolioGraph({ data }) {
                     width={80}
                     stroke="#595959" />
                 <Line type="monotone" dataKey="value" stroke="#00C49F" strokeWidth={2} />
-                <Tooltip
-                    content={<CustomToolTip />}
-                />
+                <Tooltip content={<CustomToolTip />} />
             </LineChart>
         </ResponsiveContainer>
     )

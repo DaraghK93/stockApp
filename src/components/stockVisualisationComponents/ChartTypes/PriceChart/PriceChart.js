@@ -10,10 +10,7 @@ import {
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
-
-//TODO style tooltip
-// button underline then completely lined?
-
+import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 
 function StockPriceChart({ stock, lineColor, gradientColor }) {
 
@@ -86,7 +83,7 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
                                     </linearGradient>
                                 </defs>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-                                <Tooltip />
+                                <Tooltip content={<CustomToolTip />} />
 
                                 <XAxis dataKey="date"
                                     stroke="#595959"

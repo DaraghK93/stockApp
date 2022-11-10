@@ -4,15 +4,13 @@ import { Container, Row, Col,Button} from "react-bootstrap"
 /// Componeents ///
 import GameNameTypeImage from '../../components/gameComponents/createGameScreenComponents/gameNameTypeAndImage'
 import {useSelector} from 'react-redux';
+import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
 
 function CreateGameScreen(){
     /// Redux ///
     const user = useSelector((state) => state.user)
     // Get the userInfo piece of state, dont need loading and error
     const {userInfo} = user; 
-
-
-
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
     const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
@@ -40,7 +38,9 @@ function CreateGameScreen(){
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
                 {screen === 1 ?
-                    <GameNameTypeImage gameName={gameName} setGameName={setGameName}/>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                        <h1>Hello</h1>
+                    </GameCreationOptionsCard>
                 :screen === 2 ?
                 <Col>
                     <h1>Duration</h1>
@@ -71,35 +71,6 @@ function CreateGameScreen(){
                 </Col>
                 }   
             </Row>
-
-            <Row className="containerButtons" lg={2} md={2} xs={2}>
-                <Col className="prevNextCol">
-                    <Button
-                        disabled={screen === 1} 
-                        onClick={() => {
-                            setScreen(screen-1)
-                        }}
-                    >Back</Button>
-                </Col>
-                {(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")  ?
-                    <Col className="prevNextCol">
-                        <Button
-                            onClick={() => {
-                                console.log("Im done")
-                            }}
-                        >Finish</Button>
-                    </Col>
-                    :
-                    <Col className="prevNextCol">
-                        <Button
-                            onClick={() => {
-                                setScreen(screen+1)
-                            }}
-                        >Next</Button>
-                    </Col>
-                }      
-            </Row>
-
         </Container>
     )
 }

@@ -74,6 +74,16 @@ const buyStock = async (req, res, next) => {
         )
       )
     }
+    if (!req.body.stockId.match((/^[0-9a-fA-F]{24}$/))){
+      // check that the type is buy
+      res.status(400)
+      res.errormessage = 'Invlaid Stock ID length'
+      return next(
+        new Error(
+          'Stock ID length is incorrect'
+        )
+      )
+    }
     const stock = await Stock.findOne({_id: req.body.stockId}).select({prices: 0})
     // check that the stock exists
     if(stock===null){

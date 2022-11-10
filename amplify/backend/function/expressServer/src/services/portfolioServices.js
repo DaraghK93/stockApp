@@ -47,55 +47,62 @@ const createPortfolio = async (portfolioData) => {
 
 const buyStock = async (buyData, portfolioRemainder,value) => {
     // creates a date so that it is known when it was created
-    const date = new Date()
+    try{
+        const date = new Date()
 
-    // creates a transaction model
-    const transaction = new Transaction({
-    portfolioId: buyData.portfolioId,
-    stockId: buyData.stockId,
-    units: buyData.units,
-    value: value,
-    date: date,
-    buyOrSell: buyData.buyOrSell,
-    orderType: buyData.orderType,
-    transactionCost: buyData.transactionCost
-  })
-
-  // finds existing holdings in the db for that portfolio
-  const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
-
-  let newHoldings
-
-  // if there are holdings, then the current holdings are updated
-  if (holdings != null){
-    // add the new units to the existing units
-    const currentHoldings = transaction.units + holdings.units
-    // update the db
-    newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
-    // calculate the remaining user funds
-    const newRemainder = portfolioRemainder - transaction.value
-    // create transaction object
-    await transaction.save()
-    // update the portfolio, adding a transaction object ID and updating the remainder
-    const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
-    return newPortfolio
-  }
-  else {
-    // if there are no holdings, a new one can be created
-    newHoldings = new Holdings({
-      portfolioId: transaction.portfolioId,
-      stockId: transaction.stockId,
-      units: transaction.units
+        // creates a transaction model
+        const transaction = new Transaction({
+        portfolioId: buyData.portfolioId,
+        stockId: buyData.stockId,
+        units: buyData.units,
+        value: value,
+        date: date,
+        buyOrSell: buyData.buyOrSell,
+        orderType: buyData.orderType,
+        transactionCost: buyData.transactionCost
     })
-    // a new holding is added to the db
-    await newHoldings.save()
-    // a new transaction is added to the db
-    await transaction.save()
-    const newRemainder = portfolioRemainder - transaction.value
-    // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
-    const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
-    return newPortfolio
-  }
+
+    // finds existing holdings in the db for that portfolio
+    const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
+
+    let newHoldings
+
+    // if there are holdings, then the current holdings are updated
+    if (holdings != null){
+        // add the new units to the existing units
+        const currentHoldings = transaction.units + holdings.units
+        // update the db
+        newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
+        // calculate the remaining user funds
+        const newRemainder = portfolioRemainder - transaction.value
+        // create transaction object
+        await transaction.save()
+        // update the portfolio, adding a transaction object ID and updating the remainder
+        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+        return newPortfolio
+    }
+    else {
+        // if there are no holdings, a new one can be created
+        newHoldings = new Holdings({
+        portfolioId: transaction.portfolioId,
+        stockId: transaction.stockId,
+        units: transaction.units
+        })
+        // a new holding is added to the db
+        await newHoldings.save()
+        // a new transaction is added to the db
+        await transaction.save()
+        const newRemainder = portfolioRemainder - transaction.value
+        // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
+        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+        return newPortfolio
+    }
+    }
+    catch (err) {
+        console.error(err.message);
+        res.errormessage = 'Server error. Stock has not been purchased.';
+        return next(err)
+    }
 }
 
 module.exports = {

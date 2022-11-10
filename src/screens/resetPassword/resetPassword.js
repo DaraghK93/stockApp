@@ -59,8 +59,9 @@ function ResetPage() {
       setPasswordErrorMessage(
         'Password must contain at least one number (0-9)!'
       );
+    } else {
+      resetPassword();
     }
-    resetPassword();
   }
 
   const resetPassword = async () => {

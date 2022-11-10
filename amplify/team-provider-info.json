@@ -17,7 +17,9 @@
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
           "s3Key": "amplify-builds/expressServer-753174514c376f647362-build.zip",
           "jwtSecret": "$Ckpc6ZlGF*Z3vJ89Nr",
-          "environment": "prod"
+          "environment": "prod",
+          "sendgridApiKey": "'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'",
+          "fromEmail": "'caolandevelopment@gmail.com'"
         },
         "twitterScraping": {
           "secretsPathAmplifyAppId": "d2l3aeky8jssr5",

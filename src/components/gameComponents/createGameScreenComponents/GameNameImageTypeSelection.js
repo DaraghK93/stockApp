@@ -1,6 +1,23 @@
+import {Dropdown,Card,Row,Col,Container,ButtonGroup,ToggleButton,Image} from "react-bootstrap"
+
 function GameNameImageTypeSelection(){
     return(
-        <h1>Hello</h1>
+        <ButtonGroup>
+            <Row>
+            <Col>
+                    <ToggleButton>
+                        Duration
+                    </ToggleButton>
+            </Col>
+            <Col>
+                    <ToggleButton>
+                        Value
+                    </ToggleButton>
+                </Col>
+            </Row>
+        </ButtonGroup>
+
+        
     )
 }
 

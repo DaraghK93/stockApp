@@ -16,12 +16,14 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType}){
                 {children}
                 <Row className="containerButtons" lg={2} md={2} xs={2}>
                     <Col className="prevNextCol">
+                        {screen > 1 &&
                         <Button
                             disabled={screen === 1} 
                             onClick={() => {
                                 setScreen(screen-1)
                             }}
                         >Back</Button>
+                    }
                     </Col>
                     {(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")  ?
                         <Col className="prevNextCol">
@@ -46,5 +48,6 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType}){
     )
 
 }
+
 
 export default GameCreationOptionsCard;

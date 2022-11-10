@@ -12,6 +12,9 @@ import {
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
+  USER_PASSWORD_RESET_REQUEST,
+  USER_PASSWORD_RESET_SUCCESS,
+  USER_PASSWORD_RESET_FAIL
 } from '../constants/userActionConstants'
 import { APIName } from '../constants/APIConstants'
 import { API } from 'aws-amplify'
@@ -92,6 +95,63 @@ export function registerUser(
         type: USER_REGISTER_FAIL,
         payload: error.response.data.errormessage,
       })
+    }
+  }
+}
+
+export function resetPassword(token, password) {
+  console.log('token is ' +token);
+  // Return an async function so that it can be awaited in component that calls it
+  return async (dispatch) => {
+    try {
+      // Dispatch user login request whuch sets loading to true so that loading screen can be set
+      dispatch({ type: USER_LOGIN_REQUEST })
+      // Configure the HTTP request
+      let path = `/api/auth/reset/${token}`
+      let requestConfig = {
+        body: {
+          password: password,
+        },
+      }
+      // Sent the request to backend
+      const data = await API.post(APIName, path, requestConfig)
+      // Dispatch the user success action
+      dispatch({ type: USER_PASSWORD_RESET_SUCCESS, payload: data })
+      //////////////////////////////////////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Set the users data to local storage also ////MIGHT NEED TO CHANGE THIS HERE !!!!!!!!!!!!!!!!!!!!
+      
+      localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error) {
+      dispatch({
+        type: USER_PASSWORD_RESET_FAIL,
+        payload: error.response.data.errormessage, /// THIS NEEDS TO BE AGRRED UPON WITH BACKEND GUYS SHOULD BE NICE ERROR MESSAGE
+      })
+    }
+  }
+}
+
+export function requestResetPassword(email) {
+  // Return an async function so that it can be awaited in component that calls it
+  return async (dispatch) => {
+    try {
+      // Configure the HTTP request
+      let path = `/api/auth/recover`
+      let requestConfig = {
+        body: {
+          email: email,
+        },
+      }
+      // Sent the request to backend
+      const data = await API.post(APIName, path, requestConfig)
+
+      //////////////////////////////////////////////////////////////////////////////////////////////////////
+      /////////////////////////////////////////////////////////////////////////////////////////////////////
+      // Set the users data to local storage also ////MIGHT NEED TO CHANGE THIS HERE !!!!!!!!!!!!!!!!!!!!
+      
+      // localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error) {
+
     }
   }
 }

@@ -10,6 +10,8 @@ import NotFound from './screens/errorScreens/notFound';
 import MyPortfolios from './screens/myPortfolios/myPortfolios';
 import CreatePortfolio from './screens/createPortfolio/createPortfolio';
 import HomeScreen from './screens/home/homeScreen';
+import RequestResetPassword from './screens/resetPassword/requestResetPassword'
+import ResetPage from './screens/resetPassword/resetPassword';
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -50,6 +52,11 @@ function App() {
 
         <Route path='/createportfolio' 
           element={userInfo ? <CreatePortfolio/> : <Navigate to="/"/>} />
+
+        {/* <Route path='/createportfolio' 
+          element={userInfo ? <ResetPage/> : <Navigate to="/"/>} /> */}
+        <Route path='/auth/recover' element={ <RequestResetPassword/> } />
+        <Route path='/auth/reset/:token' element={ <ResetPage/> } />
 
       </Routes>
     </Router>

@@ -6,13 +6,10 @@ const router = express.Router();
 const {
   resetPassword,
   recoverPassword,
-  resetPasswordTest,
   reset,
 } = require('../controllers/auth');
 
 const { check } = require('express-validator');
-
-router.get('/reset', resetPasswordTest);
 
 //Password RESET
 router.post(

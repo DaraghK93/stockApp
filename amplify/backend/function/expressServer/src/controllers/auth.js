@@ -1,32 +1,10 @@
 const User = require('../models/user.model');
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-// @desc Get all tweets (for testing) limit to 20 returning now for demo
-// @route POST /api/tweet/all
-// @access Public
-
-const resetPasswordTest = async (req, res, next) => {
-  // using Twilio SendGrid's v3 Node.js Library
-  // https://github.com/sendgrid/sendgrid-nodejs
-  const msg = {
-    to: 'caolanpowerpac@gmail.com', // Change to your recipient
-    from: 'caolandevelopment@gmail.com', // Change to your verified sender
-    subject: 'Sending with SendGrid is Fun',
-    text: 'and easy to do anywhere, even with Node.js',
-    html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-  };
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log('Email sent');
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  res.json({ response: 'here we are' });
-};
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(
+  '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'
+);
 
 /**
  *
@@ -39,6 +17,7 @@ const resetPasswordTest = async (req, res, next) => {
 // @access Public
 const recoverPassword = async (req, res, next) => {
   console.log('hello');
+  console.log(req.body.email);
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user)
@@ -59,8 +38,8 @@ const recoverPassword = async (req, res, next) => {
           // send email
           let link =
             'http://' +
-            req.headers.host +
-            '/api/auth/reset/' +
+            'localhost:3000' +
+            '/auth/reset/' +
             user.resetPasswordToken;
           const mailOptions = {
             to: user.email,
@@ -70,7 +49,8 @@ const recoverPassword = async (req, res, next) => {
                     Please click on the following link ${link} to reset your password. \n\n 
                     If you did not request this, please ignore this email and your password will remain unchanged.\n`,
           };
-
+          console.log(link);
+          console.log(process.env.SENDGRID_API_KEY);
           sgMail.send(mailOptions, (error, result) => {
             if (error) return res.status(500).json({ message: error.message });
 
@@ -88,6 +68,7 @@ const recoverPassword = async (req, res, next) => {
 // @desc Reset Password - Validate password reset token and shows the password reset view
 // @access Public
 const reset = async (req, res, next) => {
+  console.log('we are in reset now');
   User.findOne({
     resetPasswordToken: req.params.token,
     resetPasswordExpires: { $gt: Date.now() },
@@ -99,7 +80,7 @@ const reset = async (req, res, next) => {
           .json({ message: 'Password reset token is invalid or has expired.' });
 
       //Redirect user to form with the email address
-      res.render('reset', { user });
+      response.sendRedirect('/api/auth/reset');
     })
     .catch((err) => res.status(500).json({ message: err.message }));
 };
@@ -146,7 +127,6 @@ const resetPassword = async (req, res, next) => {
 };
 
 module.exports = {
-  resetPasswordTest,
   resetPassword,
   recoverPassword,
   reset,

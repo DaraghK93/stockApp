@@ -13,11 +13,11 @@ function TickerCard({ stock }) {
   function redOrGreen() {
     if (parseFloat(stock.daily_change.percentageChange) >= 0) {
       postiveSymbol = "+"
-      absoluteChange = "$" + parseFloat(stock.daily_change.percentageChange).toFixed(2)
+      absoluteChange = "$" + parseFloat(stock.daily_change.absoluteChange).toFixed(2)
       return "green"
     }
     else {
-      var myString = String(stock.daily_change.percentageChange)
+      var myString = String(stock.daily_change.absoluteChange)
       absoluteChange = myString.slice(0, 1) + "$" + myString.slice(1)
       return "red"
     }

@@ -45,7 +45,7 @@ const createPortfolio = async (portfolioData) => {
       }
 }
 
-const buyStock = async (buyData, portfolioRemainder) => {
+const buyStock = async (buyData, portfolioRemainder,value) => {
     // creates a date so that it is known when it was created
     const date = new Date()
 
@@ -54,7 +54,7 @@ const buyStock = async (buyData, portfolioRemainder) => {
     portfolioId: buyData.portfolioId,
     stockId: buyData.stockId,
     units: buyData.units,
-    value: buyData.value,
+    value: value,
     date: date,
     buyOrSell: buyData.buyOrSell,
     orderType: buyData.orderType,

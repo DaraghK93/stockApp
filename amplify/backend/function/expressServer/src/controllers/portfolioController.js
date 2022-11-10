@@ -52,7 +52,6 @@ const buyStock = async (req, res, next) => {
       typeof req.body.portfolioId === 'undefined' ||
       typeof req.body.stockId === 'undefined'||
       typeof req.body.units === 'undefined'||
-      typeof req.body.value === 'undefined'||
       typeof req.body.buyOrSell === 'undefined'||
       typeof req.body.orderType === 'undefined'
     ) {
@@ -75,13 +74,24 @@ const buyStock = async (req, res, next) => {
         )
       )
     }
-    else if (req.body.value <= 0 || req.body.units <= 0){
-      // check that the units and values exist
-      res.status(400)
-      res.errormessage = 'Units and Value must be greater than 0'
+    const stock = await Stock.findOne({_id: req.body.stockId}).select({prices: 0})
+    // check that the stock exists
+    if(stock===null){
+      res.status(404)
+      res.errormessage = 'No such stock'
       return next(
         new Error(
-          'Units or Value is negative. Should be a positive number'
+          'The chosen stock does not exist.'
+        )
+      )
+    }
+    else if ( req.body.units <= 0){
+      // check that the units and values exist
+      res.status(400)
+      res.errormessage = 'Units must be greater than 0'
+      return next(
+        new Error(
+          'Units are negative. Should be a positive number'
         )
       )
     }
@@ -96,18 +106,8 @@ const buyStock = async (req, res, next) => {
         )
       )
     }
-    const stock = await Stock.findOne({_id: req.body.stockId}).select({prices: 0})
-    // check that the stock exists
-    if(stock===null){
-      res.status(404)
-      res.errormessage = 'No such stock'
-      return next(
-        new Error(
-          'The chosen stock does not exist.'
-        )
-      )
-    }
-    if (req.body.value > portfolio.remainder) {
+    const value = stock.daily_change.currentprice * req.body.units
+    if (value > portfolio.remainder) {
       // check that the user has sufficient funds to complete
       res.status(400)
         res.errormessage = 'Insufficient Funds'
@@ -118,7 +118,7 @@ const buyStock = async (req, res, next) => {
         )
     }
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder)
+    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value)
 
 res.json(newPortfolio)
   }

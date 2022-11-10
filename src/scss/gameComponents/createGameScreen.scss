@@ -16,17 +16,19 @@
 
 .gameDetailsToggleButton{
     border:none;
+    padding: 0.063rem;
 }
 
 .gameDetailsGameTypeCard{
     height: 10rem;
     width: 12.5rem;
+    color: black;
 }
 
-@media only screen and (min-width: 600px){
+@media only screen and (min-width: 1120px){
     .gameDetailsGameTypeCard{
         height: 10rem;
-        width: 15rem;
+        width: 20rem;
     }
 }
 

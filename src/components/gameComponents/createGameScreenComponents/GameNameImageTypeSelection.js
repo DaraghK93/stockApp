@@ -2,14 +2,23 @@ import {Dropdown,Card,Row,Col,Container,ButtonGroup,ToggleButton,Image} from "re
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-function GameNameImageTypeSelection(){
+function GameNameImageTypeSelection({gameType, setGameType}){
+
+    console.log(gameType)
     return(
+        <>
         <ButtonGroup>
             <Row md={2} sm={1} xs={1}>
-            <Col>
+            <Col className="py-2">
                     <ToggleButton
                         className="gameDetailsToggleButton"
+                        key="valueBased"
+                        id="radio-valueBased"
+                        type="radio"
                         variant='outline-primary'
+                        value="valueBased"
+                        checked={gameType === "valueBased"}
+                        onChange={(e) => setGameType(e.currentTarget.value)}
                     >
                         <Card className="gameDetailsGameTypeCard">
                             <Card.Body>
@@ -22,10 +31,16 @@ function GameNameImageTypeSelection(){
                         </Card>
                     </ToggleButton>
             </Col>
-            <Col>
+            <Col className="py-2">
                     <ToggleButton
                         className="gameDetailsToggleButton"
+                        key="timeBased"
+                        id="radio-timeBased"
+                        type="radio"
                         variant='outline-primary'
+                        value="timeBased"
+                        checked={gameType === "timeBased"}
+                        onChange={(e) => setGameType(e.currentTarget.value)}
                     >
                         <Card className="gameDetailsGameTypeCard">
                             <Card.Body>
@@ -40,6 +55,8 @@ function GameNameImageTypeSelection(){
                 </Col>
             </Row>
         </ButtonGroup>
+        
+        </>
 
         
     )

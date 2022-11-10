@@ -36,7 +36,7 @@ function CreateGameScreen(){
                 {screen === 1 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <GameNameImageTypeSelection/>
+                        <GameNameImageTypeSelection gameType={gameType} setGameType={setGameType}  />
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 2 ?

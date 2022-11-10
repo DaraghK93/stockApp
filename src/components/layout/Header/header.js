@@ -42,6 +42,7 @@ function Header() {
               <>
               <Nav className="me-auto" >
                 <Nav.Link as={Link} style={{color:'white'}} to="/stockdiscovery/">Stocks</Nav.Link>
+                <Nav.Link as={Link} style={{color:'white'}} to="/game">Game</Nav.Link>
               </Nav>
               <NavDropdown  className="userDropDown" title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
                 <NavDropdown.Item as={Link}  to="/profile">My Profile</NavDropdown.Item>

@@ -1,7 +1,5 @@
 const League = require('../models/league.model')
-const User = require('../models/user.model')
 const leagueService = require('../services/leagueServices')
-const portfolioServices = require('../services/portfolioServices')
 // @desc create new league. a league is created and sent to the league-data
 // collection in the DB. the user's id is sent through the auth middleware,
 // this id is added to the users array as the first user in the league
@@ -26,6 +24,8 @@ const createLeague = async (req, res, next) => {
             mingSRating,
             endDate,
             image,
+            users,
+            portfolios
           } = req.body
 
     // check they have sent all fields
@@ -75,8 +75,6 @@ const createLeague = async (req, res, next) => {
     // get start date in the same format
     const start = new Date(startDate).setHours(0,0,0,0)
     
-
-
     if (new Date(start) < today) {
       res.status(400)
       res.errormessage = 'Start date is in the past'
@@ -88,8 +86,6 @@ const createLeague = async (req, res, next) => {
   } 
     let active; 
     if (start == today) {
-      console.log(start)
-      console.log(today)
       active = true
   }
 
@@ -160,11 +156,16 @@ const createLeague = async (req, res, next) => {
         endDate,
         active,
         image,
+        users,
+        portfolios,
         leagueAdmin: req.user.id,   // gets this from JWT
       };
    
   // call the service that generates the unique accessCode
-   let newLeague = await leagueService.saveLeague(league)
+    let newLeague = await leagueService.saveLeague(league)
+
+    // call the service to join the league with that userID
+    newLeague = await leagueService.joinLeague(newLeague,newLeague.leagueAdmin)
 
     res.json({newLeague})
 
@@ -211,12 +212,23 @@ const joinLeaguebyCode = async (req, res, next) => {
 
       // get the accessCode
       const {accessCode} = req.body
+      if (
+        typeof accessCode === 'undefined'
+      ) {
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'an access code is needed'
+        return next(
+          new Error(
+            'an access code is needed',
+          ),
+          )} 
+
+      //get current user so can pass to service and check
+      const currentUser = req.user.id
 
       // get league object from db
       let league = await League.findOne({ accessCode })
-
-      // get _id, list of UserIds, Starting Balance, name from league
-      const {_id,users, startingBalance, leagueName} = league 
 
       // 404 for no such league
       if (!league) {
@@ -225,33 +237,21 @@ const joinLeaguebyCode = async (req, res, next) => {
         return next(new Error('Invalid Access Code'))
       }
 
-      // check if user is already in the league
-      if (users.includes(req.user.id)){
-        res.status(400)
-        res.errormessage = 'User already in league'
-        return next(new Error('User already in league'))
-      }
+      console.log(league)
+      const newLeague = await leagueService.joinLeague(league,currentUser)
 
-      // set portfolio object to send
-      const portfolio  = {
-        portfolioName: `${leagueName} Portfolio`,
-        startingBalance,
-        userId: req.user.id,
-        leagueId:_id,
-      }
-
-      // send portfolio object to services and return the portfolio if it is created
-      const leaguePortfolio = await portfolioServices.createPortfolio(portfolio)
-
-      // res.json({leaguePortfolio})
-
-      // update the league object in db, find by accesscode and push user_id
-      league = await League.updateOne({accessCode},{$push: {users:req.user.id, portfolios: leaguePortfolio._id }})
-
-      // push leagues to user
-      const leagueUser = await User.updateOne({_id: req.user.id}, {$push: {leagues:_id}})
+      // check for error
+      if (newLeague.error === 400) {
+        res.status(newLeague.error)
+        res.errormessage = newLeague.errormessage
+        return next(
+          new Error(
+            newLeague.errormessage,
+          ),
+          )} 
       
-      res.json({leaguePortfolio,league, leagueUser})
+
+      res.json({newLeague})
 
 } catch (err) {
       console.error(err.message);

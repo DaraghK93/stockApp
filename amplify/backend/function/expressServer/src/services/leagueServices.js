@@ -1,4 +1,49 @@
 const League = require('../models/league.model')
+const User = require('../models/user.model')
+const portfolioServices = require('../services/portfolioServices')
+
+
+const joinLeague = async(league,user) => {
+ 
+  try{
+
+    // get the values we need
+    let {users,leagueName,portfolios,startingBalance,_id} = league
+
+    // send an error back if the user is already in the league
+    if (users.includes(user)){
+      return {error:400, errormessage:"user already in league"}
+    }
+
+//  set portfolio object to send
+    const portfolio  = {
+      portfolioName: `${leagueName} Portfolio`,
+      startingBalance,
+      userId: user,
+      leagueId:_id,
+    }
+    // send portfolio object to services and return the portfolio if it is created
+    const leaguePortfolio = await portfolioServices.createPortfolio(portfolio)
+
+    // send an error if the portfolio is already in the league
+    if (portfolios.includes(leaguePortfolio._id)){
+      return {error:400, errormessage:"portfolio already in league"}
+    }
+
+    //update the user object with the leagueId
+    await User.updateOne({ _id: user }, {$push: {leagues: _id}})
+
+    // update the league object with user and portfolio Ids
+    league = await League.findOneAndUpdate({ _id: _id }, {$push: {users: user,portfolios:leaguePortfolio._id}},{returnDocument: "after"})
+
+    return league
+
+  } catch (err) {
+    
+    throw new Error(`Error has occured in joining League.\nError details:\n\t${err}`)
+  }
+}
+
 
 const saveLeague = async (league) => {
     try {
@@ -9,7 +54,6 @@ const saveLeague = async (league) => {
         // generate random string of length 6 of  ints and letters
         league.accessCode = [...Array(6)].map(() => Math.random().toString(36)[2]).join('')
         // new League object
-
         const newLeague = new League(league)
         return await newLeague.save()
 
@@ -23,6 +67,9 @@ const saveLeague = async (league) => {
     
   } 
 
+
+
 module.exports = {
     saveLeague,
+    joinLeague
 }

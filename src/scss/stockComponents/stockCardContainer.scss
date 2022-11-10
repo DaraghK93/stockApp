@@ -18,18 +18,6 @@
 
 }
 
-// side scrolling
-.cardContainer {
-  display: flex;
-  overflow-x: auto;
-
-  .tickercard {
-    display: inline-block;
-    padding: 0.1875rem;
-    padding-top:0;
-  }
-
-}
 
 .tickercardstyle {
   width: 10rem;

@@ -3,6 +3,7 @@ import { Container, Row, Col} from "react-bootstrap"
 
 /// Componeents ///
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
+import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
 
 function CreateGameScreen(){
     /// screen - The screen number
@@ -35,7 +36,7 @@ function CreateGameScreen(){
                 {screen === 1 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the name, game type and picture screen</h1>
+                        <GameNameImageTypeSelection/>
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 2 ?

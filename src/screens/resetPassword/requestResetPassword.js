@@ -5,7 +5,6 @@
 //  This screen contains the components redenred to the user when they are logging in
 import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { API } from 'aws-amplify';
 import { APIName } from '../../constants/APIConstants';
 
@@ -15,11 +14,6 @@ import FormContainer from '../../components/layout/FormContainer/FormContainer';
 function RequestResetPassword() {
   // constant token holds the reset password token used to verify that the password can be changed
   const [email, setEmail] = useState('');
-
-  /// Redux ///
-  const dispatch = useDispatch();
-  //   const user = useSelector((state) => state.user);
-  //   const { loading, error } = user;
 
   // this function will allow the user to use the reset function from the userActions.js file
   // Password check functions taken from registration page to ensure consistency

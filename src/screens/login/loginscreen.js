@@ -58,6 +58,11 @@ function LoginPage() {
           />
         </Form.Group>
         <Row>
+          <Col>
+            <a href="/auth/recover" className=''>Forgot password</a>
+          </Col>
+        </Row>
+        <Row>
           <Col className="text-center py-4">
             <Button variant="primary" type="submit">
               Login

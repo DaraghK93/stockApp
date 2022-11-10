@@ -261,6 +261,12 @@ const getPublicLeagues = async (req, res, next) => {
       return next(err);
     }
 }
+
+const getAllLeagues = async (req, res, next) => {
+
+}
+
+
 // @desc join league. user sends access code and if that exists it adds the
 // league Id to the user, userId to league, creates a portfoliio, adds the PortfolioId
 // to the league
@@ -321,5 +327,6 @@ const joinLeaguebyCode = async (req, res, next) => {
 module.exports = {
     createLeague,
     getPublicLeagues,
-    joinLeaguebyCode
+    joinLeaguebyCode,
+    getAllLeagues
   }

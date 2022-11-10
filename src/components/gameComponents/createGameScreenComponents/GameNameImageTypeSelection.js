@@ -26,15 +26,14 @@ function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameNam
     ]
 
 
-    console.log(gameImage)
     return(
         <>
-        <Card.Title>Basic Details</Card.Title>
+        <Card.Title className="gameDetailsCardTitle">Basic Details</Card.Title>
         <Row>
             <Dropdown className="py-2">
                 <Dropdown.Toggle id="gameName">{gameName}</Dropdown.Toggle>
                     <Dropdown.Menu>
-                                {gameNames.map((name) => (
+                                {gameNames.map((name,idx) => (
                                     <Dropdown.Item
                                         key={name}
                                         onClick={() => {
@@ -48,72 +47,74 @@ function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameNam
         </Row>
         <ButtonGroup>
             <Row className="py-3" md={2} sm={1} xs={1}>
-            <Col className="py-2">
-                    <ToggleButton
-                        className="gameDetailsToggleButton"
-                        key="valueBased"
-                        id="radio-valueBased"
-                        type="radio"
-                        variant='outline-primary'
-                        value="valueBased"
-                        checked={gameType === "valueBased"}
-                        onChange={(e) => setGameType(e.currentTarget.value)}
-                    >
-                        <Card className="gameDetailsGameTypeCard">
-                            <Card.Body>
-                                <Card.Title>Value Based</Card.Title>
-                                    <Card.Text>
-                                        Race to a goal value
-                                    </Card.Text>
-                                    <AttachMoneyIcon fontSize="large"/>
-                            </Card.Body>
-                        </Card>
-                    </ToggleButton>
-            </Col>
-            <Col className="py-2">
-                    <ToggleButton
-                        className="gameDetailsToggleButton"
-                        key="timeBased"
-                        id="radio-timeBased"
-                        type="radio"
-                        variant='outline-primary'
-                        value="timeBased"
-                        checked={gameType === "timeBased"}
-                        onChange={(e) => setGameType(e.currentTarget.value)}
-                    >
-                        <Card className="gameDetailsGameTypeCard">
-                            <Card.Body>
-                                <Card.Title>Time Based</Card.Title>
-                                    <Card.Text>
-                                        Most profit at end wins
-                                    </Card.Text>
-                                    <AccessTimeIcon fontSize="large"/>
-                            </Card.Body>
-                        </Card>
-                    </ToggleButton>
+                <Col className="py-2">
+                        <ToggleButton
+                            className="gameDetailsToggleButton"
+                            key="valueBased"
+                            id="radio-valueBased"
+                            type="radio"
+                            variant='outline-primary'
+                            value="valueBased"
+                            checked={gameType === "valueBased"}
+                            onChange={(e) => setGameType(e.currentTarget.value)}
+                        >
+                            <Card className="gameDetailsGameTypeCard">
+                                <Card.Body>
+                                    <Card.Title>Value Based</Card.Title>
+                                        <Card.Text>
+                                            Race to a goal value
+                                        </Card.Text>
+                                        <AttachMoneyIcon fontSize="large"/>
+                                </Card.Body>
+                            </Card>
+                        </ToggleButton>
+                </Col>
+                <Col className="py-2">
+                        <ToggleButton
+                            className="gameDetailsToggleButton"
+                            key="timeBased"
+                            id="radio-timeBased"
+                            type="radio"
+                            variant='outline-primary'
+                            value="timeBased"
+                            checked={gameType === "timeBased"}
+                            onChange={(e) => setGameType(e.currentTarget.value)}
+                        >
+                            <Card className="gameDetailsGameTypeCard">
+                                <Card.Body>
+                                    <Card.Title>Time Based</Card.Title>
+                                        <Card.Text>
+                                            Most profit at end wins
+                                        </Card.Text>
+                                        <AccessTimeIcon fontSize="large"/>
+                                </Card.Body>
+                            </Card>
+                        </ToggleButton>
                 </Col>
             </Row>
         </ButtonGroup>
-        <Row className="py-3" md={4} sm={2} xs={2}>
-            {images.map((image, idx) => (
-            <Col>
-                <ToggleButton
-                    className="gameDetailsToggleButton"
-                    key={idx}
-                    style={{"border":"none"}}
-                    id={`radio-${idx}`}
-                    variant={'outline-primary'}
-                    type="radio"
-                    name="radio"
-                    value={image}
-                    checked={gameImage === image}
-                    onChange={(e) => setGameImage(e.currentTarget.value)}
-          >
-            <Image thumbnail src={image}/>
-          </ToggleButton> 
-          </Col>
-        ))}
-        </Row>
+            <Row className="py-3" md={4} sm={2} xs={2}>
+                {images.map((image, idx) => (
+                <Col
+                    key={`col-image-${image}`}
+                >
+                    <ToggleButton
+                        className="gameDetailsToggleButton"
+                        key={idx}
+                        style={{"border":"none"}}
+                        id={`radio-${idx}`}
+                        variant={'outline-primary'}
+                        type="radio"
+                        name="radio"
+                        value={image}
+                        checked={gameImage === image}
+                        onChange={(e) => setGameImage(e.currentTarget.value)}
+                >
+                        <Image thumbnail src={image}/>
+                    </ToggleButton> 
+                </Col>
+            ))}
+            </Row>
         </>
 
         

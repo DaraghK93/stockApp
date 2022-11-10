@@ -16,7 +16,7 @@ function CreateGameScreen(){
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
     const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
-    const [gameType, setGameType]   = useState("valueBased")
+    const [gameType, setGameType]   = useState("")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
     //const [gameStartDate, setGameStartDate] = useState("")
@@ -41,8 +41,12 @@ function CreateGameScreen(){
             <Row className="containerContent">
                 {screen === 1 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <GameNameImageTypeSelection gameType={gameType} setGameType={setGameType}  gameName={gameName} setGameName={setGameName} gameImage={gameImage} setGameImage={setGameImage} />
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)}>
+                        <GameNameImageTypeSelection 
+                            gameType={gameType} setGameType={setGameType}  
+                            gameName={gameName} setGameName={setGameName} 
+                            gameImage={gameImage} setGameImage={setGameImage}
+                            />
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 2 ?

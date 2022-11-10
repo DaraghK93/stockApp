@@ -1,10 +1,9 @@
 const User = require('../models/user.model');
 
 const sgMail = require('@sendgrid/mail');
-// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-sgMail.setApiKey(
-  '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'
-);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const getHost = require('../utils/Host');
 
 /**
  *
@@ -16,6 +15,7 @@ sgMail.setApiKey(
 // @desc Recover Password - Generates token and Sends password reset email
 // @access Public
 const recoverPassword = async (req, res, next) => {
+  const host = await getHost();
   try {
     let user = await User.findOne({ email: req.body.email });
 
@@ -33,12 +33,11 @@ const recoverPassword = async (req, res, next) => {
 
     user = await user.save();
 
-    let link =
-      'http://' + 'localhost:3000' + '/auth/reset/' + user.resetPasswordToken;
+    let link = host + '/auth/reset/' + user.resetPasswordToken;
 
     const mailOptions = {
       to: user.email,
-      from: 'caolandevelopment@gmail.com',
+      from: process.env.FROM_EMAIL,
       subject: 'Password change request',
       text: `Hi ${user.username} \n 
               Please click on the following link ${link} to reset your password. \n\n 
@@ -100,7 +99,7 @@ const resetPassword = async (req, res, next) => {
   // send email
   const mailOptions = {
     to: user.email,
-    from: 'caolandevelopment@gmail.com',
+    from: process.env.FROM_EMAIL,
     subject: 'Your password has been changed',
     text: `Hi ${user.username} \n 
                   This is a confirmation that the password for your account ${user.email} has just been changed.\n`,

@@ -1,9 +1,8 @@
 import { Container } from "react-bootstrap";
 import PortfolioOverallViz from "../../components/portfolioComponents/portfolioOverallViz/PortfolioOverallViz";
-import CircleChartBalances from "../../components/portfolioComponents/CircleChartBalances/CircleChartBalances";
+import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard"
 
 function PortfolioPage() {
-
     const portfolios = [
         {
             name: "PortfolioA", valueHistory: [
@@ -64,10 +63,17 @@ function PortfolioPage() {
         }
     ]
 
+    const holdings = [
+        { name: 'MSFT', value: 5 },
+        { name: 'AMZN', value: 6 },
+        { name: 'CHAD', value: 3 },
+        { name: 'YUP', value: 4 },
+    ];
+
     return (
         <Container>
             <PortfolioOverallViz portfolios={portfolios} />
-            <CircleChartBalances/>
+            <HoldingsCard data={holdings}/>
             <h2>My Balances</h2>
             <h2>Transaction History</h2>
         </Container>

@@ -20,7 +20,7 @@ function CreateGameScreen(){
     const [gameType, setGameType]   = useState("")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
-    const [gameStartDate, setGameStartDate] = useState("")
+    const [gameStartDate, setGameStartDate] = useState(new Date())
     const [gameEndDate, setGameEndDate] = useState("")
     /// Page 3 - Target value, only used if the game is value based 
     //const [gameTargetValue, setGameTargetValue] = useState()

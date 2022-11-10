@@ -29,12 +29,22 @@
     font-size: 1.5rem;
 }
 
+.gameDurationCalenderCol{
+    text-align: center !important;
+    justify-content: center !important;
+}
+
+.gameDurationCalender{
+    width: 50%;
+}
+
 @media only screen and (min-width: 1120px){
     .gameDetailsGameTypeCard{
         height: 10rem;
         width: 20rem;
     }
 }
+
 
 
 

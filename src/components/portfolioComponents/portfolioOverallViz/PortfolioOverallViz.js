@@ -1,11 +1,13 @@
-import { Container, Button, Card, Row, Col, Dropdown, Form } from "react-bootstrap";
-import { useState, useEffect } from "react";
-import { ResponsiveContainer, LineChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
+import { Container, Card, Row, Col, Dropdown } from "react-bootstrap";
+import { useState } from "react";
+import PortfolioGraph from "../portfolioGraph/portfoliograph";
 
 function PortfolioOverallViz() {
-    const [tickBoolean, setTickBoolean] = useState(false)
 
-    const portfolioA = [
+    const [portfolioName, setPortfolioName] = useState("PortfolioA")
+
+    // dummy data of portfolio history
+    const PortfolioA = [
         { date: '01-10', value: 400 },
         { date: '01-11', value: 700 },
         { date: '01-12', value: 60 },
@@ -22,8 +24,7 @@ function PortfolioOverallViz() {
         { date: '01-23', value: 700 },
         { date: '01-24', value: 500 }
     ]
-
-    const portfolioB = [
+    const PortfolioB = [
         { date: '01-10', value: 400 },
         { date: '01-11', value: 700 },
         { date: '01-12', value: 60 },
@@ -40,8 +41,7 @@ function PortfolioOverallViz() {
         { date: '01-23', value: 700 },
         { date: '01-24', value: 300 },
     ]
-
-    const portfolioC = [
+    const PortfolioC = [
         { date: '01-10', value: 100 },
         { date: '01-11', value: 200 },
         { date: '01-12', value: 60 },
@@ -58,77 +58,61 @@ function PortfolioOverallViz() {
         { date: '01-23', value: 900 },
         { date: '01-24', value: 100 },
     ]
+    // simulates a list of portfolio names attached to user. Basic logic in but will have to change with real data.
+    const portfolioList = ["PortfolioA", "PortfolioB", "PortfolioC"]
 
-    const portfolioList = ["portfolioA", "portfolioB", "portfolioC"]
-
-    const [data, setData] = useState(portfolioA);
+    const [data, setData] = useState(PortfolioA);
 
     const handleSelect = (e) => {
-        if (e.target.id === "portfolioA") {
-            setData(portfolioA)
+        if (e.target.id === "PortfolioA") {
+            setData(PortfolioA)
+            setPortfolioName(e.target.id)
         }
-        else if (e.target.id === "portfolioB") {
-            setData(portfolioB)
+        else if (e.target.id === "PortfolioB") {
+            setData(PortfolioB)
+            setPortfolioName(e.target.id)
         }
-        else if (e.target.id === "portfolioC") {
-            setData(portfolioC)
-        }
-    }
-
-    window.addEventListener("resize", showTick);
-
-    function showTick() {
-        if (window.innerWidth >= 576) {
-            setTickBoolean(true)
-        }
-        else {
-            setTickBoolean(false)
+        else if (e.target.id === "PortfolioC") {
+            setData(PortfolioC)
+            setPortfolioName(e.target.id)
         }
     }
 
 
-    useEffect(() => {
-        showTick()
-    }, [])
 
     return (
         <>
             <Card style={{ border: "none", marginBottom: "1.25rem" }}>
                 <Container>
-                    <Dropdown>
-                        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                            Select Portfolio
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            {portfolioList.map(portfolioName => (
-                                <Dropdown.Item
-                                    value={portfolioName}
-                                    id={portfolioName}
-                                    onClick={handleSelect}>{portfolioName}</Dropdown.Item>
-                            ))}
-                        </Dropdown.Menu>
-                    </Dropdown>
                     <Row>
-                        <ResponsiveContainer width="100%" height={400} margin={100}>
-                            <LineChart width="100%" height={250} data={data}
-
-                                margin={{
-                                    top: 10,
-                                    right: 30,
-                                    left: -25,
-                                    bottom: 0
-                                }}>
-
-                                <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
-                                <Tooltip />
-                                <XAxis dataKey="date" tick={tickBoolean} />
-                                <YAxis unit='$'
-                                    width={80}
-                                    stroke="#595959" />
-                                <Tooltip />
-                                <Line type="monotone" dataKey="value" stroke="#00C49F" strokeWidth={2} />
-                            </LineChart>
-                        </ResponsiveContainer>
+                        <Col className="col col-xs-auto col-md-2">
+                            <dl className='infoList'>
+                                <dt>
+                                    <h1>{portfolioName}</h1>
+                                </dt>
+                                <dt style={{ fontSize: "150%" }}>$200</dt>
+                                <dt style={{ color: "#00C49F" }}>+$50 (+25%)</dt>
+                            </dl>
+                        </Col>
+                        <Col className="col col-xs-2 col-md-8">
+                            <Dropdown className="dropdownStyle">
+                                <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                                    Select Portfolio
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {portfolioList.map(portfolioName => (
+                                        <Dropdown.Item
+                                            value={portfolioName}
+                                            id={portfolioName}
+                                            key={portfolioName}
+                                            onClick={handleSelect}>{portfolioName}</Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <PortfolioGraph data={data}></PortfolioGraph>
                     </Row>
                 </Container>
             </Card>

@@ -32,6 +32,8 @@
 /*Layout components */
 @import "./layoutComponents/header.scss";
 
+/* Portfolio components */
+@import "./portfolioComponents/portfoliocomponents.scss";
 
 body {
     background-color: $background;

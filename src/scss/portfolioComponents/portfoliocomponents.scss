@@ -1,0 +1,19 @@
+  .dropdownStyle{
+    padding-top:0.9375rem;
+    float:left
+  }
+
+  .toolTipStyle{
+    background-color: $background;
+    height:4.375rem;
+    border-color: $background;
+    border:none;
+    border-width: 0;
+
+  }
+
+  .toolTipStyle:hover, .toolTipStyle:active, .toolTipStyle:focus, .toolTipStyle.active .toolTipStyle:active:focus{
+    border-color: $background;
+    border:none;
+    border-width: 0;
+  }

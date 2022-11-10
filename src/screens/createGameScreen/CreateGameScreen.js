@@ -11,13 +11,13 @@ function CreateGameScreen(){
     const user = useSelector((state) => state.user)
     // Get the userInfo piece of state, dont need loading and error
     const {userInfo} = user;
-    
+
     /// screen - The screen number
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
     const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
     const [gameType, setGameType]   = useState("valueBased")
-    //const [gameImage, setGameImage] = useState("") 
+    const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
     //const [gameStartDate, setGameStartDate] = useState("")
     //const [gameEndDate, setGameEndDate] = useState("")
@@ -42,7 +42,7 @@ function CreateGameScreen(){
                 {screen === 1 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <GameNameImageTypeSelection gameType={gameType} setGameType={setGameType}  gameName={gameName} setGameName={setGameName} />
+                        <GameNameImageTypeSelection gameType={gameType} setGameType={setGameType}  gameName={gameName} setGameName={setGameName} gameImage={gameImage} setGameImage={setGameImage} />
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 2 ?

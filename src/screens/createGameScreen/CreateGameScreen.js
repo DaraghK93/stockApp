@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { Container, Row, Col,Button} from "react-bootstrap"
 
 /// Componeents ///
-import GameNameTypeImage from '../../components/gameComponents/createGameScreenComponents/gameNameTypeAndImage'
 import {useSelector} from 'react-redux';
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
 

@@ -1,12 +1,39 @@
-import {Dropdown,Card,Row,Col,Container,ButtonGroup,ToggleButton,Image} from "react-bootstrap"
+import {Dropdown,Card,Row,Col,ButtonGroup,ToggleButton,Image} from "react-bootstrap"
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import {useSelector} from 'react-redux';
 
-function GameNameImageTypeSelection({gameType, setGameType}){
+function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameName}){
+    /// Redux ///
+    const user = useSelector((state) => state.user)
+    // Get the userInfo piece of state, dont need loading and error
+    const {userInfo} = user;
 
-    console.log(gameType)
+    var gameNames = [
+        `${userInfo.firstname}'s Stock Trading Game`,
+        `${userInfo.firstname}'s Fantasy League`,
+        `${userInfo.firstname}'s Big Stock Challange`,
+        `${userInfo.firstname}'s Investment League`
+    ]
+    console.log(gameName)
     return(
         <>
+        <Row>
+            <Dropdown className="py-2">
+                <Dropdown.Toggle id="gameName">{gameName}</Dropdown.Toggle>
+                    <Dropdown.Menu>
+                                {gameNames.map((name) => (
+                                    <Dropdown.Item
+                                        key={name}
+                                        onClick={() => {
+                                            setGameName(name)
+                                        }}
+                                    >{name}</Dropdown.Item>  
+                                            ))}
+
+                            </Dropdown.Menu>
+                    </Dropdown>
+        </Row>
         <ButtonGroup>
             <Row md={2} sm={1} xs={1}>
             <Col className="py-2">

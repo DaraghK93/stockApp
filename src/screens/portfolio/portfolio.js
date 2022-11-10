@@ -74,7 +74,6 @@ function PortfolioPage() {
         <Container>
             <PortfolioOverallViz portfolios={portfolios} />
             <HoldingsCard data={holdings}/>
-            <h2>My Balances</h2>
             <h2>Transaction History</h2>
         </Container>
     )

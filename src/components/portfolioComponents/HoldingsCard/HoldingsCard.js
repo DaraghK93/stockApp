@@ -1,4 +1,4 @@
-import { Card, Container, Col, Dropdown } from "react-bootstrap";
+import { Card, Col, Dropdown } from "react-bootstrap";
 import CircleChartBalances from "../CircleChartBalances/CircleChartBalances";
 import { useState } from "react";
 import TableHoldings from "../CircleChartBalances/TableHoldings/TableHoldings";
@@ -27,20 +27,22 @@ function HoldingsCard({ data }) {
                         <h2 className="cardTitle">Holdings</h2>
                     </Col>
                     <Col>
-                        <Dropdown className="dropDownRight">
-                            <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                                Select Graph
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                {options.map(option => (
-                                    <Dropdown.Item
-                                        value={option}
-                                        id={option}
-                                        key={option}
-                                        onClick={handleSelect}>{option}</Dropdown.Item>
-                                ))}
-                            </Dropdown.Menu>
-                        </Dropdown>
+                        <div className="dropDownRight">
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                                    Select Graph
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    {options.map(option => (
+                                        <Dropdown.Item
+                                            value={option}
+                                            id={option}
+                                            key={option}
+                                            onClick={handleSelect}>{option}</Dropdown.Item>
+                                    ))}
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        </div>
                     </Col>
                 </div>
                 {isShownDoughnutChart &&

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { PieChart, Pie, Cell, Sector, ResponsiveContainer } from 'recharts';
 
-import { Card, Container } from "react-bootstrap"
-
 function CircleChartBalances({ data }) {
     const [activeIndex, setActiveIndex] = useState(0)
 

@@ -99,9 +99,7 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
     }
     }
     catch (err) {
-        console.error(err.message);
-        res.errormessage = 'Server error. Stock has not been purchased.';
-        return next(err)
+        throw new Error(`Error has occured in buying the stock.\nError details:\n\t${err}`)
     }
 }
 

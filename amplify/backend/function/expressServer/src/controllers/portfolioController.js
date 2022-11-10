@@ -87,10 +87,10 @@ const buyStock = async (req, res, next) => {
     if (!req.body.portfolioId.match((/^[0-9a-fA-F]{24}$/))){
       // check that the portfolio ID is correct
       res.status(400)
-      res.errormessage = 'Invlaid Stock ID length'
+      res.errormessage = 'Invlaid Portfolio ID length'
       return next(
         new Error(
-          'Stock ID length is incorrect'
+          'Portfolio ID length is incorrect'
         )
       )
     }
@@ -126,7 +126,7 @@ const buyStock = async (req, res, next) => {
         )
       )
     }
-    if(req.body.orderType!== "MARKET" || req.body.orderType != "LIMIT"){
+    if(req.body.orderType!== "MARKET" && req.body.orderType !== "LIMIT"){
       res.status(400)
       res.errormessage = 'Invalid Order Type.'
       return next(

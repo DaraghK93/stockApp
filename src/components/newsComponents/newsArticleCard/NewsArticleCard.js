@@ -11,7 +11,6 @@ import {useState} from 'react';
 function NewsArticleCard({article}){
     /// showInfo - Used to show the news article information modal 
     const [showInfo, setShowInfo] = useState(false);
-    
     return(
         <>
         <Card onClick={() => setShowInfo(true)} className="newsArticleCard">

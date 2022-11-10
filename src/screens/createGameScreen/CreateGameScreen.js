@@ -1,35 +1,31 @@
 import { useState } from 'react'
-import { Container, Row, Col,Button} from "react-bootstrap"
+import { Container, Row, Col} from "react-bootstrap"
 
 /// Componeents ///
-import {useSelector} from 'react-redux';
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
 
 function CreateGameScreen(){
-    /// Redux ///
-    const user = useSelector((state) => state.user)
-    // Get the userInfo piece of state, dont need loading and error
-    const {userInfo} = user; 
+    /// screen - The screen number
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
-    const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
+    //const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
     const [gameType, setGameType]   = useState("valueBased")
-    const [gameImage, setGameImage] = useState("") 
+    //const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
-    const [gameStartDate, setGameStartDate] = useState("")
-    const [gameEndDate, setGameEndDate] = useState("")
+    //const [gameStartDate, setGameStartDate] = useState("")
+    //const [gameEndDate, setGameEndDate] = useState("")
     /// Page 3 - Target value, only used if the game is value based 
-    const [gameTargetValue, setGameTargetValue] = useState()
+    //const [gameTargetValue, setGameTargetValue] = useState()
     /// Page 4 - Stock types, user can define custom stocks to trade 
-    const [stockTypes, setStockTypes] = useState()
+    //const [stockTypes, setStockTypes] = useState()
     /// Page 5 - The ESG settings, can ddefine min ratings for ESG 
-    const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
-    const [minSocialRating, setSocialRating]         = useState("")
-    const [minGovernanceRating, setGovernanceRating] = useState("")
+    //const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
+    //const [minSocialRating, setSocialRating]         = useState("")
+    //const [minGovernanceRating, setGovernanceRating] = useState("")
     /// Page 6 - The strting balance, trading fee and the maxTrades per day 
-    const [startingBalance, setStartingBalance] = useState("")
-    const [tradingFee, setTradingFee] = useState("")
-    const [maxTradesPerDay,setMaxTradesPerDay] = useState("")
+    //const [startingBalance, setStartingBalance] = useState("")
+    //const [tradingFee, setTradingFee] = useState("")
+    //const [maxTradesPerDay,setMaxTradesPerDay] = useState("")
 
 
     //setGameType("valueBased")

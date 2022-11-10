@@ -1,0 +1,24 @@
+  .dropdownStyle{
+    padding-top:0.9375rem;
+    float:left
+  }
+
+  .toolTipStyle{
+    background-color: $background;
+    height:4.375rem;
+    border-color: $background !important;
+    border:none !important;
+    border-width: 0 !important;
+
+  }
+
+  .toolTipStyle:hover, .toolTipStyle:active, .toolTipStyle:focus, .toolTipStyle.active .toolTipStyle:active:focus{
+    border-color: $background !important;
+    border:none !important;
+    border-width: 0 !important;
+  }
+
+  .priceChartStyle{
+    border:none;
+    margin-bottom: 1.25rem
+  }

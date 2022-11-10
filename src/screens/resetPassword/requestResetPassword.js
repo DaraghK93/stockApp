@@ -6,11 +6,8 @@
 import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { requestResetPassword } from '../../actions/userActions';
-
-/// Widgets ///
-import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
-import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
+import { API } from 'aws-amplify';
+import { APIName } from '../../constants/APIConstants';
 
 /// Layout ///
 import FormContainer from '../../components/layout/FormContainer/FormContainer';
@@ -21,8 +18,8 @@ function RequestResetPassword() {
 
   /// Redux ///
   const dispatch = useDispatch();
-//   const user = useSelector((state) => state.user);
-//   const { loading, error } = user;
+  //   const user = useSelector((state) => state.user);
+  //   const { loading, error } = user;
 
   // this function will allow the user to use the reset function from the userActions.js file
   // Password check functions taken from registration page to ensure consistency
@@ -30,6 +27,22 @@ function RequestResetPassword() {
     event.preventDefault();
     dispatch(requestResetPassword(email));
   }
+
+  const requestResetPassword = async () => {
+    try {
+      // Configure the HTTP request
+      let path = `/api/auth/recover`;
+      let requestConfig = {
+        body: {
+          email: email,
+        },
+      };
+      // Sent the request to backend
+      const data = await API.post(APIName, path, requestConfig);
+    } catch (error) {
+        
+    }
+  };
 
   //
   return (

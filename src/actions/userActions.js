@@ -11,10 +11,7 @@ import {
   USER_LOGOUT, // For userLoginLogoutReducer
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL,
-  USER_PASSWORD_RESET_REQUEST,
-  USER_PASSWORD_RESET_SUCCESS,
-  USER_PASSWORD_RESET_FAIL
+  USER_REGISTER_FAIL
 } from '../constants/userActionConstants'
 import { APIName } from '../constants/APIConstants'
 import { API } from 'aws-amplify'
@@ -116,17 +113,13 @@ export function resetPassword(token, password) {
       // Sent the request to backend
       const data = await API.post(APIName, path, requestConfig)
       // Dispatch the user success action
-      dispatch({ type: USER_PASSWORD_RESET_SUCCESS, payload: data })
       //////////////////////////////////////////////////////////////////////////////////////////////////////
       /////////////////////////////////////////////////////////////////////////////////////////////////////
       // Set the users data to local storage also ////MIGHT NEED TO CHANGE THIS HERE !!!!!!!!!!!!!!!!!!!!
       
       localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
-      dispatch({
-        type: USER_PASSWORD_RESET_FAIL,
-        payload: error.response.data.errormessage, /// THIS NEEDS TO BE AGRRED UPON WITH BACKEND GUYS SHOULD BE NICE ERROR MESSAGE
-      })
+
     }
   }
 }

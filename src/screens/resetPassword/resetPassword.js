@@ -5,8 +5,8 @@
 //  This screen contains the components redenred to the user when they are logging in
 import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
-import { resetPassword } from '../../actions/userActions';
+import { API } from 'aws-amplify';
+import { APIName } from '../../constants/APIConstants';
 
 /// Widgets ///
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
@@ -22,18 +22,20 @@ function ResetPage() {
   const [confirmPassword, setConfirmPassword] = useState('');
   // constant token holds the reset password token used to verify that the password can be changed
   const [token, setToken] = useState('');
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState(null)
-
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
+  // add state for passwordChange
+  const [passwordChanged, setPasswordChanged] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   /// Redux ///
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
-  const { loading, error } = user;
+  // const user = useSelector((state) => state.user);
+  // const { loading, error } = user;
 
   // this function will allow the user to use the reset function from the userActions.js file
   // Password check functions taken from registration page to ensure consistency
   function handleSubmit(event) {
     event.preventDefault();
+    setPasswordErrorMessage(null);
     // Check whether password and confirm password are the same. More messages will need to be added.
     if (password !== confirmPassword) {
       setPasswordErrorMessage(
@@ -62,33 +64,59 @@ function ResetPage() {
         'Password must contain at least one number (0-9)!'
       );
     }
-    dispatch(resetPassword(token, password, confirmPassword));
+    resetPassword();
   }
+
+  const resetPassword = async () => {
+    try {
+      setLoading(true);
+      // Configure the HTTP request
+      let path = `/api/auth/reset/${token}`;
+      let requestConfig = {
+        body: {
+          password: password,
+        },
+      };
+      // Sent the request to backend
+      const data = await API.post(APIName, path, requestConfig);
+      setPasswordChanged(true);
+      setLoading(false);
+      console.log('data = ' + data);
+      console.log(data.errormessage);
+    } catch (error) {
+      setPasswordErrorMessage(error.response.data.errormessage);
+    }
+  };
 
   useEffect(() => {
     /// getStockInfo ///
     // Description:
     //  Makes a GET request to the backend route /stock/:symbol
     const getToken = async () => {
-        try {
-            // get the symbol from the url string, use regex to extract capital letters only
-            const token = window.location.pathname.replace(/\/auth\/+reset\//g, '');
-            // Set the state for the token and loading to false 
-            console.log(window.location.pathname)
-            setToken(token)
-            console.log('the token on front-end is ' +token)
-        } catch (error) {
-            // Log the error 
-            console.log(error)
-        }
-    }
+      try {
+        // get the symbol from the url string, use regex to extract capital letters only
+        const token = window.location.pathname.replace(/\/auth\/+reset\//g, '');
+        // Set the state for the token and loading to false
+        setToken(token);
+      } catch (error) {
+        // Log the error
+        console.log(error);
+      }
+    };
     getToken();
-}, [])
+  }, []);
 
   //
   return (
     <FormContainer>
-      {error && <MessageAlert variant='danger'>{error}</MessageAlert>}
+      {passwordErrorMessage && (
+        <MessageAlert variant='danger'>{passwordErrorMessage}</MessageAlert>
+      )}
+      {passwordChanged && (
+        <MessageAlert variant='success'>
+          {<a href='/login'>Success Login here!</a>}
+        </MessageAlert>
+      )}
       {loading && <LoadingSpinner />}
       <h1>Reset Password</h1>
       <Form onSubmit={handleSubmit}>

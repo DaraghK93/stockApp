@@ -43,10 +43,36 @@ const createLeague = async (req, res, next) => {
       res.errormessage = 'All details are needed to create a league'
       return next(
         new Error(
-          'The client has not sent the required information to create a league',
+          'The client has not sent the required information to create a league'
         ),
       )
     } 
+
+      // check sector length is at least 1
+    if (typeof sectors !== "undefined" && sectors.length < 1) {
+      res.status(400)
+      res.errormessage = 'At least one sectors must be chosen'
+      return next(
+        new Error(
+          'At least one sectors must be chosen'
+        ),
+      )
+    }
+
+    // ensure that the image sent is one of the correct images
+    const imageArray = ["/stock_photo_1.jpg",
+                        "/stock_photo_2.jpg",
+                        "/stock_photo_3.jpg",
+                        "/stock_photo_4.jpg"]
+    if (typeof image !== "undefined" && imageArray.includes(image) === false ) {
+      res.status(400)
+      res.errormessage = 'A valid image must be chosen'
+      return next(
+        new Error(
+          'A valid image must be chosen'
+        ),
+      )
+    }
 
     // ensure  winning balance is above starting balance if it is a valuebased game
     if (leagueType === "valueBased" && winningValue <= startingBalance) {
@@ -54,7 +80,7 @@ const createLeague = async (req, res, next) => {
       res.errormessage = 'Winning Balance must be greater than starting Balance '
       return next(
         new Error(
-          'Winning Balance is not greater than starting balance',
+          'Winning Balance is not greater than starting balance'
         )
       )
     } 
@@ -65,7 +91,17 @@ const createLeague = async (req, res, next) => {
       res.errormessage = 'Winning Balance must be set for value based game'
       return next(
         new Error(
-          'Winning Balance must be set for value based game',
+          'Winning Balance must be set for value based game'
+        )
+      )
+    } 
+    // ensure user doesn't send endDate in valueBased game
+    if (leagueType === "valueBased" && (typeof endDate !== "undefined" )) {
+      res.status(400)
+      res.errormessage = 'Value based games should not have an end date'
+      return next(
+        new Error(
+          'Value based games should not have an end date'
         )
       )
     } 
@@ -80,7 +116,18 @@ const createLeague = async (req, res, next) => {
         ),
       )
     }
-    
+
+    // ensure user doesn't send winingvalue in timebased game
+    if (leagueType === "timeBased" && typeof winningValue !== "undefined") {
+      res.status(400)
+      res.errormessage = 'Time based games should not have a winning value'
+      return next(
+        new Error(
+          'Time based games should not have a winning value',
+        ),
+      )
+    }
+
     // ensure starting balance is at least 1000
     if (startingBalance < 1000) {
       res.status(400)
@@ -110,7 +157,6 @@ const createLeague = async (req, res, next) => {
  )} else if (start == today) {
         active = true
   }
-  
 
     // ensure league is at least a day long
     if (leagueType === "timeBased") {

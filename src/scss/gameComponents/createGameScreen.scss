@@ -14,5 +14,21 @@
     font-size: 1.5rem;
 }
 
+.gameDetailsToggleButton{
+    border:none;
+}
+
+.gameDetailsGameTypeCard{
+    height: 10rem;
+    width: 12.5rem;
+}
+
+@media only screen and (min-width: 600px){
+    .gameDetailsGameTypeCard{
+        height: 10rem;
+        width: 15rem;
+    }
+}
+
 
 

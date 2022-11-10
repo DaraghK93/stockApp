@@ -85,7 +85,12 @@ const LeagueSchema = new mongoose.Schema(
           unique: true
         },
         image: {
-          type: String
+          type: String,
+          enum: ["/stock_photo_1.jpg",
+                 "/stock_photo_2.jpg",
+                 "/stock_photo_3.jpg",
+                 "/stock_photo_4.jpg"],
+          required: true
         },
         leagueAdmin: {
           type: Schema.Types.ObjectId, 

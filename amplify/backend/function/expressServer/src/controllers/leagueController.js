@@ -34,7 +34,7 @@ const createLeague = async (req, res, next) => {
       typeof startingBalance === 'undefined' ||
       typeof leagueType === 'undefined' ||
       typeof tradingFee === 'undefined' ||
-      typeof WinningValue === 'undefined' ||
+      typeof image === 'undefined' ||
       typeof maxDailyTrades === 'undefined' 
     ) {
       // data is missing bad request
@@ -60,6 +60,15 @@ const createLeague = async (req, res, next) => {
 
     // ensure  winning balance is above starting balance if it is a valuebased game
     if (leagueType === "valueBased" && WinningValue <= startingBalance) {
+      res.status(400)
+      res.errormessage = 'Winning Balance must be greater than starting Balance '
+      return next(
+        new Error(
+          'Winning Balance is not greater than starting balance',
+        ),
+      )
+    } 
+    if (leagueType === "valueBased" && (typeof WinningValue === "undefined" )) {
       res.status(400)
       res.errormessage = 'Winning Balance must be greater than starting Balance '
       return next(

@@ -1,3 +1,5 @@
+import "../../scss/global_variables.scss";
+
 /// Login Screen ///
 // Route:
 //  <URL>/login
@@ -58,8 +60,8 @@ function LoginPage() {
           />
         </Form.Group>
         <Row>
-          <Col>
-            <a href="/auth/recover" className=''>Forgot password</a>
+          <Col className="text-center py-2">
+            <a href="/auth/recover" style={{color:'#006195'}}>Forgot password?</a>
           </Col>
         </Row>
         <Row>

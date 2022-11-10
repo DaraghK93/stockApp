@@ -60,14 +60,14 @@ function ActiveInactiveScheduledGames({games}){
         <>
         {loading ? <LoadingSpinner /> :
         <>
-        <Row md={1} xs={1}>
+        <Row className="pt-4" md={1} xs={1}>
             <Col>
                 <h2>Active Games</h2>
             </Col>
             <Col>
                 <SideScrollMenu className="h100">
                     {activeGames.map((game) => (
-                        <div className='sideScrollCard' key={game.leagueName}>
+                        <div className='sideScrollCard' key={game.id}>
                             <GameCard game={game}/>
                         </div>         
                                 ))}
@@ -75,14 +75,14 @@ function ActiveInactiveScheduledGames({games}){
             </Col>
             
         </Row>
-        <Row md={1} xs={1}>
+        <Row className="pt-4" md={1} xs={1}>
             <Col>
                 <h2>Scheduled Games</h2>
             </Col>
             <Col>
                 <SideScrollMenu className="h100">
                     {scheduledGames.map((game) => (
-                        <div className='sideScrollCard' key={game.leagueName}>
+                        <div className='sideScrollCard' key={game.id}>
                             <GameCard game={game}/>
                         </div>         
                                 ))}
@@ -90,14 +90,14 @@ function ActiveInactiveScheduledGames({games}){
             </Col>
                            
         </Row>
-        <Row md={1} xs={1}>
+        <Row className="pt-4" md={1} xs={1}>
             <Col>
                 <h2>Complete Games</h2>
             </Col>
             <Col>
                 <SideScrollMenu className="h100">
                     {completeGames.map((game) => (
-                        <div className='sideScrollCard' key={game.leagueName}>
+                        <div className='sideScrollCard' key={game.id}>
                             <GameCard game={game}/>
                         </div>         
                                 ))}

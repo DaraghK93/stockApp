@@ -45,7 +45,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Today's Biggest Negative Movers</h3>
         <SideScrollMenu>
                 {stocks[0].topLosers.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}
@@ -55,7 +55,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Companies That Have Great Environmental Policies</h3>
         <SideScrollMenu>
                 {stocks[0].topEnvironment.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}
@@ -65,7 +65,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Companies That Have Great Social Structures</h3>
         <SideScrollMenu>
                 {stocks[0].topSocial.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}
@@ -73,7 +73,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Companies That Have Great Governance</h3>
         <SideScrollMenu>
                 {stocks[0].topGovernance.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}
@@ -81,7 +81,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Today's Top Moving Tech Stocks</h3>
         <SideScrollMenu>
                 {stocks[0].Technology.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}
@@ -89,7 +89,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Today's Top Moving Financial Service Stocks</h3>
         <SideScrollMenu>
                 {stocks[0].Financial.map((stockObj) => (
-                        <div className='tickercard' key={stockObj._id}>
+                        <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}

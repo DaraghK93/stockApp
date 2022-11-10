@@ -6,14 +6,19 @@
   .toolTipStyle{
     background-color: $background;
     height:4.375rem;
-    border-color: $background;
-    border:none;
-    border-width: 0;
+    border-color: $background !important;
+    border:none !important;
+    border-width: 0 !important;
 
   }
 
   .toolTipStyle:hover, .toolTipStyle:active, .toolTipStyle:focus, .toolTipStyle.active .toolTipStyle:active:focus{
-    border-color: $background;
+    border-color: $background !important;
+    border:none !important;
+    border-width: 0 !important;
+  }
+
+  .priceChartStyle{
     border:none;
-    border-width: 0;
+    margin-bottom: 1.25rem
   }

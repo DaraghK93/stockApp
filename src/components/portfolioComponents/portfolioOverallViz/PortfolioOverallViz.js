@@ -82,7 +82,7 @@ function PortfolioOverallViz() {
 
     return (
         <>
-            <Card style={{ border: "none", marginBottom: "1.25rem" }}>
+            <Card className="priceChartStyle">
                 <Container>
                     <Row>
                         <Col className="col col-xs-auto col-md-2">

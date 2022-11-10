@@ -69,10 +69,9 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
 
     return (
         <>
-            <Card style={{ border: "none", marginBottom: "1.25rem" }}>
+            <Card className="priceChartStyle">
                 <Container>
                     <Row>
-
                         <ResponsiveContainer width="100%" height={400} margin={100}>
                             <AreaChart width="100%" height={250} data={data}
                                 margin={{

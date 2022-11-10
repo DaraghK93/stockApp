@@ -16,7 +16,7 @@ const createLeague = async (req, res, next) => {
             tradingFee,
             private,
             startDate,
-            WinningValue,
+            winningValue,
             maxDailyTrades,
             sectors,
             minERating,
@@ -28,14 +28,15 @@ const createLeague = async (req, res, next) => {
             portfolios
           } = req.body
 
-    // check they have sent all fields
+    // check they have sent all necessary fields
      if (
       typeof leagueName === 'undefined' ||
       typeof startingBalance === 'undefined' ||
       typeof leagueType === 'undefined' ||
       typeof tradingFee === 'undefined' ||
       typeof image === 'undefined' ||
-      typeof maxDailyTrades === 'undefined' 
+      typeof maxDailyTrades === 'undefined' ||
+      typeof startDate === 'undefined'
     ) {
       // data is missing bad request
       res.status(400)
@@ -47,57 +48,28 @@ const createLeague = async (req, res, next) => {
       )
     } 
 
-    // ensure starting balance is at least 1000
-    if (startingBalance < 1000) {
-      res.status(400)
-      res.errormessage = 'Starting Balance must be greater than $1000'
-      return next(
-        new Error(
-          'Starting Balance is too low',
-        ),
-      )
-    } 
-
     // ensure  winning balance is above starting balance if it is a valuebased game
-    if (leagueType === "valueBased" && WinningValue <= startingBalance) {
+    if (leagueType === "valueBased" && winningValue <= startingBalance) {
       res.status(400)
       res.errormessage = 'Winning Balance must be greater than starting Balance '
       return next(
         new Error(
           'Winning Balance is not greater than starting balance',
-        ),
+        )
       )
     } 
-    if (leagueType === "valueBased" && (typeof WinningValue === "undefined" )) {
-      res.status(400)
-      res.errormessage = 'Winning Balance must be greater than starting Balance '
-      return next(
-        new Error(
-          'Winning Balance is not greater than starting balance',
-        ),
-      )
-    } 
-    
-    // ensure that the start date is not in the past
-    // get today's date but without the time
-    let today = new Date().setHours(0,0,0,0)
-    // get start date in the same format
-    const start = new Date(startDate).setHours(0,0,0,0)
-    
-    if (new Date(start) < today) {
-      res.status(400)
-      res.errormessage = 'Start date is in the past'
-      return next(
-        new Error(
-          'Start date must be in the future',
-        ),
-      )
-  } 
-    let active; 
-    if (start == today) {
-      active = true
-  }
 
+    // ensure winningBalance is sent in a valuebased game
+    if (leagueType === "valueBased" && (typeof winningValue === "undefined" )) {
+      res.status(400)
+      res.errormessage = 'Winning Balance must be set for value based game'
+      return next(
+        new Error(
+          'Winning Balance must be set for value based game',
+        )
+      )
+    } 
+       
     // ensure that if it's a time based game, the endDate is sent
     if (leagueType === "timeBased" && typeof endDate === "undefined") {
       res.status(400)
@@ -108,6 +80,37 @@ const createLeague = async (req, res, next) => {
         ),
       )
     }
+    
+    // ensure starting balance is at least 1000
+    if (startingBalance < 1000) {
+      res.status(400)
+      res.errormessage = 'Starting Balance must be greater than $1000'
+      return next(
+        new Error(
+          'Starting balance must be at least 1000'
+        ),
+      )
+    } 
+
+    // ensure that the start date is not in the past
+    // get today's date but without the time
+    let today = new Date().setHours(0,0,0,0)
+    // get start date in the same format
+    const start = new Date(startDate).setHours(0,0,0,0)
+    
+    let active; // sent to DB
+
+    if (start < today) {
+      res.status(400)
+      res.errormessage = 'Start date is in the past'
+      return next(
+        new Error(
+          'Start date must be in the future',
+        ),
+ )} else if (start == today) {
+        active = true
+  }
+  
 
     // ensure league is at least a day long
     if (leagueType === "timeBased") {
@@ -116,34 +119,36 @@ const createLeague = async (req, res, next) => {
 
       // check that the difference between start and end is at least 1
       // divide to get it in terms of days
-      if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
-        res.status(400)
-        res.errormessage = 'time based games must be at least a day long'
-        return next(
-          new Error(
-            'time based games must be at least a day long',
+    if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
+      res.status(400)
+      res.errormessage = 'Time based games must be at least a day long'
+      return next(
+        new Error(
+          'Time based games must be at least a day long',
           ),
         )
       }
     }
 
+    // ensure the tradingFee isn't less than 0
     if (tradingFee < 0) {
       res.status(400)
-      res.errormessage = 'trading fee must be a positive number'
+      res.errormessage = 'Trading fee must be a positive number'
       return next(
         new Error(
-          'trading fee must be a positive number',
+          'Trading fee must be a positive number',
         ),
       )
     }
 
+    // ensure maxDailyTrades is greater than 0
     if (maxDailyTrades <= 0) {
       res.status(400)
-      res.errormessage = 'max Daily Trades must be a positive number'
+      res.errormessage = 'Max Daily Trades must be a positive number'
       return next(
         new Error(
-          'max Daily Trades must be a positive number',
-        ),
+          'Max Daily Trades must be a positive number',
+        )
       )
     }
 
@@ -156,7 +161,7 @@ const createLeague = async (req, res, next) => {
         tradingFee,
         private,
         startDate,
-        WinningValue,
+        winningValue,
         maxDailyTrades,
         sectors,
         minERating,
@@ -229,7 +234,7 @@ const joinLeaguebyCode = async (req, res, next) => {
         res.errormessage = 'an access code is needed'
         return next(
           new Error(
-            'an access code is needed',
+            'An Access Code is Needed',
           ),
           )} 
 
@@ -246,7 +251,6 @@ const joinLeaguebyCode = async (req, res, next) => {
         return next(new Error('Invalid Access Code'))
       }
 
-      console.log(league)
       const newLeague = await leagueService.joinLeague(league,currentUser)
 
       // check for error
@@ -259,7 +263,6 @@ const joinLeaguebyCode = async (req, res, next) => {
           ),
           )} 
       
-
       res.json({newLeague})
 
 } catch (err) {

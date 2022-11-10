@@ -28,5 +28,5 @@ Resources:
             Method: get
     Metadata:
       Dockerfile: Dockerfile
-      DockerContext: ./hello_world
+      DockerContext: ./stock_recommender
       DockerTag: python3.9-v1

@@ -16,7 +16,7 @@
 
 .gameDetailsToggleButton{
     border:none;
-    padding: 0.063rem;
+    padding: 0.313rem;
 }
 
 .gameDetailsGameTypeCard{
@@ -30,6 +30,8 @@
 }
 
 .gameDurationCalenderCol{
+    display: flex;
+    align-items: center;
     text-align: center !important;
     justify-content: center !important;
 }

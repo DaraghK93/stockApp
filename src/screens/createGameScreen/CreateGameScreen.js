@@ -21,7 +21,7 @@ function CreateGameScreen(){
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
     const [gameStartDate, setGameStartDate] = useState(new Date())
-    const [gameEndDate, setGameEndDate] = useState("")
+    const [gameEndDate, setGameEndDate] = useState(new Date())
     /// Page 3 - Target value, only used if the game is value based 
     //const [gameTargetValue, setGameTargetValue] = useState()
     /// Page 4 - Stock types, user can define custom stocks to trade 

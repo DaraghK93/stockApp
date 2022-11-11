@@ -1,9 +1,11 @@
 const User = require('../models/user.model');
 
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const getSendGridAPIKEY = require('../utils/SENDGRID_API_KEY');
+sgMail.setApiKey(getSendGridAPIKEY);
 
 const getHost = require('../utils/Host');
+
 
 /**
  *

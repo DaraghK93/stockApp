@@ -1,6 +1,7 @@
 const Portfolio = require('../models/portfolio.model');
 const PortfolioService = require('../services/portfolioServices')
-const Stock = require('../models/stock.model');
+const Stock = require('../models/stock.model')
+const mongoose = require('mongoose')
 
 
 // @desc create new hanging portfolio
@@ -74,17 +75,17 @@ const buyStock = async (req, res, next) => {
         )
       )
     }
-    if (!req.body.stockId.match((/^[0-9a-fA-F]{24}$/))){
+    if (mongoose.Types.ObjectId.isValid(req.body.stockId) === false){
       // check that the stock ID is correct
-      res.status(400)
-      res.errormessage = 'Invlaid Stock ID length'
+      res.status(404)
+      res.errormessage = 'Invaliid Stock ID length. No StockId found.'
       return next(
         new Error(
           'Stock ID length is incorrect'
         )
       )
     }
-    if (!req.body.portfolioId.match((/^[0-9a-fA-F]{24}$/))){
+    if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false){
       // check that the portfolio ID is correct
       res.status(400)
       res.errormessage = 'Invlaid Portfolio ID length'

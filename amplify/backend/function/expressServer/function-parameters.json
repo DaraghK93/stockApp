@@ -10,10 +10,6 @@
       "environmentVariableName": "ENVIRONMENT"
     },
     {
-      "cloudFormationParameterName": "sendgridApiKey",
-      "environmentVariableName": "SENDGRID_API_KEY"
-    },
-    {
       "cloudFormationParameterName": "fromEmail",
       "environmentVariableName": "FROM_EMAIL"
     }

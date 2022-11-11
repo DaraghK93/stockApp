@@ -22,9 +22,6 @@
     "environment": {
       "Type": "String"
     },
-    "sendgridApiKey": {
-      "Type": "String"
-    },
     "fromEmail": {
       "Type": "String"
     }
@@ -87,9 +84,6 @@
             },
             "ENVIRONMENT": {
               "Ref": "environment"
-            },
-            "SENDGRID_API_KEY": {
-              "Ref": "sendgridApiKey"
             },
             "FROM_EMAIL": {
               "Ref": "fromEmail"

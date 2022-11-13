@@ -1,11 +1,13 @@
 const User = require('../models/user.model');
 
-const sgMail = require('@sendgrid/mail');
-const getSendGridAPIKEY = require('../utils/SENDGRID_API_KEY');
-sgMail.setApiKey(getSendGridAPIKEY);
-
 const getHost = require('../utils/Host');
+const getEmailAPIKEY = require('../utils/EMAIL_API_KEY');
 
+var SibApiV3Sdk = require('sib-api-v3-sdk');
+var defaultClient = SibApiV3Sdk.ApiClient.instance;
+
+// Configure API key authorization: api-key
+var apiKey = defaultClient.authentications['api-key'];
 
 /**
  *
@@ -17,6 +19,9 @@ const getHost = require('../utils/Host');
 // @desc Recover Password - Generates token and Sends password reset email
 // @access Public
 const recoverPassword = async (req, res, next) => {
+  const API_KEY = await getEmailAPIKEY();
+  apiKey.apiKey = API_KEY;
+
   const host = await getHost();
   try {
     let user = await User.findOne({ email: req.body.email });
@@ -37,32 +42,36 @@ const recoverPassword = async (req, res, next) => {
 
     let link = host + '/auth/reset/' + user.resetPasswordToken;
 
-    const mailOptions = {
-      to: user.email,
-      from: process.env.FROM_EMAIL,
-      subject: 'Password change request',
-      text: `Hi ${user.username} \n 
-              Please click on the following link ${link} to reset your password. \n\n 
-              If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+    var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
+
+    const sender = {
+      email: 'caolanpowerpac@gmail.com',
+      name: 'Caolan Power',
     };
-
+    const receivers = [
+      {
+        email: user.email,
+      },
+    ];
     try {
-      sgMail.send(mailOptions, (error, result) => {
-        if (error) {
-          res.status(500);
-          res.errormessage = error.message;
-          return next(new Error(error.message));
-        }
-
-        res.status(200).json({
-          message: 'A reset email has been sent to ' + user.email + '.',
-        });
+      let response = await apiInstance.sendTransacEmail({
+        sender,
+        to: receivers,
+        subject: 'Password change request',
+        textContent: `Hi ${user.username} \n 
+        Please click on the following link ${link} to reset your password. \n\n 
+        If you did not request this, please ignore this email and your password will remain unchanged.\n`,
       });
+      res.status(200).json({
+        message: 'A reset email has been sent to ' + user.email + '.',
+      });
+      return;
     } catch (error) {
-      res.status(500);
-      res.errormessage = error.message;
-      return next(new Error('Server error sending recovery email'));
+      console.log(error);
     }
+
   } catch (error) {
     res.status(500);
     res.errormessage = error.message;
@@ -98,29 +107,33 @@ const resetPassword = async (req, res, next) => {
     return next(new Error(err.message));
   }
 
-  // send email
-  const mailOptions = {
-    to: user.email,
-    from: process.env.FROM_EMAIL,
-    subject: 'Your password has been changed',
-    text: `Hi ${user.username} \n 
-                  This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
+  var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+
+  var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
+
+  const sender = {
+    email: 'caolanpowerpac@gmail.com',
+    name: 'Caolan Power',
   };
-
+  const receivers = [
+    {
+      email: 'caolanpowerpac@gmail.com',
+    },
+  ];
   try {
-    sgMail.send(mailOptions, (error, result) => {
-      if (error) {
-        res.status(500);
-        res.errormessage = error.message;
-        return next(new Error(error.message));
-      }
-
-      res.status(200).json({ message: 'Your password has been updated.' });
+    let response = await apiInstance.sendTransacEmail({
+      sender,
+      to: receivers,
+      subject: 'Your password has been changed',
+      textContent: `Hi ${user.username} \n 
+      This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
     });
+    res.status(200).json({
+      message: 'A reset email has been sent to ' + user.email + '.',
+    });
+    return;
   } catch (error) {
-    res.status(500);
-    res.errormessage = error.message;
-    return next(new Error('Server error resetting password'));
+    console.log(error);
   }
 };
 

@@ -252,18 +252,9 @@ const sellStock = async (req, res, next) => {
       )
     }
     const value = stock.daily_change.currentprice * req.body.units
-    if (value > portfolio.remainder) {
-      // check that the user has sufficient funds to complete
-      res.status(400)
-        res.errormessage = 'Insufficient Funds'
-        return next(
-          new Error(
-            'User has insufficient funds to complete this buy order.'
-          )
-        )
-    }
+    
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value)
+    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value)
 
 res.json(newPortfolio)
   }

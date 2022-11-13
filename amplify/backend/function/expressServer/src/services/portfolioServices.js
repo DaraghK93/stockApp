@@ -103,7 +103,61 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
     }
 }
 
+const sellStock = async (sellData, portfolioRemainder,value) => {
+    // creates a date so that it is known when it was created
+    try{
+        const date = new Date()
+
+        // creates a transaction model
+        const transaction = new Transaction({
+        portfolioId: sellData.portfolioId,
+        stockId: sellData.stockId,
+        units: sellData.units,
+        value: value,
+        date: date,
+        buyOrSell: sellData.buyOrSell,
+        orderType: sellData.orderType,
+        transactionCost: sellData.transactionCost
+    })
+
+    // finds existing holdings in the db for that portfolio
+    const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
+
+    let newHoldings
+
+    // if there are holdings, then the current holdings are updated
+    if (holdings != null){
+        const newHoldings = holdings.units - transaction.units
+        newRemainder = portfolioRemainder + value
+        let newPortfolio
+        if (newHoldings > 0) {
+            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
+            await transaction.save()
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId}, {remainder: newRemainder})
+        }
+        else if (newHoldings = 0){
+            await Holdings.delete({_id:holdings._id})
+            await transaction.save()
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId}, {remainder: newRemainder}, {$pull: {holdings: holdings._id}})
+        }
+        else if (newHoldings < 0) {
+            throw new Error("Not enough units to sell.")
+        }
+        return newPortfolio
+    }
+    else {
+        // if there are no holdings return an error
+        
+        throw new Error('No holdings of that stock.')
+    }
+    }
+    catch (err) {
+        throw new Error(`Error has occured in buying the stock.\nError details:\n\t${err}`)
+    }
+}
+
 module.exports = {
     createPortfolio,
-    buyStock
+    buyStock,
+    sellStock
 }

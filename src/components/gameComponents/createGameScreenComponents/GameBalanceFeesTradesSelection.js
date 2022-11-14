@@ -1,6 +1,12 @@
-function GameBalanceFeesTradeSelection(){
+import RangeSlider from "../../widgets/RangeSlider/RangeSlider"
+
+function GameBalanceFeesTradeSelection({}){
     return(
-        <h1>Game Balance Fees and Trade Screen</h1>
+        <>
+         <h1>Game Balance Fees and Trade Screen</h1>
+        <RangeSlider></RangeSlider>
+        </>
+       
     )
 }
 

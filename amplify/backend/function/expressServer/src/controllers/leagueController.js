@@ -262,8 +262,26 @@ const getPublicLeagues = async (req, res, next) => {
     }
 }
 
-const getAllLeagues = async (req, res, next) => {
-
+const getMyLeagues = async (req, res, next) => {
+  const leagues =  League.aggregate([
+    { $facet: 
+        // agg query for top environment
+        { active: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                    'daily_change.absoluteChange':1,
+                                                    'daily_change.percentageChange':1,
+                                                    'daily_change.currentprice':1,
+                                                    'esgrating.environment_score': 1}},
+        {$sort: {'esgrating.environment_score': -1}},
+        { $limit: 20}], 
+        scheduled: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                              'daily_change.absoluteChange':1,
+                                              'daily_change.percentageChange':1,
+                                              'daily_change.currentprice':1,
+                                              'esgrating.social_score': 1}},
+          {$sort: {'esgrating.social_score': -1}},
+        { $limit: 20}]
+      }
+    }])
 }
 
 
@@ -328,5 +346,5 @@ module.exports = {
     createLeague,
     getPublicLeagues,
     joinLeaguebyCode,
-    getAllLeagues
+    getMyLeagues
   }

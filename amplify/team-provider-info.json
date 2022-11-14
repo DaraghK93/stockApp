@@ -18,7 +18,7 @@
           "s3Key": "amplify-builds/expressServer-753174514c376f647362-build.zip",
           "jwtSecret": "$Ckpc6ZlGF*Z3vJ89Nr",
           "environment": "prod",
-          "fromEmail": "'caolandevelopment@gmail.com'"
+          "fromEmail": "caolanpowerpac@gmail.com"
         },
         "twitterScraping": {
           "secretsPathAmplifyAppId": "d2l3aeky8jssr5",

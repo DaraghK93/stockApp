@@ -3,7 +3,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, setGameEndDate, gameType}){
-
     
     const setDurationGame = (value,event) => {
         /// Used to set the duration game as package sets value as an array of dates 
@@ -13,8 +12,6 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
         setGameEndDate(value[1])
     }
 
-    console.log(`Start ${gameStartDate}`)
-    console.log(`End ${gameEndDate}`)
     return(
         <>
             {gameType === "valueBased" ?
@@ -57,7 +54,6 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
             </Row>
             </>
             }
-        
         </>
     )
 }

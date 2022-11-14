@@ -17,7 +17,7 @@ function TableHoldings({ data }) {
                     <tbody>
                         {data.map((item, i) => (
                             <tr key={i}>
-                                <td><img src={item.stock.logo} style={{ width: "2rem" }}></img></td>
+                                <td><img src={item.stock.logo} style={{ width: "2rem" }} alt="company logo"></img></td>
                                 <td>{item.stock.symbol}</td>
                                 <td>${item.stock.daily_change.currentprice}</td>
                                 <td>{item.quantity}</td>

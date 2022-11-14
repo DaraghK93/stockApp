@@ -6,7 +6,7 @@ function CircleChartBalances({ dataIn }) {
     var data = [];
 
     dataIn.forEach(item => {
-        data.push({ ["name"]: item.stock.symbol, ["quantity"]: item.quantity, ["value"]: item.stock.daily_change.currentprice * item.quantity })
+        data.push({ "name": item.stock.symbol, "quantity": item.quantity, "value": item.stock.daily_change.currentprice * item.quantity })
     })
 
     const [activeIndex, setActiveIndex] = useState(0)
@@ -15,7 +15,7 @@ function CircleChartBalances({ dataIn }) {
 
     const renderActiveShape = (props) => {
         const RADIAN = Math.PI / 180;
-        const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value, quantity } = props;
+        const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, quantity } = props;
         const sin = Math.sin(-RADIAN * midAngle);
         const cos = Math.cos(-RADIAN * midAngle);
         const sx = cx + (outerRadius + 8) * cos;

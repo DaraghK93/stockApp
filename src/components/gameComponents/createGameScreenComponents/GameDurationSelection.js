@@ -15,7 +15,7 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
         <>
             {gameType === "valueBased" ?
             <>
-            <Card.Title className="gameDetailsCardTitle">Start Date</Card.Title>
+            <Card.Title className="gameOptionsCardTitle">Start Date</Card.Title>
             <Row>
                 <Col>
                     <Card.Text>Games with a start date of today begin immediately</Card.Text>

@@ -28,7 +28,7 @@ function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameNam
 
     return(
         <>
-        <Card.Title className="gameDetailsCardTitle">Basic Details</Card.Title>
+        <Card.Title className="gameOptionsCardTitle">Basic Details</Card.Title>
         <Row>
             <Dropdown className="py-2">
                 <Dropdown.Toggle id="gameName">{gameName}</Dropdown.Toggle>

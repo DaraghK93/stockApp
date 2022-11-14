@@ -1,11 +1,18 @@
 import Form from 'react-bootstrap/Form';
 
 
-function RangeSlider(max, min, setter, state, label){
+function RangeSlider({max, min, setter, state, label}){
     return(
     <>
-      <Form.Label>Range</Form.Label>
-      <Form.Range />
+      <Form.Label
+        className="gameOptionsCardText"
+      >{label}</Form.Label>
+      <Form.Range 
+        onChange = {(e) =>{setter(e.target.value)}}
+        value={state}
+        min={min}
+        max={max}
+      />
     </>
     )
 }

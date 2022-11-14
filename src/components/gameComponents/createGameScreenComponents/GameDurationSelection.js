@@ -40,6 +40,7 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
                 <Col>
                     <Card.Text>Games with a start date of today begin immediately</Card.Text>
                     <Card.Text>Scheduled games begin at 9 a.m on the scheduled start date</Card.Text>
+                    <Card.Text>Games end at 9 p.m. on the selected end date</Card.Text>
                 </Col>
             </Row>
             <Row className=" py-5">

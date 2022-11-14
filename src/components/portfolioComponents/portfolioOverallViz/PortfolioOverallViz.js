@@ -2,7 +2,7 @@ import { Container, Card, Row, Col, Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import PortfolioGraph from "../portfolioGraph/portfoliograph";
 
-function PortfolioOverallViz({ portfolios }) {
+function PortfolioOverallViz({ portfolios, setHoldings }) {
     const [data, setData] = useState(portfolios[0].valueHistory);
     const [portfolioName, setPortfolioName] = useState(portfolios[0].name)
 
@@ -11,6 +11,7 @@ function PortfolioOverallViz({ portfolios }) {
             if (e.target.id === portfolio.name) {
                 setData(portfolio.valueHistory)
                 setPortfolioName(portfolio.name)
+                setHoldings(portfolio.holdings)
             }
         })
     }

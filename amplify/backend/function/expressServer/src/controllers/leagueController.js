@@ -51,14 +51,38 @@ const createLeague = async (req, res, next) => {
       // check sector length is at least 1
     if (typeof sectors !== "undefined" && sectors.length < 1) {
       res.status(400)
-      res.errormessage = 'At least one sectors must be chosen'
+      res.errormessage = 'At least one sector must be chosen'
       return next(
         new Error(
-          'At least one sectors must be chosen'
+          'At least one sector must be chosen'
         ),
       )
     }
+    const sectorArray = ['Basic Materials',
+                        'Communication Services',
+                        'Consumer Cyclical',
+                        'Consumer Defensive',
+                        'Energy',
+                        'Financial Services',
+                        'Healthcare',
+                        'Industrials',
+                        'Real Estate',
+                        'Technology',
+                        'Utilities']
+    if (typeof sectors !== "undefined") {
+      for (const element of sectors) {
+      // sectors.forEach(element => {
+        if (sectorArray.includes(element) === false) {
+          res.status(400)
+          res.errormessage = 'One or more of the sectors chosen is not valid'
+          return next(
+            new Error(
+              'One or more of the sectors chosen is not valid'
+            )
+          )
+        }}}
 
+              
     // ensure that the image sent is one of the correct images
     const imageArray = ["/stock_photo_1.jpg",
                         "/stock_photo_2.jpg",

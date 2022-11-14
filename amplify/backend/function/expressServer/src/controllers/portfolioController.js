@@ -46,7 +46,7 @@ const createHangingPortfolio = async (req, res, next) => {
   }
 
 
-const buyStock = async (req, res, next) => {
+const buyStockMarketOrder = async (req, res, next) => {
   try{
     // check that all of the data is there
     if (
@@ -65,33 +65,33 @@ const buyStock = async (req, res, next) => {
         ),
       )
     }
-    else if (req.body.buyOrSell !== "BUY"){
+    else if (req.body.buyOrSell !== "BUY" || req.body.orderType !== "MARKET"){
       // check that the type is buy
       res.status(400)
-      res.errormessage = 'Must be type BUY'
+      res.errormessage = 'Not a valid market buy order request'
       return next(
         new Error(
-          'Should be type Buy'
+          'BuyOrSell type must be BUY and OrderType must be MARKET'
         )
       )
     }
     if (mongoose.Types.ObjectId.isValid(req.body.stockId) === false){
       // check that the stock ID is correct
       res.status(404)
-      res.errormessage = 'Invaliid Stock ID length. No StockId found.'
+      res.errormessage = 'No stock found'
       return next(
         new Error(
-          'Stock ID length is incorrect'
+          'The chosen stock does not exist.'
         )
       )
     }
     if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false){
       // check that the portfolio ID is correct
-      res.status(400)
-      res.errormessage = 'Invlaid Portfolio ID length'
+      res.status(404)
+      res.errormessage = 'No Portfolio Found.'
       return next(
         new Error(
-          'Portfolio ID length is incorrect'
+          'Portfolio must be associated to the user.'
         )
       )
     }
@@ -99,7 +99,7 @@ const buyStock = async (req, res, next) => {
     // check that the stock exists
     if(stock===null){
       res.status(404)
-      res.errormessage = 'No such stock'
+      res.errormessage = 'No stock found'
       return next(
         new Error(
           'The chosen stock does not exist.'
@@ -120,7 +120,7 @@ const buyStock = async (req, res, next) => {
     // check that the portfolio exists
     if(portfolio===null){
       res.status(404)
-      res.errormessage = 'Invalid portfolio.'
+      res.errormessage = 'No Portfolio Found.'
       return next(
         new Error(
           'Portfolio must be associated to the user.'
@@ -269,6 +269,6 @@ catch (err) {
 
 module.exports = {
   createHangingPortfolio,
-  buyStock,
+  buyStockMarketOrder,
   sellStock
 }

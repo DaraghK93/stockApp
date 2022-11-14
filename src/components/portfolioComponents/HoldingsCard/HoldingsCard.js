@@ -46,9 +46,9 @@ function HoldingsCard({ data }) {
                     </Col>
                 </div>
                 {isShownDoughnutChart &&
-                    <CircleChartBalances data={data} />}
+                    <CircleChartBalances dataIn={data} />}
                 {isShownTable &&
-                    <TableHoldings />}
+                    <TableHoldings data={data} />}
 
             </Card>
         </>

@@ -63,18 +63,22 @@ function PortfolioPage() {
         }
     ]
 
+    // .daily_change.currentprice
+
     const holdings = [
-        { name: 'MSFT', value: 5 },
-        { name: 'AMZN', value: 6 },
-        { name: 'CHAD', value: 3 },
-        { name: 'YUP', value: 4 },
+        { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg" , daily_change: {currentprice: 20} }, quantity: 5 },
+        { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg" , daily_change: {currentprice: 40} }, quantity: 3 },
+        { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg" , daily_change: {currentprice: 10} }, quantity: 4 },
+        { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg" , daily_change: {currentprice: 20} }, quantity: 5 },
     ];
+    // console.log(holdings[1].stock.daily_change.currentprice)
 
     return (
         <Container>
             <PortfolioOverallViz portfolios={portfolios} />
-            <HoldingsCard data={holdings}/>
+            <HoldingsCard data={holdings} />
             <h2>Transaction History</h2>
+            <br></br>
         </Container>
     )
 }

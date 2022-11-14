@@ -1,6 +1,6 @@
 import { Table, Container, Button } from "react-bootstrap";
 
-function TableHoldings() {
+function TableHoldings({ data }) {
     return (
         <>
             <Container>
@@ -14,24 +14,15 @@ function TableHoldings() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <th scope="row">logo</th>
-                            <td>MSFT</td>
-                            <td>$40</td>
-                            <td><Button>Trade</Button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">logo</th>
-                            <td>AMZN</td>
-                            <td>$60</td>
-                            <td><Button>Trade</Button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">logo</th>
-                            <td>CHAD</td>
-                            <td>$20</td>
-                            <td><Button>Trade</Button></td>
-                        </tr>
+                        {data.map((item, i) => (
+                            <tr key={i}>
+                                <td scope="row"><img src={item.stock.logo} style={{ width: "2rem" }}></img></td>
+                                <td>{item.stock.symbol}</td>
+                                <td>{item.stock.daily_change.currentprice}</td>
+                                <td>{item.quantity}</td>
+                                <td><Button>Trade</Button></td>
+                            </tr>
+                        ))}
                     </tbody>
                 </Table>
             </Container>

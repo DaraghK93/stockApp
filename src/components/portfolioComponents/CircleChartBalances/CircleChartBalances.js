@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { PieChart, Pie, Cell, Sector, ResponsiveContainer } from 'recharts';
 
-function CircleChartBalances({ data }) {
+function CircleChartBalances({ dataIn }) {
+
+    var data = [];
+
+    dataIn.forEach(item => {
+        data.push({ ["name"]: item.stock.symbol, ["quantity"]: item.quantity, ["value"]: item.stock.daily_change.currentprice * item.quantity })
+    })
+
     const [activeIndex, setActiveIndex] = useState(0)
 
     const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
-
     const renderActiveShape = (props) => {
         const RADIAN = Math.PI / 180;
-        const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value } = props;
+        const { cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle, fill, payload, percent, value, quantity } = props;
         const sin = Math.sin(-RADIAN * midAngle);
         const cos = Math.cos(-RADIAN * midAngle);
         const sx = cx + (outerRadius + 8) * cos;
@@ -45,8 +51,8 @@ function CircleChartBalances({ data }) {
                 />
                 <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
                 <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
-                <text style={{fontSize:"90%"}} x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`Units: ${value}`}</text>
-                <text style={{fontSize:"90%"}}x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
+                <text style={{ fontSize: "90%" }} x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} textAnchor={textAnchor} fill="#333">{`Units: ${quantity}`}</text>
+                <text style={{ fontSize: "90%" }} x={ex + (cos >= 0 ? 1 : -1) * 12} y={ey} dy={18} textAnchor={textAnchor} fill="#999">
                     {`${(percent * 100).toFixed(2)}%`}
                 </text>
             </g>
@@ -67,8 +73,8 @@ function CircleChartBalances({ data }) {
                     data={data}
                     cx="50%"
                     cy="50%"
-                    innerRadius={60}
-                    outerRadius={70}
+                    innerRadius={55}
+                    outerRadius={75}
                     fill="#8884d8"
                     dataKey="value"
                     onMouseEnter={onPieClick}

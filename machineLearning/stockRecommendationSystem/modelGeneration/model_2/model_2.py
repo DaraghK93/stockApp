@@ -29,9 +29,6 @@ def read_data():
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
     
-    
-# Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4
-# This function takes in the index of a stock and returns 20 recommended stocks based on cosine similarity.
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
 
@@ -44,14 +41,13 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
     Returns:
         list: This function returns a list of the 20 ticker symbols (strings) of the 20 companies that are closest in similarity to the input. 
     """
-    
-    # Read in stock data from the csv file
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
-    # Read in pickle file of vector data
-    cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\data\cosine_sim_data.pkl')
-
-    # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
     try:
+        # Read in stock data from the csv file  
+        stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
+        # Read in pickle file of vector data
+        cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\data\cosine_sim_data.pkl')
+
+        # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
         index = symbol_to_index(input)
         index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
         stocks_recomm = stocks['symbol'].loc[index_recomm].values
@@ -89,7 +85,6 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
         }
 
 
-# Takes in 1 argument index and returns the corresponding ticker symbol  
 def index_to_symbol(index):
     """Function used to convert from index number to ticker symbol.
     
@@ -110,7 +105,6 @@ def index_to_symbol(index):
             'Message': 'Error encountered in index_to_symbol function.',
         }
 
-# Takes in 1 argument symbol, and returns a single number index corresponding to that symbol.
 def symbol_to_index(symbol):
     """Function used to convert from a ticker symbol input to the index of the symbol.
 

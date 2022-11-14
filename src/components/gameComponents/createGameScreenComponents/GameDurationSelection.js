@@ -1,9 +1,9 @@
 import {Card,Row,Col} from "react-bootstrap"
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import moment from 'moment';
 
 function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, setGameEndDate, gameType}){
-    
     const setDurationGame = (value,event) => {
         /// Used to set the duration game as package sets value as an array of dates 
         /// Set the start date 
@@ -11,7 +11,6 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
         /// Set the end date 
         setGameEndDate(value[1])
     }
-
     return(
         <>
             {gameType === "valueBased" ?
@@ -27,6 +26,7 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
                <Col className="gameDurationCalenderCol">
                 <Calendar 
                     className="gameDurationCalender"
+                    formatMonthYear = {(locale, date) => moment(date).format("MMM YYYY")}
                     onChange={setGameStartDate} 
                     minDate={new Date()}
                     value={gameStartDate} />
@@ -47,6 +47,7 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
                 <Calendar 
                     className="gameDurationCalender"
                     selectRange={true}
+                    formatMonthYear = {(locale, date) => moment(date).format("MMM YYYY")}
                     value={[gameStartDate,gameEndDate]}
                     minDate={new Date()}
                     onChange={setDurationGame}/>

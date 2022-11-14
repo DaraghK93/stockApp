@@ -20,10 +20,10 @@ function CreateGameScreen(){
     const [gameType, setGameType]   = useState("")
     const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, initialise start date today, end date do two weeks, they have to be initlised as date object for calender 
-    const days = 14
-    const ms   = new Date().getTime() + (86400000 *days);
-    const twoWeeks = new Date(ms);
     const [gameStartDate, setGameStartDate] = useState(new Date())
+    const days = 14
+    const ms   = gameStartDate.getTime() + (86400000 *days); /// 86400000 -> ms in a day 
+    const twoWeeks = new Date(ms); // set gameEnd default to two weeks from today 
     const [gameEndDate, setGameEndDate] = useState(twoWeeks)
     /// Page 3 - Target value, only used if the game is value based 
     //const [gameTargetValue, setGameTargetValue] = useState()

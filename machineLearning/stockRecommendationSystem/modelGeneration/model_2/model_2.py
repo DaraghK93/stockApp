@@ -89,9 +89,16 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
         }
 
 
-# Function used to convert from index number to ticker symbol.
 # Takes in 1 argument index and returns the corresponding ticker symbol  
 def index_to_symbol(index):
+    """Function used to convert from index number to ticker symbol.
+    
+    Args:
+        index (int): This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
+
+    Returns:
+        str: Returns the corresponding ticker symbol in a string for the company of index "index"  
+    """
     try:
         stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
         symbol = stocks.iloc[index]
@@ -103,9 +110,16 @@ def index_to_symbol(index):
             'Message': 'Error encountered in index_to_symbol function.',
         }
 
-# Function used to convert from a ticker symbol input to the index of the symbol.
 # Takes in 1 argument symbol, and returns a single number index corresponding to that symbol.
 def symbol_to_index(symbol):
+    """Function used to convert from a ticker symbol input to the index of the symbol.
+
+    Args:
+        symbol (str): Ticker symbol for the company you'd like the index of
+
+    Returns:
+        int: This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
+    """
     try:
         stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
         index = stocks.loc[stocks['symbol'].isin([symbol])].index
@@ -118,5 +132,5 @@ def symbol_to_index(symbol):
         }    
 
 print(index_to_symbol("AAPL"))
-# print(symbol_to_index("AAPL"))
-# print(give_recommendations(40, print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+print(symbol_to_index("AAPL"))
+print(give_recommendations(40, print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))

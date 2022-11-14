@@ -19,7 +19,7 @@ function TableHoldings({ data }) {
                             <tr key={i}>
                                 <td><img src={item.stock.logo} style={{ width: "2rem" }}></img></td>
                                 <td>{item.stock.symbol}</td>
-                                <td>{item.stock.daily_change.currentprice}</td>
+                                <td>${item.stock.daily_change.currentprice}</td>
                                 <td>{item.quantity}</td>
                                 <td><Link to={`/stock/${item.stock.symbol}/confirmorder`}><Button>Trade</Button></Link></td>
                             </tr>

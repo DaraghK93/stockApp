@@ -35,7 +35,11 @@ const recoverPassword = async (req, res, next) => {
       res.errormessage = 'Invalid email address. Please try again';
       return next(new Error('Invalid email address entered.'));
     }
-  } catch (error) {}
+  } catch (error) {
+    res.status(500);
+    res.errormessage = error.message;
+    return next(new Error('Server error in password recovery'));
+  }
 
   const API_KEY = await getEmailAPIKEY();
   apiKey.apiKey = API_KEY;

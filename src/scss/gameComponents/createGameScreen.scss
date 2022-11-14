@@ -35,11 +35,17 @@
     text-align: center !important;
     justify-content: center !important;
 }
+.react-calendar__month-view__weekdays__weekday{
+    font-size: 0.65rem;
+}
 
 @media only screen and (min-width: 1120px){
     .gameDetailsGameTypeCard{
         height: 10rem;
         width: 20rem;
+    }
+    .react-calendar__month-view__weekdays__weekday{
+       font-size: 0.75rem;
     }
 }
 

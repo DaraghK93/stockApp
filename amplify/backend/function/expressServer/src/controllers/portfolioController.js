@@ -180,13 +180,13 @@ const sellStock = async (req, res, next) => {
         ),
       )
     }
-    else if (req.body.buyOrSell !== "SELL"){
+    else if (req.body.buyOrSell !== "SELL" || req.body.orderType !== "MARKET"){
       // check that the type is buy
       res.status(400)
-      res.errormessage = 'Must be type SELL'
+      res.errormessage = 'Must be type SELL and order type MARKET'
       return next(
         new Error(
-          'Should be type Sell'
+          'Should be type Sell and order type should be MARKET'
         )
       )
     }

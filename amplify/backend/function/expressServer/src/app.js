@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
 
 // app.use(cors());
 app.use('/api/user', require('./routes/userRoutes'));
-app.use('/api/user', require('./routes/portfolioRoutes'));
+app.use('/api/portfolio', require('./routes/portfolioRoutes'));
 app.use('/api/stock', require('./routes/stockRoutes'));
 app.use('/api/tweet', require('./routes/tweetRoutes'));
 app.use('/api/newsarticles',require('./routes/newsArticleRoutes'));

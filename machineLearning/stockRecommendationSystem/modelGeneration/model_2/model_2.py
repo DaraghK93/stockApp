@@ -131,6 +131,6 @@ def symbol_to_index(symbol):
             'Message': 'Error encountered in symbol_to_index function.',
         }    
 
-print(index_to_symbol("AAPL"))
-print(symbol_to_index("AAPL"))
-print(give_recommendations(40, print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+# print(index_to_symbol("AAPL"))
+# print(symbol_to_index("AAPL"))
+print(give_recommendations("AAPL", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))

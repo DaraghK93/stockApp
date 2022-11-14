@@ -6,16 +6,17 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
 
     
     const setDurationGame = (value,event) => {
-        console.log("duration",value)
+        /// Used to set the duration game as package sets value as an array of dates 
         /// Set the start date 
         setGameStartDate(value[0])
+        /// Set the end date 
         setGameEndDate(value[1])
     }
 
-
+    console.log(`Start ${gameStartDate}`)
+    console.log(`End ${gameEndDate}`)
     return(
         <>
-        
             {gameType === "valueBased" ?
             <>
             <Card.Title className="gameDetailsCardTitle">Start Date</Card.Title>
@@ -49,6 +50,7 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
                 <Calendar 
                     className="gameDurationCalender"
                     selectRange={true}
+                    value={[gameStartDate,gameEndDate]}
                     minDate={new Date()}
                     onChange={setDurationGame}/>
             </Col> 

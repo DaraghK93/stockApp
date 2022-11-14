@@ -19,9 +19,12 @@ function CreateGameScreen(){
     const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
     const [gameType, setGameType]   = useState("")
     const [gameImage, setGameImage] = useState("") 
-    /// Page 2 - The duration of game, start data only for value based game
+    /// Page 2 - The duration of game, initialise start date today, end date do two weeks, they have to be initlised as date object for calender 
+    const days = 14
+    const ms   = new Date().getTime() + (86400000 *days);
+    const twoWeeks = new Date(ms);
     const [gameStartDate, setGameStartDate] = useState(new Date())
-    const [gameEndDate, setGameEndDate] = useState(new Date())
+    const [gameEndDate, setGameEndDate] = useState(twoWeeks)
     /// Page 3 - Target value, only used if the game is value based 
     //const [gameTargetValue, setGameTargetValue] = useState()
     /// Page 4 - Stock types, user can define custom stocks to trade 

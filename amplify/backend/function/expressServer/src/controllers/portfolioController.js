@@ -161,7 +161,7 @@ catch (err) {
 
 
 // Sell Stock Route
-const sellStock = async (req, res, next) => {
+const sellStockMarketOrder = async (req, res, next) => {
   try{
     // check that all of the data is there
     if (
@@ -270,5 +270,5 @@ catch (err) {
 module.exports = {
   createHangingPortfolio,
   buyStockMarketOrder,
-  sellStock
+  sellStockMarketOrder
 }

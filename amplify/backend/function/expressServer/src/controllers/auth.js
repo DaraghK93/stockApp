@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 
 const getHost = require('../utils/Host');
 const getEmailAPIKEY = require('../utils/EMAIL_API_KEY');
+const { validationResult } = require('express-validator');
 
 var SibApiV3Sdk = require('sib-api-v3-sdk');
 var defaultClient = SibApiV3Sdk.ApiClient.instance;
@@ -19,6 +20,23 @@ var apiKey = defaultClient.authentications['api-key'];
 // @desc Recover Password - Generates token and Sends password reset email
 // @access Public
 const recoverPassword = async (req, res, next) => {
+  const errors = validationResult(req);
+  //validate input
+  try {
+    if (!errors.isEmpty() && errors.errors[0].msg === 'No email entered') {
+      res.status(400);
+      res.errormessage = 'Email cannot be empty. Please try again';
+      return next(new Error('No email entered'));
+    } else if (
+      !errors.isEmpty() &&
+      errors.errors[0].msg === 'Invalid email entered'
+    ) {
+      res.status(400);
+      res.errormessage = 'Invalid email address. Please try again';
+      return next(new Error('Invalid email address entered.'));
+    }
+  } catch (error) {}
+
   const API_KEY = await getEmailAPIKEY();
   apiKey.apiKey = API_KEY;
 

@@ -3,15 +3,19 @@ const router = express.Router();
 
 const { resetPassword, recoverPassword } = require('../controllers/auth');
 
-const { check } = require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 //Password RESET
 router.post(
   '/recover',
-  [check('email').isEmail().withMessage('Enter a valid email address')],
+  [
+    body('email', 'No email entered').trim().not().isEmpty(),
+    body('email', 'Invalid email entered').trim().isEmail(),
+  ],
   recoverPassword
 );
 
+// The checks for this are within the resetPassword function so not using express-validator here
 router.post('/reset/:token', resetPassword);
 
 module.exports = router;

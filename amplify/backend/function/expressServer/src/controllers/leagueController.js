@@ -263,6 +263,7 @@ const getPublicLeagues = async (req, res, next) => {
 }
 
 const getMyLeagues = async (req, res, next) => {
+
   const leagues =  League.aggregate([
     { $facet: 
         // agg query for top environment
@@ -279,9 +280,18 @@ const getMyLeagues = async (req, res, next) => {
                                               'daily_change.currentprice':1,
                                               'esgrating.social_score': 1}},
           {$sort: {'esgrating.social_score': -1}},
+        { $limit: 20}],
+        complete: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                              'daily_change.absoluteChange':1,
+                                              'daily_change.percentageChange':1,
+                                              'daily_change.currentprice':1,
+                                              'esgrating.social_score': 1}},
+          {$sort: {'esgrating.social_score': -1}},
         { $limit: 20}]
       }
     }])
+
+    res.json({leagues})
 }
 
 

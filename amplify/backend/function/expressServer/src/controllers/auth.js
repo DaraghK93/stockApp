@@ -47,7 +47,7 @@ const recoverPassword = async (req, res, next) => {
     var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
 
     const sender = {
-      email: 'caolanpowerpac@gmail.com',
+      email: process.env.FROM_EMAIL,
       name: 'Caolan Power',
     };
     const receivers = [
@@ -71,7 +71,6 @@ const recoverPassword = async (req, res, next) => {
     } catch (error) {
       console.log(error);
     }
-
   } catch (error) {
     res.status(500);
     res.errormessage = error.message;
@@ -112,12 +111,12 @@ const resetPassword = async (req, res, next) => {
   var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
 
   const sender = {
-    email: 'caolanpowerpac@gmail.com',
+    email: process.env.FROM_EMAIL,
     name: 'Caolan Power',
   };
   const receivers = [
     {
-      email: 'caolanpowerpac@gmail.com',
+      email: user.email,
     },
   ];
   try {

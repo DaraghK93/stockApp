@@ -1,16 +1,23 @@
 import { useState } from 'react'
 import { Container, Row, Col} from "react-bootstrap"
+import {useSelector} from 'react-redux';
 
 /// Componeents ///
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
+import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
 
 function CreateGameScreen(){
+    /// Redux ///
+    const user = useSelector((state) => state.user)
+    // Get the userInfo piece of state, dont need loading and error
+    const {userInfo} = user;
+
     /// screen - The screen number
     const [screen, setScreen]       = useState(1)
     /// Page 1 State - Name, Type and Image for game
-    //const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
-    const [gameType, setGameType]   = useState("valueBased")
-    //const [gameImage, setGameImage] = useState("") 
+    const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
+    const [gameType, setGameType]   = useState("")
+    const [gameImage, setGameImage] = useState("") 
     /// Page 2 - The duration of game, start data only for value based game
     //const [gameStartDate, setGameStartDate] = useState("")
     //const [gameEndDate, setGameEndDate] = useState("")
@@ -34,8 +41,12 @@ function CreateGameScreen(){
             <Row className="containerContent">
                 {screen === 1 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the name, game type and picture screen</h1>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)}>
+                        <GameNameImageTypeSelection 
+                            gameType={gameType} setGameType={setGameType}  
+                            gameName={gameName} setGameName={setGameName} 
+                            gameImage={gameImage} setGameImage={setGameImage}
+                            />
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 2 ?

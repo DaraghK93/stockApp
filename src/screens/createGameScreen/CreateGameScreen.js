@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 /// Componeents ///
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
 import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
+import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -18,9 +19,12 @@ function CreateGameScreen(){
     const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
     const [gameType, setGameType]   = useState("")
     const [gameImage, setGameImage] = useState("") 
-    /// Page 2 - The duration of game, start data only for value based game
-    //const [gameStartDate, setGameStartDate] = useState("")
-    //const [gameEndDate, setGameEndDate] = useState("")
+    /// Page 2 - The duration of game, initialise start date today, end date do two weeks, they have to be initlised as date object for calender 
+    const [gameStartDate, setGameStartDate] = useState(new Date())
+    const days = 14
+    const ms   = gameStartDate.getTime() + (86400000 *days); /// 86400000 -> ms in a day 
+    const twoWeeks = new Date(ms); // set gameEnd default to two weeks from today 
+    const [gameEndDate, setGameEndDate] = useState(twoWeeks)
     /// Page 3 - Target value, only used if the game is value based 
     //const [gameTargetValue, setGameTargetValue] = useState()
     /// Page 4 - Stock types, user can define custom stocks to trade 
@@ -52,7 +56,13 @@ function CreateGameScreen(){
                 :screen === 2 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the duration screen</h1>
+                        <GameDurationSelection 
+                            gameStartDate={gameStartDate} 
+                            setGameStartDate={setGameStartDate}
+                            gameEndDate={gameEndDate}
+                            setGameEndDate={setGameEndDate}
+                            gameType={gameType}
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :screen === 3 && gameType === "valueBased" ?

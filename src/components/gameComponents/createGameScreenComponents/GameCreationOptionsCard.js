@@ -19,6 +19,7 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType, disable
                     <Col className="prevNextCol">
                         {screen > 1 &&
                         <Button
+                            className="prevNextButtons"
                             onClick={() => {
                                 setScreen(screen-1)
                             }}
@@ -28,6 +29,7 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType, disable
                     {(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")  ?
                         <Col className="prevNextCol">
                             <Button
+                                className="prevNextButtons"
                                 disabled={disableNextStep}
                                 onClick={() => {
                                     console.log("Im done this will eventually be redirect")
@@ -37,6 +39,7 @@ function GameCreationOptionsCard({children, setScreen, screen, gameType, disable
                         :
                         <Col className="prevNextCol">
                             <Button
+                                className="prevNextButtons"
                                 disabled={disableNextStep}
                                 onClick={() => {
                                     setScreen(screen+1)

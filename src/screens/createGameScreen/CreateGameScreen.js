@@ -6,6 +6,7 @@ import {useSelector} from 'react-redux';
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
 import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
+import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -65,35 +66,35 @@ function CreateGameScreen(){
                         />
                     </GameCreationOptionsCard>
                 </Col>
-                :screen === 3 && gameType === "valueBased" ?
+                :screen === 3 ?
+                <Col>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                        <GameBalanceFeesTradeSelection/>
+                    </GameCreationOptionsCard>
+                </Col>
+                :screen === 4 && gameType === "valueBased" ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                         <h1>This will be the winning value screen</h1>
                     </GameCreationOptionsCard>
                 </Col>
-                :(screen === 4 && gameType === "valueBased") || (screen === 3 && gameType === "timeBased")?
+                :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
                     <Col>
                         <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                             <h1>This will be stock type screen</h1>
                         </GameCreationOptionsCard>
                     </Col>
-                :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
+                :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                         <h1>This will be the ESG restrictions screen</h1>
                     </GameCreationOptionsCard>
                 </Col>
-                :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
-                <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the budget and fees screen</h1>
-                    </GameCreationOptionsCard>
-                </Col>
                 :
                 <Col>
-                <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the Game Summary Screen</h1>
-                </GameCreationOptionsCard>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                            <h1>This will be the Game Summary Screen</h1>
+                    </GameCreationOptionsCard>
                 </Col>
                 }   
             </Row>

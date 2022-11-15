@@ -1,7 +1,6 @@
-import json
 # Module imports
+import json
 import pandas as pd
-# import numpy as np
 import os
 
 # Setting directory path so the pickle and csv files can be read in

@@ -111,14 +111,14 @@ function ResetPage() {
       )}
       {passwordChanged && (
         <MessageAlert variant='success'>
-          {<a href='/login'>Success Login here!</a>}
+          {<a href='/login' style={{color:'#006195'}}>Success Login here!</a>}
         </MessageAlert>
       )}
       {loading && <LoadingSpinner />}
       <h1>Reset Password</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className='py-2' controlId='password'>
-          <Form.Label>Confirm Password</Form.Label>
+          <Form.Label>Enter Password</Form.Label>
           <Form.Control
             type='password'
             placeholder='Enter Password'

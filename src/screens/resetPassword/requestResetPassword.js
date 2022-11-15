@@ -11,19 +11,30 @@ import { APIName } from '../../constants/APIConstants';
 /// Layout ///
 import FormContainer from '../../components/layout/FormContainer/FormContainer';
 
+/// Widgets ///
+import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
+import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
+
 function RequestResetPassword() {
   // constant token holds the reset password token used to verify that the password can be changed
   const [email, setEmail] = useState('');
+  const [emailErrorMessage, setEmailErrorMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailSentMessage, setEmailSentMessage] = useState('');
 
   // this function will allow the user to use the reset function from the userActions.js file
   // Password check functions taken from registration page to ensure consistency
-  function handleSubmit(event) {
+  const handleSubmit = async (event) => {
+    setEmailErrorMessage(false);
+    setEmailSent(false);
     event.preventDefault();
-    requestResetPassword();
-  }
+    await requestResetPassword();
+  };
 
   const requestResetPassword = async () => {
     try {
+      setLoading(true);
       // Configure the HTTP request
       let path = `/api/auth/recover`;
       let requestConfig = {
@@ -33,12 +44,27 @@ function RequestResetPassword() {
       };
       // Sent the request to backend
       const data = await API.post(APIName, path, requestConfig);
-    } catch (error) {}
+      setLoading(false);
+      setEmailSent(true);
+      setEmailSentMessage(data.message);
+      return data;
+    } catch (error) {
+      console.log('lol');
+      setEmailErrorMessage(error.response.data.errormessage);
+      setLoading(false);
+    }
   };
 
   //
   return (
     <FormContainer>
+      {emailErrorMessage && (
+        <MessageAlert variant='danger'>{emailErrorMessage}</MessageAlert>
+      )}
+      {emailSent && (
+        <MessageAlert variant='success'>{emailSentMessage}</MessageAlert>
+      )}
+      {loading && <LoadingSpinner />}
       <h1>Reset Password</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className='py-2' controlId='password'>

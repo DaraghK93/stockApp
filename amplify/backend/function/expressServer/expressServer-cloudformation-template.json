@@ -24,6 +24,9 @@
     },
     "fromEmail": {
       "Type": "String"
+    },
+    "host": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -87,6 +90,9 @@
             },
             "FROM_EMAIL": {
               "Ref": "fromEmail"
+            },
+            "HOST": {
+              "Ref": "host"
             }
           }
         },

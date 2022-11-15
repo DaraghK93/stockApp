@@ -20,9 +20,9 @@ var apiKey = defaultClient.authentications['api-key'];
 // @desc Recover Password - Generates token and Sends password reset email
 // @access Public
 const recoverPassword = async (req, res, next) => {
-  const errors = validationResult(req);
-  //validate input
   try {
+    const errors = validationResult(req);
+    //validate input
     if (!errors.isEmpty() && errors.errors[0].msg === 'No email entered') {
       res.status(400);
       res.errormessage = 'Email cannot be empty. Please try again';
@@ -35,17 +35,12 @@ const recoverPassword = async (req, res, next) => {
       res.errormessage = 'Invalid email address. Please try again';
       return next(new Error('Invalid email address entered.'));
     }
-  } catch (error) {
-    res.status(500);
-    res.errormessage = error.message;
-    return next(new Error('Server error in password recovery'));
-  }
+    // get and set the api key
+    const API_KEY = await getEmailAPIKEY();
+    apiKey.apiKey = API_KEY;
 
-  const API_KEY = await getEmailAPIKEY();
-  apiKey.apiKey = API_KEY;
-
-  const host = await getHost();
-  try {
+    // get the host from params this is for the password reset link
+    const host = await getHost();
     let user = await User.findOne({ email: req.body.email });
 
     if (!user) {
@@ -66,33 +61,26 @@ const recoverPassword = async (req, res, next) => {
 
     var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-    var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
-
     const sender = {
       email: process.env.FROM_EMAIL,
-      name: 'Caolan Power',
+      name: 'FinOptimise',
     };
     const receivers = [
       {
         email: user.email,
       },
     ];
-    try {
-      let response = await apiInstance.sendTransacEmail({
-        sender,
-        to: receivers,
-        subject: 'Password change request',
-        textContent: `Hi ${user.username} \n 
-        Please click on the following link ${link} to reset your password. \n\n 
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-      });
-      res.status(200).json({
-        message: 'A reset email has been sent to ' + user.email + '.',
-      });
-      return;
-    } catch (error) {
-      console.log(error);
-    }
+    let response = await apiInstance.sendTransacEmail({
+      sender,
+      to: receivers,
+      subject: 'FinOptimise password change request',
+      textContent: `Hi ${user.username} \n 
+      Please click on the following link ${link} to reset your password. \n\n 
+      If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    });
+    res.status(200).json({
+      message: 'A reset email has been sent to ' + user.email + '.',
+    });
   } catch (error) {
     res.status(500);
     res.errormessage = error.message;
@@ -104,57 +92,69 @@ const recoverPassword = async (req, res, next) => {
 // @desc Reset Password
 // @access Public
 const resetPassword = async (req, res, next) => {
-  let user = await User.findOne({
-    resetPasswordToken: req.params.token,
-    resetPasswordExpires: { $gt: Date.now() },
-  });
-
-  if (!user) {
-    res.status(401);
-    res.errormessage = 'Password reset token is invalid or has expired';
-    return next(new Error('Password reset token invalid or has expired'));
-  }
-
-  //Set the new password
-  user.password = req.body.password;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
-
   try {
+    let password = req.body.password;
+    // Checks for minimum password length, if contains a lower case character (a-z), an upper case character (A-Z), and a number (0-9)
+    if (
+      password.length < 8 ||
+      !/[a-z]/.test(password) ||
+      !/[A-Z]/.test(password) ||
+      !/[0-9]/.test(password)
+    ) {
+      res.status(400);
+      res.errormessage =
+        'Password must be at least 8 characters long, contain at least one lower case English character (a-z), at least one upper case English character (A-Z) and at least one number (0-9)!';
+      return next(
+        new Error(
+          'Password must be at least 8 characters long, contain at least one lower case English character (a-z), at least one upper case English character (A-Z) and at least one number (0-9)!'
+        )
+      );
+    }
+    let user = await User.findOne({
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      res.status(401);
+      res.errormessage = 'Password reset token is invalid or has expired';
+      return next(new Error('Password reset token invalid or has expired'));
+    }
+
+    //Set the new password
+    user.password = password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
     user = await user.save();
-  } catch (error) {
-    res.status(500);
-    res.errormessage = err.message;
-    return next(new Error(err.message));
-  }
 
-  var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+    var apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
-  var sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail(); // SendSmtpEmail | Values to send a transactional email
+    const sender = {
+      email: process.env.FROM_EMAIL,
+      name: 'FinOptimise',
+    };
+    const receivers = [
+      {
+        email: user.email,
+      },
+    ];
 
-  const sender = {
-    email: process.env.FROM_EMAIL,
-    name: 'Caolan Power',
-  };
-  const receivers = [
-    {
-      email: user.email,
-    },
-  ];
-  try {
     let response = await apiInstance.sendTransacEmail({
       sender,
       to: receivers,
-      subject: 'Your password has been changed',
+      subject: 'Your FinOptimise password has been changed',
       textContent: `Hi ${user.username} \n 
-      This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
+        This is a confirmation that the password for your account ${user.email} has just been changed.\n`,
     });
     res.status(200).json({
-      message: 'A reset email has been sent to ' + user.email + '.',
+      message: 'Confirmation email sent to ' + user.email + '!',
     });
     return;
   } catch (error) {
-    console.log(error);
+    res.status(500);
+    res.errormessage = error.message;
+    return next(new Error('Server error in password reset'));
   }
 };
 

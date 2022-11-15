@@ -14,7 +14,6 @@ const getEmailAPIKEY = async () => {
     } else if (process.env.ENVIRONMENT === 'prod') {
       /// Production environment, hard coded for now until I can get the URL dynamically
       API_KEY = await getParamFromAWS('EMAIL_API_KEY');
-      //API_KEY = 'https://master.d2l3aeky8jssr5.amplifyapp.com';
     }
     return API_KEY;
   } catch (error) {

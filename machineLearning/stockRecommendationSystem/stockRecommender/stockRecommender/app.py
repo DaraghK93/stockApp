@@ -108,18 +108,10 @@ def symbol_to_index(symbol):
     
 
 def lambda_handler(event, context):
-    # print("Event:", event)
-    # print("-"*40)
-
     body = event['body']
+    body = json.dumps(body)
     body = json.loads(body)
-    # print("Body:", body)
-    # print("-"*40)
-
     company = body["stock"]
-    # print("Company:", company)
-    # print("Company Type:", type(company))
-
     try:
         recomm = give_recommendations(company)
         return {

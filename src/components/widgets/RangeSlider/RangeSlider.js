@@ -1,9 +1,12 @@
 import {Form, InputGroup, Row,Col} from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 
+import MessageAlert from '../MessageAlert/MessageAlert'
+
 
 function RangeSlider({max, min, setter, state, label, startWidth}){
   const [width, setWidth] = useState(startWidth)
+  const [error, setError] = useState("")
 
   useEffect(() => {
     if(state.length === 1){
@@ -25,6 +28,18 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
   },[state])
 
  
+
+  function handleSubmit(e) {
+    setError("")
+    var value = parseInt(e.target.value)
+    console.log(typeof value)
+    if (value >= min && value <= max){
+      setter(e.target.value)
+    }else{
+      setError(`Value must be between ${min} and ${max}`)
+    }
+  }
+
   
   return(
     <>
@@ -37,7 +52,9 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
               type="number"
               className="rangeSliderFormControl gameOptionsCardText"
               value={state}
-              onChange = {(e) =>{setter(e.target.value)}}
+              min="100"
+              max="100000"
+              onChange = {handleSubmit}
               style={{"width":width}}
             >
             </Form.Control>

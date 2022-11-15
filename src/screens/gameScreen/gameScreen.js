@@ -1,7 +1,8 @@
 /// Description:
 //      This is the screen which is displayed when the user clicks into "game" on the nav bar 
 import { APIName } from '../../constants/APIConstants'
-import { useState,useEffect } from 'react'
+import { useState,useEffect} from 'react'
+import {useSelector} from 'react-redux';
 import { Container, Row} from "react-bootstrap"
 import { API } from "aws-amplify";
 import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinner';
@@ -21,27 +22,32 @@ function GameScreen(){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    //Redux
+    const user = useSelector((state) => state.user)
+    const {userInfo} = user
+    const userToken = userInfo.token
 
     /// The choices for the screens, used for buttons at top of screen 
     var screenChocies = [
         {name: 'My Games', value:'1'},
-        {name: 'Join a Game', value: '2'}
-    ]
+        {name: 'Join a Game', value: '2'}]
 
 
-    // active: true and  finished:false - Game ongoing can trade
-    // active false and finished false - Game is scheduled for future, no trading
-    // active false and finished true - Game Complete, no trading or joining
     useEffect(() => {
+        
         const getGames = async () => {
                try{
                    /// Set loading to true
                     setLoading(true)
                     let path = '/api/league/myleagues'
-                    const res = await API.get(APIName, path)
-                    setActiveGames(res[0].active)
-                    setScheduledGames(res[0].scheduled)
-                    setCompleteGames(res[0].complete)
+                    // send the token as a header
+                    const params = {
+                            headers : {"x-auth-token": userToken}
+                            }
+                    const res = await API.get(APIName, path, params)
+                    setActiveGames(res.leagues[0].active)
+                    setScheduledGames(res.leagues[0].scheduled)
+                    setCompleteGames(res.leagues[0].complete)
                    /// Set loading false 
                     setLoading(false)
    
@@ -52,7 +58,7 @@ function GameScreen(){
                }
            }
            getGames()
-       },[activeGames,scheduledGames,completeGames])
+       },[userToken])
         
 
     return(
@@ -69,9 +75,9 @@ function GameScreen(){
                 <CreateGameCard/>
             </Row>
             <Row  lg={1} md={1} xs={1}>
-                <ActiveInactiveScheduledGames active={activeGames} 
-                                              scheduled={scheduledGames}
-                                              complete={completeGames}/>
+                <ActiveInactiveScheduledGames activeGames={activeGames} 
+                                              scheduledGames={scheduledGames}
+                                              completeGames={completeGames}/>
             </Row>
             </>)
             :

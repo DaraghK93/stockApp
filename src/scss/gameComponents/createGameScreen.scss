@@ -6,6 +6,10 @@
     padding-left: 10%;
 }
 
+.prevNextButtons{
+    width: 5rem;
+}
+
 .prevNextCol{
     text-align: center;
 }
@@ -13,6 +17,42 @@
 .gameDetailsCardText{
     font-size: 1.5rem;
 }
+
+.gameDetailsToggleButton{
+    border: none;
+    padding: 0.313rem;
+}
+
+.gameDetailsGameTypeCard{
+    height: 10rem;
+    width: 12.5rem;
+    color: black;
+}
+
+.gameDetailsCardTitle{
+    font-size: 1.5rem;
+}
+
+.gameDurationCalenderCol{
+    display: flex;
+    align-items: center;
+    text-align: center !important;
+    justify-content: center !important;
+}
+.react-calendar__month-view__weekdays__weekday{
+    font-size: 0.65rem;
+}
+
+@media only screen and (min-width: 1120px){
+    .gameDetailsGameTypeCard{
+        height: 10rem;
+        width: 20rem;
+    }
+    .react-calendar__month-view__weekdays__weekday{
+       font-size: 0.75rem;
+    }
+}
+
 
 
 

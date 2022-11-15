@@ -22,7 +22,6 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
     }else if(state.length === 6){
       setWidth("5.75rem")
     }else if(state.length === 7){
-      console.log("Changed")
       setWidth("6.7rem")
     }
   },[state])
@@ -32,17 +31,17 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
   function handleSubmit(e) {
     setError("")
     var value = parseInt(e.target.value)
-    console.log(typeof value)
     if (value >= min && value <= max){
       setter(e.target.value)
     }else{
-      setError(`Value must be between ${min} and ${max}`)
+      setError(`Must be between ${min} and ${max}`)
     }
   }
 
   
   return(
     <>
+    {error && <MessageAlert variant="info">{error}</MessageAlert>}
     <Row>
       <Col>
         <span className="gameOptionsCardText">{label}</span>
@@ -52,8 +51,6 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
               type="number"
               className="rangeSliderFormControl gameOptionsCardText"
               value={state}
-              min="100"
-              max="100000"
               onChange = {handleSubmit}
               style={{"width":width}}
             >
@@ -64,7 +61,7 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
     <Row>
       <Col>
         <Form.Range 
-          onChange = {(e) =>{setter(e.target.value)}}
+          onChange = {handleSubmit}
           value={state}
           min={min}
           max={max}

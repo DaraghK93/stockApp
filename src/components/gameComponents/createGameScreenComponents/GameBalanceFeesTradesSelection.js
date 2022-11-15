@@ -39,7 +39,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         label={`$`}
                         setter={setTradingFee}
                         state={tradingFee}
-                        min={10}
+                        min={1}
                         max={300}
                         startWidth={"2.5rem"}
                      
@@ -48,7 +48,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             </Row>
             <Row>
                 <Col>
-                    <Card.Text className="gameOptionsCardText">Max Daily trades</Card.Text> 
+                    <Card.Text className="gameOptionsCardText">Max Daily Trades</Card.Text> 
                 </Col>
             </Row>
             <Row>

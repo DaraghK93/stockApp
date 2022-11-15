@@ -108,6 +108,15 @@ def symbol_to_index(symbol):
     
 
 def lambda_handler(event, context):
+    """This is the lambda handler function. It runs the recommender function and returns it as a JSON string.
+
+    Args:
+        event (JSON): https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
+        context (JSON): https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
+
+    Returns:
+        (JSON): A return with a HTTP status code of 200 and a JSON body of the 20 recommendations 
+    """
     body = event['body']
     body = json.dumps(body)
     body = json.loads(body)

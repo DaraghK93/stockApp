@@ -104,12 +104,13 @@ def lambda_handler(event, context):
             sentiment_list.append(prediction)
 
         sentiment_list = pd.DataFrame(sentiment_list)
-        df.drop(["sentiment"], axis=1)
+        df = df.drop(["sentiment"], axis=1)
         df["sentiment"] = sentiment_list
-        df.drop(["tweet_cleaning"], axis=1)
+        df = df.drop(["tweet_cleaning"], axis=1)
 
-        ## write the tweets to the db
-        writeTweetsToDatabase(collection, tweets_to_write)
+        ## write the tweets to the db - convert back to dict first
+        tweets = df.to_dict("records")
+        writeTweetsToDatabase(collection, tweets)
     except:
         return json.dumps({"errormessage": "Error with snscrape"})
 

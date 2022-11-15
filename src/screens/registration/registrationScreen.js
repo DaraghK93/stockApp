@@ -12,7 +12,6 @@ import InfoButtonHover from '../../components/widgets/InfoButtonHover/InfoButton
 // was installed for this.
 import 'bootstrap/dist/css/bootstrap.css'
 
-
 /// Widgets ///
 // Message alert. Will need to add more message alerts.
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert'

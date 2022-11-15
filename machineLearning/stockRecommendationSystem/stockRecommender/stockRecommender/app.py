@@ -4,9 +4,7 @@ import pandas as pd
 # import numpy as np
 import os
 
-# from sklearn.metrics.pairwise import cosine_similarity
-# from sentence_transformers import SentenceTransformer
-
+# Setting directory path so the pickle and csv files can be read in
 dir_path = os.path.dirname(os.path.realpath(__file__))
     
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
@@ -134,4 +132,3 @@ def lambda_handler(event, context):
         return {
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
         }
-

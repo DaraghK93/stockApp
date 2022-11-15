@@ -314,16 +314,16 @@ const getMyLeagues = async (req, res, next) => {
                                   countPlayers: { $size:"$users" }, 
                                   "startDate":1,
                                   "image":1,
-                                  "endDate":1}}], 
+                                  "endDate":1}}, 
+                      {$sort: {"startDate": -1}},
+                      {$limit: 20}], 
               //scheduled games                    
               scheduled: [
                       {$match : 
                           {$and:[
                             {active:false},
                             {finished:false},
-                            {users:{$elemMatch:{$eq:user}}},
-                      {$sort: {"startdate": -1}},
-                      {$limit: 20}]}},
+                            {users:{$elemMatch:{$eq:user}}}]}},
                       {$project: {'leagueName':1,
                                   "leagueType":1, 
                                   "winningValue":1,
@@ -331,7 +331,7 @@ const getMyLeagues = async (req, res, next) => {
                                   "startDate":1,
                                   "image":1,
                                   "endDate":1}}, 
-                      {$sort: {"startdate": -1}},
+                      {$sort: {"startDate": -1}},
                       {$limit: 20}],
               // complete games                    
               complete: [
@@ -348,7 +348,7 @@ const getMyLeagues = async (req, res, next) => {
                                   "startDate":1,
                                   "image":1,
                                   "endDate":1}},
-                      {$sort: {"startdate": -1}},
+                      {$sort: {"startDate": -1}},
                       {$limit: 20}], 
         }}])
       res.json(leagues)

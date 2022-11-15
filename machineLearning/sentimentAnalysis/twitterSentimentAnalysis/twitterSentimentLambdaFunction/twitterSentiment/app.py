@@ -148,7 +148,7 @@ def createTweetObject(
             "date": date,
             "username": username,
             "content": content,
-            "sentiment": "",
+            "sentiment": "neutral",
             "likeCount": likeCount,
         }
     except:

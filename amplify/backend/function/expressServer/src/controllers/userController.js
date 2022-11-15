@@ -1,5 +1,4 @@
 const User = require('../models/user.model')
-const Portfolio = require('../models/portfolio.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const getJWTSecret = require('../utils/JWT')
@@ -169,7 +168,6 @@ const loginUser = async (req, res, next) => {
         })
       },
     )
-    
   } catch (err) {
     console.error(err.message)
     res.errormessage = 'Server error'

@@ -18,11 +18,13 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             <Row>
                 <Col>
                     <RangeSlider 
-                        label={`$ ${startingBalance}`}
+                        label={`$`}
                         setter={setStartingBalance}
                         state={startingBalance}
                         min={1000}
-                        max={10000000}
+                        max={1000000}
+                        startWidth={"5.75rem"}
+                        
                     />
                 </Col>
             </Row>
@@ -34,11 +36,13 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             <Row>
                 <Col>
                     <RangeSlider 
-                        label={`$ ${tradingFee}`}
+                        label={`$`}
                         setter={setTradingFee}
                         state={tradingFee}
                         min={10}
                         max={300}
+                        startWidth={"2.5rem"}
+                     
                     />
                 </Col>
             </Row>
@@ -50,11 +54,11 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             <Row>
                 <Col>
                     <RangeSlider 
-                        label={`${maxTradesPerDay}`}
                         setter={setMaxTradesPerDay}
                         state={maxTradesPerDay}
                         min={1}
                         max={100}
+                        startWidth={"2rem"}
                     />
                 </Col>
             </Row>

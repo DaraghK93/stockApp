@@ -27,7 +27,7 @@ function CreateGameScreen(){
     const twoWeeks = new Date(ms); // set gameEnd default to two weeks from today 
     const [gameEndDate, setGameEndDate] = useState(twoWeeks)
     /// Page 3 - Starting Balance, fees and max trades 
-    const [startingBalance, setStartingBalance] = useState(200000)
+    const [startingBalance, setStartingBalance] = useState(100000)
     const [tradingFee, setTradingFee] = useState(20)
     const [maxTradesPerDay,setMaxTradesPerDay] = useState(5)
     /// Page 4 - Target value, only used if the game is value based 

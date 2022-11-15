@@ -1,0 +1,24 @@
+.rangeSliderFormControl{
+    width: 0;
+    min-width: 100%;
+    border: none;
+    text-align: left;
+    padding: 0;
+}
+
+.rangeSliderFormControlLabel{
+    width: 1rem;
+    padding: 0;
+    margin: 0;
+}
+
+.rangeSliderFormControlRow{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.rangeSliderFormControlCol{
+    width: 1rem;
+}

@@ -1,6 +1,7 @@
 import {Card,Row,Col} from "react-bootstrap"
 import RangeSlider from "../../widgets/RangeSlider/RangeSlider"
 
+
 function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tradingFee, setTradingFee, maxTradesPerDay,setMaxTradesPerDay}){
     ///
     //  Max - 1,000,000
@@ -20,7 +21,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         label={`$ ${startingBalance}`}
                         setter={setStartingBalance}
                         state={startingBalance}
-                        min={100000}
+                        min={1000}
                         max={10000000}
                     />
                 </Col>

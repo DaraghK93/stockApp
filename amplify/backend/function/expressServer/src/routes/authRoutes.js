@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const { resetPassword, recoverPassword } = require('../controllers/auth');
+const {
+  resetPassword,
+  recoverPassword,
+} = require('../controllers/authController');
 
 const { body, validationResult } = require('express-validator');
 

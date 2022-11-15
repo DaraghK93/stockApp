@@ -351,7 +351,7 @@ const getMyLeagues = async (req, res, next) => {
                       {$sort: {"startDate": -1}},
                       {$limit: 20}], 
         }}])
-      res.json(leagues)
+      res.json({leagues})
 
   } catch (err) {
     console.error(err.message);

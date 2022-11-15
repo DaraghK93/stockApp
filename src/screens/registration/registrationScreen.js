@@ -11,7 +11,7 @@ import InfoButtonHover from '../../components/widgets/InfoButtonHover/InfoButton
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select
 // was installed for this.
 import 'bootstrap/dist/css/bootstrap.css'
-import 'react-bootstrap-country-select/dist/react-bootstrap-country-select.css'
+
 
 /// Widgets ///
 // Message alert. Will need to add more message alerts.

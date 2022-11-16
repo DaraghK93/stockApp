@@ -9,34 +9,32 @@ from sentence_transformers import SentenceTransformer
 # This function is used to read in the original dataset and save the computed vectors as a pickle file.
 def read_data():
     # Read in the s&p dataset
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\sp500.csv')
+    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_3\stocks.csv')
 
     # Remove some columns that won't be used
-    stocks.drop(['idnumber','longnamesort','prices', 'weight', 'esgrating','logo'], inplace=True, axis=1)
+    stocks.drop(['idnumber','longnamesort', 'weight'], inplace=True, axis=1)
 
-    # Create array X of the all long business summaries
-    X = np.array(stocks.longbusinesssummary + stocks.sector + stocks.industry)
-
+    # Create array X of the all long business summaries, sectors, industries and countries
+    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country)
+    print(X)
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance
-    
-    # text_data = X
-    # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-    # embeddings = model.encode(text_data, show_progress_bar=True)
-    # embed_data = embeddings
-    # X = np.array(embed_data)
-    # cos_sim_data = pd.DataFrame(cosine_similarity(X))
+    text_data = X
+    model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    embeddings = model.encode(text_data, show_progress_bar=True)
+    embed_data = embeddings
+    X = np.array(embed_data)
+    cos_sim_data = pd.DataFrame(cosine_similarity(X))
 
     # Write cosine similarity dataframe to pickle file. Pickle was needed as saving as csv caused indexing errors
 
-    # cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_3\cosine_sim_data.pkl')
+    cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_3\cosine_sim_data.pkl')
     
     # Write stock data to csv file
 
-    # stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_3\stock_data.csv", encoding='utf-8', index=False)
+    stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_3\stock_data.csv", encoding='utf-8', index=False)
     # Returns vector data, text data and stock data
-    # return cos_sim_data, X, stocks
-    return True
+    return cos_sim_data, X, stocks
     
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.

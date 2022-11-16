@@ -85,7 +85,9 @@ function CreateGameScreen(){
                 :screen === 4 && gameType === "valueBased" ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <GameWinningValueSelection />
+                        <GameWinningValueSelection 
+                            startingBalance = {startingBalance}
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?

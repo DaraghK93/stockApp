@@ -1,24 +1,25 @@
-import { Card, Col, Dropdown } from "react-bootstrap";
+import { Card, Col, Dropdown, Container } from "react-bootstrap";
 import CircleChartBalances from "../CircleChartBalances/CircleChartBalances";
 import { useState } from "react";
-import TableHoldings from "../CircleChartBalances/TableHoldings/TableHoldings";
+import TableHoldings from "../TableHoldings/TableHoldings";
 
-function HoldingsCard({ data }) {
-    const [isShownTable, setIsShownTable] = useState(false);
-    const [isShownDoughnutChart, setIsShownDoughnutChart] = useState(true);
+function HoldingsCard({ data, remainder }) {
+    const [isShownTable, setIsShownTable] = useState(true);
+    const [isShownDoughnutChart, setIsShownDoughnutChart] = useState(false);
 
     const handleSelect = (e) => {
-        if (e.target.id === "Circle Chart") {
+        if (e.target.id === "By sector") {
             setIsShownDoughnutChart(true)
             setIsShownTable(false)
         }
-        else if (e.target.id === "Table") {
+        else if (e.target.id === "All holdings") {
             setIsShownTable(true)
             setIsShownDoughnutChart(false)
         }
     }
 
-    const options = ["Circle Chart", "Table"]
+
+    const options = ["All holdings", "By sector" ]
     return (
         <>
             <Card>
@@ -44,7 +45,11 @@ function HoldingsCard({ data }) {
                             </Dropdown>
                         </div>
                     </Col>
+
                 </div>
+                <Container>
+                    <p>Balance: ${remainder}</p>
+                </Container>
                 {isShownDoughnutChart &&
                     <CircleChartBalances dataIn={data} />}
                 {isShownTable &&

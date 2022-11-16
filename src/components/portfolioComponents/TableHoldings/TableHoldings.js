@@ -5,19 +5,20 @@ function TableHoldings({ data }) {
     return (
         <>
             <Container>
-                <Table className="table table-striped">
+                <Table>
                     <thead>
                         <tr>
                             <th scope="col"></th>
-                            <th scope="col">Balance:</th>
-                            <th scope="col">$50</th>
+                            <th scope="col">Ticker</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Qty</th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((item, i) => (
                             <tr key={i}>
-                                <td><img src={item.stock.logo} style={{ width: "2rem" }} alt="company logo"></img></td>
+                                <td><Link to={`/stock/${item.stock.symbol}`}><img src={item.stock.logo} style={{ width: "5rem" }} alt="company logo"></img></Link></td>
                                 <td>{item.stock.symbol}</td>
                                 <td>${item.stock.daily_change.currentprice}</td>
                                 <td>{item.quantity}</td>

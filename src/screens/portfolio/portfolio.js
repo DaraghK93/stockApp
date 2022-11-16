@@ -23,11 +23,23 @@ function PortfolioPage() {
                 { date: '01-22', value: 60 },
                 { date: '01-23', value: 700 },
                 { date: '01-24', value: 500 }
-            ], holdings: [
-                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 } }, quantity: 5 },
-                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 } }, quantity: 2 },
-                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 } }, quantity: 3 },
-                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 } }, quantity: 1 },
+            ],
+            remainder: 500,
+            holdings: [
+                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 }, sector: "Healthcare" }, quantity: 5 },
+                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 }, sector: "Healthcare" }, quantity: 2 },
+                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 }, sector: "Science" }, quantity: 3 },
+                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 }, sector: "Pharmacy"  }, quantity: 1 },
+                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 }, sector: "Genocide" }, quantity: 5 },
+                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 }, sector: "Business" }, quantity: 2 },
+                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 }, sector: "Science" }, quantity: 3 },
+                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 }, sector: "Farming"  }, quantity: 1 },
+                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 }, sector: "Heresy" }, quantity: 5 },
+                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 }, sector: "Wunderbar" }, quantity: 2 },
+                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 }, sector: "Science" }, quantity: 3 },
+                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 }, sector: "Pharmacy"  }, quantity: 1 },
+                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 }, sector: "Religion" }, quantity: 5 },
+                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 }, sector: "Drinking" }, quantity: 2 },
             ]
         },
         {
@@ -47,11 +59,13 @@ function PortfolioPage() {
                 { date: '01-22', value: 60 },
                 { date: '01-23', value: 700 },
                 { date: '01-24', value: 300 },
-            ], holdings: [
-                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 } }, quantity: 7 },
-                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 } }, quantity: 1 },
-                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 } }, quantity: 2 },
-                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 } }, quantity: 8 },
+            ],
+            remainder: 200,
+            holdings: [
+                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 }, sector: "Healthcare" }, quantity: 7 },
+                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 }, sector: "Science" }, quantity: 1 },
+                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 }, sector: "Pharmacy" }, quantity: 2 },
+                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 }, sector: "Healthcare" }, quantity: 8 },
             ]
         },
         {
@@ -71,21 +85,23 @@ function PortfolioPage() {
                 { date: '01-22', value: 630 },
                 { date: '01-23', value: 900 },
                 { date: '01-24', value: 100 },
-            ], holdings: [
-                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 } }, quantity: 5 },
-                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 } }, quantity: 3 },
-                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 } }, quantity: 4 },
-                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 } }, quantity: 5 },
+            ], remainder: 100,
+            holdings: [
+                { stock: { symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 },sector: "Healthcare"  }, quantity: 5 },
+                { stock: { symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 },sector: "Healthcare"  }, quantity: 3 },
+                { stock: { symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 },sector: "Pharamcy"  }, quantity: 4 },
+                { stock: { symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 },sector: "Science"  }, quantity: 5 },
             ]
         }
     ]
 
     const [holdings, setHoldings] = useState(portfolios[0].holdings)
+    const [remainder, setRemainder] = useState(portfolios[0].remainder)
 
     return (
         <Container>
-            <PortfolioOverallViz portfolios={portfolios} setHoldings={setHoldings} />
-            <HoldingsCard data={holdings} />
+            <PortfolioOverallViz portfolios={portfolios} setHoldings={setHoldings} setRemainder={setRemainder} />
+            <HoldingsCard data={holdings} remainder={remainder} />
             <h2>Transaction History</h2>
         </Container>
     )

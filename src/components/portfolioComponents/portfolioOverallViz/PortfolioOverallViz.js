@@ -2,7 +2,7 @@ import { Container, Card, Row, Col, Dropdown } from "react-bootstrap";
 import { useState } from "react";
 import PortfolioGraph from "../portfolioGraph/portfoliograph";
 
-function PortfolioOverallViz({ portfolios, setHoldings }) {
+function PortfolioOverallViz({ portfolios, setHoldings, setRemainder }) {
     const [data, setData] = useState(portfolios[0].valueHistory);
     const [portfolioName, setPortfolioName] = useState(portfolios[0].name)
 
@@ -12,6 +12,7 @@ function PortfolioOverallViz({ portfolios, setHoldings }) {
                 setData(portfolio.valueHistory)
                 setPortfolioName(portfolio.name)
                 setHoldings(portfolio.holdings)
+                setRemainder(portfolio.remainder)
             }
         })
     }

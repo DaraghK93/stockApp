@@ -16,7 +16,7 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                 <h2>Active Games</h2>
             </Col>
             <Col>
-                {activeGames.length === 0 ? <MessageAlert variant="info">No Active Games, create or join an active game</MessageAlert>
+                {activeGames.length === 0 ? <MessageAlert variant="info">No Active Games. Create or join an active game!</MessageAlert>
                 :
                 <SideScrollMenu className="h100">
                     {activeGames.map((game) => ( 
@@ -35,7 +35,7 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                 <h2>Scheduled Games</h2>
             </Col>
             <Col>
-            {scheduledGames.length === 0 ? <MessageAlert variant="info">No Scehduled Games, create or join an scheduled game</MessageAlert>
+            {scheduledGames.length === 0 ? <MessageAlert variant="info">No Scheduled Games. Create or join a scheduled game!</MessageAlert>
             :
                 <SideScrollMenu className="h100">
                     {scheduledGames.map((game) => (
@@ -53,7 +53,7 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                 <h2>Complete Games</h2>
             </Col>
             <Col>
-            {completeGames.length === 0 ? <MessageAlert variant="info">Once a game you are part of completes it will appear here</MessageAlert>
+            {completeGames.length === 0 ? <MessageAlert variant="info">Once a game you are part of completes it will appear here!</MessageAlert>
             :
                 <SideScrollMenu className="h100">
                     {completeGames.map((game) => (

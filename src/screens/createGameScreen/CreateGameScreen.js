@@ -31,8 +31,8 @@ function CreateGameScreen(){
     const [startingBalance, setStartingBalance] = useState(100000)
     const [tradingFee, setTradingFee] = useState(20)
     const [maxTradesPerDay,setMaxTradesPerDay] = useState(5)
-    /// Page 4 - Target value, only used if the game is value based 
-    //const [gameTargetValue, setGameTargetValue] = useState()
+    /// Page 4 - Winning value, only used if the game is value based 
+    const [gameWinningValue, setGameWinningValue] = useState()
     /// Page 5 - Stock types, user can define custom stocks to trade 
     //const [stockTypes, setStockTypes] = useState()
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
@@ -87,6 +87,8 @@ function CreateGameScreen(){
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                         <GameWinningValueSelection 
                             startingBalance = {startingBalance}
+                            gameWinningValue = {gameWinningValue} 
+                            setGameWinningValue = {setGameWinningValue}
                         />
                     </GameCreationOptionsCard>
                 </Col>

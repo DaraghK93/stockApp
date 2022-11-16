@@ -35,7 +35,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         state={startingBalance}
                         min={1000}
                         max={1000000}
-                        startWidth={"5.75rem"}
+                        startWidth={"6.75rem"}
                     />
                 </Col>
             </Row>
@@ -63,7 +63,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         state={tradingFee}
                         min={1}
                         max={300}
-                        startWidth={"2.5rem"}
+                        startWidth={"2.75rem"}
                     />
                 </Col>
             </Row>

@@ -7,6 +7,7 @@ import GameCreationOptionsCard from '../../components/gameComponents/createGameS
 import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
+import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -84,7 +85,7 @@ function CreateGameScreen(){
                 :screen === 4 && gameType === "valueBased" ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the winning value screen</h1>
+                        <GameWinningValueSelection />
                     </GameCreationOptionsCard>
                 </Col>
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?

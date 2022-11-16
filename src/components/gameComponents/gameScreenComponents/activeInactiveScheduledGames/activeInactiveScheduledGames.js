@@ -5,10 +5,10 @@ import {Row,Col} from "react-bootstrap"
 /// Components ///
 import SideScrollMenu from "../../../widgets/SideScrollMenu/SideScrollMenu"
 import GameCard from "../gameCard/GameCard"
+import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 
 
 function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}){
-    
     return(
         <>
         <Row className="pt-4" md={1} xs={1}>
@@ -16,6 +16,8 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                 <h2>Active Games</h2>
             </Col>
             <Col>
+                {activeGames.length === 0 ? <MessageAlert variant="info">No Active Games, create or join an active game</MessageAlert>
+                :
                 <SideScrollMenu className="h100">
                     {activeGames.map((game) => ( 
                         <div className='sideScrollCard' key={game._id}>
@@ -23,6 +25,8 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                         </div>         
                                 ))}
                 </SideScrollMenu>
+                }
+                
             </Col>
             
         </Row>
@@ -31,13 +35,16 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                 <h2>Scheduled Games</h2>
             </Col>
             <Col>
+            {scheduledGames.length === 0 ? <MessageAlert variant="info">No Scehduled Games, create or join an scheduled game</MessageAlert>
+            :
                 <SideScrollMenu className="h100">
                     {scheduledGames.map((game) => (
                         <div className='sideScrollCard' key={game._id}>
                             <GameCard game={game}/>
                         </div>         
                                 ))}
-                </SideScrollMenu>  
+                </SideScrollMenu> 
+            } 
             </Col>
                            
         </Row>
@@ -46,6 +53,8 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                 <h2>Complete Games</h2>
             </Col>
             <Col>
+            {completeGames.length === 0 ? <MessageAlert variant="info">Once a game you are part of completes it will appear here</MessageAlert>
+            :
                 <SideScrollMenu className="h100">
                     {completeGames.map((game) => (
                         <div className='sideScrollCard' key={game._id}>
@@ -53,6 +62,7 @@ function ActiveInactiveScheduledGames({activeGames,scheduledGames,completeGames}
                         </div>         
                                 ))}
                 </SideScrollMenu>
+            }
             </Col>
             
         </Row>

@@ -12,7 +12,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         console.log("Called")
         // On the first load will be undefined, set the initial value 
         if (typeof gameWinningValue === "undefined"){
-            setGameWinningValue(Math.round(startingBalance*1.05))
+           setGameWinningValue(Math.round(startingBalance*1.05))
         }
     },[gameWinningValue,setGameWinningValue,startingBalance])
 
@@ -31,10 +31,10 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
 
     return(
         <>
-        {gameWinningValue === "undefined" ? <LoadingSpinner/>
-        :
-        <> 
         <Card.Title className="gameOptionsCardTitle">Game Winning Value</Card.Title>
+        {typeof gameWinningValue === "undefined" ? <LoadingSpinner/>
+        :
+        <>
             <Row>
                 <Col>
                     <Card.Text className="gameOptionsCardSubTitle">Winning Value
@@ -50,10 +50,18 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                     </Card.Text>  
                 </Col>
             </Row>
+            <Row>
+                <Col>
+                    <RangeSlider 
+                        setter={setGameWinningValue}
+                        state={gameWinningValue.toString()}
+                        min={min}
+                        max={max}
+                    />
+                </Col>
+            </Row>
         </>
-        }
-            
-          
+        }   
         </>
     )
 }

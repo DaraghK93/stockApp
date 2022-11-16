@@ -1,6 +1,6 @@
 import {Form,Row,Col} from 'react-bootstrap'
 import { useState, useEffect } from 'react'
-
+import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 import MessageAlert from '../MessageAlert/MessageAlert'
 
 
@@ -8,7 +8,6 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
   const [width, setWidth] = useState(startWidth)
   const [error, setError] = useState("")
 
-  
   useEffect(() => {
     if(state.length === 1){
         setWidth("2rem")
@@ -43,6 +42,9 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
   return(
     <>
     {error && <MessageAlert variant="info">{error}</MessageAlert>}
+    {typeof width === "undefined" ? <LoadingSpinner/>
+    :
+    <> 
     <Row>
       <Col>
         <span className="gameOptionsCardText">{label}</span>
@@ -69,6 +71,11 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
         />
       </Col>
     </Row>
+    </>
+    
+
+    }
+    
       
 
     

@@ -16,7 +16,7 @@ const getHost = async () => {
       HOST = 'https://master.d2l3aeky8jssr5.amplifyapp.com';
       HOST = await getParamFromAWS('HOST');
     }
-    return host;
+    return HOST;
   } catch (error) {
     console.log('ERROR: Cannot get HOST');
     console.log(error);

@@ -7,32 +7,46 @@ import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWinningValue}){
     const [max, setMax] = useState(Math.round(startingBalance*1.01))
     const [min, setMin] = useState(Math.round(startingBalance*1.15))
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => { 
         console.log("Called")
         // On the first load will be undefined, set the initial value 
         if (typeof gameWinningValue === "undefined"){
-           setGameWinningValue(Math.round(startingBalance*1.05))
+            setLoading(true)
+            console.log("UNDEFINED")
+            setGameWinningValue(Math.round(startingBalance*1.05))
+            setLoading(false)
+        /// If a user changes the portfolio starting balance need to update max and mins 
+        }else if (Math.round(startingBalance*1.01) !== min || Math.round(startingBalance*1.15) !== max){
+            setLoading(true)
+            console.log("HIT HERERER")
+            setMin(Math.round(startingBalance*1.01))
+            setMax(Math.round(startingBalance*1.15))
+            setGameWinningValue(Math.round(startingBalance*1.05))
+            setLoading(false)
         }
     },[gameWinningValue,setGameWinningValue,startingBalance])
 
-    /// User has gone back a step, changed the starting balance which no longer lies between max and min
-    /// Need to reset and adjust these values 
-    if (Math.round(startingBalance*1.01) !== min || Math.round(startingBalance*1.15) !== max){
-        setMin(Math.round(startingBalance*1.01))
-        setMax(Math.round(startingBalance*1.15))
-    }
+    /// User has gone back a step, changed the starting balance
+    /// Need to adjust the suggestions based uon this 
+    //if (Math.round(startingBalance*1.01) !== min || Math.round(startingBalance*1.15) !== max){
+    //    setLoading(true)
+    //    setMin(Math.round(startingBalance*1.01))
+    //    setMax(Math.round(startingBalance*1.15))
+    //    setLoading(false)
+    //}
 
     console.log(max)
     console.log(min)
 
 
-    console.log(gameWinningValue)
+    console.log("Winning Val", gameWinningValue)
 
     return(
         <>
         <Card.Title className="gameOptionsCardTitle">Game Winning Value</Card.Title>
-        {typeof gameWinningValue === "undefined" ? <LoadingSpinner/>
+        {typeof gameWinningValue === "undefined" || loading ? <LoadingSpinner/>
         :
         <>
             <Row>

@@ -13,7 +13,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             <Card.Title className="gameOptionsCardTitle">Balances and Fees</Card.Title>
             <Row>
                 <Col>
-                    <Card.Text className="gameOptionsCardText">Starting Balance
+                    <Card.Text className="gameOptionsCardSubTitle">Starting Balance
                     <InfoButtonModal title="Starting Balance" info={
                         <>
                         <p>The Starting Balance is the Dollar amount each player in the game will have to invest.</p>
@@ -41,7 +41,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             </Row>
             <Row>
                 <Col>
-                    <Card.Text className="gameOptionsCardText">Trading Fee
+                    <Card.Text className="gameOptionsCardSubTitle">Trading Fee
                     <InfoButtonModal title="Trading Fee" info={
                         <>
                             <p>The Trading Fee is the dollar amount deducted from each trade made within the league. </p>
@@ -69,7 +69,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
             </Row>
             <Row>
                 <Col>
-                    <Card.Text className="gameOptionsCardText">Max Daily Trades
+                    <Card.Text className="gameOptionsCardSubTitle">Max Daily Trades
                     <InfoButtonModal title="Max Daily Trades" info={<>
                             <p>The Max Daily Trades sets a limit on the number of trades a user can make within a day.</p>
                             <p>A smaller number set here will make the user have to use their trades more wisely.</p>

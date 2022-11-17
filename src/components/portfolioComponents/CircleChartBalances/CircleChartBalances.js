@@ -1,4 +1,4 @@
-import { ConsoleLogger } from "@aws-amplify/core";
+// import { ConsoleLogger } from "@aws-amplify/core";
 import { useState } from "react";
 import { PieChart, Pie, Cell, Sector, ResponsiveContainer } from 'recharts';
 

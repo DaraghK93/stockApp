@@ -5,43 +5,33 @@ import { useEffect,useState } from "react"
 import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 
 function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWinningValue}){
-    const [max, setMax] = useState(Math.round(startingBalance*1.01))
-    const [min, setMin] = useState(Math.round(startingBalance*1.15))
+    const [max, setMax] = useState()
+    const [min, setMin] = useState()
     const [loading, setLoading] = useState(true)
 
     useEffect(() => { 
-        console.log("Called")
-        // On the first load will be undefined, set the initial value 
+        // On the first load will gameWinningValue will be undefined, set the initial value 
         if (typeof gameWinningValue === "undefined"){
             setLoading(true)
-            console.log("UNDEFINED")
             setGameWinningValue(Math.round(startingBalance*1.05))
-            setLoading(false)
-        /// If a user changes the portfolio starting balance need to update max and mins 
-        }else if (Math.round(startingBalance*1.01) !== min || Math.round(startingBalance*1.15) !== max){
-            setLoading(true)
-            console.log("HIT HERERER")
             setMin(Math.round(startingBalance*1.01))
             setMax(Math.round(startingBalance*1.15))
-            setGameWinningValue(Math.round(startingBalance*1.05))
+            setLoading(false)
+        /// If a user changes the portfolio starting balance and comes back to this page need to update the max and min to reflect this 
+        }else if (Math.round(gameWinningValue*1.01) !== min || Math.round(gameWinningValue*1.15) !== max){
+            setLoading(true)
+            setMin(Math.round(startingBalance*1.01))
+            setMax(Math.round(startingBalance*1.15))
+            /// If the game winning value not within the limits of max and min then reset it too as doesnt max sense 
+            /// Dont reset it if still makes sense the user may just be going back to adjust some things 
+            /// Note dont use max/min for this check the state may not be updated quick enough calculate it using starting balance 
+            if (gameWinningValue > Math.round(startingBalance*1.15) || gameWinningValue < Math.round(startingBalance*1.01)){
+                /// Set the ame winning value back within the limits to the recommended value
+                setGameWinningValue(Math.round(startingBalance*1.05))
+            }
             setLoading(false)
         }
-    },[gameWinningValue,setGameWinningValue,startingBalance])
-
-    /// User has gone back a step, changed the starting balance
-    /// Need to adjust the suggestions based uon this 
-    //if (Math.round(startingBalance*1.01) !== min || Math.round(startingBalance*1.15) !== max){
-    //    setLoading(true)
-    //    setMin(Math.round(startingBalance*1.01))
-    //    setMax(Math.round(startingBalance*1.15))
-    //    setLoading(false)
-    //}
-
-    console.log(max)
-    console.log(min)
-
-
-    console.log("Winning Val", gameWinningValue)
+    },[gameWinningValue,setGameWinningValue,startingBalance, max, min])
 
     return(
         <>

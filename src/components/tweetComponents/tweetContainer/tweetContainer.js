@@ -14,6 +14,7 @@ function TweetContainer({ stock }) {
   const [loading, setLoading] = useState(true);
   const [tweets, setTweets] = useState('');
   const [error, setError] = useState('');
+  const [infoMsg, setInfoMsg] = useState('');
 
   useEffect(() => {
     /// getStockInfo ///
@@ -30,7 +31,11 @@ function TweetContainer({ stock }) {
         // Send the request with API package
         const res = await API.get(APIName, path);
         // Set the state for the stock and loading to false
-        setTweets(res.tweet);
+        if (res.tweet.length === 0) {
+          setInfoMsg(`No Tweets found relating to '#${symbol}'`);
+        } else {
+          setTweets(res.tweet);
+        }
         setLoading(false);
       } catch (error) {
         // Log the error
@@ -61,6 +66,8 @@ function TweetContainer({ stock }) {
           <LoadingSpinner />
         ) : error ? (
           <MessageAlert variant='danger'>{error}</MessageAlert>
+        ) : infoMsg ? (
+          <MessageAlert variant='info'>{infoMsg} </MessageAlert>
         ) : (
           <>
             <Row xs={1} md={1}>

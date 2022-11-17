@@ -54,7 +54,7 @@ function TweetContainer({ stock }) {
         <Col>
           <h2 className='newsCardContainerHeading'>Twitter Feed</h2>
         </Col>
-        <Col className='twitter_image'>
+        <Col className='twitter_image col-auto'>
           <img
             src='https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/twitter_logo_blue.png'
             alt=''

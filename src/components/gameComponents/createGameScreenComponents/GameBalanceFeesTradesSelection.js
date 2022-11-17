@@ -4,10 +4,6 @@ import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal"
 
 
 function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tradingFee, setTradingFee, maxTradesPerDay,setMaxTradesPerDay}){
-    ///
-    //  Max - 1,000,000
-    //  Defautl - 100,000
-    //  Min - 1000
     return(
         <>
             <Card.Title className="gameOptionsCardTitle">Balances and Fees</Card.Title>

@@ -3,11 +3,13 @@ import RangeSlider from "../../widgets/RangeSlider/RangeSlider"
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal"
 import { useEffect,useState } from "react"
 import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
+import MessageAlert from "../../widgets/MessageAlert/MessageAlert"
 
 function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWinningValue}){
     const [max, setMax] = useState()
     const [min, setMin] = useState()
     const [loading, setLoading] = useState(true)
+    const [warning, setWarning] = useState(false)
 
     useEffect(() => { 
         // On the first load will gameWinningValue will be undefined, set the initial value 
@@ -31,6 +33,12 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
             }
             setLoading(false)
         }
+        /// Give the user a warning if they go over the average storck market retrun value of 10% for year 
+        if(gameWinningValue > startingBalance*1.10){
+            setWarning(true)
+        }else{
+            setWarning(false)
+    }
     },[gameWinningValue,setGameWinningValue,startingBalance, max, min])
 
     return(
@@ -38,7 +46,15 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         <Card.Title className="gameOptionsCardTitle">Game Winning Value</Card.Title>
         {typeof gameWinningValue === "undefined" || loading ? <LoadingSpinner/>
         :
-        <>
+        <>  
+            {warning && <MessageAlert variant="warning">
+                <p>
+                    <span className="bolded">Warning:</span> A winning value of ${gameWinningValue} is greater than the average stock market return in a year (10%).
+                </p>
+                <p style={{"margin":"0"}}>
+                    Setting this may result in a long game.
+                </p>
+                </MessageAlert>}
             <Row>
                 <Col>
                     <Card.Text className="gameOptionsCardSubTitle">Winning Value
@@ -61,6 +77,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                         state={gameWinningValue.toString()}
                         min={min}
                         max={max}
+                        label={"$"}
                     />
                 </Col>
             </Row>

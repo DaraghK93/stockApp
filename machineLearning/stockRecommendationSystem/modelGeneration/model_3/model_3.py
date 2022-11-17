@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 
 from sklearn.metrics.pairwise import cosine_similarity
+from sklearn import preprocessing
 from sentence_transformers import SentenceTransformer
 
 
@@ -16,14 +17,24 @@ def read_data():
     # print(stocks)
     print(stocks.info())
     # Create array X of the all long business summaries, sectors, industries and countries
-    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
+    X = np.array(stocks.longbusinesssummary)
+    # X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
     # X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.environment_score + " " + stocks.social_score + " " + stocks.governance_score + " " + stocks.exchange + " " + stocks.fulltimeemployees + " " + stocks.marketcap + " " + stocks.revenuegrowth)
 
+    X2 = np.array(stocks.environment_score)
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance
     text_data = X
+    e_data = X2
+
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     embeddings = model.encode(text_data, show_progress_bar=True)
+    e_embeddings = preprocessing.normalize([e_data])
+
+    print("E Embeddings:", e_embeddings)
+    print("E Embeddings shape:", np.shape(e_embeddings))
+    print("-" * 40)
+
     print("Embeddings:", embeddings)
     print("Embeddings shape:", np.shape(embeddings))
 
@@ -31,9 +42,19 @@ def read_data():
 
     embed_data = embeddings
     X = np.array(embed_data)
+    X2 = np.array(e_embeddings)
 
     print("X:", X)
     print("X Shape:", np.shape(X))
+    print("X Type:", type(X))
+    print("-"*40)
+
+    new_X = np.concatenate(X,X2)
+    print("New X:", X2)
+    print("-"*40)
+    print("New X Shape:", np.shape(X2))
+    print("-"*40)
+    print("New X Type:", type(X2))
     print("-"*40)
 
     cos_sim_data = pd.DataFrame(cosine_similarity(X))

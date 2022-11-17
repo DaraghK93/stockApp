@@ -1,5 +1,7 @@
 const League = require('../models/league.model')
 const leagueService = require('../services/leagueServices')
+
+const mongoose = require("mongoose")
 // @desc create new league. a league is created and sent to the league-data
 // collection in the DB. the user's id is sent through the auth middleware,
 // this id is added to the users array as the first user in the league
@@ -285,6 +287,81 @@ const getPublicLeagues = async (req, res, next) => {
       return next(err);
     }
 }
+
+// @desc gets all of a user's leagues. sorts into active, scheduled and completed
+// @route get league/myleagues
+// @access private
+const getMyLeagues = async (req, res, next) => {
+  try{
+
+      // convert user_id into type objectId as facet doesn't use indexes
+      const user = mongoose.Types.ObjectId(req.user.id)
+      
+      const leagues = await League.aggregate([
+        { $facet: 
+
+            // active games
+            { active: [
+                      {$match : 
+                          {$and:[
+                            {active:true},
+                            {finished:false},
+                            {users:{$elemMatch:{$eq:user}}} // where userId is in users array
+                            ]}},
+                      {$project: {'leagueName':1,
+                                  "leagueType":1, 
+                                  "winningValue":1,
+                                  countPlayers: { $size:"$users" }, 
+                                  "startDate":1,
+                                  "image":1,
+                                  "endDate":1}}, 
+                      {$sort: {"startDate": -1}},
+                      {$limit: 20}], 
+              //scheduled games                    
+              scheduled: [
+                      {$match : 
+                          {$and:[
+                            {active:false},
+                            {finished:false},
+                            {users:{$elemMatch:{$eq:user}}}]}},
+                      {$project: {'leagueName':1,
+                                  "leagueType":1, 
+                                  "winningValue":1,
+                                  countPlayers: { $size:"$users" }, 
+                                  "startDate":1,
+                                  "image":1,
+                                  "endDate":1}}, 
+                      {$sort: {"startDate": -1}},
+                      {$limit: 20}],
+              // complete games                    
+              complete: [
+                      {$match : 
+                          {$and:[
+                            {active:false},
+                            {finished:true},
+                            {users:{$elemMatch:{$eq:user}}}
+                            ]}},
+                      {$project: {'leagueName':1,
+                                  "leagueType":1, 
+                                  "winningValue":1,
+                                  countPlayers: { $size:"$users" }, 
+                                  "startDate":1,
+                                  "image":1,
+                                  "endDate":1}},
+                      {$sort: {"startDate": -1}},
+                      {$limit: 20}], 
+        }}])
+      
+      res.json({leagues})
+
+  } catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in get my leagues';
+    return next(err);
+  }
+}
+
+
 // @desc join league. user sends access code and if that exists it adds the
 // league Id to the user, userId to league, creates a portfoliio, adds the PortfolioId
 // to the league
@@ -345,5 +422,6 @@ const joinLeaguebyCode = async (req, res, next) => {
 module.exports = {
     createLeague,
     getPublicLeagues,
-    joinLeaguebyCode
+    joinLeaguebyCode,
+    getMyLeagues
   }

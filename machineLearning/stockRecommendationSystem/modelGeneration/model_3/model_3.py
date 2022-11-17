@@ -16,17 +16,30 @@ def read_data():
     # print(stocks)
     print(stocks.info())
     # Create array X of the all long business summaries, sectors, industries and countries
-    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.environment_score + " " + stocks.social_score + " " + stocks.governance_score + " " + stocks.exchange + " " + stocks.fulltimeemployees + " " + stocks.marketcap + " " + stocks.revenuegrowth)
-    # X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " ")
+    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
+    # X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.environment_score + " " + stocks.social_score + " " + stocks.governance_score + " " + stocks.exchange + " " + stocks.fulltimeemployees + " " + stocks.marketcap + " " + stocks.revenuegrowth)
+
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance
     text_data = X
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     embeddings = model.encode(text_data, show_progress_bar=True)
+    print("Embeddings:", embeddings)
+    print("Embeddings shape:", np.shape(embeddings))
+
+    print("-" * 40)
+
     embed_data = embeddings
     X = np.array(embed_data)
-    cos_sim_data = pd.DataFrame(cosine_similarity(X))
 
+    print("X:", X)
+    print("X Shape:", np.shape(X))
+    print("-"*40)
+
+    cos_sim_data = pd.DataFrame(cosine_similarity(X))
+    print("Cos Sim Data:", cos_sim_data)
+    print("Cos Sim Data Shape:", np.shape(cos_sim_data))
+    print("-"*40)
     # Write cosine similarity dataframe to pickle file. Pickle was needed as saving as csv caused indexing errors
 
     cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_3\cosine_sim_data.pkl')

@@ -6,7 +6,7 @@ const {
   recoverPassword,
 } = require('../controllers/authController');
 
-const { body, validationResult } = require('express-validator');
+const { body } = require('express-validator');
 
 //Password RESET
 router.post(

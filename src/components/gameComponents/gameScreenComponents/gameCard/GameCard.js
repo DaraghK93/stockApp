@@ -25,7 +25,7 @@ function GameCard({game}){
                         <Card.Text className="gameCardText">{moment(game.startDate).format('MMM Do YY')} - {moment(game.endDate).format('MMM Do YY')}</Card.Text>
                         </>  
                     }
-                    <Card.Text className="gameCardText">{game.users.length} Players</Card.Text>
+                    <Card.Text className="gameCardText">{game.countPlayers} Players</Card.Text>
                     </Card.Body>
                 </Card.ImgOverlay>
                 </Card> 

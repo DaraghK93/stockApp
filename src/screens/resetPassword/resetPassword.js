@@ -81,6 +81,7 @@ function ResetPage() {
       console.log('data = ' + data);
       console.log(data.errormessage);
     } catch (error) {
+      setLoading(false);
       setPasswordErrorMessage(error.response.data.errormessage);
     }
   };
@@ -111,7 +112,11 @@ function ResetPage() {
       )}
       {passwordChanged && (
         <MessageAlert variant='success'>
-          {<a href='/login' style={{color:'#006195'}}>Success Login here!</a>}
+          {
+            <a href='/login' style={{ color: '#006195' }}>
+              Success Login here!
+            </a>
+          }
         </MessageAlert>
       )}
       {loading && <LoadingSpinner />}

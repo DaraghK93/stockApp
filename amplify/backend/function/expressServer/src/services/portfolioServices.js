@@ -123,22 +123,21 @@ const sellStock = async (sellData, portfolioRemainder,value) => {
     // finds existing holdings in the db for that portfolio
     const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
 
-    let newHoldings
 
     // if there are holdings, then the current holdings are updated
     if (holdings != null){
-        const newHoldings = holdings.units - transaction.units
+        var newHoldings = holdings.units - transaction.units
         newRemainder = portfolioRemainder + value
         let newPortfolio
         if (newHoldings > 0) {
             await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
             await transaction.save()
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId}, {remainder: newRemainder})
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId}, {$push: {transactions: transaction}},{remainder: newRemainder}, {new:true})
         }
         else if (newHoldings = 0){
             await Holdings.delete({_id:holdings._id})
             await transaction.save()
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId}, {remainder: newRemainder}, {$pull: {holdings: holdings._id}})
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId},{$push: {transactions: transaction}}, {remainder: newRemainder}, {$pull: {holdings: holdings._id}}, {new:true})
         }
         else if (newHoldings < 0) {
             throw new Error("Not enough units to sell.")

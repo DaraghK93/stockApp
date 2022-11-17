@@ -193,20 +193,20 @@ const sellStockMarketOrder = async (req, res, next) => {
     if (mongoose.Types.ObjectId.isValid(req.body.stockId) === false){
       // check that the stock ID is correct
       res.status(404)
-      res.errormessage = 'Invaliid Stock ID length. No StockId found.'
+      res.errormessage = 'No stock found'
       return next(
         new Error(
-          'Stock ID length is incorrect'
+          'The chosen stock does not exist.'
         )
       )
     }
     if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false){
       // check that the portfolio ID is correct
-      res.status(400)
-      res.errormessage = 'Invlaid Portfolio ID length'
+      res.status(404)
+      res.errormessage = 'No Portfolio Found.'
       return next(
         new Error(
-          'Portfolio ID length is incorrect'
+          'Portfolio must be associated to the user.'
         )
       )
     }

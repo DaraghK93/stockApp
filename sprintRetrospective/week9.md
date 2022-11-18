@@ -8,10 +8,13 @@
   - An unlisted YT video might also work for this? Or specifically for the game?
 
 ## **Stop - Things we need to stop doing:**
-- Tying
+- Again, this carries over from last week. Need to stop putting off the diary.
+- Again, this carries over from last week. Stop leaving PRs until Thursday.
 
 ## **Continue - Things we need to continue doing:**
-- Overall
+- Breaking up PRs into smaller chunks.
+- Pruning PRs.
+- Not dumping all PRs on Thursday.
 
 ## **Actions - Things we will be doing:**
 - Scrum master role changeout - Bearach out, Daragh in.

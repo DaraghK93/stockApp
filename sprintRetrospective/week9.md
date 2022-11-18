@@ -11,3 +11,7 @@
 
 ## **Continue - Things we need to continue doing:**
 - Overall
+
+## **Actions - Things we will be doing:**
+- Scrum master role changeout - Bearach out, Daragh in.
+- Prune PRs - Everyone 

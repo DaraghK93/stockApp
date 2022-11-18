@@ -4,8 +4,9 @@
 
 
 ## **Start - Things we need to start doing:**
-- Starting showing the work we've done on the application. Right now the components of the site are not clearly visible to users. Need to create a splashpage for this to educate new users on what this application is.
+- Start showing the work we've done on the application. Right now the components of the site are not clearly visible to users. Need to create a splashpage for this to educate new users on what this application is.
   - An unlisted YT video might also work for this? Or specifically for the game?
+- Prioritising features/issues, we only have 3 weeks of development left and the end is very rapidly approaching. Need to be smart about how we spend our time.
 
 ## **Stop - Things we need to stop doing:**
 - Again, this carries over from last week. Need to stop putting off the diary.
@@ -15,6 +16,9 @@
 - Breaking up PRs into smaller chunks.
 - Pruning PRs.
 - Not dumping all PRs on Thursday.
+- Linking backend and frontend development (make sure both ends know the plan and direction)
+- Filling out API routes in spreadsheet
+
 
 ## **Actions - Things we will be doing:**
 - Scrum master role changeout - Bearach out, Daragh in.

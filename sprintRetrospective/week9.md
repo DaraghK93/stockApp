@@ -27,5 +27,5 @@
 
 
 ## **Actions - Things we will be doing:**
-- Scrum master role changeout - Bearach out, Daragh in.
+- Scrum master role changeout - Bearach out, Joey in.
 - Prune PRs, lots of open PRs up at the minute - Everyone

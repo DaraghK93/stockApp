@@ -10,6 +10,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
     const [min, setMin] = useState()
     const [loading, setLoading] = useState(true)
     const [warning, setWarning] = useState(false)
+    const [error, setError] = useState(true)
 
     useEffect(() => { 
         // On the first load will gameWinningValue will be undefined, set the initial value 
@@ -27,18 +28,21 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
             /// If the game winning value not within the limits of max and min then reset it too as doesnt max sense 
             /// Dont reset it if still makes sense the user may just be going back to adjust some things 
             /// Note dont use max/min for this check the state may not be updated quick enough calculate it using starting balance 
-            //if (gameWinningValue > Math.round(startingBalance*1.15) || gameWinningValue < Math.round(startingBalance*1.01)){
+            if (gameWinningValue > Math.round(startingBalance*1.15) || gameWinningValue < Math.round(startingBalance*1.01)){
                 /// Set the ame winning value back within the limits to the recommended value
                 //setGameWinningValue(Math.round(startingBalance*1.05))
-           // }
+                setError(true)
+            }else{
+                setError(false)
+            }
             setLoading(false)
         }
         /// Give the user a warning if they go over the average storck market retrun value of 10% for year 
-        if(gameWinningValue > startingBalance*1.10){
+        if(gameWinningValue > startingBalance*1.10 && gameWinningValue < max && gameWinningValue < min){
             setWarning(true)
         }else{
             setWarning(false)
-    }
+        }
     },[gameWinningValue,setGameWinningValue,startingBalance, max, min])
 
     return(
@@ -104,6 +108,14 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                 </p>
                 <p style={{"margin":"0"}}>
                     Setting this may result in a long game.
+                </p>
+                </MessageAlert>}
+            {error && <MessageAlert variant="danger">
+                <p>
+                    <span className="bolded">Error:</span> A winning value of ${gameWinningValue} is not within the limit ${min} and ${max}.
+                </p>
+                <p style={{"margin":"0"}}>
+                    The max and min limits are set based upon the portfolio starting value of ${startingBalance} 
                 </p>
                 </MessageAlert>}
         </>

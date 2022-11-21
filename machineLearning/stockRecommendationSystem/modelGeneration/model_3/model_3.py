@@ -1,11 +1,13 @@
 # Module imports
 import pandas as pd
 import numpy as np
+import os
 
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn import preprocessing
 from sentence_transformers import SentenceTransformer
-
+from pymongo import MongoClient
+from dotenv import load_dotenv
 
 # This function is used to read in the original dataset and save the computed vectors as a pickle file.
 def read_data():
@@ -70,7 +72,23 @@ def read_data():
     stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_3\stock_data.csv", encoding='utf-8', index=False)
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
-    
+
+def get_user_stocks(userID):
+
+    load_dotenv()
+    mongo_uri = os.getenv('MONGO_URI')
+
+    # Setting the MongoDB connection
+    mongoClient = MongoClient(mongo_uri)
+    db = mongoClient.dev
+    collection = db['user-data']
+
+    user_data = collection.find_one({"email":"recommender_test@gmail.com"})
+    user_query = user_data['stocks']
+    user_query = user_query[0]
+    print(user_query)
+    return user_query
+
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
 
@@ -169,4 +187,5 @@ def symbol_to_index(symbol):
 
 
 # print(give_recommendations("AAPL", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
-print(read_data())
+# print(read_data())
+print(get_user_stocks)

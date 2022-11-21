@@ -20,15 +20,17 @@ function TableHoldings({ data }) {
     const [sortField, setSortField] = useState("");
     const [order, setOrder] = useState("asc");
     const [tableData, setTableData] = useState(mytableData)
-
+    // for rows that expand
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
+    // for pagination
+
+
+
 
     const columns = [
         { label: "Logo", accessor: "logo", sortable: false },
-        // { label: "Ticker", accessor: "symbol", sortable: true },
-        { label: "Value", accessor: "value", sortable: true },
-        // { label: "Qty", accessor: "quantity", sortable: true },
+        { label: "Value", accessor: "value", sortable: true, sortbyOrder: "desc" },
         { label: "", accessor: "trade_button", sortable: false },
         { label: "", accessor: "expand", sortable: false },
     ];
@@ -71,6 +73,67 @@ function TableHoldings({ data }) {
 
         setExpandedRows(newExpandedRows);
     }
+
+
+    // const ShowData = () => {
+
+    //     const { postsPerPage, currentPage, data } = this.state;
+    //     const indexOfLastPage = currentPage * postsPerPage;
+    //     const indexOfFirstPage = indexOfLastPage - postsPerPage;
+    //     const currentPosts = data.slice(indexOfFirstPage, indexOfLastPage)
+  
+    //    try{
+    //    return currentPosts.map((item, index) => {
+    //      return(
+    //        <tbody>
+    //        <tr>
+    //        <td>{postsPerPage * (currentPage-1)+index+1}</td>
+    //        <td>{item.userId}</td>
+    //        <td>{item.title}</td>
+    //        <td>{item.completed.toString()}</td>
+    //        </tr>
+    //        </tbody>
+    //      )
+    //    })
+    //  }catch(e){
+    //    alert(e.message)
+    //  }
+    //  }
+
+
+    const ShowPagination = () => {
+        const [postsPerPage, setPostsPerPage] = useState(5)
+        const pageNumbers = [];
+        const [currentPage, setCurrentPage] = useState()
+        const totalPosts = tableData.length;
+ 
+
+        for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+            pageNumbers.push(i)
+        }
+
+        const pagination = (pageNumbers) => {
+            setCurrentPage(pageNumbers)
+        }
+
+        return (
+            <nav>
+                <ul className="pagination">
+                    {pageNumbers.map(number => (
+                        <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                            <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        )
+    }
+
+
+
+
+
+
 
     return (
         <>
@@ -145,6 +208,9 @@ function TableHoldings({ data }) {
                         ))}
                     </tbody>
                 </Table>
+                <div>
+                    <ShowPagination />
+                </div>
             </Container>
         </>
     )

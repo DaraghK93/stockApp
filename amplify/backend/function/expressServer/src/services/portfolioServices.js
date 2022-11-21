@@ -135,19 +135,19 @@ const sellStock = async (sellData, portfolioRemainder,value) => {
             return newPortfolio
         }
         else if (newHoldings === 0){
-            await Holdings.delete({_id:holdings._id})
+            await Holdings.findByIdAndDelete({_id:holdings._id})
             await transaction.save()
-            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId},{$push: {transactions: transaction}}, {remainder: newRemainder}, {$pull: {holdings: holdings._id}}, {new:true})
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}}, {new:true})
             return newPortfolio
         }
         else if (newHoldings < 0) {
-            throw new Error("Not enough units to sell.")
+            return {error:400, errormessage: "Not enough units"}
         }
     }
     else {
         // if there are no holdings return an error
         
-        throw new Error('No holdings of that stock.')
+        return {error:404, errormessage: "No holding of that stock exists"}
     }
     }
     catch (err) {

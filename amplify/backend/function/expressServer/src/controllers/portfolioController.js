@@ -237,7 +237,14 @@ const sellStockMarketOrder = async (req, res, next) => {
     
     // use the buyStock service found in the services folder
     const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value)
-
+    if (newPortfolio.error) {
+      res.status(newPortfolio.error)
+      res.errormessage = newPortfolio.errormessage
+      return next(
+        new Error(
+          newPortfolio.errormessage,
+        ),
+        )} 
 res.json(newPortfolio)
   }
 catch (err) {

@@ -104,7 +104,7 @@ def symbol_to_index(symbol):
         }    
     
 
-def lambda_handler(event, context):
+def lambda_handler(event: dict, context: object):
     """This is the lambda handler function. It runs the recommender function and returns it as a JSON string.
 
     Args:
@@ -114,16 +114,27 @@ def lambda_handler(event, context):
     Returns:
         (JSON): A return with a HTTP status code of 200 and a JSON body of the 20 recommendations 
     """
+
+    # event = json.loads(event)
+    # message = event['message']
+    print("Event type:", type(event))
     body = event['body']
-    body = json.dumps(body)
     body = json.loads(body)
-    company = body["stock"]
+    print("Body type:", type(body))
+
+    message = body[0]
+    print("Message:", message)
+    print("Message type:", type(message))
+
+    # message = json.loads(message)
+    # don't forget to json.loads() what you want to return
     try:
-        recomm = give_recommendations(company)
+        # recomm = give_recommendations(company)
+        recomm = "API successful!"
         return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": recomm
+            "message": body
         }),
         }
     except Exception as e:

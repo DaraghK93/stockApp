@@ -8,6 +8,7 @@ import GameNameImageTypeSelection from '../../components/gameComponents/createGa
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
+import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -121,7 +122,7 @@ function CreateGameScreen(){
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
                     <Col>
                         <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <h1>This will be stock type screen</h1>
+                            <GameSectorsSelection />
                         </GameCreationOptionsCard>
                     </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?

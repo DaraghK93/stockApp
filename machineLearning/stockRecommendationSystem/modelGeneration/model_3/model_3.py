@@ -82,16 +82,17 @@ def get_user_stocks(userName):
         # Setting the MongoDB connection
         mongoClient = MongoClient(mongo_uri)
         db = mongoClient.dev
+        collection = db['users']
+        user_data = collection.find_one({"username":userName})
+        user_query = user_data['stocks']
+        # user_query = user_query[0]
+        return user_query
     except Exception as e:
         print(f'ERROR:Error encountered in get_user_stocks function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered in get_user_stocks function.',
         }
-    collection = db['users']
-    user_data = collection.find_one({"username":userName})
-    user_query = user_data['stocks']
-    # user_query = user_query[0]
-    return user_query
+
 
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.

@@ -127,15 +127,6 @@ const buyStockMarketOrder = async (req, res, next) => {
         )
       )
     }
-    if(req.body.orderType!== "MARKET" && req.body.orderType !== "LIMIT"){
-      res.status(400)
-      res.errormessage = 'Invalid Order Type.'
-      return next(
-        new Error(
-          'Order type should be MARKET or LIMIT.'
-        )
-      )
-    }
     const value = stock.daily_change.currentprice * req.body.units
     if (value > portfolio.remainder) {
       // check that the user has sufficient funds to complete
@@ -180,7 +171,7 @@ const sellStockMarketOrder = async (req, res, next) => {
         ),
       )
     }
-    else if (req.body.buyOrSell !== "SELL" || req.body.orderType !== "MARKET"){
+    if (req.body.buyOrSell !== "SELL" || req.body.orderType !== "MARKET"){
       // check that the type is buy
       res.status(400)
       res.errormessage = 'Must be type SELL and order type MARKET'
@@ -239,15 +230,6 @@ const sellStockMarketOrder = async (req, res, next) => {
       return next(
         new Error(
           'Portfolio must be associated to the user.'
-        )
-      )
-    }
-    if(req.body.orderType!== "MARKET" && req.body.orderType !== "LIMIT"){
-      res.status(400)
-      res.errormessage = 'Invalid Order Type.'
-      return next(
-        new Error(
-          'Order type should be MARKET or LIMIT.'
         )
       )
     }

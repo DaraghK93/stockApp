@@ -119,7 +119,6 @@ const sellStock = async (sellData, portfolioRemainder,value) => {
         orderType: sellData.orderType,
         transactionCost: sellData.transactionCost
     })
-
     // finds existing holdings in the db for that portfolio
     const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
 
@@ -128,21 +127,22 @@ const sellStock = async (sellData, portfolioRemainder,value) => {
     if (holdings != null){
         var newHoldings = holdings.units - transaction.units
         newRemainder = portfolioRemainder + value
-        let newPortfolio
+        
         if (newHoldings > 0) {
             await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
             await transaction.save()
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId}, {$push: {transactions: transaction}},{remainder: newRemainder}, {new:true})
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+            return newPortfolio
         }
-        else if (newHoldings = 0){
+        else if (newHoldings === 0){
             await Holdings.delete({_id:holdings._id})
             await transaction.save()
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId},{$push: {transactions: transaction}}, {remainder: newRemainder}, {$pull: {holdings: holdings._id}}, {new:true})
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: sellData.portfolioId},{$push: {transactions: transaction}}, {remainder: newRemainder}, {$pull: {holdings: holdings._id}}, {new:true})
+            return newPortfolio
         }
         else if (newHoldings < 0) {
             throw new Error("Not enough units to sell.")
         }
-        return newPortfolio
     }
     else {
         // if there are no holdings return an error
@@ -151,7 +151,7 @@ const sellStock = async (sellData, portfolioRemainder,value) => {
     }
     }
     catch (err) {
-        throw new Error(`Error has occured in buying the stock.\nError details:\n\t${err}`)
+        throw new Error(`Error has occured in selling the stock.\nError details:\n\t${err}`)
     }
 }
 

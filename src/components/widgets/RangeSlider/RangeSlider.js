@@ -34,6 +34,7 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
     if (value >= min && value <= max){
       setter(e.target.value)
     }else{
+      setter(e.target.value)
       setError(`Must be between ${min} and ${max}`)
     }
   }
@@ -72,14 +73,7 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
       </Col>
     </Row>
     </>
-    
-
     }
-    
-      
-
-    
-     
     </>
     )
 }

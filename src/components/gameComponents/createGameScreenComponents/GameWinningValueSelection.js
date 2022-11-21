@@ -50,7 +50,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
           <Row className="pb-2">
                 <Col>
                         <Card.Text className="gameOptionsCardText">
-                            Winning value of ${gameWinningValue} is {`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`} profit
+                            Winning value of ${gameWinningValue.toLocaleString('en')} is {`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`} profit
                         </Card.Text>
                 </Col>
             </Row>

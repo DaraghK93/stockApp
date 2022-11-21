@@ -71,7 +71,15 @@ function CreateGameScreen(){
                 </Col>
                 :screen === 3 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={
+                            !(startingBalance>= 1000 && startingBalance<=1000000) 
+                        }
+                        
+                        >
                         <GameBalanceFeesTradeSelection
                             startingBalance = {startingBalance}
                             setStartingBalance = {setStartingBalance}

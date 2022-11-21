@@ -13,6 +13,7 @@ import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
 import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
+import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage';
 
 /// Redux ///
 import { useSelector } from 'react-redux';
@@ -63,6 +64,9 @@ function App() {
 
         <Route path='/portfolio'
           element={userInfo ? <PortfolioPage /> : <Navigate to="/" />} />
+        
+        <Route path='/settings'
+          element={userInfo ? <UserSettingsPage /> : <Navigate to="/" />} />
 
 
       </Routes>

@@ -4,12 +4,13 @@ import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 import MessageAlert from '../MessageAlert/MessageAlert'
 
 
-function RangeSlider({max, min, setter, state, label, startWidth}){
+function RangeSlider({max, min, setter, state, label, startWidth, disabled}){
   const [width, setWidth] = useState(startWidth)
   const [error, setError] = useState("")
+  const [valueState, setValueState] = useState(state)
 
   useEffect(() => {
-    if(state.length === 1){
+    if(state.length === 1 || state.length === 0){
         setWidth("2rem")
     }else if(state.length === 2){
       setWidth("2.75rem")
@@ -26,23 +27,23 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
     }
   },[state])
 
- 
+   console.log("VALUE STATE",valueState)
+   console.log("OTHER STATe",state)
 
   function handleSubmit(e) {
     setError("")
+    setValueState(e.target.value)
     var value = parseInt(e.target.value)
-    if (value >= min && value <= max){
-      setter(e.target.value)
-    }else{
-      setter(e.target.value)
+    if (value < min || value > max){
       setError(`Must be between ${min} and ${max}`)
     }
+    setter(e.target.value)
   }
 
   
   return(
     <>
-    {error && <MessageAlert variant="info">{error}</MessageAlert>}
+    {error && <MessageAlert variant="danger">{error}</MessageAlert>}
     {typeof width === "undefined" ? <LoadingSpinner/>
     :
     <> 
@@ -54,9 +55,10 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
             <Form.Control
               type="number"
               className="rangeSliderFormControl gameOptionsCardText"
-              value={state}
+              value={valueState}
               onChange = {handleSubmit}
               style={{"width":width}}
+              disabled={disabled}
             >
             </Form.Control>
           </Form.Label>  

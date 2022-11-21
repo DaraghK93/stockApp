@@ -49,6 +49,10 @@ function CreateGameScreen(){
     const maxTradingFee      = 300
     const minTrades          = 1
     const maxTrades          = 100
+    const maxWinningValue    = Math.round(startingBalance*1.15)
+    const minWinningValue    = Math.round(startingBalance*1.01)
+
+    console.log((gameWinningValue<=minWinningValue&&gameWinningValue>=maxWinningValue))
 
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
@@ -86,7 +90,6 @@ function CreateGameScreen(){
                             && (tradingFee>=minTradingFee && tradingFee<=maxTradingFee) 
                             && (maxTradesPerDay>=minTrades && maxTradesPerDay<=maxTrades))
                         }
-                        
                         >
                         <GameBalanceFeesTradeSelection
                             startingBalance = {startingBalance}
@@ -100,7 +103,15 @@ function CreateGameScreen(){
                 </Col>
                 :screen === 4 && gameType === "valueBased" ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={
+                            !(gameWinningValue>=minWinningValue&&gameWinningValue<=maxWinningValue)
+                        }
+                        
+                        >
                         <GameWinningValueSelection 
                             startingBalance = {startingBalance}
                             gameWinningValue = {gameWinningValue} 

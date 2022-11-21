@@ -27,10 +27,10 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
             /// If the game winning value not within the limits of max and min then reset it too as doesnt max sense 
             /// Dont reset it if still makes sense the user may just be going back to adjust some things 
             /// Note dont use max/min for this check the state may not be updated quick enough calculate it using starting balance 
-            if (gameWinningValue > Math.round(startingBalance*1.15) || gameWinningValue < Math.round(startingBalance*1.01)){
+            //if (gameWinningValue > Math.round(startingBalance*1.15) || gameWinningValue < Math.round(startingBalance*1.01)){
                 /// Set the ame winning value back within the limits to the recommended value
-                setGameWinningValue(Math.round(startingBalance*1.05))
-            }
+                //setGameWinningValue(Math.round(startingBalance*1.05))
+           // }
             setLoading(false)
         }
         /// Give the user a warning if they go over the average storck market retrun value of 10% for year 
@@ -50,7 +50,24 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
           <Row className="pb-2">
                 <Col>
                         <Card.Text className="gameOptionsCardText">
-                            Winning value of ${gameWinningValue.toLocaleString('en')} is {`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`} profit
+                            Winning value of  
+                            { gameWinningValue < min || gameWinningValue > max  ?
+                                <>
+                                 <span className="spanSpaceLeft red">${gameWinningValue.toLocaleString('en')}</span>
+                                 <span className="spanSpaceLeft">is</span>
+                                 <span className="spanSpaceLeft red spanSpaceRight">{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
+                                 <span>profit with starting balance of</span>
+                                 <span className="spanSpaceLeft red">${`${startingBalance}`}</span>
+                                </>
+                            :
+                                <>
+                                <span className="spanSpaceLeft" >${gameWinningValue.toLocaleString('en')}</span>
+                                <span className="spanSpaceLeft">is</span>
+                                <span className="spanSpaceLeft spanSpaceRight" >{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
+                                <span>profit with starting balance of</span>
+                                <span className="spanSpaceLeft">${`${startingBalance}`}</span>
+                                </>
+                            }
                         </Card.Text>
                 </Col>
             </Row>
@@ -77,6 +94,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                         min={min}
                         max={max}
                         label={"$"}
+                        disabled={false}
                     />
                 </Col>
             </Row> 

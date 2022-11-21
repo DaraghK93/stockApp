@@ -118,23 +118,28 @@ def lambda_handler(event: dict, context: object):
     # event = json.loads(event)
     # message = event['message']
     print("Event type:", type(event))
+    print("Event:", event)
+
     body = event['body']
     body = json.loads(body)
     print("Body type:", type(body))
+    print("Body:", body)
 
-    message = body[0]
-    print("Message:", message)
-    print("Message type:", type(message))
+    stock = body["stock"]
+    print("Stock type:", type(stock))
+    print("Stock:", stock)
+
+    # print("Message:", message)
+    # print("Message type:", type(message))
 
     # message = json.loads(message)
     # don't forget to json.loads() what you want to return
     try:
-        # recomm = give_recommendations(company)
-        recomm = "API successful!"
+        recomm = give_recommendations(stock)
         return {
         "statusCode": 200,
         "body": json.dumps({
-            "message": body
+            "message": recomm
         }),
         }
     except Exception as e:

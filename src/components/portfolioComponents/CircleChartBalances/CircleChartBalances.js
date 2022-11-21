@@ -13,15 +13,15 @@ function CircleChartBalances({ dataIn }) {
 
         for (var i = 0; i < dataIn.length; i++) {
             if (myDict.hasOwnProperty(item.stock.sector)) {
-                myDict[item.stock.sector] += 1;
+                // myDict[item.stock.sector] += 1;
 
                 // for (var i=0; i < dataIn.length; i++) {
                 //     myDict[item.stock.sector[i]] = (myDict[item.stock.sector[i]] || 0) +1 ;
                 // }
 
-                // data.push({ "name": item.stock.sector, "quantity": item.quantity, "value": item.stock.daily_change.currentprice * item.quantity })
-                // const testSet = new Set([item.stock.sector,  item.stock.daily_change.currentprice * item.quantity ])
-                // console.log(testSet)
+                data.push({ "name": item.stock.sector, "quantity": item.quantity, "value": item.stock.daily_change.currentprice * item.quantity })
+                const testSet = new Set([item.stock.sector,  item.stock.daily_change.currentprice * item.quantity ])
+                console.log(testSet)
             }
 
 

@@ -47,14 +47,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         {typeof gameWinningValue === "undefined" || loading ? <LoadingSpinner/>
         :
         <>  
-            {warning && <MessageAlert variant="warning">
-                <p>
-                    <span className="bolded">Warning:</span> A winning value of ${gameWinningValue} is greater than the average stock market return in a year (10%).
-                </p>
-                <p style={{"margin":"0"}}>
-                    Setting this may result in a long game.
-                </p>
-                </MessageAlert>}
+          
             <Row>
                 <Col>
                     <Card.Text className="gameOptionsCardSubTitle">Winning Value
@@ -78,9 +71,18 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                         min={min}
                         max={max}
                         label={"$"}
+                        secondLabel={`${Math.ceil(100 - (startingBalance/gameWinningValue)*100)}%`}
                     />
                 </Col>
-            </Row>
+            </Row> 
+            {warning && <MessageAlert variant="warning">
+                <p>
+                    <span className="bolded">Warning:</span> A winning value of ${gameWinningValue} is greater than the average stock market return in a year (10%).
+                </p>
+                <p style={{"margin":"0"}}>
+                    Setting this may result in a long game.
+                </p>
+                </MessageAlert>}
         </>
         }   
         </>

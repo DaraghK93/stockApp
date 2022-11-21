@@ -4,7 +4,7 @@ import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 import MessageAlert from '../MessageAlert/MessageAlert'
 
 
-function RangeSlider({max, min, setter, state, label, startWidth}){
+function RangeSlider({max, min, setter, state, label, startWidth, secondLabel}){
   const [width, setWidth] = useState(startWidth)
   const [error, setError] = useState("")
 
@@ -58,7 +58,8 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
               style={{"width":width}}
             >
             </Form.Control>
-          </Form.Label>
+          </Form.Label>  
+          <span className="gameOptionsCardText">{secondLabel}</span>
       </Col>
     </Row>
     <Row>

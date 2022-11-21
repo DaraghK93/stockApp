@@ -73,20 +73,24 @@ def read_data():
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
 
-def get_user_stocks(userID):
+def get_user_stocks(userName):
 
-    load_dotenv()
-    mongo_uri = os.getenv('MONGO_URI')
+    try:
+        load_dotenv()
+        mongo_uri = os.getenv('MONGO_URI')
 
-    # Setting the MongoDB connection
-    mongoClient = MongoClient(mongo_uri)
-    db = mongoClient.dev
-    collection = db['user-data']
-
-    user_data = collection.find_one({"email":"recommender_test@gmail.com"})
+        # Setting the MongoDB connection
+        mongoClient = MongoClient(mongo_uri)
+        db = mongoClient.dev
+    except Exception as e:
+        print(f'ERROR:Error encountered in get_user_stocks function.\nException Details:\n\t{e}')
+        return {
+            'Message': 'Error encountered in get_user_stocks function.',
+        }
+    collection = db['users']
+    user_data = collection.find_one({"username":userName})
     user_query = user_data['stocks']
-    user_query = user_query[0]
-    print(user_query)
+    # user_query = user_query[0]
     return user_query
 
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
@@ -188,4 +192,4 @@ def symbol_to_index(symbol):
 
 # print(give_recommendations("AAPL", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 # print(read_data())
-print(get_user_stocks)
+print(get_user_stocks("rectest"))

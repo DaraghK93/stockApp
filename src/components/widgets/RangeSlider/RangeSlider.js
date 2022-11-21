@@ -4,7 +4,7 @@ import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 import MessageAlert from '../MessageAlert/MessageAlert'
 
 
-function RangeSlider({max, min, setter, state, label, startWidth, disabled}){
+function RangeSlider({max, min, setter, state, label, startWidth, disabled,showError}){
   const [width, setWidth] = useState(startWidth)
   const [error, setError] = useState("")
   const [valueState, setValueState] = useState(state)
@@ -27,14 +27,12 @@ function RangeSlider({max, min, setter, state, label, startWidth, disabled}){
     }
   },[state])
 
-   console.log("VALUE STATE",valueState)
-   console.log("OTHER STATe",state)
 
   function handleSubmit(e) {
     setError("")
     setValueState(e.target.value)
     var value = parseInt(e.target.value)
-    if (value < min || value > max){
+    if ((value < min || value > max) && showError){
       setError(`Must be between ${min} and ${max}`)
     }
     setter(e.target.value)

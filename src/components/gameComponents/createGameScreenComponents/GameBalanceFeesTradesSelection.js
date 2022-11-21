@@ -32,6 +32,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         min={1000}
                         max={1000000}
                         startWidth={"6.75rem"}
+                        showError={true}
                     />
                 </Col>
             </Row>
@@ -60,6 +61,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         min={1}
                         max={300}
                         startWidth={"2.75rem"}
+                        showError={true}
                     />
                 </Col>
             </Row>
@@ -85,6 +87,7 @@ function GameBalanceFeesTradeSelection({startingBalance, setStartingBalance, tra
                         min={1}
                         max={100}
                         startWidth={"2rem"}
+                        showError={true}
                     />
                 </Col>
             </Row>

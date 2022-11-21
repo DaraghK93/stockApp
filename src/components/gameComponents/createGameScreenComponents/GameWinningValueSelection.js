@@ -98,7 +98,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                         min={min}
                         max={max}
                         label={"$"}
-                        disabled={false}
+                        showError={false}
                     />
                 </Col>
             </Row> 
@@ -112,10 +112,13 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                 </MessageAlert>}
             {error && <MessageAlert variant="danger">
                 <p>
-                    <span className="bolded">Error:</span> A winning value of ${gameWinningValue} is not within the limit ${min} and ${max}.
+                    <span className="bolded">Error:</span> A winning value of ${gameWinningValue} is not within the limit ${min} to ${max}.
                 </p>
                 <p style={{"margin":"0"}}>
-                    The max and min limits are set based upon the portfolio starting value of ${startingBalance} 
+                    The max and min limits are set based upon the portfolio starting value of ${startingBalance}.
+                </p>
+                <p>
+                     The min limit being 1% (${min}) profit and the max being 15% (${max}) profit.
                 </p>
                 </MessageAlert>}
         </>

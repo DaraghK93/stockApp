@@ -54,23 +54,16 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
           <Row className="pb-2">
                 <Col>
                         <Card.Text className="gameOptionsCardText">
-                            Winning value of  
+                           
                             { gameWinningValue < min || gameWinningValue > max  ?
-                                <>
-                                 <span className="spanSpaceLeft red">${gameWinningValue}</span>
-                                 <span className="spanSpaceLeft">is</span>
-                                 <span className="spanSpaceLeft red spanSpaceRight">{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
-                                 <span>profit with starting balance of</span>
-                                 <span className="spanSpaceLeft red">${`${startingBalance}`}</span>
-                                </>
+                                <Card.Text style={{"word-wrap": "break-word"}}>
+                                        Winning value of<text className="red"> ${gameWinningValue} </text>is<text className="red"> {(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}% </text>profit with starting balance of 
+                                        <text className="red"> ${`${startingBalance}`}</text>
+                                </Card.Text>
                             :
-                                <>
-                                <span className="spanSpaceLeft" >${gameWinningValue}</span>
-                                <span className="spanSpaceLeft">is</span>
-                                <span className="spanSpaceLeft spanSpaceRight" >{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
-                                <span>profit with starting balance of</span>
-                                <span className="spanSpaceLeft">${`${startingBalance}`}</span>
-                                </>
+                                <Card.Text>
+                                    Winning value of ${gameWinningValue} is {`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`} profit with starting balance of ${`${startingBalance}`}
+                                </Card.Text>
                             }
                         </Card.Text>
                 </Col>
@@ -126,5 +119,12 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         </>
     )
 }
+
+
+//<span className="spanSpaceLeft red">${gameWinningValue}</span>
+//                                 <span className="spanSpaceLeft">is</span>
+//                                 <span className="spanSpaceLeft red spanSpaceRight">{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
+ //                                <span>profit with starting balance of</span>
+   //                              <span className="spanSpaceLeft red">${`${startingBalance}`}</span>
 
 export default GameWinningValueSelection

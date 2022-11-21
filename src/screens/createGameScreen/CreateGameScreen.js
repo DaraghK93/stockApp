@@ -42,8 +42,14 @@ function CreateGameScreen(){
     /// Page 7 - The strting balance, trading fee and the maxTrades per day 
     
 
+    /// Constants ///
+    const minStartingBalance = 1000 
+    const maxStartingBalance = 1000000
+    const minTradingFee      = 1
+    const maxTradingFee      = 300
+    const minTrades          = 1
+    const maxTrades          = 100
 
-    //setGameType("valueBased")
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
@@ -76,7 +82,9 @@ function CreateGameScreen(){
                         setScreen={setScreen} 
                         gameType={gameType}
                         disableNextStep={
-                            !(startingBalance>= 1000 && startingBalance<=1000000) 
+                            !((startingBalance>= minStartingBalance && startingBalance<=maxStartingBalance) 
+                            && (tradingFee>=minTradingFee && tradingFee<=maxTradingFee) 
+                            && (maxTradesPerDay>=minTrades && maxTradesPerDay<=maxTrades))
                         }
                         
                         >

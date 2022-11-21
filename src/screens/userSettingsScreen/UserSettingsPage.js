@@ -15,6 +15,10 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 /// Layout ///
 import FormContainer from '../../components/layout/FormContainer/FormContainer';
 
+import { API } from 'aws-amplify';
+import { APIName } from '../../constants/APIConstants';
+import { useEffect } from 'react';
+
 function UserSettingsPage() {
   // constant password holds the value of the input password
   const [password, setPassword] = useState('');
@@ -71,10 +75,46 @@ function UserSettingsPage() {
         'Password must contain at least one number (0-9)!'
       );
     } else {
-      //changeUserDetails();
+      changeUserDetails();
     }
     console.log(gameImage);
   }
+
+  const changeUserDetails = async () => {
+    try {
+      setLoading(true);
+      // Configure the HTTP request
+      let path = `/api/auth//`;
+      let requestConfig = {
+        body: {
+          password: password,
+        },
+      };
+      // Sent the request to backend
+      const data = await API.post(APIName, path, requestConfig);
+      setPasswordChanged(true);
+      setLoading(false);
+      console.log('data = ' + data);
+      console.log(data.errormessage);
+    } catch (error) {
+      setLoading(false);
+      setPasswordErrorMessage(error.response.data.errormessage);
+    }
+  };
+
+  useEffect(() => {
+    /// getStockInfo ///
+    // Description:
+    //  Makes a GET request to the backend route /stock/:symbol
+    const getToken = async () => {
+      try {
+      } catch (error) {
+        // Log the error
+        console.log(error);
+      }
+    };
+    getToken();
+  }, []);
 
   //
   return (
@@ -120,7 +160,7 @@ function UserSettingsPage() {
             <Form.Label>Username</Form.Label>
             <Form.Control
               type='text'
-              placeholder='Enter Password'
+              placeholder='Enter Username'
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               required
@@ -130,7 +170,7 @@ function UserSettingsPage() {
             <Form.Label>Old Password</Form.Label>
             <Form.Control
               type='password'
-              placeholder='Confirm Password'
+              placeholder='Enter current password'
               value={password}
               onChange={(event) => setPassword(event.target.value)}
               required

@@ -46,6 +46,7 @@ app.use('/api/stock', require('./routes/stockRoutes'));
 app.use('/api/tweet', require('./routes/tweetRoutes'));
 app.use('/api/newsarticles',require('./routes/newsArticleRoutes'));
 app.use('/api/league',require('./routes/leagueRoutes'));
+app.use('/api/auth', require('./routes/authRoutes'));
 
 
 

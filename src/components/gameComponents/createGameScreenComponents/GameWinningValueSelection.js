@@ -38,7 +38,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
             setLoading(false)
         }
         /// Give the user a warning if they go over the average storck market retrun value of 10% for year 
-        if(gameWinningValue > startingBalance*1.10 && gameWinningValue < max && gameWinningValue < min){
+        if(gameWinningValue > startingBalance*1.10 && gameWinningValue <= max && gameWinningValue >= min){
             setWarning(true)
         }else{
             setWarning(false)

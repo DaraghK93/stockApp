@@ -32,7 +32,8 @@ function RangeSlider({max, min, setter, state, label, startWidth, disabled,showE
     setError("")
     setValueState(e.target.value)
     var value = parseInt(e.target.value)
-    if ((value < min || value > max) && showError){
+    console.log(value)
+    if ((value < min || value > max || isNaN(value)) && showError){
       setError(`Must be between ${min} and ${max}`)
     }
     setter(e.target.value)

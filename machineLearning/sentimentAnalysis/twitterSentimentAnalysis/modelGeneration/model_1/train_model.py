@@ -58,6 +58,15 @@ def main():
                 "negative",
             )
         )
+    for neuTweet in neuTweets:
+        features.append(
+            (
+                featureEngineeringFunctions.extractFeatures(
+                    neuTweet, posWordsList, negWordsList
+                ),
+                "neutral",
+            )
+        )
 
     ### Train models
     classifiers = {}

@@ -1,8 +1,0 @@
-evaulation metric,model,score
-accuracy,MLPClassifier,70.26%
-positive precision,AdaBoostClassifier,80.84%
-negative precision,LogisticRegression,79.24%
-positive recall,LogisticRegression,68.86%
-negative recall,AdaBoostClassifier,60.10%
-positive f_measure,LogisticRegression,72.80%
-negative f_measure,MLPClassifier,66.85%

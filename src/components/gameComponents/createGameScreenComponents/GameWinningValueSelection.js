@@ -47,7 +47,13 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         {typeof gameWinningValue === "undefined" || loading ? <LoadingSpinner/>
         :
         <>  
-          
+          <Row className="pb-2">
+                <Col>
+                        <Card.Text className="gameOptionsCardText">
+                            Winning value of ${gameWinningValue} is {`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`} profit
+                        </Card.Text>
+                </Col>
+            </Row>
             <Row>
                 <Col>
                     <Card.Text className="gameOptionsCardSubTitle">Winning Value
@@ -71,7 +77,6 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                         min={min}
                         max={max}
                         label={"$"}
-                        secondLabel={`${Math.ceil(100 - (startingBalance/gameWinningValue)*100)}%`}
                     />
                 </Col>
             </Row> 

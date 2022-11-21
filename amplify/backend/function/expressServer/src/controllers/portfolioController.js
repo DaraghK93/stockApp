@@ -1,4 +1,5 @@
 const Portfolio = require('../models/portfolio.model');
+const League = require('../models/league.model');
 const PortfolioService = require('../services/portfolioServices')
 const Stock = require('../models/stock.model')
 const mongoose = require('mongoose')
@@ -137,6 +138,19 @@ const buyStockMarketOrder = async (req, res, next) => {
       )
     }
     const value = stock.daily_change.currentprice * req.body.units
+    if (req.body.leagueId){
+      if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false){
+        // check that the portfolio ID is correct
+        res.status(404)
+        res.errormessage = 'No league found.'
+        return next(
+          new Error(
+            'League does not exist.'
+          )
+        )
+      }
+  }
+    const league = League.findOne({_id: req.body.leagueId})
     if (value > portfolio.remainder) {
       // check that the user has sufficient funds to complete
       res.status(400)

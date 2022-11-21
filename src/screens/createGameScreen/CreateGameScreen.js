@@ -52,7 +52,6 @@ function CreateGameScreen(){
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
 
-    console.log((gameWinningValue<=minWinningValue&&gameWinningValue>=maxWinningValue))
 
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>

@@ -57,7 +57,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                             Winning value of  
                             { gameWinningValue < min || gameWinningValue > max  ?
                                 <>
-                                 <span className="spanSpaceLeft red">${gameWinningValue.toLocaleString('en')}</span>
+                                 <span className="spanSpaceLeft red">${gameWinningValue}</span>
                                  <span className="spanSpaceLeft">is</span>
                                  <span className="spanSpaceLeft red spanSpaceRight">{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
                                  <span>profit with starting balance of</span>
@@ -65,7 +65,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                                 </>
                             :
                                 <>
-                                <span className="spanSpaceLeft" >${gameWinningValue.toLocaleString('en')}</span>
+                                <span className="spanSpaceLeft" >${gameWinningValue}</span>
                                 <span className="spanSpaceLeft">is</span>
                                 <span className="spanSpaceLeft spanSpaceRight" >{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
                                 <span>profit with starting balance of</span>

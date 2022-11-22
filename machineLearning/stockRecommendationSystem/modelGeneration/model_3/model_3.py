@@ -73,8 +73,7 @@ def read_data():
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
 
-def get_user_stocks(userName):
-
+def get_user_stock(userName):
     try:
         load_dotenv()
         mongo_uri = os.getenv('MONGO_URI')
@@ -105,33 +104,35 @@ def get_user_stocks(userName):
         stock_ticker = stock_data["symbol"]
         stock_name = stock_data["shortname"]
 
-        return "Stock name:", stock_name, "Stock ticker:", stock_ticker
+        return stock_ticker
     except Exception as e:
-        print(f'ERROR:Error encountered in get_user_stocks function.\nException Details:\n\t{e}')
+        print(f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
         return {
-            'Message': 'Error encountered in get_user_stocks function.',
+            'Message': 'Error encountered in get_user_stock function.',
         }
 
 
-def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
+def give_recommendations(username,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
 
     Args:
-        input (string): The input to this function takes the form of a valid ticker symbol from the dataset, which is any company currently listed on the S&P500. 
+        username (string): The username to this function takes the form of a valid ticker symbol from the dataset, which is any company currently listed on the S&P500. 
         print_recommendation (bool, optional): If you would like to print out the recommendations in a slightly nicer format. Defaults to False.
         print_recommendation_longbusinesssummary (bool, optional): If you would like to print out the long businesssummaries for the recommended companies. Defaults to False.
         print_sectors (bool, optional): If you would like to print out the sectors of the recommended companies. Defaults to False.
 
     Returns:
-        list: This function returns a list of the 20 ticker symbols (strings) of the 20 companies that are closest in similarity to the input. 
+        list: This function returns a list of the 20 ticker symbols (strings) of the 20 companies that are closest in similarity to the first stock owned by the user. 
     """
     try:
+        
         # Read in stock data from the csv file  
         stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
         # Read in pickle file of vector data
         cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\data\cosine_sim_data.pkl')
 
         # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
+        input = get_user_stock(username)
         index = symbol_to_index(input)
         index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
         stocks_recomm = stocks['symbol'].loc[index_recomm].values
@@ -210,6 +211,4 @@ def symbol_to_index(symbol):
         }    
 
 
-# print(give_recommendations("AAPL", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
-# print(read_data())
-print(get_user_stocks("dknee1"))
+print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))

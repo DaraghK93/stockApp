@@ -38,9 +38,9 @@ function CreateGameScreen(){
     /// Page 5 - Stock types, user can define custom stocks to trade 
     const [stockTypes, setStockTypes] = useState(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
-    //const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
-    //const [minSocialRating, setSocialRating]         = useState("")
-    //const [minGovernanceRating, setGovernanceRating] = useState("")
+    const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
+    const [minSocialRating, setMinSocialRating]         = useState("")
+    const [minGovernanceRating, setMinGovernanceRating] = useState("")
     /// Page 7 - The strting balance, trading fee and the maxTrades per day 
     
 
@@ -53,6 +53,9 @@ function CreateGameScreen(){
     const maxTrades          = 100
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
+
+
+    console.log(minEnvironmentRating,minSocialRating,minGovernanceRating)
 
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
@@ -138,7 +141,9 @@ function CreateGameScreen(){
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                         <GameESGRestrictionsSelection
-                            
+                            setMinEnvironmentRating={setMinEnvironmentRating}
+                            setMinSocialRating={setMinSocialRating}
+                            setMinGovernanceRating={setMinGovernanceRating}
                         />
                     </GameCreationOptionsCard>
                 </Col>

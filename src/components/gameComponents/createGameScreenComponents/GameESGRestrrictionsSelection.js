@@ -7,7 +7,7 @@ import GovernanceRating from "../../stockVisualisationComponents/ESGRatingSlider
 import EvilRating from "../../stockVisualisationComponents/ESGRatingSliders/EvilRating";
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
 
-function GameESGRestrictionsSelection(){
+function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRating,setMinGovernanceRating}){
     const [ESGGameType,setESGGameType] = useState()
 
 
@@ -16,36 +16,43 @@ function GameESGRestrictionsSelection(){
        "No Restrictions" : {
             "description":"For people with No Conscious",
             "stocks":490,
-            "eRating":0,
-            "sRating":0,
-            "gRating":5
+            "rating":5,
+            "minEnvironmentRating":0,
+            "minSocialRating":0,
+            "minGovernanceRating":0
         },
         
       "Environment" : {
             "description": "For the Tree Huggers",
             "stocks":408,
-            "eRating":4,
-            "sRating":0,
-            "gRating":0
+            "rating":4,
+            "minEnvironmentRating":700,
+            "minSocialRating":0,
+            "minGovernanceRating":0
         },
         "Social":{
             "description":"For Human Rights Activists",
             "stocks":412,
-            "eRating":0,
-            "sRating":2.5,
-            "gRating":0
+            "rating":2.5,
+            "minEnvironmentRating":0,
+            "minSocialRating":400,
+            "minGovernanceRating":0
         },
        "Governance":{
             "description": "For the Ethical Investors",
             "stocks":338,
-            "eRating":0,
-            "sRating":0,
-            "gRating":3.5
+            "rating":3.5,
+            "minEnvironmentRating":0,
+            "minSocialRating":0,
+            "minGovernanceRating":600
         }
     }
 
     const handleToggle = (e) => { 
         setESGGameType(e.currentTarget.value)
+        setMinEnvironmentRating(ESGRating[e.currentTarget.value].minEnvironmentRating)
+        setMinSocialRating(ESGRating[e.currentTarget.value].minSocialRating)
+        setMinGovernanceRating(ESGRating[e.currentTarget.value].minGovernanceRating)
     }
 
     return(
@@ -101,13 +108,13 @@ function GameESGRestrictionsSelection(){
                                 {ESGRating[value].stocks} stocks to choose from
                             </Card.Text>
                             { value === "Environment" ?
-                                <EnvironmentalRating erating={ESGRating[value].eRating} />
+                                <EnvironmentalRating erating={ESGRating[value].rating} />
                             :  value === "Social" ?
-                                <SocialRating srating={ESGRating[value].sRating} />
+                                <SocialRating srating={ESGRating[value].rating} />
                             : value === "Governance" ?
-                                <GovernanceRating grating={ESGRating[value].gRating} />
+                                <GovernanceRating grating={ESGRating[value].rating} />
                             :
-                                <EvilRating erating={ESGRating[value].gRating} />
+                                <EvilRating erating={ESGRating[value].rating} />
                             }
                         </Card.Body>
                     </Card>

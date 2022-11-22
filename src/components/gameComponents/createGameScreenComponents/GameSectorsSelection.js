@@ -62,7 +62,7 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             <Row className="pb-2">
                 <ScreenSelectionRadioButton choices={sectorChoice} state={screen} setter={setScreen}/>
             </Row>
-                <Row md={4} xs={1}>
+                <Row className="py-3" md={4} xs={1}>
                 {individualSectors.map((sector, idx) => (
                                                     <Col
                                                         key={`Col-${sector}`}

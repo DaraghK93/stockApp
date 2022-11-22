@@ -75,12 +75,15 @@ def read_data():
 
 def get_user_stock(userName):
     try:
+        # Load the MongoURI from the dotenv file (Localhost)
         load_dotenv()
         mongo_uri = os.getenv('MONGO_URI')
 
         # Setting the MongoDB connection
         mongoClient = MongoClient(mongo_uri)
+        # Setting the DB name
         db = mongoClient.dev
+        # Setting the DB collection names
         user_collection = db['users']
         portfolio_collection = db['portfolios']
         holdings_collection = db['holdings']
@@ -89,20 +92,24 @@ def get_user_stock(userName):
         # Get user information
         user_data = user_collection.find_one({"username":userName})
         
-        # Get user portfolio IDs
+        # Get user portfolio IDs - For now just getting the first one owner by the user
         portfolios = user_data['portfolios']
         portfolio = portfolios[0]
 
+        # Get the portfolio data
         portfolio_data = portfolio_collection.find_one({"_id":portfolio})
+        
+        # Get the IDs of the holdings within the portfolio - For now just takes the first holding
         holding_IDs = portfolio_data['holdings']
         holding_ID = holding_IDs[0]
 
+        # Get holding data
         holding_data = holdings_collection.find_one({"_id":holding_ID})
         
+        # Get stock ID and find the symbol based on that
         stock_ID = holding_data["stockId"]
         stock_data = stocks_collection.find_one({"_id":stock_ID})
         stock_ticker = stock_data["symbol"]
-        stock_name = stock_data["shortname"]
 
         return stock_ticker
     except Exception as e:

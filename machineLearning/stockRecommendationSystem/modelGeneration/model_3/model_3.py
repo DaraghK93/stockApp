@@ -120,10 +120,10 @@ def get_user_stock(userName):
 
 
 def give_recommendations(username,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
-    """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
+    """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the username of a user and from there finds the symbol of the first stock from their first portfolio. It then returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
 
     Args:
-        username (string): The username to this function takes the form of a valid ticker symbol from the dataset, which is any company currently listed on the S&P500. 
+        username (string): The input to this function takes the form of a valid username from the database. 
         print_recommendation (bool, optional): If you would like to print out the recommendations in a slightly nicer format. Defaults to False.
         print_recommendation_longbusinesssummary (bool, optional): If you would like to print out the long businesssummaries for the recommended companies. Defaults to False.
         print_sectors (bool, optional): If you would like to print out the sectors of the recommended companies. Defaults to False.

@@ -13,7 +13,6 @@ const getHost = async () => {
       HOST = process.env.HOST;
     } else if (process.env.ENVIRONMENT === 'prod') {
       /// Production environment, hard coded for now until I can get the URL dynamically
-      HOST = 'https://master.d2l3aeky8jssr5.amplifyapp.com';
       HOST = await getParamFromAWS('HOST');
     }
     return HOST;

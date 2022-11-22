@@ -32,12 +32,6 @@ const addTweet = async (req, res, next) => {
 const getTweets = async (req, res, next) => {
   try {
     const tweet = await Tweet.find({ stock: req.params.stock }).limit(5);
-    if (!tweet.length) {
-      // No stock found
-      res.status(404);
-      res.errormessage = 'Tweet not found';
-      return next(new Error('Tweet not found'));
-    }
 
     res.json({ tweet });
   } catch (err) {

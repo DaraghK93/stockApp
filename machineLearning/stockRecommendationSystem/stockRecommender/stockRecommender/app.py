@@ -1,12 +1,9 @@
-import json
 # Module imports
+import json
 import pandas as pd
-# import numpy as np
 import os
 
-# from sklearn.metrics.pairwise import cosine_similarity
-# from sentence_transformers import SentenceTransformer
-
+# Setting directory path so the pickle and csv files can be read in
 dir_path = os.path.dirname(os.path.realpath(__file__))
     
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
@@ -108,8 +105,21 @@ def symbol_to_index(symbol):
     
 
 def lambda_handler(event, context):
+    """This is the lambda handler function. It runs the recommender function and returns it as a JSON string.
+
+    Args:
+        event (JSON): https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
+        context (JSON): https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
+
+    Returns:
+        (JSON): A return with a HTTP status code of 200 and a JSON body of the 20 recommendations 
+    """
+    body = event['body']
+    body = json.dumps(body)
+    body = json.loads(body)
+    company = body["stock"]
     try:
-        recomm = give_recommendations("AAPL")
+        recomm = give_recommendations(company)
         return {
         "statusCode": 200,
         "body": json.dumps({
@@ -121,4 +131,3 @@ def lambda_handler(event, context):
         return {
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
         }
-

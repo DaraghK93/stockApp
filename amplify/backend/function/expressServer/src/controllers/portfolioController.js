@@ -188,7 +188,7 @@ const sellStockMarketOrder = async (req, res, next) => {
       res.errormessage = 'Details missing for a transaction'
       return next(
         new Error(
-          'The client has not sent the required information to buy stock',
+          'The client has not sent the required information to sell stock',
         ),
       )
     }

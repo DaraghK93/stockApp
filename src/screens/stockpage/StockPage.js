@@ -31,12 +31,6 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
-  const twitterSentimentData = [
-    { name: 'Positive', value: 100 },
-    { name: 'Negative', value: 98 },
-    { name: 'Neutral', value: 26 }
-  ];
-
     function redOrGreen() {
         if (parseFloat(stock.daily_change.absoluteChange) >= 0) {
             lineColor = "#00C49F"
@@ -132,7 +126,7 @@ function StockPage() {
                             <ChartCard title={"News Sentiment"} data={stock.newsSentiment} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
-                            <ChartCard title={"Twitter Sentiment"} data={twitterSentimentData} />
+                            <ChartCard title={"Twitter Sentiment"} data={stock.twitterSentiment} />
                         </Col>
                     </Row>
                     <Row md={2} xs={1}>

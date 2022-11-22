@@ -76,14 +76,26 @@ a:link, a:visited, a:hover, a:active {
 
 
 .twitter_header {
-    margin: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 0.125rem;
+    margin-top: 0.125rem;
+    margin-right: 0.125rem;
+    // align-content: center;
+    align-items: right;
 }
 
-.twitter_image >img {
-    margin-left: 10rem;
-    margin-top: 5%;
- max-width: 3rem;
- align-items: right;
+.twitter_image {
+    text-align: right;
+    vertical-align: middle;
+    margin: auto
 }
+.twitter_image >img {
+    margin: 5%;
+    padding-top: 0.3rem;
+ max-width: 3rem;
+}
+
+
+
 
   

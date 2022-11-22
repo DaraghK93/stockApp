@@ -137,7 +137,9 @@ function CreateGameScreen(){
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <GameESGRestrictionsSelection/>
+                        <GameESGRestrictionsSelection
+                            
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :

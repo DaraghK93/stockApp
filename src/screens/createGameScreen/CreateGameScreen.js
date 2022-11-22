@@ -9,6 +9,7 @@ import GameDurationSelection from '../../components/gameComponents/createGameScr
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
 import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
+import GameESGRestrictionsSelection from '../../components/gameComponents/createGameScreenComponents/GameESGRestrrictionsSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -136,7 +137,7 @@ function CreateGameScreen(){
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the ESG restrictions screen</h1>
+                        <GameESGRestrictionsSelection/>
                     </GameCreationOptionsCard>
                 </Col>
                 :

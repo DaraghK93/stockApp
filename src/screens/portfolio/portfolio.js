@@ -26,7 +26,7 @@ function PortfolioPage() {
             ],
             remainder: 500,
             holdings: [
-                { stock: { longname: "Microsoft Inc.", symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 20 }, sector: "Healthcare" }, quantity: 5 },
+                { stock: { longname: "Microsoft Inc.", symbol: 'MSFT', logo: "https://blogs.microsoft.com/wp-content/uploads/prod/2012/08/8867.Microsoft_5F00_Logo_2D00_for_2D00_screen.jpg", daily_change: { currentprice: 100 }, sector: "Healthcare" }, quantity: 5 },
                 { stock: { longname: "Amazon", symbol: 'AMZN', logo: "https://1000logos.net/wp-content/uploads/2016/10/Amazon-logo-meaning.jpg", daily_change: { currentprice: 40 }, sector: "Healthcare" }, quantity: 2 },
                 { stock: { longname: "Apple Inc", symbol: 'AAPL', logo: "https://cdn.mos.cms.futurecdn.net/6bTF6C2QiWXvhi33fJi3AC.jpg", daily_change: { currentprice: 10 }, sector: "Science" }, quantity: 3 },
                 { stock: { longname: "Johnson and Johnson", symbol: 'JNJ', logo: "https://1000logos.net/wp-content/uploads/2020/04/Logo-Johnson-Johnson.jpg", daily_change: { currentprice: 20 }, sector: "Pharmacy" }, quantity: 1 },

@@ -24,9 +24,10 @@ function TableHoldings({ data }) {
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
     // for pagination
-
-
-
+    const [postsPerPage, setPostsPerPage] = useState(5)
+    const pageNumbers = [];
+    const [currentPage, setCurrentPage] = useState(1)
+    const totalPosts = tableData.length;
 
     const columns = [
         { label: "Logo", accessor: "logo", sortable: false },
@@ -35,6 +36,7 @@ function TableHoldings({ data }) {
         { label: "", accessor: "expand", sortable: false },
     ];
 
+    // sorting functions
     const handleSorting = (sortField, sortOrder) => {
         if (sortField) {
             const sorted = [...tableData].sort((a, b) => {
@@ -57,6 +59,7 @@ function TableHoldings({ data }) {
         handleSorting(accessor, sortOrder);
     }
 
+    // expand row function
     const handleExpandRow = (event, userId) => {
         const currentExpandedRows = expandedRows;
         const isRowExpanded = currentExpandedRows.includes(userId);
@@ -75,65 +78,18 @@ function TableHoldings({ data }) {
     }
 
 
-    // const ShowData = () => {
-
-    //     const { postsPerPage, currentPage, data } = this.state;
-    //     const indexOfLastPage = currentPage * postsPerPage;
-    //     const indexOfFirstPage = indexOfLastPage - postsPerPage;
-    //     const currentPosts = data.slice(indexOfFirstPage, indexOfLastPage)
-  
-    //    try{
-    //    return currentPosts.map((item, index) => {
-    //      return(
-    //        <tbody>
-    //        <tr>
-    //        <td>{postsPerPage * (currentPage-1)+index+1}</td>
-    //        <td>{item.userId}</td>
-    //        <td>{item.title}</td>
-    //        <td>{item.completed.toString()}</td>
-    //        </tr>
-    //        </tbody>
-    //      )
-    //    })
-    //  }catch(e){
-    //    alert(e.message)
-    //  }
-    //  }
-
-
-    const ShowPagination = () => {
-        const [postsPerPage, setPostsPerPage] = useState(5)
-        const pageNumbers = [];
-        const [currentPage, setCurrentPage] = useState()
-        const totalPosts = tableData.length;
- 
-
-        for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
-            pageNumbers.push(i)
-        }
-
-        const pagination = (pageNumbers) => {
-            setCurrentPage(pageNumbers)
-        }
-
-        return (
-            <nav>
-                <ul className="pagination">
-                    {pageNumbers.map(number => (
-                        <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-                            <button onClick={() => pagination(number)} className="page-link"> {number} </button>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
-        )
+    //pagination
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+        pageNumbers.push(i)
+    }
+    const pagination = (pageNumbers) => {
+        setCurrentPage(pageNumbers)
     }
 
-
-
-
-
-
+    // currentview
+    const indexOfLastPage = currentPage * postsPerPage;
+    const indexOfFirstPage = indexOfLastPage - postsPerPage;
+    const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
 
     return (
         <>
@@ -165,15 +121,13 @@ function TableHoldings({ data }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {tableData.map((item) => (
+                        {currentPosts.map((item) => (
                             <>
                                 <tr
                                     key={item.symbol}
                                 >
                                     <td key="logo"><Link to={`/stock/${item.symbol}`}><img src={item.logo} style={{ width: "5rem" }} alt="company logo"></img></Link></td>
-                                    {/* <td key="ticker_symbol">{item.symbol}</td> */}
                                     <td key="value">${item.value.toFixed(2)}</td>
-                                    {/* <td key="quantity">{item.quantity.toFixed(2)}</td> */}
                                     <td key="trade_button"><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></td>
                                     <td key="button">
                                         <Button style={{ padding: 0, margin: 0, color: "black" }}
@@ -204,10 +158,20 @@ function TableHoldings({ data }) {
                                 </>
                             </>
                         ))}
+
+
                     </tbody>
                 </Table>
                 <div>
-                    <ShowPagination />
+                    <nav>
+                        <ul className="pagination">
+                            {pageNumbers.map(number => (
+                                <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                                    <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
                 </div>
             </Container>
         </>

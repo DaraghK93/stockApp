@@ -1,25 +1,12 @@
 import { Table, Container, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState } from "react"
+import { useState, Fragment } from "react"
 import { ChevronUp, ChevronDown } from "react-feather"
 
 function TableHoldings({ data }) {
-    var mytableData = [];
-
-    data.forEach(item => {
-        mytableData.push({
-            "logo": item.stock.logo,
-            "longname": item.stock.longname,
-            "symbol": item.stock.symbol,
-            "value": item.stock.daily_change.currentprice * item.quantity,
-            "quantity": item.quantity,
-            "price": item.stock.daily_change.currentprice
-        })
-    })
-
     const [sortField, setSortField] = useState("");
     const [order, setOrder] = useState("asc");
-    const [tableData, setTableData] = useState(mytableData)
+    const [tableData, setTableData] = useState(data)
     // for rows that expand
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
@@ -44,6 +31,7 @@ function TableHoldings({ data }) {
     const handleSorting = (sortField, sortOrder) => {
         if (sortField) {
             const sorted = [...tableData].sort((a, b) => {
+                // console.log(sortField)
                 return (
                     a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
                         numeric: true,
@@ -80,7 +68,6 @@ function TableHoldings({ data }) {
         setExpandedRows(newExpandedRows);
     }
 
-
     //pagination
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNumbers.push(i)
@@ -91,7 +78,7 @@ function TableHoldings({ data }) {
 
     //change amount of posts shown
     const changePostsPerPage = (e) => {
-        if (e.target.id != "all"){
+        if (e.target.id !== "all") {
             setPostsPerPage(e.target.id)
         }
         else {
@@ -102,10 +89,10 @@ function TableHoldings({ data }) {
     return (
         <>
             <Container>
-                <Table style={{ fontSize: "90%" }}>
+                <Table>
 
                     <thead>
-                        <tr>
+                        <tr key="cols">
                             {columns.map(({ label, accessor, sortable }) => {
                                 function arrow() {
                                     if (sortable === true) {
@@ -130,14 +117,29 @@ function TableHoldings({ data }) {
                     </thead>
                     <tbody>
                         {currentPosts.map((item) => (
-                            <>
-                                <tr
-                                    key={item.symbol}
-                                >
-                                    <td key="logo"><Link to={`/stock/${item.symbol}`}><img src={item.logo} style={{ width: "5rem" }} alt="company logo"></img></Link></td>
-                                    <td key="value">${item.value.toFixed(2)}</td>
-                                    <td key="trade_button"><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></td>
-                                    <td key="button">
+                            (<Fragment key={`${item.symbol}-fragment`}>
+                                <tr key={item.symbol} style={{ height: "50px" }}>
+                                    <td key={item.logo}><Link to={`/stock/${item.symbol}`}>
+                                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                            <div style={{
+                                                width: "3.5rem",
+                                                height: "1.5rem",
+                                            }}>
+                                                <img src={item.logo} style={{
+                                                    maxWidth: "100%",
+                                                    height: "auto",
+                                                    display: "block",
+                                                    objectFit: "contain"
+
+                                                }} alt="company logo"></img>
+                                            </div>
+                                        </div>
+                                    </Link></td>
+
+
+                                    <td key={item.value.toFixed(2)}>${item.value.toFixed(2)}</td>
+                                    <td key={`/stock/${item.symbol}/confirmorder`}><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></td>
+                                    <td key={`${item.symbol}/button`}>
                                         <Button style={{ padding: 0, margin: 0, color: "black" }}
 
                                             variant="link"
@@ -151,52 +153,52 @@ function TableHoldings({ data }) {
                                 <>
                                     {
                                         expandedRows.includes(item.symbol) ?
-                                            <tr>
-                                                <td colSpan="6">
+                                            <tr key={`${item.symbol}-expanded`}>
+                                                <td key={`${item.symbol}-expanded-row`} colSpan="6">
                                                     <div>
                                                         <h3>{item.longname}</h3>
-                                                        <ul style={{ listStyleType: "none" }}>
-                                                            <li><strong>Shares held: </strong>{item.quantity.toFixed(2)} stocks</li>
-                                                            <li><strong>Current Price: </strong>${item.price.toFixed(2)}</li>
+                                                        <ul key={`${item.symbol}-expanded-info`} style={{ listStyleType: "none" }}>
+                                                            <li key={item.quantity.toFixed(2)}><strong>Shares held: </strong>{item.quantity.toFixed(2)} stocks</li>
+                                                            <li key={item.currentprice.toFixed(2)}><strong>Current Price: </strong>${item.currentprice.toFixed(2)}</li>
                                                         </ul>
                                                     </div>
                                                 </td>
                                             </tr> : null
                                     }
                                 </>
-                            </>
+                            </Fragment>)
                         ))}
                     </tbody>
                 </Table>
-                <div>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                     <nav>
-                        <>
-                            <ul className="pagination">
-                                {pageNumbers.map(number => (
-                                    <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-                                        <button onClick={() => pagination(number)} className="page-link"> {number} </button>
-                                    </li>
-
-                                ))}
-                                <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        Show {postsPerPage}
-                                    </Dropdown.Toggle>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                        <Dropdown.Item id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
-                                        <Dropdown.Item id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
-                                        <Dropdown.Item id={"all"} onClick={changePostsPerPage}>Show all ({totalPosts})</Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                            </ul>
-                        </>
+                        <ul key="pagination" className="pagination">
+                            {pageNumbers.map(number => (
+                                <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                                    <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                                </li>
+                            ))}
+                        </ul>
                     </nav>
+
+                    <ul className="pagination">
+                        <Dropdown className="d-inline mx-2">
+                            <Dropdown.Toggle
+                                id="dropdown-autoclose-true">
+                                Show {postsPerPage}
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                    </ul>
                 </div>
             </Container>
         </>
     )
-
 }
 
 export default TableHoldings;

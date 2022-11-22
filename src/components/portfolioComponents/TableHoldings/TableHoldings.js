@@ -192,12 +192,10 @@ function TableHoldings({ data }) {
                                             <tr>
                                                 <td colSpan="6">
                                                     <div>
-                                                        <h2>{item.longname}</h2>
+                                                        <h3>{item.longname}</h3>
                                                         <ul style={{ listStyleType: "none" }}>
                                                             <li><strong>Shares held: </strong>{item.quantity.toFixed(2)} stocks</li>
                                                             <li><strong>Current Price: </strong>${item.price.toFixed(2)}</li>
-                                                            <li></li>
-
                                                         </ul>
                                                     </div>
                                                 </td>

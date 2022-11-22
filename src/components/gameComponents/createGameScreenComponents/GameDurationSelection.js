@@ -18,8 +18,8 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
             <Card.Title className="gameOptionsCardTitle">Start Date</Card.Title>
             <Row>
                 <Col>
-                    <Card.Text className="gameDetailsCardText">Games with a start date of today begin immediately</Card.Text>
-                    <Card.Text className="gameDetailsCardText">Scheduled games begin at 9 a.m on the scheduled start date</Card.Text>
+                    <Card.Text className="gameOptionsCardText">Games with a start date of today begin immediately</Card.Text>
+                    <Card.Text className="gameOptionsCardText">Scheduled games begin at 9 a.m on the scheduled start date</Card.Text>
                 </Col>
             </Row>
             <Row className=" py-5">
@@ -35,12 +35,12 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
             </>
             :
             <>
-            <Card.Title className="gameDetailsCardTitle">Start Date and End Date</Card.Title>
+            <Card.Title className="gameOptionsCardTitle">Start Date and End Date</Card.Title>
             <Row>
                 <Col>
-                    <Card.Text className="gameDetailsCardText" >Games with a start date of today begin immediately</Card.Text>
-                    <Card.Text className="gameDetailsCardText" >Scheduled games begin at 9 a.m on the scheduled start date</Card.Text>
-                    <Card.Text className="gameDetailsCardText" >Games end at 9 p.m. on the selected end date</Card.Text>
+                    <Card.Text className="gameOptionsCardText" >Games with a start date of today begin immediately</Card.Text>
+                    <Card.Text className="gameOptionsCardText" >Scheduled games begin at 9 a.m on the scheduled start date</Card.Text>
+                    <Card.Text className="gameOptionsCardText" >Games end at 9 p.m. on the selected end date</Card.Text>
                 </Col>
             </Row>
             <Row className=" py-5">

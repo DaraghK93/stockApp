@@ -138,9 +138,10 @@ const buyStockMarketOrder = async (req, res, next) => {
       )
     }
     const value = stock.daily_change.currentprice * req.body.units
-    if (req.body.leagueId){
-      if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false){
-        // check that the portfolio ID is correct
+    let transactionFee
+    if (portfolio.leagueId){
+      if (mongoose.Types.ObjectId.isValid(portfolio.leagueId) === false){
+        // check that the league ID is correct
         res.status(404)
         res.errormessage = 'No league found.'
         return next(
@@ -149,9 +150,26 @@ const buyStockMarketOrder = async (req, res, next) => {
           )
         )
       }
+      else {
+      const league = await League.findOne({_id: portfolio.leagueId})
+      if (league===null) {
+        res.status(404)
+        res.errormessage = 'No league found.'
+        return next(
+          new Error(
+            'League does not exist.'
+          )
+        )
+      }
+      else {
+        transactionFee = league.tradingFee
+      }
+    }
   }
-    const league = League.findOne({_id: req.body.leagueId})
-    if (value > portfolio.remainder) {
+  else {
+    transactionFee = 0
+  }
+    if ((transactionFee + value) > portfolio.remainder) {
       // check that the user has sufficient funds to complete
       res.status(400)
         res.errormessage = 'Insufficient Funds'
@@ -161,8 +179,9 @@ const buyStockMarketOrder = async (req, res, next) => {
           )
         )
     }
+
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value)
+    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee)
 
 res.json(newPortfolio)
   }

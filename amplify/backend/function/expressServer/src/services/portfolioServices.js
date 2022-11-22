@@ -45,7 +45,7 @@ const createPortfolio = async (portfolioData) => {
       }
 }
 
-const buyStock = async (buyData, portfolioRemainder,value) => {
+const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
     // creates a date so that it is known when it was created
     try{
         const date = new Date()
@@ -59,7 +59,7 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
         date: date,
         buyOrSell: buyData.buyOrSell,
         orderType: buyData.orderType,
-        transactionCost: buyData.transactionCost
+        transactionCost: transactionFee
     })
 
     // finds existing holdings in the db for that portfolio
@@ -74,7 +74,7 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
         // update the db
         newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
         // calculate the remaining user funds
-        const newRemainder = portfolioRemainder - transaction.value
+        const newRemainder = portfolioRemainder - transaction.value - transaction.transactionCost
         // create transaction object
         await transaction.save()
         // update the portfolio, adding a transaction object ID and updating the remainder

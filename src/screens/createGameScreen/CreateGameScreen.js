@@ -7,6 +7,7 @@ import GameCreationOptionsCard from '../../components/gameComponents/createGameS
 import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
+import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -30,8 +31,8 @@ function CreateGameScreen(){
     const [startingBalance, setStartingBalance] = useState(100000)
     const [tradingFee, setTradingFee] = useState(20)
     const [maxTradesPerDay,setMaxTradesPerDay] = useState(5)
-    /// Page 4 - Target value, only used if the game is value based 
-    //const [gameTargetValue, setGameTargetValue] = useState()
+    /// Page 4 - Winning value, only used if the game is value based 
+    const [gameWinningValue, setGameWinningValue] = useState()
     /// Page 5 - Stock types, user can define custom stocks to trade 
     //const [stockTypes, setStockTypes] = useState()
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
@@ -41,8 +42,17 @@ function CreateGameScreen(){
     /// Page 7 - The strting balance, trading fee and the maxTrades per day 
     
 
+    /// Constants ///
+    const minStartingBalance = 1000 
+    const maxStartingBalance = 1000000
+    const minTradingFee      = 1
+    const maxTradingFee      = 300
+    const minTrades          = 1
+    const maxTrades          = 100
+    const maxWinningValue    = Math.round(startingBalance*1.15)
+    const minWinningValue    = Math.round(startingBalance*1.01)
 
-    //setGameType("valueBased")
+
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
@@ -70,7 +80,16 @@ function CreateGameScreen(){
                 </Col>
                 :screen === 3 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={
+                            !((startingBalance>= minStartingBalance && startingBalance<=maxStartingBalance) 
+                            && (tradingFee>=minTradingFee && tradingFee<=maxTradingFee) 
+                            && (maxTradesPerDay>=minTrades && maxTradesPerDay<=maxTrades))
+                        }
+                        >
                         <GameBalanceFeesTradeSelection
                             startingBalance = {startingBalance}
                             setStartingBalance = {setStartingBalance}
@@ -83,8 +102,20 @@ function CreateGameScreen(){
                 </Col>
                 :screen === 4 && gameType === "valueBased" ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the winning value screen</h1>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={
+                            !(gameWinningValue>=minWinningValue&&gameWinningValue<=maxWinningValue)
+                        }
+                        
+                        >
+                        <GameWinningValueSelection 
+                            startingBalance = {startingBalance}
+                            gameWinningValue = {gameWinningValue} 
+                            setGameWinningValue = {setGameWinningValue}
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?

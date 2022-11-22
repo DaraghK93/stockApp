@@ -33,7 +33,6 @@ function TableHoldings({ data }) {
     const indexOfFirstPage = indexOfLastPage - postsPerPage;
     const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
 
-
     const columns = [
         { label: "Logo", accessor: "logo", sortable: false },
         { label: "Value", accessor: "value", sortable: true, sortbyOrder: "desc" },
@@ -73,8 +72,8 @@ function TableHoldings({ data }) {
         isRowExpanded ? (obj[userId] = false) : (obj[userId] = true);
         setExpandState(obj);
 
-        // If the row is expanded, we are here to hide it. Hence remove
-        // it from the state variable. Otherwise add to it.
+        // If the row is expanded, this is the logic for hiding it.
+        // Remove it from state variable. Otherwise add to it.
         const newExpandedRows = isRowExpanded ?
             currentExpandedRows.filter(id => id !== userId) :
             currentExpandedRows.concat(userId);
@@ -86,18 +85,18 @@ function TableHoldings({ data }) {
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNumbers.push(i)
     }
-    
     const pagination = (pageNumbers) => {
         setCurrentPage(pageNumbers)
     }
 
-
-
-
-
-    //change posts shown
+    //change amount of posts shown
     const changePostsPerPage = (e) => {
-        setPostsPerPage(e.target.id)
+        if (e.target.id != "all"){
+            setPostsPerPage(e.target.id)
+        }
+        else {
+            setPostsPerPage(totalPosts)
+        }
     }
 
     return (
@@ -173,23 +172,21 @@ function TableHoldings({ data }) {
                     <nav>
                         <>
                             <ul className="pagination">
-
                                 {pageNumbers.map(number => (
                                     <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
                                         <button onClick={() => pagination(number)} className="page-link"> {number} </button>
                                     </li>
 
                                 ))}
-
                                 <Dropdown>
                                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                                         Show {postsPerPage}
                                     </Dropdown.Toggle>
-
                                     <Dropdown.Menu>
                                         <Dropdown.Item id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
                                         <Dropdown.Item id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                         <Dropdown.Item id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                        <Dropdown.Item id={"all"} onClick={changePostsPerPage}>Show all ({totalPosts})</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             </ul>

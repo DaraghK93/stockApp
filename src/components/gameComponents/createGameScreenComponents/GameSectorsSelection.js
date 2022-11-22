@@ -1,7 +1,7 @@
 import {Card,Row,ToggleButton,ToggleButtonGroup,Col} from "react-bootstrap"
 import ScreenSelectionRadioButton from "../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton"
 import { useState} from 'react'
-function GameSectorsSelection({}){
+function GameSectorsSelection({stockTypes, setStockTypes}){
     const [screen, setScreen] = useState('1')
     const [values, setValues] = useState()
 
@@ -27,6 +27,20 @@ function GameSectorsSelection({}){
 
     const handleChange = (val) => {
         console.log(val)
+        console.log(values)
+    }
+
+    const handleToggle = (e) => {
+        /// Check if value in the array 
+        if (stockTypes.includes(e.currentTarget.value)){
+            /// Make a copy, remove the value from the copy first and then push 
+            var sectors = [...stockTypes]
+            var index   = sectors.indexOf(e.currentTarget.value)
+            sectors.splice(index,1)
+            setStockTypes(sectors)
+        }else{
+            setStockTypes([...stockTypes,e.currentTarget.value])
+        }
     }
     
     return(
@@ -35,21 +49,31 @@ function GameSectorsSelection({}){
             <Row className="pb-2">
                 <ScreenSelectionRadioButton choices={sectorChoice} state={screen} setter={setScreen}/>
             </Row>
-                <ToggleButtonGroup type="checkbox" value={values} onChange={handleChange}>
-                    {individualSectors.map((sector, idx) => (
-                         <ToggleButton
-                            id={sector}
-                            value={sector}
-                            variant='outline-primary'
-                            disabled = {screen === "1"}
-                        >
-                            {sector}
-                        </ToggleButton>
-                    ))}
-                </ToggleButtonGroup>
+                <Row md={4} xs={1}>
+                {individualSectors.map((sector, idx) => (
+                                                    <Col>
+                                                        <ToggleButton
+                                                            onChange={handleToggle}
+                                                            type="checkbox"
+                                                            id={sector}
+                                                            value={sector}
+                                                            variant='outline-primary'
+                                                            checked={stockTypes.includes(sector)}
+                                                            disabled = {screen === "1"}
+                                                        >
+                                                            {sector}
+                                                        </ToggleButton>
+                                                    </Col>
+                                                ))}
+                </Row>
+                               
+                            
+
+
+                
           
         </>
     )
 }
-
+//<ToggleButtonGroup type="checkbox" value={values} onChange={handleChange}> </ToggleButtonGroup>
 export default GameSectorsSelection;

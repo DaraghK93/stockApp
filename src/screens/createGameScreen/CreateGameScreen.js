@@ -35,7 +35,7 @@ function CreateGameScreen(){
     /// Page 4 - Winning value, only used if the game is value based 
     const [gameWinningValue, setGameWinningValue] = useState()
     /// Page 5 - Stock types, user can define custom stocks to trade 
-    //const [stockTypes, setStockTypes] = useState()
+    const [stockTypes, setStockTypes] = useState(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
     //const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
     //const [minSocialRating, setSocialRating]         = useState("")
@@ -122,7 +122,11 @@ function CreateGameScreen(){
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
                     <Col>
                         <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <GameSectorsSelection />
+                            <GameSectorsSelection 
+                                stockTypes={stockTypes} 
+                                setStockTypes={setStockTypes}
+                            
+                            />
                         </GameCreationOptionsCard>
                     </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?

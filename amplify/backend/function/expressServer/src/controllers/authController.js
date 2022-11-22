@@ -65,10 +65,10 @@ const changeUserDetails = async (req, res, next) => {
       }
 
       const newAvatar = req.body.avatar;
-      if(newAvatar){
+      if (newAvatar) {
         user.avatar = newAvatar;
       }
-      if (!newUsername && !newPassword) {
+      if (!newUsername && !newPassword && !newAvatar) {
         res.status(400);
         res.errormessage = 'No details to change';
         return next(new Error('No details to change'));

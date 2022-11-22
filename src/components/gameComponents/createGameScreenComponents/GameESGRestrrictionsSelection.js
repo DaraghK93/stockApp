@@ -1,6 +1,9 @@
 import { Card, Row, Col, ToggleButton} from "react-bootstrap"
-import EnvironmentalRating from "../../stockVisualisationComponents/ESGRatingSliders/EnvironmentalRating";
 import {useState} from 'react'
+
+import EnvironmentalRating from "../../stockVisualisationComponents/ESGRatingSliders/EnvironmentalRating";
+import SocialRating from "../../stockVisualisationComponents/ESGRatingSliders/SocialRating";
+import GovernanceRating from "../../stockVisualisationComponents/ESGRatingSliders/GovernanceRating";
 
 function GameESGRestrictionsSelection(){
     const [ESGGameType,setESGGameType] = useState()
@@ -9,25 +12,29 @@ function GameESGRestrictionsSelection(){
     const gameTypes = ["No Restrictions", "Environment", "Social","Governance"]
     const ESGRating = {
        "No Restrictions" : {
-            "eRating":5,
-            "srating":5,
-            "gRating":5
+            "description":"No restrictions on ESG ratings",
+            "eRating":0,
+            "sRating":0,
+            "gRating":0
         },
 
       "Environment" : {
-            "eRating":2,
-            "srating":5,
-            "gRating":5
+            "description": "Harsher restictions on Environemnt ratings",
+            "eRating":4,
+            "sRating":0,
+            "gRating":0
         },
         "Social":{
-            "eRating":5,
-            "srating":2,
-            "gRating":5
+            "description":"Harsher restictions on Social ratings",
+            "eRating":0,
+            "sRating":2.5,
+            "gRating":0
         },
        "Governance":{
-            "eRating":5,
-            "srating":5,
-            "gRating":2
+            "description":"Harsher restictions on Governance ratings",
+            "eRating":0,
+            "sRating":0,
+            "gRating":3.5
         }
     }
 
@@ -39,7 +46,7 @@ function GameESGRestrictionsSelection(){
     return(
         <>
             <Card.Title className="gameOptionsCardTitle">ESG Restrictions</Card.Title>
-             <Row className="py-3" md={4} sm={1} xs={1}>
+             <Row className="py-3" md={2} sm={1} xs={1}>
                 {gameTypes.map((value, idx) => (
                 <Col
                     key={`col-${value}`}
@@ -57,7 +64,15 @@ function GameESGRestrictionsSelection(){
                         onChange={handleToggle}
                 >
                     <Card>
-                        <Card.Title>{value}</Card.Title>
+                        <Card.Title className="gameOptionsCardSubTitle">{value}</Card.Title>
+                        <Card.Body>
+                            <Card.Text className="black">
+                                {ESGRating[value].description}
+                            </Card.Text>
+                            <EnvironmentalRating erating={ESGRating[value].eRating} />
+                            <SocialRating srating={ESGRating[value].sRating} />
+                            <GovernanceRating grating={ESGRating[value].gRating} />
+                        </Card.Body>
                     </Card>
                     </ToggleButton> 
                 </Col>

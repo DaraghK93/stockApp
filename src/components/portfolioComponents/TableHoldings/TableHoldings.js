@@ -1,4 +1,4 @@
-import { Table, Container, Button } from "react-bootstrap";
+import { Table, Container, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useState } from "react"
 import { ChevronUp, ChevronDown } from "react-feather"
@@ -28,6 +28,11 @@ function TableHoldings({ data }) {
     const pageNumbers = [];
     const [currentPage, setCurrentPage] = useState(1)
     const totalPosts = tableData.length;
+    // currentview
+    const indexOfLastPage = currentPage * postsPerPage;
+    const indexOfFirstPage = indexOfLastPage - postsPerPage;
+    const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
+
 
     const columns = [
         { label: "Logo", accessor: "logo", sortable: false },
@@ -73,7 +78,6 @@ function TableHoldings({ data }) {
         const newExpandedRows = isRowExpanded ?
             currentExpandedRows.filter(id => id !== userId) :
             currentExpandedRows.concat(userId);
-
         setExpandedRows(newExpandedRows);
     }
 
@@ -82,14 +86,19 @@ function TableHoldings({ data }) {
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNumbers.push(i)
     }
+    
     const pagination = (pageNumbers) => {
         setCurrentPage(pageNumbers)
     }
 
-    // currentview
-    const indexOfLastPage = currentPage * postsPerPage;
-    const indexOfFirstPage = indexOfLastPage - postsPerPage;
-    const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
+
+
+
+
+    //change posts shown
+    const changePostsPerPage = (e) => {
+        setPostsPerPage(e.target.id)
+    }
 
     return (
         <>
@@ -158,19 +167,33 @@ function TableHoldings({ data }) {
                                 </>
                             </>
                         ))}
-
-
                     </tbody>
                 </Table>
                 <div>
                     <nav>
-                        <ul className="pagination">
-                            {pageNumbers.map(number => (
-                                <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-                                    <button onClick={() => pagination(number)} className="page-link"> {number} </button>
-                                </li>
-                            ))}
-                        </ul>
+                        <>
+                            <ul className="pagination">
+
+                                {pageNumbers.map(number => (
+                                    <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                                        <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                                    </li>
+
+                                ))}
+
+                                <Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        Show {postsPerPage}
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                        <Dropdown.Item id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                        <Dropdown.Item id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </ul>
+                        </>
                     </nav>
                 </div>
             </Container>

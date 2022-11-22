@@ -131,78 +131,21 @@ const buyStockMarketOrder = async (req, res, next) => {
     const value = stock.daily_change.currentprice * req.body.units
     let transactionFee
     if (portfolio.leagueId){
-      if (mongoose.Types.ObjectId.isValid(portfolio.leagueId) === false){
-        // check that the league ID is correct
-        res.status(404)
-        res.errormessage = 'No league found.'
+      // Check that league exists and check league rules
+      const response = await PortfolioService.checkLeagueRules(portfolio, stock)
+      if (response.error){
+        res.status(response.error)
+        res.errormessage = response.errormessage
         return next(
           new Error(
-            'League does not exist.'
-          )
-        )
+            response.errormessage,
+        ),
+        )}
+        // if there is a fee provide it here
+        transactionFee = response[1]
       }
-      else {
-      const league = await League.findOne({_id: portfolio.leagueId})
-      if (league===null) {
-        res.status(404)
-        res.errormessage = 'No league found.'
-        return next(
-          new Error(
-            'League does not exist.'
-          )
-        )
-      }
-      else {
-        transactionFee = league.tradingFee
-        if (!league.sectors.includes(stock.sector)){
-          res.status(400)
-          res.errormessage = 'League does not allow users to choose stocks from this sector.'
-          return next(
-            new Error(
-              'The stock chosen is not an allowable sector for this league.'
-            )
-          )
-        }
-        if (stock.esgrating.environment_score < league.minERating) {
-          res.status(400)
-          res.errormessage = 'The Environmental Score rating for the stock is lower than is allowable for the league.'
-          return next(
-            new Error(
-              'The Environmental score of the stock chosen is not an allowable Environmental Score for this league.'
-            )
-        )
-        }
-        if (stock.esgrating.social_score < league.minSRating) {
-          res.status(400)
-          res.errormessage = 'The Social Score rating for the stock is lower than is allowable for the league.'
-          return next(
-            new Error(
-              'The Social score of the stock chosen is not an allowable Social Score for this league.'
-            )
-        )
-        }
-        if (stock.esgrating.governance_score < league.minGRating) {
-          res.status(400)
-          res.errormessage = 'The Governance Score rating for the stock is lower than is allowable for the league.'
-          return next(
-            new Error(
-              'The Governance score of the stock chosen is not an allowable Governance Score for this league.'
-            )
-        )
-        }
-        if (portfolio.tradesToday > league.maxDailyTrades - 1) {
-          res.status(400)
-          res.errormessage = 'No more trades allowed today as per the rules of the league.'
-          return next(
-            new Error(
-              'The league has set a maximum number of trades that can be completed in 24 hours. You have reached this limit.'
-            )
-        )
-        }
-      }
-    }
-  }
   else {
+    // otherwise fee is 0
     transactionFee = 0
   }
     if ((transactionFee + value) > portfolio.remainder) {
@@ -216,7 +159,6 @@ const buyStockMarketOrder = async (req, res, next) => {
         )
     }
   
-
     // use the buyStock service found in the services folder
     const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee)
 
@@ -313,9 +255,27 @@ const sellStockMarketOrder = async (req, res, next) => {
       )
     }
     const value = stock.daily_change.currentprice * req.body.units
-    
-    // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value)
+    let transactionFee
+    if (portfolio.leagueId){
+      // check whether it is in a league and whether the league exists. Also checks the league rules
+      const response = await PortfolioService.checkLeagueRules(portfolio, stock)
+      if (response.error){
+        res.status(response.error)
+        res.errormessage = response.errormessage
+        return next(
+          new Error(
+            response.errormessage,
+        ),
+        )}
+        // transaction Fee exists
+        transactionFee = response[1]
+      }
+  else {
+    // otherwise fee is 0
+    transactionFee = 0
+  }
+    // use the sellStock service found in the services folder
+    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee)
     if (newPortfolio.error) {
       res.status(newPortfolio.error)
       res.errormessage = newPortfolio.errormessage

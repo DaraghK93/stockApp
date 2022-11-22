@@ -53,19 +53,16 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         <>  
           <Row className="pb-2">
                 <Col>
-                        <Card.Text className="gameOptionsCardText">
-                           
                             { gameWinningValue < min || gameWinningValue > max  ?
-                                <Card.Text style={{"word-wrap": "break-word"}}>
-                                        Winning value of<text className="red"> ${gameWinningValue} </text>is<text className="red"> {(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}% </text>profit with starting balance of 
-                                        <text className="red"> ${`${startingBalance}`}</text>
+                                <Card.Text  className="gameOptionsCardText" style={{"wordWrap": "break-word"}}>
+                                        Winning value of<span className="red"> ${gameWinningValue}</span> is<span className="red"> {(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}% </span>profit with starting balance of 
+                                        <span className="red"> ${`${startingBalance}`}</span>
                                 </Card.Text>
                             :
-                                <Card.Text>
+                                <Card.Text className="gameOptionsCardText">
                                     Winning value of ${gameWinningValue} is {`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`} profit with starting balance of ${`${startingBalance}`}
                                 </Card.Text>
                             }
-                        </Card.Text>
                 </Col>
             </Row>
             <Row>
@@ -96,35 +93,21 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
                 </Col>
             </Row> 
             {warning && <MessageAlert variant="warning">
-                <p>
-                    <span className="bolded">Warning:</span> A winning value of ${gameWinningValue} is greater than the average stock market return in a year (10%).
-                </p>
-                <p style={{"margin":"0"}}>
-                    Setting this may result in a long game.
-                </p>
+                <span className="bolded">Warning:</span> A winning value of ${gameWinningValue} is greater than the average stock market return in a year (10%).
+                <br/><br/>
+                Setting this may result in a long game.
                 </MessageAlert>}
             {error && <MessageAlert variant="danger">
-                <p>
-                    <span className="bolded">Error:</span> A winning value of ${gameWinningValue} is not within the limit ${min} to ${max}.
-                </p>
-                <p style={{"margin":"0"}}>
-                    The max and min limits are set based upon the portfolio starting value of ${startingBalance}.
-                </p>
-                <p>
-                     The min limit being 1% (${min}) profit and the max being 15% (${max}) profit.
-                </p>
+                <span className="bolded">Error:</span> A winning value of ${gameWinningValue} is not within the limit ${min} to ${max}.
+                <br/><br/>
+                The max and min limits are set based upon the portfolio starting value of ${startingBalance}.
+                <br/><br/>
+                The min limit being 1% (${min}) profit and the max being 15% (${max}) profit.
                 </MessageAlert>}
         </>
         }   
         </>
     )
 }
-
-
-//<span className="spanSpaceLeft red">${gameWinningValue}</span>
-//                                 <span className="spanSpaceLeft">is</span>
-//                                 <span className="spanSpaceLeft red spanSpaceRight">{`${(((gameWinningValue/startingBalance) - 1)*100).toFixed(2)}%`}</span>
- //                                <span>profit with starting balance of</span>
-   //                              <span className="spanSpaceLeft red">${`${startingBalance}`}</span>
 
 export default GameWinningValueSelection

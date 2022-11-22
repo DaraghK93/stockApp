@@ -141,7 +141,7 @@ const sellStock = async (sellData, portfolioRemainder,value) => {
             return newPortfolio
         }
         else if (newHoldings < 0) {
-            return {error:400, errormessage: "Not enough units"}
+            return {error:400, errormessage: "You do not have enough units to sell."}
         }
     }
     else {

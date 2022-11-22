@@ -6,10 +6,10 @@ const PortfolioSchema = new mongoose.Schema(
     portfolioName: { type: String, trim: true, required: true },
     remainder: { type: Number, trim: true},
     startingBalance: {type: Number, trim: true, required: true},
-    holdings: [{stock: {type: Schema.Types.ObjectId, ref: 'stock'}, quantity: {type: Number}}],
+    holdings: [{type: Schema.Types.ObjectId, ref: 'holdingsData'}],
     dateCreated: {type: Date, trim: true},
     totalValue: {type: String, trim: true},
-    transactions: [{stock: {type: Schema.Types.ObjectId, ref: 'stock'}, units: {type:Number}, transactionType: {type: String}, date: {type: Date}}],
+    transactions: [{type: Schema.Types.ObjectId, ref: 'transactionsData'}],
     valueHistory: [{date: {type: Date}, value: {type: Number}}],
     // value history would contain the totalValue, pushed to array at the end of each day 
     leagueId: {type: Schema.Types.ObjectId, ref: 'leagues'},

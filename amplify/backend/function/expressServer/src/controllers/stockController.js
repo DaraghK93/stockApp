@@ -4,6 +4,7 @@ const Stock = require('../models/stock.model');
 /// Imports ///
 const stockService = require('../services/stockRoutesServices')
 const articleService = require('../services/articleService');
+const twitterService = require('../services/twitterService');
 
 // @desc get individual stock price
 // @route GET /api/stock/price/:name
@@ -141,6 +142,8 @@ const getStockBySymbol = async (req, res, next) => {
     const newsQuery = await articleService.buildSearchQueryForCompany(stocks[0].shortname,stocks[0].longname, stocks[0].symbol )
     /// Execute the query to get the articles 
     const newsSentiment = await articleService.getCompanySentimentCount(newsQuery)
+    /// Get twitter sentiment counts
+    const twitterSentiment = await twitterService.getCompanySentimentCount(stocks[0].symbol);
     /// Return stock data 
     const returnStocks = {
       id: stocks[0]._id,
@@ -163,6 +166,7 @@ const getStockBySymbol = async (req, res, next) => {
       logo: stocks[0].logo, 
       daily_change: stocks[0].daily_change,
       newsSentiment:newsSentiment,
+      twitterSentiment:twitterSentiment,
       week: oneWeek, 
       month: oneMonth,
       year: oneYear

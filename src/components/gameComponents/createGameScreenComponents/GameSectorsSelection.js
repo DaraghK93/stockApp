@@ -1,9 +1,9 @@
-import {Card,Row,ToggleButton,ToggleButtonGroup,Col} from "react-bootstrap"
+import {Card,Row,ToggleButton,Col} from "react-bootstrap"
 import ScreenSelectionRadioButton from "../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton"
-import { useState} from 'react'
+import {useState,useEffect, useMemo} from 'react'
 function GameSectorsSelection({stockTypes, setStockTypes}){
-    const [screen, setScreen] = useState('1')
-    const [values, setValues] = useState()
+    /// Screen used for "All Sectors" or "Select Sector"
+    const [screen, setScreen] = useState()
 
     /// The choices for the screens, used for buttons at top of screen 
     var sectorChoice = [
@@ -11,24 +11,21 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
         {name: 'Select Sectors', value: '2'}
     ]
 
-    var individualSectors = [
-        'Basic Materials',
-        'Communication Services',
-        'Consumer Cyclical',
-        'Consumer Defensive',
-        'Energy',
-        'Financial Services',
-        'Healthcare',
-        'Industrials',
-        'Real Estate',
-        'Technology',
-        'Utilities'
-    ]
-
-    const handleChange = (val) => {
-        console.log(val)
-        console.log(values)
-    }
+    /// use the useMemo hook to initiliase this to stop rerender 
+    const individualSectors = useMemo(() => 
+        [
+            'Basic Materials',
+            'Communication Services',
+            'Consumer Cyclical',
+            'Consumer Defensive',
+            'Energy',
+            'Financial Services',
+            'Healthcare',
+            'Industrials',
+            'Real Estate',
+            'Technology',
+            'Utilities'
+        ],[])
 
     const handleToggle = (e) => {
         /// Check if value in the array 
@@ -42,7 +39,24 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             setStockTypes([...stockTypes,e.currentTarget.value])
         }
     }
-    
+
+
+    /// useEffect ///
+    useEffect(() => { 
+        if (typeof screen === "undefined" && stockTypes.length === individualSectors.length){
+            /// If a user first enters the page set the page to all sectors 
+            setScreen("1")
+        }else if (typeof screen === "undefined" && stockTypes.length < individualSectors.length){
+            /// If a user clicks off the page but we they have already deselected some value, set page to 2 
+            setScreen("2")
+       }else if (screen === "1" && stockTypes.length < individualSectors.length){
+            /// When the use clicks "All Sectors" set the stockTypes state to all the sectors 
+            setStockTypes([...individualSectors])
+        }
+
+    },[screen,individualSectors,setStockTypes,stockTypes])
+
+
     return(
         <>
             <Card.Title  className="gameOptionsCardTitle">Stock Sectors</Card.Title>
@@ -66,14 +80,10 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
                                                     </Col>
                                                 ))}
                 </Row>
-                               
                             
-
-
-                
           
         </>
     )
 }
-//<ToggleButtonGroup type="checkbox" value={values} onChange={handleChange}> </ToggleButtonGroup>
+
 export default GameSectorsSelection;

@@ -17,7 +17,6 @@ import FormContainer from '../../components/layout/FormContainer/FormContainer';
 
 import { API } from 'aws-amplify';
 import { APIName } from '../../constants/APIConstants';
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 function UserSettingsPage() {
@@ -25,6 +24,7 @@ function UserSettingsPage() {
   const [password, setPassword] = useState('');
   const [currPasswordEnteredError, setCurrPasswordEnteredError] =
     useState(false);
+  const [currPasswordErrorMessage, setCurrPasswordErrorMessage] = useState('');
   // new passwords
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
@@ -36,6 +36,11 @@ function UserSettingsPage() {
   const [passwordShown, setPasswordShown] = useState(false);
 
   const [username, setUsername] = useState('');
+  const [usernameError, setUsernameError] = useState('');
+
+  const [success, setSuccess] = useState(false);
+  const [fail, setFail] = useState(false);
+  const [failMessage, setFailMessage] = useState('');
 
   //Redux
   const user = useSelector((state) => state.user);
@@ -49,20 +54,27 @@ function UserSettingsPage() {
     '/stock_photo_4.jpg',
   ];
 
-  const togglePassword = () => {
-    setPasswordShown(!passwordShown);
-  };
-
   function handleSubmit(event) {
     event.preventDefault();
+    console.log('handlesubmit');
+    setSuccess(false);
+    setFailMessage('');
+    setPasswordErrorMessage(null);
     if (password) {
+      setCurrPasswordEnteredError(false);
       // determine if password is to be changed
       if (newPassword) {
+        console.log('were herereeee');
+        console.log(newPassword);
+        console.log(confirmNewPassword);
+        console.log(newPassword !== confirmNewPassword);
         // Check whether password and confirm password are the same. More messages will need to be added.
         if (newPassword !== confirmNewPassword) {
           setPasswordErrorMessage(
             'Password and Confirm Password must be the same!'
           );
+          console.log('nice');
+          console.log(passwordErrorMessage);
         }
         // Checks if the password is less than 8 characters. Gives a popup warning if it is.
         else if (newPassword.length < 8) {
@@ -86,29 +98,37 @@ function UserSettingsPage() {
             'Password must contain at least one number (0-9)!'
           );
         } else {
-          setPasswordErrorMessage('');
+          console.log('else');
+          setPasswordErrorMessage(null);
         }
       }
-      setCurrPasswordEnteredError(false);
+      console.log('her');
+      console.log(passwordErrorMessage);
+      console.log(passwordErrorMessage === null);
       if (passwordErrorMessage === null) {
+        console.log('howya');
+        setPasswordErrorMessage('');
+        setCurrPasswordErrorMessage('');
+        setSuccess(false);
+        setFail(false);
+        setFailMessage('');
         changeUserDetails();
       }
     } else {
       setCurrPasswordEnteredError(true);
+      setFail(true);
     }
   }
 
   const changeUserDetails = async () => {
     try {
       console.log('hi');
-
       let body = {
         password: password,
         username: username ? username : undefined,
         newPassword: newPassword ? newPassword : undefined,
       };
 
-      setCurrPasswordEnteredError(false);
       setLoading(true);
       // Configure the HTTP request
       let path = `/api/auth/changeuserdetails`;
@@ -119,71 +139,92 @@ function UserSettingsPage() {
       // Sent the request to backend
       const data = await API.post(APIName, path, requestConfig);
       setLoading(false);
-      console.log('data = ' + data);
-      console.log(data.errormessage);
+      setCurrPasswordEnteredError(false);
+      setCurrPasswordErrorMessage('');
+      setUsernameError('');
+      setSuccess(true);
+      setFail(false);
+      setPasswordErrorMessage(null);
     } catch (error) {
+      setFail(true);
+      // current password incorrect this needs to be true before proceeding
+      if (error.response.data.errormessage === 'Current password incorrect') {
+        setCurrPasswordErrorMessage(error.response.data.errormessage);
+        setUsernameError('');
+      }
+      // handle error where username is too short
+      if (
+        error.response.data.errormessage ===
+        'Username length must be at least 3 characters'
+      ) {
+        setUsernameError(error.response.data.errormessage);
+        setCurrPasswordErrorMessage('');
+        setFailMessage('');
+      }
+      // handle error where no useful details but current password is correct
+      if (error.response.data.errormessage === 'No details to change') {
+        setFailMessage(error.response.data.errormessage);
+        setCurrPasswordErrorMessage('');
+        setUsernameError('');
+        setFail(false);
+      }
+
       setLoading(false);
-      //setPasswordErrorMessage(error.response.data.errormessage);
     }
   };
-
-  useEffect(() => {
-    /// getStockInfo ///
-    // Description:
-    //  Makes a GET request to the backend route /stock/:symbol
-    const getToken = async () => {
-      try {
-      } catch (error) {
-        // Log the error
-        console.log(error);
-      }
-    };
-    getToken();
-  }, []);
 
   //
   return (
     <>
       <FormContainer>
-        <h1> Settings</h1>
-        {currPasswordEnteredError && (
-          <MessageAlert variant='danger'>
-            {'Current password is required'}
-          </MessageAlert>
-        )}
-        {loading && <LoadingSpinner />}
-        <Form.Group className='py-2' controlId='oldPassword'>
-          <Form.Label>Current Password* - required</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter current password'
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            required
-          />
-        </Form.Group>
-        <p>Choose new avatar</p>
-        <Row className='py-3' md={4} sm={2} xs={2}>
-          {images.map((image, idx) => (
-            <Col key={`col-image-${image}`}>
-              <ToggleButton
-                className='gameDetailsToggleButton'
-                key={idx}
-                style={{ border: 'none' }}
-                id={`radio-${idx}`}
-                variant={'outline-primary'}
-                type='radio'
-                name='radio'
-                value={image}
-                checked={gameImage === image}
-                onChange={(e) => setGameImage(e.currentTarget.value)}
-              >
-                <Image thumbnail src={image} />
-              </ToggleButton>
-            </Col>
-          ))}
-        </Row>
         <Form onSubmit={handleSubmit}>
+          <h1> Settings</h1>
+          {currPasswordEnteredError && (
+            <MessageAlert variant='danger'>
+              {'Current password is required'}
+            </MessageAlert>
+          )}
+          {currPasswordErrorMessage && (
+            <MessageAlert variant='danger'>
+              {currPasswordErrorMessage}
+            </MessageAlert>
+          )}
+          {loading && <LoadingSpinner />}
+          <Form.Group className='py-2' controlId='oldPassword'>
+            <Form.Label>Current Password* - required</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Enter current password'
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+          </Form.Group>
+          <p>Choose new avatar</p>
+          <Row className='py-3' md={4} sm={2} xs={2}>
+            {images.map((image, idx) => (
+              <Col key={`col-image-${image}`}>
+                <ToggleButton
+                  className='gameDetailsToggleButton'
+                  key={idx}
+                  style={{ border: 'none' }}
+                  id={`radio-${idx}`}
+                  variant={'outline-primary'}
+                  type='radio'
+                  name='radio'
+                  value={image}
+                  checked={gameImage === image}
+                  onChange={(e) => setGameImage(e.currentTarget.value)}
+                >
+                  <Image thumbnail src={image} />
+                </ToggleButton>
+              </Col>
+            ))}
+          </Row>
+          {usernameError && (
+            <MessageAlert variant='danger'>{usernameError}</MessageAlert>
+          )}
+
           <Form.Group className='py-2' controlId='username'>
             <Form.Label>New Username</Form.Label>
             <Form.Control
@@ -214,12 +255,36 @@ function UserSettingsPage() {
               onChange={(event) => setConfirmNewPassword(event.target.value)}
             />
           </Form.Group>
-          <Button onClick={togglePassword}>Show password</Button>
+          <Form.Group>
+            <Form.Check
+              type='checkbox'
+              id='show password'
+              label='Show password'
+              onChange={(e) => {
+                setPasswordShown(e.target.checked);
+              }}
+            />
+          </Form.Group>
           <p style={{ fontSize: 12 }}>
             Passwords must be at least 8 characters long, contain at least one
             lower case character (a-z), one upper case character (A-Z) and one
             number [0-9]!
           </p>
+          {success && (
+            <MessageAlert variant='success'>
+              {'Details successfully changed'}
+            </MessageAlert>
+          )}
+          {fail && (
+            <MessageAlert variant='danger'>
+              {'Something has gone wrong'}
+            </MessageAlert>
+          )}
+          {failMessage && (
+            <MessageAlert variant='info'>
+              {'No details entered to change'}
+            </MessageAlert>
+          )}
           <Row>
             <Col className='text-center py-4'>
               <Button variant='primary' type='submit'>

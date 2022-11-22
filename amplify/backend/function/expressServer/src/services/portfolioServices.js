@@ -78,7 +78,7 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
         // create transaction object
         await transaction.save()
         // update the portfolio, adding a transaction object ID and updating the remainder
-        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday:1}}, {new:true})
         return newPortfolio
     }
     else {
@@ -94,7 +94,7 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
         await transaction.save()
         const newRemainder = portfolioRemainder - transaction.value
         // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
-        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
         return newPortfolio
     }
     }

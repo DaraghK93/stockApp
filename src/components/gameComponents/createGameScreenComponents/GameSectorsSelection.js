@@ -1,6 +1,7 @@
 import {Card,Row,ToggleButton,Col} from "react-bootstrap"
 import ScreenSelectionRadioButton from "../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton"
 import {useState,useEffect, useMemo} from 'react'
+
 function GameSectorsSelection({stockTypes, setStockTypes}){
     /// Screen used for "All Sectors" or "Select Sector"
     const [screen, setScreen] = useState()
@@ -40,7 +41,6 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
         }
     }
 
-
     /// useEffect ///
     useEffect(() => { 
         if (typeof screen === "undefined" && stockTypes.length === individualSectors.length){
@@ -53,7 +53,6 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             /// When the use clicks "All Sectors" set the stockTypes state to all the sectors 
             setStockTypes([...individualSectors])
         }
-
     },[screen,individualSectors,setStockTypes,stockTypes])
 
 
@@ -65,7 +64,10 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             </Row>
                 <Row md={4} xs={1}>
                 {individualSectors.map((sector, idx) => (
-                                                    <Col>
+                                                    <Col
+                                                        key={`Col-${sector}`}
+                                                        className="p-2"
+                                                    >
                                                         <ToggleButton
                                                             onChange={handleToggle}
                                                             type="checkbox"
@@ -80,8 +82,6 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
                                                     </Col>
                                                 ))}
                 </Row>
-                            
-          
         </>
     )
 }

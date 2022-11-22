@@ -110,7 +110,6 @@ function CreateGameScreen(){
                         disableNextStep={
                             !(gameWinningValue>=minWinningValue&&gameWinningValue<=maxWinningValue)
                         }
-                        
                         >
                         <GameWinningValueSelection 
                             startingBalance = {startingBalance}
@@ -121,11 +120,17 @@ function CreateGameScreen(){
                 </Col>
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
                     <Col>
-                        <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                        <GameCreationOptionsCard 
+                            screen={screen} 
+                            setScreen={setScreen} 
+                            gameType={gameType}
+                            disableNextStep={
+                                (stockTypes.length === 0)
+                            }
+                            >
                             <GameSectorsSelection 
                                 stockTypes={stockTypes} 
                                 setStockTypes={setStockTypes}
-                            
                             />
                         </GameCreationOptionsCard>
                     </Col>

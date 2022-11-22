@@ -69,7 +69,7 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             <Card.Title className="gameOptionsCardTitle">Stock Sectors</Card.Title>
             <Row>
                 <Col>
-                    <Card.Text className="gameOptionsCardText">Restrict trading to certain sectors</Card.Text>
+                    <Card.Text className="gameOptionsCardText">Select the tradable sectors!</Card.Text>
                 </Col>
             </Row>
             <Row className="py-2">

@@ -1,10 +1,12 @@
 import {Card,Row,ToggleButton,Col} from "react-bootstrap"
 import ScreenSelectionRadioButton from "../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton"
 import {useState,useEffect, useMemo} from 'react'
+import MessageAlert from '../../widgets/MessageAlert/MessageAlert'
 
 function GameSectorsSelection({stockTypes, setStockTypes}){
     /// Screen used for "All Sectors" or "Select Sector"
     const [screen, setScreen] = useState()
+    const [error, setError]   = useState(false)
 
     /// The choices for the screens, used for buttons at top of screen 
     var sectorChoice = [
@@ -28,6 +30,7 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             'Utilities'
         ],[])
 
+    /// handleToggle ///
     const handleToggle = (e) => {
         /// Check if value in the array 
         if (stockTypes.includes(e.currentTarget.value)){
@@ -53,35 +56,46 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             /// When the use clicks "All Sectors" set the stockTypes state to all the sectors 
             setStockTypes([...individualSectors])
         }
+        /// If the lenght of stockSectors is 0 set an error
+        if(stockTypes.length === 0){
+            setError(true)
+        }else{
+            setError(false)
+        }
     },[screen,individualSectors,setStockTypes,stockTypes])
-
 
     return(
         <>
-            <Card.Title  className="gameOptionsCardTitle">Stock Sectors</Card.Title>
-            <Row className="pb-2">
+            <Card.Title className="gameOptionsCardTitle">Stock Sectors</Card.Title>
+            <Row>
+                <Col>
+                    <Card.Text className="gameOptionsCardText">Restrict trading to certain sectors</Card.Text>
+                </Col>
+            </Row>
+            <Row className="py-2">
                 <ScreenSelectionRadioButton choices={sectorChoice} state={screen} setter={setScreen}/>
             </Row>
-                <Row className="py-3" md={4} xs={1}>
+                <Row className="py-3" lg={4} md={3} sm={2} xs={1}>
                 {individualSectors.map((sector, idx) => (
-                                                    <Col
-                                                        key={`Col-${sector}`}
-                                                        className="p-2"
-                                                    >
-                                                        <ToggleButton
-                                                            onChange={handleToggle}
-                                                            type="checkbox"
-                                                            id={sector}
-                                                            value={sector}
-                                                            variant='outline-primary'
-                                                            checked={stockTypes.includes(sector)}
-                                                            disabled = {screen === "1"}
-                                                        >
-                                                            {sector}
-                                                        </ToggleButton>
-                                                    </Col>
-                                                ))}
+                        <Col
+                            key={`Col-${sector}`}
+                            className="p-2"
+                        >
+                            <ToggleButton
+                                onChange={handleToggle}
+                                type="checkbox"
+                                id={sector}
+                                value={sector}
+                                variant='outline-primary'
+                                checked={stockTypes.includes(sector)}
+                                disabled = {screen === "1"}
+                            >
+                                {sector}
+                            </ToggleButton>
+                        </Col>
+                    ))}
                 </Row>
+                 {error && <MessageAlert variant="danger">Must select at least one sector</MessageAlert>}
         </>
     )
 }

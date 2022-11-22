@@ -53,7 +53,6 @@ function CreateGameScreen(){
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
 
-
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">

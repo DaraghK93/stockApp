@@ -118,10 +118,12 @@ function ResetPage() {
       )}
       {passwordChanged && (
         <MessageAlert variant='success'>
-          {
+          {<div>
+            Success! Login&nbsp;
             <a href='/login' style={myLink}>
-              Success Login here!
+              here
             </a>
+            </div>
           }
         </MessageAlert>
       )}

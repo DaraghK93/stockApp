@@ -103,7 +103,60 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
     }
 }
 
+const sellStock = async (sellData, portfolioRemainder,value) => {
+    // creates a date so that it is known when it was created
+    try{
+        const date = new Date()
+
+        // creates a transaction model
+        const transaction = new Transaction({
+        portfolioId: sellData.portfolioId,
+        stockId: sellData.stockId,
+        units: sellData.units,
+        value: value,
+        date: date,
+        buyOrSell: sellData.buyOrSell,
+        orderType: sellData.orderType,
+        transactionCost: sellData.transactionCost
+    })
+    // finds existing holdings in the db for that portfolio
+    const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
+
+
+    // if there are holdings, then the current holdings are updated
+    if (holdings != null){
+        var newHoldings = holdings.units - transaction.units
+        newRemainder = portfolioRemainder + value
+        
+        if (newHoldings > 0) {
+            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
+            await transaction.save()
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+            return newPortfolio
+        }
+        else if (newHoldings === 0){
+            await Holdings.findByIdAndDelete({_id:holdings._id})
+            await transaction.save()
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}}, {new:true})
+            return newPortfolio
+        }
+        else if (newHoldings < 0) {
+            return {error:400, errormessage: "You do not have enough units to sell."}
+        }
+    }
+    else {
+        // if there are no holdings return an error
+        
+        return {error:404, errormessage: "No holding of that stock exists"}
+    }
+    }
+    catch (err) {
+        throw new Error(`Error has occured in selling the stock.\nError details:\n\t${err}`)
+    }
+}
+
 module.exports = {
     createPortfolio,
-    buyStock
+    buyStock,
+    sellStock
 }

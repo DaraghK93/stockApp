@@ -1,16 +1,16 @@
 import {Form,Row,Col} from 'react-bootstrap'
 import { useState, useEffect } from 'react'
-
+import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 import MessageAlert from '../MessageAlert/MessageAlert'
 
 
-function RangeSlider({max, min, setter, state, label, startWidth}){
+function RangeSlider({max, min, setter, state, label, startWidth, disabled,showError}){
   const [width, setWidth] = useState(startWidth)
   const [error, setError] = useState("")
+  const [valueState, setValueState] = useState(state)
 
-  
   useEffect(() => {
-    if(state.length === 1){
+    if(state.length === 1 || state.length === 0){
         setWidth("2rem")
     }else if(state.length === 2){
       setWidth("2.75rem")
@@ -27,22 +27,24 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
     }
   },[state])
 
- 
 
   function handleSubmit(e) {
     setError("")
+    setValueState(e.target.value)
     var value = parseInt(e.target.value)
-    if (value >= min && value <= max){
-      setter(e.target.value)
-    }else{
+    if ((value < min || value > max || isNaN(value)) && showError){
       setError(`Must be between ${min} and ${max}`)
     }
+    setter(e.target.value)
   }
 
   
   return(
     <>
-    {error && <MessageAlert variant="info">{error}</MessageAlert>}
+    {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+    {typeof width === "undefined" ? <LoadingSpinner/>
+    :
+    <> 
     <Row>
       <Col>
         <span className="gameOptionsCardText">{label}</span>
@@ -51,12 +53,13 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
             <Form.Control
               type="number"
               className="rangeSliderFormControl gameOptionsCardText"
-              value={state}
+              value={valueState}
               onChange = {handleSubmit}
               style={{"width":width}}
+              disabled={disabled}
             >
             </Form.Control>
-          </Form.Label>
+          </Form.Label>  
       </Col>
     </Row>
     <Row>
@@ -69,10 +72,8 @@ function RangeSlider({max, min, setter, state, label, startWidth}){
         />
       </Col>
     </Row>
-      
-
-    
-     
+    </>
+    }
     </>
     )
 }

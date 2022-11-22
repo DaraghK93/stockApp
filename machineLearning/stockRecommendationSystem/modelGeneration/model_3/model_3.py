@@ -82,11 +82,30 @@ def get_user_stocks(userName):
         # Setting the MongoDB connection
         mongoClient = MongoClient(mongo_uri)
         db = mongoClient.dev
-        collection = db['users']
-        user_data = collection.find_one({"username":userName})
-        user_query = user_data['stocks']
-        # user_query = user_query[0]
-        return user_query
+        user_collection = db['users']
+        portfolio_collection = db['portfolios']
+        holdings_collection = db['holdings']
+        stocks_collection = db['stocks']
+
+        # Get user information
+        user_data = user_collection.find_one({"username":userName})
+        
+        # Get user portfolio IDs
+        portfolios = user_data['portfolios']
+        portfolio = portfolios[0]
+
+        portfolio_data = portfolio_collection.find_one({"_id":portfolio})
+        holding_IDs = portfolio_data['holdings']
+        holding_ID = holding_IDs[0]
+
+        holding_data = holdings_collection.find_one({"_id":holding_ID})
+        
+        stock_ID = holding_data["stockId"]
+        stock_data = stocks_collection.find_one({"_id":stock_ID})
+        stock_ticker = stock_data["symbol"]
+        stock_name = stock_data["shortname"]
+
+        return "Stock name:", stock_name, "Stock ticker:", stock_ticker
     except Exception as e:
         print(f'ERROR:Error encountered in get_user_stocks function.\nException Details:\n\t{e}')
         return {
@@ -193,4 +212,4 @@ def symbol_to_index(symbol):
 
 # print(give_recommendations("AAPL", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 # print(read_data())
-print(get_user_stocks("rectest"))
+print(get_user_stocks("dknee1"))

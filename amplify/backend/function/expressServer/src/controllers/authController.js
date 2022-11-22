@@ -63,6 +63,11 @@ const changeUserDetails = async (req, res, next) => {
         // assign username to user after all checks
         user.username = newUsername;
       }
+
+      const newAvatar = req.body.avatar;
+      if(newAvatar){
+        user.avatar = newAvatar;
+      }
       if (!newUsername && !newPassword) {
         res.status(400);
         res.errormessage = 'No details to change';

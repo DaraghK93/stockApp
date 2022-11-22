@@ -5,6 +5,7 @@
 //  This screen contains the components redenred to the user when they are logging in
 import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import { ToggleButton, Image } from 'react-bootstrap';
 
@@ -17,7 +18,6 @@ import FormContainer from '../../components/layout/FormContainer/FormContainer';
 
 import { API } from 'aws-amplify';
 import { APIName } from '../../constants/APIConstants';
-import { useSelector } from 'react-redux';
 
 function UserSettingsPage() {
   // constant password holds the value of the input password
@@ -29,11 +29,11 @@ function UserSettingsPage() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
+  const [passwordShown, setPasswordShown] = useState(false);
   // add state for passwordChange
   const [loading, setLoading] = useState(false);
 
-  const [gameImage, setGameImage] = useState('');
-  const [passwordShown, setPasswordShown] = useState(false);
+  const [avatar, setAvatar] = useState('');
 
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
@@ -56,7 +56,6 @@ function UserSettingsPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log('handlesubmit');
     setSuccess(false);
     setFailMessage('');
     setPasswordErrorMessage(null);
@@ -64,17 +63,11 @@ function UserSettingsPage() {
       setCurrPasswordEnteredError(false);
       // determine if password is to be changed
       if (newPassword) {
-        console.log('were herereeee');
-        console.log(newPassword);
-        console.log(confirmNewPassword);
-        console.log(newPassword !== confirmNewPassword);
         // Check whether password and confirm password are the same. More messages will need to be added.
         if (newPassword !== confirmNewPassword) {
           setPasswordErrorMessage(
             'Password and Confirm Password must be the same!'
           );
-          console.log('nice');
-          console.log(passwordErrorMessage);
         }
         // Checks if the password is less than 8 characters. Gives a popup warning if it is.
         else if (newPassword.length < 8) {
@@ -102,12 +95,9 @@ function UserSettingsPage() {
           setPasswordErrorMessage(null);
         }
       }
-      console.log('her');
-      console.log(passwordErrorMessage);
-      console.log(passwordErrorMessage === null);
       if (passwordErrorMessage === null) {
         console.log('howya');
-        setPasswordErrorMessage('');
+        setPasswordErrorMessage(null);
         setCurrPasswordErrorMessage('');
         setSuccess(false);
         setFail(false);
@@ -127,6 +117,7 @@ function UserSettingsPage() {
         password: password,
         username: username ? username : undefined,
         newPassword: newPassword ? newPassword : undefined,
+        avatar: avatar ? avatar : undefined,
       };
 
       setLoading(true);
@@ -213,8 +204,8 @@ function UserSettingsPage() {
                   type='radio'
                   name='radio'
                   value={image}
-                  checked={gameImage === image}
-                  onChange={(e) => setGameImage(e.currentTarget.value)}
+                  checked={avatar === image}
+                  onChange={(e) => setAvatar(e.currentTarget.value)}
                 >
                   <Image thumbnail src={image} />
                 </ToggleButton>

@@ -7,9 +7,7 @@ import GovernanceRating from "../../stockVisualisationComponents/ESGRatingSlider
 import EvilRating from "../../stockVisualisationComponents/ESGRatingSliders/EvilRating";
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
 
-function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRating,setMinGovernanceRating}){
-    const [ESGGameType,setESGGameType] = useState()
-
+function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRating,setMinGovernanceRating,ESGGameType,setESGGameType}){
 
     const gameTypes = ["No Restrictions", "Environment", "Social","Governance"]
     const ESGRating = {
@@ -21,7 +19,6 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
             "minSocialRating":0,
             "minGovernanceRating":0
         },
-        
       "Environment" : {
             "description": "For the Tree Huggers",
             "stocks":408,

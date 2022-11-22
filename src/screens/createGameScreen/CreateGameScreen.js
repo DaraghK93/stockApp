@@ -38,12 +38,12 @@ function CreateGameScreen(){
     /// Page 5 - Stock types, user can define custom stocks to trade 
     const [stockTypes, setStockTypes] = useState(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
+    const [ESGGameType, setESGGameType] = useState("")
     const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
     const [minSocialRating, setMinSocialRating]         = useState("")
     const [minGovernanceRating, setMinGovernanceRating] = useState("")
     /// Page 7 - The strting balance, trading fee and the maxTrades per day 
     
-
     /// Constants ///
     const minStartingBalance = 1000 
     const maxStartingBalance = 1000000
@@ -53,9 +53,6 @@ function CreateGameScreen(){
     const maxTrades          = 100
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
-
-
-    console.log(minEnvironmentRating,minSocialRating,minGovernanceRating)
 
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
@@ -139,11 +136,18 @@ function CreateGameScreen(){
                     </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={!(ESGGameType)}
+                        >
                         <GameESGRestrictionsSelection
                             setMinEnvironmentRating={setMinEnvironmentRating}
                             setMinSocialRating={setMinSocialRating}
                             setMinGovernanceRating={setMinGovernanceRating}
+                            ESGGameType={ESGGameType}
+                            setESGGameType={setESGGameType}
                         />
                     </GameCreationOptionsCard>
                 </Col>

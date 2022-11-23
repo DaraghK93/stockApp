@@ -12,7 +12,7 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
     const gameTypes = ["No Restrictions", "Environment", "Social","Governance"]
     const ESGRating = {
        "No Restrictions" : {
-            "description":"For people with No Conscious",
+            "description":"For People With No Conscious",
             "stocks":490,
             "rating":5,
             "minEnvironmentRating":0,
@@ -102,7 +102,7 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
                                 {ESGRating[value].description}
                             </Card.Text>
                             <Card.Text className="black">
-                                {ESGRating[value].stocks} stocks to choose from
+                                {ESGRating[value].stocks} Stocks to choose from
                             </Card.Text>
                             { value === "Environment" ?
                                 <EnvironmentalRating erating={ESGRating[value].rating} />

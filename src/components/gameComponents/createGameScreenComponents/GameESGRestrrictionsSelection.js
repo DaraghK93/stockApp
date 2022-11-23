@@ -1,5 +1,4 @@
 import { Card, Row, Col, ToggleButton} from "react-bootstrap"
-import {useState} from 'react'
 
 import EnvironmentalRating from "../../stockVisualisationComponents/ESGRatingSliders/EnvironmentalRating";
 import SocialRating from "../../stockVisualisationComponents/ESGRatingSliders/SocialRating";

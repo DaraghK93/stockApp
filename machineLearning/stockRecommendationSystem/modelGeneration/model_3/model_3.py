@@ -19,15 +19,10 @@ def read_data():
     # print(stocks)
     print(stocks.info())
     # Create array X of the all long business summaries, sectors, industries and countries
-    X = np.array(stocks.longbusinesssummary)
-    # X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
-    # X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.environment_score + " " + stocks.social_score + " " + stocks.governance_score + " " + stocks.exchange + " " + stocks.fulltimeemployees + " " + stocks.marketcap + " " + stocks.revenuegrowth)
-
-    X2 = np.array(stocks.environment_score)
+    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance
     text_data = X
-    e_data = X2
 
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     embeddings = model.encode(text_data, show_progress_bar=True)

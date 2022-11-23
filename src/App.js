@@ -13,6 +13,8 @@ import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
 import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
+import RequestResetPassword from './screens/resetPassword/requestResetPassword'
+import ResetPage from './screens/resetPassword/resetPassword';
 import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage';
 
 /// Redux ///
@@ -64,6 +66,10 @@ function App() {
 
         <Route path='/portfolio'
           element={userInfo ? <PortfolioPage /> : <Navigate to="/" />} />
+
+        <Route path='/auth/recover' element={ <RequestResetPassword/> } />
+        
+        <Route path='/auth/reset/:token' element={ <ResetPage/> } />
 
         <Route path='/settings'
           element={userInfo ? <UserSettingsPage /> : <Navigate to="/" />} />

@@ -50,7 +50,6 @@ app.use('/api/auth', require('./routes/authRoutes'));
 
 
 
-
 // Custom Middleware here
 app.use(errorHandler);
 

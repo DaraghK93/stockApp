@@ -104,8 +104,8 @@ def symbol_to_index(symbol):
         }    
     
 
-def lambda_handler(event, context):
-    """This is the lambda handler function. It runs the recommender function and returns it as a JSON string.
+def lambda_handler(event: dict, context: object):
+    """This is the lambda handler function. It runs the recommender function and returns the output of it as a JSON string.
 
     Args:
         event (JSON): https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
@@ -114,12 +114,34 @@ def lambda_handler(event, context):
     Returns:
         (JSON): A return with a HTTP status code of 200 and a JSON body of the 20 recommendations 
     """
+
+    # Print statements are helpful for debugging the program once deployed
+    print("Event type:", type(event))
+    print("Event:", event)
+
     body = event['body']
-    body = json.dumps(body)
-    body = json.loads(body)
-    company = body["stock"]
+    # environment will either be dev or prod 
+    environment = os.environ['ENVIRONMENT']
+    if environment == 'prod':
+        # All the production specific stuff do here 
+        body = json.loads(body)
+        # Will have to get MongoURI for param store here 
+    # elif environment == 'dev': 
+    #   read in your local vars for db etc.  
+
+
+    # Print statements are helpful for debugging the program once deployed
+    print("Body type:", type(body))
+    print("Body:", body)
+
+    stock = body["stock"]
+
+    # Print statements are helpful for debugging the program once deployed
+    print("Stock type:", type(stock))
+    print("Stock:", stock)
+
     try:
-        recomm = give_recommendations(company)
+        recomm = give_recommendations(stock)
         return {
         "statusCode": 200,
         "body": json.dumps({

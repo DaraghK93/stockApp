@@ -23,7 +23,7 @@ exports = function(changeEvent) {
                                     // match on the foreign key portfolioID
                                     // get the total values of all portfolios from the view
                                     '$lookup': {
-                                      'from': 'portfolioTotalValue', 
+                                      'from': 'portfoliosValue', 
                                       'localField': 'portfolios', 
                                       'foreignField': '_id', 
                                       'as': 'values'

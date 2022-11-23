@@ -84,7 +84,7 @@ const createLeague = async (req, res, next) => {
           )
         }}}
 
-              
+       
     // ensure that the image sent is one of the correct images
     const imageArray = ["/stock_photo_1.jpg",
                         "/stock_photo_2.jpg",
@@ -155,12 +155,12 @@ const createLeague = async (req, res, next) => {
     }
 
     // ensure starting balance is at least 1000
-    if (startingBalance < 1000) {
+    if (startingBalance < 1000 || startingBalance > 1000000) {
       res.status(400)
-      res.errormessage = 'Starting Balance must be greater than $1000'
+      res.errormessage = 'Starting Balance must be greater than $1000 and less than $1,000,000'
       return next(
         new Error(
-          'Starting balance must be at least 1000'
+          'Starting Balance must be greater than $1000 and less than $1,000,000'
         ),
       )
     } 
@@ -202,13 +202,13 @@ const createLeague = async (req, res, next) => {
       }
     }
 
-    // ensure the tradingFee isn't less than 0
-    if (tradingFee < 0) {
+    // ensure the tradingFee is in the right interval
+    if (tradingFee < 0 || tradingFee > 300) {
       res.status(400)
-      res.errormessage = 'Trading fee must be a positive number'
+      res.errormessage = 'Trading fee must be between 0 and 300'
       return next(
         new Error(
-          'Trading fee must be a positive number',
+          'Trading fee must be between 0 and 300',
         ),
       )
     }

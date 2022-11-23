@@ -12,7 +12,7 @@ function HoldingsCard({ data, remainder }) {
                 </div>
                 <br />
                 <Container>
-                    <span style={{fontSize:"110%", display: "flex", justifyContent: "center", alignItems: "center" }}><strong>Spending power: ${remainder}</strong></span>
+                    <span style={{fontSize:"110%"}}><strong>Spending power: ${remainder}</strong></span>
                 </Container>
                 <br />
                     <TableHoldings data={data} />

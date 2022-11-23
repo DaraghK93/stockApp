@@ -172,122 +172,142 @@ function UserSettingsPage() {
   return (
     <>
       <FormContainer>
-        <Form onSubmit={handleSubmit}>
-          <h1> Settings</h1>
-          {currPasswordEnteredError && (
-            <MessageAlert variant='danger'>
-              {'Current password is required'}
-            </MessageAlert>
-          )}
-          {currPasswordErrorMessage && (
-            <MessageAlert variant='danger'>
-              {currPasswordErrorMessage}
-            </MessageAlert>
-          )}
-          {loading && <LoadingSpinner />}
-          <Form.Group className='py-2' controlId='oldPassword'>
-            <Form.Label>Current Password* - required</Form.Label>
-            <Form.Control
-              type='password'
-              placeholder='Enter current password'
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </Form.Group>
-          <p>Choose new avatar</p>
-          <Row className='py-3' md={4} sm={2} xs={2}>
-            {images.map((image, idx) => (
-              <Col key={`col-image-${image}`}>
-                <ToggleButton
-                  className='gameDetailsToggleButton'
-                  key={idx}
-                  style={{ border: 'none' }}
-                  id={`radio-${idx}`}
-                  variant={'outline-primary'}
-                  type='radio'
-                  name='radio'
-                  value={image}
-                  checked={avatar === image}
-                  onChange={(e) => setAvatar(e.currentTarget.value)}
-                >
-                  <Image thumbnail src={image} />
-                </ToggleButton>
-              </Col>
-            ))}
-          </Row>
-          {usernameError && (
-            <MessageAlert variant='danger'>{usernameError}</MessageAlert>
-          )}
+        <h1> Settings</h1>
+        <Card className='accountDetailsCard' id='accountDetailsCard'>
+          <h5 style={{ textDecoration: 'underline' }}>Account Information</h5>
+          <div style={{ fontSize: 14 }}>
+            <p className='userDetailsText'>First name:</p>
+            {' ' + userInfo.firstname}
+            <br></br>
+            <p className='userDetailsText'>Last name: </p>
+            {' ' + userInfo.lastname}
+            <br></br>
+            <p className='userDetailsText'>Email:</p>
+            {' ' + userInfo.email}
+            <br></br>
+            <p className='userDetailsText'>Username:</p>
+            {' ' + userInfo.username}
+          </div>
+        </Card>
+        <Card className='accountDetailsForm' id='accountDetailsForm'>
+          <Form onSubmit={handleSubmit}>
+            {currPasswordEnteredError && (
+              <MessageAlert variant='danger'>
+                {'Current password is required'}
+              </MessageAlert>
+            )}
+            {currPasswordErrorMessage && (
+              <MessageAlert variant='danger'>
+                {currPasswordErrorMessage}
+              </MessageAlert>
+            )}
+            {loading && <LoadingSpinner />}
+            <Form.Group className='py-2' controlId='oldPassword'>
+              <Form.Label>Current Password* - required</Form.Label>
+              <Form.Control
+                type='password'
+                placeholder='Enter current password'
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+            </Form.Group>
+            <p>Choose new avatar</p>
+            <Row className='py-3' md={4} sm={2} xs={2}>
+              {images.map((image, idx) => (
+                <Col key={`col-image-${image}`}>
+                  <ToggleButton
+                    className='gameDetailsToggleButton'
+                    key={idx}
+                    style={{ border: 'none' }}
+                    id={`radio-${idx}`}
+                    variant={'outline-primary'}
+                    type='radio'
+                    name='radio'
+                    value={image}
+                    checked={avatar === image}
+                    onChange={(e) => setAvatar(e.currentTarget.value)}
+                  >
+                    <Image thumbnail src={image} />
+                  </ToggleButton>
+                </Col>
+              ))}
+            </Row>
+            {usernameError && (
+              <MessageAlert variant='danger'>{usernameError}</MessageAlert>
+            )}
 
-          <Form.Group className='py-2' controlId='username'>
-            <Form.Label>New Username</Form.Label>
-            <Form.Control
-              type='text'
-              placeholder='Enter New Username'
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
-          </Form.Group>
-          {passwordErrorMessage && (
-            <MessageAlert variant='danger'>{passwordErrorMessage}</MessageAlert>
-          )}
-          <Form.Group className='py-2' controlId='newPassword'>
-            <Form.Label>New Password</Form.Label>
-            <Form.Control
-              type={passwordShown ? 'text' : 'password'}
-              placeholder='Enter New Password'
-              value={newPassword}
-              onChange={(event) => setNewPassword(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className='py-2' controlId='confirmNewPassword'>
-            <Form.Label>Confirm New Password</Form.Label>
-            <Form.Control
-              type={passwordShown ? 'text' : 'password'}
-              placeholder='Confirm New Password'
-              value={confirmNewPassword}
-              onChange={(event) => setConfirmNewPassword(event.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Check
-              type='checkbox'
-              id='show password'
-              label='Show password'
-              onChange={(e) => {
-                setPasswordShown(e.target.checked);
-              }}
-            />
-          </Form.Group>
-          <p style={{ fontSize: 12 }}>
-            Passwords must be at least 8 characters long, contain at least one
-            lower case character (a-z), one upper case character (A-Z) and one
-            number [0-9]!
-          </p>
-          {success && (
-            <MessageAlert variant='success'>
-              {'Details successfully changed'}
-            </MessageAlert>
-          )}
-          {fail && (
-            <MessageAlert variant='danger'>
-              {'Something has gone wrong'}
-            </MessageAlert>
-          )}
-          {failMessage && (
-            <MessageAlert variant='info'>
-              {'No details entered to change'}
-            </MessageAlert>
-          )}
-          <Row>
-            <Col className='text-center py-4'>
-              <Button variant='primary' type='submit'>
-                Confirm changes
-              </Button>
-            </Col>
-          </Row>
-        </Form>
+            <Form.Group className='py-2' controlId='username'>
+              <Form.Label>New Username</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter New Username'
+                value={username}
+                onChange={(event) => setUsername(event.target.value)}
+              />
+            </Form.Group>
+            {passwordErrorMessage && (
+              <MessageAlert variant='danger'>
+                {passwordErrorMessage}
+              </MessageAlert>
+            )}
+            <Form.Group className='py-2' controlId='newPassword'>
+              <Form.Label>New Password</Form.Label>
+              <Form.Control
+                type={passwordShown ? 'text' : 'password'}
+                placeholder='Enter New Password'
+                value={newPassword}
+                onChange={(event) => setNewPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className='py-2' controlId='confirmNewPassword'>
+              <Form.Label>Confirm New Password</Form.Label>
+              <Form.Control
+                type={passwordShown ? 'text' : 'password'}
+                placeholder='Confirm New Password'
+                value={confirmNewPassword}
+                onChange={(event) => setConfirmNewPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Check
+                type='checkbox'
+                id='show password'
+                label='Show password'
+                onChange={(e) => {
+                  setPasswordShown(e.target.checked);
+                }}
+              />
+            </Form.Group>
+            <p style={{ fontSize: 12 }}>
+              Passwords must be at least 8 characters long, contain at least one
+              lower case character (a-z), one upper case character (A-Z) and one
+              number [0-9]!
+            </p>
+            {success && (
+              <MessageAlert variant='success'>
+                {'Details successfully changed'}
+              </MessageAlert>
+            )}
+            {fail && (
+              <MessageAlert variant='danger'>
+                {'Something has gone wrong'}
+              </MessageAlert>
+            )}
+            {failMessage && (
+              <MessageAlert variant='info'>
+                {'No details entered to change'}
+              </MessageAlert>
+            )}
+            <Row>
+              <Col className='text-center py-4'>
+                <Button variant='primary' type='submit'>
+                  Confirm changes
+                </Button>
+              </Col>
+            </Row>
+          </Form>
+        </Card>
       </FormContainer>
     </>
   );

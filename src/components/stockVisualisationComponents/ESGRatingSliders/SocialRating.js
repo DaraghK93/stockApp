@@ -11,7 +11,7 @@ const myStyles = {
   itemShapes: Person,
   boxBorderWidth: 3,
 
-  activeFillColor: ['#FFBB28', '#FFEDD5', '#FF8042', '#ECFCCB', '#00C49F'],
+  activeFillColor: ['#FFBB28', '#FFEDD5', '#FF8042', '#ECFCCB', '#FFFFFF'],
   activeBoxColor: ['#FF8042', '#FF9E35', '#FFBB28', '#80C064', '#00C49F'],
   activeBoxBorderColor: ['#FFBB28', '#d05e00', '#cca300', '#498d00', '#00724c'],
 

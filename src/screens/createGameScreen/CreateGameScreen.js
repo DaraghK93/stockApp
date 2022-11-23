@@ -9,6 +9,7 @@ import GameDurationSelection from '../../components/gameComponents/createGameScr
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
 import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
+import GameESGRestrictionsSelection from '../../components/gameComponents/createGameScreenComponents/GameESGRestrrictionsSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -37,12 +38,12 @@ function CreateGameScreen(){
     /// Page 5 - Stock types, user can define custom stocks to trade 
     const [stockTypes, setStockTypes] = useState(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
-    //const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
-    //const [minSocialRating, setSocialRating]         = useState("")
-    //const [minGovernanceRating, setGovernanceRating] = useState("")
+    const [ESGGameType, setESGGameType] = useState("")
+    const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
+    const [minSocialRating, setMinSocialRating]         = useState("")
+    const [minGovernanceRating, setMinGovernanceRating] = useState("")
     /// Page 7 - The strting balance, trading fee and the maxTrades per day 
     
-
     /// Constants ///
     const minStartingBalance = 1000 
     const maxStartingBalance = 1000000
@@ -135,8 +136,19 @@ function CreateGameScreen(){
                     </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the ESG restrictions screen</h1>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={!(ESGGameType)}
+                        >
+                        <GameESGRestrictionsSelection
+                            setMinEnvironmentRating={setMinEnvironmentRating}
+                            setMinSocialRating={setMinSocialRating}
+                            setMinGovernanceRating={setMinGovernanceRating}
+                            ESGGameType={ESGGameType}
+                            setESGGameType={setESGGameType}
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :

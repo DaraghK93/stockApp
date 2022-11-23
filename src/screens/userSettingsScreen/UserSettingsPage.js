@@ -6,6 +6,7 @@
 import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { Card } from 'react-bootstrap';
 
 import { ToggleButton, Image } from 'react-bootstrap';
 
@@ -91,12 +92,10 @@ function UserSettingsPage() {
             'Password must contain at least one number (0-9)!'
           );
         } else {
-          console.log('else');
           setPasswordErrorMessage(null);
         }
       }
       if (passwordErrorMessage === null) {
-        console.log('howya');
         setPasswordErrorMessage(null);
         setCurrPasswordErrorMessage('');
         setSuccess(false);
@@ -112,7 +111,6 @@ function UserSettingsPage() {
 
   const changeUserDetails = async () => {
     try {
-      console.log('hi');
       let body = {
         password: password,
         username: username ? username : undefined,
@@ -148,6 +146,12 @@ function UserSettingsPage() {
         error.response.data.errormessage ===
         'Username length must be at least 3 characters'
       ) {
+        setUsernameError(error.response.data.errormessage);
+        setCurrPasswordErrorMessage('');
+        setFailMessage('');
+      }
+      // handle error where username already exists
+      if (error.response.data.errormessage === 'Username already taken') {
         setUsernameError(error.response.data.errormessage);
         setCurrPasswordErrorMessage('');
         setFailMessage('');

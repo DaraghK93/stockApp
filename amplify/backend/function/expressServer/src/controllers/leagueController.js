@@ -84,6 +84,17 @@ const createLeague = async (req, res, next) => {
           )
         }}}
 
+       // check sector length is at least 1
+      if (tradingFee > 300) {
+          res.status(400)
+          res.errormessage = 'Trading fee is too high'
+          return next(
+            new Error(
+              'Trading Fee is too high. Must be less than $300'
+            ),
+          )
+        }
+
               
     // ensure that the image sent is one of the correct images
     const imageArray = ["/stock_photo_1.jpg",

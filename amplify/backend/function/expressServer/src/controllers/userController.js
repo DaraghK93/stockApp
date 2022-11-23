@@ -43,6 +43,14 @@ const registerUser = async (req, res, next) => {
       res.errormessage = 'User already exists'
       return next(new Error('User already exists'))
     }
+    let userWithUsername = await User.findOne({ username })
+
+    // Check for existing user
+    if (userWithUsername) {
+      res.status(400)
+      res.errormessage = 'Username already taken'
+      return next(new Error('Username already taken'))
+    }
     // Check if user ticked over eighteen checkbox
     if (overeighteen !== true) {
       res.status(400)

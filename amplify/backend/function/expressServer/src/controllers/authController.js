@@ -52,6 +52,15 @@ const changeUserDetails = async (req, res, next) => {
       }
       // checks for username update
       const newUsername = req.body.username;
+      // check if username exists already
+      const userWithUsername = await User.findOne({ username: newUsername });
+
+      // Check for existing user
+      if (userWithUsername) {
+        res.status(400);
+        res.errormessage = 'Username already taken';
+        return next(new Error('Username already taken'));
+      }
       if (newUsername) {
         if (newUsername.length < 3) {
           res.status(400);
@@ -73,14 +82,16 @@ const changeUserDetails = async (req, res, next) => {
         res.errormessage = 'No details to change';
         return next(new Error('No details to change'));
       }
-
-      await user.save();
+      console.log('here');
+      let result = await user.save();
+      console.log('res = ' + res);
       res.status(200);
       res.json({ user });
     }
   } catch (error) {
+    console.log('catch');
     res.status(500);
-    res.errormessage = 'Server error in changing user details';
+    res.errormessage = error.message;
     return next(new Error('Server error in changing user details'));
   }
 };

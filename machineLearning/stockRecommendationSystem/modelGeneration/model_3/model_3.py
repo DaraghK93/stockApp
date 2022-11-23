@@ -18,7 +18,7 @@ def read_data():
     stocks.drop(['idnumber','longnamesort', 'weight'], inplace=True, axis=1)
     # print(stocks)
     print(stocks.info())
-    # Create array X of the all long business summaries, sectors, industries and countries
+    # Create array X of the all long business summaries, sectors, industries and countries and exchange
     X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance

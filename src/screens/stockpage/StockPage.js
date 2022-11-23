@@ -81,9 +81,7 @@ function StockPage() {
         
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
-                    <Row
-                    // xs={3}
-                    >
+                    <Row>
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
@@ -101,9 +99,6 @@ function StockPage() {
                                 <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange}%)
                                 </dt>
                             </dl>
-                        </Col>
-                        <Col className="followButtonCol col-md-2 col-sm-3 col-3">
-                            <FollowButton />
                         </Col>
                     </Row>
                     <Row>

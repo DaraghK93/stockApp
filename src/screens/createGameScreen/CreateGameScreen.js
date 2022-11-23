@@ -10,6 +10,7 @@ import GameBalanceFeesTradeSelection from '../../components/gameComponents/creat
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
 import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
 import GameESGRestrictionsSelection from '../../components/gameComponents/createGameScreenComponents/GameESGRestrrictionsSelection';
+import GameCreationSummary from '../../components/gameComponents/createGameScreenComponents/GameCreationSummary';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -154,7 +155,7 @@ function CreateGameScreen(){
                 :
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <h1>This will be the Game Summary Screen</h1>
+                            <GameCreationSummary />
                     </GameCreationOptionsCard>
                 </Col>
                 }   

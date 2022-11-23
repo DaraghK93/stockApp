@@ -10,10 +10,11 @@ function HoldingsCard({ data, remainder }) {
                         <h2 className="cardTitle">Holdings</h2>
                     </Col>
                 </div>
+                <br />
                 <Container>
-                    <p>Balance: ${remainder}</p>
+                    <span style={{fontSize:"110%", display: "flex", justifyContent: "center", alignItems: "center" }}><strong>Spending power: ${remainder}</strong></span>
                 </Container>
-        
+                <br />
                     <TableHoldings data={data} />
 
             </Card>

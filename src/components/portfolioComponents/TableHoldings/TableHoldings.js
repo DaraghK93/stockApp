@@ -31,7 +31,6 @@ function TableHoldings({ data }) {
     const handleSorting = (sortField, sortOrder) => {
         if (sortField) {
             const sorted = [...tableData].sort((a, b) => {
-                // console.log(sortField)
                 return (
                     a[sortField].toString().localeCompare(b[sortField].toString(), "en", {
                         numeric: true,

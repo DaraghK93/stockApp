@@ -105,7 +105,7 @@ def symbol_to_index(symbol):
     
 
 def lambda_handler(event: dict, context: object):
-    """This is the lambda handler function. It runs the recommender function and returns it as a JSON string.
+    """This is the lambda handler function. It runs the recommender function and returns the output of it as a JSON string.
 
     Args:
         event (JSON): https://docs.aws.amazon.com/lambda/latest/dg/python-handler.html
@@ -115,25 +115,23 @@ def lambda_handler(event: dict, context: object):
         (JSON): A return with a HTTP status code of 200 and a JSON body of the 20 recommendations 
     """
 
-    # event = json.loads(event)
-    # message = event['message']
+    # Print statements are helpful for debugging the program once deployed
     print("Event type:", type(event))
     print("Event:", event)
 
     body = event['body']
     body = json.loads(body)
+
+    # Print statements are helpful for debugging the program once deployed
     print("Body type:", type(body))
     print("Body:", body)
 
     stock = body["stock"]
+
+    # Print statements are helpful for debugging the program once deployed
     print("Stock type:", type(stock))
     print("Stock:", stock)
 
-    # print("Message:", message)
-    # print("Message type:", type(message))
-
-    # message = json.loads(message)
-    # don't forget to json.loads() what you want to return
     try:
         recomm = give_recommendations(stock)
         return {

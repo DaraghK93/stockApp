@@ -14,7 +14,6 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import BottomStickyButton from '../../components/widgets/BottomStickyButton/BottomStickyButton';
-import FollowButton from '../../components/widgets/FollowButton/FollowButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
 
 /// API ///
@@ -104,7 +103,7 @@ function StockPage() {
                     <Row>
                         <Col className="stockInfoCol">
                         <Link to={`/stock/${stock.symbol}/confirmorder`}>
-                            <BottomStickyButton text="Trade" />
+                            <BottomStickyButton text="Go to trade page!" />
                             </Link>
                         </Col>
                     </Row>

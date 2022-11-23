@@ -17,7 +17,9 @@
           "deploymentBucketName": "amplify-stockapp-dev-151619-deployment",
           "s3Key": "amplify-builds/expressServer-753174514c376f647362-build.zip",
           "jwtSecret": "$Ckpc6ZlGF*Z3vJ89Nr",
-          "environment": "prod"
+          "environment": "prod",
+          "fromEmail": "finoptimisetud@gmail.com",
+          "host": "https://master.d2l3aeky8jssr5.amplifyapp.com"
         },
         "newsArticleScrapingAndSentimentAnalysis": {
           "secretsPathAmplifyAppId": "d2l3aeky8jssr5",

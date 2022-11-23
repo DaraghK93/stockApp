@@ -1,3 +1,5 @@
+import "../../scss/global_variables.scss";
+
 /// Login Screen ///
 // Route:
 //  <URL>/login
@@ -57,6 +59,11 @@ function LoginPage() {
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
+        <Row>
+          <Col className="text-center py-2">
+            <a href="/auth/recover" style={{color:'#006195'}}>Forgot password?</a>
+          </Col>
+        </Row>
         <Row>
           <Col className="text-center py-4">
             <Button variant="primary" type="submit">

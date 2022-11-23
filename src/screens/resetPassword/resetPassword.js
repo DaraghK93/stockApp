@@ -14,7 +14,6 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 
 /// Layout ///
 import FormContainer from '../../components/layout/FormContainer/FormContainer';
-import { Underline } from 'react-feather';
 
 const myLink = {
   color: 'blue',
@@ -118,11 +117,12 @@ function ResetPage() {
       )}
       {passwordChanged && (
         <MessageAlert variant='success'>
-          {<div>
-            Success! Login&nbsp;
-            <a href='/login' style={myLink}>
-              here
-            </a>
+          {
+            <div>
+              Success! Login&nbsp;
+              <a href='/login' style={myLink}>
+                here
+              </a>
             </div>
           }
         </MessageAlert>

@@ -94,8 +94,8 @@ function StockPage() {
                                     <InfoButtonModal
                                         title="Company Information"
                                         info={stock.longbusinesssummary} /></dt>
-                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
-                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange}%)
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
+                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange.toFixed(2)} ({positiveSymbol}{stock.daily_change.percentageChange.toFixed(2)}%)
                                 </dt>
                             </dl>
                         </Col>

@@ -8,6 +8,7 @@ import GameNameImageTypeSelection from '../../components/gameComponents/createGa
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
+import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -34,7 +35,7 @@ function CreateGameScreen(){
     /// Page 4 - Winning value, only used if the game is value based 
     const [gameWinningValue, setGameWinningValue] = useState()
     /// Page 5 - Stock types, user can define custom stocks to trade 
-    //const [stockTypes, setStockTypes] = useState()
+    const [stockTypes, setStockTypes] = useState(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
     //const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
     //const [minSocialRating, setSocialRating]         = useState("")
@@ -51,7 +52,6 @@ function CreateGameScreen(){
     const maxTrades          = 100
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
-
 
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
@@ -109,7 +109,6 @@ function CreateGameScreen(){
                         disableNextStep={
                             !(gameWinningValue>=minWinningValue&&gameWinningValue<=maxWinningValue)
                         }
-                        
                         >
                         <GameWinningValueSelection 
                             startingBalance = {startingBalance}
@@ -120,8 +119,18 @@ function CreateGameScreen(){
                 </Col>
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
                     <Col>
-                        <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <h1>This will be stock type screen</h1>
+                        <GameCreationOptionsCard 
+                            screen={screen} 
+                            setScreen={setScreen} 
+                            gameType={gameType}
+                            disableNextStep={
+                                (stockTypes.length === 0)
+                            }
+                            >
+                            <GameSectorsSelection 
+                                stockTypes={stockTypes} 
+                                setStockTypes={setStockTypes}
+                            />
                         </GameCreationOptionsCard>
                     </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?

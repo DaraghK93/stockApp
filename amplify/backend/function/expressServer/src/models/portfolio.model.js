@@ -13,7 +13,8 @@ const PortfolioSchema = new mongoose.Schema(
     valueHistory: [{date: {type: Date}, value: {type: Number}}],
     // value history would contain the totalValue, pushed to array at the end of each day 
     leagueId: {type: Schema.Types.ObjectId, ref: 'leagues'},
-    userId: {type: Schema.Types.ObjectId, ref: 'UserData'}
+    userId: {type: Schema.Types.ObjectId, ref: 'UserData'},
+    tradesToday: {type: Number, default: 0}
   },
   { collection: 'portfolios' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated

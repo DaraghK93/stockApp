@@ -12,7 +12,7 @@ function GameCreationSummary({gameType,gameName, gameStartDate, gameEndDate, sta
         setLoading(true)
         var summary = [
                 {"displayName":"Game Name", "value": gameName},
-                {"displayName":"Game Start Date", "value": moment(gameStartDate).format('MMMM d, YYYY')},
+                {"displayName":"Game Start Date", "value": moment(gameStartDate).format('ll')},
                 {"displayName":"Game Starting Balance", "value": `$${(startingBalance).toLocaleString('en')}`},
                 {"displayName":"Trading Fee", "value": `$${(tradingFee).toLocaleString('en')}`},
                 {"displayName":"Max Daily Trades", "value": `${maxTradesPerDay.toLocaleString('en')}`},
@@ -21,7 +21,7 @@ function GameCreationSummary({gameType,gameName, gameStartDate, gameEndDate, sta
         ]
         if (gameType === "timeBased"){
             summary.splice(1,0,{"displayName":"Game Type", "value": "Time"})
-            summary.splice(3,0, {"displayName":"Game End Date", "value": moment(gameEndDate).format('MMMM d, YYYY')})
+            summary.splice(3,0, {"displayName":"Game End Date", "value": moment(gameEndDate).format('ll')})
         }else if (gameType === "valueBased"){
             summary.splice(1,0,{"displayName":"Game Type", "value": "Value"})
             summary.splice(3,0, {"displayName":"Game Winning Value", "value":`$${(gameWinningValue).toLocaleString('en')}`})

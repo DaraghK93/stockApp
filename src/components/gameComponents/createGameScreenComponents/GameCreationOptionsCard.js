@@ -6,10 +6,12 @@ import { APIName } from '../../../constants/APIConstants'
 import { useState } from 'react';
 import { API } from "aws-amplify";
 import {useSelector} from 'react-redux';
+import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
+import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner";
 
 
 /// GameCreationOptionsCard ///
-//  prprs:
+//  props:
 //      children         - The children of the component https://reactjs.org/docs/composition-vs-inheritance.html
 //      setScreen        - Setter to set createGameScreen state
 //      screen           - The screen state set by setScreen
@@ -19,7 +21,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 gameName, gameType, gameImage, gameStartDate, gameEndDate, 
                                 startingBalance, tradingFee, maxTradesPerDay, gameWinningValue,  
                                 stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating}){
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     //Redux
@@ -30,6 +32,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
     const createGame = async () => {
         try{
             setLoading(true)
+            setError()
             let path = '/api/league/createleague'
             // token in header
             // Set the common fields in the body 
@@ -52,12 +55,13 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             /// Set unique fields to the game type 
             if (gameType === "valueBased"){
                 myInit.body.winningValue = gameWinningValue
-            }else if(gameType === "valueBased"){
+            }else if(gameType === "timeBased"){
                 myInit.body.endDate = gameEndDate
             }
             /// Send the request 
-            const res = await API.get(APIName, path, myInit)
-            
+            const res = await API.post(APIName, path, myInit)
+            /// Just console log for now 
+            console.log(res)
             setLoading(false)
         }catch(error){
             setError(error.response.data.errormessage)
@@ -69,6 +73,8 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
         <Card className="my-5">
             <Card.Body>
                 {children}
+                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                {loading && <LoadingSpinner/>}
                 <Row className="containerButtons" lg={2} md={2} xs={2}>
                     <Col className="prevNextCol">
                         {screen > 1 &&

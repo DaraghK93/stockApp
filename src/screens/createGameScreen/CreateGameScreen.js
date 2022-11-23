@@ -154,7 +154,15 @@ function CreateGameScreen(){
                 </Col>
                 :
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                    <GameCreationOptionsCard 
+                        screen={screen} setScreen={setScreen} 
+                        gameName={gameName} gameType={gameType} gameImage={gameImage} 
+                        gameStartDate={gameStartDate} gameEndDate={gameEndDate} 
+                        startingBalance={startingBalance} tradingFee={tradingFee} maxTradesPerDay={maxTradesPerDay} 
+                        gameWinningValue={gameWinningValue} stockTypes={stockTypes} 
+                        minEnvironmentRating={minEnvironmentRating}  minSocialRating={minSocialRating} 
+                        minGovernanceRating={minGovernanceRating}
+                        >
                             <GameCreationSummary 
                                 gameType={gameType}
                                 gameName={gameName}

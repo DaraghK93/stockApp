@@ -35,6 +35,7 @@ exports = function() {
     const today = new Date().setHours(0,0,0,0);
     return collection.aggregate([
     {
+      // get leagues fromm leagueId
         '$lookup': {
             'from': 'leagues', 
             'localField': 'leagueId', 
@@ -42,6 +43,7 @@ exports = function() {
             'as': 'league'
         }
     }, {
+      // get portfolio values from portfolioID
         '$lookup': {
             'from': 'portfolioValues', 
             'localField': '_id', 
@@ -49,6 +51,7 @@ exports = function() {
             'as': 'totalVal'
         }
     }, {
+      // make the arrays objects
         '$unwind': {
             'path': '$totalVal'
         }
@@ -57,10 +60,12 @@ exports = function() {
             'path': '$league'
         }
     }, {
+      // get only portfolios associated with ongoing leagues
         '$match': {
             'league.finished': false
         }
     }, {
+      // push the object to value history
         '$set': {
             'valueHistory': {
                 '$concatArrays': [
@@ -74,10 +79,12 @@ exports = function() {
             }
         }
     }, {
+      // only return id and valuthistory
         '$project': {
             'valueHistory': 1
         }
     }, {
+      // // merge into the collection
         '$merge': {
             'into': 'portfolios', 
             'on': '_id'

@@ -8,6 +8,14 @@
     {
       "cloudFormationParameterName": "environment",
       "environmentVariableName": "ENVIRONMENT"
+    },
+    {
+      "cloudFormationParameterName": "fromEmail",
+      "environmentVariableName": "FROM_EMAIL"
+    },
+    {
+      "cloudFormationParameterName": "host",
+      "environmentVariableName": "HOST"
     }
   ]
 }

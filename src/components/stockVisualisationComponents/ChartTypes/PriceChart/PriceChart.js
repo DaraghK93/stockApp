@@ -32,9 +32,6 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
     // Move this up with the rest of the constants when we have the daily data. For now it cant be called before the dummy data is initialized
     const [data, setData] = useState();
 
-    // setData(day);
-    // setActive("1");
-
     const DayData = event => {
         // toggle shown data
         setData(day);
@@ -71,7 +68,7 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
         showTick()
         setData(oneYearPrices)
         setActive("4")
-    }, [])
+    }, [oneYearPrices])
 
 
     return (
@@ -129,8 +126,5 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
         </>
     )
 };
-{/* <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-<button onClick={() => pagination(number)} className="page-link"> {number} </button>
-</li> */}
 
 export default StockPriceChart;

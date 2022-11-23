@@ -1,4 +1,5 @@
 const Portfolio = require('../models/portfolio.model');
+const League = require('../models/league.model');
 const PortfolioService = require('../services/portfolioServices')
 const Stock = require('../models/stock.model')
 const mongoose = require('mongoose')
@@ -128,7 +129,26 @@ const buyStockMarketOrder = async (req, res, next) => {
       )
     }
     const value = stock.daily_change.currentprice * req.body.units
-    if (value > portfolio.remainder) {
+    let transactionFee
+    if (portfolio.leagueId){
+      // Check that league exists and check league rules
+      const response = await PortfolioService.checkLeagueRules(portfolio, stock)
+      if (response.error){
+        res.status(response.error)
+        res.errormessage = response.errormessage
+        return next(
+          new Error(
+            response.errormessage,
+        ),
+        )}
+        // if there is a fee provide it here
+        transactionFee = response[1]
+      }
+  else {
+    // otherwise fee is 0
+    transactionFee = 0
+  }
+    if ((transactionFee + value) > portfolio.remainder) {
       // check that the user has sufficient funds to complete
       res.status(400)
         res.errormessage = 'Insufficient Funds'
@@ -138,8 +158,9 @@ const buyStockMarketOrder = async (req, res, next) => {
           )
         )
     }
+  
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value)
+    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee)
 
 res.json(newPortfolio)
   }
@@ -167,7 +188,7 @@ const sellStockMarketOrder = async (req, res, next) => {
       res.errormessage = 'Details missing for a transaction'
       return next(
         new Error(
-          'The client has not sent the required information to buy stock',
+          'The client has not sent the required information to sell stock',
         ),
       )
     }
@@ -234,9 +255,27 @@ const sellStockMarketOrder = async (req, res, next) => {
       )
     }
     const value = stock.daily_change.currentprice * req.body.units
-    
-    // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value)
+    let transactionFee
+    if (portfolio.leagueId){
+      // check whether it is in a league and whether the league exists. Also checks the league rules
+      const response = await PortfolioService.checkLeagueRules(portfolio, stock)
+      if (response.error){
+        res.status(response.error)
+        res.errormessage = response.errormessage
+        return next(
+          new Error(
+            response.errormessage,
+        ),
+        )}
+        // transaction Fee exists
+        transactionFee = response[1]
+      }
+  else {
+    // otherwise fee is 0
+    transactionFee = 0
+  }
+    // use the sellStock service found in the services folder
+    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee)
     if (newPortfolio.error) {
       res.status(newPortfolio.error)
       res.errormessage = newPortfolio.errormessage

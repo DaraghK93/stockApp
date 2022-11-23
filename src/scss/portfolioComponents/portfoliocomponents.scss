@@ -1,24 +1,45 @@
-  .dropdownStyle{
-    padding-top:0.9375rem;
-    float:left
+  .dropdownStyle {
+    padding-top: 0.9375rem;
+    float: left
   }
 
-  .toolTipStyle{
+  .toolTipStyle {
     background-color: $background;
-    height:4.375rem;
+    height: 4.375rem;
     border-color: $background !important;
-    border:none !important;
+    border: none !important;
     border-width: 0 !important;
 
   }
 
-  .toolTipStyle:hover, .toolTipStyle:active, .toolTipStyle:focus, .toolTipStyle.active .toolTipStyle:active:focus{
+  .toolTipStyle:hover,
+  .toolTipStyle:active,
+  .toolTipStyle:focus,
+  .toolTipStyle.active .toolTipStyle:active:focus {
     border-color: $background !important;
-    border:none !important;
+    border: none !important;
     border-width: 0 !important;
   }
 
-  .priceChartStyle{
-    border:none;
+  .priceChartStyle {
+    border: none;
     margin-bottom: 1.25rem
+  }
+
+  .dropDownRight {
+    padding-top: 0.9375rem;
+    margin-right: 0.9rem;
+    float: right
+  }
+
+  .cardTitle {
+    padding-top: 0.9375rem;
+    margin-left: 0.9rem;
+    float: left;
+  }
+
+  .holdingCard {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
   }

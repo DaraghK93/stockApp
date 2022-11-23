@@ -12,7 +12,7 @@ import {Card,Row,Col,Button} from "react-bootstrap"
 //      disableNextStep  - This is boolean, true then cant go onto next step, false then you can go onto next step 
 function GameCreationOptionsCard({children, setScreen, screen, gameType, disableNextStep}){
     return(
-        <Card className="mt-5">
+        <Card className="my-5">
             <Card.Body>
                 {children}
                 <Row className="containerButtons" lg={2} md={2} xs={2}>

@@ -27,3 +27,62 @@ exports = function() {
     return collection.updateMany({ endDateDate: new Date(today) }, {$set:{active:false, finished:true}});
   
   }
+
+  exports = function() {
+
+    // Access a mongodb service:
+    const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
+    const today = new Date().setHours(0,0,0,0);
+    return collection.aggregate([
+    {
+        '$lookup': {
+            'from': 'leagues', 
+            'localField': 'leagueId', 
+            'foreignField': '_id', 
+            'as': 'league'
+        }
+    }, {
+        '$lookup': {
+            'from': 'portfolioValues', 
+            'localField': '_id', 
+            'foreignField': '_id', 
+            'as': 'totalVal'
+        }
+    }, {
+        '$unwind': {
+            'path': '$totalVal'
+        }
+    }, {
+        '$unwind': {
+            'path': '$league'
+        }
+    }, {
+        '$match': {
+            'league.finished': false
+        }
+    }, {
+        '$set': {
+            'valueHistory': {
+                '$concatArrays': [
+                    '$valueHistory', [
+                        {
+                            'date':   new Date(today), 
+                            'value': '$totalVal.totalValue'
+                        }
+                    ]
+                ]
+            }
+        }
+    }, {
+        '$project': {
+            'valueHistory': 1
+        }
+    }, {
+        '$merge': {
+            'into': 'portfolios', 
+            'on': '_id'
+        }
+    }
+])
+                            
+};

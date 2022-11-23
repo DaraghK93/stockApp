@@ -155,12 +155,12 @@ const createLeague = async (req, res, next) => {
     }
 
     // ensure starting balance is at least 1000
-    if (startingBalance < 1000) {
+    if (startingBalance < 1000 || startingBalance > 1000000) {
       res.status(400)
-      res.errormessage = 'Starting Balance must be greater than $1000'
+      res.errormessage = 'Starting Balance must be greater than $1000 and less than $1,000,000'
       return next(
         new Error(
-          'Starting balance must be at least 1000'
+          'Starting Balance must be greater than $1000 and less than $1,000,000'
         ),
       )
     } 

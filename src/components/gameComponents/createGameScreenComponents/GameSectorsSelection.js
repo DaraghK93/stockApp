@@ -83,11 +83,12 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
                             className="p-2"
                         >
                             <ToggleButton
+                                className="w-100 h-100"
                                 onChange={handleToggle}
                                 type="checkbox"
                                 id={sector}
                                 value={sector}
-                                variant='outline-primary'
+                                variant='outline-success'
                                 checked={stockTypes.includes(sector)}
                                 disabled = {screen === "1"}
                             >

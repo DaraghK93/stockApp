@@ -38,6 +38,8 @@ function UserSettingsPage() {
 
   const [username, setUsername] = useState('');
   const [usernameError, setUsernameError] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [secondname, setSecondname] = useState('');
 
   const [success, setSuccess] = useState(false);
   const [fail, setFail] = useState(false);
@@ -116,6 +118,8 @@ function UserSettingsPage() {
         username: username ? username : undefined,
         newPassword: newPassword ? newPassword : undefined,
         avatar: avatar ? avatar : undefined,
+        firstname: firstname ? firstname : undefined,
+        secondname: secondname ? secondname : undefined,
       };
 
       setLoading(true);
@@ -179,7 +183,7 @@ function UserSettingsPage() {
             <p className='userDetailsText'>First name:</p>
             {' ' + userInfo.firstname}
             <br></br>
-            <p className='userDetailsText'>Last name: </p>
+            <p className='userDetailsText'>Last name:</p>
             {' ' + userInfo.lastname}
             <br></br>
             <p className='userDetailsText'>Email:</p>
@@ -236,7 +240,24 @@ function UserSettingsPage() {
             {usernameError && (
               <MessageAlert variant='danger'>{usernameError}</MessageAlert>
             )}
-
+            <Form.Group className='py-2' controlId='firstname'>
+              <Form.Label>First name</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter New First name'
+                value={firstname}
+                onChange={(event) => setFirstname(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className='py-2' controlId='username'>
+              <Form.Label>Second name</Form.Label>
+              <Form.Control
+                type='text'
+                placeholder='Enter New Second name'
+                value={secondname}
+                onChange={(event) => setSecondname(event.target.value)}
+              />
+            </Form.Group>
             <Form.Group className='py-2' controlId='username'>
               <Form.Label>New Username</Form.Label>
               <Form.Control

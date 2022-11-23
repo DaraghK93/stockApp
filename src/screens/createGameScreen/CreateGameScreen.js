@@ -157,7 +157,15 @@ function CreateGameScreen(){
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                             <GameCreationSummary 
                                 gameType={gameType}
-                            
+                                gameName={gameName}
+                                gameStartDate={gameStartDate}
+                                gameEndDate={gameEndDate}
+                                startingBalance={startingBalance}
+                                tradingFee={tradingFee}
+                                maxTradesPerDay={maxTradesPerDay}
+                                gameWinningValue={gameWinningValue}
+                                stockTypes={stockTypes}
+                                ESGGameType={ESGGameType}
                             />
                     </GameCreationOptionsCard>
                 </Col>

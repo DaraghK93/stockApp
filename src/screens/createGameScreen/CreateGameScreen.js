@@ -155,7 +155,10 @@ function CreateGameScreen(){
                 :
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <GameCreationSummary />
+                            <GameCreationSummary 
+                                gameType={gameType}
+                            
+                            />
                     </GameCreationOptionsCard>
                 </Col>
                 }   

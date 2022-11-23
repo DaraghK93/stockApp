@@ -120,7 +120,15 @@ def lambda_handler(event: dict, context: object):
     print("Event:", event)
 
     body = event['body']
-    body = json.loads(body)
+    # environment will either be dev or prod 
+    environment = os.environ['ENVIRONMENT']
+    if environment == 'prod':
+        # All the production specific stuff do here 
+        body = json.loads(body)
+        # Will have to get MongoURI for param store here 
+    # elif environment == 'dev': 
+    #   read in your local vars for db etc.  
+
 
     # Print statements are helpful for debugging the program once deployed
     print("Body type:", type(body))

@@ -8,6 +8,7 @@ import { API } from "aws-amplify";
 import {useSelector} from 'react-redux';
 import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner";
+import {useNavigate} from "react-router-dom"
 
 
 /// GameCreationOptionsCard ///
@@ -23,6 +24,9 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating}){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+
+    /// naviagte - to redirect 
+    const navigate = useNavigate()
 
     //Redux
     const user = useSelector((state) => state.user)
@@ -61,9 +65,12 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
-            console.log(res)
+            console.log(res.code)
+            /// Will need to be updated to redirect to game page 
+            navigate(`/game`)
             setLoading(false)
         }catch(error){
+            /// Will be hit if error in the POST 
             setError(error.response.data.errormessage)
             setLoading(false)
         }

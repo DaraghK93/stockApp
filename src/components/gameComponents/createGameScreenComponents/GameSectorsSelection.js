@@ -70,9 +70,10 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             <Row>
                 <Col>
                     <Card.Text className="gameOptionsCardText">Select the tradable sectors!</Card.Text>
+                    <Card.Text className="gameOptionsCardText">If a sector is not selected, players will not be able to trade with companies in that sector!</Card.Text>
                 </Col>
             </Row>
-            <Row className="py-2">
+            <Row className="py-3">
                 <ScreenSelectionRadioButton choices={sectorChoice} state={screen} setter={setScreen}/>
             </Row>
                 <Row className="py-3" lg={4} md={3} sm={2} xs={1}>
@@ -82,11 +83,12 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
                             className="p-2"
                         >
                             <ToggleButton
+                                className="w-100 h-100"
                                 onChange={handleToggle}
                                 type="checkbox"
                                 id={sector}
                                 value={sector}
-                                variant='outline-primary'
+                                variant='outline-success'
                                 checked={stockTypes.includes(sector)}
                                 disabled = {screen === "1"}
                             >

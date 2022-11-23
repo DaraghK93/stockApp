@@ -10,6 +10,7 @@ const TransactionSchema = new mongoose.Schema(
     date: {type: Date, trim: true, required: true},
     buyOrSell: {type: String, enum: ["BUY", "SELL"],trim: true, required: true},
     orderType: {type: String, enum: ["MARKET", "LIMIT"],trim: true, required: true},
+    status: {type: String, enum: ["PENDING", "COMPLETED", "CANCELLED"],trim: true},
     transactionCost: {type: Number}
   },
   { collection: 'transactions' },

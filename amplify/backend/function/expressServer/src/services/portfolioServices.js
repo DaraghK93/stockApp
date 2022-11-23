@@ -3,10 +3,12 @@
 // These services are functions that contain any data processing.
 // Placed here as they are reusable between routes. 
 
-const Portfolio = require('../models/portfolio.model');
-const User = require('../models/user.model');
+const Portfolio = require('../models/portfolio.model')
+const User = require('../models/user.model')
+const League = require('../models/league.model')
 const Transaction = require('../models/transactions.model');
-const Holdings = require('../models/holdings.model');
+const Holdings = require('../models/holdings.model')
+const mongoose = require('mongoose')
 
 // This function will create a portfolio in the portfolios collection and also add a reference to 
 // the object in the user schema
@@ -45,7 +47,7 @@ const createPortfolio = async (portfolioData) => {
       }
 }
 
-const buyStock = async (buyData, portfolioRemainder,value) => {
+const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
     // creates a date so that it is known when it was created
     try{
         const date = new Date()
@@ -59,7 +61,7 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
         date: date,
         buyOrSell: buyData.buyOrSell,
         orderType: buyData.orderType,
-        transactionCost: buyData.transactionCost
+        transactionCost: transactionFee
     })
 
     // finds existing holdings in the db for that portfolio
@@ -74,11 +76,11 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
         // update the db
         newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
         // calculate the remaining user funds
-        const newRemainder = portfolioRemainder - transaction.value
+        const newRemainder = portfolioRemainder - transaction.value - transaction.transactionCost
         // create transaction object
         await transaction.save()
         // update the portfolio, adding a transaction object ID and updating the remainder
-        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday:1}}, {new:true})
         return newPortfolio
     }
     else {
@@ -92,9 +94,9 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
         await newHoldings.save()
         // a new transaction is added to the db
         await transaction.save()
-        const newRemainder = portfolioRemainder - transaction.value
+        const newRemainder = portfolioRemainder - transaction.value - transactionFee
         // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
-        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}}, {new:true})
+        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
         return newPortfolio
     }
     }
@@ -103,7 +105,115 @@ const buyStock = async (buyData, portfolioRemainder,value) => {
     }
 }
 
+const sellStock = async (sellData, portfolioRemainder,value, transactionFee) => {
+    // creates a date so that it is known when it was created
+    try{
+        const date = new Date()
+
+        // creates a transaction model
+        const transaction = new Transaction({
+        portfolioId: sellData.portfolioId,
+        stockId: sellData.stockId,
+        units: sellData.units,
+        value: value,
+        date: date,
+        buyOrSell: sellData.buyOrSell,
+        orderType: sellData.orderType,
+        transactionCost: transactionFee
+    })
+    // finds existing holdings in the db for that portfolio
+    const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
+
+
+    // if there are holdings, then the current holdings are updated
+    if (holdings != null){
+        var newHoldings = holdings.units - transaction.units
+        // this will be the new remainder
+        newRemainder = portfolioRemainder + value - transactionFee
+        
+        if (newHoldings > 0) {
+            // if the holdings are greater than 0, update the existing holdings
+            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
+
+            // create a new transaction
+            await transaction.save()
+
+            // find and update the portfolio, adding ref to transaction, setting new remainder, increasing the number associated to the number of trades today
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+            return newPortfolio
+        }
+        else if (newHoldings === 0){
+            // if the holdings are 0 then the holdings referenced should be deleted
+            await Holdings.findByIdAndDelete({_id:holdings._id})
+
+            // create a new transaction
+            await transaction.save()
+
+            // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
+            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+            return newPortfolio
+        }
+        else if (newHoldings < 0) {
+            return {error:400, errormessage: "You do not have enough units to sell."}
+        }
+    }
+    else {
+        // if there are no holdings return an error
+        
+        return {error:404, errormessage: "No holding of that stock exists"}
+    }
+    }
+    catch (err) {
+        throw new Error(`Error has occured in selling the stock.\nError details:\n\t${err}`)
+    }
+}
+
+const checkLeagueRules = async (portfolio, stock, transactionFee) => {
+    // creates a date so that it is known when it was created
+    try{
+
+      if (mongoose.Types.ObjectId.isValid(portfolio.leagueId) === false){
+        // check that the league ID is correct
+        return {error:404, errormessage: "No League Found"}
+      }
+      const league = await League.findOne({_id: portfolio.leagueId})
+      if (league===null) {
+        // if there are no leagues then return an error
+        return {error:404, errormessage: "No League Found"}
+      }
+      else {
+        transactionFee = league.tradingFee
+        if (!league.sectors.includes(stock.sector)){
+            // if the sector is not in the allowed sectors list then return error
+            return {error:400, errormessage: "Invalid sector chosen. League only allows stocks from certain sectors."}
+        }
+        if (stock.esgrating.environment_score < league.minERating) {
+            // if E rating is too low return error
+            return {error:400, errormessage: "Environmental Score is lower than the allowable score as per league rules."}
+        }
+        if (stock.esgrating.social_score < league.minSRating) {
+            // if S rating is too low return error
+            return {error:400, errormessage: "Social Score is lower than the allowable score as per league rules."}
+        }
+        if (stock.esgrating.governance_score < league.minGRating) {
+            // if G rating is too low return error
+            return {error:400, errormessage: "Governance Score is lower than the allowable score as per league rules."}
+        }
+        if (portfolio.tradesToday > league.maxDailyTrades - 1) {
+            // if the number of trades is too many return an error
+            return {error:400, errormessage: 'The league has set a maximum number of trades that can be completed in 24 hours. You have reached this limit.'}
+        }
+    }
+    return [league, transactionFee]
+  }
+    catch (err) {
+        throw new Error(`Error has occured in checking if league exists.\nError details:\n\t${err}`)
+    }
+}
+
 module.exports = {
     createPortfolio,
-    buyStock
+    buyStock,
+    sellStock,
+    checkLeagueRules
 }

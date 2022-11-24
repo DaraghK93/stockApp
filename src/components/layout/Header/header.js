@@ -31,16 +31,16 @@ function Header() {
   }
 
   return (
-    <Navbar expand="lg" 
+    <Navbar expand="lg" variant="dark"
     className="navbar">
       <Container>
         <Navbar.Brand style={{color:'white'}} as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle style={{ color:"white"}} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
              {userInfo ?
               (
               <>
-              <Nav className="me-auto" >
+              <Nav>
                 <Nav.Link as={Link} style={{color:'white'}} to="/stockdiscovery/">Stocks</Nav.Link>
                 <Nav.Link as={Link} style={{color:'white'}} to="/game">Game</Nav.Link>
               </Nav>

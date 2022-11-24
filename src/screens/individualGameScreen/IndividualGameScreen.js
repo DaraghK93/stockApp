@@ -1,28 +1,37 @@
-import { Container } from "react-bootstrap"
-
+import { useState } from "react";
+import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
+import PortfolioPage from "../portfolio/portfolio";
+import { Container } from 'react-bootstrap'
 function IndividualGameScreen() {
 
-    // game overview or rules
-    // stock screen
-    // portfolio
-    // settings
-    // activity nice to have
+    const [screen, setScreen] = useState("")
 
+    const disPlayScreen = (e) => {
+        if (e.target.id === "1") {
+            setScreen(<br></br>)
+        }
+        else if (e.target.id === "2") {
+            setScreen(<br></br>)
+        }
+        else if (e.target.id === "3") {
+            setScreen(<PortfolioPage />)
+        }
+        else if (e.target.id === "4") {
+            setScreen(<br></br>)
+        }
+    }
 
     return (
-        <Container>
-            <h1>Individual Game Screen</h1>
-            <h1>Game image</h1>
-
-
-
-
-            <h1>Navigation</h1>
-
-            <h1>Timeline</h1>
-
-            <h1>Show stuff here </h1>
-        </Container>
+        <>
+            <Container>
+                <h1>Game image</h1>
+            </Container>
+            <GameNavBar disPlayScreen={disPlayScreen} />
+            <Container>
+                <h1>Timeline</h1>
+                {screen}
+            </Container>
+        </>
     )
 }
 

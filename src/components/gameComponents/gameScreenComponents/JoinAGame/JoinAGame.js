@@ -4,21 +4,42 @@ import {Link} from 'react-router-dom';
 import FormContainer from "../../../layout/FormContainer/FormContainer";
 import {useState} from 'react'
 import {APIName} from '../../../../constants/APIConstants'
+import { API } from "aws-amplify";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
+import {useSelector} from 'react-redux';
 
 
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [successMessage, setSuccessMessage] = useState("")
+
+    /// Redux
+    const user = useSelector((state) => state.user)
+    const {userInfo} = user
+    const userToken = userInfo.token
 
     const handleSubmit = async(event) =>{
         event.preventDefault()
         try{
             setLoading(true)
             setError("")
-            setError("Hello")
+            setSuccessMessage("")
+            let path = '/api/league/joinleague'
+            // auth token in header
+            // access token in the body 
+            let myInit = {
+                    headers : {"x-auth-token": userToken},       
+                    body:{
+                        "accessCode":accessCode
+                    }
+            }
+            /// Send the request 
+            const res = await API.post(APIName, path, myInit)
+            setSuccessMessage(`Succesfully Joined ${res.newLeague.leagueName}, Goodluck!`)
+            setLoading(false)
         }catch(error){
             /// Will be hit if error in the POST 
             setError(error.response.data.errormessage)
@@ -61,6 +82,7 @@ function JoinAGame(){
                         </Form>
                    </FormContainer>
                     {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                    {successMessage && <MessageAlert variant="success">{successMessage}</MessageAlert>}
                     {loading && <LoadingSpinner/>}
             </Card.Body>
         </Card>

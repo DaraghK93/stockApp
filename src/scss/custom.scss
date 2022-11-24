@@ -43,6 +43,8 @@
 @import "./gameComponents/gameCard.scss";
 @import "./gameComponents/createGameScreen.scss";
 
+@import "./gameComponents/individualGameScreen.scss";
+
 
 body {
     background-color: $background;
@@ -56,6 +58,15 @@ h1,
 .navbar {
     background-color: $primary;
     color: $background
+}
+
+.navlink {
+    color:$navlinks
+}
+.navlinkactive {
+    color:$background;
+    font-weight: bold;
+
 }
 
 .navbar-brand {

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
 import PortfolioPage from "../portfolio/portfolio";
-import { Container } from 'react-bootstrap'
+import { Container, Row, Col, Card, Image, Overlay } from 'react-bootstrap'
 function IndividualGameScreen() {
 
 
     const [screen, setScreen] = useState("")
+    const [active, setActive] = useState("4")
 
     const disPlayScreen = (e) => {
+        setActive(e.target.id)
         if (e.target.id === "1") {
             setScreen(<><br></br><h2>This is rules screen</h2></>)
         }
@@ -24,11 +26,21 @@ function IndividualGameScreen() {
 
     return (
         <>
-            <img style={{ width: "100%" }} src="/stock_photo_1.jpg"></img>
+            <Row>
 
-            <GameNavBar disPlayScreen={disPlayScreen} />
+                <div className="container-img">
+                    <Image className="gameImage" src={"/stock_photo_1.jpg"}></Image>
+                    <div className="centeredGameImg">
+                        <h1 className="ImgTxt">Warren's Get Rich Quick Scheme</h1>
+                    </div>
+                </div>
+
+            </Row>
+            <Row>
+                <GameNavBar disPlayScreen={disPlayScreen} active={active} />
+            </Row>
             <Container>
-                <h1>Timeline</h1>
+                <h3>Timeline goes here</h3>
                 {screen}
             </Container>
         </>

@@ -14,7 +14,7 @@ function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [successMessage, setSuccessMessage] = useState("")
+    const [leagueName, setLeagueName] = useState("")
 
     /// Redux
     const user = useSelector((state) => state.user)
@@ -26,7 +26,7 @@ function JoinAGame(){
         try{
             setLoading(true)
             setError("")
-            setSuccessMessage("")
+            setLeagueName("")
             let path = '/api/league/joinleague'
             // auth token in header
             // access token in the body 
@@ -38,7 +38,7 @@ function JoinAGame(){
             }
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
-            setSuccessMessage(`Succesfully Joined ${res.newLeague.leagueName}, Goodluck!`)
+            setLeagueName(res.newLeague.leagueName)
             setLoading(false)
         }catch(error){
             /// Will be hit if error in the POST 
@@ -82,7 +82,7 @@ function JoinAGame(){
                         </Form>
                    </FormContainer>
                     {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                    {successMessage && <MessageAlert variant="success">{successMessage}</MessageAlert>}
+                    {leagueName && <MessageAlert variant="success">Succesfully Joined <span className="bolded">{leagueName}</span>, Goodluck!</MessageAlert>}
                     {loading && <LoadingSpinner/>}
             </Card.Body>
         </Card>

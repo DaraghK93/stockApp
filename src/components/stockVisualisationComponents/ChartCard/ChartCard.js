@@ -4,6 +4,8 @@ import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
 import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
+import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
+import SentimentBadge from "../../widgets/sentimentBadge/SentimentBadge";
 
 const ChartCard = ({ title, data }) => {
 
@@ -14,15 +16,15 @@ const ChartCard = ({ title, data }) => {
 
     useEffect(() => {
         // value totoal will be 0 if these is no data 
-        let valueTotal = 0 
+        let valueTotal = 0
         /// if there is no data to show 
-        data.forEach(function (item,index){
+        data.forEach(function (item, index) {
             valueTotal = valueTotal + item.value
         })
-        if (valueTotal === 0){
+        if (valueTotal === 0) {
             setNoDataMessage("No data to show at the minute")
-        }else{
-           if (String(title) === "ESG Rating") {
+        } else {
+            if (String(title) === "ESG Rating") {
                 setIsShownBarChart(true);
             }
             else if (String(title) === "News Sentiment") {
@@ -30,9 +32,9 @@ const ChartCard = ({ title, data }) => {
             }
             else if (String(title) === "Twitter Sentiment") {
                 setIsShownRadarChart(true);
-            } 
+            }
         }
-    }, [data,title]);
+    }, [data, title]);
 
 
     const showBarChart = event => {
@@ -55,30 +57,77 @@ const ChartCard = ({ title, data }) => {
         setIsShownBarChart(false);
         setIsShownPieChart(false);
     };
+
+
+    function information() {
+        if (String(title) === "News Sentiment") {
+            return (
+                <>
+                    <p>This information relates to the company's overall sentiment in news outlets. 
+                        We have scraped the news article titles from various news sources and used AI to calculate what the overall sentiment of each article is. 
+                        This can then be used to aid your investment decisions in game.
+                    </p>
+                    <p>Sentiment is broken down into the following categories:</p>
+                    <p><SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.</p> 
+                    <p><SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.</p>
+                    <p><SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.</p>
+                    <p>Read more about sentiment <a className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a></p> 
+                </>
+            )
+        } else if (String(title) === "Twitter Sentiment") {
+            return (
+                <>
+                <p>This information relates to the company's overall sentiment on twitter. We have scraped tweets that contain the
+                companies ticker symbol from twitter and used AI to calculate what the overall sentiment
+                of each tweet is. This can then be used to aid your investment decisions in game.</p>
+                <p>Sentiment is broken down into the following categories:</p>
+                <p> <SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.</p>
+                <p><SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.</p>
+                <p><SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.</p>
+                <p>Read more about sentiment <a
+                    className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.
+                </p>
+                </>
+            )
+        }
+    }
+
+    function titlesetting() {
+        if (String(title) === "News Sentiment") {
+            return (
+                <h2>What is News Sentiment and why is it important?</h2>
+            )
+        } else if (String(title) === "Twitter Sentiment") {
+            return (
+                <h2>What is Twitter Sentiment and why is it important?</h2>
+            );
+        }
+    }
+
     return (
         <>
             <Card className="infoCardStyle">
                 <Container className="infoCardContainer">
-                    <h2>{title}  </h2>
-                    {noDataMessage 
-                    ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert> 
+                    <h2>{title}<InfoButtonModal title={titlesetting()} info={information()} /></h2>
+                    {noDataMessage
+                        ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert>
 
-                    :<>
-                    <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                                Graph Type
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>
-                                <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
-                                <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    {isShownBarChart && <BarChartViz data={data}/>}
-                    {isShownPieChart && <PieChartViz data={data}/>}
-                    {isShownRadarChart && <RadarChartViz data={data}/>} 
-                    </>
-    }
+                        : <>
+                            <Dropdown>
+                                <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
+                                    Graph Type
+                                </Dropdown.Toggle>
+                                <Dropdown.Menu>
+                                    <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>
+                                    <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
+                                    <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                            {isShownBarChart && <BarChartViz data={data} />}
+                            {isShownPieChart && <PieChartViz data={data} />}
+                            {isShownRadarChart && <RadarChartViz data={data} />}
+                        </>
+                    }
                 </Container>
             </Card>
         </>

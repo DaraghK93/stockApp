@@ -1,4 +1,5 @@
 const User = require('../models/user.model');
+const bcrypt = require('bcryptjs');
 
 const getHost = require('../utils/Host');
 const getEmailAPIKEY = require('../utils/EMAIL_API_KEY');
@@ -120,6 +121,10 @@ const resetPassword = async (req, res, next) => {
       res.errormessage = 'Password reset token is invalid or has expired';
       return next(new Error('Password reset token invalid or has expired'));
     }
+
+    /// Hash the password ///
+    let salt = await bcrypt.genSalt(10);
+    password = await bcrypt.hash(password, salt);
 
     //Set the new password
     user.password = password;

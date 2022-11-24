@@ -38,7 +38,7 @@ const myStyles = {
   itemShapes: Governance,
   boxBorderWidth: 3,
 
-  activeFillColor: ['#FEE2E2', '#FFEDD5', '#FEF9C3', '#ECFCCB', '#D1FAE5'],
+  activeFillColor: ['#FEE2E2', '#FFEDD5', '#FEF9C3', '#ECFCCB', '#FFFFFF'],
   activeBoxColor: ['#FF8042', '#FF9E35', '#FFBB28', '#80C064', '#00C49F'],
   activeBoxBorderColor: ['#c41400', '#d05e00', '#cca300', '#498d00', '#00724c'],
 

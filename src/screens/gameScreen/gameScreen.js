@@ -57,7 +57,7 @@ function GameScreen(){
                }
            }
            getGames()
-       },[userToken])
+       },[userToken,screen])
         
 
     return(

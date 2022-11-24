@@ -2,15 +2,29 @@ import {Card,Form,Row,Col,Button} from "react-bootstrap"
 import InfoButtonModal from "../../../widgets/InfoButtonModal/InfoButtonModal"
 import {Link} from 'react-router-dom';
 import FormContainer from "../../../layout/FormContainer/FormContainer";
+import {useState} from 'react'
+import {APIName} from '../../../../constants/APIConstants'
+import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
+import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
+
 
 function JoinAGame(){
+    const [accessCode, setAccessCode] = useState('')
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
-    function handleSubmit(event) {
+    const handleSubmit = async(event) =>{
         event.preventDefault()
-        console.log("HELLO")
+        try{
+            setLoading(true)
+            setError("")
+            setError("Hello")
+        }catch(error){
+            /// Will be hit if error in the POST 
+            setError(error.response.data.errormessage)
+            setLoading(false)
+        }
     }
-
-
 
     return(
         <Card>
@@ -26,24 +40,28 @@ function JoinAGame(){
             </Card.Title>
             <Card.Body>
                 <Card.Text className="gameOptionsCardText">Enter a Game Access Code</Card.Text>
-                
                    <FormContainer>
                         <Form  onSubmit={handleSubmit}>
                             <Form.Control
                                 type="text"
                                 placeholder="Access Code"
+                                onChange={(e) => setAccessCode(e.target.value)}
                             ></Form.Control>
                         <Row>
                             <Col className="text-center py-4">
-                                <Button variant="primary" type="submit">
+                                <Button 
+                                    variant="primary" 
+                                    type="submit"
+                                    disabled={accessCode.length === 0}
+                                    >
                                     Join Game!
                                 </Button>
                             </Col>
                         </Row>    
                         </Form>
-                        
                    </FormContainer>
-                   
+                    {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                    {loading && <LoadingSpinner/>}
             </Card.Body>
         </Card>
     )

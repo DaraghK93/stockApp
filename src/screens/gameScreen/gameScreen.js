@@ -31,7 +31,7 @@ function GameScreen(){
     /// The choices for the screens, used for buttons at top of screen 
     var screenChocies = [
         {name: 'My Games', value:'1'},
-        {name: 'Join a Game', value: '2'}]
+        {name: 'Join Game', value: '2'}]
 
 
     useEffect(() => {
@@ -63,7 +63,6 @@ function GameScreen(){
     return(
         <>
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-    
         <Container>
             <Row className="py-3" lg={1} md={1} xs={1}>
                 <ScreenSelectionRadioButton choices={screenChocies} state={screen} setter={setScreen}/>
@@ -81,7 +80,7 @@ function GameScreen(){
             </>)
             :
             (
-                <Row  style={{"textAlign":"center","alignItems":"center"}}>
+                <Row className="px-4 mt-3" style={{"textAlign":"center","alignItems":"center"}}>
                     <JoinAGame/>
                 </Row>
             )}

@@ -51,22 +51,5 @@ UserSchema.methods.generatePasswordReset = function() {
   this.resetPasswordExpires = Date.now() + 3600000; //expires in an hour
 };
 
-/// hashPassword on save ///
-// Description:
-//  This function is called on the "save" action for the user schema
-//  When a new user is created there password has to be hashed 
-//  It should also be hashed when a password is changed  
-//  Function s called on user so "this" can be used to access attributes 
-UserSchema.pre('save', async function (next) {
-  // If the password is not modified do not run this, call next middleware 
-  if(!this.isModified('password')){
-      next();
-  }else{
-      // salt is a random string used to hash the password 
-      let salt = await bcrypt.genSalt(10);
-      // now hash the passowrd using the salt 
-      this.password = await bcrypt.hash(this.password,salt);
-  }
-})
 
 module.exports = mongoose.model('UserData', UserSchema)

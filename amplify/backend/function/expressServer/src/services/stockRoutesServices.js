@@ -89,10 +89,10 @@ function getStockPriceData (stocks) {
 
 };
 
-const getRecomms = () => {
+const getRecomms = (stock) => {
     var axios = require('axios');
-    var data = '{"stock": "{AAPL}"}';
-    
+    var data = '{"stock":' + '"' + stock + '"}';
+    console.log("Data:" + data)
     var config = {
       method: 'get',
       url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',

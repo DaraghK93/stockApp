@@ -74,14 +74,19 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
     // if there are holdings, then the current holdings are updated
     if (holdings != null){
         // calculate the remaining user funds
-        const newRemainder = portfolioRemainder - transaction.value - transaction.tradingFee
+        
         // add the new units to the existing units
         const currentHoldings = transaction.units + holdings.units
         // create transaction object
         await transaction.save()
+        let newRemainder
         if (transaction.orderType === "MARKET"){
             // update the db for market order
             newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
+            newRemainder = portfolioRemainder - transaction.value - transaction.tradingFee
+        }
+        else {
+            newRemainder = portfolioRemainder - transaction.value*transaction.units - transaction.tradingFee
         }
         // update the portfolio, adding a transaction object ID and updating the remainder
         const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday:1}}, {new:true})
@@ -91,7 +96,6 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
         // a new transaction is added to the db
         await transaction.save()
 
-        const newRemainder = portfolioRemainder - transaction.value - transactionFee
         // if there are no holdings, a new one can be created
         newHoldings = new Holdings({
         portfolioId: transaction.portfolioId,
@@ -99,13 +103,16 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
         units: transaction.units
         })
         let newPortfolio
+        let newRemainder
         if (transaction.orderType === "MARKET"){
         // a new holding is added to the db
         await newHoldings.save()
+        newRemainder = portfolioRemainder - transaction.value - transactionFee
         // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
         }
         else {
+            newRemainder = portfolioRemainder - transaction.value*transaction.units - transaction.tradingFee
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
         }
         return newPortfolio
@@ -116,22 +123,24 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
     }
 }
 
-const sellStock = async (sellData, portfolioRemainder,value, transactionFee) => {
+const sellStock = async (sellData, portfolioRemainder,value, transactionFee, status) => {
     // creates a date so that it is known when it was created
     try{
         const date = new Date()
 
         // creates a transaction model
         const transaction = new Transaction({
-        portfolioId: sellData.portfolioId,
-        stockId: sellData.stockId,
-        units: sellData.units,
-        value: value,
-        date: date,
-        buyOrSell: sellData.buyOrSell,
-        orderType: sellData.orderType,
-        tradingFee: transactionFee
-    })
+            portfolioId: sellData.portfolioId,
+            stockId: sellData.stockId,
+            units: sellData.units,
+            value: value,
+            date: date,
+            buyOrSell: sellData.buyOrSell,
+            orderType: sellData.orderType,
+            tradingFee: transactionFee,
+            limitValue: sellData.limitValue,
+            status: status
+        })
     // finds existing holdings in the db for that portfolio
     const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})
 
@@ -140,7 +149,6 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee) => 
     if (holdings != null){
         var newHoldings = holdings.units - transaction.units
         // this will be the new remainder
-        newRemainder = portfolioRemainder + value - transactionFee
         
         if (newHoldings > 0) {
             // if the holdings are greater than 0, update the existing holdings
@@ -148,9 +156,15 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee) => 
 
             // create a new transaction
             await transaction.save()
-
-            // find and update the portfolio, adding ref to transaction, setting new remainder, increasing the number associated to the number of trades today
-            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+            let newPortfolio
+            if (transaction.orderType === "MARKET"){
+                newRemainder = portfolioRemainder + value - transactionFee
+                // find and update the portfolio, adding ref to transaction, setting new remainder, increasing the number associated to the number of trades today
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+            }
+            else{
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $inc: {tradesToday: 1}}, {new:true})
+            }
             return newPortfolio
         }
         else if (newHoldings === 0){
@@ -159,9 +173,14 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee) => 
 
             // create a new transaction
             await transaction.save()
-
+            let newPortfolio
+            if (transaction.orderType === "MARKET"){
             // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
-            const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+            }
+            else{
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+            }
             return newPortfolio
         }
         else if (newHoldings < 0) {

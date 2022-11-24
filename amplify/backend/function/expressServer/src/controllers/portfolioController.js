@@ -47,7 +47,7 @@ const createHangingPortfolio = async (req, res, next) => {
   }
 
 
-const buyStockMarketOrder = async (req, res, next) => {
+const buyStock = async (req, res, next) => {
   try{
     // check that all of the data is there
     if (
@@ -152,13 +152,13 @@ const buyStockMarketOrder = async (req, res, next) => {
           ),
         )
       }
-      if (stock.daily_change.currentprice*req.body.units <= req.body.limitValue){
+      if (stock.daily_change.currentprice <= req.body.limitValue){
         // check that the value is not already surpassed.
         res.status(400)
         res.errormessage = 'The current value of this stock is already less than the amount of the limit order.'
         return next(
           new Error(
-            'In a buy limit order the limit value must be more than the current value of the stock.'
+            'In a buy limit order the limit value must be less than the current value of the stock.'
           )
         )
       }
@@ -223,7 +223,7 @@ catch (err) {
 
 
 // Sell Stock Route
-const sellStockMarketOrder = async (req, res, next) => {
+const sellStock = async (req, res, next) => {
   try{
     // check that all of the data is there
     if (
@@ -242,13 +242,13 @@ const sellStockMarketOrder = async (req, res, next) => {
         ),
       )
     }
-    if (req.body.buyOrSell !== "SELL" || req.body.orderType !== "MARKET"){
-      // check that the type is buy
+    if (req.body.buyOrSell !== "SELL"){
+      // check that the type is sell
       res.status(400)
-      res.errormessage = 'Must be type SELL and order type MARKET'
+      res.errormessage = 'Not a valid sell order request'
       return next(
         new Error(
-          'Should be type Sell and order type should be MARKET'
+          'BuyOrSell type must be SELL.'
         )
       )
     }
@@ -304,7 +304,45 @@ const sellStockMarketOrder = async (req, res, next) => {
         )
       )
     }
-    const value = stock.daily_change.currentprice * req.body.units
+    let value
+    let transactionStatus
+    if (req.body.orderType === "LIMIT"){
+      if (typeof req.body.limitValue === 'undefined'){
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'Limit value missing for a transaction'
+        return next(
+          new Error(
+            'The client has not sent the required information to create a limit buy order.',
+          ),
+        )
+      }
+      if (stock.daily_change.currentprice >= req.body.limitValue){
+        // check that the value is not already surpassed.
+        res.status(400)
+        res.errormessage = 'The current value of this stock is already more than the amount of the limit order.'
+        return next(
+          new Error(
+            'In a sell limit order, the limit value must be more than the current value of the stock.'
+          )
+        )
+      }
+    transactionStatus = "PENDING"
+    value = req.body.limitValue
+    }
+    else if (req.body.orderType === "MARKET"){
+      if (typeof req.body.limitValue !== 'undefined'){
+        res.status(400)
+        res.errormessage = 'No limit value should be assigned for a market order.'
+        return next(
+          new Error(
+            'A limit value has been provided, should not be provided for a market order.'
+          )
+        )
+      }
+      transactionStatus = "COMPLETED"
+      value = stock.daily_change.currentprice * req.body.units
+    }
     let transactionFee
     if (portfolio.leagueId){
       // check whether it is in a league and whether the league exists. Also checks the league rules
@@ -325,7 +363,7 @@ const sellStockMarketOrder = async (req, res, next) => {
     transactionFee = 0
   }
     // use the sellStock service found in the services folder
-    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee)
+    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee, transactionStatus)
     if (newPortfolio.error) {
       res.status(newPortfolio.error)
       res.errormessage = newPortfolio.errormessage
@@ -347,6 +385,6 @@ catch (err) {
 
 module.exports = {
   createHangingPortfolio,
-  buyStockMarketOrder,
-  sellStockMarketOrder
+  buyStock,
+  sellStock
 }

@@ -89,6 +89,13 @@ function getStockPriceData (stocks) {
 
 };
 
+async function getRecomms() {
+    let response = await fetch('https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44');
+    let recommender_query = await response.json()
+    return recommender_query;
+}
+
+getRecomms().then(recommender_query)
 
 const getStockSummary =  (schema) => {
 const stocks =  schema.aggregate([

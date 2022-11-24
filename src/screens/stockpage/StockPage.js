@@ -88,12 +88,12 @@ function StockPage() {
                             <dl className='infoList'>
                                 <dt>
                                     <h1>
-                                        {stock.longname}</h1>
+                                        {stock.longname}<InfoButtonModal
+                                        title="Company Information"
+                                        info={stock.longbusinesssummary} /></h1>
                                 </dt>
                                 <dt>{stock.symbol}
-                                    <InfoButtonModal
-                                        title="Company Information"
-                                        info={stock.longbusinesssummary} /></dt>
+                                    </dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
                                 <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange.toFixed(2)} ({positiveSymbol}{stock.daily_change.percentageChange.toFixed(2)}%)
                                 </dt>

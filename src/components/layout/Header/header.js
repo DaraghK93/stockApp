@@ -7,6 +7,8 @@ import {
 
 import {Link} from 'react-router-dom';
 
+import {useState} from "react";
+
 
 /// Redux ///
 import {useSelector,useDispatch} from 'react-redux';
@@ -14,6 +16,7 @@ import {logout} from '../../../actions/userActions'
 
 
 function Header() {
+  const [active,setActive] = useState("")
 
   /// Redux ///
   const dispatch = useDispatch(); 
@@ -30,6 +33,10 @@ function Header() {
     dispatch(logout());
   }
 
+  const setActiveLink = (e) => {
+    setActive(e.target.id)
+  }
+
   return (
     <Navbar expand="lg" variant="dark"
     className="navbar">
@@ -41,11 +48,11 @@ function Header() {
               (
               <>
               <Nav>
-                <Nav.Link as={Link} style={{color:'white'}} to="/stockdiscovery/">Stocks</Nav.Link>
-                <Nav.Link as={Link} style={{color:'white'}} to="/game">Game</Nav.Link>
+                <Nav.Link id={"1"} onClick={setActiveLink} as={Link} className={active === "1" ? 'navlinkactive' : "navlink"} to="/stockdiscovery/">Stocks</Nav.Link>
+                <Nav.Link id={"2"} onClick={setActiveLink} as={Link} className={active === "2" ? 'navlinkactive' : "navlink"} to="/game">Game</Nav.Link>
               </Nav>
               <NavDropdown  className="userDropDown" title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
-                <NavDropdown.Item as={Link}  to="/profile">My Profile</NavDropdown.Item>
+                <NavDropdown.Item  as={Link}  to="/profile">My Profile</NavDropdown.Item>
                 <NavDropdown.Item as={Link}  to="/myportfolios">My Portfolios</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
               </NavDropdown>

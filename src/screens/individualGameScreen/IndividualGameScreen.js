@@ -1,7 +1,7 @@
 import { useState } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
 import PortfolioPage from "../portfolio/portfolio";
-import { Container, Row, Col, Card, Image, Overlay } from 'react-bootstrap'
+import { Container, Row, Image } from 'react-bootstrap'
 function IndividualGameScreen() {
 
 

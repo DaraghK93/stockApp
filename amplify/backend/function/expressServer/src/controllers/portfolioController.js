@@ -296,10 +296,110 @@ catch (err) {
 const getLeaguePortfolio = async (req,res,next) => {
   try{
 
+    // check that the userId and leagueIds can be cast to valid objectIds
+    if (mongoose.Types.ObjectId.isValid(req.params.userId) === false || 
+        mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
+      // check that the stock ID is correct
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+        new Error(
+          'No portfolio found'
+        )
+      )
+    }
 
-} catch {
+    // cast the Ids to mongo _ids
+    const userId = mongoose.Types.ObjectId(req.params.userId)
+    const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
 
-  }
+    // query the colelction
+    const portfolio = await Portfolio.aggregate(
+      [
+        {
+          // match on userid and leagueId
+          '$match': {
+            'leagueId': userId, 
+            'userId': leagueId
+          }
+        }, {
+          // get the holdings data from the holdings view
+          '$lookup': {
+            'from': 'holdingsValue', 
+            'localField': 'holdings', 
+            'foreignField': '_id', 
+            'as': 'holdings'
+          }
+        }, {
+          // get transactions data from transacions
+          '$lookup': {
+            'from': 'transactions', 
+            'localField': 'transactions', 
+            'foreignField': '_id', 
+            'as': 'transactions', 
+            'pipeline': [
+              { 
+                // within this get the stock data needed from the stockId ref
+                '$lookup': {
+                  'from': 'stocks', 
+                  'localField': 'stockId', 
+                  'foreignField': '_id', 
+                  'as': 'stock', 
+                  'pipeline': [
+                    {
+                      // only show the symbol and shortname
+                      '$project': {
+                        'symbol': 1, 
+                        'shortname': 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }, {
+          // get the portfolio total values from the view
+          '$lookup': {
+            'from': 'portfolioValues', 
+            'localField': '_id', 
+            'foreignField': '_id', 
+            'as': 'totalValue', 
+            'pipeline': [
+              {
+                // just show the value
+                '$project': {
+                  'totalValue': 1
+                }
+              }
+            ]
+          }
+        }, {// change it form an array to an object
+          '$unwind': {
+            'path': '$totalValue'
+          }
+        }
+      ])
+
+    // if no portfolio found with the ids throw error
+    if(portfolio===null){
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+        new Error(
+          'No portfolio found.'
+        )
+      )
+    }
+  
+  // return the portfolio object
+  res.json({portfolio})
+  
+} catch (err) {
+  console.error(err.message);
+  res.errormessage = 'Server error';
+  return next(err);
+}
 }
 
 

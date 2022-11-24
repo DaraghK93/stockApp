@@ -309,6 +309,17 @@ const getLeaguePortfolio = async (req,res,next) => {
       )
     }
 
+    //check if the token is their token and corresponds to the params
+    if(req.user.id !== req.params.userId){
+      res.status(403)
+      res.errormessage = 'You do not have permission to view this portfolio'
+      return next(
+        new Error(
+          'You do not have permission to view this portfolio'
+        )
+      )
+    }
+
     // cast the Ids to mongo _ids
     const userId = mongoose.Types.ObjectId(req.params.userId)
     const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
@@ -319,8 +330,8 @@ const getLeaguePortfolio = async (req,res,next) => {
         {
           // match on userid and leagueId
           '$match': {
-            'leagueId': userId, 
-            'userId': leagueId
+            'leagueId': leagueId,
+            'userId': userId
           }
         }, {
           // get the holdings data from the holdings view
@@ -394,7 +405,7 @@ const getLeaguePortfolio = async (req,res,next) => {
   
   // return the portfolio object
   res.json({portfolio})
-  
+
 } catch (err) {
   console.error(err.message);
   res.errormessage = 'Server error';

@@ -293,10 +293,19 @@ catch (err) {
 }
 }
 
+const getLeaguePortfolio = async (req,res,next) => {
+  try{
+
+
+} catch {
+
+  }
+}
 
 
 module.exports = {
   createHangingPortfolio,
   buyStockMarketOrder,
-  sellStockMarketOrder
+  sellStockMarketOrder,
+  getLeaguePortfolio
 }

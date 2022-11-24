@@ -12,6 +12,7 @@ import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import ScreenSelectionRadioButton from "../../components/gameComponents/gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton";
 import CreateGameCard from '../../components/gameComponents/gameScreenComponents/createGameCard/createGameCard';
 import ActiveInactiveScheduledGames from '../../components/gameComponents/gameScreenComponents/activeInactiveScheduledGames/activeInactiveScheduledGames';
+import JoinAGame from '../../components/gameComponents/gameScreenComponents/JoinAGame/JoinAGame';
 
 function GameScreen(){
     // screen will either be 1 or 2, shows My games or join a game 
@@ -34,7 +35,6 @@ function GameScreen(){
 
 
     useEffect(() => {
-        
         const getGames = async () => {
                try{
                    /// Set loading to true
@@ -50,7 +50,6 @@ function GameScreen(){
                     setCompleteGames(res.leagues[0].complete)
                    /// Set loading false 
                     setLoading(false)
-   
                }catch(error){
                    console.log(error)
                    setError(error.response.data.errormessage);
@@ -83,7 +82,7 @@ function GameScreen(){
             :
             (
                 <Row>
-                    Join a Game Screen
+                    <JoinAGame/>
                 </Row>
             )}
         </Container>}

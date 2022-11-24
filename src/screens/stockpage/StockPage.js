@@ -103,7 +103,7 @@ function StockPage() {
                     <Row>
                         <Col className="stockInfoCol">
                         <Link to={`/stock/${stock.symbol}/confirmorder`}>
-                            <BottomStickyButton text="Go to trade page!" />
+                            <BottomStickyButton text="Lets Trade!" />
                             </Link>
                         </Col>
                     </Row>

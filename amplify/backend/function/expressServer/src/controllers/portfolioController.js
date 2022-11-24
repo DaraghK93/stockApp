@@ -297,8 +297,7 @@ const getLeaguePortfolio = async (req,res,next) => {
   try{
 
     // check that the userId and leagueIds can be cast to valid objectIds
-    if (mongoose.Types.ObjectId.isValid(req.params.userId) === false || 
-        mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
+    if (mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
       // check that the stock ID is correct
       res.status(404)
       res.errormessage = 'No portfolio found'
@@ -309,21 +308,9 @@ const getLeaguePortfolio = async (req,res,next) => {
       )
     }
 
-    //check if the token is their token and corresponds to the params
-    if(req.user.id !== req.params.userId){
-      res.status(403)
-      res.errormessage = 'You do not have permission to view this portfolio'
-      return next(
-        new Error(
-          'You do not have permission to view this portfolio'
-        )
-      )
-    }
-
     // cast the Ids to mongo _ids
-    const userId = mongoose.Types.ObjectId(req.params.userId)
     const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
-
+    const userId = mongoose.Types.ObjectId(req.user.id)
     // query the colelction
     const portfolio = await Portfolio.aggregate(
       [
@@ -392,8 +379,9 @@ const getLeaguePortfolio = async (req,res,next) => {
         }
       ])
 
+    // console.log(portfolio.portfolio)
     // if no portfolio found with the ids throw error
-    if(portfolio===null){
+    if(portfolio.length===0){
       res.status(404)
       res.errormessage = 'No portfolio found'
       return next(
@@ -404,7 +392,7 @@ const getLeaguePortfolio = async (req,res,next) => {
     }
   
   // return the portfolio object
-  res.json({portfolio})
+  res.json(portfolio)
 
 } catch (err) {
   console.error(err.message);

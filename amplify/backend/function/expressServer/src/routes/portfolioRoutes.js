@@ -6,7 +6,7 @@ const {protectedRoute} = require('../middleware/authMiddleware');
 router.post('/createPortfolio', protectedRoute, createHangingPortfolio)
 router.post('/buyStockMarketOrder', protectedRoute, buyStockMarketOrder)
 router.post('/sellStock', protectedRoute, sellStockMarketOrder)
-router.get('/:userId/:leagueId',protectedRoute,getLeaguePortfolio)
+router.get('/:leagueId',protectedRoute,getLeaguePortfolio)
 
 
 module.exports = router

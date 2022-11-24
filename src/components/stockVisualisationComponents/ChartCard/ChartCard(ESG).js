@@ -40,3 +40,4 @@ const ChartCardESG = ({ title, edata, sdata, gdata }) => {
     )
 }
 export default ChartCardESG;
+

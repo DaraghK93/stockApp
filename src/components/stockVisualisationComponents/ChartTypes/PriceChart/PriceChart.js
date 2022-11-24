@@ -15,7 +15,7 @@ import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 function StockPriceChart({ stock, lineColor, gradientColor }) {
 
     const [tickBoolean, setTickBoolean] = useState(false)
-    const [active, setActive] = useState("");
+    const [active, setActive] = useState("4");
 
     const day = [
         { date: '01-10', price: 400 },
@@ -30,7 +30,7 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
     const oneYearPrices = stock.year
 
     // Move this up with the rest of the constants when we have the daily data. For now it cant be called before the dummy data is initialized
-    const [data, setData] = useState();
+    const [data, setData] = useState(oneYearPrices);
 
     const DayData = event => {
         // toggle shown data

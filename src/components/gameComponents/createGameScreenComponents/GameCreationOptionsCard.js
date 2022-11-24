@@ -65,7 +65,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
-            console.log(res.code)
+            console.log(res)
             /// Will need to be updated to redirect to game page 
             navigate(`/game`)
             setLoading(false)

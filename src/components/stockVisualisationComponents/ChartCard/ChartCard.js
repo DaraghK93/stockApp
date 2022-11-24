@@ -5,6 +5,7 @@ import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
 import RadarChartViz from "../ChartTypes/RadarChartViz/RadarChartViz";
 import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
+import SentimentBadge from "../../widgets/sentimentBadge/SentimentBadge";
 
 const ChartCard = ({ title, data }) => {
 
@@ -12,8 +13,6 @@ const ChartCard = ({ title, data }) => {
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
     const [noDataMessage, setNoDataMessage] = useState("");
-
-    const infotitle = "What is Sentiment Analysis?"
 
     useEffect(() => {
         // value totoal will be 0 if these is no data 
@@ -58,19 +57,53 @@ const ChartCard = ({ title, data }) => {
         setIsShownBarChart(false);
         setIsShownPieChart(false);
     };
+
+
+    function information() {
+        if (String(title) === "News Sentiment") {
+            return (
+                <span>This information relates to the companies overall sentiment in news outlets. We have scraped the
+                    news article titles from various news sources and used AI to calculate what the overall sentiment
+                    of each article is. This can then be used to aid your investment decisions in game.<br></br><br></br>
+                    Sentiment is broken down into the following categories:<br></br><br></br>
+                    <SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.<br></br>
+                    <SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.<br></br>
+                    <SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.<br></br><br></br>
+                    Read more about sentiment <a
+                        className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.</span>
+            )
+        } else if (String(title) === "Twitter Sentiment") {
+            return (
+                <span>This information relates to the companies overall sentiment on twitter. We have scraped tweets that contain the
+                    companies ticker symbol from twitter and used AI to calculate what the overall sentiment
+                    of each tweet is. This can then be used to aid your investment decisions in game.<br></br><br></br>
+                    Sentiment is broken down into the following categories:<br></br><br></br>
+                    <SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.<br></br>
+                    <SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.<br></br>
+                    <SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.<br></br><br></br>
+                    Read more about sentiment <a
+                        className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.</span>
+            )
+        }
+    }
+
+    function titlesetting() {
+        if (String(title) === "News Sentiment") {
+            return (
+                <h2>What is news sentiment and why is it important?</h2>
+            )
+        } else if (String(title) === "Twitter Sentiment") {
+            return (
+                <h2>What is twitter sentiment and why is it important?</h2>
+            );
+        }
+    }
+
     return (
         <>
             <Card className="infoCardStyle">
                 <Container className="infoCardContainer">
-                    <h2>{title}  <InfoButtonModal title={infotitle} info={
-                        <div>
-                            <span>Sentiment analysis, also referred to as opinion mining, is an approach to natural 
-                                language processing (NLP) that identifies the emotional tone behind a body of text. This is a popular way for 
-                                organizations to determine and categorize opinions about a product, service, or idea. It involves the use of data mining, 
-                                machine learning (ML) and artificial intelligence (AI) to mine text for sentiment and subjective information.
-                                Read more about Sentiment Analysis <a className="linkStyle"
-                                href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.</span>
-                        </div>} /></h2>
+                    <h2>{title}  <InfoButtonModal title={titlesetting()} info={information()} /></h2>
                     {noDataMessage
                         ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert>
 

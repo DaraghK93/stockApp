@@ -62,27 +62,32 @@ const ChartCard = ({ title, data }) => {
     function information() {
         if (String(title) === "News Sentiment") {
             return (
-                <span>This information relates to the companies overall sentiment in news outlets. We have scraped the
-                    news article titles from various news sources and used AI to calculate what the overall sentiment
-                    of each article is. This can then be used to aid your investment decisions in game.<br></br><br></br>
-                    Sentiment is broken down into the following categories:<br></br><br></br>
-                    <SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.<br></br>
-                    <SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.<br></br>
-                    <SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.<br></br><br></br>
-                    Read more about sentiment <a
-                        className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.</span>
+                <>
+                    <p>This information relates to the company's overall sentiment in news outlets. 
+                        We have scraped the news article titles from various news sources and used AI to calculate what the overall sentiment of each article is. 
+                        This can then be used to aid your investment decisions in game.
+                    </p>
+                    <p>Sentiment is broken down into the following categories:</p>
+                    <p><SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.</p> 
+                    <p><SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.</p>
+                    <p><SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.</p>
+                    <p>Read more about sentiment <a className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a></p> 
+                </>
             )
         } else if (String(title) === "Twitter Sentiment") {
             return (
-                <span>This information relates to the companies overall sentiment on twitter. We have scraped tweets that contain the
-                    companies ticker symbol from twitter and used AI to calculate what the overall sentiment
-                    of each tweet is. This can then be used to aid your investment decisions in game.<br></br><br></br>
-                    Sentiment is broken down into the following categories:<br></br><br></br>
-                    <SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.<br></br>
-                    <SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.<br></br>
-                    <SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.<br></br><br></br>
-                    Read more about sentiment <a
-                        className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.</span>
+                <>
+                <p>This information relates to the company's overall sentiment on twitter. We have scraped tweets that contain the
+                companies ticker symbol from twitter and used AI to calculate what the overall sentiment
+                of each tweet is. This can then be used to aid your investment decisions in game.</p>
+                <p>Sentiment is broken down into the following categories:</p>
+                <p> <SentimentBadge sentiment={"positive"} /> This is when the overall sentiment of the article is calculated as positive.</p>
+                <p><SentimentBadge sentiment={"negative"} /> This is when the overall sentiment of the article is calculated as negative.</p>
+                <p><SentimentBadge sentiment={"neutral"} /> This is when the overall sentiment of the article is calculated as neutral.</p>
+                <p>Read more about sentiment <a
+                    className="linkStyle" href="https://www.techtarget.com/searchbusinessanalytics/definition/opinion-mining-sentiment-mining" target="_blank" rel="noopener noreferrer">here</a>.
+                </p>
+                </>
             )
         }
     }
@@ -90,11 +95,11 @@ const ChartCard = ({ title, data }) => {
     function titlesetting() {
         if (String(title) === "News Sentiment") {
             return (
-                <h2>What is news sentiment and why is it important?</h2>
+                <h2>What is News Sentiment and why is it important?</h2>
             )
         } else if (String(title) === "Twitter Sentiment") {
             return (
-                <h2>What is twitter sentiment and why is it important?</h2>
+                <h2>What is Twitter Sentiment and why is it important?</h2>
             );
         }
     }
@@ -103,7 +108,7 @@ const ChartCard = ({ title, data }) => {
         <>
             <Card className="infoCardStyle">
                 <Container className="infoCardContainer">
-                    <h2>{title}  <InfoButtonModal title={titlesetting()} info={information()} /></h2>
+                    <h2>{title}<InfoButtonModal title={titlesetting()} info={information()} /></h2>
                     {noDataMessage
                         ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert>
 

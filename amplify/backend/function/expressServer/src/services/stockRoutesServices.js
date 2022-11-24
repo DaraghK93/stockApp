@@ -89,9 +89,16 @@ function getStockPriceData (stocks) {
 
 };
 
-async function getRecomms() {
-    let response = await fetch('https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44');
-    let recommender_query = await response.json()
+data = "MSFT"
+
+async function getRecomms(data) {
+    const response = await fetch('https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44', {
+        method:'GET',
+        body:JSON.stringify({stock:data})
+    });
+    
+    const recommender_query = await response.json()
+    console.log(recommender_query)
     return recommender_query;
 }
 

@@ -47,7 +47,7 @@ const createPortfolio = async (portfolioData) => {
       }
 }
 
-const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
+const buyStock = async (buyData, portfolioRemainder,value, transactionFee, status) => {
     // creates a date so that it is known when it was created
     try{
         const date = new Date()
@@ -61,7 +61,9 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
         date: date,
         buyOrSell: buyData.buyOrSell,
         orderType: buyData.orderType,
-        transactionCost: transactionFee
+        tradingFee: transactionFee,
+        limitValue: buyData.limitValue,
+        status: status
     })
 
     // finds existing holdings in the db for that portfolio
@@ -71,32 +73,41 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee) => {
 
     // if there are holdings, then the current holdings are updated
     if (holdings != null){
+        // calculate the remaining user funds
+        const newRemainder = portfolioRemainder - transaction.value - transaction.tradingFee
         // add the new units to the existing units
         const currentHoldings = transaction.units + holdings.units
-        // update the db
-        newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
-        // calculate the remaining user funds
-        const newRemainder = portfolioRemainder - transaction.value - transaction.transactionCost
         // create transaction object
         await transaction.save()
+        if (transaction.orderType === "MARKET"){
+            // update the db for market order
+            newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
+        }
         // update the portfolio, adding a transaction object ID and updating the remainder
         const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday:1}}, {new:true})
         return newPortfolio
     }
     else {
+        // a new transaction is added to the db
+        await transaction.save()
+
+        const newRemainder = portfolioRemainder - transaction.value - transactionFee
         // if there are no holdings, a new one can be created
         newHoldings = new Holdings({
         portfolioId: transaction.portfolioId,
         stockId: transaction.stockId,
         units: transaction.units
         })
+        let newPortfolio
+        if (transaction.orderType === "MARKET"){
         // a new holding is added to the db
         await newHoldings.save()
-        // a new transaction is added to the db
-        await transaction.save()
-        const newRemainder = portfolioRemainder - transaction.value - transactionFee
         // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
-        const newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+        }
+        else {
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+        }
         return newPortfolio
     }
     }
@@ -119,7 +130,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee) => 
         date: date,
         buyOrSell: sellData.buyOrSell,
         orderType: sellData.orderType,
-        transactionCost: transactionFee
+        tradingFee: transactionFee
     })
     // finds existing holdings in the db for that portfolio
     const holdings = await Holdings.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId})

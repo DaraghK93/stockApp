@@ -66,16 +66,27 @@ const buyStockMarketOrder = async (req, res, next) => {
         ),
       )
     }
-    else if (req.body.buyOrSell !== "BUY" || req.body.orderType !== "MARKET"){
+    else if (req.body.buyOrSell !== "BUY"){
       // check that the type is buy
       res.status(400)
-      res.errormessage = 'Not a valid market buy order request'
+      res.errormessage = 'Not a valid buy order request'
       return next(
         new Error(
-          'BuyOrSell type must be BUY and OrderType must be MARKET'
+          'BuyOrSell type must be BUY.'
         )
       )
     }
+    if (req.body.orderType !== "MARKET" && req.body.orderType !== "LIMIT"){
+      // check that the type is buy
+      res.status(400)
+      res.errormessage = 'Not a valid buy order request'
+      return next(
+        new Error(
+          'BuyOrSell type must be BUY.'
+        )
+      )
+    }
+    
     if (mongoose.Types.ObjectId.isValid(req.body.stockId) === false){
       // check that the stock ID is correct
       res.status(404)
@@ -128,7 +139,46 @@ const buyStockMarketOrder = async (req, res, next) => {
         )
       )
     }
-    const value = stock.daily_change.currentprice * req.body.units
+    let value
+    let transactionStatus
+    if (req.body.orderType === "LIMIT"){
+      if (typeof req.body.limitValue === 'undefined'){
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'Limit value missing for a transaction'
+        return next(
+          new Error(
+            'The client has not sent the required information to create a limit buy order.',
+          ),
+        )
+      }
+      if (stock.daily_change.currentprice*req.body.units <= req.body.limitValue){
+        // check that the value is not already surpassed.
+        res.status(400)
+        res.errormessage = 'The current value of this stock is already less than the amount of the limit order.'
+        return next(
+          new Error(
+            'In a buy limit order the limit value must be more than the current value of the stock.'
+          )
+        )
+      }
+    transactionStatus = "PENDING"
+    value = req.body.limitValue
+    }
+    else if (req.body.orderType === "MARKET"){
+      if (typeof req.body.limitValue !== 'undefined'){
+        res.status(400)
+        res.errormessage = 'No limit value should be assigned for a market order.'
+        return next(
+          new Error(
+            'A limit value has been provided, should not be provided for a market order.'
+          )
+        )
+      }
+      transactionStatus = "COMPLETED"
+      value = stock.daily_change.currentprice * req.body.units
+    }
+    
     let transactionFee
     if (portfolio.leagueId){
       // Check that league exists and check league rules
@@ -160,7 +210,7 @@ const buyStockMarketOrder = async (req, res, next) => {
     }
   
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee)
+    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee, transactionStatus)
 
 res.json(newPortfolio)
   }

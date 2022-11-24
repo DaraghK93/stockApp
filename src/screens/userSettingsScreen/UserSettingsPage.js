@@ -116,7 +116,7 @@ function UserSettingsPage() {
       <FormContainer>
         <h1> Settings</h1>
         <Card className='accountDetailsCard' id='accountDetailsCard'>
-          <h5 style={{ textDecoration: 'underline' }}>Account Information</h5>
+          <h5>Account Information</h5>
           <div style={{ fontSize: 14 }}>
             <p className='userDetailsText'>First name:</p>
             {' ' + userInfo.firstname}
@@ -133,7 +133,7 @@ function UserSettingsPage() {
         </Card>
         <Card className='accountDetailsForm' id='accountDetailsForm'>
           <Form onSubmit={handleSubmit}>
-            <h5 style={{ textDecoration: 'underline' }}>
+            <h5>
               Update Account Information
             </h5>
             {error === 'Current password incorrect' && (

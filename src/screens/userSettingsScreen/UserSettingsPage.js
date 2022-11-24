@@ -195,6 +195,7 @@ function UserSettingsPage() {
         </Card>
         <Card className='accountDetailsForm' id='accountDetailsForm'>
           <Form onSubmit={handleSubmit}>
+            <h5 style={{ textDecoration: 'underline' }}>Update Account Information</h5>
             {currPasswordEnteredError && (
               <MessageAlert variant='danger'>
                 {'Current password is required'}
@@ -207,7 +208,7 @@ function UserSettingsPage() {
             )}
             {loading && <LoadingSpinner />}
             <Form.Group className='py-2' controlId='oldPassword'>
-              <Form.Label>Current Password* - required</Form.Label>
+              <Form.Label>Current Password* - This is required if you want to update any account information.</Form.Label>
               <Form.Control
                 type='password'
                 placeholder='Enter current password'
@@ -244,16 +245,16 @@ function UserSettingsPage() {
               <Form.Label>First name</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter New First name'
+                placeholder='Enter New First Name'
                 value={firstname}
                 onChange={(event) => setFirstname(event.target.value)}
               />
             </Form.Group>
             <Form.Group className='py-2' controlId='username'>
-              <Form.Label>Second name</Form.Label>
+              <Form.Label>Last name</Form.Label>
               <Form.Control
                 type='text'
-                placeholder='Enter New Second name'
+                placeholder='Enter New Last Name'
                 value={secondname}
                 onChange={(event) => setSecondname(event.target.value)}
               />

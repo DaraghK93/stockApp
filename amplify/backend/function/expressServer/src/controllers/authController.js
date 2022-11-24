@@ -19,6 +19,7 @@ var apiKey = defaultClient.authentications['api-key'];
 // @access Private
 const changeUserDetails = async (req, res, next) => {
   try {
+    const token = req.headers['x-auth-token'];
     // required fields = users current password
     // check if password exists and if it does check it is valid
     currPassword = req.body.password;
@@ -39,7 +40,7 @@ const changeUserDetails = async (req, res, next) => {
       res.errormessage = 'Current password incorrect';
       return next(new Error('Current Password incorrect'));
     } else {
-      newPassword = req.body.newPassword;
+      let newPassword = req.body.newPassword;
       if (newPassword) {
         // Checks for minimum password length, if contains a lower case character (a-z), an upper case character (A-Z), and a number (0-9)
         if (
@@ -113,14 +114,19 @@ const changeUserDetails = async (req, res, next) => {
         res.errormessage = 'No details to change';
         return next(new Error('No details to change'));
       }
-      console.log('here');
-      let result = await user.save();
-      console.log('res = ' + res);
+      await user.save();
+
       res.status(200);
-      res.json({ user });
+      res.json({
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        avatar: user.avatar,
+        username: user.username,
+        token,
+      });
     }
   } catch (error) {
-    console.log('catch');
     res.status(500);
     res.errormessage = error.message;
     return next(new Error('Server error in changing user details'));

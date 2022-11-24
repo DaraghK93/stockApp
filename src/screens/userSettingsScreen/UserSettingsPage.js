@@ -5,7 +5,7 @@
 //  This screen contains the components redenred to the user when they are logging in
 import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
 
 import { ToggleButton, Image } from 'react-bootstrap';
@@ -17,38 +17,35 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 /// Layout ///
 import FormContainer from '../../components/layout/FormContainer/FormContainer';
 
-import { API } from 'aws-amplify';
-import { APIName } from '../../constants/APIConstants';
+import { changeUserDetails } from '../../actions/userActions';
 
 function UserSettingsPage() {
   // constant password holds the value of the input password
   const [password, setPassword] = useState('');
   const [currPasswordEnteredError, setCurrPasswordEnteredError] =
     useState(false);
-  const [currPasswordErrorMessage, setCurrPasswordErrorMessage] = useState('');
   // new passwords
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
   const [passwordShown, setPasswordShown] = useState(false);
   // add state for passwordChange
-  const [loading, setLoading] = useState(false);
 
   const [avatar, setAvatar] = useState('');
 
   const [username, setUsername] = useState('');
-  const [usernameError, setUsernameError] = useState('');
   const [firstname, setFirstname] = useState('');
   const [secondname, setSecondname] = useState('');
 
-  const [success, setSuccess] = useState(false);
-  const [fail, setFail] = useState(false);
-  const [failMessage, setFailMessage] = useState('');
-
   //Redux
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
   const userToken = userInfo.token;
+
+  /// Need loading and error from action
+  const userChangeDetails = useSelector((state) => state.userChangeDetails);
+  let { error, success, loading } = userChangeDetails;
 
   var images = [
     '/stock_photo_1.jpg',
@@ -59,9 +56,6 @@ function UserSettingsPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
-    setSuccess(false);
-    setFailMessage('');
-    setPasswordErrorMessage(null);
     if (password) {
       setCurrPasswordEnteredError(false);
       // determine if password is to be changed
@@ -98,81 +92,23 @@ function UserSettingsPage() {
         }
       }
       if (passwordErrorMessage === null) {
-        setPasswordErrorMessage(null);
-        setCurrPasswordErrorMessage('');
-        setSuccess(false);
-        setFail(false);
-        setFailMessage('');
-        changeUserDetails();
+        dispatch(
+          changeUserDetails(
+            password,
+            username,
+            newPassword,
+            avatar,
+            firstname,
+            secondname,
+            userToken
+          )
+        );
       }
     } else {
       setCurrPasswordEnteredError(true);
-      setFail(true);
     }
   }
 
-  const changeUserDetails = async () => {
-    try {
-      let body = {
-        password: password,
-        username: username ? username : undefined,
-        newPassword: newPassword ? newPassword : undefined,
-        avatar: avatar ? avatar : undefined,
-        firstname: firstname ? firstname : undefined,
-        secondname: secondname ? secondname : undefined,
-      };
-
-      setLoading(true);
-      // Configure the HTTP request
-      let path = `/api/auth/changeuserdetails`;
-      let requestConfig = {
-        body,
-        headers: { 'x-auth-token': userToken },
-      };
-      // Sent the request to backend
-      const data = await API.post(APIName, path, requestConfig);
-      setLoading(false);
-      setCurrPasswordEnteredError(false);
-      setCurrPasswordErrorMessage('');
-      setUsernameError('');
-      setSuccess(true);
-      setFail(false);
-      setPasswordErrorMessage(null);
-    } catch (error) {
-      setFail(true);
-      // current password incorrect this needs to be true before proceeding
-      if (error.response.data.errormessage === 'Current password incorrect') {
-        setCurrPasswordErrorMessage(error.response.data.errormessage);
-        setUsernameError('');
-      }
-      // handle error where username is too short
-      if (
-        error.response.data.errormessage ===
-        'Username length must be at least 3 characters'
-      ) {
-        setUsernameError(error.response.data.errormessage);
-        setCurrPasswordErrorMessage('');
-        setFailMessage('');
-      }
-      // handle error where username already exists
-      if (error.response.data.errormessage === 'Username already taken') {
-        setUsernameError(error.response.data.errormessage);
-        setCurrPasswordErrorMessage('');
-        setFailMessage('');
-      }
-      // handle error where no useful details but current password is correct
-      if (error.response.data.errormessage === 'No details to change') {
-        setFailMessage(error.response.data.errormessage);
-        setCurrPasswordErrorMessage('');
-        setUsernameError('');
-        setFail(false);
-      }
-
-      setLoading(false);
-    }
-  };
-
-  //
   return (
     <>
       <FormContainer>
@@ -195,14 +131,12 @@ function UserSettingsPage() {
         </Card>
         <Card className='accountDetailsForm' id='accountDetailsForm'>
           <Form onSubmit={handleSubmit}>
+            {error === 'Current password incorrect' && (
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            )}
             {currPasswordEnteredError && (
               <MessageAlert variant='danger'>
                 {'Current password is required'}
-              </MessageAlert>
-            )}
-            {currPasswordErrorMessage && (
-              <MessageAlert variant='danger'>
-                {currPasswordErrorMessage}
               </MessageAlert>
             )}
             {loading && <LoadingSpinner />}
@@ -237,9 +171,6 @@ function UserSettingsPage() {
                 </Col>
               ))}
             </Row>
-            {usernameError && (
-              <MessageAlert variant='danger'>{usernameError}</MessageAlert>
-            )}
             <Form.Group className='py-2' controlId='firstname'>
               <Form.Label>First name</Form.Label>
               <Form.Control
@@ -258,6 +189,9 @@ function UserSettingsPage() {
                 onChange={(event) => setSecondname(event.target.value)}
               />
             </Form.Group>
+            {error === 'Username already taken' && (
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            )}
             <Form.Group className='py-2' controlId='username'>
               <Form.Label>New Username</Form.Label>
               <Form.Control
@@ -310,15 +244,13 @@ function UserSettingsPage() {
                 {'Details successfully changed'}
               </MessageAlert>
             )}
-            {fail && (
+            {error && error !== 'No details to change' && (
               <MessageAlert variant='danger'>
                 {'Something has gone wrong'}
               </MessageAlert>
             )}
-            {failMessage && (
-              <MessageAlert variant='info'>
-                {'No details entered to change'}
-              </MessageAlert>
+            {error === 'No details to change' && (
+              <MessageAlert variant='danger'>{error}</MessageAlert>
             )}
             <Row>
               <Col className='text-center py-4'>

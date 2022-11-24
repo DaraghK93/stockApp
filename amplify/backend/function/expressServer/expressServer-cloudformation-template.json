@@ -21,6 +21,12 @@
     },
     "environment": {
       "Type": "String"
+    },
+    "fromEmail": {
+      "Type": "String"
+    },
+    "host": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -81,6 +87,12 @@
             },
             "ENVIRONMENT": {
               "Ref": "environment"
+            },
+            "FROM_EMAIL": {
+              "Ref": "fromEmail"
+            },
+            "HOST": {
+              "Ref": "host"
             }
           }
         },

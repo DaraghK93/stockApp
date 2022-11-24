@@ -13,6 +13,10 @@ var defaultClient = SibApiV3Sdk.ApiClient.instance;
 // Configure API key authorization: api-key
 var apiKey = defaultClient.authentications['api-key'];
 
+// @route POST api/auth/changeuserdetails
+// @desc Change user details - Takes new details from req.body
+// current password must match before anything can change
+// @access Private
 const changeUserDetails = async (req, res, next) => {
   try {
     // required fields = users current password
@@ -83,11 +87,28 @@ const changeUserDetails = async (req, res, next) => {
         user.username = newUsername;
       }
 
+      // Check for new avatar
       const newAvatar = req.body.avatar;
       if (newAvatar) {
         user.avatar = newAvatar;
       }
-      if (!newUsername && !newPassword && !newAvatar) {
+      // check for new first name
+      const newFirstname = req.body.firstname;
+      if (newFirstname) {
+        user.firstname = newFirstname;
+      }
+      // check for new last name
+      const newLastname = req.body.lastname;
+      if (newLastname) {
+        user.lastname = newLastname;
+      }
+      if (
+        !newUsername &&
+        !newPassword &&
+        !newAvatar &&
+        !newFirstname &&
+        !newLastname
+      ) {
         res.status(400);
         res.errormessage = 'No details to change';
         return next(new Error('No details to change'));

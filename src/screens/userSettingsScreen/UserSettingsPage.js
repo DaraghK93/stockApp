@@ -1,8 +1,8 @@
-/// Login Screen ///
+/// User Settings Screen ///
 // Route:
-//  <URL>/login
+//  <URL>/changeuserdetails
 // Description:
-//  This screen contains the components redenred to the user when they are logging in
+//  This screen contains the components for a user to change their account details
 import { useState } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,22 +20,24 @@ import FormContainer from '../../components/layout/FormContainer/FormContainer';
 import { changeUserDetails } from '../../actions/userActions';
 
 function UserSettingsPage() {
-  // constant password holds the value of the input password
+  // constant password holds the value of the current user password
   const [password, setPassword] = useState('');
   const [currPasswordEnteredError, setCurrPasswordEnteredError] =
     useState(false);
-  // new passwords
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
-  const [passwordShown, setPasswordShown] = useState(false);
-  // add state for passwordChange
 
-  const [avatar, setAvatar] = useState('');
-
+  // Form fields
   const [username, setUsername] = useState('');
   const [firstname, setFirstname] = useState('');
-  const [secondname, setSecondname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+
+  // password error for new password. checked in handle submit
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
+
+  // toggle to show password or not
+  const [passwordShown, setPasswordShown] = useState(false);
 
   //Redux
   const dispatch = useDispatch();
@@ -43,15 +45,15 @@ function UserSettingsPage() {
   const { userInfo } = user;
   const userToken = userInfo.token;
 
-  /// Need loading and error from action
+  /// Need loading, error and success from action
   const userChangeDetails = useSelector((state) => state.userChangeDetails);
   let { error, success, loading } = userChangeDetails;
 
   var images = [
-    '/stock_photo_1.jpg',
-    '/stock_photo_2.jpg',
-    '/stock_photo_3.jpg',
-    '/stock_photo_4.jpg',
+    '/avatar_1.jpeg',
+    '/avatar_2.jpeg',
+    '/avatar_3.jpeg',
+    '/avatar_4.jpeg',
   ];
 
   function handleSubmit(event) {
@@ -99,7 +101,7 @@ function UserSettingsPage() {
             newPassword,
             avatar,
             firstname,
-            secondname,
+            lastname,
             userToken
           )
         );
@@ -131,7 +133,9 @@ function UserSettingsPage() {
         </Card>
         <Card className='accountDetailsForm' id='accountDetailsForm'>
           <Form onSubmit={handleSubmit}>
-            <h5 style={{ textDecoration: 'underline' }}>Update Account Information</h5>
+            <h5 style={{ textDecoration: 'underline' }}>
+              Update Account Information
+            </h5>
             {error === 'Current password incorrect' && (
               <MessageAlert variant='danger'>{error}</MessageAlert>
             )}
@@ -142,7 +146,10 @@ function UserSettingsPage() {
             )}
             {loading && <LoadingSpinner />}
             <Form.Group className='py-2' controlId='oldPassword'>
-              <Form.Label>Current Password* - This is required if you want to update any account information.</Form.Label>
+              <Form.Label>
+                Current Password* - This is required if you want to update any
+                account information.
+              </Form.Label>
               <Form.Control
                 type='password'
                 placeholder='Enter current password'
@@ -181,13 +188,13 @@ function UserSettingsPage() {
                 onChange={(event) => setFirstname(event.target.value)}
               />
             </Form.Group>
-            <Form.Group className='py-2' controlId='username'>
+            <Form.Group className='py-2' controlId='lastname'>
               <Form.Label>Last name</Form.Label>
               <Form.Control
                 type='text'
                 placeholder='Enter New Last Name'
-                value={secondname}
-                onChange={(event) => setSecondname(event.target.value)}
+                value={lastname}
+                onChange={(event) => setLastname(event.target.value)}
               />
             </Form.Group>
             {error === 'Username already taken' && (

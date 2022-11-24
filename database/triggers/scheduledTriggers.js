@@ -27,3 +27,69 @@ exports = function() {
     return collection.updateMany({ endDateDate: new Date(today) }, {$set:{active:false, finished:true}});
   
   }
+
+  exports = function() {
+
+    // Access a mongodb service:
+    const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
+    const today = new Date().setHours(0,0,0,0);
+    return collection.aggregate([
+    {
+      // get leagues fromm leagueId
+        '$lookup': {
+            'from': 'leagues', 
+            'localField': 'leagueId', 
+            'foreignField': '_id', 
+            'as': 'league'
+        }
+    }, {
+      // get portfolio values from portfolioID
+        '$lookup': {
+            'from': 'portfolioValues', 
+            'localField': '_id', 
+            'foreignField': '_id', 
+            'as': 'totalVal'
+        }
+    }, {
+      // make the arrays objects
+        '$unwind': {
+            'path': '$totalVal'
+        }
+    }, {
+        '$unwind': {
+            'path': '$league'
+        }
+    }, {
+      // get only portfolios associated with ongoing leagues
+        '$match': {
+            'league.finished': false
+        }
+    }, {
+      // push the object to value history
+        '$set': {
+            'valueHistory': {
+                '$concatArrays': [
+                    '$valueHistory', [
+                        {
+                            'date':   new Date(today), 
+                            'value': '$totalVal.totalValue'
+                        }
+                    ]
+                ]
+            }
+        }
+    }, {
+      // only return id and valuthistory
+        '$project': {
+            'valueHistory': 1
+        }
+    }, {
+      // // merge into the collection
+        '$merge': {
+            'into': 'portfolios', 
+            'on': '_id'
+        }
+    }
+])
+                            
+};

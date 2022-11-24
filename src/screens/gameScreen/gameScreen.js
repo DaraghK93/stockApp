@@ -12,6 +12,7 @@ import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import ScreenSelectionRadioButton from "../../components/gameComponents/gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton";
 import CreateGameCard from '../../components/gameComponents/gameScreenComponents/createGameCard/createGameCard';
 import ActiveInactiveScheduledGames from '../../components/gameComponents/gameScreenComponents/activeInactiveScheduledGames/activeInactiveScheduledGames';
+import JoinAGame from '../../components/gameComponents/gameScreenComponents/JoinAGame/JoinAGame';
 
 function GameScreen(){
     // screen will either be 1 or 2, shows My games or join a game 
@@ -30,11 +31,10 @@ function GameScreen(){
     /// The choices for the screens, used for buttons at top of screen 
     var screenChocies = [
         {name: 'My Games', value:'1'},
-        {name: 'Join a Game', value: '2'}]
+        {name: 'Join Game', value: '2'}]
 
 
     useEffect(() => {
-        
         const getGames = async () => {
                try{
                    /// Set loading to true
@@ -50,7 +50,6 @@ function GameScreen(){
                     setCompleteGames(res.leagues[0].complete)
                    /// Set loading false 
                     setLoading(false)
-   
                }catch(error){
                    console.log(error)
                    setError(error.response.data.errormessage);
@@ -58,13 +57,12 @@ function GameScreen(){
                }
            }
            getGames()
-       },[userToken])
+       },[userToken,screen])
         
 
     return(
         <>
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-    
         <Container>
             <Row className="py-3" lg={1} md={1} xs={1}>
                 <ScreenSelectionRadioButton choices={screenChocies} state={screen} setter={setScreen}/>
@@ -82,8 +80,8 @@ function GameScreen(){
             </>)
             :
             (
-                <Row>
-                    Join a Game Screen
+                <Row className="px-4 mt-3" style={{"textAlign":"center","alignItems":"center"}}>
+                    <JoinAGame/>
                 </Row>
             )}
         </Container>}

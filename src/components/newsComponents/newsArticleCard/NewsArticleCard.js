@@ -49,7 +49,7 @@ function NewsArticleCard({article}){
                 {article.category} •  {article.source} • {moment(article.pubDate).format('ddd MMM Do YY')}
                 </p>
                 <p>{article.description}</p>
-                <p>Access the full article <a href={article.link} target="_blank" rel="noreferrer">here</a></p>
+                <p>Access the full article <a className="linkStyle" href={article.link} target="_blank" rel="noreferrer">here</a></p>
             </Modal.Body>
         </Modal>
         </>

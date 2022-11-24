@@ -81,7 +81,7 @@ function GameScreen(){
             </>)
             :
             (
-                <Row>
+                <Row  style={{"textAlign":"center","alignItems":"center"}}>
                     <JoinAGame/>
                 </Row>
             )}

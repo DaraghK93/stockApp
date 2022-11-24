@@ -14,7 +14,6 @@ import LoadingSpinner from '../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import BottomStickyButton from '../../components/widgets/BottomStickyButton/BottomStickyButton';
-import FollowButton from '../../components/widgets/FollowButton/FollowButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
 
 /// API ///
@@ -81,35 +80,31 @@ function StockPage() {
         
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
-                    <Row
-                    // xs={3}
-                    >
+                    <Row>
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
-                        <Col className="stockInfoCol col-md-4 col-sm-8 col-5">
+                        <Col className="stockInfoCol col-md-7 col-sm-12 col-8">
                             <dl className='infoList'>
                                 <dt>
                                     <h1>
-                                        {stock.longname}</h1>
+                                        {stock.longname}<InfoButtonModal
+                                        title="Company Information"
+                                        info={stock.longbusinesssummary} /></h1>
                                 </dt>
                                 <dt>{stock.symbol}
-                                    <InfoButtonModal
-                                        title="Company Information"
-                                        info={stock.longbusinesssummary} /></dt>
-                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice}</dt>
-                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange} ({positiveSymbol}{stock.daily_change.percentageChange}%)
+                                    </dt>
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
+                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange.toFixed(2)} ({positiveSymbol}{stock.daily_change.percentageChange.toFixed(2)}%)
                                 </dt>
+                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
                             </dl>
-                        </Col>
-                        <Col className="followButtonCol col-md-2 col-sm-3 col-3">
-                            <FollowButton />
                         </Col>
                     </Row>
                     <Row>
                         <Col className="stockInfoCol">
                         <Link to={`/stock/${stock.symbol}/confirmorder`}>
-                            <BottomStickyButton text="Trade" />
+                            <BottomStickyButton text="Lets Trade!" />
                             </Link>
                         </Col>
                     </Row>

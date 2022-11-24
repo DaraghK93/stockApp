@@ -89,32 +89,39 @@ function getStockPriceData (stocks) {
 
 };
 
-data = "MSFT"
-
-async function getRecomms(data) {
-    const response = await fetch('https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44', {
-        method:'GET',
-        body:JSON.stringify({stock:data})
-    });
+const getRecomms = () => {
+    var axios = require('axios');
+    var data = '{"stock": "{AAPL}"}';
     
-    const recommender_query = await response.json()
-    console.log(recommender_query)
-    return recommender_query;
+    var config = {
+      method: 'get',
+      url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',
+      headers: { 
+        'Content-Type': 'text/plain'
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
 }
 
-getRecomms().then(recommender_query)
 
-const getStockSummary =  (schema) => {
+const getStockSummary =  (schema, recommended) => {
 const stocks =  schema.aggregate([
     { $facet: 
         // agg query for recommended
-        { recommended: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+        { recommended: [{$match :{}},{$project: {'symbol': 1,
+        'longname': 1,'exchange':1,'logo':1,
         'daily_change.absoluteChange':1,
         'daily_change.percentageChange':1,
         'daily_change.currentprice':1,
-        'esgrating.environment_score': 1}},
-        {$sort: {'esgrating.environment_score': -1}},
-        { $limit: 20}],
+        'esgrating.environment_score': 1}}],
         
         // agg query for top environment
         topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
@@ -209,4 +216,5 @@ return stocks
 module.exports = {
     getStockPriceData,
     getStockSummary,
+    getRecomms,
 }

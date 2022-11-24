@@ -89,26 +89,34 @@ function getStockPriceData (stocks) {
 
 };
 
-const getRecomms = (stock) => {
+const getRecomms = async (stock) => {
     var axios = require('axios');
     var data = '{"stock":' + '"' + stock + '"}';
-    console.log("Data:" + data)
+    console.log("2.1) Data:" + data)
     var config = {
-      method: 'get',
-      url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',
-      headers: { 
-        'Content-Type': 'text/plain'
-      },
-      data : data
+        method: 'get',
+        url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        data: data
     };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    console.log("2.2) Step before Axios Config")
+    await axios(config)
+        .then(function (response) {
+            let recc_output = response.data.message
+            console.log(JSON.stringify(response.data));
+            //   console.log("Recommender output:", recc_output);
+            console.log("2.3) Recommender output type:", typeof response.data)
+            console.log("2.4) Recommender output.message type:", typeof response.data.message)
+            console.log("2.5) Response.data.message:", response.data.message)
+            console.log("2.6) Response.data.message type:", typeof response.data.message)
+            //   console.log("Recommender output (only stocks):", recc_output[0])
+            return response.data.message
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 }
 
 
@@ -116,7 +124,7 @@ const getStockSummary =  (schema, recommended) => {
 const stocks =  schema.aggregate([
     { $facet: 
         // agg query for recommended
-        { recommended: [{$match :{}},{$project: {'symbol': 1,
+        { recommended_stocks: [{$match :{symbol: {$in: recommended}}},{$project: {'symbol': 1,
         'longname': 1,'exchange':1,'logo':1,
         'daily_change.absoluteChange':1,
         'daily_change.percentageChange':1,

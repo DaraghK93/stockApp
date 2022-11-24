@@ -238,6 +238,10 @@ const resetPassword = async (req, res, next) => {
       return next(new Error('Password reset token invalid or has expired'));
     }
 
+    /// Hash the password ///
+    let salt = await bcrypt.genSalt(10);
+    password = await bcrypt.hash(password, salt);
+
     //Set the new password
     user.password = password;
     user.resetPasswordToken = undefined;

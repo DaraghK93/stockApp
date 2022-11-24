@@ -51,18 +51,21 @@ body {
     background-color: $background;
 }
 
-h1, .h1 {
+h1,
+.h1 {
     color: $text-colour;
 }
 
 .navbar {
     background-color: $primary;
-    color:$background
+    color: $background
 }
 
 .navbar-brand {
-    h1, .h1 {
-        color:$background;
+
+    h1,
+    .h1 {
+        color: $background;
     }
 }
 
@@ -76,11 +79,11 @@ h1, .h1 {
     margin: 0.625rem;
     margin-bottom: 1.25rem;
     padding-bottom: 3.125rem;
-    display:flex;
+    display: flex;
 }
 
-.bolded{ 
-    font-weight: bold; 
+.bolded {
+    font-weight: bold;
 }
 
 .black{
@@ -89,4 +92,11 @@ h1, .h1 {
 
 .red{
     color: red;
+}
+
+
+.linkStyle {
+    text-decoration:underline !important;
+    color: blue !important;
+    font-weight:bold;
 }

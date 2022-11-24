@@ -81,11 +81,11 @@ const registerUser = async (req, res, next) => {
     // Save user in DB
     await user.save()
     const payload = {
-      user: {
+
         user: {
           id: user.id,
         },
-      },
+
     }
     // Get the JWT secret 
     const jwtSecret = await getJWTSecret()
@@ -93,7 +93,7 @@ const registerUser = async (req, res, next) => {
     jwt.sign(
       payload,
       jwtSecret,
-      { expiresIn: '360000' },
+      { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err
         res.json({

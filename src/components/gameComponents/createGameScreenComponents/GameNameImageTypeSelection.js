@@ -14,7 +14,20 @@ function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameNam
         `${userInfo.firstname}'s Stock Trading Game`,
         `${userInfo.firstname}'s Fantasy League`,
         `${userInfo.firstname}'s Big Stock Challange`,
-        `${userInfo.firstname}'s Investment League`
+        `${userInfo.firstname}'s Investment League`,
+        `${userInfo.firstname}'s race to the top challenge`,
+        `${userInfo.firstname}'s Wolves of Wall Street League`,
+        `${userInfo.firstname}'s Recession Busters Challenge`,
+        `${userInfo.firstname}'s Get Rich Quick Scheme`,
+        `${userInfo.firstname}'s Ponzi Scheme: $5 Joining Fee`,
+        'Stock Battle Royale',
+        'Loser Buys The Pints Stock League',
+        'Gentlemen Prefer Bonds',
+        'Bear Hunter Society',
+        'Bear (Market) Grylls',
+        'Who will Elon Musk sabotage next?',
+        'Do you want to shop in Aldi or M&S league?',
+        "Don't be a Chicken Stock Trader"
     ]
 
     
@@ -31,7 +44,7 @@ function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameNam
         <Card.Title className="gameOptionsCardTitle">Basic Details</Card.Title>
         <Row>
             <Dropdown className="py-2">
-                <Dropdown.Toggle id="gameName">{gameName}</Dropdown.Toggle>
+                <Dropdown.Toggle style={{"white-space":"normal"}} id="gameName">{gameName}</Dropdown.Toggle>
                     <Dropdown.Menu>
                                 {gameNames.map((name,idx) => (
                                     <Dropdown.Item

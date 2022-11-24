@@ -10,6 +10,7 @@ import GameBalanceFeesTradeSelection from '../../components/gameComponents/creat
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
 import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
 import GameESGRestrictionsSelection from '../../components/gameComponents/createGameScreenComponents/GameESGRestrrictionsSelection';
+import GameCreationSummary from '../../components/gameComponents/createGameScreenComponents/GameCreationSummary';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -153,8 +154,27 @@ function CreateGameScreen(){
                 </Col>
                 :
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <h1>This will be the Game Summary Screen</h1>
+                    <GameCreationOptionsCard 
+                        screen={screen} setScreen={setScreen} 
+                        gameName={gameName} gameType={gameType} gameImage={gameImage} 
+                        gameStartDate={gameStartDate} gameEndDate={gameEndDate} 
+                        startingBalance={startingBalance} tradingFee={tradingFee} maxTradesPerDay={maxTradesPerDay} 
+                        gameWinningValue={gameWinningValue} stockTypes={stockTypes} 
+                        minEnvironmentRating={minEnvironmentRating}  minSocialRating={minSocialRating} 
+                        minGovernanceRating={minGovernanceRating}
+                        >
+                            <GameCreationSummary 
+                                gameType={gameType}
+                                gameName={gameName}
+                                gameStartDate={gameStartDate}
+                                gameEndDate={gameEndDate}
+                                startingBalance={startingBalance}
+                                tradingFee={tradingFee}
+                                maxTradesPerDay={maxTradesPerDay}
+                                gameWinningValue={gameWinningValue}
+                                stockTypes={stockTypes}
+                                ESGGameType={ESGGameType}
+                            />
                     </GameCreationOptionsCard>
                 </Col>
                 }   

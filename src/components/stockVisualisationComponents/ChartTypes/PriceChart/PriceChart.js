@@ -15,6 +15,7 @@ import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 function StockPriceChart({ stock, lineColor, gradientColor }) {
 
     const [tickBoolean, setTickBoolean] = useState(false)
+    const [active, setActive] = useState("4");
 
     const day = [
         { date: '01-10', price: 400 },
@@ -29,23 +30,27 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
     const oneYearPrices = stock.year
 
     // Move this up with the rest of the constants when we have the daily data. For now it cant be called before the dummy data is initialized
-    const [data, setData] = useState(day);
+    const [data, setData] = useState(oneYearPrices);
 
     const DayData = event => {
         // toggle shown data
         setData(day);
+        setActive(event.target.id);
     };
     const WeekData = event => {
         // toggle shown data
         setData(oneWeekPrices);
+        setActive(event.target.id);
     };
     const MonthData = event => {
         // toggle shown data
         setData(oneMonthPrices);
+        setActive(event.target.id);
     };
     const YearData = event => {
         // toggle shown data
         setData(oneYearPrices);
+        setActive(event.target.id);
     }
 
     window.addEventListener("resize", showTick);
@@ -61,7 +66,9 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
 
     useEffect(() => {
         showTick()
-    }, [])
+        setData(oneYearPrices)
+        setActive("4")
+    }, [oneYearPrices])
 
 
     return (
@@ -102,17 +109,16 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
                             justifyContent: "center"
                         }}>
                         <Col className="centeredCol">
-                            <Button className="btn btn-outline-info btn-sm m-1" onClick={DayData}>1D</Button>
+                            <Button id={"1"} className={active === "1" ? 'btn-outline-info:active'  : "btn-outline-info"} onClick={DayData}>1D</Button>
                         </Col>
                         <Col className="centeredCol">
-                            <Button className="btn btn-outline-info btn-sm m-1" onClick={WeekData}>1W</Button>
+                            <Button id={"2"} className={active === "2" ? 'btn-outline-info:active'  : "btn-outline-info"} onClick={WeekData}>1W</Button>
                         </Col>
                         <Col className="centeredCol">
-                            <Button className="btn btn-outline-info btn-sm m-1" onClick={MonthData}>1M</Button>
-
+                            <Button id={"3"} className={active === "3" ? 'btn-outline-info:active'  : "btn-outline-info"} onClick={MonthData}>1M</Button>
                         </Col>
                         <Col className="centeredCol">
-                            <Button className="btn btn-outline-info btn-sm m-1" onClick={YearData}>1Y</Button>
+                            <Button id={"4"} className={active === "4" ? 'btn-outline-info:active'  : "btn-outline-info"} onClick={YearData}>1Y</Button>
                         </Col>
                     </Row>
                 </Container>
@@ -120,6 +126,5 @@ function StockPriceChart({ stock, lineColor, gradientColor }) {
         </>
     )
 };
-
 
 export default StockPriceChart;

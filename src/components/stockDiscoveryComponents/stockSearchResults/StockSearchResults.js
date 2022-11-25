@@ -39,7 +39,7 @@ function StockSearchResults({keyword}) {
         <>
         <div className="stocksearchresults">
         <h3 className="stockdiscoveryRow">Showing Results for "{keyword.trim()}"</h3>
-        <Container>
+
         <Row md={1} xs={1}>
             <SideScrollMenu>
                 {stocks.map((stockObj) => (
@@ -50,7 +50,7 @@ function StockSearchResults({keyword}) {
             </SideScrollMenu>
          
          </Row>
-         </Container>     
+ 
          </div>  
         </> :
     

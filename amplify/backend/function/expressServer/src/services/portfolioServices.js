@@ -175,11 +175,12 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
             await transaction.save()
             let newPortfolio
             if (transaction.orderType === "MARKET"){
-            // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+                newRemainder = portfolioRemainder + value - transactionFee
+                // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
             }
             else{
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
             }
             return newPortfolio
         }

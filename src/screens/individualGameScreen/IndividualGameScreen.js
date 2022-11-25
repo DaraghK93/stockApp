@@ -26,19 +26,14 @@ function IndividualGameScreen() {
 
     return (
         <>
-            <Row>
-
-                <div className="container-img">
-                    <Image className="gameImage" src={"/stock_photo_1.jpg"}></Image>
-                    <div className="centeredGameImg">
-                        <h1 className="ImgTxt">Warren's Get Rich Quick Scheme</h1>
-                    </div>
+            <div className="container-img">
+                <Image className="gameImage" src={"/stock_photo_1.jpg"}></Image>
+                <div className="centeredGameImg">
+                    <h1 className="ImgTxt">Warren's Get Rich Quick Scheme</h1>
                 </div>
+            </div>
+            <GameNavBar disPlayScreen={disPlayScreen} active={active} />
 
-            </Row>
-            <Row>
-                <GameNavBar disPlayScreen={disPlayScreen} active={active} />
-            </Row>
             <Container>
                 <h3>Timeline goes here</h3>
                 {screen}

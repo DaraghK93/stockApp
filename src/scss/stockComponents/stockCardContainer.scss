@@ -35,9 +35,14 @@
 }
 
 .stockdiscoveryRow {
+  margin:1rem;
   margin-top: 2rem;
   margin-left: 2rem;
+  padding-right: 1rem;
   background-color: $stockdiscoverybackground;
+  white-space: initial;
+  word-wrap: break-word;
+  width:90%;
 }
 
 .tickerCardImgContainer {

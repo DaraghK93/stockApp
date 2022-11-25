@@ -15,7 +15,27 @@
 
 .stockDiscovery {
   background-color: $stockdiscoverybackground;
-  // height:50vw;
+  overflow:hidden;
+  .cardContainer{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    background-color:$stockdiscoverybackground;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: $info;
+    border-radius: 100vw;
+    border: .20em solid $stockdiscoverybackground;
+  
+  }
+  ::-webkit-scrollbar-track {
+    background: $stockdiscoverybackground;
+    margin-inline-start: 2rem;
+    margin-inline-end: 2rem;
+  }
+}
+.stocksearchresults{
+  background-color: $stockdiscoverybackground;
+  height:100vh;
   .cardContainer{
     padding-left: 2rem;
     padding-right: 2rem;

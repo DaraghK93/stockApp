@@ -13,10 +13,13 @@ import StockSearchResults from "../../components/stockDiscoveryComponents/stockS
 function StockDiscoveryPage(){
     // keyword wil either be a word or undefiened, its used in search 
     let {keyword} = useParams()
-    return(
+    return(<>
+    <div className="stockDiscovery">
             <Container>
                 <h1 style={{textAlign:"center"}}>Stock Discovery</h1>
+
                 <StockSearchBar/>
+                </Container>
                 {keyword === undefined ? (
                     <Row md={1} xs={1}>
                         <StockSummary/>
@@ -27,7 +30,8 @@ function StockDiscoveryPage(){
                           <StockSearchResults keyword={keyword}/>
                     </Row>
                 )}
-            </Container>
+                </div>
+</>
     )
     }
 

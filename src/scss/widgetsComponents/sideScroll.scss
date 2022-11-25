@@ -22,7 +22,7 @@
     background-color:$stockdiscoverybackground;
   }
   ::-webkit-scrollbar-thumb {
-    background: $info;
+    background: $shadow;
     border-radius: 100vw;
     border: .20em solid $stockdiscoverybackground;
   
@@ -42,7 +42,7 @@
     background-color:$stockdiscoverybackground;
   }
   ::-webkit-scrollbar-thumb {
-    background: $info;
+    background: $shadow;
     border-radius: 100vw;
     border: .20em solid $stockdiscoverybackground;
   

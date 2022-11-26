@@ -12,7 +12,7 @@ const joinLeague = async(league,user) => {
 
     // send an error back if the user is already in the league
     if (users.includes(user)){
-      return {error:400, errormessage:"user already in league"}
+      return {error:400, errormessage:"Already in this Game"}
     }
 
 //  set portfolio object to send

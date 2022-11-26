@@ -389,7 +389,7 @@ const joinLeaguebyCode = async (req, res, next) => {
       const currentUser = req.user.id
 
       // get league object from db
-      let league = await League.findOne({ accessCode })
+      let league = await League.findOne({ accessCode, finished:false })
 
       // 404 for no such league
       if (!league) {

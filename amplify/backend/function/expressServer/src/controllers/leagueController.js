@@ -184,11 +184,11 @@ const createLeague = async (req, res, next) => {
         active = true
   }
 
+
+    // get dates in the correct format with no hours,mins,secs
+    const end = new Date(endDate).setHours(0,0,0,0)
     // ensure league is at least a day long
     if (leagueType === "timeBased") {
-      // get dates in the correct format with no hours,mins,secs
-      const end = new Date(endDate).setHours(0,0,0,0)
-
       // check that the difference between start and end is at least 1
       // divide to get it in terms of days
     if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
@@ -239,7 +239,7 @@ const createLeague = async (req, res, next) => {
         minERating,
         mingGRating,
         mingSRating,
-        endDate,
+        endDate:end,
         active,
         image,
         users,

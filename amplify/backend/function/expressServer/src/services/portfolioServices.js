@@ -148,11 +148,17 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
     // if there are holdings, then the current holdings are updated
     if (holdings != null){
         var newHoldings = holdings.units - transaction.units
-        // this will be the new remainder
+        let frozenHoldings
+        if (transaction.orderType === "MARKET"){
+            frozenHoldings = 0
+        }
+        else {
+            frozenHoldings = transaction.units
+        }
         
         if (newHoldings > 0) {
             // if the holdings are greater than 0, update the existing holdings
-            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
+            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, frozenHoldingsUnits: frozenHoldings})
 
             // create a new transaction
             await transaction.save()
@@ -168,9 +174,13 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
             return newPortfolio
         }
         else if (newHoldings === 0){
+            if(transaction.orderType === "MARKET"){
             // if the holdings are 0 then the holdings referenced should be deleted
             await Holdings.findByIdAndDelete({_id:holdings._id})
-
+            }
+            else {
+            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, frozenHoldingsUnits: frozenHoldings})
+            }
             // create a new transaction
             await transaction.save()
             let newPortfolio
@@ -180,7 +190,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
             }
             else{
-                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $inc: {tradesToday: 1}}, {new:true})
             }
             return newPortfolio
         }

@@ -163,7 +163,7 @@ const buyStock = async (req, res, next) => {
         )
       }
     transactionStatus = "PENDING"
-    value = req.body.limitValue
+    value = req.body.limitValue * req.body.units
     }
     else if (req.body.orderType === "MARKET"){
       if (typeof req.body.limitValue !== 'undefined'){
@@ -328,7 +328,7 @@ const sellStock = async (req, res, next) => {
         )
       }
     transactionStatus = "PENDING"
-    value = req.body.limitValue
+    value = req.body.limitValue * req.body.units
     }
     else if (req.body.orderType === "MARKET"){
       if (typeof req.body.limitValue !== 'undefined'){

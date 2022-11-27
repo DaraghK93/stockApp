@@ -37,6 +37,12 @@ function CollapsibleTable() {
               Further information on what causes stock prices to change can be found <a href="https://www.disnat.com/en/learning/trading-basics/stock-basics/what-causes-stock-prices-to-change" target="_blank" rel="noopener noreferrer">here</a>.
             </Accordion.Body>
           </Accordion.Item>
+          <Accordion.Item eventKey="3">
+            <Accordion.Header>Why do we want to see past performance of a stock?</Accordion.Header>
+            <Accordion.Body>
+              Analysts often review historical data when trying to guess how a stock will react to a 
+            </Accordion.Body>
+          </Accordion.Item>
           </Accordion>
 
             </Accordion.Body>

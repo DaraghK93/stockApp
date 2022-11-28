@@ -376,6 +376,10 @@ const getLeaguePortfolio = async (req,res,next) => {
           '$unwind': {
             'path': '$totalValue'
           }
+        }, {
+          '$set': {
+            'totalValue': '$totalValue.totalValue'
+          }
         }
       ])
 

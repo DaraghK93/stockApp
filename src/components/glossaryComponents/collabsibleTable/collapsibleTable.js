@@ -191,13 +191,15 @@ function CollapsibleTable() {
           <Accordion.Item eventKey="3">
             <Accordion.Header>Is there a limit on the number of trades that I can make in a day?</Accordion.Header>
             <Accordion.Body>
-              This varies depending on the rules that are set out by the creator of the league. IMAGE OF SLIDER
+              This varies depending on the rules that are set out by the creator of the league. 
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
             <Accordion.Header>If I don't have any friends, can I still enter a league?</Accordion.Header>
             <Accordion.Body>
-              Yes, there will be public leagues available to users which do not require a code.
+              Yes, there will be public leagues available to users which do not require a code. In these 
+              leagues you will be competing against players from around the world and the rules of each
+              league vary.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="5">
@@ -206,7 +208,8 @@ function CollapsibleTable() {
               When you have created a game, you will be able to find your unique six character 
               code which your friends can input to join a game. On joining the game, an empty
               portfolio will be created for the user. <br/><br/>
-              You can join your friend's league <Link to="/game">here</Link> and by clicking join game.
+              You can join your friend's league <Link to="/game">here</Link> and by clicking join game
+              and then entering the code that they should have provided to you.
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>
@@ -218,18 +221,16 @@ function CollapsibleTable() {
             <Accordion.Body>
             <Accordion>
           <Accordion.Item eventKey="0">
-            <Accordion.Header>What is a trade?</Accordion.Header>
+            <Accordion.Header>What is stock trading?</Accordion.Header>
             <Accordion.Body>
-              As in the real world, there are different types of trading that can be done. The two types
-              types of trades or <b>orders</b> are <b>Market</b> and <b>Limit</b> orders.<br/><br/>
-              <h5>Market Orders</h5>
-              Market Orders are orders that are completed instantly, if the user has enough money to do so.
-              These are the most common types of orders that users will see in the real world.
-              <h5>Limit Orders</h5>
-              Limit orders are orders that are put in place ahead of time based on the investor's predictions.
-              For example, if an investor thinks that a stock may drop below a certain price, but that
-              the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
-              hits that price. This is an example of an investor buying low in the hopes of making a profit when it increases.
+              This is the buying and selling of company stocks in an attempt to make a profit on stock 
+              price movements. There are normally two types of investors in stock trading; long-term investors 
+              and short-term traders. <br/><br/>
+              Long-term investors will pick stocks that they believe will have slow, positive growth over 
+              a long period of time, e.g. over 1 year. Short-term traders will seek small growth and will 
+              generally study the markets continuously and trying to find any opportunities that they spot.
+              Short-term traders normally believe in a 'buy low, sell high' mantra. <br/><br/>
+              To learn more about stock trading click <a href="https://www.nerdwallet.com/article/investing/stock-trading-how-to-begin" target="_blank" rel="noopener noreferrer">here</a>.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
@@ -250,7 +251,7 @@ function CollapsibleTable() {
           </Accordion>
           </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="4">
+          <Accordion.Item eventKey="5">
             <Accordion.Header>I've seen sentiment mentioned in a few places, what do I need to know?</Accordion.Header>
             <Accordion.Body>
             <Accordion>

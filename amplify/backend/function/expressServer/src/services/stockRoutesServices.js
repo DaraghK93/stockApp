@@ -122,8 +122,21 @@ const getRecomms = async (stock) => {
 const getStockSummary =  (schema) => {
 const stocks =  schema.aggregate([
     { $facet: 
+    // agg query for recommended
+    {
+        recommended_stocks: [{ $match: { symbol: { $in: recommended } } }, {
+            $project: {
+                'symbol': 1,
+                'longname': 1, 'exchange': 1, 'logo': 1,
+                'daily_change.absoluteChange': 1,
+                'daily_change.percentageChange': 1,
+                'daily_change.currentprice': 1,
+                'esgrating.environment_score': 1
+            }
+        }],
+        
         // agg query for top environment
-        { topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+        topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
                                                     'daily_change.absoluteChange':1,
                                                     'daily_change.percentageChange':1,
                                                     'daily_change.currentprice':1,

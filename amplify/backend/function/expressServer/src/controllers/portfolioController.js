@@ -392,7 +392,7 @@ const getLeaguePortfolio = async (req,res,next) => {
     }
   
   // return the portfolio object
-  res.json(portfolio)
+  res.json(portfolio[0])
 
 } catch (err) {
   console.error(err.message);

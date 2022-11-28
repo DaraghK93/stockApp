@@ -45,8 +45,15 @@ const getAllStocks = async (req, res, next) => {
 
     /// if undefined return the stock summary 
     if(keyword == "undefined"){
+      console.log("1.1) Start of undefined IF statement")
+      const recommended = await stockService.getRecomms("MMM")
+      console.log("1.2) Recommended: ",recommended)
+      console.log("1.3) Type of recommended:",typeof recommended);
+      // console.log("Recommended.message: ",recommended.message)
       // Keyword undefied just return the top stocks 
-      const stocks = await stockService.getStockSummary(Stock)
+      const stocks = await stockService.getStockSummary(Stock, recommended)
+
+      res.json(recommended)      
       res.json(stocks)
     }else{ 
       // Keyword defined search for the stocks 

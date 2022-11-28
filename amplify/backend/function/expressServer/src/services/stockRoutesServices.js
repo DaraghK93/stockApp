@@ -90,8 +90,10 @@ function getStockPriceData (stocks) {
 
 };
 
+// This function makes an API call to the API gateway for the recommender lambda function
 const getRecomms = async (stock) => {
     var axios = require('axios').default;
+    // This sets the body of the request to the stock ticker input. This will be changed to take in user ID in the next iteration.
     var data = '{"stock":' + '"' + stock + '"}';
     try {
       const resp = await axios({
@@ -99,10 +101,9 @@ const getRecomms = async (stock) => {
         url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',
         data: data
       });
-      // console.log(resp.data);
       return resp
     } catch (err) {
-      // Handle Error Here
+      // Error handler
       console.error(err);
     }
   }
@@ -110,8 +111,8 @@ const getRecomms = async (stock) => {
 const getStockSummary =  (schema, recommended) => {
 const stocks =  schema.aggregate([
     { $facet: 
-    // agg query for recommended
-    {
+        {
+        // agg query for recommended. This queries the DB for the list of ticker symbols "recommended"
         recommend: [{ $match: { symbol: { "$in": recommended } } },
         {
             $project: {
@@ -217,21 +218,6 @@ const getStockSummaryRecs = (recommended) => {
     console.log("getStockSummaryRecs input:", recommended)
     console.log("getStockSummaryRecs input type:", typeof recommended)
     console.log("getStockSummaryRecs input length:", recommended.length)
-    // const recs = Stock.aggregate([
-    //     {
-    //         recommended_stocks: [{ $match: { symbol: { $in: recommended } } },
-    //         {
-                // $project: {
-                //     'symbol': 1,
-                //     'longname': 1, 'exchange': 1, 'logo': 1,
-                //     'daily_change.absoluteChange': 1,
-                //     'daily_change.percentageChange': 1,
-                //     'daily_change.currentprice': 1,
-                //     'esgrating.environment_score': 1
-                // }
-    //         }
-    //         ]
-    //     }])
     const recs = Stock.aggregate(
         [{ $match: { symbol: { "$in": recommended } } },
         {

@@ -424,9 +424,102 @@ const joinLeaguebyCode = async (req, res, next) => {
     }
 }
 
+const getLeagueById = async (req,res,next) => {
+  try{
+   
+   // check that the userId and leagueIds can be cast to valid objectIds
+    if (mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
+    // check that the stock ID is correct
+    res.status(404)
+    res.errormessage = 'No league found'
+    return next(
+      new Error(
+        'No portfolio found'
+      )
+    )
+  }
+  
+  const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
+  
+    const league = await League.aggregate([
+      {
+        '$match': {
+          '_id': leagueId
+        }
+      }, {
+        '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': 'portfolios', 
+          'foreignField': '_id', 
+          'as': 'portfolios', 
+          'pipeline': [
+            {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'userId', 
+                'foreignField': '_id', 
+                'as': 'user'
+              }
+            }, {
+              '$unwind': {
+                'path': '$user'
+              }
+            }, {
+              '$set': {
+                'user': '$user.username'
+              }
+            }, {
+              '$project': {
+                'totalValue': 1, 
+                'user': 1
+              }
+            }
+          ]
+        }
+      }, {
+        '$unwind': {
+          'path': '$portfolios'
+        }
+      }, {
+        '$sort': {
+          'portfolios.totalValue': -1
+        }
+      }, {
+        '$group': {
+          '_id': '$_id', 
+          'league': {
+            '$first': '$$ROOT'
+          }, 
+          'portfolios': {
+            '$push': '$portfolios'
+          }
+        }
+      }, {
+        '$addFields': {
+          'league.portfolios': '$portfolios'
+        }
+      }, {
+        '$replaceRoot': {
+          'newRoot': '$league'
+        }
+      }
+    ])
+
+    res.json(league)
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in get league';
+    res.status(500)
+    return next(err);
+  }
+
+}
+
 module.exports = {
     createLeague,
     getPublicLeagues,
     joinLeaguebyCode,
-    getMyLeagues
+    getMyLeagues,
+    getLeagueById
   }

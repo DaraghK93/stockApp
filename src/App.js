@@ -30,14 +30,12 @@ function App() {
   const { userInfo } = user;
 
    useEffect(() => {
-        const setInitialState = async () => {
-          console.log("Setting initial state")
+        /// If the user is logged in 
+        if (userInfo){
+          /// Set the active portfolio state 
           dispatch(updateActivePortfolios(userInfo.token))   
         }
-        if (userInfo){
-          setInitialState()
-        }
-       },[dispatch,userInfo])
+    },[dispatch,userInfo])
 
 
 

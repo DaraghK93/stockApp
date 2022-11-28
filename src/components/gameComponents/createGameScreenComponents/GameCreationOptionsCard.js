@@ -5,10 +5,12 @@ import {Card,Row,Col,Button} from "react-bootstrap"
 import { APIName } from '../../../constants/APIConstants'
 import { useState } from 'react';
 import { API } from "aws-amplify";
-import {useSelector} from 'react-redux';
 import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner";
 import {useNavigate} from "react-router-dom"
+
+import { useSelector,useDispatch } from 'react-redux';
+import {updateActivePortfolios} from '../../../actions/portfolioActions';
 
 
 /// GameCreationOptionsCard ///
@@ -29,6 +31,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
     const navigate = useNavigate()
 
     //Redux
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const {userInfo} = user
     const userToken = userInfo.token
@@ -66,6 +69,12 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
             console.log(res)
+            console.log(res.newLeague.active)
+            if (res.newLeague.active){
+                /// If the game is active then update the active portfolios state in redux 
+                /// Called becuase creating a game will also create a portfolio
+                dispatch(updateActivePortfolios(userInfo.token))  
+            }
             /// Will need to be updated to redirect to game page 
             navigate(`/game`)
             setLoading(false)

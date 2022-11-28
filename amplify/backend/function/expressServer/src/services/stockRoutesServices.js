@@ -235,16 +235,9 @@ const getStockSummaryRecs = (recommended) => {
     return recs
 }
 
-const getStockSummaryOverall = (schema, recommended) => {
-    const stocks = getStockSummary(schema)
-    const recs = getStockSummaryRecs(schema, recommended)
-    return stocks, recs
-}
-
 module.exports = {
     getStockPriceData,
     getStockSummary,
     getRecomms,
-    getStockSummaryRecs,
-    getStockSummaryOverall
+    getStockSummaryRecs
 }

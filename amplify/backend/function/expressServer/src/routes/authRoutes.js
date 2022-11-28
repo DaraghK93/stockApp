@@ -23,6 +23,10 @@ router.post(
 // The checks for this are within the resetPassword function so not using express-validator here
 router.post('/reset/:token', resetPassword);
 
-router.post('/changeUserDetails', protectedRoute, changeUserDetails);
+router.post(
+  '/changeUserDetails',
+  [body('email', 'Invalid email entered').trim().isEmail(), protectedRoute],
+  changeUserDetails
+);
 
 module.exports = router;

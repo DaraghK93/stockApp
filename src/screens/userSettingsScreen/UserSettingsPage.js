@@ -32,6 +32,7 @@ function UserSettingsPage() {
   const [avatar, setAvatar] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [email, setEmail] = useState('');
 
   // password error for new password. checked in handle submit
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
@@ -102,6 +103,7 @@ function UserSettingsPage() {
             avatar,
             firstname,
             lastname,
+            email,
             userToken
           )
         );
@@ -133,9 +135,7 @@ function UserSettingsPage() {
         </Card>
         <Card className='accountDetailsForm' id='accountDetailsForm'>
           <Form onSubmit={handleSubmit}>
-            <h5>
-              Update Account Information
-            </h5>
+            <h5>Update Account Information</h5>
             {error === 'Current password incorrect' && (
               <MessageAlert variant='danger'>{error}</MessageAlert>
             )}
@@ -195,6 +195,15 @@ function UserSettingsPage() {
                 placeholder='Enter New Last Name'
                 value={lastname}
                 onChange={(event) => setLastname(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className='py-2' controlId='email'>
+              <Form.Label>New Email</Form.Label>
+              <Form.Control
+                type='email'
+                placeholder='Enter New Email'
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
               />
             </Form.Group>
             {error === 'Username already taken' && (
@@ -258,7 +267,7 @@ function UserSettingsPage() {
               </MessageAlert>
             )}
             {error === 'No details to change' && (
-              <MessageAlert variant='danger'>{error}</MessageAlert>
+              <MessageAlert variant='info'>{error}</MessageAlert>
             )}
             <Row>
               <Col className='text-center py-4'>

@@ -106,6 +106,7 @@ export function changeUserDetails(
   avatar,
   firstname,
   lastname,
+  email,
   userToken
 ) {
 
@@ -121,6 +122,7 @@ export function changeUserDetails(
         avatar: avatar ? avatar : undefined,
         firstname: firstname ? firstname : undefined,
         lastname: lastname ? lastname : undefined,
+        email: email? email : undefined,
       };
       // Configure the HTTP request
       let path = `/api/auth/changeuserdetails`;

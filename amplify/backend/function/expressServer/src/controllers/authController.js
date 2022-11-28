@@ -19,6 +19,15 @@ var apiKey = defaultClient.authentications['api-key'];
 // @access Private
 const changeUserDetails = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    console.log(errors);
+    //validate input
+    if (!errors.isEmpty() && errors.errors[0].msg === 'Invalid email entered') {
+      res.status(400);
+      res.errormessage = 'Invalid email address. Please try again';
+      return next(new Error('Invalid email address entered.'));
+    }
+
     const token = req.headers['x-auth-token'];
     // required fields = users current password
     // check if password exists and if it does check it is valid
@@ -103,12 +112,18 @@ const changeUserDetails = async (req, res, next) => {
       if (newLastname) {
         user.lastname = newLastname;
       }
+      // check for new email already validated from express validator
+      const newEmail = req.body.email;
+      if (newEmail) {
+        user.email = newEmail;
+      }
       if (
         !newUsername &&
         !newPassword &&
         !newAvatar &&
         !newFirstname &&
-        !newLastname
+        !newLastname &&
+        !newEmail
       ) {
         res.status(400);
         res.errormessage = 'No details to change';

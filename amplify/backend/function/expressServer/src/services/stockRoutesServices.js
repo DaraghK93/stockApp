@@ -215,9 +215,6 @@ return stocks
 }
 
 const getStockSummaryRecs = (recommended) => {
-    console.log("getStockSummaryRecs input:", recommended)
-    console.log("getStockSummaryRecs input type:", typeof recommended)
-    console.log("getStockSummaryRecs input length:", recommended.length)
     const recs = Stock.aggregate(
         [{ $match: { symbol: { "$in": recommended } } },
         {

@@ -103,7 +103,8 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
         newHoldings = new Holdings({
         portfolioId: transaction.portfolioId,
         stockId: transaction.stockId,
-        units: transaction.units
+        units: transaction.units,
+        frozenHoldingsUnits: 0
         })
         let newPortfolio
         let newRemainder
@@ -161,7 +162,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
         
         if (newHoldings > 0) {
             // if the holdings are greater than 0, update the existing holdings
-            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, frozenHoldingsUnits: frozenHoldings})
+            await Holdings.updateOne({_id:holdings._id}, {$set: {units: newHoldings}, $inc: {frozenHoldingsUnits: frozenHoldings}})
 
             // create a new transaction
             await transaction.save()
@@ -182,7 +183,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
             await Holdings.findByIdAndDelete({_id:holdings._id})
             }
             else {
-            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, frozenHoldingsUnits: frozenHoldings})
+            await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, $inc: {frozenHoldingsUnits: frozenHoldings}})
             }
             // create a new transaction
             await transaction.save()

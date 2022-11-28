@@ -293,10 +293,57 @@ catch (err) {
 }
 }
 
+const getMyGamesAndPortfolios = async (req,res,next) => {
+  try{
+    const userId = mongoose.Types.ObjectId(req.user.id)
 
+    const portfolios = await Portfolio.aggregate(
+      [
+        {
+          '$match': {
+            'userId': userId
+          }
+        }, {
+          '$lookup': {
+            'from': 'leagues', 
+            'localField': 'leagueId', 
+            'foreignField': '_id', 
+            'as': 'league'
+          }
+        }, {
+          '$unwind': {
+            'path': '$league'
+          }
+        }, {
+          '$match': {
+            'league.active': true
+          }
+        }, {
+          '$set': {
+            'leagueId': '$league._id', 
+            'leagueName': '$league.leagueName'
+          }
+        }, {
+          '$project': {
+            'leagueName': 1, 
+            'portfolioName': 1, 
+            'leagueId': 1
+          }
+        }
+      ])
+
+  res.json(portfolios)
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error';
+    return next(err);
+  }
+}
 
 module.exports = {
   createHangingPortfolio,
   buyStockMarketOrder,
-  sellStockMarketOrder
+  sellStockMarketOrder,
+  getMyGamesAndPortfolios
 }

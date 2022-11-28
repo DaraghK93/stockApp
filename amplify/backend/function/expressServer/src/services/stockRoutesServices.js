@@ -232,8 +232,6 @@ const getStockSummaryRecs = (recommended) => {
         }
         ]
     )
-    console.log(recs)
-    console.log(recs.length)
     return recs
 }
 

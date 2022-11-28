@@ -4,6 +4,7 @@ import PortfolioPage from "../portfolio/portfolio";
 import { Container, Image } from 'react-bootstrap';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
 import moment from 'moment'
+import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 
 function IndividualGameScreen() {
     const [screen, setScreen] = useState("")
@@ -11,6 +12,10 @@ function IndividualGameScreen() {
 
     var startDate = moment("2022-11-22");
     var endDate = moment("2022-12-05");
+
+    const game={
+    leagueType: "timeBased"
+}
 
     const disPlayScreen = (e) => {
         setActive(e.target.id)
@@ -39,7 +44,10 @@ function IndividualGameScreen() {
             <GameNavBar disPlayScreen={disPlayScreen} active={active} />
 
             <Container style={{paddingTop:"2rem"}}>
-                <TimeLine startDate={startDate} endDate={endDate}/>
+            {game.leagueType === "timeBased" ? 
+                <TimeLine startDate={startDate} endDate={endDate}/> : 
+                <ValueLine />
+                } 
                 {screen}
             </Container>
         </>

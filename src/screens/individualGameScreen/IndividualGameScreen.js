@@ -3,6 +3,9 @@ import GameNavBar from "../../components/gameComponents/individualGameScreenComp
 import { Container, Image, Row, Col } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
+import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
+import moment from 'moment';
+import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 
 function IndividualGameScreen() {
 
@@ -43,7 +46,7 @@ function IndividualGameScreen() {
     var endDate = moment("2022-12-05");
 
     const game={
-    leagueType: "timeBased"
+    leagueType: "valueBased"
 }
 
     const disPlayScreen = (e) => {

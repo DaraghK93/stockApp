@@ -66,7 +66,44 @@ function IndividualGameScreen() {
             )
         }
         else if (e.target.id === "4") {
-            setScreen(<><br></br><h2>This is Leaderboard screen</h2></>)
+            setScreen(
+                <>
+
+
+                    <Row xs={3}>
+                    
+
+                        <Col style={{ textAlign: "center" }}>
+                            <Image src={"/testAvatar.png"} style={{ width: "100%", marginTop: "5rem", borderRadius: "50%", }}></Image>
+                            <p>@username1
+                                <br></br>
+                                $1000
+                            </p>
+                        </Col>
+                        <Col style={{ textAlign: "center" }}>
+                            <Image src={"/crown.png"} style={{ width: "50%" }}></Image>
+                            <Image src={"/testAvatar.png"} style={{ width: "100%", borderRadius: "50%", marginTop:0 }}></Image>
+                            <p>@username2
+                                <br></br>
+                                $100000
+                            </p>
+                        </Col>
+                        <Col style={{ textAlign: "center" }}>
+                            <Image src={"/testAvatar.png"} style={{ width: "100%", marginTop: "6rem", borderRadius: "50%" }}></Image>
+                            <p>@username3
+                                <br></br>
+                                $10
+                            </p>
+                        </Col>
+
+
+                    </Row>
+       
+                    <Row>
+                        {/* <Image src={"/podium.png"} style={{ width: "100%" }}></Image> */}
+                    </Row>
+
+                </>)
         }
     }
 

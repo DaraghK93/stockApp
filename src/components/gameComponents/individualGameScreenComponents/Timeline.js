@@ -12,7 +12,7 @@ function TimeLine({ startDate, endDate}) {
         <Container>
             <Row>
                 <Col xs="auto"><HourglassBottomIcon fontSize="large"/></Col>
-                <Col>
+                <Col style={{paddingRight: "0.5rem"}}>
                     <ProgressBar striped variant="info" max={max} min={0} now={now} />
                     <span>
                         <p>Only <strong>{leftDays}</strong> more days left in this exciting game! <strong>Make a trade now.</strong></p>

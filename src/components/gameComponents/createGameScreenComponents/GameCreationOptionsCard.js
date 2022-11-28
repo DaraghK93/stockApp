@@ -69,7 +69,6 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
             console.log(res)
-            console.log(res.newLeague.active)
             if (res.newLeague.active){
                 /// If the game is active then update the active portfolios state in redux 
                 /// Called becuase creating a game will also create a portfolio

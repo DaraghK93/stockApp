@@ -15,7 +15,7 @@ import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
 import RequestResetPassword from './screens/resetPassword/requestResetPassword'
 import ResetPage from './screens/resetPassword/resetPassword'
-import GlossaryPage from './screens/glossary/glossary'
+import FAQsPage from './screens/faqs/faqs'
 
 /// Redux ///
 import { useSelector } from 'react-redux';
@@ -67,8 +67,8 @@ function App() {
         <Route path='/portfolio'
           element={userInfo ? <PortfolioPage /> : <Navigate to="/" />} />
         
-        <Route path='/glossary'
-          element={userInfo ? <GlossaryPage /> : <Navigate to="/" />} />
+        <Route path='/faqs'
+          element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />
 
         <Route path='/auth/recover' element={ <RequestResetPassword/> } />
         <Route path='/auth/reset/:token' element={ <ResetPage/> } />

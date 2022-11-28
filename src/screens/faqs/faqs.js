@@ -5,8 +5,7 @@
 //  This screen contains a static glossary page
 
 /// Imports ///
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import {useNavigate} from 'react-router-dom'
+import { Container, Row, Col} from 'react-bootstrap'
 import CollapsibleTable from "../../components/glossaryComponents/collabsibleTable/collapsibleTable"
 
 
@@ -19,9 +18,8 @@ function GlossaryPage (){
             <Col>
                 <Row>
                     <Container>
-                    <h1>FAQs and Definitions</h1>
-                    The users can find answers to their questions as well as definitions of various 
-                    investment terms below.
+                    <h1>Frequently Asked Questions and Definitions</h1>
+                    <br/>
                     </Container>
                     <CollapsibleTable/>
                 </Row>

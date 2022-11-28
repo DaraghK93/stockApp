@@ -1,8 +1,7 @@
-import { Table, Container, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion'
 import EnvironmentalRating from "../../stockVisualisationComponents/ESGRatingSliders/EnvironmentalRating";
-
+import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge'
 
 
 function CollapsibleTable() {
@@ -16,7 +15,10 @@ function CollapsibleTable() {
             <Accordion.Header>What is a stock?</Accordion.Header>
             <Accordion.Body>
               A stock is a unit of ownership in a company. By owning a stock, you are 
-              a shareholder in a company.
+              a shareholder in a company.<br/><br/>
+              There are over 450 stocks that you can explore through this application.
+              Stocks can be found by clicking 'Stocks' at the top of this page or by
+              clicking <Link to="/stockdiscovery">here</Link>.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
@@ -34,7 +36,6 @@ function CollapsibleTable() {
               These market forces include supply and demand. If the demand for a stock increases, and fewer
               people wish to sell, decreasing the supply, then the price of the stock will increase. Investors 
               often base their decisions on positive and negative news sentiment. <br/><br/>
-
               Further information on what causes stock prices to change can be found <a href="https://www.disnat.com/en/learning/trading-basics/stock-basics/what-causes-stock-prices-to-change" target="_blank" rel="noopener noreferrer">here</a>.
             </Accordion.Body>
           </Accordion.Item>
@@ -45,6 +46,30 @@ function CollapsibleTable() {
               situation or to spot patterns in a stock's price movements. While it cannot be expected that history will 
               repeat itself, investors can use this data to aid their decision making. <br/><br/>
               Further information about the pros and cons of analysing past performance can be found <a href="https://www.investopedia.com/terms/h/historical-returns.asp" target="_blank" rel="noopener noreferrer">here</a>.
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="4">
+            <Accordion.Header>How often are the stock prices updated?</Accordion.Header>
+            <Accordion.Body>
+              The stock prices are updated every 20 minutes. Performance and database storage costs a lot
+              of money. As we are a not-for-profit organisation, at the moment, we decided that updating every
+              second or every minute may be too costly. Maybe in the future as the application expands, the 
+              team could investigate the possibility of increasing the frequency at which the prices update. <br/><br/>
+              The price of any stock can be found <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">here</a>.
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="5">
+            <Accordion.Header>Should I invest everything in one stock?</Accordion.Header>
+            <Accordion.Body>
+              You are free to invest in whatever way you want. Best practice for investing involves the
+              investor diversifying their stocks. The main benefit of diversification is that it reduces risk.
+              The goal of diversifying assets is that by investing in different sectors and areas, the stocks will
+              each react differently to market conditions. <br/><br/>
+              One example is that if you invested solely in airlines and then there is is an airline strike, the value of these
+              airlines stocks could drop, resulting in a huge loss for your portfolio. 
+              By investing in trains or other transportation companies, you might offset
+              these losses with the gains acheived by the benefactors of this strike.  <br/><br/>
+              Further information about the pros of diversification can be found <a href="https://www.investopedia.com/investing/importance-diversification/" target="_blank" rel="noopener noreferrer">here</a>.
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>
@@ -134,13 +159,14 @@ function CollapsibleTable() {
             <Accordion.Body>
               Users can create and enter leagues with their friends, building portfolios
               to see who can make the most money. Users can learn about different types 
-              of trading and how the stock market works.
+              of trading and how the stock market works. <br/><br/>
+              You can create a game <Link to="/game/creategame">here</Link>.
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header>Am I using real money?</Accordion.Header>
             <Accordion.Body>
-            No, the money is all virtual, removing the element of risk while still 
+              No, the money is all virtual, removing the element of risk while still 
               allowing players to learn about investing in a controlled environment. The creator
               of each league has the ability to decide the budget for the league, allowing for 
               lower starting budgets to aid realism or allowing the users to start with extortionate amounts
@@ -156,10 +182,10 @@ function CollapsibleTable() {
               Market Orders are orders that are completed instantly, if the user has enough money to do so.
               These are the most common types of orders that users will see in the real world.
               <h5>Limit Orders</h5>
-              Limit orders are orders that are put in place ahead based on the investor's predictions.
+              Limit orders are orders that are put in place ahead of time based on the investor's predictions.
               For example, if an investor thinks that a stock may drop below a certain price, but that
               the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
-              hits that price.
+              hits that price. This is an example of an investor buying low in the hopes of making a profit when it increases. 
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
@@ -179,48 +205,82 @@ function CollapsibleTable() {
             <Accordion.Body>
               When you have created a game, you will be able to find your unique six character 
               code which your friends can input to join a game. On joining the game, an empty
-              portfolio will be created for the user. IMAGE OF GAME PAGE AND JOIN GAME PAGE.
+              portfolio will be created for the user. <br/><br/>
+              You can join your friend's league <Link to="/game">here</Link> and by clicking join game.
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>
+          
               </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="3">
-            <Accordion.Header>Ticker Symbol e.g. AAPL for Apple</Accordion.Header>
+          <Accordion.Item eventKey="4">
+            <Accordion.Header>I've never traded before, what do I need to know?</Accordion.Header>
             <Accordion.Body>
-              On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.
-            </Accordion.Body>
-          </Accordion.Item><Accordion.Item eventKey="4">
-            <Accordion.Header>Ticker Symbol e.g. AAPL for Apple</Accordion.Header>
+            <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>What is a trade?</Accordion.Header>
             <Accordion.Body>
-              On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.
+              As in the real world, there are different types of trading that can be done. The two types
+              types of trades or <b>orders</b> are <b>Market</b> and <b>Limit</b> orders.<br/><br/>
+              <h5>Market Orders</h5>
+              Market Orders are orders that are completed instantly, if the user has enough money to do so.
+              These are the most common types of orders that users will see in the real world.
+              <h5>Limit Orders</h5>
+              Limit orders are orders that are put in place ahead of time based on the investor's predictions.
+              For example, if an investor thinks that a stock may drop below a certain price, but that
+              the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
+              hits that price. This is an example of an investor buying low in the hopes of making a profit when it increases.
             </Accordion.Body>
-          </Accordion.Item><Accordion.Item eventKey="5">
-            <Accordion.Header>Ticker Symbol e.g. AAPL for Apple</Accordion.Header>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>What are the different types of trades that I can do?</Accordion.Header>
             <Accordion.Body>
-              On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.
+              As in the real world, there are different types of trading that can be done. The two types
+              types of trades or <b>orders</b> are <b>Market</b> and <b>Limit</b> orders.<br/><br/>
+              <h5>Market Orders</h5>
+              Market Orders are orders that are completed instantly, if the user has enough money to do so.
+              These are the most common types of orders that users will see in the real world.
+              <h5>Limit Orders</h5>
+              Limit orders are orders that are put in place ahead of time based on the investor's predictions.
+              For example, if an investor thinks that a stock may drop below a certain price, but that
+              the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
+              hits that price. This is an example of an investor buying low in the hopes of making a profit when it increases.
             </Accordion.Body>
-          </Accordion.Item><Accordion.Item eventKey="6">
-            <Accordion.Header>Ticker Symbol e.g. AAPL for Apple</Accordion.Header>
+          </Accordion.Item>
+          </Accordion>
+          </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="4">
+            <Accordion.Header>I've seen sentiment mentioned in a few places, what do I need to know?</Accordion.Header>
             <Accordion.Body>
-              On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.
-            </Accordion.Body>
-          </Accordion.Item><Accordion.Item eventKey="7">
-            <Accordion.Header>Ticker Symbol e.g. AAPL for Apple</Accordion.Header>
+            <Accordion>
+          <Accordion.Item eventKey="0">
+            <Accordion.Header>What does stock sentiment mean?</Accordion.Header>
             <Accordion.Body>
-              On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.
+              This is the general feeling or attitude towards a specific stock. In this case, News and 
+              Twitter sentiment are analysed and an overall sentiment is provided to the user. Sentiment
+              is presented as one of:<br/>
+              <SentimentBadge customStyle={{fontSize:"1rem"}} sentiment={"positive"}/> 
+              <SentimentBadge customStyle={{fontSize:"1rem"}} sentiment={"neutral"}/> 
+              <SentimentBadge customStyle={{fontSize:"1rem"}} sentiment={"negative"}/>
             </Accordion.Body>
-          </Accordion.Item><Accordion.Item eventKey="8">
-            <Accordion.Header>Ticker Symbol e.g. AAPL for Apple</Accordion.Header>
+          </Accordion.Item>
+          <Accordion.Item eventKey="1">
+            <Accordion.Header>How does the application decide the sentiment of a news article or Tweet?</Accordion.Header>
             <Accordion.Body>
-              On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.
+              The application uses artificial intelligence to categorise each news article or Tweet. The keywords
+              of the news headlines and the Tweets are fed into the program which decides if they are positive or 
+              negative words and an overall sentiment is calculated.
             </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="2">
+            <Accordion.Header>How accurate is this analysis?</Accordion.Header>
+            <Accordion.Body>
+              At the moment, the analysis is over 70% accurate. 
+            </Accordion.Body>
+          </Accordion.Item>
+          </Accordion>
+          </Accordion.Body>
           </Accordion.Item>
         </Accordion>
       )

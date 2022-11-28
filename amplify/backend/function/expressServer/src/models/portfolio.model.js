@@ -5,6 +5,7 @@ const PortfolioSchema = new mongoose.Schema(
   {
     portfolioName: { type: String, trim: true, required: true },
     remainder: { type: Number, trim: true},
+    frozenBalance: {type: Number, trim: true},
     startingBalance: {type: Number, trim: true, required: true},
     holdings: [{type: Schema.Types.ObjectId, ref: 'holdingsData'}],
     dateCreated: {type: Date, trim: true},

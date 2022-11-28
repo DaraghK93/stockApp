@@ -21,13 +21,16 @@ function StockDiscoveryPage(){
                 <StockSearchBar/>
                 </Container>
                 {keyword === undefined ? (
-                    <Row md={1} xs={1}>
+                    <Row md={1} xs={1}
+                    >
                         <StockSummary/>
                     </Row>
                    
                 ) : (
                     <Row md={1} xs={1}>
+                        <Container>
                           <StockSearchResults keyword={keyword}/>
+                          </Container>
                     </Row>
                 )}
                 </div>

@@ -243,54 +243,11 @@ const stocks =  schema.aggregate([
 return stocks
 }
 
-const getStockSummaryRecs = (recommended) => {
-    console.log("getStockSummaryRecs input:", recommended)
-    console.log("getStockSummaryRecs input type:", typeof recommended)
-    console.log("getStockSummaryRecs input length:", recommended.length)
-    // const recs = Stock.aggregate([
-    //     {
-    //         recommended_stocks: [{ $match: { symbol: { $in: recommended } } },
-    //         {
-                // $project: {
-                //     'symbol': 1,
-                //     'longname': 1, 'exchange': 1, 'logo': 1,
-                //     'daily_change.absoluteChange': 1,
-                //     'daily_change.percentageChange': 1,
-                //     'daily_change.currentprice': 1,
-                //     'esgrating.environment_score': 1
-                // }
-    //         }
-    //         ]
-    //     }])
-    const recs = Stock.aggregate(
-        [{ $match: { symbol: { "$in": recommended } } },
-        {
-            $project: {
-                'symbol': 1,
-                'longname': 1, 'exchange': 1, 'logo': 1,
-                'daily_change.absoluteChange': 1,
-                'daily_change.percentageChange': 1,
-                'daily_change.currentprice': 1,
-                'esgrating.environment_score': 1
-            }
-        }
-        ]
-    )
-    console.log(recs)
-    console.log(recs.length)
-    return recs
-}
 
-const getStockSummaryOverall = (schema, recommended) => {
-    const stocks = getStockSummary(schema)
-    const recs = getStockSummaryRecs(schema, recommended)
-    return stocks, recs
-}
+
 
 module.exports = {
     getStockPriceData,
     getStockSummary,
-    getRecomms,
-    getStockSummaryRecs,
-    getStockSummaryOverall
+    getRecomms
 }

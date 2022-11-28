@@ -112,7 +112,7 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
         }
         else {
-            newRemainder = portfolioRemainder - transaction.value*transaction.units - transaction.tradingFee
+            newRemainder = portfolioRemainder - transaction.limitValue*transaction.units - transaction.tradingFee
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
         }
         return newPortfolio

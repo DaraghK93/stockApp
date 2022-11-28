@@ -10,4 +10,5 @@ router.post('/createleague',protectedRoute,createLeague)
 router.get('/',protectedRoute, getPublicLeagues)
 router.get('/myleagues',protectedRoute,getMyLeagues)
 router.post('/joinleague',protectedRoute,joinLeaguebyCode)
+
 module.exports = router 

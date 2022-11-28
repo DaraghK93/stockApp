@@ -524,7 +524,8 @@ const getLeagueById = async (req,res,next) => {
         }
       }
     ])
-    // check if there are leagues
+
+    // check if there is a league for that id that has that user
     if (league.length===0) {
     res.status(404)
     res.errormessage = 'No league found'

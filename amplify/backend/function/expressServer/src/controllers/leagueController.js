@@ -261,7 +261,8 @@ const createLeague = async (req, res, next) => {
 
     } catch (err) {
       console.error(err.message);
-      res.errormessage = 'Server error creating a league';
+      res.errormessage = "Unfortunately we could not create the league at this time";
+      res.status(500)
       return next(err);
     }}
 

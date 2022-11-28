@@ -1,12 +1,16 @@
 import { useState } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
 import PortfolioPage from "../portfolio/portfolio";
-import { Container, Row, Image } from 'react-bootstrap'
+import { Container, Image } from 'react-bootstrap';
+import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
+import moment from 'moment'
+
 function IndividualGameScreen() {
-
-
     const [screen, setScreen] = useState("")
     const [active, setActive] = useState("4")
+
+    var startDate = moment("2022-11-22");
+    var endDate = moment("2022-12-05");
 
     const disPlayScreen = (e) => {
         setActive(e.target.id)
@@ -34,8 +38,8 @@ function IndividualGameScreen() {
             </div>
             <GameNavBar disPlayScreen={disPlayScreen} active={active} />
 
-            <Container>
-                <h3>Timeline goes here</h3>
+            <Container style={{paddingTop:"2rem"}}>
+                <TimeLine startDate={startDate} endDate={endDate}/>
                 {screen}
             </Container>
         </>

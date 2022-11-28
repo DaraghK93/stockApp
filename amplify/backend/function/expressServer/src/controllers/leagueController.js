@@ -424,10 +424,15 @@ const joinLeaguebyCode = async (req, res, next) => {
     }
 }
 
+// @desc get leauge by the leagueId. returns all info about the league and also
+// returns a sorted array of portfolios, which will be used as the leaderboard
+// @route get league/:leagueId
+// @access private
+
 const getLeagueById = async (req,res,next) => {
   try{
    
-   // check that the userId and leagueIds can be cast to valid objectIds
+   // check that the leagueId can be cast to valid objectId
     if (mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
     // check that the stock ID is correct
     res.status(404)
@@ -438,21 +443,24 @@ const getLeagueById = async (req,res,next) => {
       )
     )
   }
-  
+  // cast to mongoose _id
   const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
-  
+
     const league = await League.aggregate([
       {
+        // match on id
         '$match': {
           '_id': leagueId
         }
       }, {
+        //join portfoliovalues on id
         '$lookup': {
           'from': 'portfolioValues', 
           'localField': 'portfolios', 
           'foreignField': '_id', 
           'as': 'portfolios', 
           'pipeline': [
+            // join users on id
             {
               '$lookup': {
                 'from': 'users', 
@@ -461,14 +469,18 @@ const getLeagueById = async (req,res,next) => {
                 'as': 'user'
               }
             }, {
+              // make array into object
               '$unwind': {
                 'path': '$user'
               }
             }, {
+              // set as its own field in main object
               '$set': {
                 'user': '$user.username'
               }
             }, {
+              // return total value and username
+              // can return more if needed
               '$project': {
                 'totalValue': 1, 
                 'user': 1
@@ -477,28 +489,35 @@ const getLeagueById = async (req,res,next) => {
           ]
         }
       }, {
+        // make into object per portfolio
         '$unwind': {
           'path': '$portfolios'
         }
       }, {
+        // sort objects descending
         '$sort': {
           'portfolios.totalValue': -1
         }
       }, {
+        //group by id
         '$group': {
           '_id': '$_id', 
+          // project all the league data
           'league': {
             '$first': '$$ROOT'
           }, 
+          // pish portfolios to its own field
           'portfolios': {
             '$push': '$portfolios'
           }
         }
       }, {
+        // add portfolio field to league object
         '$addFields': {
           'league.portfolios': '$portfolios'
         }
       }, {
+        // make the league object the root object
         '$replaceRoot': {
           'newRoot': '$league'
         }

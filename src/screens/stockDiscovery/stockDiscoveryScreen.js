@@ -16,7 +16,7 @@ function StockDiscoveryPage(){
     return(<>
     <div className="stockDiscovery">
             <Container>
-                <h1 style={{textAlign:"center"}}>Stock Discovery</h1>
+                {/* <h1 style={{textAlign:"center"}}>Stock Discovery</h1> */}
 
                 <StockSearchBar/>
                 </Container>

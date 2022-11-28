@@ -54,7 +54,7 @@ function App() {
         <Route path='/game/creategame'
           element={userInfo ? <CreateGameScreen /> : <Navigate to="/" />} />
 
-        <Route path='/game/gamescreen'
+        <Route path='/game/:gameId'
           element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
         <Route path="/stock/:symbol/confirmorder"

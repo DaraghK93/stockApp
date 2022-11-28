@@ -16,6 +16,9 @@ import PortfolioPage from './screens/portfolio/portfolio';
 import RequestResetPassword from './screens/resetPassword/requestResetPassword'
 import ResetPage from './screens/resetPassword/resetPassword';
 
+/// React ///
+import { useEffect } from 'react';
+
 /// Redux ///
 import { useSelector } from 'react-redux';
 
@@ -23,6 +26,19 @@ function App() {
   /// Get the user state from redux, will be used to see if user is logged in  
   const user = useSelector((state) => state.user)
   const { userInfo } = user;
+
+   useEffect(() => {
+        const setInitialState = async () => {
+               try{
+                console.log("IM here")
+               }catch(error){
+                console.log("ERRROR")
+               }
+           }
+        setInitialState()
+       },[])
+
+
 
   return (
     <Router>

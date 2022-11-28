@@ -1,11 +1,20 @@
-.userDropDownTitle{
+.userDropDownTitle {
     color: white !important;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
     color: white;
 }
 
-.userDropDown:hover{
+.userDropDown:hover {
     font-weight: bold;
+}
+
+@media only screen and (min-width: 1000px) {
+    .userDropDown {
+        position: fixed;
+        right: 4rem;
+        z-index: 1;
+    }
+
 }

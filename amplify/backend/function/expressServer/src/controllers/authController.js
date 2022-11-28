@@ -114,9 +114,17 @@ const changeUserDetails = async (req, res, next) => {
       }
       // check for new email already validated from express validator
       const newEmail = req.body.email;
+      // check if email exists already
+      const userWithEmail = await User.findOne({ email: newEmail });
+      if (userWithEmail) {
+        res.status(400);
+        res.errormessage = 'Email already taken';
+        return next(new Error('Email already taken'));
+      }
       if (newEmail) {
         user.email = newEmail;
       }
+      
       if (
         !newUsername &&
         !newPassword &&

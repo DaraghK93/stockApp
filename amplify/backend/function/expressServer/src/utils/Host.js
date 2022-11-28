@@ -1,5 +1,6 @@
 /// Description:
 ///     This file contains a function to get the HOST for emailing
+const getParamFromAWS = require('./awsParamStore');
 
 /// getSecret ///
 // Descripton:

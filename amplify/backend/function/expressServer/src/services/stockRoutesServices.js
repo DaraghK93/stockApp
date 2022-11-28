@@ -90,36 +90,6 @@ function getStockPriceData (stocks) {
 
 };
 
-// const getRecomms = async (stock) => {
-//     var axios = require('axios');
-//     var data = '{"stock":' + '"' + stock + '"}';
-//     console.log("2.1) Data:" + data)
-//     var config = {
-//         method: 'get',
-//         url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',
-//         headers: {
-//             'Content-Type': 'text/plain'
-//         },
-//         data: data
-//     };
-//     console.log("2.2) Step before Axios Config")
-//     await axios(config)
-//         .then(function (response) {
-//             let recc_output = response.data.message
-//             console.log(JSON.stringify(response.data));
-//             //   console.log("Recommender output:", recc_output);
-//             console.log("2.3) Recommender output type:", typeof response.data)
-//             console.log("2.4) Recommender output.message type:", typeof response.data.message)
-//             console.log("2.5) Response.data.message:", response.data.message)
-//             console.log("2.6) Response.data.message type:", typeof response.data.message)
-//             //   console.log("Recommender output (only stocks):", recc_output[0])
-//             return response.data.message
-//         })
-//         .catch(function (error) {
-//             console.log(error);
-//         });
-// }
-
 const getRecomms = async (stock) => {
     var axios = require('axios').default;
     var data = '{"stock":' + '"' + stock + '"}';
@@ -243,11 +213,54 @@ const stocks =  schema.aggregate([
 return stocks
 }
 
+const getStockSummaryRecs = (recommended) => {
+    console.log("getStockSummaryRecs input:", recommended)
+    console.log("getStockSummaryRecs input type:", typeof recommended)
+    console.log("getStockSummaryRecs input length:", recommended.length)
+    // const recs = Stock.aggregate([
+    //     {
+    //         recommended_stocks: [{ $match: { symbol: { $in: recommended } } },
+    //         {
+                // $project: {
+                //     'symbol': 1,
+                //     'longname': 1, 'exchange': 1, 'logo': 1,
+                //     'daily_change.absoluteChange': 1,
+                //     'daily_change.percentageChange': 1,
+                //     'daily_change.currentprice': 1,
+                //     'esgrating.environment_score': 1
+                // }
+    //         }
+    //         ]
+    //     }])
+    const recs = Stock.aggregate(
+        [{ $match: { symbol: { "$in": recommended } } },
+        {
+            $project: {
+                'symbol': 1,
+                'longname': 1, 'exchange': 1, 'logo': 1,
+                'daily_change.absoluteChange': 1,
+                'daily_change.percentageChange': 1,
+                'daily_change.currentprice': 1,
+                'esgrating.environment_score': 1
+            }
+        }
+        ]
+    )
+    console.log(recs)
+    console.log(recs.length)
+    return recs
+}
 
-
+const getStockSummaryOverall = (schema, recommended) => {
+    const stocks = getStockSummary(schema)
+    const recs = getStockSummaryRecs(schema, recommended)
+    return stocks, recs
+}
 
 module.exports = {
     getStockPriceData,
     getStockSummary,
-    getRecomms
+    getRecomms,
+    getStockSummaryRecs,
+    getStockSummaryOverall
 }

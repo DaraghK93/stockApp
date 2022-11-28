@@ -68,6 +68,7 @@ function IndividualGameScreen() {
         else if (e.target.id === "4") {
             setScreen(
                 <>
+                {/* <Col> */}
 
 
                     <Row xs={3}>
@@ -102,6 +103,8 @@ function IndividualGameScreen() {
                     <Row>
                         {/* <Image src={"/podium.png"} style={{ width: "100%" }}></Image> */}
                     </Row>
+
+                    {/* </Col> */}
 
                 </>)
         }

@@ -184,11 +184,13 @@ const createLeague = async (req, res, next) => {
         active = true
   }
 
+    // instantiate league so we can add formatteed endDate
+    let league = {}
     // ensure league is at least a day long
     if (leagueType === "timeBased") {
       // get dates in the correct format with no hours,mins,secs
-      const end = new Date(endDate).setHours(0,0,0,0)
-
+    const end = new Date(endDate).setHours(0,0,0,0)
+    league.endDate = end
       // check that the difference between start and end is at least 1
       // divide to get it in terms of days
     if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
@@ -225,8 +227,10 @@ const createLeague = async (req, res, next) => {
     }
 
 
-    // create new league object
-    const league = {
+    // assign the remaining foelds to the league object
+    // if league is timeBased, endDate will be already assigned
+    // otherwise it will be an empty object
+    league = {
         leagueName,
         startingBalance,
         leagueType,
@@ -257,7 +261,8 @@ const createLeague = async (req, res, next) => {
 
     } catch (err) {
       console.error(err.message);
-      res.errormessage = 'Server error creating a league';
+      res.errormessage = "Unfortunately we could not create the league at this time";
+      res.status(500)
       return next(err);
     }}
 
@@ -389,7 +394,7 @@ const joinLeaguebyCode = async (req, res, next) => {
       const currentUser = req.user.id
 
       // get league object from db
-      let league = await League.findOne({ accessCode })
+      let league = await League.findOne({ accessCode, finished:false })
 
       // 404 for no such league
       if (!league) {

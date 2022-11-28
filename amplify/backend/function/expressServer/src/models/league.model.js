@@ -82,7 +82,8 @@ const LeagueSchema = new mongoose.Schema(
         accessCode: {
           type: String, 
           trim: true,
-          unique: true
+          unique: true,
+          required:true
         },
         image: {
           type: String,
@@ -94,15 +95,18 @@ const LeagueSchema = new mongoose.Schema(
         },
         leagueAdmin: {
           type: Schema.Types.ObjectId, 
-          ref: 'UserData'
+          ref: 'UserData',
+          required:true
         }, 
         users: [{
           type: Schema.Types.ObjectId, 
-          ref: 'UserData'
+          ref: 'UserData',
+          required:true
         }], 
         portfolios: [{
           type: Schema.Types.ObjectId, 
-          ref: 'PortfolioData'
+          ref: 'PortfolioData',
+          required:true
         }]
     },
     { collection: 'leagues' },

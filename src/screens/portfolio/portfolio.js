@@ -4,9 +4,6 @@ import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/Hold
 import { useState } from "react"
 
 function PortfolioPage() {
-
-
-
     const portfolios = [
         {
             name: "PortfolioA", valueHistory: [

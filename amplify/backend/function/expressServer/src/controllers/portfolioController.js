@@ -395,20 +395,78 @@ const getLeaguePortfolio = async (req,res,next) => {
       )
     }
   
-  // return the portfolio object
-  res.json(portfolio[0])
+    // return the portfolio object
+    res.json(portfolio[0])
 
-} catch (err) {
-  console.error(err.message);
-  res.errormessage = 'Server error';
-  return next(err);
-}
-}
+  } catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error';
+    return next(err);
+  }
+  }
 
+const getMyGamesAndPortfolios = async (req,res,next) => {
+  try{
+    // cast id for aggregate query
+    const userId = mongoose.Types.ObjectId(req.user.id)
+
+    const portfolios = await Portfolio.aggregate(
+      [
+        {   
+          // match on user ID
+          '$match': {
+            'userId': userId
+          }
+        }, {
+          // join the leagues data on leagueId
+          '$lookup': {
+            'from': 'leagues', 
+            'localField': 'leagueId', 
+            'foreignField': '_id', 
+            'as': 'league'
+          }
+        }, {
+          // convert league into object
+          '$unwind': {
+            'path': '$league'
+          }
+        }, {
+          // filter out inactive leagues
+          '$match': {
+            'league.active': true
+          }
+        }, {
+          // set new fields for ease of access
+          '$set': {
+            'leagueId': '$league._id', 
+            'leagueName': '$league.leagueName'
+          }
+        }, {
+          // only return leaguename,portfolioName,
+          // leagueId, (portoflioId returned as _id)
+          '$project': {
+            'leagueName': 1, 
+            'portfolioName': 1, 
+            'leagueId': 1
+          }
+        }
+      ])
+
+  // return the array of portfolios
+  res.json(portfolios)
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error';
+    res.status(500)
+    return next(err);
+  }
+}
 
 module.exports = {
   createHangingPortfolio,
   buyStockMarketOrder,
   sellStockMarketOrder,
-  getLeaguePortfolio
+  getLeaguePortfolio,
+  getMyGamesAndPortfolios
 }

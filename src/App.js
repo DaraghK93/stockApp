@@ -15,6 +15,7 @@ import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 import RequestResetPassword from './screens/resetPassword/requestResetPassword'
 import ResetPage from './screens/resetPassword/resetPassword';
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
+import PortfolioPage from './screens/portfolio/portfolio';
 
 /// Redux ///
 import { useSelector } from 'react-redux';
@@ -53,7 +54,7 @@ function App() {
         <Route path='/game/creategame'
           element={userInfo ? <CreateGameScreen /> : <Navigate to="/" />} />
 
-        <Route path='/game/gamescreen'
+        <Route path='/game/:gameId'
           element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
         <Route path="/stock/:symbol/confirmorder"
@@ -64,6 +65,9 @@ function App() {
 
         <Route path='/createportfolio'
           element={userInfo ? <CreatePortfolio /> : <Navigate to="/" />} />
+
+        <Route path='/portfolio' 
+         element={userInfo ? <PortfolioPage />  : <Navigate to="/" />} />
 
         <Route path='/auth/recover' element={<RequestResetPassword />} />
         <Route path='/auth/reset/:token' element={<ResetPage />} />

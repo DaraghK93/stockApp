@@ -20,23 +20,24 @@ import ResetPage from './screens/resetPassword/resetPassword';
 import { useEffect } from 'react';
 
 /// Redux ///
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {updateActivePortfolios} from './actions/portfolioActions';
 
 function App() {
   /// Get the user state from redux, will be used to see if user is logged in  
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const { userInfo } = user;
 
    useEffect(() => {
         const setInitialState = async () => {
-               try{
-                console.log("IM here")
-               }catch(error){
-                console.log("ERRROR")
-               }
-           }
-        setInitialState()
-       },[])
+          console.log("Setting initial state")
+          dispatch(updateActivePortfolios(userInfo.token))   
+        }
+        if (userInfo){
+          setInitialState()
+        }
+       },[dispatch,userInfo])
 
 
 

@@ -28,7 +28,7 @@ export function updateActivePortfolios(userToken) {
       } catch (error) {
         dispatch({
           type: PORTFOLIO_UPDATE_ACTIVE_FAIL,
-          payload: error.response.data.errormessage, /// THIS NEEDS TO BE AGRRED UPON WITH BACKEND GUYS SHOULD BE NICE ERROR MESSAGE
+          payload: error.response.data.errormessage, 
         })
       }
     }

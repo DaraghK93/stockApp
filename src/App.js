@@ -12,10 +12,11 @@ import CreatePortfolio from './screens/createPortfolio/createPortfolio';
 import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
 import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
-import PortfolioPage from './screens/portfolio/portfolio';
 import RequestResetPassword from './screens/resetPassword/requestResetPassword'
 import ResetPage from './screens/resetPassword/resetPassword'
 import FAQsPage from './screens/faqs/faqs'
+import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
+import PortfolioPage from './screens/portfolio/portfolio';
 
 /// Redux ///
 import { useSelector } from 'react-redux';
@@ -49,11 +50,13 @@ function App() {
           element={userInfo ? <StockPage /> : <Navigate to="/" />} />
 
         <Route path='/game'
-          element={userInfo ? <GameScreen/> : <Navigate to="/"/>} />
+          element={userInfo ? <GameScreen /> : <Navigate to="/" />} />
 
         <Route path='/game/creategame'
-          element={userInfo ? <CreateGameScreen/> : <Navigate to="/"/>} />
-        
+          element={userInfo ? <CreateGameScreen /> : <Navigate to="/" />} />
+
+        <Route path='/game/:gameId'
+          element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
         <Route path="/stock/:symbol/confirmorder"
           element={userInfo ? <OrderConfirmationPage /> : <Navigate to="/" />} />
@@ -64,14 +67,14 @@ function App() {
         <Route path='/createportfolio'
           element={userInfo ? <CreatePortfolio /> : <Navigate to="/" />} />
 
-        <Route path='/portfolio'
-          element={userInfo ? <PortfolioPage /> : <Navigate to="/" />} />
+        <Route path='/portfolio' 
+         element={userInfo ? <PortfolioPage />  : <Navigate to="/" />} />
         
         <Route path='/faqs'
           element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />
 
-        <Route path='/auth/recover' element={ <RequestResetPassword/> } />
-        <Route path='/auth/reset/:token' element={ <ResetPage/> } />
+        <Route path='/auth/recover' element={<RequestResetPassword />} />
+        <Route path='/auth/reset/:token' element={<ResetPage />} />
 
       </Routes>
     </Router>

@@ -22,7 +22,10 @@
 .tickercardstyle {
   width: 10rem;
   height: 100%;
-  display: block
+  display: block;
+  border-width: 1.5px;
+  border-color: $shadow;
+  box-shadow: 2px 2px $shadow;
 }
 
 @media only screen and (min-width: 500px) {
@@ -33,7 +36,14 @@
 }
 
 .stockdiscoveryRow {
+  margin:1rem;
   margin-top: 2rem;
+  margin-left: 2rem;
+  padding-right: 1rem;
+  background-color: $stockdiscoverybackground;
+  white-space: initial;
+  word-wrap: break-word;
+  width:90%;
 }
 
 .tickerCardImgContainer {

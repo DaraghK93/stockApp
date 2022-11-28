@@ -227,4 +227,5 @@ return stocks
 module.exports = {
     getStockPriceData,
     getStockSummary,
+    getRecomms
 }

@@ -214,27 +214,8 @@ const stocks =  schema.aggregate([
 return stocks
 }
 
-const getStockSummaryRecs = (recommended) => {
-    const recs = Stock.aggregate(
-        [{ $match: { symbol: { "$in": recommended } } },
-        {
-            $project: {
-                'symbol': 1,
-                'longname': 1, 'exchange': 1, 'logo': 1,
-                'daily_change.absoluteChange': 1,
-                'daily_change.percentageChange': 1,
-                'daily_change.currentprice': 1,
-                'esgrating.environment_score': 1
-            }
-        }
-        ]
-    )
-    return recs
-}
-
 module.exports = {
     getStockPriceData,
     getStockSummary,
-    getRecomms,
-    getStockSummaryRecs
+    getRecomms
 }

@@ -445,12 +445,13 @@ const getLeagueById = async (req,res,next) => {
   }
   // cast to mongoose _id
   const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
-
+  const userId = mongoose.Types.ObjectId(req.user.id)
     const league = await League.aggregate([
       {
         // match on id
         '$match': {
-          '_id': leagueId
+          '_id': leagueId,
+          'users':{$in:[userId]}
         }
       }, {
         //join portfoliovalues on id
@@ -523,8 +524,14 @@ const getLeagueById = async (req,res,next) => {
         }
       }
     ])
-
-    res.json(league)
+    // check if there are leagues
+    if (league.length===0) {
+    res.status(404)
+    res.errormessage = 'No league found'
+    return next(new Error('No league found'))
+  }
+    
+    res.json(league[0])
   }
   catch (err) {
     console.error(err.message);

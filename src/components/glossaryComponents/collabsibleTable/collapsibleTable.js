@@ -162,31 +162,24 @@ function CollapsibleTable() {
               hits that price.
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
-            <Accordion.Header>Is there a limit on the number of stocks that I can invest in?</Accordion.Header>
+          <Accordion.Item eventKey="3">
+            <Accordion.Header>Is there a limit on the number of trades that I can make in a day?</Accordion.Header>
             <Accordion.Body>
-              This varies depending on the rules that are set out by the creator of the league. 
+              This varies depending on the rules that are set out by the creator of the league. IMAGE OF SLIDER
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
+          <Accordion.Item eventKey="4">
             <Accordion.Header>If I don't have any friends, can I still enter a league?</Accordion.Header>
             <Accordion.Body>
               Yes, there will be public leagues available to users which do not require a code.
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="2">
-            <Accordion.Header>How do I invite my ?</Accordion.Header>
+          <Accordion.Item eventKey="5">
+            <Accordion.Header>How do I invite my friends?</Accordion.Header>
             <Accordion.Body>
-              As in the real world, there are different types of trading that can be done. The two types
-              types of trades or <b>orders</b> are <b>Market</b> and <b>Limit</b> orders.<br/><br/>
-              <h5>Market Orders</h5>
-              Market Orders are orders that are completed instantly, if the user has enough money to do so.
-              These are the most common types of orders that users will see in the real world.
-              <h5>Limit Orders</h5>
-              Limit orders are orders that are put in place ahead based on the investor's predictions.
-              For example, if an investor thinks that a stock may drop below a certain price, but that
-              the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
-              hits that price.
+              When you have created a game, you will be able to find your unique six character 
+              code which your friends can input to join a game. On joining the game, an empty
+              portfolio will be created for the user. IMAGE OF GAME PAGE AND JOIN GAME PAGE.
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>

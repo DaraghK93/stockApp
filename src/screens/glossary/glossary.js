@@ -18,6 +18,11 @@ function GlossaryPage (){
         <Container>
             <Col>
                 <Row>
+                    <Container>
+                    <h1>FAQs and Definitions</h1>
+                    The users can find answers to their questions as well as definitions of various 
+                    investment terms below.
+                    </Container>
                     <CollapsibleTable/>
                 </Row>
                 </Col>

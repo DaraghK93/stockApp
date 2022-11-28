@@ -40,7 +40,15 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
             sectors.splice(index,1)
             setStockTypes(sectors)
         }else{
-            setStockTypes([...stockTypes,e.currentTarget.value])
+            /// Create a copy first of the array 
+            var sectorsSelected = [...stockTypes,e.currentTarget.value]
+            if (sectorsSelected.length === individualSectors.length){
+                /// Now if the the user has selected "All Sectors" just set the "All sectors" screen
+                setScreen("1")
+            }else{
+                /// Add the selected sector to the sectors array 
+                setStockTypes([...stockTypes,e.currentTarget.value])
+            }
         }
     }
 
@@ -55,6 +63,10 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
        }else if (screen === "1" && stockTypes.length < individualSectors.length){
             /// When the use clicks "All Sectors" set the stockTypes state to all the sectors 
             setStockTypes([...individualSectors])
+        }else if (screen === "2" && stockTypes.length === individualSectors.length){
+            /// When a user first clicks the "select sectors" button this will be hit
+            /// Set all sectors to nothing 
+            setStockTypes([])
         }
         /// If the lenght of stockSectors is 0 set an error
         if(stockTypes.length === 0){
@@ -97,7 +109,7 @@ function GameSectorsSelection({stockTypes, setStockTypes}){
                         </Col>
                     ))}
                 </Row>
-                 {error && <MessageAlert variant="danger">Must select at least one sector</MessageAlert>}
+                 {error && <MessageAlert variant="info">Must select at least one sector</MessageAlert>}
         </>
     )
 }

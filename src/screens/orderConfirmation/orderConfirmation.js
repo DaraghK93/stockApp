@@ -19,10 +19,10 @@ import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 
-function OrderConfirmationPage() {
+function OrderConfirmationPage({}) {
 
     const portfolioBalance = 2000
-    const [loading, setLoading] = useState(true);
+    const [stockLoading, setStockLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
     const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
@@ -37,7 +37,7 @@ function OrderConfirmationPage() {
 
     /// Redux ///
     const portfolios = useSelector((state) => state.portfolios)
-    const { activePortfolios } = portfolios;
+    const {activePortfolios } = portfolios;
 
 
     useEffect(() => {
@@ -47,7 +47,7 @@ function OrderConfirmationPage() {
         const getStockInfo = async () => {
             try {
                 // Request is being sent set loading true   
-                setLoading(true);
+                setStockLoading(true);
                 // get the symbol from the url string, use regex to extract capital letters only
                 const symbol = window.location.href.replace(/[^A-Z]/g, '');
                 // Set the path and use symbol to get single stock
@@ -56,11 +56,11 @@ function OrderConfirmationPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res)
-                setLoading(false)
+                setStockLoading(false)
             } catch (error) {
                 // Set the error message to be displayed on the page 
                 setError(error.response.data.errormessage)
-                setLoading(false)
+                setStockLoading(false)
             }
         }
         getStockInfo();
@@ -80,8 +80,7 @@ function OrderConfirmationPage() {
 
 
     useEffect(() => {
-        console.log("Called")
-        console.log(portfolioId)
+
     },[portfolioId])
 
 
@@ -91,7 +90,7 @@ function OrderConfirmationPage() {
 
     return (
         <>
-            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            {stockLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">

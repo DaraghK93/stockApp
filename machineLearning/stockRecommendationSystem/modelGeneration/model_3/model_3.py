@@ -118,21 +118,12 @@ def get_user_stock(userName):
                                        'daily_change.currentprice': 1}},
              {"$sort": {'daily_change.percentageChange': -1}},
              {"$limit": 1}])
-            print("Top Mover:", top_mover)
-            print("Top Mover Type:", type(top_mover))
-            
             top_mover_list = list(top_mover)
-            print("Top Mover List:", top_mover)
-            print("Top Mover List Type:", type(top_mover))
-
             stock_ticker = top_mover_list[0]
-            print("Stock ticker:", stock_ticker)
-
             res_str = ""
             for doc in top_mover_list:
                 res_str = doc['symbol']
-            print("res_str: ", res_str)
-            return top_mover
+            return res_str
             
     except Exception as e:
         print(f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
@@ -243,4 +234,5 @@ def symbol_to_index(symbol):
 # print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 # print(give_recommendations("bearach", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
-print(get_user_stock("bearach"))
+# print(get_user_stock("bearach"))
+print(get_user_stock("dknee1"))

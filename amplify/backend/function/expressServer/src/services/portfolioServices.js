@@ -214,7 +214,6 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
 }
 
 const checkLeagueRules = async (portfolio, stock, transactionFee) => {
-    // creates a date so that it is known when it was created
     try{
 
       if (mongoose.Types.ObjectId.isValid(portfolio.leagueId) === false){
@@ -256,9 +255,50 @@ const checkLeagueRules = async (portfolio, stock, transactionFee) => {
     }
 }
 
+const cancelBuyLimitOrder = async (transactionData) => {
+    // to cancel a buy limit order
+    try{
+        // get the transaction ID in the correct format
+        const transactionId = mongoose.Types.ObjectId(transactionData._id)
+
+        // update the status of the transaction to CANCELLED
+        await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+
+        // decrease the frozenBalance and increase the remainder
+        const portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}}, {new:true})
+        return portfolio
+    }
+    catch (err) {
+        throw new Error(`Error has occured in cancelling the buy limit order.\nError details:\n\t${err}`)
+    }
+}
+
+const cancelSellLimitOrder = async (transactionData) => {
+    // to cancel a sell limit order
+    try{
+        // get the transactionId in the correct format
+        const transactionId = mongoose.Types.ObjectId(transactionData._id)
+
+        // update the status of the transaction to CANCELLED
+        await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+
+        // decrease the frozenUnitHoldings and increase the unit holdings of the stock
+        await Holdings.findOneAndUpdate({portfolioId: transactionData.portfolioId, stockId: transactionData.stockId}, {$inc:{units: transactionData.units, frozenHoldingsUnits: -transactionData.units}})
+        
+        // return the portfolio
+        const portfolio = await Portfolio.findById({_id: transactionData.portfolioId})
+        return portfolio
+    }
+    catch (err) {
+        throw new Error(`Error has occured in cancelling the sell limit order.\nError details:\n\t${err}`)
+    }
+}
+
 module.exports = {
     createPortfolio,
     buyStock,
     sellStock,
-    checkLeagueRules
+    checkLeagueRules,
+    cancelBuyLimitOrder,
+    cancelSellLimitOrder
 }

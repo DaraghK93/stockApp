@@ -1,5 +1,5 @@
-const Portfolio = require('../models/portfolio.model');
-const League = require('../models/league.model');
+const Portfolio = require('../models/portfolio.model')
+const Transaction = require('../models/transactions.model')
 const PortfolioService = require('../services/portfolioServices')
 const Stock = require('../models/stock.model')
 const mongoose = require('mongoose')
@@ -551,10 +551,100 @@ const getMyGamesAndPortfolios = async (req,res,next) => {
   }
 }
 
+// this route is used for cancelling the limit orders
+const cancelLimitOrder = async (req, res, next) => {
+  try{
+    // check that all of the data is there, we need portfolioID and transactionID
+    if (
+      typeof req.body.transactionId === 'undefined' ||
+      typeof req.body.portfolioId === 'undefined'
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'Transaction Id or Portfolio Id missing'
+      return next(
+        new Error(
+          'The client has not sent the required information about the transaction',
+        ),
+      )
+    }
+    // check that the transactionId can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.transactionId) === false ){
+      // check that the transactionId is correct
+      res.status(404)
+      res.errormessage = 'No transaction found'
+      return next(
+        new Error(
+          'No transaction found'
+        )
+      )
+    }
+    // check that the portfolioID can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
+      // check that the portfolio ID is correct
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+        new Error(
+          'No portfolio found'
+        )
+      )
+    }
+    // get the transaction from the database
+    const transaction = await Transaction.findOne({_id: req.body.transactionId, portfolioId: req.body.portfolioId})
+    if(transaction===null){
+      // if the transaction doesn't exist we get an error
+      res.status(404)
+      res.errormessage = 'No transaction found for that portfolio'
+      return next(
+        new Error(
+          'There may be a transaction that exists but not for that portfolio.'
+        )
+      )
+    }
+    if(transaction.orderType !== "LIMIT"){
+      // check that it is a limit order
+      res.status(404)
+      res.errormessage = 'Not a limit order'
+      return next(
+        new Error(
+          'The transaction must be a limit order.'
+        )
+      )
+    }
+    if(transaction.status !== "PENDING"){
+      // check that it is a PENDING order
+      res.status(404)
+      res.errormessage = 'The transaction must be a pending transaction'
+      return next(
+        new Error(
+          'The transaction must be a pending transaction.'
+        )
+      )
+    }
+    let portfolio
+    if(transaction.buyOrSell == "BUY"){
+      // if it is a buy order then implement the service to cancel
+      portfolio = await PortfolioService.cancelBuyLimitOrder(transaction)
+    }
+    else {
+      // if it is a sell order then implement the service to cancel
+      portfolio = await PortfolioService.cancelSellLimitOrder(transaction)
+    }
+
+    // return the portfolio
+  res.json(portfolio)
+  }
+  catch (err){
+
+  }
+}
+
 module.exports = {
   createHangingPortfolio,
   buyStock,
   sellStock,
   getLeaguePortfolio,
-  getMyGamesAndPortfolios
+  getMyGamesAndPortfolios,
+  cancelLimitOrder
 }

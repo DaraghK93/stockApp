@@ -43,6 +43,11 @@ function StockPage() {
         return lineColor
     }
 
+    function onClickTradeButton(){
+        console.log("Hello")
+    }
+
+
     useEffect(() => {
         /// getStockInfo ///
         // Description:
@@ -103,9 +108,7 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col className="stockInfoCol">
-                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
-                            <BottomStickyButton text="Lets Trade!" />
-                            </Link>
+                            <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
                         </Col>
                     </Row>
                     <Row>
@@ -138,5 +141,12 @@ function StockPage() {
         </>
     )
 };
+
+
+//<Col className="stockInfoCol">
+//                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
+//                            <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
+//                            </Link>
+//                        </Col>
 
 export default StockPage;

@@ -1,20 +1,30 @@
 import { Modal, Button} from "react-bootstrap";
+import OrderSummary from "./OrderSummary";
 
-function AreYouSure({showState, setShowState, title, bodyText}){
+function AreYouSure({showState,setShowState,buyOrSell,orderType,newPortfolioBalance,amountSelected,qty}){
 
     const handleClose = () => setShowState(false);
     return(
-        <Modal show={showState} onHide={handleClose}>
+        <Modal centered show={showState} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title>{title}</Modal.Title>
+            <Modal.Title>Please Review Your Order</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            {bodyText}
+            <OrderSummary
+                    buyOrSell={buyOrSell}
+                    orderType={orderType}
+                    newPortfolioBalance={newPortfolioBalance}
+                    amountSelected={amountSelected}
+                    qty={qty}
+                        />
         </Modal.Body>
         <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-                Close
-            </Button>
+            <Button variant="danger" onClick={handleClose}>
+                Cancel Order 
+          </Button>
+          <Button variant="success" onClick={handleClose}>
+            Confirm Order
+          </Button>
         </Modal.Footer>
     </Modal>
     )

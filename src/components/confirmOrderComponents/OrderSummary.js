@@ -3,7 +3,6 @@ import { Card, Container, Table } from "react-bootstrap";
 function OrderSummary({ buyOrSell, orderType, amountSelected, newPortfolioBalance, qty }) {
     return (
         <>
-            <Card>
                 <Container>
                     <h5 style={{ marginTop: "10px" }}>Order Summary</h5>
                     <Table>
@@ -31,7 +30,6 @@ function OrderSummary({ buyOrSell, orderType, amountSelected, newPortfolioBalanc
                         </tbody>
                     </Table>
                 </Container>
-            </Card>
         </>
     )
 

@@ -225,7 +225,13 @@ function OrderConfirmationPage() {
                             qty={qty}
                         />
                     </Col>
-                    <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} title={"heloo"} bodyText={"Text"}/>
+                    <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
+                            buyOrSell={buyOrSell}
+                            orderType={orderType}
+                            newPortfolioBalance={newPortfolioBalance}
+                            amountSelected={amountSelected}
+                            qty={qty} 
+                />
                     <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

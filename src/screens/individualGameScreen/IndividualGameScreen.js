@@ -46,7 +46,7 @@ function IndividualGameScreen() {
     var endDate = moment("2022-12-05");
 
     const game={
-    leagueType: "valueBased"
+    leagueType: "timeBased"
 }
 
     const disPlayScreen = (e) => {

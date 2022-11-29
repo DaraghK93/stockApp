@@ -49,7 +49,6 @@ function RequestResetPassword() {
       setEmailSentMessage(data.message);
       return data;
     } catch (error) {
-      console.log('lol');
       setEmailErrorMessage(error.response.data.errormessage);
       setLoading(false);
     }

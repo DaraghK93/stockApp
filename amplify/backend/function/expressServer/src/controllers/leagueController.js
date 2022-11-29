@@ -448,34 +448,34 @@ const getLeagueById = async (req,res,next) => {
   const userId = mongoose.Types.ObjectId(req.user.id)
     const league = await League.aggregate(
       [
-        {
+        {// match on ids and user being in users array
           '$match': {
             '_id': leagueId,
             'users': {$in:[userId]}
           }
-        }, {
+        }, {// lookup on portfolio values
           '$lookup': {
             'from': 'portfolioValues', 
             'localField': 'portfolios', 
             'foreignField': '_id', 
             'as': 'portfolios', 
             'pipeline': [
-              {
+              {// lookup the users wihin this so we can identify each by the portfolio
                 '$lookup': {
                   'from': 'users', 
                   'localField': 'userId', 
                   'foreignField': '_id', 
                   'as': 'user'
                 }
-              }, {
+              }, {//  make into object
                 '$unwind': {
                   'path': '$user'
                 }
-              }, {
+              }, {// set user as jst their username
                 '$set': {
                   'user': '$user.username'
                 }
-              }, {
+              }, {// show totalvalue, username, and valuehistory array
                 '$project': {
                   'totalValue': 1, 
                   'user': 1, 
@@ -484,11 +484,7 @@ const getLeagueById = async (req,res,next) => {
               }
             ]
           }
-        }, {
-          '$unwind': {
-            'path': '$portfolios'
-          }
-        }, {
+        },{ // lookup the leagueAdmin to display username
           '$lookup': {
             'from': 'users', 
             'localField': 'leagueAdmin', 
@@ -502,33 +498,38 @@ const getLeagueById = async (req,res,next) => {
               }
             ]
           }
-        }, {
+        }, { // make into object
           '$unwind': {
             'path': '$leagueAdmin'
           }
-        }, {
+        }, {// make into its own field without the Id
           '$set': {
             'leagueAdmin': '$leagueAdmin.username'
           }
-        }, {
+        }, {// make into objects, will be made back into array after sorting
+          '$unwind': {
+            'path': '$portfolios'
+          }
+        },  { // sort the portfolios array desc.
+             // used as leaderboard
           '$sort': {
             'portfolios.totalValue': -1
           }
-        }, {
+        }, {// group by id and show all fields of league
           '$group': {
             '_id': '$_id', 
             'league': {
               '$first': '$$ROOT'
-            }, 
+            }, // push the portfolios array to portfolios field
             'portfolios': {
               '$push': '$portfolios'
             }
           }
-        }, {
+        }, {// make this it's own field
           '$addFields': {
             'league.portfolios': '$portfolios'
           }
-        }, {
+        }, {/// make league the root object
           '$replaceRoot': {
             'newRoot': '$league'
           }
@@ -538,15 +539,15 @@ const getLeagueById = async (req,res,next) => {
     // check if there is a league for that id that has that user
     if (league.length===0) {
     res.status(404)
-    res.errormessage = 'No league found'
-    return next(new Error('No league found'))
+    res.errormessage = 'No game found'
+    return next(new Error('No game found'))
   }
     
     res.json(league[0])
   }
   catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in get league';
+    res.errormessage = 'Server error in getting game';
     res.status(500)
     return next(err);
   }

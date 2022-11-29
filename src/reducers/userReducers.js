@@ -79,7 +79,7 @@ export function userChangeDetailsReducer(state = {}, action) {
         // User cannot be registered 
         case USER_CHANGEDETAILS_FAIL:
             // Set the error message 
-            return {loading: false, error: action.payload}
+            return {loading: false, success:false,  error: action.payload}
         // For default just return uunmodfied state 
         default:
             return state; 

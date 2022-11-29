@@ -24,7 +24,8 @@ const getStockPrice = async (req, res, next) => {
     res.json(stock[0].prices);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in getStockPrice';
+    res.status(500)
+    res.errormessage = 'Server error in get Stock Price';
     return next(err);
   }
 };
@@ -44,10 +45,17 @@ const getAllStocks = async (req, res, next) => {
     const keyword = req.query.keyword;
 
     /// if undefined return the stock summary 
-    if(keyword == "undefined"){
+    if(keyword == "undefined"){     
+      // For now, this is hardcoded to give 20 recommendations for Disney (DIS). This will be updated tomorrow based on the user's owned stocks. Some console logs have also been left in commented out to make integration and troubleshooting this easier.
+      let recommendData = await stockService.getRecomms("DIS")
+      // console.log("Recommended Data (Promise): ",recommendData.data.message)
+      let recs = recommendData.data.message
+      // const rec_function = stockService.getStockSummaryRecs(recs)
+      // console.log(rec_function)
       // Keyword undefied just return the top stocks 
-      const stocks = await stockService.getStockSummary(Stock)
+      const stocks = await stockService.getStockSummary(Stock, recs)
       res.json(stocks)
+      // console.log(stocks)
     }else{ 
       // Keyword defined search for the stocks 
        const stocks = await Stock.find({
@@ -64,7 +72,8 @@ const getAllStocks = async (req, res, next) => {
     }
   }catch(err){
     console.error(err.message);
-    res.errormessage = 'Server error in getAllStocks';
+    res.status(500)
+    res.errormessage = 'Server error in get All Stocks';
     return next(err);
   }
 }
@@ -85,7 +94,8 @@ const addStock = async (req, res, next) => {
     res.json({ stock });
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in addStock';
+    res.status(500)
+    res.errormessage = 'Server error in add Stock';
     return next(err);
   }
 };
@@ -115,7 +125,8 @@ const updateStock = async (req, res, next) => {
     res.json(stock);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in updateStock';
+    res.status(500)
+    res.errormessage = 'Server error in update Stock';
     return next(err);
   }
 };
@@ -175,7 +186,8 @@ const getStockBySymbol = async (req, res, next) => {
     res.json(returnStocks);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in getStockBySymbol';
+    res.status(500)
+    res.errormessage = 'Server error in get Stock By Symbol';
     return next(err);
   }
 };

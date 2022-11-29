@@ -3,6 +3,8 @@
 // These services are functions that contain any data processing.
 // Placed here as they are reusable between routes. 
 var moment = require('moment')
+var axios = require('axios').default;
+const Stock = require('../models/stock.model')
 
 function getStockPriceData (stocks) {
     // this function allows the user to get the weekly, monthly and yearly data for a stock
@@ -112,11 +114,42 @@ function getStockPriceData (stocks) {
 
 };
 
-const getStockSummary =  (schema) => {
+// This function makes an API call to the API gateway for the recommender lambda function
+const getRecomms = async (stock) => {
+    // This sets the body of the request to the stock ticker input. This will be changed to take in user ID in the next iteration.
+    var data = '{"stock":' + '"' + stock + '"}';
+    try {
+      const resp = await axios({
+        method: 'GET',
+        url: 'https://7hkz8cimzd.execute-api.eu-north-1.amazonaws.com/default/stock-recommender-StockRecommenderFunction-Uh3kMlGONr44',
+        data: data
+      });
+      return resp
+    } catch (err) {
+      // Error handler
+      console.error(err);
+    }
+  }
+
+const getStockSummary =  (schema, recommended) => {
 const stocks =  schema.aggregate([
     { $facet: 
+        {
+        // agg query for recommended. This queries the DB for the list of ticker symbols "recommended"
+        recommend: [{ $match: { symbol: { "$in": recommended } } },
+        {
+            $project: {
+                'symbol': 1,
+                'longname': 1, 'exchange': 1, 'logo': 1,
+                'daily_change.absoluteChange': 1,
+                'daily_change.percentageChange': 1,
+                'daily_change.currentprice': 1,
+                'esgrating.environment_score': 1
+            }
+        }
+        ],
         // agg query for top environment
-        { topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+        topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
                                                     'daily_change.absoluteChange':1,
                                                     'daily_change.percentageChange':1,
                                                     'daily_change.currentprice':1,
@@ -207,4 +240,5 @@ return stocks
 module.exports = {
     getStockPriceData,
     getStockSummary,
+    getRecomms
 }

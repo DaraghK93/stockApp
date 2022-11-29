@@ -100,7 +100,8 @@ const registerUser = async (req, res, next) => {
   } catch (err) {
     if (User) {
       console.error(err.message)
-      res.errormessage = 'Server error in registerUser'
+      res.status(500)
+      res.errormessage = 'Server Error In Registering The User'
       return next(err)
     }
   }
@@ -170,7 +171,8 @@ const loginUser = async (req, res, next) => {
     )
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error'
+    res.status(500)
+    res.errormessage = 'Server error in login'
     return next(err)
   }
 }
@@ -193,7 +195,8 @@ const getUserInfo = async (req, res, next) => {
     res.json(userDetails)
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error in loginUser'
+    res.status(500)
+    res.errormessage = 'Server error in getting user info'
     return next(err)
   }
 }
@@ -214,7 +217,8 @@ const deleteUser = async (req, res, next) => {
     res.json(user.name)
   } catch (err) {
     console.error(err.message)
-    res.errormessage = 'Server error in deleteUser'
+    res.status(500)
+    res.errormessage = 'Server error in deleting user'
     return next(err)
   }
 }

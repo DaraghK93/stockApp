@@ -41,6 +41,7 @@ const createHangingPortfolio = async (req, res, next) => {
     }
     } catch (err) {
       console.error(err.message);
+      res.status(500)
       res.errormessage = 'Server error';
       return next(err);
     }
@@ -216,6 +217,7 @@ res.json(newPortfolio)
   }
 catch (err) {
   console.error(err.message);
+  res.status(500)
   res.errormessage = 'Server error';
   return next(err);
 }
@@ -376,6 +378,7 @@ res.json(newPortfolio)
   }
 catch (err) {
   console.error(err.message);
+  res.status(500)
   res.errormessage = 'Server error';
   return next(err);
 }
@@ -488,6 +491,7 @@ const getLeaguePortfolio = async (req,res,next) => {
 
   } catch (err) {
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error';
     return next(err);
   }

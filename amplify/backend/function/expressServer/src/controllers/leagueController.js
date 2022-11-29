@@ -289,6 +289,7 @@ const getPublicLeagues = async (req, res, next) => {
     } catch (err) {
       console.error(err.message);
       res.errormessage = 'Server error in get public leagues';
+      res.status(500)
       return next(err);
     }
 }
@@ -361,6 +362,7 @@ const getMyLeagues = async (req, res, next) => {
 
   } catch (err) {
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error in get my leagues';
     return next(err);
   }
@@ -419,6 +421,7 @@ const joinLeaguebyCode = async (req, res, next) => {
 
 } catch (err) {
       console.error(err.message);
+      res.status(500)
       res.errormessage = 'Server error in join league';
       return next(err);
     }

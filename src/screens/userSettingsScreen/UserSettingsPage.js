@@ -197,6 +197,12 @@ function UserSettingsPage() {
                 onChange={(event) => setLastname(event.target.value)}
               />
             </Form.Group>
+            {error === 'Invalid email address. Please try again' && (
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            )}
+            {error === 'Email already taken' && (
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            )}
             <Form.Group className='py-2' controlId='email'>
               <Form.Label>New Email</Form.Label>
               <Form.Control

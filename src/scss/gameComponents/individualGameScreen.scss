@@ -1,0 +1,40 @@
+@import "../global_variables.scss";
+
+.gameImage {
+    width: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (min-width: 500px) {
+    .gameImage {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+    .gameImage {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+}
+
+.centeredGameImg {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+.ImgTxt{
+    color:white;
+    text-align: center;
+    // position: relative;
+}
+.container-img{
+    position:relative
+}

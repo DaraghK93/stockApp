@@ -22,8 +22,8 @@ function PortfolioOverallViz({ portfolios, setHoldings, setRemainder }) {
             <Card className="priceChartStyle">
                 <Container>
                     <Row>
-                        <Col className="col col-xs-auto col-md-2">
-                            <dl className='infoList'>
+                        <Col className="col col-xs-auto col-md-2" style={{paddingLeft:0}}>
+                            <dl className='infoList' style={{padding:0}}>
                                 <dt>
                                     <h1>{portfolioName}</h1>
                                 </dt>
@@ -49,7 +49,9 @@ function PortfolioOverallViz({ portfolios, setHoldings, setRemainder }) {
                         </Col>
                     </Row>
                     <Row>
+                        <Col style={{paddingLeft:0}}>
                         <PortfolioGraph data={data}></PortfolioGraph>
+                        </Col>
                     </Row>
                 </Container>
             </Card>

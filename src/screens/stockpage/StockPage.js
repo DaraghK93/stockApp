@@ -15,6 +15,7 @@ import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import BottomStickyButton from '../../components/widgets/BottomStickyButton/BottomStickyButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
+import BasicModal from "../../components/widgets/BasicModal/BasicModal";
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -29,6 +30,7 @@ function StockPage() {
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+    const [showTradeModal, setShowTradeModal] = useState(false)
 
     /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
@@ -57,7 +59,7 @@ function StockPage() {
         console.log(activePortfolios)
         if(activePortfolios.length === 0){
             /// No Active Portfolios, show a info modal 
-            
+            setShowTradeModal(true)
         }
     }
 
@@ -123,6 +125,7 @@ function StockPage() {
                     <Row>
                         <Col className="stockInfoCol">
                             <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
+                            <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"Hello"} bodyText={"The Body Text"}/>
                         </Col>
                     </Row>
                     <Row>

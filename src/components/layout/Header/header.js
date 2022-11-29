@@ -56,6 +56,7 @@ function Header() {
                 <NavDropdown className="userDropDown" title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
                   <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/myportfolios">My Portfolios</NavDropdown.Item>
+                <NavDropdown.Item as={Link}  to="/faqs">FAQs</NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
                 </NavDropdown>
               </>)

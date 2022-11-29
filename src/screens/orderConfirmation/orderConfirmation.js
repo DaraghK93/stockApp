@@ -19,13 +19,13 @@ import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 
-function OrderConfirmationPage({}) {
+function OrderConfirmationPage() {
 
     const portfolioBalance = 2000
     const [stockLoading, setStockLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-    const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
+    
     const [amountSelected, setAmountSelected] = useState("")
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
@@ -33,11 +33,23 @@ function OrderConfirmationPage({}) {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+   
+
+    //// Portfolio State ////
     const [portfolioId, setPortfolioId] = useState()
+    const [portfolioLoading, setPortfolioLoading] = useState(true)
+    const [portfolioError, setPortfolioError] = useState()
+    const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
+
+
+
 
     /// Redux ///
     const portfolios = useSelector((state) => state.portfolios)
-    const {activePortfolios } = portfolios;
+    const {activePortfolios, loading} = portfolios;
+    const user = useSelector((state) => state.user)
+    const { userInfo } = user;
+    const userToken = userInfo.token
 
 
     useEffect(() => {
@@ -79,9 +91,37 @@ function OrderConfirmationPage({}) {
     }, [orderType])
 
 
+    /// Portfolio Id 
     useEffect(() => {
-
-    },[portfolioId])
+        const getPortfolioInfo = async () => {
+            try{
+                /// Set the portfolio Loading to true and reset error
+                setPortfolioLoading(true)
+                setPortfolioError()
+                let path = `/api/portfolio/${portfolioId}`;
+                let myInit = {
+                    headers : {"x-auth-token": userToken},       
+                }
+                console.log(path)
+                /// Send the request 
+                const res = await API.get(APIName, path, myInit)
+                console.log(res)
+                setPortfolioLoading(false)
+            }catch(error){
+                console.log(error)
+                setPortfolioError(error.response.data.errormessage)
+                setPortfolioLoading(false)
+            }
+        }
+        /// Need to set an intial value ///
+        if (typeof portfolioId === "undefined" && loading === false){
+            /// For now set the current portfolio to the first portfolio may need to revisit this ///
+            setPortfolioId(activePortfolios[0].leagueId)
+        }else if(portfolioId){
+            /// Get the portfolio data 
+            getPortfolioInfo()
+        }
+    },[portfolioId,activePortfolios,loading, userToken])
 
 
 
@@ -90,7 +130,8 @@ function OrderConfirmationPage({}) {
 
     return (
         <>
-            {stockLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            {stockLoading || loading || portfolioLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+                portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> :
                 <Container>
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">

@@ -3,6 +3,7 @@
 // These services are functions that contain any data processing.
 // Placed here as they are reusable between routes. 
 var moment = require('moment')
+var axios = require('axios').default;
 const Stock = require('../models/stock.model')
 
 function getStockPriceData (stocks) {
@@ -92,7 +93,6 @@ function getStockPriceData (stocks) {
 
 // This function makes an API call to the API gateway for the recommender lambda function
 const getRecomms = async (stock) => {
-    var axios = require('axios').default;
     // This sets the body of the request to the stock ticker input. This will be changed to take in user ID in the next iteration.
     var data = '{"stock":' + '"' + stock + '"}';
     try {

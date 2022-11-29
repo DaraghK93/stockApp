@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
 import { Container, Image, Row, Col } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
+import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
 
 function IndividualGameScreen() {
 
@@ -39,6 +40,13 @@ function IndividualGameScreen() {
     const [screen, setScreen] = useState("")
     const [active, setActive] = useState("4")
 
+
+    useEffect(() => {
+        setScreen(LeaderBoard)
+        setActive("4")
+    }, [])
+
+
     const disPlayScreen = (e) => {
         setActive(e.target.id)
         if (e.target.id === "1") {
@@ -68,44 +76,7 @@ function IndividualGameScreen() {
         else if (e.target.id === "4") {
             setScreen(
                 <>
-                {/* <Col> */}
-
-
-                    <Row xs={3}>
-                    
-
-                        <Col style={{ textAlign: "center" }}>
-                            <Image src={"/testAvatar.png"} style={{ width: "100%", marginTop: "5rem", borderRadius: "50%", }}></Image>
-                            <p>@username1
-                                <br></br>
-                                $1000
-                            </p>
-                        </Col>
-                        <Col style={{ textAlign: "center" }}>
-                            <Image src={"/crown.png"} style={{ width: "50%" }}></Image>
-                            <Image src={"/testAvatar.png"} style={{ width: "100%", borderRadius: "50%", marginTop:0 }}></Image>
-                            <p>@username2
-                                <br></br>
-                                $100000
-                            </p>
-                        </Col>
-                        <Col style={{ textAlign: "center" }}>
-                            <Image src={"/testAvatar.png"} style={{ width: "100%", marginTop: "6rem", borderRadius: "50%" }}></Image>
-                            <p>@username3
-                                <br></br>
-                                $10
-                            </p>
-                        </Col>
-
-
-                    </Row>
-       
-                    <Row>
-                        {/* <Image src={"/podium.png"} style={{ width: "100%" }}></Image> */}
-                    </Row>
-
-                    {/* </Col> */}
-
+                    <LeaderBoard />
                 </>)
         }
     }

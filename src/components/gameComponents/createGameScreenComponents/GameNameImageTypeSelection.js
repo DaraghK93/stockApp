@@ -44,7 +44,7 @@ function GameNameImageTypeSelection({gameType, setGameType, gameName, setGameNam
         <Card.Title className="gameOptionsCardTitle">Basic Details</Card.Title>
         <Row>
             <Dropdown className="py-2">
-                <Dropdown.Toggle style={{"white-space":"normal"}} id="gameName">{gameName}</Dropdown.Toggle>
+                <Dropdown.Toggle style={{"whiteSpace":"normal"}} id="gameName">{gameName}</Dropdown.Toggle>
                     <Dropdown.Menu>
                                 {gameNames.map((name,idx) => (
                                     <Dropdown.Item

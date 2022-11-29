@@ -12,11 +12,11 @@ function PortfolioSelectionDropdown({portfolios, state, setState}){
             Select Portfolio
         </Dropdown.Toggle>
             <Dropdown.Menu>
-            {portfolios.map(portfolio => (
+            {portfolios.map((portfolio,idx) => (
                 <Dropdown.Item
                     value={portfolio}
-                    id={portfolio.portfolioName}
-                    key={portfolio.portfolioName}
+                    id={`${portfolio.portfolioName}-${idx}`}
+                    key={`${portfolio.portfolioName}-${idx}`}
                     eventKey={portfolio.leagueId}
                     active={state === portfolio.leagueId} 
                     >

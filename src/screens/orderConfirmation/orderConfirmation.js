@@ -21,11 +21,13 @@ import { API } from "aws-amplify";
 
 function OrderConfirmationPage() {
 
-    const portfolioBalance = 2000
+
+    /// Stock State ///
     const [stockLoading, setStockLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
     
+    /// Order State ////
     const [amountSelected, setAmountSelected] = useState("")
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
@@ -36,15 +38,14 @@ function OrderConfirmationPage() {
    
 
     //// Portfolio State ////
+    const [portfolio, setPortfolio] = useState({})
     const [portfolioId, setPortfolioId] = useState()
     const [portfolioLoading, setPortfolioLoading] = useState(true)
     const [portfolioError, setPortfolioError] = useState()
-    const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
+    const [newPortfolioBalance, setNewPortfolioBalance] = useState()
+    
 
-
-
-
-    /// Redux ///
+    /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
     const {activePortfolios, loading} = portfolios;
     const user = useSelector((state) => state.user)
@@ -102,10 +103,16 @@ function OrderConfirmationPage() {
                 let myInit = {
                     headers : {"x-auth-token": userToken},       
                 }
-                console.log(path)
                 /// Send the request 
                 const res = await API.get(APIName, path, myInit)
                 console.log(res)
+                /// Set the current portfolio 
+                setPortfolio({
+                    portfolioName: res.portfolioName,
+                    portfolioBalance: res.remainder
+                })
+                /// Set the Iitiliase the new portfolio balance to the remainder of the current 
+                setNewPortfolioBalance(res.remainder)
                 setPortfolioLoading(false)
             }catch(error){
                 console.log(error)
@@ -149,7 +156,7 @@ function OrderConfirmationPage() {
                                 </dt>
                             </dl>
                         </Col>
-                        <Col>
+                        <Col className="pb-2 pt-3">
                             <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
                         </Col>
                     </Row>
@@ -163,7 +170,7 @@ function OrderConfirmationPage() {
                         <>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <QuantitySelect
-                                    portfolioBalance={portfolioBalance}
+                                    portfolioBalance={portfolio.portfolioBalance}
                                     stockprice={stock.daily_change.currentprice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                     setAmountSelected={setAmountSelected}
@@ -172,7 +179,8 @@ function OrderConfirmationPage() {
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <BalanceComponent
-                                    portfolioBalance={portfolioBalance}
+                                    portfolioName={portfolio.portfolioName}
+                                    portfolioBalance={portfolio.portfolioBalance}
                                     newPortfolioBalance={newPortfolioBalance}
                                     amountSelected={amountSelected}
                                 />
@@ -183,7 +191,7 @@ function OrderConfirmationPage() {
                         <>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitQuantitySelect
-                                    portfolioBalance={portfolioBalance}
+                                    portfolioBalance={portfolio.portfolioBalance}
                                     setQty={setQty}
                                     limitPrice={limitPrice}
                                     setAmountSelected={setAmountSelected}
@@ -192,7 +200,7 @@ function OrderConfirmationPage() {
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitPriceSelect
-                                    portfolioBalance={portfolioBalance}
+                                    portfolioBalance={portfolio.portfolioBalance}
                                     setAmountSelected={setAmountSelected}
                                     qty={qty}
                                     setLimitPrice={setLimitPrice}

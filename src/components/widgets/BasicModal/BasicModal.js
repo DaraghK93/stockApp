@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Modal, Button} from "react-bootstrap";
 
 function BasicModal({showState, setShowState, title, bodyText}){

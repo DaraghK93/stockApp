@@ -58,6 +58,7 @@ function IndividualGameScreen() {
         else if (e.target.id === "3") {
             setScreen(
                 <>
+                <Container>
                     <Row>
                         <GamePortfolio data={data.valueHistory} name={data.name} />
                     </Row>
@@ -69,6 +70,7 @@ function IndividualGameScreen() {
                     <Row>
                         <h2>Transaction History here</h2>
                     </Row>
+                    </Container>
                 </>
 
             )
@@ -93,8 +95,9 @@ function IndividualGameScreen() {
 
             <Container>
                 <h3>Timeline goes here</h3>
+                </Container>
                 {screen}
-            </Container>
+      
         </>
     )
 }

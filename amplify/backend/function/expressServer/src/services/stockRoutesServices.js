@@ -28,17 +28,19 @@ function getStockPriceData (stocks) {
         while (date <= endDate) {
         new_Date = new Date(date)
         // the three lines below will put the dates in the format needed to extract the data
-        var year = new_Date.toLocaleString("default", { year: "numeric" });
-        var month = new_Date.toLocaleString("default", { month: "2-digit" });
-        var day = new_Date.toLocaleString("default", { day: "2-digit" });
+        var year = new_Date.toLocaleString("en-IE", { year: "numeric" });
+        var month = new_Date.toLocaleString("en-IE", { month: "2-digit" })
+        var monthMMM = new_Date.toLocaleString("en-IE", { month: "short" })
+        var day = new_Date.toLocaleString("en-IE", { day: "2-digit" });
         // the date will be added to the array using .push()
         dates.push(year + "-" + month + "-" + day);
-        dates_no_year.push(day + "/" + month)
+        dates_no_year.push(day + "/" + monthMMM)
         date.setDate(date.getDate() + 1);
         }
         return [dates, dates_no_year];
     }
-    var newArray = []
+    var formattedTimeArray = []
+    var formattedTimeOutputArray = []
     const startTime = moment()
     const remainder = 20 - (startTime.minute() % 20)
     const datestart = moment(startTime).add(remainder, "minutes")
@@ -46,10 +48,12 @@ function getStockPriceData (stocks) {
     function timeOneDay(datestart) {
         var formattedTime;
         for (i = 0; i < 24*3 + 1; i++) { //fill in all of the hours
-          formattedTime = (moment(datestart).subtract(i*20, "minutes")).format("YYYY-MM-DD[T]HH:mm");
-          newArray.push(formattedTime); //add to beginning of array
+          formattedTime = (moment(datestart).subtract(i*20, "minutes")).format("YYYY-MM-DD[T]HH:mm")
+          formattedTimeOutput = (moment(datestart).subtract(i*20, "minutes")).format("HH:mm MMM DD")
+          formattedTimeArray.push(formattedTime) //add to beginning of array
+          formattedTimeOutputArray.push(formattedTimeOutput) //add to beginning of array
         } //do this for all 24 hours
-        return newArray
+        return [formattedTimeArray, formattedTimeOutputArray]
       }
 
     // Date() gives us the current date, Date(end_Date) interprets the 
@@ -95,14 +99,14 @@ function getStockPriceData (stocks) {
         // the format of the data keys is "YYYY-MM-DDT20:00"
         if(typeof(monthly_prices[dateRangeMonth[i]+"T20:00"]) != 'undefined'){
         
-        prices_month.push({"date": dateRangeMonthNoYear[i], "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
+        prices_month.push({"date": dateRangeMonth[i], "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
     
     // ***One Year***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeYear.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
         if(typeof(yearly_prices[dateRangeYear[i]+"T20:00"]) != 'undefined'){
-        prices_year.push({"date": dateRangeYearNoYear[i], "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
+        prices_year.push({"date": dateRangeYear[i], "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
     
     return [prices_week, prices_month,prices_year, prices_day]
 

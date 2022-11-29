@@ -446,84 +446,94 @@ const getLeagueById = async (req,res,next) => {
   // cast to mongoose _id
   const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
   const userId = mongoose.Types.ObjectId(req.user.id)
-    const league = await League.aggregate([
-      {
-        // match on id
-        '$match': {
-          '_id': leagueId,
-          'users':{$in:[userId]}
-        }
-      }, {
-        //join portfoliovalues on id
-        '$lookup': {
-          'from': 'portfolioValues', 
-          'localField': 'portfolios', 
-          'foreignField': '_id', 
-          'as': 'portfolios', 
-          'pipeline': [
-            // join users on id
-            {
-              '$lookup': {
-                'from': 'users', 
-                'localField': 'userId', 
-                'foreignField': '_id', 
-                'as': 'user'
+    const league = await League.aggregate(
+      [
+        {
+          '$match': {
+            '_id': leagueId,
+            'users': {$in:[userId]}
+          }
+        }, {
+          '$lookup': {
+            'from': 'portfolioValues', 
+            'localField': 'portfolios', 
+            'foreignField': '_id', 
+            'as': 'portfolios', 
+            'pipeline': [
+              {
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'userId', 
+                  'foreignField': '_id', 
+                  'as': 'user'
+                }
+              }, {
+                '$unwind': {
+                  'path': '$user'
+                }
+              }, {
+                '$set': {
+                  'user': '$user.username'
+                }
+              }, {
+                '$project': {
+                  'totalValue': 1, 
+                  'user': 1, 
+                  'valueHistory': 1
+                }
               }
-            }, {
-              // make array into object
-              '$unwind': {
-                'path': '$user'
+            ]
+          }
+        }, {
+          '$unwind': {
+            'path': '$portfolios'
+          }
+        }, {
+          '$lookup': {
+            'from': 'users', 
+            'localField': 'leagueAdmin', 
+            'foreignField': '_id', 
+            'as': 'leagueAdmin', 
+            'pipeline': [
+              {
+                '$project': {
+                  'username': 1
+                }
               }
-            }, {
-              // set as its own field in main object
-              '$set': {
-                'user': '$user.username'
-              }
-            }, {
-              // return total value and username
-              // can return more if needed
-              '$project': {
-                'totalValue': 1, 
-                'user': 1
-              }
+            ]
+          }
+        }, {
+          '$unwind': {
+            'path': '$leagueAdmin'
+          }
+        }, {
+          '$set': {
+            'leagueAdmin': '$leagueAdmin.username'
+          }
+        }, {
+          '$sort': {
+            'portfolios.totalValue': -1
+          }
+        }, {
+          '$group': {
+            '_id': '$_id', 
+            'league': {
+              '$first': '$$ROOT'
+            }, 
+            'portfolios': {
+              '$push': '$portfolios'
             }
-          ]
-        }
-      }, {
-        // make into object per portfolio
-        '$unwind': {
-          'path': '$portfolios'
-        }
-      }, {
-        // sort objects descending
-        '$sort': {
-          'portfolios.totalValue': -1
-        }
-      }, {
-        //group by id
-        '$group': {
-          '_id': '$_id', 
-          // project all the league data
-          'league': {
-            '$first': '$$ROOT'
-          }, 
-          // pish portfolios to its own field
-          'portfolios': {
-            '$push': '$portfolios'
+          }
+        }, {
+          '$addFields': {
+            'league.portfolios': '$portfolios'
+          }
+        }, {
+          '$replaceRoot': {
+            'newRoot': '$league'
           }
         }
-      }, {
-        // add portfolio field to league object
-        '$addFields': {
-          'league.portfolios': '$portfolios'
-        }
-      }, {
-        // make the league object the root object
-        '$replaceRoot': {
-          'newRoot': '$league'
-        }
-      }
-    ])
+      ])
 
     // check if there is a league for that id that has that user
     if (league.length===0) {

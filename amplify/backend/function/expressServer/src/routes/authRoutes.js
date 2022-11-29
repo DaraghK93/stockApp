@@ -25,7 +25,10 @@ router.post('/reset/:token', resetPassword);
 
 router.post(
   '/changeUserDetails',
-  [body('email', 'Invalid email entered').trim().isEmail(), protectedRoute],
+  [
+    body('email', 'Invalid email entered').optional().trim().isEmail(),
+    protectedRoute,
+  ],
   changeUserDetails
 );
 

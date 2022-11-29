@@ -17,14 +17,14 @@ function CollapsibleTable() {
               a shareholder in a company.</p>
               <p>There are over 450 stocks that you can explore through this application.
               Stocks can be found by clicking 'Stocks' at the top of this page or by
-              clicking <Link to="/stockdiscovery">here</Link>.</p>
+              clicking <Link className="linkStyle" to="/stockdiscovery">here</Link>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header><span className="semibolded">What are ticker symbols? e.g. AAPL for Apple</span></Accordion.Header>
             <Accordion.Body>
               <p>On a stock exchange, every company has its own unique identifier ticker symbol.
-              Further information on ticker symbols can be found <a href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              Further information on ticker symbols can be found <a className="linkStyle" href="https://www.investopedia.com/terms/s/stocksymbol.asp" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
@@ -35,7 +35,7 @@ function CollapsibleTable() {
               <p>These market forces include supply and demand. If the demand for a stock increases, and fewer
               people wish to sell, decreasing the supply, then the price of the stock will increase. Investors 
               often base their decisions on positive and negative news sentiment.</p>
-              <p>Further information on what causes stock prices to change can be found <a href="https://www.disnat.com/en/learning/trading-basics/stock-basics/what-causes-stock-prices-to-change" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>Further information on what causes stock prices to change can be found <a className="linkStyle" href="https://www.disnat.com/en/learning/trading-basics/stock-basics/what-causes-stock-prices-to-change" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
@@ -44,7 +44,7 @@ function CollapsibleTable() {
               <p>Analysts often review historical data when trying to predict how a stock will react to a 
               situation or to spot patterns in a stock's price movements. While it cannot be expected that history will 
               repeat itself, investors can use this data to aid their decision making.</p>
-              <p>Further information about the pros and cons of analysing past performance can be found <a href="https://www.investopedia.com/terms/h/historical-returns.asp" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>Further information about the pros and cons of analysing past performance can be found <a className="linkStyle" href="https://www.investopedia.com/terms/h/historical-returns.asp" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
@@ -54,7 +54,7 @@ function CollapsibleTable() {
               of money. As we are a not-for-profit organisation, at the moment, we decided that updating every
               second or every minute may be too costly. Maybe in the future as the application expands, the 
               team could investigate the possibility of increasing the frequency at which the prices update.</p>
-              <p>The price of any stock can be found <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>The price of any stock can be found <a className="linkStyle" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="5">
@@ -68,7 +68,7 @@ function CollapsibleTable() {
               airlines stocks could drop, resulting in a huge loss for your portfolio. 
               By investing in trains or other transportation companies, you might offset
               these losses with the gains acheived by the benefactors of this strike.  </p>
-              <p>Further information about the pros of diversification can be found <a href="https://www.investopedia.com/investing/importance-diversification/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>Further information about the pros of diversification can be found <a className="linkStyle" href="https://www.investopedia.com/investing/importance-diversification/" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>
@@ -86,8 +86,7 @@ function CollapsibleTable() {
               in a socially conscious way. A good ESG rating means a company is managing its environment, social, and 
               governance risks well relative to its peers. A poor ESG rating is the opposite - - the company has 
               relatively higher unmanaged exposure to ESG risks. </p>
-              <p>Further information about ESG investing and the standards can be found 
-              <a href="https://www.investopedia.com/terms/e/environmental-social-and-governance-esg-criteria.asp" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>Further information about ESG investing and the standards can be found <a className="linkStyle" href="https://www.investopedia.com/terms/e/environmental-social-and-governance-esg-criteria.asp" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
@@ -97,8 +96,7 @@ function CollapsibleTable() {
               ratings. Their aim is to help companies to improve their ESG standards. The Environmental, 
               Social and Governance capabilities of each company is rated out of 1,000 where 1,000
               is the highest and 0 is the lowest. </p>
-              <p>Further information about ESG Enterprise and their ratings can be found   
-              <a href="https://www.esgenterprise.com/about-us-esg-enterprise/" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>Further information about ESG Enterprise and their ratings can be found <a className="linkStyle" href="https://www.esgenterprise.com/about-us-esg-enterprise/" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="2">
@@ -120,7 +118,7 @@ function CollapsibleTable() {
           <Accordion.Item eventKey="3">
             <Accordion.Header><span className="semibolded">What criteria is examined when deciding a company's Social Rating?</span></Accordion.Header>
             <Accordion.Body>
-              <p>The social rating is based on the company's relationship with it's <a href="https://www.investopedia.com/terms/s/stakeholder.asp" target="_blank" rel="noopener noreferrer">stakeholders</a>.  
+              <p>The social rating is based on the company's relationship with its <a className="linkStyle" href="https://www.investopedia.com/terms/s/stakeholder.asp" target="_blank" rel="noopener noreferrer">stakeholders</a>.  
               The factors that are examined include:</p>
               <ul>
               <li>Are the suppliers held to the same standards as the company?</li>
@@ -159,7 +157,7 @@ function CollapsibleTable() {
               <p>Users can create and enter leagues with their friends, building portfolios
               to see who can make the most money. Users can learn about different types 
               of trading and how the stock market works. </p>
-              <p>You can create a game <Link to="/game/creategame">here</Link>.</p>
+              <p>You can create a game <Link className="linkStyle" to="/game/creategame">here</Link>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
@@ -177,10 +175,10 @@ function CollapsibleTable() {
             <Accordion.Body>
               <p>As in the real world, there are different types of trading that can be done. The two types
               types of trades or <b>orders</b> are <b>Market</b> and <b>Limit</b> orders.</p>
-              <h5>Market Orders</h5>
+              <span className="semibolded">Market Orders</span>
               <p>Market Orders are orders that are completed instantly, if the user has enough money to do so.
               These are the most common types of orders that users will see in the real world.</p>
-              <h5>Limit Orders</h5>
+              <span className="semibolded">Limit Orders</span>
               <p>Limit orders are orders that are put in place ahead of time based on the investor's predictions.
               For example, if an investor thinks that a stock may drop below a certain price, but that
               the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
@@ -207,7 +205,7 @@ function CollapsibleTable() {
               <p>When you have created a game, you will be able to find your unique six character 
               code which your friends can input to join a game. On joining the game, an empty
               portfolio will be created for the user. </p>
-              <p>You can join your friend's league <Link to="/game">here</Link> and by clicking join game
+              <p>You can join your friend's league <Link className="linkStyle" to="/game">here</Link> and by clicking join game
               and then entering the code that they should have provided to you.</p>
             </Accordion.Body>
           </Accordion.Item>
@@ -229,7 +227,7 @@ function CollapsibleTable() {
               a long period of time, e.g. over 1 year. Short-term traders will seek small growth and will 
               generally study the markets continuously and trying to find any opportunities that they spot.
               Short-term traders normally believe in a 'buy low, sell high' mantra. </p>
-              <p>To learn more about stock trading click <a href="https://www.nerdwallet.com/article/investing/stock-trading-how-to-begin" target="_blank" rel="noopener noreferrer">here</a>.</p>
+              <p>To learn more about stock trading click <a className="linkStyle" href="https://www.nerdwallet.com/article/investing/stock-trading-how-to-begin" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
@@ -237,10 +235,10 @@ function CollapsibleTable() {
             <Accordion.Body>
               <p>As in the real world, there are different types of trading that can be done. The two types
               types of trades or <b>orders</b> are <b>Market</b> and <b>Limit</b> orders.</p>
-              <h5>Market Orders</h5>
+              <span className="semibolded">Market Orders</span>
               <p>Market Orders are orders that are completed instantly, if the user has enough money to do so.
               These are the most common types of orders that users will see in the real world.</p>
-              <h5>Limit Orders</h5>
+              <span className="semibolded">Limit Orders</span>
               <p>Limit orders are orders that are put in place ahead of time based on the investor's predictions.
               For example, if an investor thinks that a stock may drop below a certain price, but that
               the stock is worth more than that price, they can place a limit order to buy that stock as soon as it

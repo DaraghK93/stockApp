@@ -11,7 +11,7 @@ import {
   USER_LOGOUT, // For userLoginLogoutReducer
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL,
+  USER_REGISTER_FAIL
 } from '../constants/userActionConstants'
 import { APIName } from '../constants/APIConstants'
 import { API } from 'aws-amplify'

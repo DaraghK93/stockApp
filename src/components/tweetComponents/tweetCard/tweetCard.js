@@ -31,7 +31,7 @@ function TweetCard({ tweet }) {
     <>
       <Container className='tweet'>
         {' '}
-        <a href={CREATE_LINK(tweet.id)} target='blank'>
+        <a className='tweet-link' href={CREATE_LINK(tweet.id)} target='blank'>
           <Row className='tweet_header'>
             <Col className='tweet_avatar col-2'>
               <Avatar src={tweet.imageUrl} />

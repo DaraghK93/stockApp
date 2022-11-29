@@ -8,6 +8,9 @@ import GameNameImageTypeSelection from '../../components/gameComponents/createGa
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
 import GameWinningValueSelection from '../../components/gameComponents/createGameScreenComponents/GameWinningValueSelection';
+import GameSectorsSelection from '../../components/gameComponents/createGameScreenComponents/GameSectorsSelection';
+import GameESGRestrictionsSelection from '../../components/gameComponents/createGameScreenComponents/GameESGRestrrictionsSelection';
+import GameCreationSummary from '../../components/gameComponents/createGameScreenComponents/GameCreationSummary';
 
 function CreateGameScreen(){
     /// Redux ///
@@ -34,14 +37,14 @@ function CreateGameScreen(){
     /// Page 4 - Winning value, only used if the game is value based 
     const [gameWinningValue, setGameWinningValue] = useState()
     /// Page 5 - Stock types, user can define custom stocks to trade 
-    //const [stockTypes, setStockTypes] = useState()
+    const [stockTypes, setStockTypes] = useState(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
     /// Page 6 - The ESG settings, can ddefine min ratings for ESG 
-    //const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
-    //const [minSocialRating, setSocialRating]         = useState("")
-    //const [minGovernanceRating, setGovernanceRating] = useState("")
+    const [ESGGameType, setESGGameType] = useState("")
+    const [minEnvironmentRating, setMinEnvironmentRating] = useState("")
+    const [minSocialRating, setMinSocialRating]         = useState("")
+    const [minGovernanceRating, setMinGovernanceRating] = useState("")
     /// Page 7 - The strting balance, trading fee and the maxTrades per day 
     
-
     /// Constants ///
     const minStartingBalance = 1000 
     const maxStartingBalance = 1000000
@@ -51,7 +54,6 @@ function CreateGameScreen(){
     const maxTrades          = 100
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
-
 
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
@@ -109,7 +111,6 @@ function CreateGameScreen(){
                         disableNextStep={
                             !(gameWinningValue>=minWinningValue&&gameWinningValue<=maxWinningValue)
                         }
-                        
                         >
                         <GameWinningValueSelection 
                             startingBalance = {startingBalance}
@@ -120,20 +121,60 @@ function CreateGameScreen(){
                 </Col>
                 :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
                     <Col>
-                        <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <h1>This will be stock type screen</h1>
+                        <GameCreationOptionsCard 
+                            screen={screen} 
+                            setScreen={setScreen} 
+                            gameType={gameType}
+                            disableNextStep={
+                                (stockTypes.length === 0)
+                            }
+                            >
+                            <GameSectorsSelection 
+                                stockTypes={stockTypes} 
+                                setStockTypes={setStockTypes}
+                            />
                         </GameCreationOptionsCard>
                     </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                        <h1>This will be the ESG restrictions screen</h1>
+                    <GameCreationOptionsCard 
+                        screen={screen} 
+                        setScreen={setScreen} 
+                        gameType={gameType}
+                        disableNextStep={!(ESGGameType)}
+                        >
+                        <GameESGRestrictionsSelection
+                            setMinEnvironmentRating={setMinEnvironmentRating}
+                            setMinSocialRating={setMinSocialRating}
+                            setMinGovernanceRating={setMinGovernanceRating}
+                            ESGGameType={ESGGameType}
+                            setESGGameType={setESGGameType}
+                        />
                     </GameCreationOptionsCard>
                 </Col>
                 :
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
-                            <h1>This will be the Game Summary Screen</h1>
+                    <GameCreationOptionsCard 
+                        screen={screen} setScreen={setScreen} 
+                        gameName={gameName} gameType={gameType} gameImage={gameImage} 
+                        gameStartDate={gameStartDate} gameEndDate={gameEndDate} 
+                        startingBalance={startingBalance} tradingFee={tradingFee} maxTradesPerDay={maxTradesPerDay} 
+                        gameWinningValue={gameWinningValue} stockTypes={stockTypes} 
+                        minEnvironmentRating={minEnvironmentRating}  minSocialRating={minSocialRating} 
+                        minGovernanceRating={minGovernanceRating}
+                        >
+                            <GameCreationSummary 
+                                gameType={gameType}
+                                gameName={gameName}
+                                gameStartDate={gameStartDate}
+                                gameEndDate={gameEndDate}
+                                startingBalance={startingBalance}
+                                tradingFee={tradingFee}
+                                maxTradesPerDay={maxTradesPerDay}
+                                gameWinningValue={gameWinningValue}
+                                stockTypes={stockTypes}
+                                ESGGameType={ESGGameType}
+                            />
                     </GameCreationOptionsCard>
                 </Col>
                 }   

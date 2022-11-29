@@ -1,4 +1,4 @@
-import {Row, Container } from 'react-bootstrap';
+import {Row } from 'react-bootstrap';
 import { APIName } from '../../../constants/APIConstants'
 import { useState, useEffect } from 'react';
 import { API } from "aws-amplify";
@@ -37,8 +37,9 @@ function StockSearchResults({keyword}) {
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         Object.keys(stocks).length !== 0  ?
         <>
+        <div className="stocksearchresults">
         <h3 className="stockdiscoveryRow">Showing Results for "{keyword.trim()}"</h3>
-        <Container>
+
         <Row md={1} xs={1}>
             <SideScrollMenu>
                 {stocks.map((stockObj) => (
@@ -49,12 +50,14 @@ function StockSearchResults({keyword}) {
             </SideScrollMenu>
          
          </Row>
-         </Container>       
+ 
+         </div>  
         </> :
     
         <>
         <MessageAlert variant='danger'>No results match your search term "{keyword}"</MessageAlert>
         </>
+      
          
         }</>
                            

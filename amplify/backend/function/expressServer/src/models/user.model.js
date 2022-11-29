@@ -1,6 +1,7 @@
 const mongoose = require('mongoose')
 const {Schema} = mongoose
-
+const crypto = require('crypto');
+const bcrypt = require('bcryptjs');
 
 const validateEmail = (email) => {
   const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
@@ -32,11 +33,22 @@ const UserSchema = new mongoose.Schema(
     image: { type: String },
     bio: { type: String },
     portfolios: [{type: Schema.Types.ObjectId, ref: "PortfolioData"}],
-    leagues: [{type: Schema.Types.ObjectId, ref: "league" }]
+    leagues: [{type: Schema.Types.ObjectId, ref: "league" }],
+    resetPasswordToken: {type: String,required: false},
+    resetPasswordExpires: {type: Date,required: false}
   },
   { collection: 'users' },
   // Timestamps used to create createdAt and updatedAt fields in the model that allows us to track when the entity was created/updated
-  { timestamps: true },
-)
+  { timestamps: true }
+);
+
+UserSchema.methods.comparePassword = function (password) {
+  return bcrypt.compareSync(password, this.password);
+};
+
+UserSchema.methods.generatePasswordReset = function() {
+  this.resetPasswordToken = crypto.randomBytes(20).toString('hex');
+  this.resetPasswordExpires = Date.now() + 3600000; //expires in an hour
+};
 
 module.exports = mongoose.model('UserData', UserSchema)

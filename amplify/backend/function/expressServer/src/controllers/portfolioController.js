@@ -1,4 +1,5 @@
 const Portfolio = require('../models/portfolio.model');
+const League = require('../models/league.model');
 const PortfolioService = require('../services/portfolioServices')
 const Stock = require('../models/stock.model')
 const mongoose = require('mongoose')
@@ -127,17 +128,27 @@ const buyStockMarketOrder = async (req, res, next) => {
         )
       )
     }
-    if(req.body.orderType!== "MARKET" && req.body.orderType !== "LIMIT"){
-      res.status(400)
-      res.errormessage = 'Invalid Order Type.'
-      return next(
-        new Error(
-          'Order type should be MARKET or LIMIT.'
-        )
-      )
-    }
     const value = stock.daily_change.currentprice * req.body.units
-    if (value > portfolio.remainder) {
+    let transactionFee
+    if (portfolio.leagueId){
+      // Check that league exists and check league rules
+      const response = await PortfolioService.checkLeagueRules(portfolio, stock)
+      if (response.error){
+        res.status(response.error)
+        res.errormessage = response.errormessage
+        return next(
+          new Error(
+            response.errormessage,
+        ),
+        )}
+        // if there is a fee provide it here
+        transactionFee = response[1]
+      }
+  else {
+    // otherwise fee is 0
+    transactionFee = 0
+  }
+    if ((transactionFee + value) > portfolio.remainder) {
       // check that the user has sufficient funds to complete
       res.status(400)
         res.errormessage = 'Insufficient Funds'
@@ -147,8 +158,9 @@ const buyStockMarketOrder = async (req, res, next) => {
           )
         )
     }
+  
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value)
+    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee)
 
 res.json(newPortfolio)
   }
@@ -160,8 +172,301 @@ catch (err) {
 }
 
 
+// Sell Stock Route
+const sellStockMarketOrder = async (req, res, next) => {
+  try{
+    // check that all of the data is there
+    if (
+      typeof req.body.portfolioId === 'undefined' ||
+      typeof req.body.stockId === 'undefined'||
+      typeof req.body.units === 'undefined'||
+      typeof req.body.buyOrSell === 'undefined'||
+      typeof req.body.orderType === 'undefined'
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'Details missing for a transaction'
+      return next(
+        new Error(
+          'The client has not sent the required information to sell stock',
+        ),
+      )
+    }
+    if (req.body.buyOrSell !== "SELL" || req.body.orderType !== "MARKET"){
+      // check that the type is buy
+      res.status(400)
+      res.errormessage = 'Must be type SELL and order type MARKET'
+      return next(
+        new Error(
+          'Should be type Sell and order type should be MARKET'
+        )
+      )
+    }
+    if (mongoose.Types.ObjectId.isValid(req.body.stockId) === false){
+      // check that the stock ID is correct
+      res.status(404)
+      res.errormessage = 'No stock found'
+      return next(
+        new Error(
+          'The chosen stock does not exist.'
+        )
+      )
+    }
+    if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false){
+      // check that the portfolio ID is correct
+      res.status(404)
+      res.errormessage = 'No Portfolio Found.'
+      return next(
+        new Error(
+          'Portfolio must be associated to the user.'
+        )
+      )
+    }
+    const stock = await Stock.findOne({_id: req.body.stockId}).select({prices: 0})
+    // check that the stock exists
+    if(stock===null){
+      res.status(404)
+      res.errormessage = 'No such stock'
+      return next(
+        new Error(
+          'The chosen stock does not exist.'
+        )
+      )
+    }
+    else if ( req.body.units <= 0){
+      // check that the units and values exist
+      res.status(400)
+      res.errormessage = 'Units must be greater than 0'
+      return next(
+        new Error(
+          'Units are negative. Should be a positive number'
+        )
+      )
+    }
+    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, userId: req.user.id})
+    // check that the portfolio exists
+    if(portfolio===null){
+      res.status(404)
+      res.errormessage = 'Invalid portfolio.'
+      return next(
+        new Error(
+          'Portfolio must be associated to the user.'
+        )
+      )
+    }
+    const value = stock.daily_change.currentprice * req.body.units
+    let transactionFee
+    if (portfolio.leagueId){
+      // check whether it is in a league and whether the league exists. Also checks the league rules
+      const response = await PortfolioService.checkLeagueRules(portfolio, stock)
+      if (response.error){
+        res.status(response.error)
+        res.errormessage = response.errormessage
+        return next(
+          new Error(
+            response.errormessage,
+        ),
+        )}
+        // transaction Fee exists
+        transactionFee = response[1]
+      }
+  else {
+    // otherwise fee is 0
+    transactionFee = 0
+  }
+    // use the sellStock service found in the services folder
+    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee)
+    if (newPortfolio.error) {
+      res.status(newPortfolio.error)
+      res.errormessage = newPortfolio.errormessage
+      return next(
+        new Error(
+          newPortfolio.errormessage,
+        ),
+        )} 
+res.json(newPortfolio)
+  }
+catch (err) {
+  console.error(err.message);
+  res.errormessage = 'Server error';
+  return next(err);
+}
+}
+
+const getLeaguePortfolio = async (req,res,next) => {
+  try{
+
+    // check that the userId and leagueIds can be cast to valid objectIds
+    if (mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
+      // check that the stock ID is correct
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+        new Error(
+          'No portfolio found'
+        )
+      )
+    }
+
+    // cast the Ids to mongo _ids
+    const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
+    const userId = mongoose.Types.ObjectId(req.user.id)
+    // query the colelction
+    const portfolio = await Portfolio.aggregate(
+      [
+        {
+          // match on userid and leagueId
+          '$match': {
+            'leagueId': leagueId,
+            'userId': userId
+          }
+        }, {
+          // get the holdings data from the holdings view
+          '$lookup': {
+            'from': 'holdingsValue', 
+            'localField': 'holdings', 
+            'foreignField': '_id', 
+            'as': 'holdings'
+          }
+        }, {
+          // get transactions data from transacions
+          '$lookup': {
+            'from': 'transactions', 
+            'localField': 'transactions', 
+            'foreignField': '_id', 
+            'as': 'transactions', 
+            'pipeline': [
+              { 
+                // within this get the stock data needed from the stockId ref
+                '$lookup': {
+                  'from': 'stocks', 
+                  'localField': 'stockId', 
+                  'foreignField': '_id', 
+                  'as': 'stock', 
+                  'pipeline': [
+                    {
+                      // only show the symbol and shortname
+                      '$project': {
+                        'symbol': 1, 
+                        'shortname': 1
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }, {
+          // get the portfolio total values from the view
+          '$lookup': {
+            'from': 'portfolioValues', 
+            'localField': '_id', 
+            'foreignField': '_id', 
+            'as': 'totalValue', 
+            'pipeline': [
+              {
+                // just show the value
+                '$project': {
+                  'totalValue': 1
+                }
+              }
+            ]
+          }
+        }, {// change it form an array to an object
+          '$unwind': {
+            'path': '$totalValue'
+          }
+        }, {
+          '$set': {
+            'totalValue': '$totalValue.totalValue'
+          }
+        }
+      ])
+
+    // console.log(portfolio.portfolio)
+    // if no portfolio found with the ids throw error
+    if(portfolio.length===0){
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+        new Error(
+          'No portfolio found.'
+        )
+      )
+    }
+  
+    // return the portfolio object
+    res.json(portfolio[0])
+
+  } catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error';
+    return next(err);
+  }
+  }
+
+const getMyGamesAndPortfolios = async (req,res,next) => {
+  try{
+    // cast id for aggregate query
+    const userId = mongoose.Types.ObjectId(req.user.id)
+
+    const portfolios = await Portfolio.aggregate(
+      [
+        {   
+          // match on user ID
+          '$match': {
+            'userId': userId
+          }
+        }, {
+          // join the leagues data on leagueId
+          '$lookup': {
+            'from': 'leagues', 
+            'localField': 'leagueId', 
+            'foreignField': '_id', 
+            'as': 'league'
+          }
+        }, {
+          // convert league into object
+          '$unwind': {
+            'path': '$league'
+          }
+        }, {
+          // filter out inactive leagues
+          '$match': {
+            'league.active': true
+          }
+        }, {
+          // set new fields for ease of access
+          '$set': {
+            'leagueId': '$league._id', 
+            'leagueName': '$league.leagueName'
+          }
+        }, {
+          // only return leaguename,portfolioName,
+          // leagueId, (portoflioId returned as _id)
+          '$project': {
+            'leagueName': 1, 
+            'portfolioName': 1, 
+            'leagueId': 1
+          }
+        }
+      ])
+
+  // return the array of portfolios
+  res.json(portfolios)
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error';
+    res.status(500)
+    return next(err);
+  }
+}
 
 module.exports = {
   createHangingPortfolio,
-  buyStockMarketOrder
+  buyStockMarketOrder,
+  sellStockMarketOrder,
+  getLeaguePortfolio,
+  getMyGamesAndPortfolios
 }

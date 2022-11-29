@@ -11,6 +11,8 @@ import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQu
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 
+import {useNavigate} from "react-router-dom"
+
 /// Redux ///
 import {useSelector} from 'react-redux';
 
@@ -51,6 +53,9 @@ function OrderConfirmationPage() {
     const user = useSelector((state) => state.user)
     const { userInfo } = user;
     const userToken = userInfo.token
+
+    /// naviagte - to redirect 
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -122,8 +127,13 @@ function OrderConfirmationPage() {
         }
         /// Need to set an intial value ///
         if (typeof portfolioId === "undefined" && loading === false){
-            /// For now set the current portfolio to the first portfolio may need to revisit this ///
-            setPortfolioId(activePortfolios[0].leagueId)
+            /// Add in a savety check here if a user naviagtes to the page by typing in url redirect them to the game screen
+            if (activePortfolios.length === 0){
+                navigate(`/game`)
+            }else{
+              /// For now set the current portfolio to the first portfolio may need to revisit this ///
+            setPortfolioId(activePortfolios[0].leagueId)  
+            }
         }else if(portfolioId){
             /// Get the portfolio data 
             getPortfolioInfo()

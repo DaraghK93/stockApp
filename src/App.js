@@ -18,13 +18,28 @@ import FAQsPage from './screens/faqs/faqs'
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
 
+/// React ///
+import { useEffect } from 'react';
+
 /// Redux ///
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {updateActivePortfolios} from './actions/portfolioActions';
 
 function App() {
   /// Get the user state from redux, will be used to see if user is logged in  
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const { userInfo } = user;
+
+   useEffect(() => {
+        /// If the user is logged in 
+        if (userInfo){
+          /// Set the active portfolio state 
+          dispatch(updateActivePortfolios(userInfo.token))   
+        }
+    },[dispatch,userInfo])
+
+
 
   return (
     <Router>

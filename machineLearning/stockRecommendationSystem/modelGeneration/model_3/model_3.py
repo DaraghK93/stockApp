@@ -234,5 +234,5 @@ def symbol_to_index(symbol):
 # print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 # print(give_recommendations("bearach", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
-print(get_user_stock("bearach"))
-# print(get_user_stock("dknee1"))
+# print(get_user_stock("bearach"))
+print(get_user_stock("dknee1"))

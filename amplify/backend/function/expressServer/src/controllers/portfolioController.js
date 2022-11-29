@@ -551,10 +551,10 @@ const getMyGamesAndPortfolios = async (req,res,next) => {
   }
 }
 
-// Sell Stock Route
+// this route is used for cancelling the limit orders
 const cancelLimitOrder = async (req, res, next) => {
   try{
-    // check that all of the data is there
+    // check that all of the data is there, we need portfolioID and transactionID
     if (
       typeof req.body.transactionId === 'undefined' ||
       typeof req.body.portfolioId === 'undefined'
@@ -570,7 +570,7 @@ const cancelLimitOrder = async (req, res, next) => {
     }
     // check that the transactionId can be cast to valid objectId
     if (mongoose.Types.ObjectId.isValid(req.body.transactionId) === false ){
-      // check that the stock ID is correct
+      // check that the transactionId is correct
       res.status(404)
       res.errormessage = 'No transaction found'
       return next(
@@ -579,9 +579,9 @@ const cancelLimitOrder = async (req, res, next) => {
         )
       )
     }
-    // check that the transactionId can be cast to valid objectId
+    // check that the portfolioID can be cast to valid objectId
     if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
-      // check that the stock ID is correct
+      // check that the portfolio ID is correct
       res.status(404)
       res.errormessage = 'No portfolio found'
       return next(
@@ -590,8 +590,10 @@ const cancelLimitOrder = async (req, res, next) => {
         )
       )
     }
+    // get the transaction from the database
     const transaction = await Transaction.findOne({_id: req.body.transactionId, portfolioId: req.body.portfolioId})
     if(transaction.length===0){
+      // if the transaction doesn't exist we get an error
       res.status(404)
       res.errormessage = 'No transaction found for that portfolio'
       return next(
@@ -601,6 +603,7 @@ const cancelLimitOrder = async (req, res, next) => {
       )
     }
     if(transaction.orderType !== "LIMIT"){
+      // check that it is a limit order
       res.status(404)
       res.errormessage = 'Not a limit order'
       return next(
@@ -610,6 +613,7 @@ const cancelLimitOrder = async (req, res, next) => {
       )
     }
     if(transaction.status !== "PENDING"){
+      // check that it is a PENDING order
       res.status(404)
       res.errormessage = 'The transaction must be a pending transaction'
       return next(
@@ -620,13 +624,15 @@ const cancelLimitOrder = async (req, res, next) => {
     }
     let portfolio
     if(transaction.buyOrSell == "BUY"){
+      // if it is a buy order then implement the service to cancel
       portfolio = await PortfolioService.cancelBuyLimitOrder(transaction)
     }
     else {
+      // if it is a sell order then implement the service to cancel
       portfolio = await PortfolioService.cancelSellLimitOrder(transaction)
     }
 
-    // return the transaction
+    // return the portfolio
   res.json(portfolio)
   }
   catch (err){

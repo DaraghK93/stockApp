@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import json
 import os
+import random
 
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn import preprocessing
@@ -92,14 +93,18 @@ def get_user_stock(userName):
         portfolios = user_data['portfolios']
         # Add in logic check here for if they have a portfolio
         try:
-            portfolio = portfolios[0]
+            # Randomly select a user's portfolio
+            print("Number of portfolios: ", len(portfolios))
+            rand_portfolio = random.randint(0,len(portfolios))
+            portfolio = portfolios[rand_portfolio]
 
             # Get the portfolio data
             portfolio_data = portfolio_collection.find_one({"_id":portfolio})
             
-            # Get the IDs of the holdings within the portfolio - For now just takes the first holding
+            # Get the IDs of the holdings within the portfolio - For now it selects a random stock from the previously selected portfolio
             holding_IDs = portfolio_data['holdings']
-            holding_ID = holding_IDs[0]
+            rand_ID = random.randint(0,len(holding_IDs))
+            holding_ID = holding_IDs[rand_ID]
 
             # Get holding data
             holding_data = holdings_collection.find_one({"_id":holding_ID})
@@ -120,7 +125,7 @@ def get_user_stock(userName):
              {"$limit": 1}])
             top_mover_list = list(top_mover)
             res_str = ""
-            # Aggregate query returns a command cursor, this has to be iterated to access any data.
+            # Aggregate query returns a command cursor, this has to be iterated over to access any data.
             for doc in top_mover_list:
                 res_str = doc['symbol']
             return res_str

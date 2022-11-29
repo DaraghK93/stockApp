@@ -9,6 +9,10 @@ import BalanceComponent from "../../components/confirmOrderComponents/balanceCom
 import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQuantitySelect";
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
+import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
+
+
+
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -72,7 +76,7 @@ function OrderConfirmationPage() {
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
-                    <Row>
+                    <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
@@ -87,6 +91,9 @@ function OrderConfirmationPage() {
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
                                 </dt>
                             </dl>
+                        </Col>
+                        <Col>
+                            <PortfolioSelectionDropdown/>
                         </Col>
                     </Row>
                     <Col style={{ marginBottom: "0.625rem" }}>

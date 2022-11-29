@@ -4,11 +4,6 @@ import { Image, Row, Col, Table, Container } from 'react-bootstrap';
 
 function LeaderBoard() {
 
-    // username
-    // amountInPortfolio
-    // dailyChange
-    // picture
-
     const leaderBoardData = [
         {
             userName: "joey1",
@@ -57,14 +52,15 @@ function LeaderBoard() {
     //top 3
     //rest
 
-// console.log(leaderBoardData[2])
-const Top3 = leaderBoardData.slice(0,3)
+    // console.log(leaderBoardData[2])
+    const Top3 = leaderBoardData.slice(0, 3)
 
 
-const RestOfLeaderBoard = leaderBoardData.splice(3)
+    const RestOfLeaderBoard = leaderBoardData.splice(3)
 
 
     const columns = [
+        { label: "position", accessor: "position", sortable: false },
         { label: "avatar", accessor: "avatar", sortable: false },
         { label: "username", accessor: "username", sortable: true, sortbyOrder: "desc" },
         { label: "amount", accessor: "amount", sortable: false },
@@ -79,7 +75,9 @@ const RestOfLeaderBoard = leaderBoardData.splice(3)
                     <Image src={"/testAvatar.png"} style={{ width: "100%", marginTop: "5rem", borderRadius: "50%", }}></Image>
                     <p>{Top3[1].userName}
                         <br></br>
-                        $1000
+                        ${Top3[1].amount}
+                        <br></br>
+                        <strong>2nd place</strong>
                     </p>
                 </Col>
                 <Col style={{ textAlign: "center" }}>
@@ -87,20 +85,24 @@ const RestOfLeaderBoard = leaderBoardData.splice(3)
                     <Image src={"/testAvatar.png"} style={{ width: "100%", borderRadius: "50%", marginTop: 0 }}></Image>
                     <p>{Top3[0].userName}
                         <br></br>
-                        $100000
+                        ${Top3[0].amount}
+                        <br></br>
+                        <strong>1st place</strong>
                     </p>
                 </Col>
                 <Col style={{ textAlign: "center" }}>
                     <Image src={"/testAvatar.png"} style={{ width: "100%", marginTop: "6rem", borderRadius: "50%" }}></Image>
                     <p>{Top3[2].userName}
                         <br></br>
-                        $10
+                        ${Top3[2].amount}
+                        <br></br>
+                        <strong>3rd place</strong>
                     </p>
                 </Col>
             </Row>
 
             <Row>
-               <Col>
+                <Col>
                     <Table>
                         <thead>
                             <tr key="cols">
@@ -109,29 +111,21 @@ const RestOfLeaderBoard = leaderBoardData.splice(3)
                                 })}
                             </tr>
                         </thead>
-
-                        {/* (<Fragment key={`${item.symbol}-fragment`}> */}
-
                         <tbody>
-                        {RestOfLeaderBoard.map((item) => (
-                            <tr key={item.userName}>
-                            <td>{item.picture}</td>
-                            <td>{item.userName}</td>
-                            <td>{item.amount}</td>
-                            <td>{item.dailyChange}</td>
-                            </tr>
-                        ))}
+                            {RestOfLeaderBoard.map((item) => (
+                                <tr key={item.userName}>
+                                    <td>{RestOfLeaderBoard.indexOf(item) + 4}</td>
+                                    <td>{item.picture}</td>
+                                    <td>{item.userName}</td>
+                                    <td>${item.amount}</td>
+                                    <td>{item.dailyChange}</td>
+                                </tr>
+                            ))}
                         </tbody>
                     </Table>
-                    </Col>
-      
+                </Col>
             </Row>
-
-
-
         </>
-
-
     )
 }
 

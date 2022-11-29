@@ -42,7 +42,7 @@ const createHangingPortfolio = async (req, res, next) => {
     } catch (err) {
       console.error(err.message);
       res.status(500)
-      res.errormessage = 'Server error';
+      res.errormessage = 'Server error in creating a portfolio';
       return next(err);
     }
   }
@@ -218,7 +218,7 @@ res.json(newPortfolio)
 catch (err) {
   console.error(err.message);
   res.status(500)
-  res.errormessage = 'Server error';
+  res.errormessage = 'Server error in buying stock';
   return next(err);
 }
 }
@@ -379,7 +379,7 @@ res.json(newPortfolio)
 catch (err) {
   console.error(err.message);
   res.status(500)
-  res.errormessage = 'Server error';
+  res.errormessage = 'Server error in selling stock';
   return next(err);
 }
 }
@@ -492,7 +492,7 @@ const getLeaguePortfolio = async (req,res,next) => {
   } catch (err) {
     console.error(err.message);
     res.status(500)
-    res.errormessage = 'Server error';
+    res.errormessage = 'Server error in finding portfolio';
     return next(err);
   }
   }
@@ -549,7 +549,7 @@ const getMyGamesAndPortfolios = async (req,res,next) => {
   }
   catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error';
+    res.errormessage = 'Server error in finding leagues and portfolios';
     res.status(500)
     return next(err);
   }

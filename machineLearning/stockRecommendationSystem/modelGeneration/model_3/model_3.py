@@ -1,6 +1,7 @@
 # Module imports
 import pandas as pd
 import numpy as np
+import json
 import os
 
 from sklearn.metrics.pairwise import cosine_similarity
@@ -18,8 +19,8 @@ def read_data():
     stocks.drop(['idnumber','longnamesort', 'weight'], inplace=True, axis=1)
     # print(stocks)
     print(stocks.info())
-    # Create array X of the all long business summaries, sectors, industries and countries and exchange
-    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry + " " + stocks.country + " " + stocks.exchange)
+    # Create array X of the all long business summaries, sectors, industries
+    X = np.array(stocks.longbusinesssummary + " " + stocks.sector + " " + stocks.industry)
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance
     text_data = X
@@ -89,24 +90,50 @@ def get_user_stock(userName):
         
         # Get user portfolio IDs - For now just getting the first one owner by the user
         portfolios = user_data['portfolios']
-        portfolio = portfolios[0]
+        # Add in logic check here for if they have a portfolio
+        try:
+            portfolio = portfolios[0]
 
-        # Get the portfolio data
-        portfolio_data = portfolio_collection.find_one({"_id":portfolio})
-        
-        # Get the IDs of the holdings within the portfolio - For now just takes the first holding
-        holding_IDs = portfolio_data['holdings']
-        holding_ID = holding_IDs[0]
+            # Get the portfolio data
+            portfolio_data = portfolio_collection.find_one({"_id":portfolio})
+            
+            # Get the IDs of the holdings within the portfolio - For now just takes the first holding
+            holding_IDs = portfolio_data['holdings']
+            holding_ID = holding_IDs[0]
 
-        # Get holding data
-        holding_data = holdings_collection.find_one({"_id":holding_ID})
-        
-        # Get stock ID and find the symbol based on that
-        stock_ID = holding_data["stockId"]
-        stock_data = stocks_collection.find_one({"_id":stock_ID})
-        stock_ticker = stock_data["symbol"]
+            # Get holding data
+            holding_data = holdings_collection.find_one({"_id":holding_ID})
+            
+            # Get stock ID and find the symbol based on that
+            stock_ID = holding_data["stockId"]
+            stock_data = stocks_collection.find_one({"_id":stock_ID})
+            stock_ticker = stock_data["symbol"]
 
-        return stock_ticker
+            return stock_ticker
+        except:
+            # print(f'ERROR:Error encountered fetching user portfolio.\nException Details:\n\t{e}')
+            top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
+                                       'daily_change.absoluteChange': 1,
+                                       'daily_change.percentageChange': 1,
+                                       'daily_change.currentprice': 1}},
+             {"$sort": {'daily_change.percentageChange': -1}},
+             {"$limit": 1}])
+            print("Top Mover:", top_mover)
+            print("Top Mover Type:", type(top_mover))
+            
+            top_mover_list = list(top_mover)
+            print("Top Mover List:", top_mover)
+            print("Top Mover List Type:", type(top_mover))
+
+            stock_ticker = top_mover_list[0]
+            print("Stock ticker:", stock_ticker)
+
+            res_str = ""
+            for doc in top_mover_list:
+                res_str = doc['symbol']
+            print("res_str: ", res_str)
+            return top_mover
+            
     except Exception as e:
         print(f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
         return {
@@ -213,4 +240,7 @@ def symbol_to_index(symbol):
         }    
 
 
-print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+# print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+# print(give_recommendations("bearach", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+
+print(get_user_stock("bearach"))

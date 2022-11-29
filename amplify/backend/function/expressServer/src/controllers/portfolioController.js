@@ -468,7 +468,26 @@ const getLeaguePortfolio = async (req,res,next) => {
           '$set': {
             'totalValue': '$totalValue.totalValue'
           }
-        }
+        }, {
+          '$lookup': {
+              'from': 'leagues', 
+              'localField': 'leagueId', 
+              'foreignField': '_id', 
+              'as': 'league', 
+              'pipeline': [
+                  {
+                      '$project': {
+                          'tradingFee': 1, 
+                          'maxDailyTrades': 1
+                      }
+                  }
+              ]
+          }
+      }, {
+          '$unwind': {
+              'path': '$league'
+          }
+      }
       ])
 
     // console.log(portfolio.portfolio)

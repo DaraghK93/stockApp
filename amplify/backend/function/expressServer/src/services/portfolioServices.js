@@ -214,7 +214,6 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
 }
 
 const checkLeagueRules = async (portfolio, stock, transactionFee) => {
-    // creates a date so that it is known when it was created
     try{
 
       if (mongoose.Types.ObjectId.isValid(portfolio.leagueId) === false){
@@ -256,9 +255,22 @@ const checkLeagueRules = async (portfolio, stock, transactionFee) => {
     }
 }
 
+const cancelBuyLimitOrder = async (transactionData) => {
+    // to cancel a buy limit order
+    try{
+        pendingTransaction = new Transaction(transactionData)
+        // cancelledTransaction = transaction.updateOne
+        return pendingTransaction
+    }
+    catch (err) {
+        throw new Error(`Error has occured in cancelling the limit order.\nError details:\n\t${err}`)
+    }
+}
+
 module.exports = {
     createPortfolio,
     buyStock,
     sellStock,
-    checkLeagueRules
+    checkLeagueRules,
+    cancelBuyLimitOrder
 }

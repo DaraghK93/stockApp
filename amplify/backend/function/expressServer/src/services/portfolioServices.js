@@ -260,11 +260,25 @@ const cancelBuyLimitOrder = async (transactionData) => {
     try{
         const transactionId = mongoose.Types.ObjectId(transactionData._id)
         await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
-        const portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}})
+        const portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}}, {new:true})
         return portfolio
     }
     catch (err) {
-        throw new Error(`Error has occured in cancelling the limit order.\nError details:\n\t${err}`)
+        throw new Error(`Error has occured in cancelling the buy limit order.\nError details:\n\t${err}`)
+    }
+}
+
+const cancelSellLimitOrder = async (transactionData) => {
+    // to cancel a buy limit order
+    try{
+        const transactionId = mongoose.Types.ObjectId(transactionData._id)
+        await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+        await Holdings.findOneAndUpdate({portfolioId: transactionData.portfolioId, stockId: transactionData.stockId}, {$inc:{units: transactionData.units, frozenHoldingsUnits: -transactionData.units}})
+        const portfolio = await Portfolio.findById({_id: transactionData.portfolioId})
+        return portfolio
+    }
+    catch (err) {
+        throw new Error(`Error has occured in cancelling the sell limit order.\nError details:\n\t${err}`)
     }
 }
 
@@ -273,5 +287,6 @@ module.exports = {
     buyStock,
     sellStock,
     checkLeagueRules,
-    cancelBuyLimitOrder
+    cancelBuyLimitOrder,
+    cancelSellLimitOrder
 }

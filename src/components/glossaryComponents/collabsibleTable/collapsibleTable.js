@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion'
-import EnvironmentalRating from "../../stockVisualisationComponents/ESGRatingSliders/EnvironmentalRating";
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge'
 
 

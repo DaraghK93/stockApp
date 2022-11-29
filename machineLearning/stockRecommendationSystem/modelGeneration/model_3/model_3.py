@@ -94,7 +94,6 @@ def get_user_stock(userName):
         # Add in logic check here for if they have a portfolio
         try:
             # Randomly select a user's portfolio
-            print("Number of portfolios: ", len(portfolios))
             rand_portfolio = random.randint(0,len(portfolios))
             portfolio = portfolios[rand_portfolio]
 

@@ -24,6 +24,7 @@ const getStockPrice = async (req, res, next) => {
     res.json(stock[0].prices);
   } catch (err) {
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error in getStockPrice';
     return next(err);
   }
@@ -71,6 +72,7 @@ const getAllStocks = async (req, res, next) => {
     }
   }catch(err){
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error in getAllStocks';
     return next(err);
   }
@@ -92,6 +94,7 @@ const addStock = async (req, res, next) => {
     res.json({ stock });
   } catch (err) {
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error in addStock';
     return next(err);
   }
@@ -122,6 +125,7 @@ const updateStock = async (req, res, next) => {
     res.json(stock);
   } catch (err) {
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error in updateStock';
     return next(err);
   }
@@ -182,6 +186,7 @@ const getStockBySymbol = async (req, res, next) => {
     res.json(returnStocks);
   } catch (err) {
     console.error(err.message);
+    res.status(500)
     res.errormessage = 'Server error in getStockBySymbol';
     return next(err);
   }

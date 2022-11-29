@@ -114,6 +114,7 @@ function OrderConfirmationPage() {
                 const res = await API.get(APIName, path, myInit)
                 /// Set the current portfolio 
                 setPortfolio({
+                    id: res._id,
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
                 })
@@ -231,6 +232,9 @@ function OrderConfirmationPage() {
                             newPortfolioBalance={newPortfolioBalance}
                             amountSelected={amountSelected}
                             qty={qty} 
+                            stockId={stock.id}
+                            portfolioId={portfolio.id}
+                            limitPrice={limitPrice}
                 />
                     <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>

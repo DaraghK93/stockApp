@@ -110,8 +110,8 @@ def get_user_stock(userName):
             stock_ticker = stock_data["symbol"]
 
             return stock_ticker
+        # In case of a user who doesn't have any portfolio yet, return biggest positive mover.
         except:
-            # print(f'ERROR:Error encountered fetching user portfolio.\nException Details:\n\t{e}')
             top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
                                        'daily_change.absoluteChange': 1,
                                        'daily_change.percentageChange': 1,
@@ -119,8 +119,8 @@ def get_user_stock(userName):
              {"$sort": {'daily_change.percentageChange': -1}},
              {"$limit": 1}])
             top_mover_list = list(top_mover)
-            stock_ticker = top_mover_list[0]
             res_str = ""
+            # Aggregate query returns a command cursor, this has to be iterated to access any data.
             for doc in top_mover_list:
                 res_str = doc['symbol']
             return res_str
@@ -234,5 +234,5 @@ def symbol_to_index(symbol):
 # print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 # print(give_recommendations("bearach", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
-# print(get_user_stock("bearach"))
-print(get_user_stock("dknee1"))
+print(get_user_stock("bearach"))
+# print(get_user_stock("dknee1"))

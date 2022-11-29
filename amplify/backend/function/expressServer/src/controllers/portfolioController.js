@@ -592,7 +592,7 @@ const cancelLimitOrder = async (req, res, next) => {
     }
     // get the transaction from the database
     const transaction = await Transaction.findOne({_id: req.body.transactionId, portfolioId: req.body.portfolioId})
-    if(transaction.length===0){
+    if(transaction===null){
       // if the transaction doesn't exist we get an error
       res.status(404)
       res.errormessage = 'No transaction found for that portfolio'

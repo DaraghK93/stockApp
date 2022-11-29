@@ -33,7 +33,7 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
-    const [portfolio, setPortfolio] = useState()
+    const [portfolioId, setPortfolioId] = useState()
 
     /// Redux ///
     const portfolios = useSelector((state) => state.portfolios)
@@ -81,8 +81,8 @@ function OrderConfirmationPage() {
 
     useEffect(() => {
         console.log("Called")
-        console.log(portfolio)
-    },[portfolio])
+        console.log(portfolioId)
+    },[portfolioId])
 
 
 
@@ -110,7 +110,7 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                         <Col>
-                            <PortfolioSelectionDropdown portfolios={activePortfolios} setState={setPortfolio}/>
+                            <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
                         </Col>
                     </Row>
                     <Col style={{ marginBottom: "0.625rem" }}>

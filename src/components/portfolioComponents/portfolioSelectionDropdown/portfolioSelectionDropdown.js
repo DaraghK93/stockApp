@@ -18,6 +18,7 @@ function PortfolioSelectionDropdown({portfolios, state, setState}){
                     id={portfolio.portfolioName}
                     key={portfolio.portfolioName}
                     eventKey={portfolio._id}
+                    active={state === portfolio._id} 
                     >
                         {portfolio.portfolioName}
                 </Dropdown.Item>

@@ -11,7 +11,8 @@ import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQu
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 
-
+/// Redux ///
+import {useSelector} from 'react-redux';
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -32,6 +33,12 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+    const [portfolio, setPortfolio] = useState()
+
+    /// Redux ///
+    const portfolios = useSelector((state) => state.portfolios)
+    const { activePortfolios } = portfolios;
+
 
     useEffect(() => {
         /// getStockInfo ///
@@ -72,6 +79,16 @@ function OrderConfirmationPage() {
     }, [orderType])
 
 
+    useEffect(() => {
+        console.log("Called")
+        console.log(portfolio)
+    },[portfolio])
+
+
+
+
+    
+
     return (
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
@@ -93,7 +110,7 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                         <Col>
-                            <PortfolioSelectionDropdown/>
+                            <PortfolioSelectionDropdown portfolios={activePortfolios} setState={setPortfolio}/>
                         </Col>
                     </Row>
                     <Col style={{ marginBottom: "0.625rem" }}>

@@ -1,20 +1,28 @@
-import {Dropdown } from "react-bootstrap";
+import {Dropdown} from "react-bootstrap";
 
-function PortfolioSelectionDropdown({portfolios, onClick}){
+function PortfolioSelectionDropdown({portfolios, state, setState}){
+
+    function onSelectHandler(e){
+        setState(e)
+    }
+
     return (
-        <Dropdown className="dropdownStyle">
+        <Dropdown className="dropdownStyle" onSelect={onSelectHandler}>
         <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
             Select Portfolio
         </Dropdown.Toggle>
-        <Dropdown.Menu>
+            <Dropdown.Menu>
             {portfolios.map(portfolio => (
                 <Dropdown.Item
-                    value={portfolio.name}
-                    id={portfolio.name}
-                    key={portfolio.name}
-                    onClick={onClick}>{portfolio.name}</Dropdown.Item>
-            ))}
-        </Dropdown.Menu>
+                    value={portfolio}
+                    id={portfolio.portfolioName}
+                    key={portfolio.portfolioName}
+                    eventKey={portfolio._id}
+                    >
+                        {portfolio.portfolioName}
+                </Dropdown.Item>
+            ))} 
+            </Dropdown.Menu>
     </Dropdown>
     )
 }

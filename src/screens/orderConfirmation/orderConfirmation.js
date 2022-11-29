@@ -110,7 +110,6 @@ function OrderConfirmationPage() {
                 }
                 /// Send the request 
                 const res = await API.get(APIName, path, myInit)
-                console.log(res)
                 /// Set the current portfolio 
                 setPortfolio({
                     portfolioName: res.portfolioName,
@@ -138,7 +137,7 @@ function OrderConfirmationPage() {
             /// Get the portfolio data 
             getPortfolioInfo()
         }
-    },[portfolioId,activePortfolios,loading, userToken])
+    },[portfolioId,activePortfolios,loading, userToken,navigate])
 
 
 

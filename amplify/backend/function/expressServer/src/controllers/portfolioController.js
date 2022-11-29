@@ -555,7 +555,6 @@ const getMyGamesAndPortfolios = async (req,res,next) => {
 const cancelLimitOrder = async (req, res, next) => {
   try{
     // check that all of the data is there
-    console.log("req.body.transactionId")
     if (
       typeof req.body.transactionId === 'undefined' ||
       typeof req.body.portfolioId === 'undefined'
@@ -619,16 +618,16 @@ const cancelLimitOrder = async (req, res, next) => {
         )
       )
     }
-    let cancelTransaction
+    let portfolio
     if(transaction.buyOrSell == "BUY"){
-      cancelTransaction = await PortfolioService.cancelBuyLimitOrder(transaction)
+      portfolio = await PortfolioService.cancelBuyLimitOrder(transaction)
     }
     else {
-      cancelTransaction = await PortfolioService.cancelSellLimitOrder(transaction)
+      portfolio = await PortfolioService.cancelSellLimitOrder(transaction)
     }
 
     // return the transaction
-  res.json(cancelTransaction)
+  res.json(portfolio)
   }
   catch (err){
 

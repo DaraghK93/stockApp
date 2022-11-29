@@ -258,9 +258,10 @@ const checkLeagueRules = async (portfolio, stock, transactionFee) => {
 const cancelBuyLimitOrder = async (transactionData) => {
     // to cancel a buy limit order
     try{
-        pendingTransaction = new Transaction(transactionData)
-        // cancelledTransaction = transaction.updateOne
-        return pendingTransaction
+        const transactionId = mongoose.Types.ObjectId(transactionData._id)
+        await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+        const portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}})
+        return portfolio
     }
     catch (err) {
         throw new Error(`Error has occured in cancelling the limit order.\nError details:\n\t${err}`)

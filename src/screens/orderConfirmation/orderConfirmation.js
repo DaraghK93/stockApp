@@ -10,6 +10,7 @@ import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQuantitySelect";
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
+import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 
 import {useNavigate} from "react-router-dom"
 
@@ -37,6 +38,7 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+    const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
    
 
     //// Portfolio State ////
@@ -138,10 +140,6 @@ function OrderConfirmationPage() {
             getPortfolioInfo()
         }
     },[portfolioId,activePortfolios,loading, userToken,navigate])
-
-
-
-
     
 
     return (
@@ -227,7 +225,8 @@ function OrderConfirmationPage() {
                             qty={qty}
                         />
                     </Col>
-                    <BottomStickyButton text="Confirm Order"></BottomStickyButton>
+                    <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} title={"heloo"} bodyText={"Text"}/>
+                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

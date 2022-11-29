@@ -3,7 +3,7 @@
 //  <URL>/stock/:symbol
 // Description:
 //  This screen contains the components rendered to the user when they click on an individual stock
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
@@ -36,7 +36,8 @@ function StockPage() {
     const portfolios = useSelector((state) => state.portfolios)
     const { activePortfolios } = portfolios;
 
-   
+    /// React Router ///
+    const navigate = useNavigate() 
 
     var lineColor;
     var gradientColor;
@@ -60,6 +61,9 @@ function StockPage() {
         if(activePortfolios.length === 0){
             /// No Active Portfolios, show a info modal 
             setShowTradeModal(true)
+        }else{
+            /// Redirect to the trade page
+            navigate(`/stock/${stock.symbol}/confirmorder`) 
         }
     }
 
@@ -125,7 +129,14 @@ function StockPage() {
                     <Row>
                         <Col className="stockInfoCol">
                             <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
-                            <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"Hello"} bodyText={"The Body Text"}/>
+                            <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"No Active Portofolios"} 
+                            bodyText={
+                                <>
+                                <p>It appears you dont have an active portfolio</p>
+                                <p>To be able to trade stocks you need to be part of an active game</p>
+                                <p>You can view your active games or create a new game from the <Link to={"/game/"}>Game Screen</Link> </p>
+                                </>
+                                }/>
                         </Col>
                     </Row>
                     <Row>

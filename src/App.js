@@ -13,7 +13,8 @@ import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
 import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 import RequestResetPassword from './screens/resetPassword/requestResetPassword'
-import ResetPage from './screens/resetPassword/resetPassword';
+import ResetPage from './screens/resetPassword/resetPassword'
+import FAQsPage from './screens/faqs/faqs'
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
 
@@ -83,6 +84,9 @@ function App() {
 
         <Route path='/portfolio' 
          element={userInfo ? <PortfolioPage />  : <Navigate to="/" />} />
+        
+        <Route path='/faqs'
+          element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />
 
         <Route path='/auth/recover' element={<RequestResetPassword />} />
         <Route path='/auth/reset/:token' element={<ResetPage />} />

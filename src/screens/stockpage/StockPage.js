@@ -20,11 +20,21 @@ import TweetContainer from '../../components/tweetComponents/tweetContainer/twee
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
+/// Redux ///
+import { useSelector} from 'react-redux';
+
 
 function StockPage() {
+    /// Component State ///
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+
+    /// Redux State ///
+    const portfolios = useSelector((state) => state.portfolios)
+    const { activePortfolios } = portfolios;
+
+   
 
     var lineColor;
     var gradientColor;
@@ -43,8 +53,12 @@ function StockPage() {
         return lineColor
     }
 
-    function onClickTradeButton(){
-        console.log("Hello")
+    function onClickTradeButton(){ 
+        console.log(activePortfolios)
+        if(activePortfolios.length === 0){
+            /// No Active Portfolios, show a info modal 
+            
+        }
     }
 
 

@@ -132,13 +132,12 @@ export function changeUserDetails(
       };
       //// Sent the request to backend
       const data = await API.post(APIName, path, requestConfig)
-      //// Dispatch login success as this will set user state in redux
+      //// Dispatch change details success as this will set user state in redux
       dispatch({ type: USER_CHANGEDETAILS_SUCCESS, payload: data })
       //// Set the user in localstorage
       localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {
-      // Error in regsitraing user set the message
-      console.log(error.response.data.errormessage)
+      // Error in changing user details set the message
       dispatch({
         type: USER_CHANGEDETAILS_FAIL,
         payload: error.response.data.errormessage,

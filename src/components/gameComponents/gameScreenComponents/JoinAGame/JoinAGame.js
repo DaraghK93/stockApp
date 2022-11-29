@@ -7,8 +7,8 @@ import {APIName} from '../../../../constants/APIConstants'
 import { API } from "aws-amplify";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
-import {useSelector} from 'react-redux';
-
+import {useSelector,useDispatch} from 'react-redux';
+import {updateActivePortfolios} from '../../../../actions/portfolioActions';
 
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
@@ -17,6 +17,7 @@ function JoinAGame(){
     const [leagueName, setLeagueName] = useState("")
 
     /// Redux
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const {userInfo} = user
     const userToken = userInfo.token
@@ -39,6 +40,11 @@ function JoinAGame(){
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             setLeagueName(res.newLeague.leagueName)
+            if (res.newLeague.active){
+                /// If the game being joined is active then update the active portfolios state in redux 
+                /// Called becuase joining a game will also create a new portfolio for that game 
+                dispatch(updateActivePortfolios(userToken))  
+            }
             setLoading(false)
         }catch(error){
             /// Will be hit if error in the POST 

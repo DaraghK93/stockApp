@@ -92,9 +92,9 @@ function getStockPriceData (stocks) {
 };
 
 // This function makes an API call to the API gateway for the recommender lambda function
-const getRecomms = async (stock) => {
+const getRecomms = async (userID) => {
     // This sets the body of the request to the stock ticker input. This will be changed to take in user ID in the next iteration.
-    var data = '{"stock":' + '"' + stock + '"}';
+    var data = '{"userid":' + '"' + userID + '"}';
     try {
       const resp = await axios({
         method: 'GET',

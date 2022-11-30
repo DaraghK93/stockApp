@@ -47,7 +47,7 @@ const getAllStocks = async (req, res, next) => {
     /// if undefined return the stock summary 
     if(keyword == "undefined"){     
       // For now, this is hardcoded to give 20 recommendations for Disney (DIS). This will be updated tomorrow based on the user's owned stocks. Some console logs have also been left in commented out to make integration and troubleshooting this easier.
-      let recommendData = await stockService.getRecomms("DIS")
+      let recommendData = await stockService.getRecomms("ObjectId('6387ac24d9cd712b834670cb')")
       // console.log("Recommended Data (Promise): ",recommendData.data.message)
       let recs = recommendData.data.message
       // const rec_function = stockService.getStockSummaryRecs(recs)

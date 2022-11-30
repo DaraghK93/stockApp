@@ -1,15 +1,68 @@
 import { Card} from 'react-bootstrap';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 //import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 
 function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, 
-    buyOrSell,gameTradeFee,
-    setQty, qty,
-    maxQuantity, 
-    portfolioBalance, stockPrice, 
-    setNewPortfolioBalance,  }) {
-    // const [max, setMax] = useState("");
+    buyOrSell,
+    gameTradeFee,
+    setQty, 
+    qty,
+    portfolioBalance, 
+    stockPrice, 
+    setNewPortfolioBalance }) {
+
+
+    const [min, setMin] = useState()
+    const [max, setMax] = useState()
+    
+    useEffect(() => {
+        //// Set the max and min values 
+        if (buyOrSell === "Buy"){
+            setMin(1)
+            setMax(portfolioBalance-gameTradeFee)
+        }else if (buyOrSell === "Sell"){
+            setMin(1)
+            setMax(10)
+        }
+
+        //// Only Update the states if within max and min limits 
+        if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= max){
+            /// Calculating the new portfolio balance will differ if its a buy or sell 
+            if(buyOrSell === "Buy"){
+                /// Quantity is in units of stocks 
+                setQty(dollarAmountSelected / stockPrice)
+                /// For Buy the new balance will be the cost of the transaction minus the current balance 
+                setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
+            }else if(buyOrSell === "Sell"){
+                /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
+                setQty(10)
+                setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
+            }
+        }
+    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max])
+
+
+
+    return (
+            <Card className="px-3">
+                <h5 style={{ marginTop: "10px"}}>Quantity</h5>
+                <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
+                    <h2>{parseFloat(qty).toFixed(2)} stocks</h2>
+                     <RangeSlider 
+                        label={"$"}
+                        setter={setDollarAmountSelected}
+                        state={dollarAmountSelected}
+                        min={min}
+                        max={max}
+                        startWidth={"2rem"}
+                        showError={true}
+                    />
+                </Card.Body>
+            </Card>
+    );
+}
+  // const [max, setMax] = useState("");
 
     // const [amount, setAmount] = useState(0);
     // const [stockPrice, setStockPrice] = useState("");
@@ -50,42 +103,6 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
     //     setNewPortfolioBalance((portfolioBalance - (stockPrice * e.target.value)))
     //     setError("")
     // }
-
-
-    useEffect(() => {
-        //// Only Update the states if within max and min limits 
-        if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= portfolioBalance){
-            /// Quantity is in units of stocks 
-            setQty(dollarAmountSelected / stockPrice)
-            /// Calculating the new portfolio balance will differ if its a buy or sell 
-            if(buyOrSell === "Buy"){
-                /// For Buy the new balance will be the cost of the transaction minus the current balance 
-                setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
-            }   
-        }
-    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty])
-
-
-
-    return (
-            <Card className="px-3">
-                <h5 style={{ marginTop: "10px"}}>Quantity</h5>
-                <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
-                    <h2>{parseFloat(qty).toFixed(2)} stocks</h2>
-                     <RangeSlider 
-                        label={"$"}
-                        setter={setDollarAmountSelected}
-                        state={dollarAmountSelected}
-                        min={1}
-                        max={maxQuantity}
-                        startWidth={"2rem"}
-                        showError={true}
-                    />
-                </Card.Body>
-            </Card>
-    );
-}
-
 
 //   <>
 //            <Card>

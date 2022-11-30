@@ -115,6 +115,7 @@ function OrderConfirmationPage() {
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
                 })
+                console.log(res)
                 setGameTradeFee(res.league.tradingFee)
                 /// Set the Iitiliase the new portfolio balance to the remainder of the current 
                 setNewPortfolioBalance(res.remainder)
@@ -197,6 +198,7 @@ function OrderConfirmationPage() {
                                     portfolioBalance={portfolio.portfolioBalance}
                                     newPortfolioBalance={newPortfolioBalance}
                                     dollarAmountSelected={dollarAmountSelected}
+                                    buyOrSell={buyOrSell}
                                 />
                             </Col>
                         </Row>

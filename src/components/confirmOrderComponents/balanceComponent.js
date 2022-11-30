@@ -1,9 +1,13 @@
 import { Card, Container } from "react-bootstrap";
 import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
+import {useEffect,useState} from 'react';
 
-function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance }) {
-    const data = [{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }];
-    const CustomLabel = ({ viewBox, balance = 0 }) => {
+
+
+function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell }) {
+    const [data, setData] = useState(true);
+
+    const CustomLabel = ({ viewBox, balance = 0, text }) => {
         const { cx, cy } = viewBox;
         return (
             <>
@@ -12,12 +16,24 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                 </text>
                 <text x={cx - 37} y={cy + 15}>
                     <tspan style={{ fontSize: "0.8em", fill: "#A9A9A9" }}>
-                        Left to spend
+                        {text}
                     </tspan>
                 </text>
             </>
         );
     };
+
+     useEffect(() => {
+        if(buyOrSell === "Buy"){
+                setData([{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }]);
+            }else if(buyOrSell === "Sell"){
+                setData([{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }])
+            }
+    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance])
+
+
+
+   
 
     return (
         <>
@@ -36,10 +52,18 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                             >
                                 <Cell fill="#1E90FF" />
                                 <Cell fill="#595959" />
-                                <Label
-                                    content={<CustomLabel balance={parseFloat(newPortfolioBalance).toFixed(2)} />}
+                            {buyOrSell === "Buy"?
+                             <Label
+                                    content={<CustomLabel text={"Left to Spend"} balance={parseFloat(newPortfolioBalance).toFixed(2)} />}
                                     position="center"
                                 />
+                            :
+                            <Label
+                                    content={<CustomLabel text={"New Balance"} balance={parseFloat(newPortfolioBalance).toFixed(2)} />}
+                                    position="center"
+                                />
+                            }
+                               
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>

@@ -427,9 +427,140 @@ const joinLeaguebyCode = async (req, res, next) => {
     }
 }
 
+// @desc get leauge by the leagueId. returns all info about the league and also
+// returns a sorted array of portfolios, which will be used as the leaderboard
+// @route get league/:leagueId
+// @access private
+
+const getLeagueById = async (req,res,next) => {
+  try{
+   
+   // check that the leagueId can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.params.leagueId) === false ){
+    // check that the stock ID is correct
+    res.status(404)
+    res.errormessage = 'No league found'
+    return next(
+      new Error(
+        'No portfolio found'
+      )
+    )
+  }
+  // cast to mongoose _id
+  const leagueId = mongoose.Types.ObjectId(req.params.leagueId)
+  const userId = mongoose.Types.ObjectId(req.user.id)
+    const league = await League.aggregate(
+      [
+        {// match on ids and user being in users array
+          '$match': {
+            '_id': leagueId,
+            'users': {$in:[userId]}
+          }
+        }, {// lookup on portfolio values
+          '$lookup': {
+            'from': 'portfolioValues', 
+            'localField': 'portfolios', 
+            'foreignField': '_id', 
+            'as': 'portfolios', 
+            'pipeline': [
+              {// lookup the users wihin this so we can identify each by the portfolio
+                '$lookup': {
+                  'from': 'users', 
+                  'localField': 'userId', 
+                  'foreignField': '_id', 
+                  'as': 'user'
+                }
+              }, {//  make into object
+                '$unwind': {
+                  'path': '$user'
+                }
+              }, {// set user as jst their username
+                '$set': {
+                  'user': '$user.username'
+                }
+              }, {// show totalvalue, username, and valuehistory array
+                '$project': {
+                  'totalValue': 1, 
+                  'user': 1, 
+                  'valueHistory': 1
+                }
+              }
+            ]
+          }
+        },{ // lookup the leagueAdmin to display username
+          '$lookup': {
+            'from': 'users', 
+            'localField': 'leagueAdmin', 
+            'foreignField': '_id', 
+            'as': 'leagueAdmin', 
+            'pipeline': [
+              {
+                '$project': {
+                  'username': 1
+                }
+              }
+            ]
+          }
+        }, { // make into object
+          '$unwind': {
+            'path': '$leagueAdmin'
+          }
+        }, {// make into its own field without the Id
+          '$set': {
+            'leagueAdmin': '$leagueAdmin.username'
+          }
+        }, {// make into objects, will be made back into array after sorting
+          '$unwind': {
+            'path': '$portfolios'
+          }
+        },  { // sort the portfolios array desc.
+             // used as leaderboard
+          '$sort': {
+            'portfolios.totalValue': -1
+          }
+        }, {// group by id and show all fields of league
+          '$group': {
+            '_id': '$_id', 
+            'league': {
+              '$first': '$$ROOT'
+            }, // push the portfolios array to portfolios field
+            'portfolios': {
+              '$push': '$portfolios'
+            }
+          }
+        }, {// make this it's own field
+          '$addFields': {
+            'league.portfolios': '$portfolios'
+          }
+        }, {/// make league the root object
+          '$replaceRoot': {
+            'newRoot': '$league'
+          }
+        }
+      ])
+
+    // check if there is a league for that id that has that user
+    if (league.length===0) {
+    res.status(404)
+    res.errormessage = 'No game found'
+    return next(new Error('No game found'))
+  }
+    
+    res.json(league[0])
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in getting game';
+    res.status(500)
+    return next(err);
+  }
+
+}
+
 module.exports = {
     createLeague,
     getPublicLeagues,
     joinLeaguebyCode,
-    getMyLeagues
+    getMyLeagues,
+    getLeagueById
   }

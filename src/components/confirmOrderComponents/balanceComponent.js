@@ -27,7 +27,6 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, amountSelected, 
                     <h5 style={{ marginTop: "10px" }}>New Portfolio Balance</h5>
                     <p><strong>{portfolioName}</strong>- Available Balance: ${portfolioBalance.toFixed(2)}</p>
                     <ResponsiveContainer width="100%" height={300} margin={100}>
-
                         <PieChart height={260} width={500}>
                             <Pie
                                 startAngle={220}

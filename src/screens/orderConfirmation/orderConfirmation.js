@@ -146,7 +146,7 @@ function OrderConfirmationPage() {
         <>
             {stockLoading || loading || portfolioLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> :
-                <Container>
+                <Container >
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
@@ -174,16 +174,20 @@ function OrderConfirmationPage() {
                         />
                     </Col>
                     {isShownMarketOrder &&
-                        <>
-                            <Col style={{ marginBottom: "0.625rem" }}>
+                    <>
+                    <Row className="my-2" sm={1} md={1} >
+                            <Col>
                                 <QuantitySelect
                                     portfolioBalance={portfolio.portfolioBalance}
-                                    stockprice={stock.daily_change.currentprice}
+                                    stockPrice={stock.daily_change.currentprice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
+                                    amountSelected={amountSelected}
                                     setAmountSelected={setAmountSelected}
                                     setQty={setQty}
                                 />
-                            </Col>
+                                </Col>
+                        </Row>
+                        <Row>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <BalanceComponent
                                     portfolioName={portfolio.portfolioName}
@@ -192,7 +196,9 @@ function OrderConfirmationPage() {
                                     amountSelected={amountSelected}
                                 />
                             </Col>
-                        </>
+                        </Row>
+                    </>
+                        
                     }
                     {isShownLimitOrder &&
                         <>

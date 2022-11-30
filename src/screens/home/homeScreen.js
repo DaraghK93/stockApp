@@ -105,7 +105,7 @@ function HomeScreen() {
         </Row>
       </Container>
       <Row className='py-3 banner'>
-        <p className='quote'>"Slick" - Paul Kelly</p>
+        <p className='quote'>"Slick" - PK</p>
         <p className='quote'>"Future 5 star app" - The Garjin</p>
       </Row>
       <Container className='splash-page-container'>
@@ -178,7 +178,7 @@ function HomeScreen() {
         </Row>
         <Row className='py-3'>
           <Col>
-            <p style={{ textAlign: 'center' }}>Analyse the sentiment of each stock </p>
+            <p style={{ textAlign: 'center' }}>Sentiment breakdown for each stock</p>
           </Col>
         </Row>
         <Row>

@@ -4,8 +4,57 @@ import { Container, Image, Row, Col } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
 import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
+/// API ///
+import { APIName } from '../../constants/APIConstants'
+import { API } from "aws-amplify";
+
+/// Redux ///
+import { useSelector } from 'react-redux';
 
 function IndividualGameScreen() {
+
+    /// League State ///
+    const [loading, setLoading] = useState(true);
+    const [league, setLeague] = useState('');
+    const [error, setError] = useState("");
+
+    /// Redux State ///
+    const user = useSelector((state) => state.user)
+    const { userInfo } = user;
+    const userToken = userInfo.token
+
+    useEffect(() => {
+        /// getStockInfo ///
+        // Description:
+        //  Makes a GET request to the backend route /game/:gameId
+        const getLeagueInfo = async () => {
+            try {
+                // Request is being sent set loading true   
+                setLoading(true);
+                // get the league Id from the href, got last index of last slash and used substring method
+                const leagueId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+                let path = `/api/league/${leagueId}`;
+                let myInit = {
+                    headers: { "x-auth-token": userToken },
+                }
+                const res = await API.get(APIName, path, myInit)
+                console.log(res)
+                // Set the state for the stock and loading to false 
+                setLeague(res)
+                setLoading(false)
+            } catch (error) {
+                // Log the error 
+                console.log(error)
+                // Set the error message to be displayed on the page 
+                setError(error.response.data.errormessage)
+                setLoading(false)
+            }
+        }
+        getLeagueInfo();
+    }, [userToken])
+
+
+
 
     const data = {
         name: "PortfolioC", valueHistory: [
@@ -58,18 +107,18 @@ function IndividualGameScreen() {
         else if (e.target.id === "3") {
             setScreen(
                 <>
-                <Container>
-                    <Row>
-                        <GamePortfolio data={data.valueHistory} name={data.name} />
-                    </Row>
-                    <Row>
-                        <Col>
-                            <HoldingsCard data={data.holdings} remainder={data.remainder} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <h2>Transaction History here</h2>
-                    </Row>
+                    <Container>
+                        <Row>
+                            <GamePortfolio data={data.valueHistory} name={data.name} />
+                        </Row>
+                        <Row>
+                            <Col>
+                                <HoldingsCard data={data.holdings} remainder={data.remainder} />
+                            </Col>
+                        </Row>
+                        <Row>
+                            <h2>Transaction History here</h2>
+                        </Row>
                     </Container>
                 </>
 
@@ -95,9 +144,9 @@ function IndividualGameScreen() {
 
             <Container>
                 <h3>Timeline goes here</h3>
-                </Container>
-                {screen}
-      
+            </Container>
+            {screen}
+
         </>
     )
 }

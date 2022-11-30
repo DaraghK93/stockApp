@@ -56,8 +56,9 @@ function Header() {
                 </Nav>
                 <Nav>
                   <NavDropdown  className="justify-content-end userDropDown"  title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
-                  <NavDropdown.Item as={Link} to="/profile">My Profile</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/myportfolios">My Portfolios</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/myportfolios">Portfolios</NavDropdown.Item>
+                  <div class="dropdown-divider"></div>
                   <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>

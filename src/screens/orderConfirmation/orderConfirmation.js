@@ -6,10 +6,10 @@ import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
 import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
-import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQuantitySelect";
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
+import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 
 import {useNavigate} from "react-router-dom"
 
@@ -37,6 +37,7 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+    const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
    
 
     //// Portfolio State ////
@@ -112,6 +113,7 @@ function OrderConfirmationPage() {
                 const res = await API.get(APIName, path, myInit)
                 /// Set the current portfolio 
                 setPortfolio({
+                    id: res._id,
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
                 })
@@ -138,10 +140,6 @@ function OrderConfirmationPage() {
             getPortfolioInfo()
         }
     },[portfolioId,activePortfolios,loading, userToken,navigate])
-
-
-
-
     
 
     return (
@@ -218,16 +216,18 @@ function OrderConfirmationPage() {
                             </Col>
                         </>
                     }
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <OrderSummary
+                    <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}
                             orderType={orderType}
                             newPortfolioBalance={newPortfolioBalance}
                             amountSelected={amountSelected}
-                            qty={qty}
-                        />
-                    </Col>
-                    <BottomStickyButton text="Confirm Order"></BottomStickyButton>
+                            qty={qty} 
+                            stockId={stock.id}
+                            portfolioId={portfolio.id}
+                            limitPrice={limitPrice}
+                            stockName={stock.longname}
+                />
+                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

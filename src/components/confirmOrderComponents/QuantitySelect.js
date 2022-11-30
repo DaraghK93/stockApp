@@ -4,12 +4,15 @@ import { useState, useEffect } from 'react';
 import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 
 function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, 
-    buyOrSell,
-    
+    buyOrSell,gameTradeFee,
+    maxQuantity, 
     portfolioBalance, stockPrice, 
     setNewPortfolioBalance, setQty }) {
-    // const [max, setMax] = useState("");
+    
     const [quantity, setQuantity] = useState(0);
+
+    // const [max, setMax] = useState("");
+
     // const [amount, setAmount] = useState(0);
     // const [stockPrice, setStockPrice] = useState("");
     // const [error, setError] = useState("");
@@ -59,7 +62,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
             /// New portfolio balance is if the trade goes through 
             if(buyOrSell === "Buy"){
                 /// For Buy the new balance will be the cost of the transaction minus the current balance 
-                setNewPortfolioBalance((portfolioBalance - dollarAmountSelected))
+                setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
             }
         }
     },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,setQuantity,stockPrice])
@@ -76,7 +79,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
                         setter={setDollarAmountSelected}
                         state={dollarAmountSelected}
                         min={1}
-                        max={portfolioBalance}
+                        max={maxQuantity}
                         startWidth={"2rem"}
                         showError={true}
                     />

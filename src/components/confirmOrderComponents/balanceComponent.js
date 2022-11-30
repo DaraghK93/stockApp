@@ -3,8 +3,6 @@ import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
 
 function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance }) {
     const data = [{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }];
-
-    console.log(data)
     const CustomLabel = ({ viewBox, balance = 0 }) => {
         const { cx, cy } = viewBox;
         return (

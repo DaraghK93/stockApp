@@ -46,6 +46,10 @@ function OrderConfirmationPage() {
     const [portfolioLoading, setPortfolioLoading] = useState(true)
     const [portfolioError, setPortfolioError] = useState()
     const [newPortfolioBalance, setNewPortfolioBalance] = useState()
+
+    /// Game State ///
+    const [gameTradeFee, setGameTradeFee] = useState()
+
     
 
     /// Redux State ///
@@ -117,6 +121,7 @@ function OrderConfirmationPage() {
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
                 })
+                setGameTradeFee(res.league.tradingFee)
                 /// Set the Iitiliase the new portfolio balance to the remainder of the current 
                 setNewPortfolioBalance(res.remainder)
                 setPortfolioLoading(false)
@@ -185,6 +190,8 @@ function OrderConfirmationPage() {
                                     setDollarAmountSelected={setDollarAmountSelected}
                                     setQty={setQty}
                                     buyOrSell={buyOrSell}
+                                    gameTradeFee={gameTradeFee}
+                                    maxQuantity={portfolio.portfolioBalance-gameTradeFee}
                                 />
                                 </Col>
                         </Row>

@@ -5,9 +5,10 @@ import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 
 function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, 
     buyOrSell,gameTradeFee,
+    setQty, qty,
     maxQuantity, 
     portfolioBalance, stockPrice, 
-    setNewPortfolioBalance, setQty }) {
+    setNewPortfolioBalance,  }) {
     
     const [quantity, setQuantity] = useState(0);
 
@@ -58,12 +59,12 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
         //// Only Update the states if within max and min limits 
         if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= portfolioBalance){
             /// Quantity is in units of stocks 
-            setQuantity(dollarAmountSelected / stockPrice)
-            /// New portfolio balance is if the trade goes through 
+            setQty(dollarAmountSelected / stockPrice)
+            /// Calculating the new portfolio balance will differ if its a buy or sell 
             if(buyOrSell === "Buy"){
                 /// For Buy the new balance will be the cost of the transaction minus the current balance 
                 setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
-            }
+            }   
         }
     },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,setQuantity,stockPrice])
 
@@ -73,7 +74,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
             <Card className="px-3">
                 <h5 style={{ marginTop: "10px"}}>Quantity</h5>
                 <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
-                    <h2>{parseFloat(quantity).toFixed(2)} stocks</h2>
+                    <h2>{parseFloat(qty).toFixed(2)} stocks</h2>
                      <RangeSlider 
                         label={"$"}
                         setter={setDollarAmountSelected}

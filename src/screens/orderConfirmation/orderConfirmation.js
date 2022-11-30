@@ -192,6 +192,7 @@ function OrderConfirmationPage() {
                                     buyOrSell={buyOrSell}
                                     gameTradeFee={gameTradeFee}
                                     maxQuantity={portfolio.portfolioBalance-gameTradeFee}
+                                    qty={qty}
                                 />
                                 </Col>
                         </Row>

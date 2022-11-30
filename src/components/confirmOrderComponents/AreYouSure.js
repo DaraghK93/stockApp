@@ -56,7 +56,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                 /// Send the request 
                 const res = await API.post(APIName, path, myInit)
                 /// Set the success message using the
-                setSuccess(`Order Succesful! $${res.remainder.toFixed(2)} avaiable left to spend`)
+                setSuccess(`Order Successful! $${res.remainder.toFixed(2)} available left to spend`)
                 setLoading(false)
         }catch(error){
             setError(error.response.data.errormessage)
@@ -82,6 +82,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
             {success && <MessageAlert variant="success">{success}</MessageAlert>}
             {loading && <LoadingSpinner/>}
             <OrderSummary
+                    stockName={stockName}
                     buyOrSell={buyOrSell}
                     orderType={orderType}
                     newPortfolioBalance={newPortfolioBalance}

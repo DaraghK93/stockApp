@@ -6,7 +6,6 @@ import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
 import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
-import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQuantitySelect";
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
@@ -217,15 +216,6 @@ function OrderConfirmationPage() {
                             </Col>
                         </>
                     }
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <OrderSummary
-                            buyOrSell={buyOrSell}
-                            orderType={orderType}
-                            newPortfolioBalance={newPortfolioBalance}
-                            amountSelected={amountSelected}
-                            qty={qty}
-                        />
-                    </Col>
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}
                             orderType={orderType}

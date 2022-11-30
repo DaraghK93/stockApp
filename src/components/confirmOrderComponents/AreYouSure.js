@@ -7,7 +7,7 @@ import { API } from "aws-amplify";
 import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../widgets/LoadingSpinner/LoadingSpinner";
 
-function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,amountSelected,qty,limitPrice,stockName}){
+function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,dollarAmountSelected,qty,limitPrice,stockName,gameTradeFee}){
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -86,7 +86,8 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                     buyOrSell={buyOrSell}
                     orderType={orderType}
                     newPortfolioBalance={newPortfolioBalance}
-                    amountSelected={amountSelected}
+                    dollarAmountSelected={dollarAmountSelected}
+                    gameTradeFee={gameTradeFee}
                     qty={qty}/>
         </Modal.Body>
         <Modal.Footer>

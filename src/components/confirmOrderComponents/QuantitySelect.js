@@ -1,5 +1,5 @@
 import { Card} from 'react-bootstrap';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 //import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 
@@ -9,9 +9,6 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
     maxQuantity, 
     portfolioBalance, stockPrice, 
     setNewPortfolioBalance,  }) {
-    
-    const [quantity, setQuantity] = useState(0);
-
     // const [max, setMax] = useState("");
 
     // const [amount, setAmount] = useState(0);
@@ -66,7 +63,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
                 setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
             }   
         }
-    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,setQuantity,stockPrice])
+    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty])
 
 
 

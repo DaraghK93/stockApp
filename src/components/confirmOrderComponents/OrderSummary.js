@@ -1,6 +1,10 @@
 import { Container, Table } from "react-bootstrap";
 
-function OrderSummary({ stockName, buyOrSell, orderType, amountSelected, newPortfolioBalance, qty}) {
+function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
+
+    console.log(dollarAmountSelected)
+    console.log(gameTradeFee)
+    console.log(dollarAmountSelected+gameTradeFee)
     return (
         <>
                 <Container>
@@ -24,12 +28,27 @@ function OrderSummary({ stockName, buyOrSell, orderType, amountSelected, newPort
                                 <td>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} stocks</td>
                             </tr>
                             <tr>
-                                <td>New Portfolio Balance</td>
-                                <td>${parseFloat(newPortfolioBalance).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                <td>Trade Fee</td>
+                                <td>${gameTradeFee}</td>
                             </tr>
                             <tr>
-                                <td>Total Cost</td>
-                                <td>${parseFloat(amountSelected).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                <td>Quantity ($)</td>
+                                <td>${parseFloat(dollarAmountSelected).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                            </tr>
+                            {buyOrSell === "Buy" ?
+                                <tr>
+                                    <td>Total Cost</td>
+                                    <td>${(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                </tr>
+                            :
+                            <tr>
+                                    <td>Sale Value</td>
+                                    <td>${(parseFloat(dollarAmountSelected)).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                            </tr>
+                            } 
+                            <tr>
+                                <td>New Portfolio Balance</td>
+                                <td>${parseFloat(newPortfolioBalance).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                             </tr>
                         </tbody>
                     </Table>

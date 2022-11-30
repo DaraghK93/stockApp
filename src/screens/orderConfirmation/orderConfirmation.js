@@ -22,23 +22,23 @@ import { API } from "aws-amplify";
 
 
 function OrderConfirmationPage() {
-
-
     /// Stock State ///
     const [stockLoading, setStockLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
     
     /// Order State ////
-    const [dollarAmountSelected, setDollarAmountSelected] = useState("")
+    const [dollarAmountSelected, setDollarAmountSelected] = useState(0)
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
-    const [qty, setQty] = useState("");
+    const [qty, setQty] = useState("0");
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
     const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
    
+    /// Game State ///
+    const [gameTradeFee, setGameTradeFee] = useState()
 
     //// Portfolio State ////
     const [portfolio, setPortfolio] = useState({})
@@ -46,11 +46,6 @@ function OrderConfirmationPage() {
     const [portfolioLoading, setPortfolioLoading] = useState(true)
     const [portfolioError, setPortfolioError] = useState()
     const [newPortfolioBalance, setNewPortfolioBalance] = useState()
-
-    /// Game State ///
-    const [gameTradeFee, setGameTradeFee] = useState()
-
-    
 
     /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
@@ -61,7 +56,6 @@ function OrderConfirmationPage() {
 
     /// naviagte - to redirect 
     const navigate = useNavigate()
-
 
     useEffect(() => {
         /// getStockInfo ///
@@ -241,6 +235,7 @@ function OrderConfirmationPage() {
                             portfolioId={portfolio.id}
                             limitPrice={limitPrice}
                             stockName={stock.longname}
+                            gameTradeFee={gameTradeFee}
                 />
                     <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>

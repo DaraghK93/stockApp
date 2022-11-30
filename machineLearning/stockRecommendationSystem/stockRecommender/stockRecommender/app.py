@@ -87,7 +87,7 @@ def symbol_to_index(symbol):
             'Message': 'Error encountered in symbol_to_index function.',
         }    
 
-def get_user_stock(userID, client), :
+def get_user_stock(userID, client):
     try:
         # Load the MongoURI from the dotenv file (Localhost)
         # load_dotenv()
@@ -251,9 +251,11 @@ def lambda_handler(event: dict, context: object):
     body = event['body']
     # environment will either be dev or prod 
     environment = os.environ['ENVIRONMENT']
+    body = json.loads(body)
+    
     if environment == 'prod':
         # All the production specific stuff do here 
-        body = json.loads(body)
+        # body = json.loads(body)
         # Will have to get MongoURI for param store here 
         mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
     elif environment == 'dev': 
@@ -262,17 +264,17 @@ def lambda_handler(event: dict, context: object):
     client = getMongoConnection(mongoURI)
     
     # Print statements are helpful for debugging the program once deployed
-    print("Body type:", type(body))
-    print("Body:", body)
+    # print("Body type:", type(body))
+    # print("Body:", body)
 
-    stock = body["stock"]
+    userID = body["userid"]
 
     # Print statements are helpful for debugging the program once deployed
-    print("Stock type:", type(stock))
-    print("Stock:", stock)
+    # print("Stock type:", type(stock))
+    # print("Stock:", stock)
 
     try:
-        recomm = give_recommendations(stock, client)
+        recomm = give_recommendations(userID, client)
         return {
         "statusCode": 200,
         "body": json.dumps({

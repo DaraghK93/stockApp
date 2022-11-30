@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
 import { Container, Image, Row, Col } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
+import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
 
 function IndividualGameScreen() {
 
@@ -39,6 +40,13 @@ function IndividualGameScreen() {
     const [screen, setScreen] = useState("")
     const [active, setActive] = useState("4")
 
+
+    useEffect(() => {
+        setScreen(LeaderBoard)
+        setActive("4")
+    }, [])
+
+
     const disPlayScreen = (e) => {
         setActive(e.target.id)
         if (e.target.id === "1") {
@@ -50,6 +58,7 @@ function IndividualGameScreen() {
         else if (e.target.id === "3") {
             setScreen(
                 <>
+                <Container>
                     <Row>
                         <GamePortfolio data={data.valueHistory} name={data.name} />
                     </Row>
@@ -61,12 +70,16 @@ function IndividualGameScreen() {
                     <Row>
                         <h2>Transaction History here</h2>
                     </Row>
+                    </Container>
                 </>
 
             )
         }
         else if (e.target.id === "4") {
-            setScreen(<><br></br><h2>This is Leaderboard screen</h2></>)
+            setScreen(
+                <>
+                    <LeaderBoard />
+                </>)
         }
     }
 
@@ -82,8 +95,9 @@ function IndividualGameScreen() {
 
             <Container>
                 <h3>Timeline goes here</h3>
+                </Container>
                 {screen}
-            </Container>
+      
         </>
     )
 }

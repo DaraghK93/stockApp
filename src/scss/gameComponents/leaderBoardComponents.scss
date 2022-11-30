@@ -1,0 +1,81 @@
+@import "../global_variables.scss";
+
+.leaderBoardStyle {
+    color: $leaderBoardTxt;
+    background-color: $leaderBoardBg;
+    // overflow:none;
+
+}
+
+.leaderboradRowStyle {
+    background-color: $leaderBoardRow;
+    vertical-align: middle;
+    color: $leaderBoardTxt;
+    border-bottom-color: transparent;
+}
+
+.leftCurvedBorders {
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.rightCurvedBorders {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
+
+.leaderBoardAvatarStyle {
+    width: 2.2rem;
+    height: 2.2rem;
+    display: block;
+    // vertical-align: middle;
+    border-radius: 50%;
+    border: 2px solid $leaderBoardTxt
+}
+
+.leaderBoardHeaderStyle {
+    vertical-align: middle;
+    color: $leaderBoardTxt;
+    border-bottom-color: transparent;
+    font-size: 70%;
+    text-align: center;
+}
+
+
+.top3ImgStyle {
+    max-width: 10rem;
+    width: 100%;
+    border-radius: 50%;
+    border: 2px solid $leaderBoardTxt;
+}
+
+.secondplace {
+    margin-top: 5rem;
+}
+
+.firstplace {
+    margin-top: 0;
+}
+
+.thirdplace {
+    margin-top: 6rem;
+}
+
+.rankingText {
+    color:$submit
+}
+
+@media only screen and (min-width: 1200px){
+    .secondplace {
+        margin-top: 7rem;
+    }
+    
+    .firstplace {
+        margin-top: 0;
+    }
+    
+    .thirdplace {
+        margin-top: 9rem;
+    }
+    
+}

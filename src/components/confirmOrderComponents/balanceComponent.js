@@ -4,7 +4,7 @@ import {useEffect,useState} from 'react';
 
 
 
-function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell }) {
+function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell, stockPrice, holding }) {
     const [data, setData] = useState(true);
 
     const CustomLabel = ({ viewBox, balance = 0, text }) => {
@@ -23,11 +23,11 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         );
     };
 
-     useEffect(() => {
+    useEffect(() => {
         if(buyOrSell === "Buy"){
                 setData([{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }]);
             }else if(buyOrSell === "Sell"){
-                setData([{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }])
+                setData([{ value: parseFloat(dollarAmountSelected) }, { value:(holding.units*stockPrice)-dollarAmountSelected}])
             }
     }, [buyOrSell,dollarAmountSelected,newPortfolioBalance])
 

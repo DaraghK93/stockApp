@@ -149,8 +149,18 @@ function OrderConfirmationPage() {
             getPortfolioInfo()
         }
     },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
+
+
+    // useEffect(() => {
+    //     if(buyOrSell === "Buy"){
+    //         setDollarAmountSelected(1)
+    //     }else if(buyOrSell === "Sell"){
+    //         setDollarAmountSelected(1)
+    //     }
+    // },[buyOrSell])
+
+
    
-    console.log(holding)
     return (
         <>
             {stockLoading || loading || portfolioLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
@@ -209,6 +219,8 @@ function OrderConfirmationPage() {
                                     newPortfolioBalance={newPortfolioBalance}
                                     dollarAmountSelected={dollarAmountSelected}
                                     buyOrSell={buyOrSell}
+                                    holding={holding}
+                                    stockPrice={stock.daily_change.currentprice}
                                 />
                             </Col>
                         </Row>

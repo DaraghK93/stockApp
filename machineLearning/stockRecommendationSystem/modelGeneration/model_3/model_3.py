@@ -284,10 +284,12 @@ def symbol_to_index(symbol):
 
 # User with portfolio
 # print(give_recommendations("dknee12345", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
-print(give_recommendations("ObjectId('638529d8aa38c5b63ccaa8c7')", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+# print(give_recommendations("ObjectId('638529d8aa38c5b63ccaa8c7')", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
 # User with no portfolios
 # print(get_user_stock("dknee12345sd"))
 
 # User with portfolio
 # print(get_user_stock("dknee12345"))
+
+print(read_data())

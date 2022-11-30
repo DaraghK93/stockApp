@@ -189,7 +189,6 @@ def give_recommendations(username, client,  print_recommendation=False, print_re
     try:
         # Read in stock data from the csv file
         stocks = pd.read_csv(f'{dir_path}/DataSet/stock_data.csv')
-        # stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
         # Read in pickle file of vector data
         cos_sim_data = pd.read_pickle(f'{dir_path}/DataSet/cosine_sim_data.pkl')
 

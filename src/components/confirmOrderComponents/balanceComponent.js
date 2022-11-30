@@ -50,12 +50,12 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                                 <Cell fill="#595959" />
                             {buyOrSell === "Buy"?
                              <Label
-                                    content={<CustomLabel text={"Left to Spend"} balance={parseFloat(newPortfolioBalance).toFixed(2)} />}
+                                    content={<CustomLabel text={"Left to Spend"} balance={parseFloat(newPortfolioBalance)} />}
                                     position="center"
                                 />
                             :
                             <Label
-                                    content={<CustomLabel text={"New Balance"} balance={parseFloat(newPortfolioBalance).toFixed(2)} />}
+                                    content={<CustomLabel text={"New Balance"} balance={parseFloat(newPortfolioBalance)} />}
                                     position="center"
                                 />
                             }

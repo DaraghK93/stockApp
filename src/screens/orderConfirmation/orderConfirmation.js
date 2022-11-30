@@ -132,7 +132,6 @@ function OrderConfirmationPage() {
                 setNewPortfolioBalance(res.remainder)
                 setPortfolioLoading(false)
             }catch(error){
-                console.log(error)
                 setPortfolioError(error.response.data.errormessage)
                 setPortfolioLoading(false)
             }

@@ -40,7 +40,7 @@ function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, n
                             :
                             <tr>
                                     <td>Sale Value</td>
-                                    <td>${(parseFloat(dollarAmountSelected)).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                    <td>${(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
                             </tr>
                             } 
                             <tr>

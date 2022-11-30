@@ -26,14 +26,10 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
     useEffect(() => {
         if(buyOrSell === "Buy"){
                 setData([{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }]);
-            }else if(buyOrSell === "Sell"){
-                setData([{ value: parseFloat(dollarAmountSelected) }, { value:(holding.units*stockPrice)-dollarAmountSelected}])
-            }
-    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance])
-
-
-
-   
+        }else if(buyOrSell === "Sell"){
+                setData([{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}])
+        }
+    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding])
 
     return (
         <>

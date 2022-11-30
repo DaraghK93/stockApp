@@ -2,9 +2,6 @@ import { Container, Table } from "react-bootstrap";
 
 function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
 
-    console.log(dollarAmountSelected)
-    console.log(gameTradeFee)
-    console.log(dollarAmountSelected+gameTradeFee)
     return (
         <>
                 <Container>

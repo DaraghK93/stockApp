@@ -121,9 +121,11 @@ function OrderConfirmationPage() {
                     res.holdings.forEach(item =>{
                         /// If the user has a postion in this stock it will match the stock ID 
                         if(item.stockId === stock.id){
-                            setHolding(item)
+                            setHolding(item.units)
                         }
                     });
+                }else{
+                    setHolding({})
                 }
                 setGameTradeFee(res.league.tradingFee)
                 /// Set the Iitiliase the new portfolio balance to the remainder of the current 
@@ -151,21 +153,23 @@ function OrderConfirmationPage() {
     },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
 
 
-    // useEffect(() => {
-    //     if(buyOrSell === "Buy"){
-    //         setDollarAmountSelected(1)
-    //     }else if(buyOrSell === "Sell"){
-    //         setDollarAmountSelected(1)
-    //     }
-    // },[buyOrSell])
+    /// buy/sell reset ///
+    // This useEffect id used to reset values whne the user swiches between buy/sell
+    // Need to reset the dollar amount as it may not make sense when you switch from buy to sell 
+    useEffect(() => {
+        if(buyOrSell === "Buy"){
+            setDollarAmountSelected(1)
+        }else if(buyOrSell === "Sell"){
+            setDollarAmountSelected(1)
+        }
+    },[buyOrSell])
 
-
-   
     return (
         <>
-            {stockLoading || loading || portfolioLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-                portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> :
-                <Container >
+            { stockLoading || loading || portfolioLoading ? <LoadingSpinner /> 
+            : error ? <MessageAlert variant='danger'>{error}</MessageAlert> 
+            : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> 
+            : <Container >
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />

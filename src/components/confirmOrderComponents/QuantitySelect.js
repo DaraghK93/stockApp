@@ -24,7 +24,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
             setMax(portfolioBalance-gameTradeFee)
         }else if (buyOrSell === "Sell"){
             setMin(1)
-            setMax(holding.units*stockPrice)
+            setMax(holding*stockPrice)
         }
 
         //// Only Update the states if within max and min limits 
@@ -41,8 +41,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
                 setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
             }
         }
-    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max])
-
+    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max,holding])
 
 
     return (
@@ -58,6 +57,8 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
                         max={max}
                         startWidth={"2rem"}
                         showError={true}
+                        reset={buyOrSell}
+                        resetValue={"1"}
                     />
                 </Card.Body>
             </Card>

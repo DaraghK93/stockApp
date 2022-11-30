@@ -3,9 +3,91 @@ import json
 import pandas as pd
 import os
 
+# For AWS Param Store
+import boto3
+# For MongoDB Connection
+import pymongo
+
 # Setting directory path so the pickle and csv files can be read in
 dir_path = os.path.dirname(os.path.realpath(__file__))
+
+def getSecret(secretName,region="eu-north-1"):
+    """
+    Description:
+        This function is used to get a secret from the parameter store in AWS. 
+    Args:
+        secretName (string): The name of the secret found in the parameter store. 
+        region (string): The region the secret is stored in, default to eu-north-1. 
+    Returns:
+        response (dict): Dictonary object with the secret name under "Name" key and value under "Value" key
+    """ 
+    client = boto3.client('ssm',region)
+    try:
+        response = client.get_parameter(
+            Name=secretName,
+            WithDecryption=True
+        )
+        return response
+    except Exception as e:
+        print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
+
+def getMongoConnection(URI):
+    """
+    Description:
+        Gets a client connection to MongoDB
+    Args:
+        URI (string): A connection string for mongo Database 
+    Returns:
+        client(MongoClient): MongoClient object which can be used to execute commands on the database. 
+    """
+    client = pymongo.MongoClient(URI)
+    if client is None:
+        print(f'ERROR:Could not connect to MongoDB, client obeject is none')
+    else:
+        return client
+
+def index_to_symbol(index):
+    """Function used to convert from index number to ticker symbol.
     
+    Args:
+        index (int): This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
+
+    Returns:
+        str: Returns the corresponding ticker symbol in a string for the company of index "index"  
+    """
+    try:
+        stocks = pd.read_csv(f'{dir_path}/DataSet/stock_data.csv')
+        symbol = stocks.iloc[index]
+        symbol = symbol[2]
+        return symbol
+    except Exception as e:
+        print(f'ERROR:Error encountered in index_to_symbol function.\nException Details:\n\t{e}')
+        return {
+            'Message': 'Error encountered in index_to_symbol function.',
+        }
+
+def symbol_to_index(symbol):
+    """Function used to convert from a ticker symbol input to the index of the symbol.
+
+    Args:
+        symbol (str): Ticker symbol for the company you'd like the index of
+
+    Returns:
+        int: This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
+    """
+    try:
+        stocks = pd.read_csv(f'{dir_path}/DataSet/stock_data.csv')
+        index = stocks.loc[stocks['symbol'].isin([symbol])].index
+        index = index[0]
+        return index
+    except Exception as e:
+        print(f'ERROR:Error encountered in symbol_to_index function.\nException Details:\n\t{e}')
+        return {
+            'Message': 'Error encountered in symbol_to_index function.',
+        }    
+
+
+
 def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
 
@@ -63,46 +145,6 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
             'Message': 'Error encountered in giveRecommendations function.',
         }    
 
-def index_to_symbol(index):
-    """Function used to convert from index number to ticker symbol.
-    
-    Args:
-        index (int): This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
-
-    Returns:
-        str: Returns the corresponding ticker symbol in a string for the company of index "index"  
-    """
-    try:
-        stocks = pd.read_csv(f'{dir_path}/DataSet/stock_data.csv')
-        symbol = stocks.iloc[index]
-        symbol = symbol[2]
-        return symbol
-    except Exception as e:
-        print(f'ERROR:Error encountered in index_to_symbol function.\nException Details:\n\t{e}')
-        return {
-            'Message': 'Error encountered in index_to_symbol function.',
-        }
-
-def symbol_to_index(symbol):
-    """Function used to convert from a ticker symbol input to the index of the symbol.
-
-    Args:
-        symbol (str): Ticker symbol for the company you'd like the index of
-
-    Returns:
-        int: This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
-    """
-    try:
-        stocks = pd.read_csv(f'{dir_path}/DataSet/stock_data.csv')
-        index = stocks.loc[stocks['symbol'].isin([symbol])].index
-        index = index[0]
-        return index
-    except Exception as e:
-        print(f'ERROR:Error encountered in symbol_to_index function.\nException Details:\n\t{e}')
-        return {
-            'Message': 'Error encountered in symbol_to_index function.',
-        }    
-    
 
 def lambda_handler(event: dict, context: object):
     """This is the lambda handler function. It runs the recommender function and returns the output of it as a JSON string.

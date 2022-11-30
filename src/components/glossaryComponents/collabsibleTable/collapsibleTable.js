@@ -313,9 +313,9 @@ function CollapsibleTable() {
           <Accordion.Item eventKey="3">
             <Accordion.Header><span className="semibolded">How risky is investing?</span></Accordion.Header>
             <Accordion.Body>
-              <Container className="ytvid">
-              <center><YouTube videoId="thNrIsU88y8"  className="iframe"/></center></Container>
-            {/* <Container className="ytvid"><iframe className="iframe" width="300rem" height="168rem" src="https://www.youtube.com/embed/thNrIsU88y8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></Container> */}
+              {/* <Container className="ytvid"> */}
+              {/* <center><YouTube videoId="thNrIsU88y8" width="300rem" height="168rem" className="iframe"/></center></Container> */}
+            <Container className="ytvid"><iframe className="iframe" width="300rem" height="168rem" src="https://www.youtube.com/embed/thNrIsU88y8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></Container>
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>

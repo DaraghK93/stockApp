@@ -132,9 +132,9 @@ function StockPage() {
                             <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"No Active Portofolios"} 
                             bodyText={
                                 <>
-                                <p>It appears you dont have an active portfolio</p>
-                                <p>To be able to trade stocks you need to be part of an active game</p>
-                                <p>You can view your active games or create a new game from the <Link to={"/game/"}>Game Screen</Link> </p>
+                                <p>It appears you don't have an active portfolio!</p>
+                                <p>To be able to trade stocks you need to be part of an active game.</p>
+                                <p>You can view your active games or create a new game from the <Link className="linkStyle" to={"/game/"}>Game Screen</Link> </p>
                                 </>
                                 }/>
                         </Col>

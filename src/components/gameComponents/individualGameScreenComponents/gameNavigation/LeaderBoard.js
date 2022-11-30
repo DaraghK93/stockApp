@@ -12,7 +12,7 @@ function LeaderBoard({ leaderBoardInfo }) {
         if (leaderBoardInfo.length > 3) {
             setShowTop3(true)
         }
-    },[leaderBoardInfo])
+    }, [leaderBoardInfo])
 
     const columns = [
         { label: "Rank", accessor: "position", sortable: false },
@@ -25,7 +25,7 @@ function LeaderBoard({ leaderBoardInfo }) {
     return (
 
         <>
-            <div className="leaderBoardStyle">
+            <div className={showTop3 ? "leaderBoardStyle" : "leaderBoardStyle2"}>
                 <Container style={{ width: "95%" }} >
                     <center>
                         <br></br><br></br>

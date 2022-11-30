@@ -44,6 +44,8 @@
 @import "./gameComponents/createGameScreen.scss";
 
 @import "./gameComponents/individualGameScreen.scss";
+@import "./gameComponents/leaderBoardComponents.scss";
+
 
 /* Splash Page */
 @import "./splashPageComponents/splashPageContainer.scss";
@@ -120,6 +122,6 @@ h1,
 
 .linkStyle {
     text-decoration:underline !important;
-    color: blue !important;
+    color: #0275d8 !important;
     font-weight:bold;
 }

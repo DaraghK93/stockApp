@@ -24,7 +24,8 @@ const getStockPrice = async (req, res, next) => {
     res.json(stock[0].prices);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in getStockPrice';
+    res.status(500)
+    res.errormessage = 'Server error in get Stock Price';
     return next(err);
   }
 };
@@ -71,7 +72,8 @@ const getAllStocks = async (req, res, next) => {
     }
   }catch(err){
     console.error(err.message);
-    res.errormessage = 'Server error in getAllStocks';
+    res.status(500)
+    res.errormessage = 'Server error in get All Stocks';
     return next(err);
   }
 }
@@ -92,7 +94,8 @@ const addStock = async (req, res, next) => {
     res.json({ stock });
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in addStock';
+    res.status(500)
+    res.errormessage = 'Server error in add Stock';
     return next(err);
   }
 };
@@ -122,7 +125,8 @@ const updateStock = async (req, res, next) => {
     res.json(stock);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in updateStock';
+    res.status(500)
+    res.errormessage = 'Server error in update Stock';
     return next(err);
   }
 };
@@ -182,7 +186,8 @@ const getStockBySymbol = async (req, res, next) => {
     res.json(returnStocks);
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error in getStockBySymbol';
+    res.status(500)
+    res.errormessage = 'Server error in get Stock By Symbol';
     return next(err);
   }
 };

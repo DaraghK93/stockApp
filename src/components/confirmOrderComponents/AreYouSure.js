@@ -56,7 +56,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                 /// Send the request 
                 const res = await API.post(APIName, path, myInit)
                 /// Set the success message using the
-                setSuccess(`Order Successful! $${res.remainder.toFixed(2)} available left to spend`)
+                setSuccess(`Order Successful! $${res.remainder.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} available left to spend`)
                 setLoading(false)
         }catch(error){
             setError(error.response.data.errormessage)

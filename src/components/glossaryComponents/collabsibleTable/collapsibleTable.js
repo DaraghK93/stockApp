@@ -53,7 +53,10 @@ function CollapsibleTable() {
               <p>The stock prices are updated every 20 minutes. Performance and database storage costs a lot
               of money. As we are a not-for-profit organisation, at the moment, we decided that updating every
               second or every minute may be too costly. Maybe in the future as the application expands, the 
-              team could investigate the possibility of increasing the frequency at which the prices update.</p>
+              team could investigate the possibility of increasing the frequency at which the prices update.
+              Stocks can be found on exchanges such as the New York Stock Exchange. The trading hours of these
+              exchanges vary but in general the US exchanges are open between 9am - 4pm EST. As such, the stock
+              prices will only update between these times.</p>
               <p>The price of any stock can be found <a className="linkStyle" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">here</a>.</p>
             </Accordion.Body>
           </Accordion.Item>
@@ -209,8 +212,54 @@ function CollapsibleTable() {
               and then entering the code that they should have provided to you.</p>
             </Accordion.Body>
           </Accordion.Item>
+          <Accordion.Item eventKey="6">
+          <Accordion.Header><span className="semibolded">How can I create a league?</span></Accordion.Header>
+            <Accordion.Body>
+              <p>Creating a league can be done through the game screen. The are a number of different settings
+                that a user can apply to the league, so feel free to customise as you wish. </p>
+              <p>You can start creating a league by clicking <Link className="linkStyle" to="/game">here</Link> and 
+              choosing 'Create a Game'. This will bring you through each step needed to create a game.</p>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="7">
+          <Accordion.Header><span className="semibolded">What is a value based league?</span></Accordion.Header>
+            <Accordion.Body>
+              <p>A value based league is one of two game types available to users. In a value based league, members will try and 
+                increase the value of their portfolio to try and reach a target value. For example, in a game with a starting
+                value of $1,000, the aim of the game could be the first to reach $1,100. The game will continue until someone reaches
+                the goal.  </p>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="8">
+          <Accordion.Header><span className="semibolded">In a value based league, what is a recommended value to choose?</span></Accordion.Header>
+            <Accordion.Body>
+              <p>Choosing the right target value for a league can be difficult. The stocks available on this application
+                have been chosen from the S&P500, an index which chooses 500 of the biggest US stocks. Over the last 5 years,
+                the average annual return has been just 10% per annum. This means that in some years the return could have been
+                over 20% and other years it may have been less than 5%. </p>
+                <p>This means that choosing a return that is 10% greater than may result in a game that 
+                  could go on for many months. On the other hand, choosing a return less than 5% might only last a few
+                  weeks. The stock market is extremely unpredictable and there is no sure fire way of knowing how long
+                  a value based league will last. </p>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="9">
+          <Accordion.Header><span className="semibolded">What is a time based league?</span></Accordion.Header>
+            <Accordion.Body>
+              <p>A time based league is one of two game types available to users. In a time based league, the 
+                users choose a start date and an end date. The member of the league with the highest value on
+                the closing date will be the winner. </p>
+            </Accordion.Body>
+          </Accordion.Item>
+          <Accordion.Item eventKey="9">
+          <Accordion.Header><span className="semibolded">What time do leagues start and finish?</span></Accordion.Header>
+            <Accordion.Body>
+              <p>For both value based and time based games, the start time is 9am GMT for games set in the future.
+                If a user chooses today's date, then the game will start immediately. For time-based games, the 
+                game will end at 9pm GMT. </p>
+            </Accordion.Body>
+          </Accordion.Item>
           </Accordion>
-          
               </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="4">
@@ -286,4 +335,4 @@ function CollapsibleTable() {
       )
 }
 
-export default CollapsibleTable;
+export default CollapsibleTable

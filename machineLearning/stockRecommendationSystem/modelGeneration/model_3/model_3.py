@@ -12,12 +12,15 @@ from pymongo import MongoClient
 from dotenv import load_dotenv
 
 # This function is used to read in the original dataset and save the computed vectors as a pickle file.
+
+
 def read_data():
     # Read in the s&p dataset
-    stocks = pd.read_csv('machineLearning\stockRecommendationSystem\modelGeneration\model_3\stocks.csv')
+    stocks = pd.read_csv(
+        'machineLearning\stockRecommendationSystem\modelGeneration\model_3\stocks.csv')
 
     # Remove some columns that won't be used
-    stocks.drop(['idnumber','longnamesort', 'weight'], inplace=True, axis=1)
+    stocks.drop(['idnumber', 'longnamesort', 'weight'], inplace=True, axis=1)
     # print(stocks)
     print(stocks.info())
     # Create array X of the all long business summaries, sectors, industries
@@ -25,50 +28,21 @@ def read_data():
 
     # Encode the textual data from X into vectors so that we can compute the cosine distance
     text_data = X
-
     model = SentenceTransformer('distilbert-base-nli-mean-tokens')
     embeddings = model.encode(text_data, show_progress_bar=True)
-    e_embeddings = preprocessing.normalize([e_data])
-
-    print("E Embeddings:", e_embeddings)
-    print("E Embeddings shape:", np.shape(e_embeddings))
-    print("-" * 40)
-
-    print("Embeddings:", embeddings)
-    print("Embeddings shape:", np.shape(embeddings))
-
-    print("-" * 40)
-
     embed_data = embeddings
     X = np.array(embed_data)
-    X2 = np.array(e_embeddings)
-
-    print("X:", X)
-    print("X Shape:", np.shape(X))
-    print("X Type:", type(X))
-    print("-"*40)
-
-    new_X = np.concatenate(X,X2)
-    print("New X:", X2)
-    print("-"*40)
-    print("New X Shape:", np.shape(X2))
-    print("-"*40)
-    print("New X Type:", type(X2))
-    print("-"*40)
 
     cos_sim_data = pd.DataFrame(cosine_similarity(X))
-    print("Cos Sim Data:", cos_sim_data)
-    print("Cos Sim Data Shape:", np.shape(cos_sim_data))
-    print("-"*40)
     # Write cosine similarity dataframe to pickle file. Pickle was needed as saving as csv caused indexing errors
-
     cos_sim_data.to_pickle('machineLearning\stockRecommendationSystem\modelGeneration\model_3\cosine_sim_data.pkl')
-    
+
     # Write stock data to csv file
 
     stocks.to_csv("machineLearning\stockRecommendationSystem\modelGeneration\model_3\stock_data.csv", encoding='utf-8', index=False)
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
+
 
 def get_user_stock(userName):
     try:
@@ -136,21 +110,23 @@ def get_user_stock(userName):
         # In case of a user who doesn't have any portfolio yet, return biggest positive mover.
         except:
             top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
-                                       'daily_change.absoluteChange': 1,
-                                       'daily_change.percentageChange': 1,
-                                       'daily_change.currentprice': 1}},
-             {"$sort": {'daily_change.percentageChange': -1}},
-             {"$limit": 1}])
+                                                                                   'daily_change.absoluteChange': 1,
+                                                                                   'daily_change.percentageChange': 1,
+                                                                                   'daily_change.currentprice': 1}},
+                                                     {"$sort": {
+                                                         'daily_change.percentageChange': -1}},
+                                                     {"$limit": 1}])
             top_mover_list = list(top_mover)
             res_str = ""
             # Aggregate query returns a command cursor, this has to be iterated over to access any data.
             for doc in top_mover_list:
                 res_str = doc['symbol']
             return res_str
-            
+
     # If user doesn't exist, print error
     except Exception as e:
-        print(f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
+        print(
+            f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered in get_user_stock function.',
         }
@@ -169,26 +145,32 @@ def give_recommendations(username,  print_recommendation=False, print_recommenda
         list: This function returns a list of the 20 ticker symbols (strings) of the 20 companies that are closest in similarity to the first stock owned by the user. 
     """
     try:
-        # Read in stock data from the csv file  
-        stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
+        # Read in stock data from the csv file
+        stocks = pd.read_csv(
+            'machineLearning\stockRecommendationSystem\data\stock_data.csv')
         # Read in pickle file of vector data
-        cos_sim_data = pd.read_pickle('machineLearning\stockRecommendationSystem\data\cosine_sim_data.pkl')
+        cos_sim_data = pd.read_pickle(
+            'machineLearning\stockRecommendationSystem\data\cosine_sim_data.pkl')
 
         # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
         input = get_user_stock(username)
         index = symbol_to_index(input)
-        index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
+        index_recomm = cos_sim_data.loc[index].sort_values(
+            ascending=False).index.tolist()[1:21]
         stocks_recomm = stocks['symbol'].loc[index_recomm].values
         result = {'Stocks': stocks_recomm, 'Index': index_recomm}
-        
+
         # If statements are used to print more information about the recommendations such as the longbusiness summary. Used mainly during development.
         if print_recommendation == True:
-            print('The watched stock is this one: %s \n' %(stocks['symbol'].loc[index]))
+            print('The watched stock is this one: %s \n' %
+                  (stocks['symbol'].loc[index]))
             k = 1
             for stock in stocks_recomm:
-                print('The number %i recommended stock is this one: %s \n' %(k, stock))
+                print('The number %i recommended stock is this one: %s \n' %
+                      (k, stock))
         if print_recommendation_longbusinesssummary == True:
-            print('The longbusinesssummary of the watched stock is this one:\n %s \n' %(stocks['longbusinesssummary'].loc[index]))
+            print('The longbusinesssummary of the watched stock is this one:\n %s \n' % (
+                stocks['longbusinesssummary'].loc[index]))
             k = 1
             for q in range(len(stocks_recomm)):
                 plot_q = stocks['longbusinesssummary'].loc[index_recomm[q]]
@@ -197,17 +179,18 @@ def give_recommendations(username,  print_recommendation=False, print_recommenda
                 k = k+1
         if print_sectors == True:
             print('The sector of the watched stock is this one:\n %s \n' %
-                (stocks['sector'].loc[index]))
+                  (stocks['sector'].loc[index]))
             k = 1
             for q in range(len(stocks_recomm)):
                 plot_q = stocks['sector'].loc[index_recomm[q]]
                 print('The sector of the number %i recommended stock is this one:\n %s \n' % (
                     k, plot_q))
                 k = k+1
-        # Returns only the ticker symbols for the 20 recommendations  
+        # Returns only the ticker symbols for the 20 recommendations
         return result["Stocks"]
     except Exception as e:
-        print(f'ERROR:Error encountered in giveRecommendations function.\nException Details:\n\t{e}')
+        print(
+            f'ERROR:Error encountered in giveRecommendations function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered in giveRecommendations function.',
         }
@@ -215,7 +198,7 @@ def give_recommendations(username,  print_recommendation=False, print_recommenda
 
 def index_to_symbol(index):
     """Function used to convert from index number to ticker symbol.
-    
+
     Args:
         index (int): This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
 
@@ -223,15 +206,18 @@ def index_to_symbol(index):
         str: Returns the corresponding ticker symbol in a string for the company of index "index"  
     """
     try:
-        stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
+        stocks = pd.read_csv(
+            'machineLearning\stockRecommendationSystem\data\stock_data.csv')
         symbol = stocks.iloc[index]
         symbol = symbol[2]
         return symbol
     except Exception as e:
-        print(f'ERROR:Error encountered in index_to_symbol function.\nException Details:\n\t{e}')
+        print(
+            f'ERROR:Error encountered in index_to_symbol function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered in index_to_symbol function.',
         }
+
 
 def symbol_to_index(symbol):
     """Function used to convert from a ticker symbol input to the index of the symbol.
@@ -243,15 +229,17 @@ def symbol_to_index(symbol):
         int: This index is an int corresponding to the index of the company (i.e. the row) based on the dataset.
     """
     try:
-        stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
+        stocks = pd.read_csv(
+            'machineLearning\stockRecommendationSystem\data\stock_data.csv')
         index = stocks.loc[stocks['symbol'].isin([symbol])].index
         index = index[0]
         return index
     except Exception as e:
-        print(f'ERROR:Error encountered in symbol_to_index function.\nException Details:\n\t{e}')
+        print(
+            f'ERROR:Error encountered in symbol_to_index function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered in symbol_to_index function.',
-        }    
+        }
 
 
 # User with no portfolios

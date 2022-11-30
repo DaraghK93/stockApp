@@ -82,38 +82,58 @@ def get_user_stock(userName):
         db = mongoClient.dev
         # Setting the DB collection names
         user_collection = db['users']
-        portfolio_collection = db['portfolios']
-        holdings_collection = db['holdings']
         stocks_collection = db['stocks']
+        # Set user data so that portfolios can be checked
+        user = user_collection.find_one({"username": userName})
 
-        # Get user information
-        user_data = user_collection.find_one({"username":userName})
-        
-        # Get user portfolio IDs - For now just getting the first one owner by the user
-        portfolios = user_data['portfolios']
-        # Add in logic check here for if they have a portfolio
+        # Try - If user exists
         try:
-            # Randomly select a user's portfolio
-            rand_portfolio = random.randint(0,len(portfolios))
-            portfolio = portfolios[rand_portfolio]
+            # This query checks if the user has a portfolio. If not the array is noneType and cannot be indexed, exception is triggered
+            user_portfolio = user["portfolios"]
+            user_portfolio = user_portfolio[0]
 
-            # Get the portfolio data
-            portfolio_data = portfolio_collection.find_one({"_id":portfolio})
-            
-            # Get the IDs of the holdings within the portfolio - For now it selects a random stock from the previously selected portfolio
-            holding_IDs = portfolio_data['holdings']
-            rand_ID = random.randint(0,len(holding_IDs))
-            holding_ID = holding_IDs[rand_ID]
+            output = user_collection.aggregate([{'$match': {'username': userName}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
+                '$unwind': {
+                    'path': '$portfolios'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$portfolios.transactions'
+                }
+            }, {
+                '$sort': {
+                    'portfolios.transactions.date': -1
+                }
+            }, {
+                '$limit': 1
+            }, {
+                '$lookup': {
+                    'from': 'stocks',
+                    'localField': 'portfolios.transactions.stockId',
+                    'foreignField': '_id',
+                    'as': 'stock'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$stock'
+                }
+            }, {
+                '$set': {
+                    'stock': '$stock.symbol'
+                }
+            }, {
+                '$project': {
+                    'stock': 1
+                }
+            }
+            ])
+            output_list = list(output)
+            res_str = ""
+            # Aggregate query returns a command cursor, this has to be iterated over to access any data.
+            for doc in output_list:
+                res_str = doc['stock']
+            return res_str
 
-            # Get holding data
-            holding_data = holdings_collection.find_one({"_id":holding_ID})
-            
-            # Get stock ID and find the symbol based on that
-            stock_ID = holding_data["stockId"]
-            stock_data = stocks_collection.find_one({"_id":stock_ID})
-            stock_ticker = stock_data["symbol"]
-
-            return stock_ticker
         # In case of a user who doesn't have any portfolio yet, return biggest positive mover.
         except:
             top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
@@ -129,6 +149,7 @@ def get_user_stock(userName):
                 res_str = doc['symbol']
             return res_str
             
+    # If user doesn't exist, print error
     except Exception as e:
         print(f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
         return {
@@ -149,7 +170,6 @@ def give_recommendations(username,  print_recommendation=False, print_recommenda
         list: This function returns a list of the 20 ticker symbols (strings) of the 20 companies that are closest in similarity to the first stock owned by the user. 
     """
     try:
-        
         # Read in stock data from the csv file  
         stocks = pd.read_csv('machineLearning\stockRecommendationSystem\data\stock_data.csv')
         # Read in pickle file of vector data
@@ -238,5 +258,9 @@ def symbol_to_index(symbol):
 # print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 # print(give_recommendations("bearach", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
-# print(get_user_stock("bearach"))
-print(get_user_stock("dknee1"))
+
+# User with no portfolios
+print(get_user_stock("dknee12345sd"))
+
+# User with portfolio
+# print(get_user_stock("dknee12345"))

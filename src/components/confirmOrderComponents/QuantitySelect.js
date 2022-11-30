@@ -6,6 +6,7 @@ import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, 
     buyOrSell,
     gameTradeFee,
+    holding,
     setQty, 
     qty,
     portfolioBalance, 
@@ -23,7 +24,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
             setMax(portfolioBalance-gameTradeFee)
         }else if (buyOrSell === "Sell"){
             setMin(1)
-            setMax(10)
+            setMax(holding.units*stockPrice)
         }
 
         //// Only Update the states if within max and min limits 
@@ -36,7 +37,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected,
                 setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
             }else if(buyOrSell === "Sell"){
                 /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
-                setQty(10)
+                setQty(dollarAmountSelected / stockPrice)
                 setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
             }
         }

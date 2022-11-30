@@ -149,7 +149,8 @@ function OrderConfirmationPage() {
             getPortfolioInfo()
         }
     },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
-    
+   
+    console.log(holding)
     return (
         <>
             {stockLoading || loading || portfolioLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
@@ -196,6 +197,7 @@ function OrderConfirmationPage() {
                                     gameTradeFee={gameTradeFee}
                                     maxQuantity={portfolio.portfolioBalance-gameTradeFee}
                                     qty={qty}
+                                    holding={holding}
                                 />
                                 </Col>
                         </Row>

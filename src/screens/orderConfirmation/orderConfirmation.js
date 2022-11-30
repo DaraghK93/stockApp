@@ -46,6 +46,7 @@ function OrderConfirmationPage() {
     const [portfolioLoading, setPortfolioLoading] = useState(true)
     const [portfolioError, setPortfolioError] = useState()
     const [newPortfolioBalance, setNewPortfolioBalance] = useState()
+    const [holding, setHolding] = useState()
 
     /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
@@ -115,7 +116,15 @@ function OrderConfirmationPage() {
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
                 })
-                console.log(res)
+                /// Need to get the users current holding 
+                if (res.holdings.length > 0){
+                    res.holdings.forEach(item =>{
+                        /// If the user has a postion in this stock it will match the stock ID 
+                        if(item.stockId === stock.id){
+                            setHolding(item)
+                        }
+                    });
+                }
                 setGameTradeFee(res.league.tradingFee)
                 /// Set the Iitiliase the new portfolio balance to the remainder of the current 
                 setNewPortfolioBalance(res.remainder)
@@ -139,9 +148,8 @@ function OrderConfirmationPage() {
             /// Get the portfolio data 
             getPortfolioInfo()
         }
-    },[portfolioId,activePortfolios,loading, userToken,navigate])
+    },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
     
-
     return (
         <>
             {stockLoading || loading || portfolioLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :

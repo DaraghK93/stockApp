@@ -30,7 +30,7 @@ function OrderConfirmationPage() {
     const [error, setError] = useState("");
     
     /// Order State ////
-    const [amountSelected, setAmountSelected] = useState("")
+    const [dollarAmountSelected, setDollarAmountSelected] = useState("")
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
     const [qty, setQty] = useState("");
@@ -181,9 +181,10 @@ function OrderConfirmationPage() {
                                     portfolioBalance={portfolio.portfolioBalance}
                                     stockPrice={stock.daily_change.currentprice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
-                                    amountSelected={amountSelected}
-                                    setAmountSelected={setAmountSelected}
+                                    dollarAmountSelected={dollarAmountSelected}
+                                    setDollarAmountSelected={setDollarAmountSelected}
                                     setQty={setQty}
+                                    buyOrSell={buyOrSell}
                                 />
                                 </Col>
                         </Row>
@@ -193,7 +194,7 @@ function OrderConfirmationPage() {
                                     portfolioName={portfolio.portfolioName}
                                     portfolioBalance={portfolio.portfolioBalance}
                                     newPortfolioBalance={newPortfolioBalance}
-                                    amountSelected={amountSelected}
+                                    dollarAmountSelected={dollarAmountSelected}
                                 />
                             </Col>
                         </Row>
@@ -207,14 +208,14 @@ function OrderConfirmationPage() {
                                     portfolioBalance={portfolio.portfolioBalance}
                                     setQty={setQty}
                                     limitPrice={limitPrice}
-                                    setAmountSelected={setAmountSelected}
+                                    setDollarAmountSelected={setDollarAmountSelected}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitPriceSelect
                                     portfolioBalance={portfolio.portfolioBalance}
-                                    setAmountSelected={setAmountSelected}
+                                    setDollarAmountSelected={setDollarAmountSelected}
                                     qty={qty}
                                     setLimitPrice={setLimitPrice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
@@ -226,7 +227,7 @@ function OrderConfirmationPage() {
                             buyOrSell={buyOrSell}
                             orderType={orderType}
                             newPortfolioBalance={newPortfolioBalance}
-                            amountSelected={amountSelected}
+                            dollarAmountSelected={dollarAmountSelected}
                             qty={qty} 
                             stockId={stock.id}
                             portfolioId={portfolio.id}

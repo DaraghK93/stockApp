@@ -1,9 +1,13 @@
 import { Card} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
-import MessageAlert from '../widgets/MessageAlert/MessageAlert';
+//import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 
-function QuantitySelect({ portfolioBalance, stockPrice, setNewPortfolioBalance, setAmountSelected, amountSelected, setQty }) {
+function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, 
+    buyOrSell,
+    
+    portfolioBalance, stockPrice, 
+    setNewPortfolioBalance, setQty }) {
     // const [max, setMax] = useState("");
     const [quantity, setQuantity] = useState(0);
     // const [amount, setAmount] = useState(0);
@@ -48,8 +52,17 @@ function QuantitySelect({ portfolioBalance, stockPrice, setNewPortfolioBalance, 
 
 
     useEffect(() => {
-        setQuantity(amountSelected / stockPrice)
-    },[amountSelected])
+        //// Only Update the states if within max and min limits 
+        if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= portfolioBalance){
+            /// Quantity is in units of stocks 
+            setQuantity(dollarAmountSelected / stockPrice)
+            /// New portfolio balance is if the trade goes through 
+            if(buyOrSell === "Buy"){
+                /// For Buy the new balance will be the cost of the transaction minus the current balance 
+                setNewPortfolioBalance((portfolioBalance - dollarAmountSelected))
+            }
+        }
+    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,setQuantity,stockPrice])
 
 
 
@@ -60,10 +73,10 @@ function QuantitySelect({ portfolioBalance, stockPrice, setNewPortfolioBalance, 
                     <h2>{parseFloat(quantity).toFixed(2)} stocks</h2>
                      <RangeSlider 
                         label={"$"}
-                        setter={setAmountSelected}
-                        state={amountSelected}
+                        setter={setDollarAmountSelected}
+                        state={dollarAmountSelected}
                         min={1}
-                        max={100}
+                        max={portfolioBalance}
                         startWidth={"2rem"}
                         showError={true}
                     />

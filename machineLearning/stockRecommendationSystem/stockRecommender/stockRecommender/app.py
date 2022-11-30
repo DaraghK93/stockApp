@@ -254,24 +254,14 @@ def lambda_handler(event: dict, context: object):
     body = json.loads(body)
     
     if environment == 'prod':
-        # All the production specific stuff do here 
-        # body = json.loads(body)
-        # Will have to get MongoURI for param store here 
+        # Get mongo URI from production
         mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
     elif environment == 'dev': 
         mongoURI = os.environ['MONGOURI']
     # Get the mongo connection 
     client = getMongoConnection(mongoURI)
-    
-    # Print statements are helpful for debugging the program once deployed
-    # print("Body type:", type(body))
-    # print("Body:", body)
-
+    # Get the userID from the request body
     userID = body["userid"]
-
-    # Print statements are helpful for debugging the program once deployed
-    # print("Stock type:", type(stock))
-    # print("Stock:", stock)
 
     try:
         recomm = give_recommendations(userID, client)

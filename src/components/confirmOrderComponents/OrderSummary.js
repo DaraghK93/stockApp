@@ -1,4 +1,4 @@
-import { Card, Container, Table } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 
 function OrderSummary({ buyOrSell, orderType, amountSelected, newPortfolioBalance, qty }) {
     return (

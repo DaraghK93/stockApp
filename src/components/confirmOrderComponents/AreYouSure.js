@@ -1,19 +1,29 @@
 import { Modal, Button} from "react-bootstrap";
 import OrderSummary from "./OrderSummary";
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useSelector} from 'react-redux';
 import {APIName} from '../../constants/APIConstants'
 import { API } from "aws-amplify";
+import MessageAlert from "../widgets/MessageAlert/MessageAlert";
+import LoadingSpinner from "../widgets/LoadingSpinner/LoadingSpinner";
 
-function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,amountSelected,qty,limitPrice}){
+function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,amountSelected,qty,limitPrice,stockName}){
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState("")
     
     const user = useSelector((state) => state.user)
     const { userInfo } = user;
     const userToken = userInfo.token
 
+
+    useEffect(() => {
+       /// If these change rest the error on screen, means they went back and fixed/changed something
+       /// Old error may not make sense to be shown, will be set again if something wrong with request
+       setError("")
+       setSuccess("")
+    },[qty,buyOrSell,orderType,limitPrice])
 
 
     const getStockInfo = async () => {
@@ -43,22 +53,24 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                 }else{
                     myInit.body.orderType= "MARKET"
                 }
-                console.log(myInit)
                 /// Send the request 
                 const res = await API.post(APIName, path, myInit)
-                console.log(res)
-
+                /// Set the success message using the
+                setSuccess(`Order Succesful! $${res.remainder.toFixed(2)} avaiable left to spend`)
+                setLoading(false)
         }catch(error){
-            console.log(error)
             setError(error.response.data.errormessage)
             setLoading(false)
-
         }
      }
 
 
-    const handleClose = () => setShowState(false);
-
+    const handleClose = () => {
+        /// On close reset the success and errors, they may be going back to make another trade
+        setError("")
+        setSuccess("")
+        setShowState(false);
+    }
 
     return(
         <Modal centered show={showState} onHide={handleClose}>
@@ -66,13 +78,15 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
             <Modal.Title>Please Review Your Order</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+            {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+            {success && <MessageAlert variant="success">{success}</MessageAlert>}
+            {loading && <LoadingSpinner/>}
             <OrderSummary
                     buyOrSell={buyOrSell}
                     orderType={orderType}
                     newPortfolioBalance={newPortfolioBalance}
                     amountSelected={amountSelected}
-                    qty={qty}
-                        />
+                    qty={qty}/>
         </Modal.Body>
         <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>

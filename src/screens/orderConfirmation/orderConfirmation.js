@@ -235,6 +235,7 @@ function OrderConfirmationPage() {
                             stockId={stock.id}
                             portfolioId={portfolio.id}
                             limitPrice={limitPrice}
+                            stockName={stock.longname}
                 />
                     <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>

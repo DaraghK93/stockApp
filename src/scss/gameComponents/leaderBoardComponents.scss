@@ -3,8 +3,7 @@
 .leaderBoardStyle {
     color: $leaderBoardTxt;
     background-color: $leaderBoardBg;
-    // overflow:none;
-
+    height: 60vh;
 }
 
 .leaderboradRowStyle {
@@ -62,20 +61,20 @@
 }
 
 .rankingText {
-    color:$submit
+    color: $submit
 }
 
-@media only screen and (min-width: 1200px){
+@media only screen and (min-width: 1200px) {
     .secondplace {
         margin-top: 7rem;
     }
-    
+
     .firstplace {
         margin-top: 0;
     }
-    
+
     .thirdplace {
         margin-top: 9rem;
     }
-    
+
 }

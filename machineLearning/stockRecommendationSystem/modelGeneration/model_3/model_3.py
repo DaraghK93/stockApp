@@ -44,7 +44,7 @@ def read_data():
     return cos_sim_data, X, stocks
 
 
-def get_user_stock(userName):
+def get_user_stock(userID):
     try:
         # Load the MongoURI from the dotenv file (Localhost)
         load_dotenv()
@@ -57,7 +57,7 @@ def get_user_stock(userName):
         user_collection = db['users']
         stocks_collection = db['stocks']
         # Set user data so that portfolios can be checked
-        user = user_collection.find_one({"username": userName})
+        user = user_collection.find_one({"_id": userID})
 
         # Try - If user exists
         try:
@@ -65,7 +65,7 @@ def get_user_stock(userName):
             user_portfolio = user["portfolios"]
             user_portfolio = user_portfolio[0]
 
-            output = user_collection.aggregate([{'$match': {'username': userName}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
+            output = user_collection.aggregate([{'$match': {'username': userID}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
                 '$unwind': {
                     'path': '$portfolios'
                 }

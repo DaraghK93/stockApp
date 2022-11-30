@@ -75,7 +75,6 @@ def get_user_stock(userName):
         # Load the MongoURI from the dotenv file (Localhost)
         load_dotenv()
         mongo_uri = os.getenv('MONGO_URI')
-
         # Setting the MongoDB connection
         mongoClient = MongoClient(mongo_uri)
         # Setting the DB name
@@ -255,12 +254,14 @@ def symbol_to_index(symbol):
         }    
 
 
-# print(give_recommendations("dknee1", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
-# print(give_recommendations("bearach", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
+# User with no portfolios
+# print(give_recommendations("dknee12345sd", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
+# User with portfolio
+print(give_recommendations("dknee12345", print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False))
 
 # User with no portfolios
-print(get_user_stock("dknee12345sd"))
+# print(get_user_stock("dknee12345sd"))
 
 # User with portfolio
 # print(get_user_stock("dknee12345"))

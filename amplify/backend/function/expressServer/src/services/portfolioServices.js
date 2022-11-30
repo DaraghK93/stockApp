@@ -262,11 +262,19 @@ const cancelBuyLimitOrder = async (transactionData) => {
         const transactionId = mongoose.Types.ObjectId(transactionData._id)
 
         // update the status of the transaction to CANCELLED
-        await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
-
-        // decrease the frozenBalance and increase the remainder
-        const portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}}, {new:true})
+        const transaction = await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+        const holdings = await Holdings.findById({_id: transaction.holdings})
+        let portfolio
+        if (holdings.units === 0 && holdings.frozenHoldingsUnits === 0){
+            await Holdings.findByIdAndDelete({_id: holdings._id})
+            portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}, $pull: {holdings: holdings._id}}, {new:true})
+            return portfolio
+        }
+        else {
+            // decrease the frozenBalance and increase the remainder
+            portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}}, {new:true})
         return portfolio
+        }
     }
     catch (err) {
         throw new Error(`Error has occured in cancelling the buy limit order.\nError details:\n\t${err}`)

@@ -2,11 +2,12 @@
 import json
 import pandas as pd
 import os
-
 # For AWS Param Store
 import boto3
 # For MongoDB Connection
 import pymongo
+# from dotenv import load_dotenv
+
 
 # Setting directory path so the pickle and csv files can be read in
 dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -86,9 +87,94 @@ def symbol_to_index(symbol):
             'Message': 'Error encountered in symbol_to_index function.',
         }    
 
+def get_user_stock(userID, client), :
+    try:
+        # Load the MongoURI from the dotenv file (Localhost)
+        # load_dotenv()
+        # mongo_uri = os.getenv('MONGO_URI')
+        # Setting the MongoDB connection
+        # mongoClient = MongoClient(mongo_uri)
+        # Setting the DB name
+        db = client[os.environ["DATABASENAME"]]
+        # Setting the DB collection names
+        user_collection = db['users']
+        stocks_collection = db['stocks']
+        # Set user data so that portfolios can be checked
+        user = user_collection.find_one({"_id": userID})
 
+        # Try - If user exists
+        try:
+            # This query checks if the user has a portfolio. If not the array is noneType and cannot be indexed, exception is triggered
+            user_portfolio = user["portfolios"]
+            user_portfolio = user_portfolio[0]
 
-def give_recommendations(input,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
+            output = user_collection.aggregate([{'$match': {'username': userID}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
+                '$unwind': {
+                    'path': '$portfolios'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$portfolios.transactions'
+                }
+            }, {
+                '$sort': {
+                    'portfolios.transactions.date': -1
+                }
+            }, {
+                '$limit': 1
+            }, {
+                '$lookup': {
+                    'from': 'stocks',
+                    'localField': 'portfolios.transactions.stockId',
+                    'foreignField': '_id',
+                    'as': 'stock'
+                }
+            }, {
+                '$unwind': {
+                    'path': '$stock'
+                }
+            }, {
+                '$set': {
+                    'stock': '$stock.symbol'
+                }
+            }, {
+                '$project': {
+                    'stock': 1
+                }
+            }
+            ])
+            output_list = list(output)
+            res_str = ""
+            # Aggregate query returns a command cursor, this has to be iterated over to access any data.
+            for doc in output_list:
+                res_str = doc['stock']
+            return res_str
+
+        # In case of a user who doesn't have any portfolio yet, return biggest positive mover.
+        except:
+            top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
+                                                                                   'daily_change.absoluteChange': 1,
+                                                                                   'daily_change.percentageChange': 1,
+                                                                                   'daily_change.currentprice': 1}},
+                                                     {"$sort": {
+                                                         'daily_change.percentageChange': -1}},
+                                                     {"$limit": 1}])
+            top_mover_list = list(top_mover)
+            res_str = ""
+            # Aggregate query returns a command cursor, this has to be iterated over to access any data.
+            for doc in top_mover_list:
+                res_str = doc['symbol']
+            return res_str
+
+    # If user doesn't exist, print error
+    except Exception as e:
+        print(
+            f'ERROR:Error encountered in get_user_stock function.\nException Details:\n\t{e}')
+        return {
+            'Message': 'Error encountered in get_user_stock function.',
+        }
+
+def give_recommendations(username, client,  print_recommendation=False, print_recommendation_longbusinesssummary=False, print_sectors=False):
     """Recommender function taken in modified form from:https://towardsdatascience.com/hands-on-content-based-recommender-system-using-python-1d643bf314e4. This function takes in the ticker symbol of a stock and returns 20 recommended stocks based on cosine similarity of the "longbusinessssummary" feature from the original dataset.
 
     Args:
@@ -108,6 +194,7 @@ def give_recommendations(input,  print_recommendation=False, print_recommendatio
         cos_sim_data = pd.read_pickle(f'{dir_path}/DataSet/cosine_sim_data.pkl')
 
         # This is where the main logic of the function is, takes the vectors, sorts them against the target and then returns the top 20 (i.e the 20 with the smallest distance or the highest cosine similarity)
+        input = get_user_stock(username, client)
         index = symbol_to_index(input)
         index_recomm = cos_sim_data.loc[index].sort_values(ascending=False).index.tolist()[1:21]
         stocks_recomm = stocks['symbol'].loc[index_recomm].values
@@ -168,10 +255,12 @@ def lambda_handler(event: dict, context: object):
         # All the production specific stuff do here 
         body = json.loads(body)
         # Will have to get MongoURI for param store here 
-    # elif environment == 'dev': 
-    #   read in your local vars for db etc.  
-
-
+        mongoURI = getSecret('MONGO_URI').get('Parameter').get('Value')
+    elif environment == 'dev': 
+        mongoURI = os.environ['MONGOURI']
+    # Get the mongo connection 
+    client = getMongoConnection(mongoURI)
+    
     # Print statements are helpful for debugging the program once deployed
     print("Body type:", type(body))
     print("Body:", body)
@@ -183,7 +272,7 @@ def lambda_handler(event: dict, context: object):
     print("Stock:", stock)
 
     try:
-        recomm = give_recommendations(stock)
+        recomm = give_recommendations(stock, client)
         return {
         "statusCode": 200,
         "body": json.dumps({

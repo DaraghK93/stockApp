@@ -4,6 +4,8 @@ import numpy as np
 import json
 import os
 import random
+import boto3
+import pymongo
 
 from sklearn.metrics.pairwise import cosine_similarity
 from sklearn import preprocessing
@@ -43,6 +45,41 @@ def read_data():
     # Returns vector data, text data and stock data
     return cos_sim_data, X, stocks
 
+def getSecret(secretName,region="eu-north-1"):
+    """
+    Description:
+        This function is used to get a secret from the parameter store in AWS. 
+    Args:
+        secretName (string): The name of the secret found in the parameter store. 
+        region (string): The region the secret is stored in, default to eu-north-1. 
+    Returns:
+        response (dict): Dictonary object with the secret name under "Name" key and value under "Value" key
+    """ 
+    client = boto3.client('ssm',region)
+    try:
+        response = client.get_parameter(
+            Name=secretName,
+            WithDecryption=True
+        )
+        return response
+    except Exception as e:
+        print(f'ERROR:Could not get secret in getSecret function.\nException Details:\n\t{e}')
+
+
+def getMongoConnection(URI):
+    """
+    Description:
+        Gets a client connection to MongoDB
+    Args:
+        URI (string): A connection string for mongo Database 
+    Returns:
+        client(MongoClient): MongoClient object which can be used to execute commands on the database. 
+    """
+    client = pymongo.MongoClient(URI)
+    if client is None:
+        print(f'ERROR:Could not connect to MongoDB, client obeject is none')
+    else:
+        return client
 
 def get_user_stock(userID):
     try:

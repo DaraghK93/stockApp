@@ -46,6 +46,11 @@
 
 .stockDisplayCol {
     background-color: $primary;
+    ::-webkit-scrollbar-track {
+        background: $primary;
+        margin-inline-start: 0rem;
+        margin-inline-end: 0rem;
+      }
 }
 
 .not-clickable {
@@ -57,4 +62,5 @@
     max-width: 20rem;
 }
 }
+
 

@@ -12,7 +12,7 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         return (
             <>
                 <text x={cx - 45} y={cy - 5}>
-                    <tspan style={{ fontWeight: 700, fontSize: "1.5em", }}>${balance}</tspan>
+                    <tspan style={{ fontWeight: 700, fontSize: "1.5em", }}>{balance}</tspan>
                 </text>
                 <text x={cx - 37} y={cy + 15}>
                     <tspan style={{ fontSize: "0.8em", fill: "#A9A9A9" }}>
@@ -35,8 +35,8 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         <>
             <Card>
                 <Container>
-                    <h5 style={{ marginTop: "10px" }}>New Portfolio Balance</h5>
-                    <p><strong>{portfolioName}</strong>- Available Balance: ${portfolioBalance.toFixed(2)}</p>
+                    <h5 style={{ marginTop: "10px" }}>New Spending Power</h5>
+                    <p><strong>{portfolioName}</strong>- Available Spending Power: {parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</p>
                     <ResponsiveContainer width="100%" height={300} margin={100}>
                         <PieChart height={260} width={500}>
                             <Pie
@@ -57,20 +57,10 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                                    <Cell fill="#32CD32" />
                                    </>
                                 }
-                                
-                                
-                            {buyOrSell === "Buy"?
                              <Label
-                                    content={<CustomLabel text={"Left to Spend"} balance={parseFloat(newPortfolioBalance)} />}
+                                    content={<CustomLabel text={"Spending Power"} balance={parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} />}
                                     position="center"
                                 />
-                            :
-                            <Label
-                                    content={<CustomLabel text={"New Balance"} balance={parseFloat(newPortfolioBalance)} />}
-                                    position="center"
-                                />
-                            }
-                               
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>

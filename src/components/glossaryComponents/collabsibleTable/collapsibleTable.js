@@ -253,7 +253,7 @@ function CollapsibleTable() {
                 the closing date will be the winner. </p>
             </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item eventKey="9">
+          <Accordion.Item eventKey="10">
           <Accordion.Header><span className="semibolded">What time do leagues start and finish?</span></Accordion.Header>
             <Accordion.Body>
               <p>For both value based and time based games, the start time is 9am GMT for games set in the future.

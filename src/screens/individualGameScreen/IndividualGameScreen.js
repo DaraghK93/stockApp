@@ -14,7 +14,7 @@ import { API } from "aws-amplify";
 import { useSelector } from 'react-redux';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
-
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 function IndividualGameScreen() {
 
     /// League State ///
@@ -117,7 +117,7 @@ function IndividualGameScreen() {
 
         ]
     }
-    
+
     function timeOrValueLine() {
 
         if (league.finished === true) {
@@ -141,6 +141,9 @@ function IndividualGameScreen() {
             }
         }
     }
+    var accessString = league.accessCode.toString()
+
+
 
     return (
         <>
@@ -150,6 +153,9 @@ function IndividualGameScreen() {
                         <Image className="gameImage" src={league.image}></Image>
                         <div className="centeredGameImg">
                             <h1 className="ImgTxt">{league.leagueName}</h1>
+                            <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
+                                <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText(accessString) }}>Copy</ContentCopyIcon></p>
+
                         </div>
                     </div>
                     <GameNavBar disPlayScreen={disPlayScreen} active={active} />

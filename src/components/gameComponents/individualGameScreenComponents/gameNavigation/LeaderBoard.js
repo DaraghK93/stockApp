@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react"
-import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
@@ -22,12 +22,21 @@ function LeaderBoard({ leaderBoardInfo }) {
         { label: "Change", accessor: "dailyChange", sortable: false },
     ];
 
-    const renderTooltip = (props) => (
-        console.log("tooltip")
-        // <Tooltip id="button-tooltip" {...props}>
-        //     Simple tooltip
-        // </Tooltip>
-        )
+    function applyRank() {
+        var rank = 1;
+        for (var i = 0; i < leaderBoardInfo.length; i++) {
+            // increase rank only if current score less than previous
+            if (i > 0 && leaderBoardInfo[i].totalValue < leaderBoardInfo[i - 1].totalValue) {
+                rank++;
+            }
+            leaderBoardInfo[i].rank = rank;
+        }
+    }
+    applyRank()
+
+
+
+
 
     return (
 
@@ -74,33 +83,40 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                 <th>Rank</th>
                                                 <th></th>
                                                 <th>User</th>
-                                                <th>Total</th>
-                                                <th as="button" onClick={renderTooltip}>
-                                                {/* <OverlayTrigger
-                                                    placement="right"
-                                                    delay={{ show: 250, hide: 400 }}
-                                                    overlay={renderTooltip}
-                                                > */}
-                                                Change
-                                                {/* </OverlayTrigger> */}
+                                                <th>
+                                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Current total value<br></br>of portfolio</Tooltip>}>
+                                                        <span className="d-inline-block" style={{ textDecoration: "underline" }}>
+                                                            Total
+                                                        </span>
+                                                    </OverlayTrigger>
+
+                                                </th>
+                                                <th>
+                                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Change in portfolio value<br></br>since yesterday</Tooltip>}>
+                                                        <span className="d-inline-block" style={{ textDecoration: "underline" }}>
+                                                            Change
+                                                        </span>
+                                                    </OverlayTrigger>
                                                 </th>
                                             </tr>
                                         </thead>
+
                                         <tbody style={{ backgroundColor: "none" }}>
-                                            {leaderBoardInfo.map((item) => (
+                                            {leaderBoardInfo.map((item, index) => (
                                                 (<Fragment key={`${item.user}-fragment`}>
                                                     <tr key={item.user} className="leaderboradRowStyle">
-                                                        <td className="leftCurvedBorders"><center>{leaderBoardInfo.indexOf(item) + 1}</center></td>
-
+                                                        <td className="leftCurvedBorders"><center>{item.rank}</center></td>
                                                         <td key={item.picture}><center>
                                                             <Image src={"/avatar.png"} className="leaderBoardAvatarStyle" alt="user avatar"></Image>
                                                         </center>
                                                         </td>
                                                         <td><center>@{item.user}</center></td>
-                                                        <td><center>${item.totalValue}</center></td>
+                                                        <td><center>{parseFloat(item.totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</center></td>
                                                         <td id={item.dailyChange} className="rightCurvedBorders"
                                                             style={{ verticalAlign: "middle" }}>
-                                                            <center>+${item.dailyChange}<KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /></center></td>
+
+
+                                                            <center>+$20<KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /></center></td>
                                                     </tr>
                                                     <tr key={`${item.user}padding`} style={{ height: "5px" }} ></tr>
                                                 </Fragment>)

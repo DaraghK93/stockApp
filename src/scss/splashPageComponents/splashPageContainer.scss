@@ -51,6 +51,9 @@
         margin-inline-start: 0rem;
         margin-inline-end: 0rem;
       }
+    ::-webkit-scrollbar-thumb {
+        border: .20em solid $primary;
+    }
       .cardContainer {
         display: flex;
         overflow-x: auto;
@@ -61,15 +64,17 @@
           padding: 0.1875rem;
           padding-top:0;
         }
-        .tickercardstyle {
+
+      
+      }
+              .tickercardstyle {
             width: 10rem;
             height: 100%;
             display: block;
-            border-width: 1.5px;
-            box-shadow: 2px 2px $shadow;
+            border-width: none;
+            box-shadow: none;
+            border-color: none;
           }
-      
-      }
 }
 
 .not-clickable {

@@ -53,7 +53,7 @@ function HomeScreen() {
     },
     {
       headline:
-        "Apple advertising relationship with twitter brought into question",
+        "Apple's advertising relationship with twitter brought into question",
       source: 'Sky News',
       link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…3',
       category: 'Business',
@@ -736,10 +736,10 @@ function HomeScreen() {
             <SideScrollMenu>
               {stocks.map((stockObj) => (
                 <div
-                  className='sideScrollCard not-clickable stockDisplayCol'
+                  className='sideScrollCard not-clickable stockDisplayCol splashScroller'
                   key={stockObj._id}
                 >
-                  <TickerCard key={stockObj._id} stock={stockObj} className='firstTickers'/>
+                  <TickerCard key={stockObj._id} stock={stockObj}/>
                 </div>
               ))}
             </SideScrollMenu>

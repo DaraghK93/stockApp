@@ -18,7 +18,7 @@ function GlossaryPage (){
             <Col>
                 <Row>
                     <Container>
-                    <h1>Frequently Asked Questions and Definitions</h1>
+                    <h1>Learn about the Game, Trading and More</h1>
                     <br/>
                     </Container>
                     <CollapsibleTable/>

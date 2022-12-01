@@ -33,7 +33,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
         else {
             if (portfolios[0].totalValue === portfolios[1].totalValue && portfolios[0].totalValue === portfolios[2].totalValue) {
                 return (<><p>It's a tight race! <strong>{portfolios[0].user}</strong>, <strong>{portfolios[1].user}</strong> and <strong>{portfolios[2].user}</strong> are all
-                    in the lead with <strong>{parseFloat(winningValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
+                    in the lead with <strong>{parseFloat(portfolios[0].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
                     their accounts. </p>
                     <p>Only one of them only has to make <strong>
                         {parseFloat(remainder).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
@@ -42,7 +42,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             }
             else if (portfolios[0].totalValue === portfolios[1].totalValue) {
                 return (<><p>It's a tight race, with <strong>{portfolios[0].user}</strong> and <strong>{portfolios[1].user}</strong> in a tie with <strong>
-                    {parseFloat(winningValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
+                    {parseFloat(portfolios[0].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
                     their accounts. </p>
                     <p>Only one of them only has to make <strong>
                         {parseFloat(remainder).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
@@ -50,7 +50,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             }
             else {
                 return (<><p>It's a tight race, with <strong>{portfolios[0].user}</strong> in the lead with <strong>
-                    {parseFloat(winningValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
+                    {parseFloat(portfolios[0].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
                     their account. </p>
                     <p>They only have to make <strong>
                         {parseFloat(remainder).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}

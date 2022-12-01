@@ -74,21 +74,27 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
 
     // if there are holdings, then the current holdings are updated
     if (holdings != null){
-        // calculate the remaining user funds
-        
+
         // add the new units to the existing units
         const currentHoldings = transaction.units + holdings.units
-        // create transaction object
-        await transaction.save()
+        
+        
         let newRemainder
         let newPortfolio
         if (transaction.orderType === "MARKET"){
+            
             // update the db for market order
             newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
+            // create transaction object
+            transaction.holdings = holdings._id
+            await transaction.save()
             newRemainder = portfolioRemainder - transaction.value - transaction.tradingFee
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday:1}}, {new:true})
         }
         else {
+            transaction.holdings = holdings._id
+            // create transaction object
+            await transaction.save()
             newRemainder = portfolioRemainder - transaction.limitValue*transaction.units - transaction.tradingFee
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder},$inc: {tradesToday: 1, frozenBalance: transaction.limitValue*transaction.units}}, {new:true})
         }
@@ -96,28 +102,40 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
         return newPortfolio
     }
     else {
-        // a new transaction is added to the db
-        await transaction.save()
-
-        // if there are no holdings, a new one can be created
-        newHoldings = new Holdings({
-        portfolioId: transaction.portfolioId,
-        stockId: transaction.stockId,
-        units: transaction.units,
-        frozenHoldingsUnits: 0
-        })
+        
         let newPortfolio
         let newRemainder
         if (transaction.orderType === "MARKET"){
-        // a new holding is added to the db
-        await newHoldings.save()
-        newRemainder = portfolioRemainder - transaction.value - transactionFee
-        // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
-        }
+            newHoldings = new Holdings({
+                portfolioId: transaction.portfolioId,
+                stockId: transaction.stockId,
+                units: transaction.units,
+                frozenHoldingsUnits: 0
+                })
+            // a new holding is added to the db
+            transaction.holdings = newHoldings._id
+            await newHoldings.save()
+            // a new transaction is added to the db
+            await transaction.save()
+            newRemainder = portfolioRemainder - transaction.value - transactionFee
+            // update the portfolio, adding a transaction object ID, a holdings object ID and updating the remainder 
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {holdings: newHoldings, transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+            }
         else {
+            // if there are no holdings, a new one can be created
+            newHoldings = new Holdings({
+                portfolioId: transaction.portfolioId,
+                stockId: transaction.stockId,
+                units: 0,
+                frozenHoldingsUnits: 0
+                })
+            // a new holding is added to the db
+            transaction.holdings = newHoldings._id
+            await newHoldings.save()
+            // a new transaction is added to the db
+            await transaction.save()
             newRemainder = portfolioRemainder - transaction.limitValue*transaction.units - transaction.tradingFee
-            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder},$inc: {tradesToday: 1, frozenBalance: transaction.limitValue*transaction.units}}, {new:true})
+            newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction, holdings: newHoldings}, $set: {remainder: newRemainder},$inc: {tradesToday: 1, frozenBalance: transaction.limitValue*transaction.units}}, {new:true})
         }
         return newPortfolio
     }
@@ -165,6 +183,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
             await Holdings.updateOne({_id:holdings._id}, {$set: {units: newHoldings}, $inc: {frozenHoldingsUnits: frozenHoldings}})
 
             // create a new transaction
+            transaction.holdings = holdings._id
             await transaction.save()
             let newPortfolio
             if (transaction.orderType === "MARKET"){
@@ -173,28 +192,45 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
             }
             else{
-                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $inc: {tradesToday: 1}}, {new:true})
+                newRemainder = portfolioRemainder - transactionFee
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
             }
             return newPortfolio
         }
         else if (newHoldings === 0){
+            let otherTransactions
             if(transaction.orderType === "MARKET"){
-            // if the holdings are 0 then the holdings referenced should be deleted
-            await Holdings.findByIdAndDelete({_id:holdings._id})
+                otherTransactions = await Transaction.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId, status: "PENDING"})
+                if(otherTransactions === null && holdings.frozenHoldingsUnits === 0){
+                    // if the holdings are 0 and there are no pending transactions then the holdings referenced should be deleted
+                    await Holdings.findByIdAndDelete({_id:holdings._id})
+                }
+                else {
+                    await Holdings.updateOne({_id:holdings._id}, {units: newHoldings})
+                }
+                
             }
             else {
             await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, $inc: {frozenHoldingsUnits: frozenHoldings}})
             }
             // create a new transaction
+            transaction.holdings = holdings._id
             await transaction.save()
             let newPortfolio
             if (transaction.orderType === "MARKET"){
                 newRemainder = portfolioRemainder + value - transactionFee
+                otherTransactions = await Transaction.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId, status: "PENDING"})
+                if(otherTransactions === null && holdings.frozenHoldingsUnits === 0){
                 // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
+                }
+                else {   
+                    newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
+                }
             }
             else{
-                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $inc: {tradesToday: 1}}, {new:true})
+                newRemainder = portfolioRemainder - transactionFee
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder},  $inc: {tradesToday: 1}}, {new:true})
             }
             return newPortfolio
         }
@@ -262,11 +298,20 @@ const cancelBuyLimitOrder = async (transactionData) => {
         const transactionId = mongoose.Types.ObjectId(transactionData._id)
 
         // update the status of the transaction to CANCELLED
-        await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
-
-        // decrease the frozenBalance and increase the remainder
-        const portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}}, {new:true})
+        const transaction = await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+        const otherTransactions = await Transaction.findOne({stockId: transaction.stockId, portfolioId: transaction.portfolioId, status: "PENDING"})
+        const holdings = await Holdings.findById({_id: transaction.holdings})
+        let portfolio
+        if (holdings.units === 0 && holdings.frozenHoldingsUnits === 0 && otherTransactions === null){
+            await Holdings.findByIdAndDelete({_id: holdings._id})
+            portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}, $pull: {holdings: holdings._id}}, {new:true})
+            return portfolio
+        }
+        else {
+            // decrease the frozenBalance and increase the remainder
+            portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}}, {new:true})
         return portfolio
+        }
     }
     catch (err) {
         throw new Error(`Error has occured in cancelling the buy limit order.\nError details:\n\t${err}`)

@@ -64,7 +64,7 @@ function LoginPage() {
             <a href="/auth/recover" style={{color:'#006195'}}>Forgot password?</a>
           </Col>
           <Col className="text-center py-2">
-            <a href="/auth/recover" style={{color:'#006195'}}>Create account</a>
+            <a href="/register" style={{color:'#006195'}}>Create account</a>
           </Col>
         </Row>
         <Row>

@@ -32,6 +32,22 @@
     
 }
 
-// .esg-row {
+.stockDisplay {
+    background-color: $primary;
+    align-items: center;
+    margin: auto;
+}
 
+.stockDisplayContainer {
+    //height: 25rem;
+    background-color: $primary;
+    padding: 4rem 0;
+}
+
+// .stockDisplayCol {
+//     margin: 0;
 // }
+
+.not-clickable {
+    pointer-events: none;
+}

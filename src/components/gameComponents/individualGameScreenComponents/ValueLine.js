@@ -13,7 +13,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
 
     function getWinnerText() {
         if (portfolios.length < 3) {
-            if (portfolios.length != 1) {
+            if (portfolios.length !== 1) {
                 return (
                     <>
                         <p>There are only <strong>{portfolios.length} players</strong> in this game!
@@ -68,13 +68,13 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
                 <ProgressBar label={portfolios[2].user} striped variant="danger" max={winningValue} min={0} now={portfolios[2].totalValue} />
             </>
         }
-        else if (portfolios.length == 2) {
+        else if (portfolios.length === 2) {
             return <>
                 <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={0} now={portfolios[0].totalValue} />
                 <ProgressBar label={portfolios[1].user} striped variant="success" max={winningValue} min={0} now={portfolios[1].totalValue} />
             </>
         }
-        else if (portfolios.length == 1) {
+        else if (portfolios.length === 1) {
             return <>
                 <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={0} now={portfolios[0].totalValue} />
             </>

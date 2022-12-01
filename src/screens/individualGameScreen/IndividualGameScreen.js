@@ -13,7 +13,6 @@ import { API } from "aws-amplify";
 /// Redux ///
 import { useSelector } from 'react-redux';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
-import moment from 'moment';
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 
 function IndividualGameScreen() {
@@ -118,17 +117,28 @@ function IndividualGameScreen() {
 
         ]
     }
-
+    
     function timeOrValueLine() {
-        if (league.leagueType === "timeBased"){
-            return(
-                <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
+
+        if (league.finished === true) {
+            return (
+                <>
+                    <p>The game is over!</p>
+                </>
             )
         }
         else {
-            return (
-               <ValueLine portfolios={league.portfolios} winningValue={league.winningValue} accessCode={league.accessCode}></ValueLine>
-            )
+
+            if (league.leagueType === "timeBased") {
+                return (
+                    <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
+                )
+            }
+            else {
+                return (
+                    <ValueLine portfolios={league.portfolios} winningValue={league.winningValue} accessCode={league.accessCode}></ValueLine>
+                )
+            }
         }
     }
 
@@ -146,7 +156,7 @@ function IndividualGameScreen() {
 
                     <Container>
                         {timeOrValueLine()}
-                
+
                     </Container>
                     {isShownLeaderBoard &&
                         <>

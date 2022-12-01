@@ -5,18 +5,18 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 function TimeLine({ startDate, endDate, portfolios, accessCode }) {
 
-    var startDate = moment(startDate);
-    var endDate = moment(endDate);
+    var startDateIn = moment(startDate);
+    var endDateIn = moment(endDate);
     const currentDate = moment()
-    const max = endDate.diff(startDate, "days")
-    const now = currentDate.diff(startDate, "days")
+    const max = endDateIn.diff(startDateIn, "days")
+    const now = currentDate.diff(startDateIn, "days")
     const leftDays = max - now
     var accessString = accessCode.toString()
 
 
     function lessThanThreePlayersText() {
         if (portfolios.length < 3) {
-            if (portfolios.length != 1) {
+            if (portfolios.length !== 1) {
                 return (
                     <>
                         <p>There are only <strong>{portfolios.length} players</strong> in this game! Invite others to have better time using the access code: <strong>{accessCode} </strong>

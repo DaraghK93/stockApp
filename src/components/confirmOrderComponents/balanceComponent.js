@@ -48,15 +48,13 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                             >
                                 {buyOrSell === "Buy" ?
                                 <>
-                                
-                                
                                     <Cell fill="#1E90FF" />
-                                    <Cell fill="#595959" />
+                                    <Cell fill="#FF0000" />
                                     </>
                                 :
                                     <>
                                    <Cell fill="#1E90FF" />
-                                   <Cell fill="#00FF00" />
+                                   <Cell fill="#32CD32" />
                                    </>
                                 }
                                 

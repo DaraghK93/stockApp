@@ -47,11 +47,12 @@ const getAllStocks = async (req, res, next) => {
 
     /// if undefined return the stock summary 
     if(keyword == "undefined"){     
-      // Create the input for the recommender system API
+      // Create the input for the recommender system API, save the output as recs
       let userID = "ObjectId('" + req.user.id + "')"
       let recommendData = await stockService.getRecomms(userID)
       let recs = recommendData.data.message
-      // Keyword undefied just return the top stocks 
+      
+      // Keyword undefied just return the top stocks, also feed in recs to function
       const stocks = await stockService.getStockSummary(Stock, recs)
       res.json(stocks)
     }else{ 

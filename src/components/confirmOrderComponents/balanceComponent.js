@@ -29,7 +29,7 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         }else if(buyOrSell === "Sell"){
                 setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}])
         }
-    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding])
+    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance])
 
     return (
         <>

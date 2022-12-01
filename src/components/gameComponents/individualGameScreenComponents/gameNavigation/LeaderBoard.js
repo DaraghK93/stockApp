@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react"
-import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip, Button } from 'react-bootstrap';
+import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
@@ -14,14 +14,6 @@ function LeaderBoard({ leaderBoardInfo }) {
         }
     }, [leaderBoardInfo])
 
-    const columns = [
-        { label: "Rank", accessor: "position", sortable: false },
-        { label: "", accessor: "avatar", sortable: false },
-        { label: "User", accessor: "username", sortable: true, sortbyOrder: "desc" },
-        { label: "Total", accessor: "amount", sortable: false },
-        { label: "Change", accessor: "dailyChange", sortable: false },
-    ];
-
     function applyRank() {
         var rank = 1;
         for (var i = 0; i < leaderBoardInfo.length; i++) {
@@ -33,10 +25,6 @@ function LeaderBoard({ leaderBoardInfo }) {
         }
     }
     applyRank()
-
-
-
-
 
     return (
 

@@ -1,4 +1,5 @@
 const Stock = require('../models/stock.model');
+const User = require('../models/user.model');
 
 
 /// Imports ///
@@ -46,16 +47,14 @@ const getAllStocks = async (req, res, next) => {
 
     /// if undefined return the stock summary 
     if(keyword == "undefined"){     
-      // For now, this is hardcoded to give 20 recommendations for Disney (DIS). This will be updated tomorrow based on the user's owned stocks. Some console logs have also been left in commented out to make integration and troubleshooting this easier.
-      let recommendData = await stockService.getRecomms("ObjectId('6387ac24d9cd712b834670cb')")
-      // console.log("Recommended Data (Promise): ",recommendData.data.message)
+      // Create the input for the recommender system API, save the output as recs
+      let userID = "ObjectId('" + req.user.id + "')"
+      let recommendData = await stockService.getRecomms(userID)
       let recs = recommendData.data.message
-      // const rec_function = stockService.getStockSummaryRecs(recs)
-      // console.log(rec_function)
-      // Keyword undefied just return the top stocks 
+      
+      // Keyword undefied just return the top stocks, also feed in recs to function
       const stocks = await stockService.getStockSummary(Stock, recs)
       res.json(stocks)
-      // console.log(stocks)
     }else{ 
       // Keyword defined search for the stocks 
        const stocks = await Stock.find({

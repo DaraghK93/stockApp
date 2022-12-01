@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol} = require('../controllers/stockController');
 const { errorHandler } = require("../middleware/errorMiddleware");
+const {protectedRoute} = require('../middleware/authMiddleware');
+
 
 // maybe change name to ticker symbol instead
 
@@ -12,7 +14,7 @@ router.put('/updateStock/:symbol', updateStock)
 // adds a new stock to the db (this is for testing)
 router.post('/addStock/', addStock)
 // returns all stocks
-router.get('/', getAllStocks)
+router.get('/', protectedRoute, getAllStocks)
 // search stock by ticker symbol. This will give all data except prices for that ticker
 router.get('/:symbol', getStockBySymbol)
 

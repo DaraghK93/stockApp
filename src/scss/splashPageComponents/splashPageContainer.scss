@@ -1,0 +1,37 @@
+@import "../global_variables.scss";
+
+
+.splash-page-container {
+    align-items: center;
+    text-align: center;
+}
+
+.banner {
+    text-align: center;
+    background-color: $primary;
+    margin-top: 3rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.quote {
+    font-weight: normal;
+    font-style: italic;
+    color: white;
+}
+
+.footer {
+    margin-top: 3rem;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: $primary;
+    text-decoration-color: white;
+    text-align: center ;
+    color: white;
+    padding: 3rem;
+    
+}
+
+// .esg-row {
+
+// }

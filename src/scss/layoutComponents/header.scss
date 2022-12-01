@@ -9,12 +9,3 @@
 .userDropDown:hover {
     font-weight: bold;
 }
-
-@media only screen and (min-width: 1000px) {
-    .userDropDown {
-        position: fixed;
-        right: 4rem;
-        z-index: 1;
-    }
-
-}

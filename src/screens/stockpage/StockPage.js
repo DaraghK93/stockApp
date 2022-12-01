@@ -57,7 +57,6 @@ function StockPage() {
     }
 
     function onClickTradeButton(){ 
-        console.log(activePortfolios)
         if(activePortfolios.length === 0){
             /// No Active Portfolios, show a info modal 
             setShowTradeModal(true)

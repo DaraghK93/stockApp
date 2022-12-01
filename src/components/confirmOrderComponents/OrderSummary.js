@@ -1,6 +1,7 @@
 import { Container, Table } from "react-bootstrap";
 
-function OrderSummary({ stockName, buyOrSell, orderType, amountSelected, newPortfolioBalance, qty}) {
+function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
+
     return (
         <>
                 <Container>
@@ -21,22 +22,49 @@ function OrderSummary({ stockName, buyOrSell, orderType, amountSelected, newPort
                             </tr>
                             <tr>
                                 <td>Quantity</td>
-                                <td>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} stocks</td>
+                                <td>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</td>
                             </tr>
                             <tr>
-                                <td>New Portfolio Balance</td>
-                                <td>${parseFloat(newPortfolioBalance).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                <td>Trade Fee</td>
+                                <td>{parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
                             </tr>
                             <tr>
-                                <td>Total Cost</td>
-                                <td>${parseFloat(amountSelected).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                                <td>Subtotal (Quantity x Price)</td>
+                                <td>{parseFloat(dollarAmountSelected).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
                             </tr>
+                            {buyOrSell === "Buy" ?
+                                <tr>
+                                    <td className="bolded">Total (Decrease in Spending Power)</td>
+                                    <td className="bolded">{(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                                </tr>
+                            :
+                            <>
+                            {parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee) >= 0 ?
+                            <tr>
+                                <td className="bolded">Total (Increase in Spending Power)</td>
+                                <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                            </tr>
+                            :
+                            <tr>
+                                <td className="bolded">Total (Decrease in Spending Power)</td>
+                                <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                            </tr>
+                            } 
+                            </>
+                        }
+                            
+                            <tr style={{"borderTopWidth":"2px","borderTopColor":"grey"}}>
+                                <td className="bolded">New Spending Power</td>
+                                <td className="bolded">{parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                            </tr>
+
+
+
                         </tbody>
                     </Table>
                 </Container>
         </>
     )
-
 }
 
 export default OrderSummary;

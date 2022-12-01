@@ -674,7 +674,7 @@ function HomeScreen() {
         </Row>
         <Row>
           <Col>
-            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo'></Image>
+            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border:"none"}}></Image>
           </Col>
         </Row>
       </Container>

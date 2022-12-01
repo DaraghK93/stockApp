@@ -122,7 +122,7 @@ const buyStock = async (req, res, next) => {
     else if ( req.body.units <= 0){
       // check that the units and values exist
       res.status(400)
-      res.errormessage = 'Units must be greater than 0'
+      res.errormessage = 'Quantity must be greater than 0'
       return next(
         new Error(
           'Units are negative. Should be a positive number'

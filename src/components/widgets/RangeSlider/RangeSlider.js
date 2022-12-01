@@ -4,28 +4,37 @@ import LoadingSpinner from "../../widgets/LoadingSpinner/LoadingSpinner"
 import MessageAlert from '../MessageAlert/MessageAlert'
 
 
-function RangeSlider({max, min, setter, state, label, startWidth, disabled,showError}){
+function RangeSlider({max, min, setter, state, label, startWidth, disabled,showError,reset,resetValue}){
   const [width, setWidth] = useState(startWidth)
   const [error, setError] = useState("")
   const [valueState, setValueState] = useState(state)
 
   useEffect(() => {
-    if(state.length === 1 || state.length === 0){
+    if(state.toString().length === 1 || state.toString().length === 0){
         setWidth("2rem")
-    }else if(state.length === 2){
+    }else if(state.toString().length === 2){
       setWidth("2.75rem")
-    }else if(state.length === 3){
+    }else if(state.toString().length === 3){
       setWidth("3.75rem")
-    }else if(state.length === 4){
+    }else if(state.toString().length === 4){
       setWidth("4.75rem")
-    }else if(state.length === 5){
+    }else if(state.toString().length === 5){
       setWidth("5.75rem")
-    }else if(state.length === 6){
+    }else if(state.toString().length === 6){
       setWidth("6.75rem")
-    }else if(state.length === 7){
+    }else if(state.toString().length === 7){
       setWidth("7.75rem")
     }
-  },[state])
+  },[state,resetValue])
+
+  useEffect(() => {
+    /// Only reset if the state is defined 
+    if (typeof resetValue !== "undefined"){
+      setValueState(resetValue)
+      setter(resetValue)
+    } 
+  },[reset,resetValue,setValueState,setter])
+
 
 
   function handleSubmit(e) {

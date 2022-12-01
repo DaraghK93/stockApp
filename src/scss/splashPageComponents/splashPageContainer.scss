@@ -51,6 +51,25 @@
         margin-inline-start: 0rem;
         margin-inline-end: 0rem;
       }
+      .cardContainer {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 100%;
+        .sideScrollCard {
+          display: inline-block;
+          padding: 0.1875rem;
+          padding-top:0;
+        }
+        .tickercardstyle {
+            width: 10rem;
+            height: 100%;
+            display: block;
+            border-width: 1.5px;
+            box-shadow: 2px 2px $shadow;
+          }
+      
+      }
 }
 
 .not-clickable {
@@ -64,3 +83,10 @@
 }
 
 
+.firstTickers {
+    width: 10rem;
+    height: 100%;
+    display: block;
+    border-width: 1.5px;
+    box-shadow: 5px 5px $shadow;
+  }

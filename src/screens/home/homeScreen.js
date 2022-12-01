@@ -27,53 +27,53 @@ function HomeScreen() {
   var articles = [
     {
       headline:
-        "Rees-Mogg argues pensions 'aren't at risk' despite BoE warnings",
+        "Apple plans to give 25% wage increase",
       source: 'Sky News',
       link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…1',
       category: 'Business',
       description:
         'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
       image:
-        'https://e3.365dm.com/22/10/70x70/skynews-jacob-rees-mogg-fringe_5919846.jpg?20221004130943',
+        'https://images.unsplash.com/photo-1579693409321-1be2df1ab130?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXBwbGUlMjBpbmN8ZW58MHx8MHx8&w=1000&q=80',
       pubDate: '2022-10-13T06:22:00.000+00:00',
-      sentiment: 'negative',
+      sentiment: 'positive',
     },
     {
       headline:
-        "Rees-Mogg argues pensions 'aren't at risk' despite BoE warnings",
+        "Rumours that Apple are insolvent labelled 'concerning' by analysts",
       source: 'Sky News',
       link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…2',
       category: 'Business',
       description:
         'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
       image:
-        'https://e3.365dm.com/22/10/70x70/skynews-jacob-rees-mogg-fringe_5919846.jpg?20221004130943',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Aerial_view_of_Apple_Park_dllu.jpg/1200px-Aerial_view_of_Apple_Park_dllu.jpg',
       pubDate: '2022-10-14T06:22:00.000+00:00',
       sentiment: 'negative',
     },
     {
       headline:
-        "Rees-Mogg argues pensions 'aren't at risk' despite BoE warnings",
+        "Apple advertising relationship with twitter brought into question",
       source: 'Sky News',
       link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…3',
       category: 'Business',
       description:
         'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
       image:
-        'https://e3.365dm.com/22/10/70x70/skynews-jacob-rees-mogg-fringe_5919846.jpg?20221004130943',
+        'https://st3.depositphotos.com/1022914/16288/i/1600/depositphotos_162882208-stock-photo-apple-inc-logo-on-the.jpg',
       pubDate: '2022-10-15T06:22:00.000+00:00',
-      sentiment: 'negative',
+      sentiment: 'neutral',
     },
     {
       headline:
-        "Rees-Mogg argues pensions 'aren't at risk' despite BoE warnings",
+        "Apple to lay off 30% of staff",
       source: 'Sky News',
       link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…4',
       category: 'Business',
       description:
         'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
       image:
-        'https://e3.365dm.com/22/10/70x70/skynews-jacob-rees-mogg-fringe_5919846.jpg?20221004130943',
+        'https://image.cnbcfm.com/api/v1/image/106941688-1631644205737-AppleEventSEP14KeynoteTim_Cook02.jpg?v=1631795513&w=1920&h=1080',
       pubDate: '2022-10-16T06:22:00.000+00:00',
       sentiment: 'negative',
     },
@@ -739,7 +739,7 @@ function HomeScreen() {
                   className='sideScrollCard not-clickable stockDisplayCol'
                   key={stockObj._id}
                 >
-                  <TickerCard key={stockObj._id} stock={stockObj} />
+                  <TickerCard key={stockObj._id} stock={stockObj} className='firstTickers'/>
                 </div>
               ))}
             </SideScrollMenu>

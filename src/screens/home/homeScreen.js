@@ -366,8 +366,8 @@ function HomeScreen() {
         </Row>
       </Container>
       <Row className='py-4 banner'>
-        <p className='quote'>"Slick" - PK</p>
-        <p className='quote'>"Future 5 star app" - The Garjin</p>
+        <p className='quote'>"Slick" - The independent</p>
+        <p className='quote'>"Future 5 star app" - The Guardian</p>
       </Row>
       <Container className='splash-page-container'>
         <Row className='py-4'>

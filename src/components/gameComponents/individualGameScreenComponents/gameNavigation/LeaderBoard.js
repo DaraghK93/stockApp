@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from "react"
-import { Image, Row, Col, Table, Container } from 'react-bootstrap';
+import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
@@ -16,20 +16,27 @@ function LeaderBoard({ leaderBoardInfo }) {
 
     const columns = [
         { label: "Rank", accessor: "position", sortable: false },
-        { label: "Pic", accessor: "avatar", sortable: false },
+        { label: "", accessor: "avatar", sortable: false },
         { label: "User", accessor: "username", sortable: true, sortbyOrder: "desc" },
         { label: "Total", accessor: "amount", sortable: false },
         { label: "Change", accessor: "dailyChange", sortable: false },
     ];
 
+    const renderTooltip = (props) => (
+        console.log("tooltip")
+        // <Tooltip id="button-tooltip" {...props}>
+        //     Simple tooltip
+        // </Tooltip>
+        )
+
     return (
 
         <>
             <div className={showTop3 ? "leaderBoardStyle" : "leaderBoardStyle2"}>
-                <Container style={{ width: "95%" }} >
+                <Container>
                     <center>
                         <br></br><br></br>
-                        <Col s={6} md={6} lg={6} xl={6}>
+                        <Col s={6} md={7} lg={7} xl={7}>
                             {showTop3 &&
                                 <Row xs={3} style={{ textAlign: "center" }}>
                                     <Col xs={4}>
@@ -64,9 +71,19 @@ function LeaderBoard({ leaderBoardInfo }) {
                                     <Table style={{ borderCollapse: "collapse" }}>
                                         <thead>
                                             <tr key="cols" className="leaderBoardHeaderStyle">
-                                                {columns.map(({ label, accessor }) => {
-                                                    return <th key={accessor}>{label}</th>;
-                                                })}
+                                                <th>Rank</th>
+                                                <th></th>
+                                                <th>User</th>
+                                                <th>Total</th>
+                                                <th as="button" onClick={renderTooltip}>
+                                                {/* <OverlayTrigger
+                                                    placement="right"
+                                                    delay={{ show: 250, hide: 400 }}
+                                                    overlay={renderTooltip}
+                                                > */}
+                                                Change
+                                                {/* </OverlayTrigger> */}
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody style={{ backgroundColor: "none" }}>

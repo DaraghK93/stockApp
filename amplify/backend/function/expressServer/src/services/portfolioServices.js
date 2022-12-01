@@ -280,9 +280,10 @@ const cancelBuyLimitOrder = async (transactionData) => {
 
         // update the status of the transaction to CANCELLED
         const transaction = await Transaction.findByIdAndUpdate({_id: transactionId}, {status: "CANCELLED"})
+        const otherTransactions = await Transaction.findOne({stockId: transaction.stockId, portfolioId: transaction.portfolioId, status: "PENDING"})
         const holdings = await Holdings.findById({_id: transaction.holdings})
         let portfolio
-        if (holdings.units === 0 && holdings.frozenHoldingsUnits === 0){
+        if (holdings.units === 0 && holdings.frozenHoldingsUnits === 0 && otherTran){
             await Holdings.findByIdAndDelete({_id: holdings._id})
             portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}, $pull: {holdings: holdings._id}}, {new:true})
             return portfolio

@@ -5,18 +5,26 @@ import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../tickercard/Tickercard';
+import {useSelector} from 'react-redux';
+
 
 function StockSummary() {
     const [stocks, setStock] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    //Redux
+    const user = useSelector((state) => state.user)
+    const { userInfo } = user
+    const userToken = userInfo.token
+
     useEffect(() => {
         const getStocks = async () =>{
                 try{
                     setLoading(true)
                     let path = `/api/stock?keyword=undefined`
-                    const res = await API.get(APIName, path)
+                    const params = {headers : {"x-auth-token": userToken}}
+                    const res = await API.get(APIName, path, params)
                     setStock(res)
                     setLoading(false) 
                 }catch(error){
@@ -26,7 +34,8 @@ function StockSummary() {
                 }
             }
             getStocks()
-        },[])
+        },[userToken])
+
 
     return(
         <>

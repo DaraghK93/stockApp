@@ -87,7 +87,6 @@ const buyStock = async (buyData, portfolioRemainder,value, transactionFee, statu
             newHoldings = await Holdings.updateOne({_id: holdings._id}, {units: currentHoldings})
             // create transaction object
             transaction.holdings = holdings._id
-            console.log("HERE")
             await transaction.save()
             newRemainder = portfolioRemainder - transaction.value - transaction.tradingFee
             newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday:1}}, {new:true})
@@ -225,13 +224,13 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
                 // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
                 }
-                else {
-                    newRemainder = portfolioRemainder - transactionFee
-                    newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder},  $inc: {tradesToday: 1}}, {new:true})
+                else {   
+                    newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
                 }
             }
             else{
-                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $inc: {tradesToday: 1}}, {new:true})
+                newRemainder = portfolioRemainder - transactionFee
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder},  $inc: {tradesToday: 1}}, {new:true})
             }
             return newPortfolio
         }

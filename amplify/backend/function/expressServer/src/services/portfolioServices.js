@@ -193,7 +193,8 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
             }
             else{
-                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $inc: {tradesToday: 1}}, {new:true})
+                newRemainder = portfolioRemainder - transactionFee
+                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId}, {$push: {transactions: transaction}, $set: {remainder: newRemainder}, $inc: {tradesToday: 1}}, {new:true})
             }
             return newPortfolio
         }
@@ -225,7 +226,8 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
                 }
                 else {
-                newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder},  $inc: {tradesToday: 1}}, {new:true})
+                    newRemainder = portfolioRemainder - transactionFee
+                    newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder},  $inc: {tradesToday: 1}}, {new:true})
                 }
             }
             else{

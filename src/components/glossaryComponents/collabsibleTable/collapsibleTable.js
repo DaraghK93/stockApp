@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Accordion from 'react-bootstrap/Accordion'
 import SentimentBadge from '../../widgets/sentimentBadge/SentimentBadge'
 import { Container } from "react-bootstrap"
-import YouTube, { YouTubeProps } from 'react-youtube'
 
 
 function CollapsibleTable() {
@@ -306,16 +305,14 @@ function CollapsibleTable() {
                 risen by that amount, but the value of your cash amount has stayed the same. Investing offers a chance to offset 
                 some of this inflation. While there can be a lot more risk involved, a well-diversified portfolio can make steady gains.
               </p>
-              {/* <p>This article and the below video explain the differences between saving and investing. <a className="linkStyle" href="https://www.cnbc.com/2021/07/21/holding-too-much-cash-isnt-growing-your-wealth-do-this-instead.html" target="_blank" rel="noopener noreferrer">Article</a>.</p> */}
-            {/* <Container className="ytvid"><iframe className="iframe" width="300rem" height="168rem" src="https://www.youtube.com/embed/LsDKT7P_iws" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></Container> */}
+              <p>This article and the below video explain the differences between saving and investing. <a className="linkStyle" href="https://www.cnbc.com/2021/07/21/holding-too-much-cash-isnt-growing-your-wealth-do-this-instead.html" target="_blank" rel="noopener noreferrer">Article</a>.</p>
+            <Container className="ytvid"><iframe className="iframe" src="https://www.youtube.com/embed/LsDKT7P_iws" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></Container>
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="3">
             <Accordion.Header><span className="semibolded">How risky is investing?</span></Accordion.Header>
             <Accordion.Body>
-              {/* <Container className="ytvid"> */}
-              {/* <center><YouTube videoId="thNrIsU88y8" width="300rem" height="168rem" className="iframe"/></center></Container> */}
-            <Container className="ytvid"><iframe className="iframe" width="300rem" height="168rem" src="https://www.youtube.com/embed/thNrIsU88y8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></Container>
+            <Container className="ytvid"><iframe className="iframe" src="https://www.youtube.com/embed/thNrIsU88y8" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe></Container>
             </Accordion.Body>
           </Accordion.Item>
           </Accordion>

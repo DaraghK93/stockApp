@@ -52,6 +52,9 @@
     pointer-events: none;
 }
 
-.splashLogo {
-    max-width: 60%;
+@media only screen and (min-width: 600px) {
+    .splashLogo {
+    max-width: 30rem;
 }
+}
+

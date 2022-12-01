@@ -7,6 +7,7 @@ import boto3
 # For MongoDB Connection
 import pymongo
 # from dotenv import load_dotenv
+from bson.objectid import ObjectId
 
 
 # Setting directory path so the pickle and csv files can be read in
@@ -89,26 +90,17 @@ def symbol_to_index(symbol):
 
 def get_user_stock(userID, client):
     try:
-        # Load the MongoURI from the dotenv file (Localhost)
-        # load_dotenv()
-        # mongo_uri = os.getenv('MONGO_URI')
-        # Setting the MongoDB connection
-        # mongoClient = MongoClient(mongo_uri)
         # Setting the DB name
         db = client[os.environ["DATABASENAME"]]
         # Setting the DB collection names
         user_collection = db['users']
         stocks_collection = db['stocks']
         # Set user data so that portfolios can be checked
-        user = user_collection.find_one({"_id": userID})
+        user = user_collection.find_one({"_id": ObjectId(userID)})
 
         # Try - If user exists
         try:
-            # This query checks if the user has a portfolio. If not the array is noneType and cannot be indexed, exception is triggered
-            user_portfolio = user["portfolios"]
-            user_portfolio = user_portfolio[0]
-
-            output = user_collection.aggregate([{'$match': {'username': userID}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
+            output = user_collection.aggregate([{'$match': {'_id': ObjectId(userID)}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
                 '$unwind': {
                     'path': '$portfolios'
                 }
@@ -143,15 +135,19 @@ def get_user_stock(userID, client):
                 }
             }
             ])
+            
             output_list = list(output)
+            output_list_test = output[0]
             res_str = ""
             # Aggregate query returns a command cursor, this has to be iterated over to access any data.
             for doc in output_list:
                 res_str = doc['stock']
+                print("Res Str:", res_str)
             return res_str
 
         # In case of a user who doesn't have any portfolio yet, return biggest positive mover.
         except:
+            print("Hitting no portfolio exception:")
             top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
                                                                                    'daily_change.absoluteChange': 1,
                                                                                    'daily_change.percentageChange': 1,

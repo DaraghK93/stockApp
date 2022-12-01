@@ -68,3 +68,81 @@ exports = function(changeEvent) {
                                   }
                                 ])
                               }
+
+
+/// change holdings due to limit orders being actioned
+
+// runs every time the stocks collection is updated (equates to every 20 minutes)
+// -- collection: stocks
+// -- operation: update
+
+exports = async function(changeEvent) {
+  
+  const collection = context.services.get("Cluster0").db("dev").collection("transactions");
+  const holdingsdoc = await collection.aggregate([
+                                { // match on pending limit buys
+                                  '$match': {
+                                    'orderType': 'LIMIT', 
+                                    'status': 'PENDING', 
+                                    'buyOrSell': 'BUY'
+                                  }
+                                }, { // joins stocks to find the price
+                                  '$lookup': {
+                                    'from': 'stocks', 
+                                    'localField': 'stockId', 
+                                    'foreignField': '_id', 
+                                    'as': 'stock', 
+                                    'pipeline': [
+                                      {
+                                        '$project': {
+                                          'daily_change.currentprice': 1
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }, { // make into object
+                                  '$unwind': {
+                                    'path': '$stock'
+                                  }
+                                }, { // match only ones that are able to be actioned
+                                  '$match': {
+                                    '$expr': {
+                                      '$lte': [
+                                        '$stock.daily_change.currentprice', '$limitValue'
+                                      ]
+                                    }
+                                  }
+                                }, { // get the holdings
+                                  '$lookup': {
+                                    'from': 'holdings', 
+                                    'localField': 'holdings', 
+                                    'foreignField': '_id', 
+                                    'as': 'holdings'
+                                  }
+                                }, { // make into object
+                                  '$unwind': {
+                                    'path': '$holdings'
+                                  }
+                                }, { // add the transaction units to holdings units
+                                  '$set': {
+                                    'holdings.units': {
+                                      '$add': [
+                                        '$units', '$holdings.units'
+                                      ]
+                                    }
+                                  }
+                                }, { // make the root object
+                                  '$replaceRoot': {
+                                    'newRoot': '$holdings'
+                                  }
+                                }, { // merge into holdings collection
+                                  '$merge': {
+                                    'into': 'holdings', 
+                                    'on': '_id', 
+                                    'whenMatched': 'merge'
+                                  }
+                                }
+                              ]);
+
+return holdingsdoc 
+}

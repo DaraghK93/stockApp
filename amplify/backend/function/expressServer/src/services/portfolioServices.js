@@ -202,7 +202,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
             let otherTransactions
             if(transaction.orderType === "MARKET"){
                 otherTransactions = await Transaction.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId, status: "PENDING"})
-                if(otherTransactions.length === 0 && holdings.frozenHoldingsUnits === 0){
+                if(otherTransactions === null && holdings.frozenHoldingsUnits === 0){
                     // if the holdings are 0 and there are no pending transactions then the holdings referenced should be deleted
                     await Holdings.findByIdAndDelete({_id:holdings._id})
                 }
@@ -221,7 +221,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
             if (transaction.orderType === "MARKET"){
                 newRemainder = portfolioRemainder + value - transactionFee
                 otherTransactions = await Transaction.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId, status: "PENDING"})
-                if(otherTransactions.length === 0 && holdings.frozenHoldingsUnits === 0){
+                if(otherTransactions === null && holdings.frozenHoldingsUnits === 0){
                 // find and update the portfolio, adding ref to transaction, setting new remainder, removing the ref to the holding, increasing the number associated to the number of trades today
                 newPortfolio = await Portfolio.findByIdAndUpdate({_id: transaction.portfolioId},{$push: {transactions: transaction}, $set: {remainder: newRemainder}, $pull: {holdings: holdings._id}, $inc: {tradesToday: 1}}, {new:true})
                 }

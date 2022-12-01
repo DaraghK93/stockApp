@@ -32,36 +32,25 @@ function IndividualGameScreen() {
     const userToken = userInfo.token
 
     useEffect(() => {
-        /// getStockInfo ///
-        // Description:
-        //  Makes a GET request to the backend route /game/:gameId
-        const getLeagueInfo = async () => {
-            try {
-                // Request is being sent set loading true   
-                setLoading(true);
-                // get the league Id from the href, got last index of last slash and used substring method
-                const leagueId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
-                let path = `/api/league/${leagueId}`;
-                let myInit = {
-                    headers: { "x-auth-token": userToken },
-                }
-                API.get(APIName, path, myInit)
-                    .then((response) => {
-                        setLeague(response)
-                        setLoading(false)
-                    })
-                    .catch((error) => {
-                        console.log(error.response);
-                    });
-            } catch (error) {
-                // Log the error 
-                console.log(error)
-                // Set the error message to be displayed on the page 
+        // Request is being sent set loading true   
+        setLoading(true);
+        // get the league Id from the href, got last index of last slash and used substring method
+        const leagueId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        let path = `/api/league/${leagueId}`;
+        let myInit = {
+            headers: { "x-auth-token": userToken },
+        }
+        API.get(APIName, path, myInit)
+            .then((response) => {
+                setLeague(response)
+                setLoading(false)
+            })
+            .catch((error) => {
+                /// This will be an error from API call 
+                console.log(error);
                 setError(error.response.data.errormessage)
                 setLoading(false)
-            }
-        }
-        getLeagueInfo()
+            });
     }, [userToken])
 
 

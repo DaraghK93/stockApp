@@ -25,9 +25,9 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
 
     useEffect(() => {
         if(buyOrSell === "Buy"){
-                setData([{ value: parseFloat(dollarAmountSelected) }, { value: newPortfolioBalance }]);
+                setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){
-                setData([{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}])
+                setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}])
         }
     }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding])
 
@@ -46,8 +46,21 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                                 data={data}
                                 dataKey="value"
                             >
-                                <Cell fill="#1E90FF" />
-                                <Cell fill="#595959" />
+                                {buyOrSell === "Buy" ?
+                                <>
+                                
+                                
+                                    <Cell fill="#1E90FF" />
+                                    <Cell fill="#595959" />
+                                    </>
+                                :
+                                    <>
+                                   <Cell fill="#1E90FF" />
+                                   <Cell fill="#00FF00" />
+                                   </>
+                                }
+                                
+                                
                             {buyOrSell === "Buy"?
                              <Label
                                     content={<CustomLabel text={"Left to Spend"} balance={parseFloat(newPortfolioBalance)} />}

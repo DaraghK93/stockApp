@@ -122,6 +122,7 @@ function OrderConfirmationPage() {
                         /// If the user has a postion in this stock it will match the stock ID 
                         if(item.stockId === stock.id){
                             setHolding(item.units)
+                            console.log(item)
                         }
                     });
                 }else{

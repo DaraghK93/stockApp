@@ -196,8 +196,12 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
         }
         else if (newHoldings === 0){
             if(transaction.orderType === "MARKET"){
-            // if the holdings are 0 then the holdings referenced should be deleted
-            await Holdings.findByIdAndDelete({_id:holdings._id})
+                const otherTransactions = await Transaction.findOne({portfolioId: transaction.portfolioId, stockId: transaction.stockId, status: "PENDING"})
+                if(otherTransactions.length === 0 && holdings.frozenHoldingsUnits === 0){
+                    // if the holdings are 0 and there are no pending transactions then the holdings referenced should be deleted
+                    await Holdings.findByIdAndDelete({_id:holdings._id})
+                }
+                
             }
             else {
             await Holdings.updateOne({_id:holdings._id}, {units: newHoldings, $inc: {frozenHoldingsUnits: frozenHoldings}})
@@ -283,7 +287,7 @@ const cancelBuyLimitOrder = async (transactionData) => {
         const otherTransactions = await Transaction.findOne({stockId: transaction.stockId, portfolioId: transaction.portfolioId, status: "PENDING"})
         const holdings = await Holdings.findById({_id: transaction.holdings})
         let portfolio
-        if (holdings.units === 0 && holdings.frozenHoldingsUnits === 0 && otherTran){
+        if (holdings.units === 0 && holdings.frozenHoldingsUnits === 0 && otherTransactions === null){
             await Holdings.findByIdAndDelete({_id: holdings._id})
             portfolio = await Portfolio.findByIdAndUpdate({_id: transactionData.portfolioId}, {$inc:{remainder: transactionData.value, frozenBalance: -transactionData.value}, $pull: {holdings: holdings._id}}, {new:true})
             return portfolio

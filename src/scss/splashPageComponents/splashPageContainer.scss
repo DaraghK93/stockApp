@@ -44,10 +44,14 @@
     padding: 4rem 0;
 }
 
-// .stockDisplayCol {
-//     margin: 0;
-// }
+.stockDisplayCol {
+    background-color: $primary;
+}
 
 .not-clickable {
     pointer-events: none;
+}
+
+.splashLogo {
+    max-width: 60%;
 }

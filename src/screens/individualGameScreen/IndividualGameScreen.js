@@ -152,7 +152,7 @@ function IndividualGameScreen() {
                     <div className="container-img">
                         <Image className="gameImage" src={league.image}></Image>
                         <div className="centeredGameImg">
-                            <h1 className="ImgTxt">{league.leagueName}</h1>
+                            <h1 className="ImgTxt">{league.leagueName}</h1><br></br>
                             <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
                                 <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText(accessString) }}>Copy</ContentCopyIcon></p>
 

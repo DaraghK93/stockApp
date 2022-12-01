@@ -222,7 +222,7 @@ const sellStock = async (sellData, portfolioRemainder,value, transactionFee, sta
     else {
         // if there are no holdings return an error
         
-        return {error:404, errormessage: "No holding of that stock exists"}
+        return {error:404, errormessage: "No holdings of this stock in portfolio, buy shares of this stock to be able to sell it!"}
     }
     }
     catch (err) {

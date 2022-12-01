@@ -52,7 +52,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                         <Image src={"/avatar.png"} className="top3ImgStyle secondplace" />
                                         <p><strong><span className="rankingText" >2nd place</span></strong>   <br></br>
                                             @{leaderBoardInfo[1].user.toString()}
-                                            <br></br>${leaderBoardInfo[1].totalValue}
+                                            <br></br>{parseFloat(leaderBoardInfo[1].totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
 
                                         </p>
                                     </Col>
@@ -61,7 +61,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                         <Image src={"/avatar.png"} className="top3ImgStyle firstplace" />
                                         <p><strong><span className="rankingText">1st place</span></strong>  <br></br>
                                             @{leaderBoardInfo[0].user.toString()}
-                                            <br></br>${leaderBoardInfo[0].totalValue}
+                                            <br></br>{parseFloat(leaderBoardInfo[0].totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
 
                                         </p>
                                     </Col>
@@ -69,7 +69,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                         <Image src={"/avatar.png"} className="top3ImgStyle thirdplace" />
                                         <p><strong><span className="rankingText">3rd place</span></strong><br></br>
                                             @{leaderBoardInfo[2].user.toString()}
-                                            <br></br>${leaderBoardInfo[2].totalValue}
+                                            <br></br>{parseFloat(leaderBoardInfo[2].totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
 
                                         </p>
                                     </Col>

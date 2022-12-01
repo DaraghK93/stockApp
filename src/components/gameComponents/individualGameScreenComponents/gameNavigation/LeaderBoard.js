@@ -1,133 +1,112 @@
-import { Fragment } from "react"
-import { Image, Row, Col, Table, Container } from 'react-bootstrap';
+import { Fragment, useState, useEffect } from "react"
+import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
-function LeaderBoard() {
 
-    const leaderBoardData = [
-        {
-            userName: "user1",
-            amount: 10000000,
-            dailyChange: 20,
-            picture: "/avatar.png"
-        },
-        {
-            userName: "usy2",
-            amount: 1000000,
-            dailyChange: 20,
-            picture: "/avatar.png"
-        },
-        {
-            userName: "us3",
-            amount: 100000,
-            dailyChange: 20,
-            picture: "/avatar.png"
-        },
-        {
-            userName: "js4",
-            amount: 10000,
-            dailyChange: 20,
-            picture: "/avatar.png"
-        },
-        {
-            userName: "js5",
-            amount: 1000,
-            dailyChange: 20,
-            picture: "/avatar.png"
-        },
-        {
-            userName: "js6",
-            amount: 100.00,
-            dailyChange: 20.00,
-            picture: "/avatar.png"
-        }, {
-            userName: "js7",
-            amount: 10,
-            dailyChange: 20,
-            picture: "/avatar.png"
+function LeaderBoard({ leaderBoardInfo }) {
+
+    const [showTop3, setShowTop3] = useState(false);
+
+    useEffect(() => {
+        if (leaderBoardInfo.length > 3) {
+            setShowTop3(true)
         }
+    }, [leaderBoardInfo])
 
-    ]
-
-    const Top3 = leaderBoardData.slice(0, 3)
-    const RestOfLeaderBoard = leaderBoardData.splice(3)
-    const columns = [
-        { label: "Rank", accessor: "position", sortable: false },
-        { label: "Pic", accessor: "avatar", sortable: false },
-        { label: "User", accessor: "username", sortable: true, sortbyOrder: "desc" },
-        { label: "Total", accessor: "amount", sortable: false },
-        { label: "Change", accessor: "dailyChange", sortable: false },
-    ];
-
+    function applyRank() {
+        var rank = 1;
+        for (var i = 0; i < leaderBoardInfo.length; i++) {
+            // increase rank only if current score less than previous
+            if (i > 0 && leaderBoardInfo[i].totalValue < leaderBoardInfo[i - 1].totalValue) {
+                rank++;
+            }
+            leaderBoardInfo[i].rank = rank;
+        }
+    }
+    applyRank()
 
     return (
 
         <>
-            <div className="leaderBoardStyle">
-                <Container style={{ width: "95%" }} >
+            <div className={showTop3 ? "leaderBoardStyle" : "leaderBoardStyle2"}>
+                <Container>
                     <center>
                         <br></br><br></br>
-                        <Col s={6} md={6} lg={6} xl={6}>
+                        <Col s={6} md={7} lg={7} xl={7}>
+                            {showTop3 &&
+                                <Row xs={3} style={{ textAlign: "center" }}>
+                                    <Col xs={4}>
+                                        <Image src={"/avatar.png"} className="top3ImgStyle secondplace" />
+                                        <p><strong><span className="rankingText" >2nd place</span></strong>   <br></br>
+                                            @{leaderBoardInfo[1].user.toString()}
+                                            <br></br>{parseFloat(leaderBoardInfo[1].totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
 
-                            <Row xs={3} style={{ textAlign: "center" }}>
-                                <Col xs={4}>
-                                    <Image src={"/avatar.png"} className="top3ImgStyle secondplace" />
-                                    <p><strong><span className="rankingText" >2nd place</span></strong>   <br></br>
-                                        @{Top3[1].userName}
-                                        <br></br>
-                                        ${Top3[1].amount}<br></br>
-                                        +${Top3[1].dailyChange}
-                                    </p>
-                                </Col>
-                                <Col xs={4}>
-                                    <Image src={"/crown.png"} style={{ width: "50%" }} /><div style={{ height: "5px" }} />
-                                    <Image src={"/avatar.png"} className="top3ImgStyle firstplace" />
-                                    <p><strong><span className="rankingText">1st place</span></strong>  <br></br>
-                                        @{Top3[0].userName}
-                                        <br></br>
-                                        ${Top3[0].amount}<br></br>
-                                        +${Top3[0].dailyChange}
-                                    </p>
-                                </Col>
-                                <Col xs={4}>
-                                    <Image src={"/avatar.png"} className="top3ImgStyle thirdplace" />
-                                    <p><strong><span className="rankingText">3rd place</span></strong><br></br>
-                                        @{Top3[2].userName}
-                                        <br></br>
-                                        ${Top3[2].amount}<br></br>
-                                        +${Top3[2].dailyChange}
-                                    </p>
-                                </Col>
-                                <br></br><br></br>
-                            </Row>
+                                        </p>
+                                    </Col>
+                                    <Col xs={4}>
+                                        <Image src={"/crown.png"} style={{ width: "50%" }} /><div style={{ height: "5px" }} />
+                                        <Image src={"/avatar.png"} className="top3ImgStyle firstplace" />
+                                        <p><strong><span className="rankingText">1st place</span></strong>  <br></br>
+                                            @{leaderBoardInfo[0].user.toString()}
+                                            <br></br>{parseFloat(leaderBoardInfo[0].totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
+
+                                        </p>
+                                    </Col>
+                                    <Col xs={4}>
+                                        <Image src={"/avatar.png"} className="top3ImgStyle thirdplace" />
+                                        <p><strong><span className="rankingText">3rd place</span></strong><br></br>
+                                            @{leaderBoardInfo[2].user.toString()}
+                                            <br></br>{parseFloat(leaderBoardInfo[2].totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
+
+                                        </p>
+                                    </Col>
+                                    <br></br><br></br>
+                                </Row>}
                             <Row>
                                 <Col>
                                     <Table style={{ borderCollapse: "collapse" }}>
                                         <thead>
                                             <tr key="cols" className="leaderBoardHeaderStyle">
-                                                {columns.map(({ label, accessor }) => {
-                                                    return <th key={accessor}>{label}</th>;
-                                                })}
+                                                <th>Rank</th>
+                                                <th></th>
+                                                <th>User</th>
+                                                <th>
+                                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Current total value<br></br>of portfolio</Tooltip>}>
+                                                        <span className="d-inline-block" style={{ textDecoration: "underline" }}>
+                                                            Total
+                                                        </span>
+                                                    </OverlayTrigger>
+
+                                                </th>
+                                                <th>
+                                                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Change in portfolio value<br></br>since yesterday</Tooltip>}>
+                                                        <span className="d-inline-block" style={{ textDecoration: "underline" }}>
+                                                            Change
+                                                        </span>
+                                                    </OverlayTrigger>
+                                                </th>
                                             </tr>
                                         </thead>
-                                        <tbody style={{ backgroundColor: "none" }}>
-                                            {RestOfLeaderBoard.map((item) => (
-                                                (<Fragment key={`${item.userName}-fragment`}>
-                                                    <tr key={item.userName} className="leaderboradRowStyle">
-                                                        <td className="leftCurvedBorders"><center>{RestOfLeaderBoard.indexOf(item) + 4}</center></td>
 
+                                        <tbody style={{ backgroundColor: "none" }}>
+                                            {leaderBoardInfo.map((item, index) => (
+                                                (<Fragment key={`${item.user}-fragment`}>
+                                                    <tr key={item.user} className="leaderboradRowStyle">
+                                                        <td className="leftCurvedBorders"><center>{item.rank}</center></td>
                                                         <td key={item.picture}><center>
-                                                            <Image src={item.picture} className="leaderBoardAvatarStyle" alt="user avatar"></Image>
+                                                            <Image src={"/avatar.png"} className="leaderBoardAvatarStyle" alt="user avatar"></Image>
                                                         </center>
                                                         </td>
-                                                        <td><center>@{item.userName}</center></td>
-                                                        <td><center>${item.amount.toFixed(2)}</center></td>
+                                                        <td><center>@{item.user}</center></td>
+                                                        <td><center>{parseFloat(item.totalValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</center></td>
                                                         <td id={item.dailyChange} className="rightCurvedBorders"
                                                             style={{ verticalAlign: "middle" }}>
-                                                            <center>+${item.dailyChange.toFixed(2)}<KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /></center></td>
+
+
+                                                            <center>+$20<KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /></center></td>
                                                     </tr>
-                                                    <tr key={`${item.userName}padding`} style={{ height: "5px" }} ></tr>
+                                                    <tr key={`${item.user}padding`} style={{ height: "5px" }} ></tr>
                                                 </Fragment>)
 
                                             ))}

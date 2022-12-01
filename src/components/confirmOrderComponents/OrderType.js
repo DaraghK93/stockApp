@@ -1,7 +1,7 @@
 import { Card, Container, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
 
-function OrderType({ setBuyOrSell, setOrderType }) {
+function OrderType({ setBuyOrSell, setOrderType, holding }) {
     const [active, setActive] = useState("");
     const [active2, setActive2] = useState("");
 
@@ -44,6 +44,7 @@ function OrderType({ setBuyOrSell, setOrderType }) {
                                 id={"2"}
                                 onClick={handleClick}
                                 className={active === "2" ? "selectionButtonActive" : "selectionButton"}
+                                disabled={typeof holding === "undefined"}
                             >Sell</Button>
                         </Col>
                     </Row>

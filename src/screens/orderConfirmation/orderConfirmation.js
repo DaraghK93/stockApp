@@ -120,12 +120,11 @@ function OrderConfirmationPage() {
                 if (res.holdings.length > 0){
                     res.holdings.forEach(item =>{
                         /// If the user has a postion in this stock it will match the stock ID 
-                        if(item.stockId === stock.id && item.units !== 0){
+                        /// the units will also not equal to 0 
+                        if(item.stockId === stock.id && item.units > 1){
                             setHolding(item.units)
                         }
                     });
-                }else{
-                    setHolding({})
                 }
                 setGameTradeFee(res.league.tradingFee)
                 /// Set the Iitiliase the new portfolio balance to the remainder of the current 
@@ -150,7 +149,6 @@ function OrderConfirmationPage() {
             getPortfolioInfo()
         }
     },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
-
 
     /// buy/sell reset ///
     // This useEffect id used to reset values whne the user swiches between buy/sell
@@ -193,6 +191,7 @@ function OrderConfirmationPage() {
                         <OrderType
                             setBuyOrSell={setBuyOrSell}
                             setOrderType={setOrderType}
+                            holding={holding}
                         />
                     </Col>
                     {isShownMarketOrder &&

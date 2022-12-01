@@ -141,7 +141,7 @@ function IndividualGameScreen() {
             }
         }
     }
-    var accessString = league.accessCode.toString()
+    var accessString = league.accessCode
 
 
 

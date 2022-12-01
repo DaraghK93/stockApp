@@ -19,7 +19,7 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
             if (portfolios.length !== 1) {
                 return (
                     <>
-                        <p>There are only <strong>{portfolios.length} players</strong> in this game! Invite others to have better time using the access code: <strong>{accessCode} </strong>
+                        <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow so lonely! Invite others to have better time using the access code: <strong>{accessCode} </strong>
                         <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText( accessString ) }}>Copy</ContentCopyIcon></p>
                     </>)
             }

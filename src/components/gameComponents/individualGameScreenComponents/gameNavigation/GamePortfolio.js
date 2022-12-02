@@ -12,7 +12,7 @@ function GamePortfolio({ data, name, totalValue }) {
                                 <h1>{String(name)}</h1>
                             </dt>
                             <dt style={{ fontSize: "150%" }}>{parseFloat(totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</dt>
-                            <dt style={{ color: "#00C49F" }}>+$TEST VALUE (+TEST VALUE%)</dt>
+                            <dt style={{ color: "#00C49F" }}>+$CHANGE (+CHANGE%)</dt>
                         </dl>
                     </Row>
                     <Row>

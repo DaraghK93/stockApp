@@ -89,7 +89,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                             </tr>
                                         </thead>
 
-                                        <tbody style={{ backgroundColor: "none" }}>
+                                        <tbody style={{ backgroundColor: "none", fontSize:"90%"}}>
                                             {leaderBoardInfo.map((item, index) => (
                                                 (<Fragment key={`${item.user}-fragment`}>
                                                     <tr key={item.user} className="leaderboradRowStyle">

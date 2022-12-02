@@ -1,15 +1,9 @@
 import { ProgressBar, Container, Row, Col, Image } from "react-bootstrap";
 import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
-// link
-// copyable thing
-
-
 
 function ValueLine({ portfolios, winningValue, accessCode }) {
 
-    const remainder = 500
-    // winningValue - portfolios[0].totalValue
-
+    const remainder = winningValue - portfolios[0].totalValue
     var accessString = accessCode.toString()
 
     function getWinnerText() {
@@ -32,6 +26,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             }
         }
         else {
+        
             if (portfolios[0].totalValue === portfolios[1].totalValue && portfolios[0].totalValue === portfolios[2].totalValue) {
                 return (<><p>It's a tight race! <strong>{portfolios[0].user}</strong>, <strong>{portfolios[1].user}</strong> and <strong>{portfolios[2].user}</strong> are all
                     in the lead with <strong>{parseFloat(portfolios[0].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in

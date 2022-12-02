@@ -28,8 +28,9 @@ function TableHoldings({ data }) {
         { label: "Ticker", accessor: "ticker", sortable: true, showHeader: showCol },
         { label: "Value", accessor: "value", sortable: true, sortbyOrder: "desc", showHeader: true },
         { label: "Qty", accessor: "qty", sortable: true, sortbyOrder: "desc", showHeader: showCol }, 
+        { label: "Stock Price", accessor: "stockprice", sortable: true, sortbyOrder: "desc", showHeader: showCol }, 
         { label: "", accessor: "trade_button", sortable: false, showHeader: true },
-        { label: "", accessor: "expand", sortable: false, showHeader: true },
+        { label: "", accessor: "expand", sortable: false, showHeader: true, showHeader: hideCol },
     ];
 
     useEffect(() => {
@@ -162,8 +163,9 @@ function TableHoldings({ data }) {
                                     <td key={item.currentValue.toFixed(2)}><center>{parseFloat(item.currentValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</center></td>
 
                                     <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.units.toFixed(2)}><center>{item.units.toFixed(2)}</center></td>
+                                    <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.currentPrice.toFixed(2)}><center>{parseFloat(item.currentPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</center></td>
                                     <td key={`/stock/${item.symbol}/confirmorder`}><center><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></center></td>
-                                    <td key={`${item.symbol}/button`}><center>
+                                    <td className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${item.symbol}/button`}><center>
                                         <Button style={{ padding: 0, margin: 0, color: "black" }}
 
                                             variant="link"

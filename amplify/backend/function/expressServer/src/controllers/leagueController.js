@@ -1,4 +1,5 @@
 const League = require('../models/league.model')
+const Portfolio = require('../models/portfolio.model')
 const leagueService = require('../services/leagueServices')
 
 const mongoose = require("mongoose")
@@ -557,10 +558,62 @@ const getLeagueById = async (req,res,next) => {
 
 }
 
+const deleteLeague = async (req, res, next) => {
+  try {
+    if (
+      typeof req.body.leagueId === 'undefined' 
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'The league Id must be provided to delete a league.'
+      return next(
+        new Error(
+          'The client has not sent the required league Id that they wish to delete.'
+        ),
+      )
+    } 
+    const league = await League.findOne({_id: req.body.leagueId})
+    // check that the league exists
+    if(league===null){
+      res.status(404)
+      res.errormessage = 'Invalid portfolio.'
+      return next(
+        new Error(
+          'Portfolio must be associated to the user.'
+        )
+      )
+    }
+    const userId = mongoose.Types.ObjectId(req.user.id)
+    if(!league.leagueAdmin.equals(userId)){
+      res.status(400)
+      res.errormessage = 'You do not have administrative permissions to delete this league.'
+      return next(
+        new Error(
+          'You must be the admin of the league to delete the league.'
+        )
+      )
+    }
+    await League.deleteOne({_id:league._id})
+    await Portfolio.deleteMany({leagueId: league._id})
+    res.json(
+      league._id
+    )
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in deleting the league';
+    res.status(500)
+    return next(err);
+  }
+
+}
+
+
 module.exports = {
     createLeague,
     getPublicLeagues,
     joinLeaguebyCode,
     getMyLeagues,
-    getLeagueById
+    getLeagueById,
+    deleteLeague
   }

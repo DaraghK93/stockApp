@@ -182,7 +182,7 @@ function TableHoldings({ data }) {
                                                     <div>
                                                         <h3>{item.longname}</h3>
                                                         <ul key={`${item.symbol}-expanded-info`} style={{ listStyleType: "none" }}>
-                                                            <li className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.units.toFixed(2)}><strong>Ticker Symbol: </strong>{item.symbol}</li>
+                                                            <li className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.symbol}><strong>Ticker Symbol: </strong>{item.symbol}</li>
                                                             <li className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.units.toFixed(2)}><strong>Shares held: </strong>{item.units.toFixed(2)} stocks</li>
                                                             <li key={item.currentPrice.toFixed(2)}><strong>Current Price: </strong>${item.currentPrice.toFixed(2)}</li>
                                                         </ul>

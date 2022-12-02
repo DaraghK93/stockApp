@@ -8,7 +8,7 @@
 .leaderBoardStyle2 {
     color: $leaderBoardTxt;
     background-color: $leaderBoardBg;
-    height:100vh
+    height: 100vh
 }
 
 .leaderboradRowStyle {
@@ -86,4 +86,12 @@
         font-size: 90%;
     }
 
+}
+
+.leaderBoardShow {
+    display: block
+}
+
+.leaderBoardHide {
+    display: none
 }

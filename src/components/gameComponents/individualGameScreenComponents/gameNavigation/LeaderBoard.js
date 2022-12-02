@@ -1,12 +1,14 @@
 import { Fragment, useState, useEffect } from "react"
 import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+// import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 
 function LeaderBoard({ leaderBoardInfo }) {
 
     const [showTop3, setShowTop3] = useState(false);
+
+    const [showCol, setShowCol] = useState(false)
 
     useEffect(() => {
         if (leaderBoardInfo.length > 3) {
@@ -25,6 +27,18 @@ function LeaderBoard({ leaderBoardInfo }) {
         }
     }
     applyRank()
+
+
+    window.addEventListener("resize", showCols);
+
+    function showCols() {
+        if (window.innerWidth >= 576) {
+            setShowCol(true)
+        }
+        else {
+            setShowCol(false)
+        }
+    }
 
     return (
 
@@ -69,7 +83,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                         <thead>
                                             <tr key="cols" className="leaderBoardHeaderStyle">
                                                 <th>Rank</th>
-                                                <th></th>
+                                                <th className={showCol ? "leaderBoardShow" : "leaderBoardHide"}></th>
                                                 <th>User</th>
                                                 <th>
                                                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Current total value<br></br>of portfolio</Tooltip>}>
@@ -94,7 +108,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                 (<Fragment key={`${item.user}-fragment`}>
                                                     <tr key={item.user} className="leaderboradRowStyle">
                                                         <td className="leftCurvedBorders"><center>{item.rank}</center></td>
-                                                        <td key={item.picture}><center>
+                                                        <td  className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.picture}><center>
                                                             <Image src={"/avatar.png"} className="leaderBoardAvatarStyle" alt="user avatar"></Image>
                                                         </center>
                                                         </td>
@@ -104,7 +118,9 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                             style={{ verticalAlign: "middle" }}>
 
 
-                                                            <center>+$20<KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /></center></td>
+                                                            <center>+{parseFloat(20).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}
+                                                                {/* <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /> */}
+                                                                </center></td>
                                                     </tr>
                                                     <tr key={`${item.user}padding`} style={{ height: "5px" }} ></tr>
                                                 </Fragment>)

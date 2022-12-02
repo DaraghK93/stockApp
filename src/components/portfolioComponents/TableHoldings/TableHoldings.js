@@ -1,6 +1,6 @@
 import { Table, Container, Button, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { useState, Fragment } from "react"
+import { useState, Fragment, useEffect } from "react"
 import { ChevronUp, ChevronDown } from "react-feather"
 
 function TableHoldings({ data }) {
@@ -10,6 +10,9 @@ function TableHoldings({ data }) {
     // for rows that expand
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
+    // for showing cols
+    const [showCol, setShowCol] = useState(true)
+    const [hideCol, setHideCol] = useState(false)
     // for pagination
     const [postsPerPage, setPostsPerPage] = useState(5)
     const pageNumbers = [];
@@ -21,11 +24,30 @@ function TableHoldings({ data }) {
     const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
 
     const columns = [
-        { label: "Logo", accessor: "logo", sortable: false },
-        { label: "Value", accessor: "value", sortable: true, sortbyOrder: "desc" },
-        { label: "", accessor: "trade_button", sortable: false },
-        { label: "", accessor: "expand", sortable: false },
+        { label: "Logo", accessor: "logo", sortable: false, showHeader: true },
+        { label: "Ticker", accessor: "ticker", sortable: true, showHeader: showCol },
+        { label: "Value", accessor: "value", sortable: true, sortbyOrder: "desc", showHeader: true },
+        { label: "Qty", accessor: "qty", sortable: true, sortbyOrder: "desc", showHeader: showCol }, 
+        { label: "", accessor: "trade_button", sortable: false, showHeader: true },
+        { label: "", accessor: "expand", sortable: false, showHeader: true },
     ];
+
+    useEffect(() => {
+        showCols()
+    }, [])
+
+    window.addEventListener("resize", showCols);
+
+    function showCols() {
+        if (window.innerWidth >= 576) {
+            setShowCol(true)
+            setHideCol(false)
+        }
+        else {
+            setShowCol(false)
+            setHideCol(true)
+        }
+    }
 
     // sorting functions
     const handleSorting = (sortField, sortOrder) => {
@@ -88,11 +110,10 @@ function TableHoldings({ data }) {
     return (
         <>
             <Container>
-                <Table>
-
-                    <thead>
-                        <tr key="cols">
-                            {columns.map(({ label, accessor, sortable }) => {
+                <Table style={{ borderCollapse: "collapse" }}>
+                    <thead style={{ color: "black", verticalAlign: "middle", fontSize: "80%", textAlign: "center" }} >
+                        <tr style={{ verticalAlign: "middle", fontSize: "90%", textAlign: "center" }} key="cols">
+                            {columns.map(({ label, accessor, sortable, showHeader }) => {
                                 function arrow() {
                                     if (sortable === true) {
                                         if (sortField === accessor && order === "asc") {
@@ -109,7 +130,8 @@ function TableHoldings({ data }) {
                                 return <th
                                     key={accessor}
                                     onClick={sortable ? () => handleSortingChange(accessor) : null}
-                                >{label}{arrow()}
+                                    className={showHeader ? "leaderBoardShow" : "leaderBoardHide"}
+                                ><strong>{label}</strong>{arrow()}
                                 </th>;
                             })}
                         </tr>
@@ -117,28 +139,28 @@ function TableHoldings({ data }) {
                     <tbody>
                         {currentPosts.map((item) => (
                             (<Fragment key={`${item.symbol}-fragment`}>
-                                <tr key={item.symbol} style={{ height: "50px" }}>
-                                    <td key={item.logo}><Link to={`/stock/${item.symbol}`}>
+                                <tr style={{ verticalAlign: "middle" }} key={item.symbol}>
+                                    <td key={item.logo}><center><Link to={`/stock/${item.symbol}`}>
                                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                             <div style={{
                                                 width: "3.5rem",
-                                                height: "1.5rem",
+                                                height: "2rem",
                                             }}>
                                                 <img src={item.logo} style={{
-                                                    maxWidth: "100%",
-                                                    height: "auto",
+                                                    height: "100%",
                                                     display: "block",
                                                     objectFit: "contain"
-
                                                 }} alt="company logo"></img>
                                             </div>
                                         </div>
-                                    </Link></td>
+                                    </Link></center></td>
 
+                                    <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"}><center>{item.symbol}</center></td>
+                                    <td key={item.currentValue.toFixed(2)}><center>{parseFloat(item.currentValue).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</center></td>
 
-                                    <td key={item.currentValue.toFixed(2)}>${item.currentValue.toFixed(2)}</td>
-                                    <td key={`/stock/${item.symbol}/confirmorder`}><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></td>
-                                    <td key={`${item.symbol}/button`}>
+                                    <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.units.toFixed(2)}><center>{item.units.toFixed(2)}</center></td>
+                                    <td key={`/stock/${item.symbol}/confirmorder`}><center><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></center></td>
+                                    <td key={`${item.symbol}/button`}><center>
                                         <Button style={{ padding: 0, margin: 0, color: "black" }}
 
                                             variant="link"
@@ -147,7 +169,7 @@ function TableHoldings({ data }) {
                                                 expandState[item.symbol] ?
                                                     <ChevronUp /> : <ChevronDown />
                                             }
-                                        </Button></td>
+                                        </Button></center></td>
                                 </tr>
                                 <>
                                     {
@@ -157,7 +179,8 @@ function TableHoldings({ data }) {
                                                     <div>
                                                         <h3>{item.longname}</h3>
                                                         <ul key={`${item.symbol}-expanded-info`} style={{ listStyleType: "none" }}>
-                                                            <li key={item.units.toFixed(2)}><strong>Shares held: </strong>{item.units.toFixed(2)} stocks</li>
+                                                            <li className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.units.toFixed(2)}><strong>Ticker Symbol: </strong>{item.symbol}</li>
+                                                            <li className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.units.toFixed(2)}><strong>Shares held: </strong>{item.units.toFixed(2)} stocks</li>
                                                             <li key={item.currentPrice.toFixed(2)}><strong>Current Price: </strong>${item.currentPrice.toFixed(2)}</li>
                                                         </ul>
                                                     </div>

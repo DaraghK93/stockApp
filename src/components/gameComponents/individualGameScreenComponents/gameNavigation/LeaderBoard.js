@@ -7,7 +7,6 @@ import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'reac
 function LeaderBoard({ leaderBoardInfo }) {
 
     const [showTop3, setShowTop3] = useState(false);
-
     const [showCol, setShowCol] = useState(true)
 
     useEffect(() => {

@@ -8,13 +8,15 @@ function LeaderBoard({ leaderBoardInfo }) {
 
     const [showTop3, setShowTop3] = useState(false);
 
-    const [showCol, setShowCol] = useState(false)
+    const [showCol, setShowCol] = useState(true)
 
     useEffect(() => {
         if (leaderBoardInfo.length > 3) {
             setShowTop3(true)
         }
+        showCols()
     }, [leaderBoardInfo])
+
 
     function applyRank() {
         var rank = 1;
@@ -39,6 +41,7 @@ function LeaderBoard({ leaderBoardInfo }) {
             setShowCol(false)
         }
     }
+
 
     return (
 

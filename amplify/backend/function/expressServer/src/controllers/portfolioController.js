@@ -1,5 +1,5 @@
-const Portfolio = require('../models/portfolio.model');
-const League = require('../models/league.model');
+const Portfolio = require('../models/portfolio.model')
+const Transaction = require('../models/transactions.model')
 const PortfolioService = require('../services/portfolioServices')
 const Stock = require('../models/stock.model')
 const mongoose = require('mongoose')
@@ -41,13 +41,14 @@ const createHangingPortfolio = async (req, res, next) => {
     }
     } catch (err) {
       console.error(err.message);
-      res.errormessage = 'Server error';
+      res.status(500)
+      res.errormessage = 'Server error in creating a portfolio';
       return next(err);
     }
   }
 
 
-const buyStockMarketOrder = async (req, res, next) => {
+const buyStock = async (req, res, next) => {
   try{
     // check that all of the data is there
     if (
@@ -66,16 +67,27 @@ const buyStockMarketOrder = async (req, res, next) => {
         ),
       )
     }
-    else if (req.body.buyOrSell !== "BUY" || req.body.orderType !== "MARKET"){
+    else if (req.body.buyOrSell !== "BUY"){
       // check that the type is buy
       res.status(400)
-      res.errormessage = 'Not a valid market buy order request'
+      res.errormessage = 'Not a valid buy order request'
       return next(
         new Error(
-          'BuyOrSell type must be BUY and OrderType must be MARKET'
+          'BuyOrSell type must be BUY.'
         )
       )
     }
+    if (req.body.orderType !== "MARKET" && req.body.orderType !== "LIMIT"){
+      // check that the type is buy
+      res.status(400)
+      res.errormessage = 'Not a valid buy order request'
+      return next(
+        new Error(
+          'BuyOrSell type must be BUY.'
+        )
+      )
+    }
+    
     if (mongoose.Types.ObjectId.isValid(req.body.stockId) === false){
       // check that the stock ID is correct
       res.status(404)
@@ -110,7 +122,7 @@ const buyStockMarketOrder = async (req, res, next) => {
     else if ( req.body.units <= 0){
       // check that the units and values exist
       res.status(400)
-      res.errormessage = 'Units must be greater than 0'
+      res.errormessage = 'Quantity must be greater than 0'
       return next(
         new Error(
           'Units are negative. Should be a positive number'
@@ -128,7 +140,46 @@ const buyStockMarketOrder = async (req, res, next) => {
         )
       )
     }
-    const value = stock.daily_change.currentprice * req.body.units
+    let value
+    let transactionStatus
+    if (req.body.orderType === "LIMIT"){
+      if (typeof req.body.limitValue === 'undefined'){
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'Limit value missing for a transaction'
+        return next(
+          new Error(
+            'The client has not sent the required information to create a limit buy order.',
+          ),
+        )
+      }
+      if (stock.daily_change.currentprice <= req.body.limitValue){
+        // check that the value is not already surpassed.
+        res.status(400)
+        res.errormessage = 'The current value of this stock is already less than the amount of the limit order.'
+        return next(
+          new Error(
+            'In a buy limit order the limit value must be less than the current value of the stock.'
+          )
+        )
+      }
+    transactionStatus = "PENDING"
+    value = req.body.limitValue * req.body.units
+    }
+    else if (req.body.orderType === "MARKET"){
+      if (typeof req.body.limitValue !== 'undefined'){
+        res.status(400)
+        res.errormessage = 'No limit value should be assigned for a market order.'
+        return next(
+          new Error(
+            'A limit value has been provided, should not be provided for a market order.'
+          )
+        )
+      }
+      transactionStatus = "COMPLETED"
+      value = stock.daily_change.currentprice * req.body.units
+    }
+    
     let transactionFee
     if (portfolio.leagueId){
       // Check that league exists and check league rules
@@ -160,20 +211,21 @@ const buyStockMarketOrder = async (req, res, next) => {
     }
   
     // use the buyStock service found in the services folder
-    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee)
+    const newPortfolio = await PortfolioService.buyStock(req.body, portfolio.remainder, value, transactionFee, transactionStatus)
 
 res.json(newPortfolio)
   }
 catch (err) {
   console.error(err.message);
-  res.errormessage = 'Server error';
+  res.status(500)
+  res.errormessage = 'Server error in buying stock';
   return next(err);
 }
 }
 
 
 // Sell Stock Route
-const sellStockMarketOrder = async (req, res, next) => {
+const sellStock = async (req, res, next) => {
   try{
     // check that all of the data is there
     if (
@@ -192,13 +244,13 @@ const sellStockMarketOrder = async (req, res, next) => {
         ),
       )
     }
-    if (req.body.buyOrSell !== "SELL" || req.body.orderType !== "MARKET"){
-      // check that the type is buy
+    if (req.body.buyOrSell !== "SELL"){
+      // check that the type is sell
       res.status(400)
-      res.errormessage = 'Must be type SELL and order type MARKET'
+      res.errormessage = 'Not a valid sell order request'
       return next(
         new Error(
-          'Should be type Sell and order type should be MARKET'
+          'BuyOrSell type must be SELL.'
         )
       )
     }
@@ -254,7 +306,45 @@ const sellStockMarketOrder = async (req, res, next) => {
         )
       )
     }
-    const value = stock.daily_change.currentprice * req.body.units
+    let value
+    let transactionStatus
+    if (req.body.orderType === "LIMIT"){
+      if (typeof req.body.limitValue === 'undefined'){
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'Limit value missing for a transaction'
+        return next(
+          new Error(
+            'The client has not sent the required information to create a limit buy order.',
+          ),
+        )
+      }
+      if (stock.daily_change.currentprice >= req.body.limitValue){
+        // check that the value is not already surpassed.
+        res.status(400)
+        res.errormessage = 'The current value of this stock is already more than the amount of the limit order.'
+        return next(
+          new Error(
+            'In a sell limit order, the limit value must be more than the current value of the stock.'
+          )
+        )
+      }
+    transactionStatus = "PENDING"
+    value = req.body.limitValue * req.body.units
+    }
+    else if (req.body.orderType === "MARKET"){
+      if (typeof req.body.limitValue !== 'undefined'){
+        res.status(400)
+        res.errormessage = 'No limit value should be assigned for a market order.'
+        return next(
+          new Error(
+            'A limit value has been provided, should not be provided for a market order.'
+          )
+        )
+      }
+      transactionStatus = "COMPLETED"
+      value = stock.daily_change.currentprice * req.body.units
+    }
     let transactionFee
     if (portfolio.leagueId){
       // check whether it is in a league and whether the league exists. Also checks the league rules
@@ -275,7 +365,7 @@ const sellStockMarketOrder = async (req, res, next) => {
     transactionFee = 0
   }
     // use the sellStock service found in the services folder
-    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee)
+    const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee, transactionStatus)
     if (newPortfolio.error) {
       res.status(newPortfolio.error)
       res.errormessage = newPortfolio.errormessage
@@ -288,7 +378,8 @@ res.json(newPortfolio)
   }
 catch (err) {
   console.error(err.message);
-  res.errormessage = 'Server error';
+  res.status(500)
+  res.errormessage = 'Server error in selling stock';
   return next(err);
 }
 }
@@ -380,7 +471,26 @@ const getLeaguePortfolio = async (req,res,next) => {
           '$set': {
             'totalValue': '$totalValue.totalValue'
           }
-        }
+        }, {
+          '$lookup': {
+              'from': 'leagues', 
+              'localField': 'leagueId', 
+              'foreignField': '_id', 
+              'as': 'league', 
+              'pipeline': [
+                  {
+                      '$project': {
+                          'tradingFee': 1, 
+                          'maxDailyTrades': 1
+                      }
+                  }
+              ]
+          }
+      }, {
+          '$unwind': {
+              'path': '$league'
+          }
+      }
       ])
 
     // console.log(portfolio.portfolio)
@@ -400,7 +510,8 @@ const getLeaguePortfolio = async (req,res,next) => {
 
   } catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error';
+    res.status(500)
+    res.errormessage = 'Server error in finding portfolio';
     return next(err);
   }
   }
@@ -457,16 +568,106 @@ const getMyGamesAndPortfolios = async (req,res,next) => {
   }
   catch (err) {
     console.error(err.message);
-    res.errormessage = 'Server error';
+    res.errormessage = 'Server error in finding leagues and portfolios';
     res.status(500)
     return next(err);
   }
 }
 
+// this route is used for cancelling the limit orders
+const cancelLimitOrder = async (req, res, next) => {
+  try{
+    // check that all of the data is there, we need portfolioID and transactionID
+    if (
+      typeof req.body.transactionId === 'undefined' ||
+      typeof req.body.portfolioId === 'undefined'
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'Transaction Id or Portfolio Id missing'
+      return next(
+        new Error(
+          'The client has not sent the required information about the transaction',
+        ),
+      )
+    }
+    // check that the transactionId can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.transactionId) === false ){
+      // check that the transactionId is correct
+      res.status(404)
+      res.errormessage = 'No transaction found'
+      return next(
+        new Error(
+          'No transaction found'
+        )
+      )
+    }
+    // check that the portfolioID can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
+      // check that the portfolio ID is correct
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+        new Error(
+          'No portfolio found'
+        )
+      )
+    }
+    // get the transaction from the database
+    const transaction = await Transaction.findOne({_id: req.body.transactionId, portfolioId: req.body.portfolioId})
+    if(transaction===null){
+      // if the transaction doesn't exist we get an error
+      res.status(404)
+      res.errormessage = 'No transaction found for that portfolio'
+      return next(
+        new Error(
+          'There may be a transaction that exists but not for that portfolio.'
+        )
+      )
+    }
+    if(transaction.orderType !== "LIMIT"){
+      // check that it is a limit order
+      res.status(404)
+      res.errormessage = 'Not a limit order'
+      return next(
+        new Error(
+          'The transaction must be a limit order.'
+        )
+      )
+    }
+    if(transaction.status !== "PENDING"){
+      // check that it is a PENDING order
+      res.status(404)
+      res.errormessage = 'The transaction must be a pending transaction'
+      return next(
+        new Error(
+          'The transaction must be a pending transaction.'
+        )
+      )
+    }
+    let portfolio
+    if(transaction.buyOrSell == "BUY"){
+      // if it is a buy order then implement the service to cancel
+      portfolio = await PortfolioService.cancelBuyLimitOrder(transaction)
+    }
+    else {
+      // if it is a sell order then implement the service to cancel
+      portfolio = await PortfolioService.cancelSellLimitOrder(transaction)
+    }
+
+    // return the portfolio
+  res.json(portfolio)
+  }
+  catch (err){
+
+  }
+}
+
 module.exports = {
   createHangingPortfolio,
-  buyStockMarketOrder,
-  sellStockMarketOrder,
+  buyStock,
+  sellStock,
   getLeaguePortfolio,
-  getMyGamesAndPortfolios
+  getMyGamesAndPortfolios,
+  cancelLimitOrder
 }

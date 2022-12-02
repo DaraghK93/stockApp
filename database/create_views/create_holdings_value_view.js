@@ -14,49 +14,56 @@
 
 const holdingsView = () => {
     collection.aggregate([
-        {
-            '$lookup': {
-              'from': 'stocks', 
-              'localField': 'stockId', 
-              'foreignField': '_id', 
-              'as': 'result'
-            }
-          }, {
-            '$addFields': {
-              'stock': {
-                '$arrayElemAt': [
-                  '$result', 0
-                ]
-              }
-            }
-          }, {
-            '$addFields': {
-              'currentValue': {
-                '$multiply': [
-                  '$units', '$stock.daily_change.currentprice'
-                ]
-              }
-            }
-          }, {
-            '$addFields': {
-              'symbol': '$stock.symbol', 
-              'longname': '$stock.longname', 
-              'logo': '$stock.logo', 
-              'currentPrice': '$stock.daily_change.currentprice'
-            }
-          }, {
-            '$project': {
-              '_id': 1, 
-              'portfolioId': 1, 
-              'stockId': 1, 
-              'holdings': 1, 
-              'units': 1, 
-              'currentValue': 1, 
-              'currentPrice': 1, 
-              'longname': 1, 
-              'logo': 1, 
-              'symbol': 1
-            }
+      {
+        '$lookup': {
+          'from': 'stocks', 
+          'localField': 'stockId', 
+          'foreignField': '_id', 
+          'as': 'result'
+        }
+      }, {
+        '$addFields': {
+          'stock': {
+            '$arrayElemAt': [
+              '$result', 0
+            ]
           }
+        }
+      }, {
+        '$addFields': {
+          'currentValue': {
+            '$multiply': [
+              '$units', '$stock.daily_change.currentprice'
+            ]
+          }, 
+          'frozenValue': {
+            '$multiply': [
+              '$frozenHoldingsUnits', '$stock.daily_change.currentprice'
+            ]
+          }
+        }
+      }, {
+        '$addFields': {
+          'symbol': '$stock.symbol', 
+          'longname': '$stock.longname', 
+          'logo': '$stock.logo', 
+          'currentPrice': '$stock.daily_change.currentprice'
+        }
+      }, {
+        '$project': {
+          '_id': 1, 
+          'portfolioId': 1, 
+          'stockId': 1, 
+          'holdings': 1, 
+          'units': 1, 
+          'currentValue': 1, 
+          'currentPrice': 1, 
+          'longname': 1, 
+          'logo': 1, 
+          'symbol': 1, 
+          'frozenValue': 1, 
+          'frozenUnits': 1
+        }
+      }
     ])
 }

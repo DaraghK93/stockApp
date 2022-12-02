@@ -13,18 +13,34 @@ import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
 import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
 import RequestResetPassword from './screens/resetPassword/requestResetPassword'
-import ResetPage from './screens/resetPassword/resetPassword';
+import ResetPage from './screens/resetPassword/resetPassword'
+import FAQsPage from './screens/faqs/faqs'
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
 import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage';
 
+/// React ///
+import { useEffect } from 'react';
+
 /// Redux ///
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {updateActivePortfolios} from './actions/portfolioActions';
 
 function App() {
   /// Get the user state from redux, will be used to see if user is logged in  
+  const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const { userInfo } = user;
+
+   useEffect(() => {
+        /// If the user is logged in 
+        if (userInfo){
+          /// Set the active portfolio state 
+          dispatch(updateActivePortfolios(userInfo.token))   
+        }
+    },[dispatch,userInfo])
+
+
 
   return (
     <Router>
@@ -69,6 +85,9 @@ function App() {
 
         <Route path='/portfolio' 
          element={userInfo ? <PortfolioPage />  : <Navigate to="/" />} />
+        
+        <Route path='/faqs'
+          element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />
 
         <Route path='/auth/recover' element={ <RequestResetPassword/> } />
         

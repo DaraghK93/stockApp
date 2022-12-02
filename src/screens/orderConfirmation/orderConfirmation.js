@@ -6,28 +6,57 @@ import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
 import OrderType from "../../components/confirmOrderComponents/OrderType";
 import BalanceComponent from "../../components/confirmOrderComponents/balanceComponent";
-import OrderSummary from "../../components/confirmOrderComponents/OrderSummary";
 import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQuantitySelect";
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
+import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
+import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
+
+import {useNavigate} from "react-router-dom"
+
+/// Redux ///
+import {useSelector} from 'react-redux';
+
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 
 function OrderConfirmationPage() {
-
-    const portfolioBalance = 2000
-    const [loading, setLoading] = useState(true);
+    /// Stock State ///
+    const [stockLoading, setStockLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
-    const [newPortfolioBalance, setNewPortfolioBalance] = useState(portfolioBalance)
-    const [amountSelected, setAmountSelected] = useState("")
+    
+    /// Order State ////
+    const [dollarAmountSelected, setDollarAmountSelected] = useState(0)
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
-    const [qty, setQty] = useState("");
+    const [qty, setQty] = useState("0");
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+    const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
+   
+    /// Game State ///
+    const [gameTradeFee, setGameTradeFee] = useState()
+
+    //// Portfolio State ////
+    const [portfolio, setPortfolio] = useState({})
+    const [portfolioId, setPortfolioId] = useState()
+    const [portfolioLoading, setPortfolioLoading] = useState(true)
+    const [portfolioError, setPortfolioError] = useState()
+    const [newPortfolioBalance, setNewPortfolioBalance] = useState()
+    const [holding, setHolding] = useState()
+
+    /// Redux State ///
+    const portfolios = useSelector((state) => state.portfolios)
+    const {activePortfolios, loading} = portfolios;
+    const user = useSelector((state) => state.user)
+    const { userInfo } = user;
+    const userToken = userInfo.token
+
+    /// naviagte - to redirect 
+    const navigate = useNavigate()
 
     useEffect(() => {
         /// getStockInfo ///
@@ -36,7 +65,7 @@ function OrderConfirmationPage() {
         const getStockInfo = async () => {
             try {
                 // Request is being sent set loading true   
-                setLoading(true);
+                setStockLoading(true);
                 // get the symbol from the url string, use regex to extract capital letters only
                 const symbol = window.location.href.replace(/[^A-Z]/g, '');
                 // Set the path and use symbol to get single stock
@@ -45,11 +74,11 @@ function OrderConfirmationPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res)
-                setLoading(false)
+                setStockLoading(false)
             } catch (error) {
                 // Set the error message to be displayed on the page 
                 setError(error.response.data.errormessage)
-                setLoading(false)
+                setStockLoading(false)
             }
         }
         getStockInfo();
@@ -68,11 +97,77 @@ function OrderConfirmationPage() {
     }, [orderType])
 
 
+    /// Portfolio Id 
+    useEffect(() => {
+        const getPortfolioInfo = async () => {
+            try{
+                /// Set the portfolio Loading to true and reset error
+                setPortfolioLoading(true)
+                setPortfolioError()
+                let path = `/api/portfolio/${portfolioId}`;
+                let myInit = {
+                    headers : {"x-auth-token": userToken},       
+                }
+                /// Send the request 
+                const res = await API.get(APIName, path, myInit)
+                /// Set the current portfolio 
+                setPortfolio({
+                    id: res._id,
+                    portfolioName: res.portfolioName,
+                    portfolioBalance: res.remainder
+                })
+                /// Need to get the users current holding 
+                if (res.holdings.length > 0){
+                    res.holdings.forEach(item =>{
+                        /// If the user has a postion in this stock it will match the stock ID 
+                        /// the units will also not equal to 0 
+                        if(item.stockId === stock.id && item.units > 1){
+                            setHolding(item.units)
+                        }
+                    });
+                }
+                setGameTradeFee(res.league.tradingFee)
+                /// Set the Iitiliase the new portfolio balance to the remainder of the current 
+                setNewPortfolioBalance(res.remainder)
+                setPortfolioLoading(false)
+            }catch(error){
+                setPortfolioError(error.response.data.errormessage)
+                setPortfolioLoading(false)
+            }
+        }
+        /// Need to set an intial value ///
+        if (typeof portfolioId === "undefined" && loading === false){
+            /// Add in a savety check here if a user naviagtes to the page by typing in url redirect them to the game screen
+            if (activePortfolios.length === 0){
+                navigate(`/game`)
+            }else{
+              /// For now set the current portfolio to the first portfolio may need to revisit this ///
+            setPortfolioId(activePortfolios[0].leagueId)  
+            }
+        }else if(portfolioId){
+            /// Get the portfolio data 
+            getPortfolioInfo()
+        }
+    },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
+
+    /// buy/sell reset ///
+    // This useEffect id used to reset values whne the user swiches between buy/sell
+    // Need to reset the dollar amount as it may not make sense when you switch from buy to sell 
+    useEffect(() => {
+        if(buyOrSell === "Buy"){
+            setDollarAmountSelected(1)
+        }else if(buyOrSell === "Sell"){
+            setDollarAmountSelected(1)
+        }
+    },[buyOrSell])
+
     return (
         <>
-            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-                <Container>
-                    <Row>
+            { stockLoading || loading || portfolioLoading ? <LoadingSpinner /> 
+            : error ? <MessageAlert variant='danger'>{error}</MessageAlert> 
+            : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> 
+            : <Container >
+                    <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
                             <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
                         </Col>
@@ -88,48 +183,67 @@ function OrderConfirmationPage() {
                                 </dt>
                             </dl>
                         </Col>
+                        <Col className="pb-2 pt-3">
+                            <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
+                        </Col>
                     </Row>
                     <Col style={{ marginBottom: "0.625rem" }}>
                         <OrderType
                             setBuyOrSell={setBuyOrSell}
                             setOrderType={setOrderType}
+                            holding={holding}
                         />
                     </Col>
                     {isShownMarketOrder &&
-                        <>
-                            <Col style={{ marginBottom: "0.625rem" }}>
+                    <>
+                    <Row className="my-2" sm={1} md={1} >
+                            <Col>
                                 <QuantitySelect
-                                    portfolioBalance={portfolioBalance}
-                                    stockprice={stock.daily_change.currentprice}
+                                    portfolioBalance={portfolio.portfolioBalance}
+                                    stockPrice={stock.daily_change.currentprice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
-                                    setAmountSelected={setAmountSelected}
+                                    dollarAmountSelected={dollarAmountSelected}
+                                    setDollarAmountSelected={setDollarAmountSelected}
                                     setQty={setQty}
+                                    buyOrSell={buyOrSell}
+                                    gameTradeFee={gameTradeFee}
+                                    maxQuantity={portfolio.portfolioBalance-gameTradeFee}
+                                    qty={qty}
+                                    holding={holding}
                                 />
-                            </Col>
+                                </Col>
+                        </Row>
+                        <Row>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <BalanceComponent
-                                    portfolioBalance={portfolioBalance}
+                                    portfolioName={portfolio.portfolioName}
+                                    portfolioBalance={portfolio.portfolioBalance}
                                     newPortfolioBalance={newPortfolioBalance}
-                                    amountSelected={amountSelected}
+                                    dollarAmountSelected={dollarAmountSelected}
+                                    buyOrSell={buyOrSell}
+                                    holding={holding}
+                                    stockPrice={stock.daily_change.currentprice}
                                 />
                             </Col>
-                        </>
+                        </Row>
+                    </>
+                        
                     }
                     {isShownLimitOrder &&
                         <>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitQuantitySelect
-                                    portfolioBalance={portfolioBalance}
+                                    portfolioBalance={portfolio.portfolioBalance}
                                     setQty={setQty}
                                     limitPrice={limitPrice}
-                                    setAmountSelected={setAmountSelected}
+                                    setDollarAmountSelected={setDollarAmountSelected}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitPriceSelect
-                                    portfolioBalance={portfolioBalance}
-                                    setAmountSelected={setAmountSelected}
+                                    portfolioBalance={portfolio.portfolioBalance}
+                                    setDollarAmountSelected={setDollarAmountSelected}
                                     qty={qty}
                                     setLimitPrice={setLimitPrice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
@@ -137,16 +251,19 @@ function OrderConfirmationPage() {
                             </Col>
                         </>
                     }
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <OrderSummary
+                    <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}
                             orderType={orderType}
                             newPortfolioBalance={newPortfolioBalance}
-                            amountSelected={amountSelected}
-                            qty={qty}
-                        />
-                    </Col>
-                    <BottomStickyButton text="Confirm Order"></BottomStickyButton>
+                            dollarAmountSelected={dollarAmountSelected}
+                            qty={qty} 
+                            stockId={stock.id}
+                            portfolioId={portfolio.id}
+                            limitPrice={limitPrice}
+                            stockName={stock.longname}
+                            gameTradeFee={gameTradeFee}
+                />
+                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

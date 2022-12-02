@@ -6,7 +6,8 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 
 /// Reducers ///
-import {userLoginLogoutReducer,userRegisterReducer, userChangeDetailsReducer} from './reducers/userReducers'
+import {userLoginLogoutReducer,userRegisterReducer, userChangeDetailsReducer} from './reducers/userReducers';
+import {portfolioReducer} from './reducers/portfolioReducers';
 
 /// Initial State ///#
 // userLocalStorage - If a users state is saved in loclastorage dont make them sign in again 
@@ -14,7 +15,9 @@ const userLocalStorage = localStorage.getItem('userInfo') ? JSON.parse(localStor
 
 /// This will be the preloaded state ///
 const initialState = {
-    user: {userInfo: userLocalStorage}
+    user: {
+        userInfo: userLocalStorage
+    },
 } 
 
 
@@ -24,6 +27,7 @@ const store = configureStore({
     reducer:{
         user: userLoginLogoutReducer,
         userRegistration: userRegisterReducer,
+        portfolios: portfolioReducer,
         userChangeDetails: userChangeDetailsReducer
     },
     middleware: [...getDefaultMiddleware()],

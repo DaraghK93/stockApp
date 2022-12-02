@@ -31,6 +31,8 @@ function IndividualGameScreen() {
     const [isShownStocks, setisShownStocks] = useState(false);
     const [isShownPortfolio, setisShownPortfolio] = useState(false);
 
+    // portfolio state
+    const [portfolio,setPortfolio] = useState();
 
     /// Redux State ///
     const user = useSelector((state) => state.user)
@@ -38,6 +40,7 @@ function IndividualGameScreen() {
     const userToken = userInfo.token
 
     console.log(league)
+    console.log(portfolio)
 
     useEffect(() => {
         // Request is being sent set loading true   
@@ -51,6 +54,28 @@ function IndividualGameScreen() {
         API.get(APIName, path, myInit)
             .then((response) => {
                 setLeague(response)
+                setLoading(false)
+            })
+            .catch((error) => {
+                /// This will be an error from API call 
+                console.log(error);
+                setError(error.response.data.errormessage)
+                setLoading(false)
+            });
+    }, [userToken])
+
+    useEffect(() => {
+        // Request is being sent set loading true   
+        setLoading(true);
+        // get the league Id from the href, got last index of last slash and used substring method
+        const leagueId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+        let path = `/api/portfolio/${leagueId}`;
+        let myInit = {
+            headers: { "x-auth-token": userToken },
+        }
+        API.get(APIName, path, myInit)
+            .then((response) => {
+                setPortfolio(response)
                 setLoading(false)
             })
             .catch((error) => {
@@ -179,9 +204,20 @@ function IndividualGameScreen() {
                         </>
                     }
                     {isShownGameDetails &&
-                        <>
-                            <p>this is rules screen</p>
-                        </>
+                        <Container style={{"textAlign":"center","alignItems":"center"}}>
+                            <GameCreationSummary 
+                            gameType= {league.leagueType}
+                            gameName={league.leagueName}
+                            gameStartDate={league.startDate}
+                            gameEndDate={league.endDate}
+                            startingBalance={league.startingBalance}
+                            tradingFee={league.tradingFee}
+                            maxTradesPerDay={league.maxDailyTrades}
+                            gameWinningValue={league.winningValue}
+                            stockTypes={league.sectors}
+                            ESGGameType={"test "}
+                            />
+                        </Container>
                     }
                     {isShownStocks &&
                         <><br></br><h2>This is stocks screen</h2></>

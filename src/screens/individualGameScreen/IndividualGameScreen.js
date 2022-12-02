@@ -37,9 +37,7 @@ function IndividualGameScreen() {
     const user = useSelector((state) => state.user)
     const { userInfo } = user;
     const userToken = userInfo.token
-
-    console.log(league)
-    console.log(portfolio)
+    var accessString = league.accessCode
 
     useEffect(() => {
         // Request is being sent set loading true   
@@ -139,7 +137,7 @@ function IndividualGameScreen() {
             }
         }
     }
-    var accessString = league.accessCode
+
 
     return (
         <>

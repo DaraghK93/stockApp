@@ -6,6 +6,8 @@ import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/Hold
 import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
+import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
+
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -35,6 +37,8 @@ function IndividualGameScreen() {
     const { userInfo } = user;
     const userToken = userInfo.token
 
+    console.log(league)
+
     useEffect(() => {
         // Request is being sent set loading true   
         setLoading(true);
@@ -56,6 +60,9 @@ function IndividualGameScreen() {
                 setLoading(false)
             });
     }, [userToken])
+
+
+
 
 
     const disPlayScreen = (e) => {
@@ -172,7 +179,9 @@ function IndividualGameScreen() {
                         </>
                     }
                     {isShownGameDetails &&
-                        <><br></br><h2>This is rules screen</h2></>
+                        <>
+                            <p>this is rules screen</p>
+                        </>
                     }
                     {isShownStocks &&
                         <><br></br><h2>This is stocks screen</h2></>

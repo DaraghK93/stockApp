@@ -16,15 +16,15 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             if (portfolios.length !== 1) {
                 return (
                     <>
-                        <p>There are only <strong>{portfolios.length} players</strong> in this game!
-                            Invite others to have better time using the access code: <strong>{accessCode} </strong>
+                        <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow, so lonely!
+                            Invite others using the access code: <strong>{accessCode} </strong>
                             <CopyComponent copyText={accessString} /></p>
                     </>)
             }
             else {
                 return (
                     <>
-                        <p>There is only <strong>{portfolios.length} player</strong> in this game! Invite others to have better time using the access code: <strong>{accessCode} </strong>
+                        <p>There is only <strong>{portfolios.length} player</strong> in this game! Wow, so lonely! Invite others using the access code: <strong>{accessCode} </strong>
                             <CopyComponent copyText={accessString} />
                         </p>
                     </>)

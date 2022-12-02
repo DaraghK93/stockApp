@@ -109,7 +109,10 @@ function TableHoldings({ data }) {
 
     return (
         <>
+                  {data.length > 0 ? 
             <Container>
+
+      
                 <Table style={{ borderCollapse: "collapse" }}>
                     <thead style={{ color: "black", verticalAlign: "middle", fontSize: "80%", textAlign: "center" }} >
                         <tr style={{ verticalAlign: "middle", fontSize: "90%", textAlign: "center" }} key="cols">
@@ -218,7 +221,14 @@ function TableHoldings({ data }) {
                         </Dropdown>
                     </ul>
                 </div>
+                
+            </Container>:
+            <Container>
+                <p style={{textAlign:"center"}}>You have no holdings! <strong>Buy a stock </strong> now to start building your portfolio!</p>
+
             </Container>
+            
+                            }
         </>
     )
 }

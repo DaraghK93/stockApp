@@ -1,5 +1,5 @@
 import { ProgressBar, Container, Row, Col, Image } from "react-bootstrap";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
 // link
 // copyable thing
 
@@ -18,14 +18,14 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
                     <>
                         <p>There are only <strong>{portfolios.length} players</strong> in this game!
                             Invite others to have better time using the access code: <strong>{accessCode} </strong>
-                            <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText(accessString) }}>Copy</ContentCopyIcon></p>
+                            <CopyComponent copyText={accessString} /></p>
                     </>)
             }
             else {
                 return (
                     <>
                         <p>There is only <strong>{portfolios.length} player</strong> in this game! Invite others to have better time using the access code: <strong>{accessCode} </strong>
-                            <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText(accessString) }}>Copy</ContentCopyIcon>
+                            <CopyComponent copyText={accessString} />
                         </p>
                     </>)
             }
@@ -96,7 +96,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             </Row>
             <Row>
                 {getWinnerText()}
-        </Row>
+            </Row>
 
 
         </Container >

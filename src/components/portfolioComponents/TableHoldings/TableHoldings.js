@@ -136,7 +136,7 @@ function TableHoldings({ data }) {
                                     </Link></td>
 
 
-                                    <td key={item.value.toFixed(2)}>${item.value.toFixed(2)}</td>
+                                    <td key={item.currentValue.toFixed(2)}>${item.currentValue.toFixed(2)}</td>
                                     <td key={`/stock/${item.symbol}/confirmorder`}><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></td>
                                     <td key={`${item.symbol}/button`}>
                                         <Button style={{ padding: 0, margin: 0, color: "black" }}
@@ -157,8 +157,8 @@ function TableHoldings({ data }) {
                                                     <div>
                                                         <h3>{item.longname}</h3>
                                                         <ul key={`${item.symbol}-expanded-info`} style={{ listStyleType: "none" }}>
-                                                            <li key={item.quantity.toFixed(2)}><strong>Shares held: </strong>{item.quantity.toFixed(2)} stocks</li>
-                                                            <li key={item.currentprice.toFixed(2)}><strong>Current Price: </strong>${item.currentprice.toFixed(2)}</li>
+                                                            <li key={item.units.toFixed(2)}><strong>Shares held: </strong>{item.units.toFixed(2)} stocks</li>
+                                                            <li key={item.currentPrice.toFixed(2)}><strong>Current Price: </strong>${item.currentPrice.toFixed(2)}</li>
                                                         </ul>
                                                     </div>
                                                 </td>

@@ -32,7 +32,7 @@ function IndividualGameScreen() {
     const [isShownPortfolio, setisShownPortfolio] = useState(false);
 
     // portfolio state
-    const [portfolio,setPortfolio] = useState();
+    const [portfolio, setPortfolio] = useState();
 
     /// Redux State ///
     const user = useSelector((state) => state.user)
@@ -123,7 +123,7 @@ function IndividualGameScreen() {
 
 
     const data = {
-        name: "PortfolioC", valueHistory: [
+         valueHistory: [
             { date: '01-10', value: 100 },
             { date: '01-11', value: 200 },
             { date: '01-12', value: 60 },
@@ -177,7 +177,7 @@ function IndividualGameScreen() {
     }
     var accessString = league.accessCode
 
-
+// console.log(portfolio.valueHistory)
 
     return (
         <>
@@ -194,28 +194,28 @@ function IndividualGameScreen() {
                     </div>
                     <GameNavBar disPlayScreen={disPlayScreen} active={active} />
 
-                    <Container>
-                        {timeOrValueLine()}
 
-                    </Container>
                     {isShownLeaderBoard &&
                         <>
+                            <Container>
+                                {timeOrValueLine()}
+                            </Container>
                             <LeaderBoard leaderBoardInfo={league.portfolios} />
                         </>
                     }
                     {isShownGameDetails &&
-                        <Container style={{"textAlign":"center","alignItems":"center"}}>
-                            <GameCreationSummary 
-                            gameType= {league.leagueType}
-                            gameName={league.leagueName}
-                            gameStartDate={league.startDate}
-                            gameEndDate={league.endDate}
-                            startingBalance={league.startingBalance}
-                            tradingFee={league.tradingFee}
-                            maxTradesPerDay={league.maxDailyTrades}
-                            gameWinningValue={league.winningValue}
-                            stockTypes={league.sectors}
-                            ESGGameType={"test "}
+                        <Container style={{ "textAlign": "center", "alignItems": "center" }}>
+                            <GameCreationSummary
+                                gameType={league.leagueType}
+                                gameName={league.leagueName}
+                                gameStartDate={league.startDate}
+                                gameEndDate={league.endDate}
+                                startingBalance={league.startingBalance}
+                                tradingFee={league.tradingFee}
+                                maxTradesPerDay={league.maxDailyTrades}
+                                gameWinningValue={league.winningValue}
+                                stockTypes={league.sectors}
+                                ESGGameType={"test "}
                             />
                         </Container>
                     }
@@ -226,11 +226,11 @@ function IndividualGameScreen() {
                         <>
                             <Container>
                                 <Row>
-                                    <GamePortfolio data={data.valueHistory} name={data.name} />
+                                    <GamePortfolio data={portfolio.valueHistory} name={portfolio.portfolioName} totalValue={portfolio.totalValue}/>
                                 </Row>
                                 <Row>
                                     <Col>
-                                        <HoldingsCard data={data.holdings} remainder={data.remainder} />
+                                        <HoldingsCard data={portfolio.holdings} remainder={portfolio.remainder} />
                                     </Col>
                                 </Row>
                                 <Row>

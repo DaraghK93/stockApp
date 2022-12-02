@@ -7,7 +7,8 @@ import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
 
 function ValueLine({ portfolios, winningValue, accessCode }) {
 
-    const remainder = winningValue - portfolios[0].totalValue
+    const remainder = 500
+    // winningValue - portfolios[0].totalValue
 
     var accessString = accessCode.toString()
 

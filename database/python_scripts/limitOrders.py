@@ -8,6 +8,9 @@ import json
 from cgi import print_arguments
 from urllib import response
 
+trancscol = db['transactions']
+portfolioscol = db['portfolios']
+
 
 def connectToDB(URI):
     # connect to the mongo instance
@@ -81,6 +84,18 @@ def getTransactions(collection):
 
 
 
+def commandCursorToList(collection):
+    result = getTransactions(collection)
+    transList = []
+    for i in result:
+        transList.append(i)
+    return transList
+
+transactions = commandCursorToList(trancscol)
+
+
+
+
 def getPortfolioUpdates(transactions):
     data_request = []
     #  portfolio updates
@@ -89,3 +104,23 @@ def getPortfolioUpdates(transactions):
                                           {'$inc': {"frozenBalance": -i["value"]}}))
     return data_request
 
+def getHoldingsUpdates(transactionsList):
+    data_request = []
+    # print(transactionscol)
+
+    # print('hello')
+    #  holdings updates
+    for i in transactionsList:
+            data_request.append(UpdateOne({"_id": i["holdings"]},
+                                          {'$inc': {"units": i["units"]}}))
+    return data_request
+    
+def getTransactionsUpdates(transactionsList):
+    # get list of updateOns for transactions
+    # will be send through bulkwrite
+    data_request = []
+    #  portfolio updates
+    for i in transactionsList:
+            data_request.append(UpdateOne({"_id": i["_id"]},
+                                          {'$set': {"status": "COMPLETED"}}))
+    return data_request

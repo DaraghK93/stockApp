@@ -10,6 +10,7 @@ from urllib import response
 
 trancscol = db['transactions']
 portfolioscol = db['portfolios']
+holdingscol = db['holdings']
 
 
 def connectToDB(URI):
@@ -46,41 +47,79 @@ holdings = db[os.environ["HOLDINGS"]]
 
 
 def getTransactions(collection):
-    transactions = collection.aggregate([
-                                    {
-                                      '$match': {
-                                        'orderType': 'LIMIT',
-                                        'status': 'PENDING',
-                                        'buyOrSell': 'BUY'
-                                      }
-                                    }, {
-                                      '$lookup': {
-                                        'from': 'stocks',
-                                        'localField': 'stockId',
-                                        'foreignField': '_id',
-                                        'as': 'stock',
-                                        'pipeline': [
-                                          {
-                                            '$project': {
-                                              'daily_change.currentprice': 1
-                                            }
-                                          }
-                                        ]
-                                      }
-                                    }, {
-                                      '$unwind': {
-                                        'path': '$stock'
-                                      }
-                                    }, {
-                                      '$match': {
-                                        '$expr': {
-                                          '$gte': [
-                                            '$stock.daily_change.currentprice', '$limitValue'
-                                          ]
+    transactionscollection = collection.aggregate([
+        {'$facet':
+                  {
+                     'buy': [
+                                {
+                                  '$match': {
+                                    'orderType': 'LIMIT',
+                                    'status': 'PENDING',
+                                    'buyOrSell': 'BUY'
+                                  }
+                                }, {
+                                  '$lookup': {
+                                    'from': 'stocks',
+                                    'localField': 'stockId',
+                                    'foreignField': '_id',
+                                    'as': 'stock',
+                                    'pipeline': [
+                                      {
+                                        '$project': {
+                                          'daily_change.currentprice': 1
                                         }
                                       }
-                                    }])
-    return transactions
+                                    ]
+                                  }
+                                }, {
+                                  '$unwind': {
+                                    'path': '$stock'
+                                  }
+                                }, {
+                                  '$match': {
+                                    '$expr': {
+                                      '$gte': [
+                                        '$stock.daily_change.currentprice', '$limitValue'
+                                      ]
+                                    }
+                                  }
+                                }],
+                      'sell': [
+                                {
+                                  '$match': {
+                                    'orderType': 'LIMIT',
+                                    'status': 'PENDING',
+                                    'buyOrSell': 'SELL'
+                                  }
+                                }, {
+                                  '$lookup': {
+                                    'from': 'stocks',
+                                    'localField': 'stockId',
+                                    'foreignField': '_id',
+                                    'as': 'stock',
+                                    'pipeline': [
+                                      {
+                                        '$project': {
+                                          'daily_change.currentprice': 1
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }, {
+                                  '$unwind': {
+                                    'path': '$stock'
+                                  }
+                                }, {
+                                  '$match': {
+                                    '$expr': {
+                                      '$lte': [
+                                        '$stock.daily_change.currentprice', '$limitValue'
+                                      ]
+                                    }
+                                  }
+                                }]
+                            }}])
+    return transactionscollection
 
 
 

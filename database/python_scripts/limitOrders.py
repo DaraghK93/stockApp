@@ -183,31 +183,32 @@ def sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,buyList,sellList
     holdingsUpdates = getHoldingsUpdates(buyList,sellList)
     transactionsUpdates = getTransactionsUpdates(buyList,sellList)
 
+    if buyList + sellList != []:
+        # portfolio updates
+        try:
+            portres = portfolioscol.bulk_write(portfolioUpdates)
+            port_matched_count = portres.matched_count
+            print(port_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
 
-     # portfolio updates
-    try:
-        portres = portfolioscol.bulk_write(portfolioUpdates)
-        port_matched_count = portres.matched_count
-        print(port_matched_count)
-    except Exception as e:
-        print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
+        # holdings updates
+        try:
+            holdres = holdingscol.bulk_write(holdingsUpdates)
+            hold_matched_count = holdres.matched_count
+            print(hold_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
 
-    # holdings updates
-    try:
-        holdres = holdingscol.bulk_write(holdingsUpdates)
-        hold_matched_count = holdres.matched_count
-        print(hold_matched_count)
-    except Exception as e:
-        print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
-
-    # transactions updates
-    try:
-        transres = trancscol.bulk_write(transactionsUpdates)
-        trans_matched_count = transres.matched_count
-        print(trans_matched_count)
-    except Exception as e:
-        print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
-
+        # transactions updates
+        try:
+            transres = trancscol.bulk_write(transactionsUpdates)
+            trans_matched_count = transres.matched_count
+            print(trans_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
+    else:
+        print("nothing to action")
     return
 
 sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,transactions)

@@ -114,7 +114,7 @@ def getHoldingsUpdates(transactionsList):
             data_request.append(UpdateOne({"_id": i["holdings"]},
                                           {'$inc': {"units": i["units"]}}))
     return data_request
-    
+
 def getTransactionsUpdates(transactionsList):
     # get list of updateOns for transactions
     # will be send through bulkwrite
@@ -124,3 +124,38 @@ def getTransactionsUpdates(transactionsList):
             data_request.append(UpdateOne({"_id": i["_id"]},
                                           {'$set': {"status": "COMPLETED"}}))
     return data_request
+
+
+def sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,transactions):
+    portfolioUpdates = getPortfolioUpdates(transactions)
+    holdingsUpdates = getHoldingsUpdates(transactions)
+    transactionsUpdates = getTransactionsUpdates(transactions)
+
+
+    # portfolio updates
+    try:
+        portres = portfolioscol.bulk_write(portfolioUpdates)
+        port_matched_count = portres.matched_count
+        print(port_matched_count)
+    except Exception as e:
+        print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
+
+    # holdings updates
+    try:
+        holdres = holdingscol.bulk_write(holdingsUpdates)
+        hold_matched_count = holdres.matched_count
+        print(hold_matched_count)
+    except Exception as e:
+        print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
+
+    # transactions updates
+    try:
+        transres = trancscol.bulk_write(transactionsUpdates)
+        trans_matched_count = transres.matched_count
+        print(trans_matched_count)
+    except Exception as e:
+        print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
+
+    return
+
+sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,transactions)

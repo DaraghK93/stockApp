@@ -191,6 +191,21 @@ const getStockBySymbol = async (req, res, next) => {
   }
 };
 
+const getGameStocks = async (req, res, next) => {
+  try{
+
+    const {sectors,minErating,minSRating,minGRating} = req.body
+    const gameStocks = stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500)
+    res.errormessage = 'Server error in get game stocks';
+    return next(err);
+  }
+}
+
 
 module.exports = {
   getStockPrice,
@@ -198,4 +213,5 @@ module.exports = {
   addStock,
   getAllStocks,
   getStockBySymbol,
+  getGameStocks
 };

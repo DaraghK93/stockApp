@@ -214,8 +214,60 @@ const stocks =  schema.aggregate([
 return stocks
 }
 
+const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
+  const stocks =  schema.aggregate([
+    { $facet: 
+        {
+        // agg query for top environment
+        topEnvironment: [{$match :{'esgrating.environment_score':{$gte:minErating},
+                                   'esgrating.social_score':{$gte:minSRating},
+                                   'esgrating.governance_score':{$gte:minGRating},}},
+        {$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                    'daily_change.absoluteChange':1,
+                                                    'daily_change.percentageChange':1,
+                                                    'daily_change.currentprice':1,
+                                                    'esgrating.environment_score': 1}},
+        {$sort: {'esgrating.environment_score': -1}},
+        { $limit: 20}], 
+        // agg query for top social
+          topSocial: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                              'daily_change.absoluteChange':1,
+                                              'daily_change.percentageChange':1,
+                                              'daily_change.currentprice':1,
+                                              'esgrating.social_score': 1}},
+          {$sort: {'esgrating.social_score': -1}},
+        { $limit: 20}],
+        // agg query for top governance
+        topGovernance: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                  'daily_change.absoluteChange':1,
+                                                  'daily_change.percentageChange':1,
+                                                  'daily_change.currentprice':1,
+                                                  'esgrating.governance_score': 1}},
+        {$sort: {'esgrating.governance_score': -1}},
+        { $limit: 20}],
+        topGainers: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                    'daily_change.absoluteChange':1,
+                                                    'daily_change.percentageChange':1,
+                                                    'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        topLosers: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                              'daily_change.absoluteChange':1,
+                                              'daily_change.percentageChange':1,
+                                              'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': 1}},
+        { $limit: 20}],
+        
+      }
+  }])
+  return stocks
+}
+
+
+
 module.exports = {
     getStockPriceData,
     getStockSummary,
-    getRecomms
+    getRecomms,
+    gameStockSummary
 }

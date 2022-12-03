@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol} = require('../controllers/stockController');
+const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getGameStocks} = require('../controllers/stockController');
 const { errorHandler } = require("../middleware/errorMiddleware");
 const {protectedRoute} = require('../middleware/authMiddleware');
 
@@ -17,5 +17,9 @@ router.post('/addStock/', addStock)
 router.get('/', protectedRoute, getAllStocks)
 // search stock by ticker symbol. This will give all data except prices for that ticker
 router.get('/:symbol', getStockBySymbol)
+// get the stocks playable in a game
+router.get('/gameStocks', getGameStocks)
+
+
 
 module.exports = router;

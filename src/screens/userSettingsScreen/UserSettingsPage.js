@@ -57,25 +57,54 @@ function UserSettingsPage() {
     '/avatar_4.jpeg',
   ];
 
+  function useTrait(initialValue) {
+    const [trait, updateTrait] = useState(initialValue);
+
+    let current = trait;
+
+    const get = () => current;
+
+    const set = (newValue) => {
+      current = newValue;
+      updateTrait(newValue);
+      return current;
+    };
+
+    return {
+      get,
+      set,
+    };
+  }
+
+  const traitError = useTrait('');
+
   function handleSubmit(event) {
     event.preventDefault();
+    let error = traitError.get();
     if (password) {
       setCurrPasswordEnteredError(false);
       // determine if password is to be changed
-      if (newPassword) {
+      if (newPassword || confirmNewPassword) {
         // Check whether password and confirm password are the same. More messages will need to be added.
         if (newPassword !== confirmNewPassword) {
           setPasswordErrorMessage(
+            'Password and Confirm Password must be the same!'
+          );
+          error = traitError.set(
             'Password and Confirm Password must be the same!'
           );
         }
         // Checks if the password is less than 8 characters. Gives a popup warning if it is.
         else if (newPassword.length < 8) {
           setPasswordErrorMessage('Password must be at least 8 characters!');
+          error = traitError.set('Password must be at least 8 characters!');
         }
         // Checks if the password contains a lower case character (a-z).
         else if (!/[a-z]/.test(newPassword)) {
           setPasswordErrorMessage(
+            'Password must contain at least one lower case English character (a-z)!'
+          );
+          error = traitError.set(
             'Password must contain at least one lower case English character (a-z)!'
           );
         }
@@ -84,17 +113,24 @@ function UserSettingsPage() {
           setPasswordErrorMessage(
             'Password must contain at least one upper case English character (A-Z)!'
           );
+          error = traitError.set(
+            'Password must contain at least one upper case English character (A-Z)!'
+          );
         }
         // Checks if the password contains number (0-9).
         else if (!/[0-9]/.test(newPassword)) {
           setPasswordErrorMessage(
             'Password must contain at least one number (0-9)!'
           );
+          error = traitError.set(
+            'Password must contain at least one number (0-9)!'
+          );
         } else {
           setPasswordErrorMessage('');
+          error = traitError.set('');
         }
       }
-      if (passwordErrorMessage === '') {
+      if (error === '') {
         dispatch(
           changeUserDetails(
             password,
@@ -215,6 +251,9 @@ function UserSettingsPage() {
             {error === 'Username already taken' && (
               <MessageAlert variant='danger'>{error}</MessageAlert>
             )}
+            {error === 'Username length must be at least 3 characters' && (
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            )}
             <Form.Group className='py-2' controlId='username'>
               <Form.Label>New Username</Form.Label>
               <Form.Control
@@ -272,9 +311,10 @@ function UserSettingsPage() {
                 {'Something has gone wrong'}
               </MessageAlert>
             )}
-            {error === 'No details to change' && (
-              <MessageAlert variant='info'>{error}</MessageAlert>
-            )}
+            {error === 'No details to change' &&
+              passwordErrorMessage === '' && (
+                <MessageAlert variant='info'>{error}</MessageAlert>
+              )}
             <Row>
               <Col className='text-center py-4'>
                 <Button variant='primary' type='submit'>

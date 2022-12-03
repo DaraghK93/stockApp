@@ -71,7 +71,7 @@ export function userChangeDetailsReducer(state = {}, action) {
         // User has requested registration 
         case USER_CHANGEDETAILS_REQUEST:
             // Set loading to true 
-            return {loading: true}
+            return {loading: true, success: false}
         // User succfully registered 
         case USER_CHANGEDETAILS_SUCCESS:
             // have user deatials at this point 

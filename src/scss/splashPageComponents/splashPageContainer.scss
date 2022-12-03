@@ -32,6 +32,66 @@
     
 }
 
-// .esg-row {
+.stockDisplay {
+    background-color: $primary;
+    align-items: center;
+    margin: auto;
+}
 
-// }
+.stockDisplayContainer {
+    //height: 25rem;
+    background-color: $primary;
+    padding: 4rem 0;
+}
+
+.stockDisplayCol {
+    background-color: $primary;
+    ::-webkit-scrollbar-track {
+        background: $primary;
+        margin-inline-start: 0rem;
+        margin-inline-end: 0rem;
+      }
+    ::-webkit-scrollbar-thumb {
+        border: .20em solid $primary;
+    }
+      .cardContainer {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 100%;
+        .sideScrollCard {
+          display: inline-block;
+          padding: 0.1875rem;
+          padding-top:0;
+        }
+
+      
+      }
+              .tickercardstyle {
+            width: 10rem;
+            height: 100%;
+            display: block;
+            border-width: none;
+            box-shadow: none;
+            border-color: none;
+          }
+}
+
+.not-clickable {
+    pointer-events: none;
+}
+
+@media only screen and (min-width: 350px) {
+    .splashLogo {
+    max-width: 20rem;
+}
+}
+
+
+.firstTickers {
+    width: 10rem;
+    height: 100%;
+    display: block;
+    border-width: 1.5px;
+    box-shadow: 5px 5px $shadow;
+  }

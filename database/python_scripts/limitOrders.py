@@ -80,3 +80,12 @@ def getTransactions(collection):
     return transactions
 
 
+
+def getPortfolioUpdates(transactions):
+    data_request = []
+    #  portfolio updates
+    for i in transactions:
+            data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                          {'$inc': {"frozenBalance": -i["value"]}}))
+    return data_request
+

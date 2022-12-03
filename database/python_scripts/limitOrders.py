@@ -123,55 +123,68 @@ def getTransactions(collection):
 
 
 
-def commandCursorToList(collection):
+def commandCursorToLists(collection):
+    # get a list of the transactions
     result = getTransactions(collection)
     transList = []
     for i in result:
         transList.append(i)
-    return transList
+    splitList = transList[0]
+    buyList = splitList['buy']
+    sellList = splitList['sell']
+    return buyList, sellList
 
-transactions = commandCursorToList(trancscol)
 
 
 
-
-def getPortfolioUpdates(transactions):
+def getPortfolioUpdates(buys,sells):
+    # get the list of updatOnes for portoflios
+    # will be passed through bulkwrite
     data_request = []
     #  portfolio updates
-    for i in transactions:
+    for i in buys:
             data_request.append(UpdateOne({"_id": i["portfolioId"]},
                                           {'$inc': {"frozenBalance": -i["value"]}}))
+    for i in sells:
+        data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                          {'$inc': {"remainder": i["value"]}}))
     return data_request
 
-def getHoldingsUpdates(transactionsList):
+def getHoldingsUpdates(buys,sells):
+    # get list of updateOns for holdings
+    # will be send through bulkwrite
     data_request = []
-    # print(transactionscol)
 
-    # print('hello')
     #  holdings updates
-    for i in transactionsList:
+    for i in buys:
             data_request.append(UpdateOne({"_id": i["holdings"]},
                                           {'$inc': {"units": i["units"]}}))
+    for i in sells:
+            data_request.append(UpdateOne({"_id": i["holdings"]},
+                                          {'$inc': {"frozenHoldingsUnits": -i["units"]}}))
     return data_request
 
-def getTransactionsUpdates(transactionsList):
+def getTransactionsUpdates(buys,sells):
     # get list of updateOns for transactions
     # will be send through bulkwrite
     data_request = []
     #  portfolio updates
-    for i in transactionsList:
+    for i in buys:
             data_request.append(UpdateOne({"_id": i["_id"]},
                                           {'$set': {"status": "COMPLETED"}}))
+    for i in sells:
+        data_request.append(UpdateOne({"_id": i["_id"]},
+                                      {'$set': {"status": "COMPLETED"}}))
     return data_request
 
 
-def sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,transactions):
-    portfolioUpdates = getPortfolioUpdates(transactions)
-    holdingsUpdates = getHoldingsUpdates(transactions)
-    transactionsUpdates = getTransactionsUpdates(transactions)
+def sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,buyList,sellList):
+    portfolioUpdates = getPortfolioUpdates(buyList,sellList)
+    holdingsUpdates = getHoldingsUpdates(buyList,sellList)
+    transactionsUpdates = getTransactionsUpdates(buyList,sellList)
 
 
-    # portfolio updates
+     # portfolio updates
     try:
         portres = portfolioscol.bulk_write(portfolioUpdates)
         port_matched_count = portres.matched_count

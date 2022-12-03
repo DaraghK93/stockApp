@@ -47,6 +47,17 @@ holdings = db[os.environ["HOLDINGS"]]
 
 
 def getTransactions(collection):
+    """find all limit orders that can be acioned.
+    split into buys and sells
+
+    Args:
+        collection (db collection): the database collection that is passed in
+        in this case it will be the transactions
+
+    Returns:
+        commandcursor: the command cursor which will be iterated through to
+        get the separate lists
+    """
     transactionscollection = collection.aggregate([
         {'$facet':
                   {
@@ -124,13 +135,27 @@ def getTransactions(collection):
 
 
 def commandCursorToLists(collection):
+    """make the coman cursor returned into two lists
+
+    Args:
+        collection (dbcollection): the transactions collection
+
+    Returns:
+        Lists: two lists, one of actionable buy transactions 
+        and one of actionable sell transactions
+    """
     # get a list of the transactions
     result = getTransactions(collection)
+    # empty llist to add the result to
     transList = []
+    # loop through and add the list
     for i in result:
         transList.append(i)
+    # returns a list so need to get 1st element (which will be an object)
     splitList = transList[0]
+    # the buy object contains a list of objects that can be actions
     buyList = splitList['buy']
+    # the sell object contains a list of objects that can be actions
     sellList = splitList['sell']
     return buyList, sellList
 
@@ -138,8 +163,15 @@ def commandCursorToLists(collection):
 
 
 def getPortfolioUpdates(buys,sells):
-    # get the list of updatOnes for portoflios
-    # will be passed through bulkwrite
+    """get the list of updates that will be passed to the portofolio colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
     data_request = []
     #  portfolio updates
     for i in buys:
@@ -151,8 +183,15 @@ def getPortfolioUpdates(buys,sells):
     return data_request
 
 def getHoldingsUpdates(buys,sells):
-    # get list of updateOns for holdings
-    # will be send through bulkwrite
+    """get the list of updates that will be passed to the holdings colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
     data_request = []
 
     #  holdings updates
@@ -165,8 +204,15 @@ def getHoldingsUpdates(buys,sells):
     return data_request
 
 def getTransactionsUpdates(buys,sells):
-    # get list of updateOns for transactions
-    # will be send through bulkwrite
+    """get the list of updates that will be passed to the transactions colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
     data_request = []
     #  portfolio updates
     for i in buys:
@@ -179,6 +225,17 @@ def getTransactionsUpdates(buys,sells):
 
 
 def sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,buyList,sellList):
+    """sends the bulk updates to each collection
+
+    Args:
+        trancscol (collection): the transactions collection
+        portfolioscol (collection): the portfolios collection
+        holdingscol (collection): the holdings collection
+        buyList (list): _description_
+        sellList (list): _description_
+    Returns:
+        write conecerns: showing how many were matched
+    """
     portfolioUpdates = getPortfolioUpdates(buyList,sellList)
     holdingsUpdates = getHoldingsUpdates(buyList,sellList)
     transactionsUpdates = getTransactionsUpdates(buyList,sellList)
@@ -209,6 +266,6 @@ def sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,buyList,sellList
             print(f'ERROR:cannot bulk write to database\nException Details:\n\t{e}')
     else:
         print("nothing to action")
-    return
+    return port_matched_count, hold_matched_count, trans_matched_count
 
 sendBulkUpdatePortfolio(trancscol,portfolioscol,holdingscol,transactions)

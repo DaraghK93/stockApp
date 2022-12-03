@@ -226,7 +226,17 @@ const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
                             'daily_change.currentprice':1,
                             'esgrating.environment_score': 1}
 
-  const stocks =  schema.aggregate([
+  let sectorPipeline = []
+  
+  for (element of sectors) {
+    sectorPipeline.push(`{${element}: [{$match : ${matchStatement}},
+      {$project: ${projectStatement} },
+      {$sort: {'daily_change.percentageChange': -1}},
+      { $limit: 20}]}`) 
+  }
+  console.log(sectorPipeline)
+                        
+  const stocks =  Stock.aggregate([
     { $facet: 
         {
         // agg query for top environment
@@ -248,6 +258,7 @@ const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
         topLosers: [{$match :matchStatement},{$project: projectStatement},
                     {$sort: {'daily_change.percentageChange': 1}},
                     { $limit: 20}],
+                 
         
       }
   }])

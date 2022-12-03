@@ -195,9 +195,10 @@ const getGameStocks = async (req, res, next) => {
   try{
 
     const {sectors,minErating,minSRating,minGRating} = req.body
-    const gameStocks = stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+    const gameStocks = await stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+    
 
-
+    res.json(gameStocks)
   } catch (err) {
     console.error(err.message);
     res.status(500)

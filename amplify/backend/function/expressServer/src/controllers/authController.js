@@ -1,7 +1,5 @@
 const User = require('../models/user.model');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const getJWTSecret = require('../utils/JWT');
 
 const getHost = require('../utils/Host');
 const getEmailAPIKEY = require('../utils/EMAIL_API_KEY');

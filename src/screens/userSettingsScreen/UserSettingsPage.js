@@ -35,7 +35,7 @@ function UserSettingsPage() {
   const [email, setEmail] = useState('');
 
   // password error for new password. checked in handle submit
-  const [passwordErrorMessage, setPasswordErrorMessage] = useState(null);
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
 
   // toggle to show password or not
   const [passwordShown, setPasswordShown] = useState(false);
@@ -91,10 +91,10 @@ function UserSettingsPage() {
             'Password must contain at least one number (0-9)!'
           );
         } else {
-          setPasswordErrorMessage(null);
+          setPasswordErrorMessage('');
         }
       }
-      if (passwordErrorMessage === null) {
+      if (passwordErrorMessage === '') {
         dispatch(
           changeUserDetails(
             password,
@@ -262,7 +262,7 @@ function UserSettingsPage() {
               lower case character (a-z), one upper case character (A-Z) and one
               number [0-9]!
             </p>
-            {success && (
+            {success && passwordErrorMessage === '' && (
               <MessageAlert variant='success'>
                 {'Details successfully changed'}
               </MessageAlert>

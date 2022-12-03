@@ -75,7 +75,7 @@ export function userChangeDetailsReducer(state = {}, action) {
         // User succfully registered 
         case USER_CHANGEDETAILS_SUCCESS:
             // have user deatials at this point 
-            return {loading: false, success:true, userInfo: action.payload}
+            return {loading: false, success:true}
         // User cannot be registered 
         case USER_CHANGEDETAILS_FAIL:
             // Set the error message 

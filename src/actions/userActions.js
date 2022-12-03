@@ -134,6 +134,8 @@ export function changeUserDetails(
       const data = await API.post(APIName, path, requestConfig)
       //// Dispatch change details success as this will set user state in redux
       dispatch({ type: USER_CHANGEDETAILS_SUCCESS, payload: data })
+      //// Dispatch login success as this will set user state in redux
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
       //// Set the user in localstorage
       localStorage.setItem('userInfo', JSON.stringify(data))
     } catch (error) {

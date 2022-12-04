@@ -26,12 +26,12 @@ function TableHoldings({ data }) {
 
     const columns = [
         { label: "Logo", accessor: "logo", sortable: false, showHeader: true },
-        { label: "Ticker", accessor: "ticker", sortable: true, showHeader: showCol },
-        { label: "Value", accessor: "value", sortable: true, sortbyOrder: "desc", showHeader: true },
-        { label: "Qty", accessor: "qty", sortable: true, sortbyOrder: "desc", showHeader: showCol },
-        { label: "Stock Price", accessor: "stockprice", sortable: true, sortbyOrder: "desc", showHeader: showCol },
+        { label: "Ticker", accessor: "symbol", sortable: true, showHeader: showCol },
+        { label: "Value", accessor: "currentValue", sortable: true, sortbyOrder: "desc", showHeader: true },
+        { label: "Qty", accessor: "units", sortable: true, sortbyOrder: "desc", showHeader: showCol },
+        { label: "Stock Price", accessor: "currentPrice", sortable: true, sortbyOrder: "desc", showHeader: showCol },
         { label: "", accessor: "trade_button", sortable: false, showHeader: true },
-        { label: "", accessor: "expand", sortable: false, showHeader: true, showHeader: hideCol },
+        { label: "", accessor: "expand", sortable: false, showHeader: hideCol },
     ];
 
     useEffect(() => {
@@ -118,7 +118,7 @@ function TableHoldings({ data }) {
                     <Table style={{ borderCollapse: "collapse" }}>
                         <thead style={{ color: "black", verticalAlign: "middle", fontSize: "80%", textAlign: "center" }} >
                             <tr style={{ verticalAlign: "middle", fontSize: "90%", textAlign: "center" }} key="cols">
-                                {columns.map(({ label, accessor, sortable, showHeader }) => {
+                                {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder }) => {
                                     function arrow() {
                                         if (sortable === true) {
                                             if (sortField === accessor && order === "asc") {
@@ -153,6 +153,7 @@ function TableHoldings({ data }) {
                                                 }}>
                                                     <img src={item.logo} style={{
                                                         height: "100%",
+                                                        maxWidth: "100%",
                                                         display: "block",
                                                         objectFit: "contain"
                                                     }} alt="company logo"></img>
@@ -227,8 +228,9 @@ function TableHoldings({ data }) {
 
                 </Container> :
                 <Container>
-                    <MessageAlert variant='info'>
-                        You have no holdings! <strong>Buy a stock </strong> now to start building your portfolio!
+                    <MessageAlert variant='info' >
+                        You have no holdings! <Link to="/stockdiscovery/" style={{color:"black"}}><strong>Click here</strong></Link> to start 
+                        exploring stocks and building your portfolio!
                     </MessageAlert>
                 </Container>
             }

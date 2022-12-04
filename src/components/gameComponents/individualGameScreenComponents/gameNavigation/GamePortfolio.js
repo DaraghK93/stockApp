@@ -1,6 +1,7 @@
 import { Container, Card, Row, Col } from "react-bootstrap";
 import PortfolioGraph from "../../../portfolioComponents/portfolioGraph/portfoliograph";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
+import { Link } from "react-router-dom";
 
 function GamePortfolio({ data, name, totalValue }) {
     return (
@@ -19,7 +20,9 @@ function GamePortfolio({ data, name, totalValue }) {
                     <Row>
                         <Col style={{ paddingLeft: 0 }}>
                             {data.length > 0 ? <PortfolioGraph data={data}></PortfolioGraph> :
-                                <MessageAlert variant="info">No value history yet for this portfolio! Buy a stock and come back tomorrow to see your portfolio's growth or decline!</MessageAlert>
+                                <MessageAlert variant="info">No value history yet for this 
+                                portfolio! <Link to="/stockdiscovery/" style={{color:"black"}}><strong>Click here</strong></Link> to start 
+                                exploring stocks and building your portfolio!</MessageAlert>
                             }
                         </Col>
                     </Row>

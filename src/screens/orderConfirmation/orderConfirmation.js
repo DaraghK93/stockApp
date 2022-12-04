@@ -194,10 +194,11 @@ function OrderConfirmationPage() {
                             <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
                         </Col>
                     </Row>
-                    <Row className="py-5">
-                        <Col>
-                            <BuyOrSell choices={buySellChocies} state={buyOrSell} setter={setBuyOrSell}/>
-                        </Col>
+                    <Row>
+                        <h2>{portfolio.portfolioName} </h2>
+                    </Row>
+                    <Row className="py-2">
+                        <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
                     </Row>
                     <Row>
                         <Col style={{ marginBottom: "0.625rem" }}>

@@ -45,12 +45,6 @@ function TickerCard({ stock }) {
                                                 }} alt="company logo"></img>
                                             </div>
                                         </div>
-        {/* <Container className="tickerCardImgContainer" style={{ margin: "none", paddingLeft: 0, paddingRight: 0, paddingTop: 0 }}>
-          <Image src={stock.logo} style={{ objectFit: "contain" }} ></Image> */}
-          {/* <Card.Body style={{ textDecoration: 'none' }}>
-            <Card.Img variant="top" src={stock.logo} style={{ objectFit: "contain" }} />
-          </Card.Body> */}
-        {/* </Container> */}
         <ListGroup className="list-group-flush" style={{ border: "none" }}>
           <ListGroupItem className="noBorder7REMHeight"><h5>
             <center>

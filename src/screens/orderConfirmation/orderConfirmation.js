@@ -10,7 +10,7 @@ import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQu
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
-
+import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
 import {useNavigate} from "react-router-dom"
 
 /// Redux ///
@@ -57,6 +57,13 @@ function OrderConfirmationPage() {
 
     /// naviagte - to redirect 
     const navigate = useNavigate()
+
+     /// The choices for the screens, used for buttons at top of screen 
+    var buySellChocies = [
+        {name: 'Buy', value:'Buy'},
+        {name: 'Sell', value: 'Sell'}]
+
+
 
     useEffect(() => {
         /// getStockInfo ///
@@ -187,13 +194,21 @@ function OrderConfirmationPage() {
                             <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
                         </Col>
                     </Row>
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <OrderType
-                            setBuyOrSell={setBuyOrSell}
-                            setOrderType={setOrderType}
-                            holding={holding}
-                        />
-                    </Col>
+                    <Row className="py-5">
+                        <Col>
+                            <BuyOrSell choices={buySellChocies} state={buyOrSell} setter={setBuyOrSell}/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{ marginBottom: "0.625rem" }}>
+                            <OrderType
+                                setBuyOrSell={setBuyOrSell}
+                                setOrderType={setOrderType}
+                                holding={holding}
+                            />
+                        </Col>
+                    </Row>
+                    
                     {isShownMarketOrder &&
                     <>
                     <Row className="my-2" sm={1} md={1} >

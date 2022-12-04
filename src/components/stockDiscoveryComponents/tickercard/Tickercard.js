@@ -23,25 +23,6 @@ function TickerCard({ stock }) {
     }
   }
 
-  /*
-<div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            <div style={{
-                                                width: "3.5rem",
-                                                height: "1.5rem",
-                                                height: "2rem",
-                                            }}>
-                                                <img src={item.logo} style={{
-                                                    maxWidth: "100%",
-                                                    height: "auto",
-                                                    height: "100%",
-                                                    display: "block",
-                                                    objectFit: "contain"
-
-                                                }} alt="company logo"></img>
-                                            </div>
-                                        </div>
-*/
-
   return (
     <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
       <Card className="h-100 tickercardstyle">

@@ -18,7 +18,7 @@ function PortfolioSelectionDropdown({portfolios, state, setState}){
                     id={`${portfolio.portfolioName}-${idx}`}
                     key={`${portfolio.portfolioName}-${idx}`}
                     eventKey={portfolio.leagueId}
-                    style={{"white-space": "normal"}}
+                    style={{"whiteSpace": "normal"}}
                     active={state === portfolio.leagueId} 
                     >
                         {portfolio.portfolioName}

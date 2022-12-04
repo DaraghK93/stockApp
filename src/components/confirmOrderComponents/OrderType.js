@@ -1,11 +1,11 @@
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
 
-function OrderType({setOrderType}) {
-    const [active2, setActive2] = useState("");
+function OrderType({orderType,setOrderType}) {
+    const [active, setActive] = useState("");
 
-    const handleClick2 = (event) => {
-        setActive2(event.target.id);
+    const handleClick = (event) => {
+        setActive(event.target.id);
         if (event.target.id === "1") {
             setOrderType("Market Order")
         }
@@ -21,17 +21,21 @@ function OrderType({setOrderType}) {
                         <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
                             <Button
                                 id={"1"}
-                                onClick={handleClick2}
-                                className={active2 === "1" ? "selectionButtonActive" : "selectionButton"}
+                                active={orderType==="Market Order"}
+                                size="lg"
+                                onClick={handleClick}
+                                className={active === "1" ? "selectionButtonActive" : "selectionButton"}
                             >
-                                Market Order</Button>
+                                Market</Button>
                         </Col>
                         <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
                             <Button
                                 id={"2"}
-                                onClick={handleClick2}
-                                className={active2 === "2" ? "selectionButtonActive" : "selectionButton"}
-                            >Limit Order</Button>
+                                size="lg"
+                                active={orderType==="Limit Order"}  
+                                onClick={handleClick}
+                                className={active === "2" ? "selectionButtonActive" : "selectionButton"}
+                            >Limit</Button>
                         </Col>
                     </Row>
             </Card>

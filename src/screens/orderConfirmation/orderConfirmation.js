@@ -193,12 +193,12 @@ function OrderConfirmationPage() {
                     <Row className="py-2">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
                     </Row>
-                    <Row md={1} xs={1} lg={1}>
+                    <Row className="pt-4" md={1} xs={1} lg={1}>
                         <Col>
                          <OrderType
-                                setBuyOrSell={setBuyOrSell}
+                                orderType={orderType}
                                 setOrderType={setOrderType}
-                                holding={holding}
+                              
                             />
                         </Col>
                     </Row>

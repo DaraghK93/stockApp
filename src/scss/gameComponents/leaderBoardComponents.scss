@@ -1,5 +1,7 @@
 @import "../global_variables.scss";
 
+// @import background from "./background_pattern.jpg";
+
 .leaderBoardStyle {
     color: $leaderBoardTxt;
     background-color: $leaderBoardBg;
@@ -7,8 +9,22 @@
 
 .leaderBoardStyle2 {
     color: $leaderBoardTxt;
-    background-color: $leaderBoardBg;
-    height: 100vh
+    background-color:
+    //  rgba(0, 26, 255, 0.363);
+    transparentize($leaderBoardBg, 0.3);
+    height: 60vh
+}
+
+.leaderBoardInner{
+    color: $leaderBoardTxt;
+    opacity:1;
+}
+
+.leaderBoardBackground{
+    background-image: url('../../img/background_pattern_2.jpg');
+    // width:100%;
+    height:100%;
+    background-size: cover;
 }
 
 .leaderboradRowStyle {
@@ -16,6 +32,7 @@
     vertical-align: middle;
     color: $leaderBoardTxt;
     border-bottom-color: transparent;
+    opacity:1;
 }
 
 .leftCurvedBorders {

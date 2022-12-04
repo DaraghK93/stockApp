@@ -198,7 +198,6 @@ function OrderConfirmationPage() {
                          <OrderType
                                 orderType={orderType}
                                 setOrderType={setOrderType}
-                              
                             />
                         </Col>
                     </Row>
@@ -271,7 +270,7 @@ function OrderConfirmationPage() {
                             stockName={stock.longname}
                             gameTradeFee={gameTradeFee}
                 />
-                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
+                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Review Trade!"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

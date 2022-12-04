@@ -7,17 +7,18 @@ function PortfolioSelectionDropdown({portfolios, state, setState}){
     }
 
     return (
-        <Dropdown className="dropdownStyle" onSelect={onSelectHandler}>
+        <Dropdown className="dropdownStyle"  onSelect={onSelectHandler}>
         <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
             Select Portfolio
         </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu style={{"width": "20rem"}}>
             {portfolios.map((portfolio,idx) => (
                 <Dropdown.Item
                     value={portfolio}
                     id={`${portfolio.portfolioName}-${idx}`}
                     key={`${portfolio.portfolioName}-${idx}`}
                     eventKey={portfolio.leagueId}
+                    style={{"white-space": "normal"}}
                     active={state === portfolio.leagueId} 
                     >
                         {portfolio.portfolioName}

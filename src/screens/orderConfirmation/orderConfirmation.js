@@ -58,13 +58,6 @@ function OrderConfirmationPage() {
     /// naviagte - to redirect 
     const navigate = useNavigate()
 
-     /// The choices for the screens, used for buttons at top of screen 
-    var buySellChocies = [
-        {name: 'Buy', value:'Buy'},
-        {name: 'Sell', value: 'Sell'}]
-
-
-
     useEffect(() => {
         /// getStockInfo ///
         // Description:
@@ -194,22 +187,21 @@ function OrderConfirmationPage() {
                             <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
                         </Col>
                     </Row>
-                    <Row>
+                    <Row className="py-2">
                         <h2>{portfolio.portfolioName} </h2>
                     </Row>
                     <Row className="py-2">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
                     </Row>
-                    <Row>
-                        <Col style={{ marginBottom: "0.625rem" }}>
-                            <OrderType
+                    <Row md={1} xs={1} lg={1}>
+                        <Col>
+                         <OrderType
                                 setBuyOrSell={setBuyOrSell}
                                 setOrderType={setOrderType}
                                 holding={holding}
                             />
                         </Col>
                     </Row>
-                    
                     {isShownMarketOrder &&
                     <>
                     <Row className="my-2" sm={1} md={1} >

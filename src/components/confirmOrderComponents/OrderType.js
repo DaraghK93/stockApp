@@ -1,4 +1,4 @@
-import { Card, Container, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
 
 function OrderType({setOrderType}) {
@@ -15,9 +15,7 @@ function OrderType({setOrderType}) {
     }
 
     return (
-        <>
-            <Card>
-                <Container>
+            <Card className="px-3">
                     <h5 style={{ marginTop: "10px" }}>Order Type</h5>
                     <Row style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>
                         <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
@@ -36,9 +34,7 @@ function OrderType({setOrderType}) {
                             >Limit Order</Button>
                         </Col>
                     </Row>
-                </Container>
             </Card>
-        </>
     );
 }
 

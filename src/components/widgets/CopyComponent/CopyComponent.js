@@ -16,7 +16,7 @@ function CopyComponent({ copyText }) {
     }
 
     const Icon = clicked ?  <DoneIcon size={20} onClick={() => copyFunction(copyText)} /> :
-        <ContentCopyIcon size={20} onClick={() => copyFunction(copyText)} />
+        <ContentCopyIcon style={{cursor:"pointer"}} size={20} onClick={() => copyFunction(copyText)} />
 
     return (
         <>

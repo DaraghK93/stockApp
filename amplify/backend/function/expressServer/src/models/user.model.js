@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema(
     firstname: { type: String, trim: true, required: true },
     lastname: { type: String, trim: true, required: true },
     username: { type: String, trim: true, required: true, unique: true },
-
+    avatar: { type: String },
     email: {
       type: String,
       trim: true,
@@ -50,5 +50,6 @@ UserSchema.methods.generatePasswordReset = function() {
   this.resetPasswordToken = crypto.randomBytes(20).toString('hex');
   this.resetPasswordExpires = Date.now() + 3600000; //expires in an hour
 };
+
 
 module.exports = mongoose.model('UserData', UserSchema)

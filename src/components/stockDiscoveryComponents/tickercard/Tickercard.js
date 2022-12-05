@@ -1,7 +1,7 @@
 /// Description:
 //  This component is used to display stocks to the user
 //  It is a card which shows an overview of the stock showing some key details 
-import { Card, ListGroupItem, ListGroup, Container, Image } from 'react-bootstrap';
+import { Card, ListGroupItem, ListGroup } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
@@ -11,14 +11,12 @@ function TickerCard({ stock }) {
   var absoluteChange;
 
   function redOrGreen() {
+    absoluteChange = parseFloat(stock.daily_change.absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })
     if (parseFloat(stock.daily_change.percentageChange) >= 0) {
       postiveSymbol = "+"
-      absoluteChange = "$" + parseFloat(stock.daily_change.absoluteChange).toFixed(2)
       return "green"
     }
     else {
-      var myString = String(stock.daily_change.absoluteChange)
-      absoluteChange = myString.slice(0, 1) + "$" + myString.slice(1)
       return "red"
     }
   }
@@ -27,24 +25,23 @@ function TickerCard({ stock }) {
     <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
       <Card className="h-100 tickercardstyle">
 
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                            <div style={{
-                                                width: "7rem",
-                                                height: "6rem",
-                                            }}>
-                                                <img src={stock.logo} style={{
-                                                    maxWidth: "100%",
-                                                    height: "auto",
-                                                    height: "100%",
-                                                    display: "block",
-                                                    objectFit: "contain",
-                                                    paddingTop: "5px",
-                                                    marginLeft: "auto",
-                                                    marginRight:"auto"
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div style={{
+            width: "7rem",
+            height: "6rem",
+          }}>
+            <img src={stock.logo} style={{
+              maxWidth: "100%",
+              height: "100%",
+              display: "block",
+              objectFit: "contain",
+              paddingTop: "5px",
+              marginLeft: "auto",
+              marginRight: "auto"
 
-                                                }} alt="company logo"></img>
-                                            </div>
-                                        </div>
+            }} alt="company logo"></img>
+          </div>
+        </div>
         <ListGroup className="list-group-flush" style={{ border: "none" }}>
           <ListGroupItem className="noBorder7REMHeight"><h5>
             <center>

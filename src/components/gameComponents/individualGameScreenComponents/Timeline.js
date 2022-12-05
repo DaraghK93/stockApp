@@ -1,7 +1,7 @@
 import { ProgressBar, Container, Row, Col } from "react-bootstrap";
 import moment from 'moment'
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 function TimeLine({ startDate, endDate, portfolios, accessCode }) {
 
@@ -19,15 +19,15 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
             if (portfolios.length !== 1) {
                 return (
                     <>
-                        <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow so lonely! Invite others using the access code: <strong>{accessCode} </strong>
-                            <CopyComponent copyText={accessString} /></p>
+                        <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow so lonely! Invite others to have better time using the access code: <strong>{accessCode} </strong>
+                        <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText( accessString ) }}>Copy</ContentCopyIcon></p>
                     </>)
             }
             else {
                 return (
                     <>
-                        <p>There is only <strong>{portfolios.length} player</strong> in this game! Wow so lonely!  Invite others using the access code: <strong>{accessCode} </strong>
-                            <CopyComponent copyText={accessString} /></p>
+                        <p>There is only <strong>{portfolios.length} player</strong> in this game! Invite others to have better time using the access code: <strong>{accessCode} </strong>
+                        <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText( accessString ) }}>Copy</ContentCopyIcon></p>
                     </>)
             }
         }

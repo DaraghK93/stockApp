@@ -275,6 +275,9 @@ def getPortfolioUpdates(buys,sells):
     data_request = []
     #  portfolio updates
     try:
+      # add all updateOnes to array for buy and sell
+      # buys take the value of transaction from the frozen balance
+      # sells add the value to the remainder
       for i in buys:
               data_request.append(UpdateOne({"_id": i["portfolioId"]},
                                             {'$inc': {"frozenBalance": -i["value"]}}))
@@ -299,6 +302,9 @@ def getHoldingsUpdates(buys,sells):
 
     #  holdings updates
     try:
+      # add all updateOnes to array for buy and sell
+      # buys add the units of transaction to the holdings units
+      # sells take the units of the transaction from the frozen holdings
       for i in buys:
               data_request.append(UpdateOne({"_id": i["holdings"]},
                                             {'$inc': {"units": i["units"]}}))
@@ -322,6 +328,8 @@ def getTransactionsUpdates(buys,sells):
     data_request = []
     #  portfolio updates
     try:
+      # add all updateOnes to array for buy and sell
+      # sets all transactions to completed
       for i in buys:
               data_request.append(UpdateOne({"_id": i["_id"]},
                                             {'$set': {"status": "COMPLETED"}}))
@@ -355,12 +363,10 @@ def handler(event,context):
     return {
         'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
     }   
-  ######
-
   # run the web scraping program to get the current prices
   data_current_price = get_current_price()
 
-  ##### update the stocks collection
+  ### update the stocks collection
   try:
     # create the array with all of the UpdateOne requests
     # get the current time and convert to the correct format YYYY-MM-DDTHH:MM
@@ -377,15 +383,21 @@ def handler(event,context):
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
         }
   
-  ####### Limit Orders
+  ### Limit Orders
+  # get all actionable transactions
   transactions = getTransactions(transactionCollection)
+  # get the list of buys and sells from the command cursor
   buyList, sellList = commandCursorToLists(transactions)
+  # get the arrays of all updateOnes from the buys and sells for each collection
   holdingsUpdates = getHoldingsUpdates(buyList, sellList)
   portfolioUpdates = getPortfolioUpdates(buyList, sellList)
   transactionsupdates = getTransactionsUpdates(buyList, sellList)
+  # initialise the match count to 0 so it's not referenced before initialisation below
   port_matched_count = 0
   hold_matched_count = 0
   trans_matched_count = 0
+
+  # ensure the array is not empty so it doesn't throw an error
   if buyList + sellList != []:
         # portfolio updates
         try:
@@ -412,7 +424,6 @@ def handler(event,context):
             print(f'ERROR:cannot bulk write to transactions collection\nException Details:\n\t{e}')
   else:
       print("nothing to action")
-
 
   return {
         'Message': 'Data Successfully Updated',

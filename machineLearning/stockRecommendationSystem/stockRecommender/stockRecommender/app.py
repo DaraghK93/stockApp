@@ -98,7 +98,7 @@ def get_user_stock(userID, client):
 
         # Try - Find user's most recent transaction
         try:
-            print("Start of try block:")
+            print("Start of try block, attempting to find user's last transaction:")
             output = user_collection.aggregate([{'$match': {'_id': ObjectId(userID)}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
                 '$unwind': {
                     'path': '$portfolios'
@@ -134,19 +134,18 @@ def get_user_stock(userID, client):
                 }
             }
             ])
-            print("Output:", output)
             output_list = list(output)
-            print("Output List:", output_list)
+            print("User's last transaction output list:", output_list)
 
             res_str = ""
             # Aggregate query returns a command cursor, this has to be iterated over to access any data.
             for doc in output_list:
-                print("For loop:")
                 res_str = doc['stock']
-                print("Res Str:", res_str)
+                print("Seed stock:", res_str)
+
             
             if res_str == "":
-                print("Hitting no portfolio exception:")
+                print("User has no transactions:")
                 top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
                                                                                    'daily_change.absoluteChange': 1,
                                                                                    'daily_change.percentageChange': 1,
@@ -159,9 +158,8 @@ def get_user_stock(userID, client):
                 # Aggregate query returns a command cursor, this has to be iterated over to access any data.
                 for doc in top_mover_list:
                     res_str = doc['symbol']
+                    print("Seed stock:", res_str)
                 return res_str
-                
-
             else:
                 return res_str
 

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
-import { Container, Image, Row, Col } from 'react-bootstrap';
+import { Container, Image, Row, Col, Button } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
 import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
-
+import { Link } from "react-router-dom";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -152,6 +152,8 @@ function IndividualGameScreen() {
         }
     }
 
+    // const holdings = portfolio.holdings
+
 
     return (
         <>
@@ -196,7 +198,16 @@ function IndividualGameScreen() {
                             <br></br><h2>This is stocks screen</h2>
                         </Container>
                     }
-                    {isShownPortfolio &&
+                    {isShownPortfolio && portfolio.holdings.length === 0 ?
+
+                        <>
+                        <Container style={{textAlign:"center"}}>
+                            <br></br>
+                            <h2>No holdings to display - yet!</h2>
+                            <p>You have to spend money to make money, start trading here: </p>
+                            <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
+                        </Container>
+                        </> : portfolio.holdings.length > 0 &&
                         <>
                             <Container>
                                 <Row>
@@ -211,6 +222,8 @@ function IndividualGameScreen() {
                                     <h2>Transaction History here</h2>
                                 </Row>
                             </Container>
+
+
                         </>
                     }
                 </>

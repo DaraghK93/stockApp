@@ -2,7 +2,7 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 import { useState } from "react";
 import InfoButtonModal from '../widgets/InfoButtonModal/InfoButtonModal';
 
-function OrderType({orderType,setOrderType}) {
+function OrderType({orderType,setOrderType,buyOrSell}) {
     const [active, setActive] = useState("");
 
     const handleClick = (event) => {
@@ -41,7 +41,11 @@ function OrderType({orderType,setOrderType}) {
                                 onClick={handleClick}
                                 className={active === "1" ? "selectionButtonActive" : "selectionButton"}
                             >
-                                Market</Button>
+                                Market
+                                <p className="orderButtonSubtitle">
+                                    {buyOrSell === "Buy"? <> Buy Now!</>:<>Sell Now!</>}
+                                </p>
+                                </Button>
                         </Col>
                         <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
                             <Button
@@ -50,7 +54,11 @@ function OrderType({orderType,setOrderType}) {
                                 active={orderType==="Limit Order"}  
                                 onClick={handleClick}
                                 className={active === "2" ? "selectionButtonActive" : "selectionButton"}
-                            >Limit</Button>
+                            >Limit
+                            <p className="orderButtonSubtitle">
+                                {buyOrSell === "Buy"? <> Buy Later!</>:<>Sell Later!</>}
+                            </p>
+                            </Button>
                         </Col>
                     </Row>
             </Card>

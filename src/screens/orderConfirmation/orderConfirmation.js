@@ -198,6 +198,7 @@ function OrderConfirmationPage() {
                          <OrderType
                                 orderType={orderType}
                                 setOrderType={setOrderType}
+                                buyOrSell={buyOrSell}
                             />
                         </Col>
                     </Row>

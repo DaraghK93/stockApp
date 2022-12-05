@@ -143,6 +143,7 @@ function IndividualGameScreen() {
             if (league.leagueType === "timeBased") {
                 return (
                     <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
+
                 )
             }
             else {
@@ -153,9 +154,10 @@ function IndividualGameScreen() {
         }
     }
 
+
     return (
         <>
-            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            {loading || typeof portfolio === "undefined" ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <>
                     <div className="container-img">
                         <Image className="gameImage" src={league.image}></Image>
@@ -206,7 +208,7 @@ function IndividualGameScreen() {
                                 <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
                             </Container>
                         </>
-                             : isShownPortfolio && 
+                             : isShownPortfolio &&
                         <>
                             <Container>
                                 <Row>

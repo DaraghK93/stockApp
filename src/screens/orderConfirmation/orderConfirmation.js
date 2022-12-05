@@ -237,7 +237,7 @@ function OrderConfirmationPage() {
                         
                     }
                     {isShownLimitOrder &&
-                        <>
+                        <Row className="my-2" sm={1} md={1} >
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitQuantitySelect
                                     portfolioBalance={portfolio.portfolioBalance}
@@ -256,7 +256,7 @@ function OrderConfirmationPage() {
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />
                             </Col>
-                        </>
+                        </Row>
                     }
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}

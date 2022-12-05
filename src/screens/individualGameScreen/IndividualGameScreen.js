@@ -152,9 +152,6 @@ function IndividualGameScreen() {
         }
     }
 
-    // const holdings = portfolio.holdings
-
-
     return (
         <>
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :

@@ -557,6 +557,31 @@ const getLeagueById = async (req,res,next) => {
 
 }
 
+const leaveLeague = async (req,res,next) => {
+  try{
+    if (
+      typeof req.body.portfolioId === 'undefined' 
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'Missing portfolio ID needed to leave the league.'
+      return next(
+        new Error(
+          'The client has not sent the required portfolio ID to create a league'
+        ),
+      )
+    } 
+  }
+
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in leaving a league'
+    res.status(500)
+    return next(err)
+  }
+
+}
+
 module.exports = {
     createLeague,
     getPublicLeagues,

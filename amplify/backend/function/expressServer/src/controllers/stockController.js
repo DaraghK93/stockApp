@@ -203,6 +203,12 @@ const getGameStocks = async (req, res, next) => {
     // there will be an if statement that checks req.query and if it's 
     // keyword = all it finds all, or keyword = summary it gets the summary
 
+    if (gameStocks.length === 0) {
+      // No stock found
+      res.status(404);
+      res.errormessage = 'No stocks found for this game';
+      return next(new Error('No stocks found for this game'));
+    }
     res.json(gameStocks)
   } catch (err) {
     console.error(err.message);

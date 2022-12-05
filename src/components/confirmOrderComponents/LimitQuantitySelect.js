@@ -25,8 +25,6 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
             // Max you can select is determined by protfolio balance 
             // Round down so you dont get 20 decimal places  
             setMax(Math.floor((portfolioBalance-gameTradeFee)/limitPrice))
-            console.log("Max",max)
-            console.log("QTY",qty)
         }else if (buyOrSell === "Sell"){
             setMin(1)
             setMax(holding*stockPrice)
@@ -44,7 +42,7 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
                 console.log("Sell")
             }
         }else{
-            setError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share. Try lowering the price.`)
+            setError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share. Try lowering the price or the number of stocks.`)
         }
     },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice,limitPrice])
 

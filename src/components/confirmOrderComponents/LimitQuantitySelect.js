@@ -1,9 +1,12 @@
-import { Card, Container, Row } from "react-bootstrap";
-import { useState } from 'react';
+import { Card } from "react-bootstrap";
+import { useState, useEffect } from 'react';
 import RangeSlider from "../widgets/RangeSlider/RangeSlider";
 
-function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNewPortfolioBalance, portfolioBalance, buyOrSell }) {
+function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNewPortfolioBalance, portfolioBalance, buyOrSell, stockPrice, holding, gameTradeFee }) {
     const [quantity, setQuantity] = useState(0);
+
+    const [min, setMin] = useState()
+    const [max, setMax] = useState()
 
     const sliderCall = (e) => {
         setQuantity(e.target.value)
@@ -12,23 +15,30 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
         setNewPortfolioBalance(portfolioBalance - (e.target.value * limitPrice))
     }
 
-    
+     useEffect(() => {
+        //// Set the max and min values 
+        if (buyOrSell === "Buy"){
+            // Set the min you must buy to 1 share 
+            setMin(1)
+            // Max you can select is determined by protfolio balance 
+            // Round down so you dont get 20 decimal places  
+            setMax(Math.floor((portfolioBalance-gameTradeFee)/stockPrice))
+        }else if (buyOrSell === "Sell"){
+            setMin(1)
+            setMax(holding*stockPrice)
+        }
+    },[])
 
-
-
-
-    console.log(qty)
     return (
          <Card className="px-3">
-                <h5 style={{ marginTop: "10px"}}>Quantity </h5>
+                <h5 style={{ marginTop: "10px"}}>Quantity</h5>
+                <p>{`The number of stocks you wish to ${buyOrSell}`}</p>
                 <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
-                    <h2>{parseFloat(qty).toFixed(2)} stocks</h2>
                      <RangeSlider 
-                        label={"$"}
                         setter={setQty}
                         state={qty}
-                        min={0}
-                        max={10}
+                        min={min}
+                        max={max}
                         startWidth={"2rem"}
                         showError={true}
                         reset={buyOrSell}

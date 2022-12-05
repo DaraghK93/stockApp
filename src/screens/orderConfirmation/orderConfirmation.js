@@ -245,7 +245,10 @@ function OrderConfirmationPage() {
                                     setQty={setQty}
                                     qty={qty}
                                     buyOrSell={buyOrSell}
+                                    stockPrice={stock.daily_change.currentprice}
                                     limitPrice={limitPrice}
+                                    holding={holding}
+                                    gameTradeFee={gameTradeFee}
                                     setDollarAmountSelected={setDollarAmountSelected}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />

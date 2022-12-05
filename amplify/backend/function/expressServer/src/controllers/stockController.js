@@ -193,10 +193,15 @@ const getStockBySymbol = async (req, res, next) => {
 
 const getGameStocks = async (req, res, next) => {
   try{
-
+    // the game rules are sent in the request body
+    // this might need to be changed but is ok for now
+    // this gets the game summary
     const {sectors,minErating,minSRating,minGRating} = req.body
     const gameStocks = await stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
     
+    // put the find all stocks here and pass the game rules to it
+    // there will be an if statement that checks req.query and if it's 
+    // keyword = all it finds all, or keyword = summary it gets the summary
 
     res.json(gameStocks)
   } catch (err) {

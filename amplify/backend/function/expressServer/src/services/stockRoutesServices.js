@@ -214,12 +214,19 @@ const stocks =  schema.aggregate([
 return stocks
 }
 
+// gets the game stock summary to display on game stocks page
 const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
 
+  // match statement, will be the same for them all
+  // filters for the min ratings are >= game rating
+  // filters for the sectors that are pplayable
   const matchStatement = {'esgrating.environment_score':{$gte:minErating},
                           'esgrating.social_score':{$gte:minSRating},
                           'esgrating.governance_score':{$gte:minGRating},
                           'sector':{$in:sectors}}
+
+  // this decides what fields are included in the response
+  // corresponds to the info shown on the ticker cars
   const projectStatement = {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
                             'daily_change.absoluteChange':1,
                             'daily_change.percentageChange':1,

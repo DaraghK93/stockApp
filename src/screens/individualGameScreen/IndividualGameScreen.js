@@ -15,6 +15,7 @@ import { useSelector } from 'react-redux';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import TransactionHistory from "../../components/portfolioComponents/TransactionHistory/TransactionHistory";
 function IndividualGameScreen() {
 
     /// League State ///
@@ -187,9 +188,12 @@ function IndividualGameScreen() {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <h2>Transaction History here</h2>
+                                    <Col><br></br>
+                                        <TransactionHistory />
+                                    </Col>
                                 </Row>
                             </Container>
+                            <br></br>
                         </>
 
                     }

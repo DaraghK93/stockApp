@@ -123,7 +123,9 @@ const stocks =  schema.aggregate([
                 'daily_change.currentprice': 1,
                 'esgrating.environment_score': 1
             }
-        }
+        },
+        {$addFields: {"order": {$indexOfArray: [recommended, "$symbol" ]}}},
+        {$sort: {"order": 1}}
         ],
         // agg query for top environment
         topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,

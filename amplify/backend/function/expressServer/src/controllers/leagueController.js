@@ -575,6 +575,7 @@ const leaveLeague = async (req,res,next) => {
       )
     }
     const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, leagueId: req.body.leagueId, userId: req.user.id}) 
+    // check if a portfolio with league ID and user ID in it
     if(portfolio === null){
       res.status(404)
       res.errormessage = 'No such portfolio exists.'
@@ -584,6 +585,7 @@ const leaveLeague = async (req,res,next) => {
         ),
       )
     }
+    // check if league exists with that portfolio and that user
     const league = await League.findOne({_id: req.body.leagueId, portfolios: req.body.portfolioId, users: req.user.id}) 
     if(league === null){
       res.status(404)
@@ -594,6 +596,7 @@ const leaveLeague = async (req,res,next) => {
         ),
       )
     }
+    // the league admin can't leave the league
     if(league.leagueAdmin === req.user.id){
       res.status(400)
       res.errormessage = 'The admin cannot leave the league.'
@@ -603,9 +606,13 @@ const leaveLeague = async (req,res,next) => {
         ),
       )
     }
+    // update the league, removing the portfolio and the user
     await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId, users: portfolio.userId}})
+    // delete the portfolio
     await Portfolio.deleteOne({_id: req.body.portfolioId, leagueId: req.body.leagueId})
+    // update the user, removing the league and the portfolio
     const user = await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId, leagues: req.body.leagueId}})
+    // return the user
     res.json(user)
   }
 

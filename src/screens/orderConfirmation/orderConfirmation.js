@@ -259,6 +259,8 @@ function OrderConfirmationPage() {
                                     portfolioBalance={portfolio.portfolioBalance}
                                     setDollarAmountSelected={setDollarAmountSelected}
                                     qty={qty}
+                                    limitPrice={limitPrice}
+                                    buyOrSell={buyOrSell}
                                     setLimitPrice={setLimitPrice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />

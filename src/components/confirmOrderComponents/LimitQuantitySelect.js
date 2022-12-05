@@ -31,7 +31,7 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
         if (qty >= min && qty <= max){
             if(buyOrSell === "Buy"){
                 /// For Buy the new the current balance minus the currentStock Price*Qty slected minus the trade fee
-                setNewPortfolioBalance((portfolioBalance - ((qty*stockPrice) + gameTradeFee)))
+                setNewPortfolioBalance((portfolioBalance - ((qty*limitPrice) + gameTradeFee)))
             }else if(buyOrSell === "Sell"){
                 /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
                 //setQty(dollarAmountSelected / stockPrice)
@@ -39,7 +39,7 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
                 console.log("Sell")
             }
         }
-    },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice])
+    },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice,limitPrice])
 
     return (
          <Card className="px-3">

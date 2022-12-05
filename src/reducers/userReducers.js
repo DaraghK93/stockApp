@@ -9,7 +9,8 @@
 // userActionConstants - These are the action constants for the reducers 
 import {  
     USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT, // For userLoginLogoutReducer 
-    USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL // For userRegisterReducer
+    USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, // For userRegisterReducer
+    USER_CHANGEDETAILS_REQUEST, USER_CHANGEDETAILS_SUCCESS, USER_CHANGEDETAILS_FAIL // For userChangeDetailsReducer
 } from "../constants/userActionConstants";
 
 /// userLoginReducer ///
@@ -55,6 +56,30 @@ export function userRegisterReducer(state = {}, action) {
         case USER_REGISTER_FAIL:
             // Set the error message 
             return {loading: false, error: action.payload}
+        // For default just return uunmodfied state 
+        default:
+            return state; 
+    }    
+}
+
+/// userChangeDetailsReducer ///
+// Description:
+//  Reducer used to change state for a register request 
+export function userChangeDetailsReducer(state = {}, action) {
+    // check action
+    switch (action.type){
+        // User has requested registration 
+        case USER_CHANGEDETAILS_REQUEST:
+            // Set loading to true 
+            return {loading: true, success: false}
+        // User succfully registered 
+        case USER_CHANGEDETAILS_SUCCESS:
+            // have user deatials at this point 
+            return {loading: false, success:true}
+        // User cannot be registered 
+        case USER_CHANGEDETAILS_FAIL:
+            // Set the error message 
+            return {loading: false, success:false,  error: action.payload}
         // For default just return uunmodfied state 
         default:
             return state; 

@@ -11,11 +11,148 @@ var defaultClient = SibApiV3Sdk.ApiClient.instance;
 // Configure API key authorization: api-key
 var apiKey = defaultClient.authentications['api-key'];
 
-/**
- *
- * some controllers here
- *
- */
+// @route POST api/auth/changeuserdetails
+// @desc Change user details - Takes new details from req.body
+// current password must match before anything can change
+// @access Private
+const changeUserDetails = async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    console.log(errors);
+    //validate input
+    if (!errors.isEmpty() && errors.errors[0].msg === 'Invalid email entered') {
+      res.status(400);
+      res.errormessage = 'Invalid email address. Please try again';
+      return next(new Error('Invalid email address entered.'));
+    }
+
+    const token = req.headers['x-auth-token'];
+    // required fields = users current password
+    // check if password exists and if it does check it is valid
+    currPassword = req.body.password;
+    if (!currPassword) {
+      res.status(400);
+      res.errormessage = 'Old password required to change any user details';
+      return next(
+        new Error('Current password required to change any user details')
+      );
+    }
+    // check if old password is correct
+    const user = await User.findById(req.user.id);
+    // compare old password with currpassword
+    const isMatch = await bcrypt.compare(currPassword, user.password);
+
+    if (!isMatch) {
+      res.status(401);
+      res.errormessage = 'Current password incorrect';
+      return next(new Error('Current Password incorrect'));
+    } else {
+      let newPassword = req.body.newPassword;
+      if (newPassword) {
+        // Checks for minimum password length, if contains a lower case character (a-z), an upper case character (A-Z), and a number (0-9)
+        if (
+          newPassword.length < 8 ||
+          !/[a-z]/.test(newPassword) ||
+          !/[A-Z]/.test(newPassword) ||
+          !/[0-9]/.test(newPassword)
+        ) {
+          res.status(400);
+          res.errormessage =
+            'Password must be at least 8 characters long, contain at least one lower case English character (a-z), at least one upper case English character (A-Z) and at least one number (0-9)!';
+          return next(
+            new Error(
+              'Password must be at least 8 characters long, contain at least one lower case English character (a-z), at least one upper case English character (A-Z) and at least one number (0-9)!'
+            )
+          );
+        }
+
+        /// Hash the new password ///
+        let salt = await bcrypt.genSalt(10);
+        newPassword = await bcrypt.hash(newPassword, salt);
+
+        user.password = newPassword;
+      }
+      // checks for username update
+      const newUsername = req.body.username;
+      // check if username exists already
+      const userWithUsername = await User.findOne({ username: newUsername });
+
+      // Check for existing user
+      if (userWithUsername) {
+        res.status(400);
+        res.errormessage = 'Username already taken';
+        return next(new Error('Username already taken'));
+      }
+      if (newUsername) {
+        if (newUsername.length < 3) {
+          res.status(400);
+          res.errormessage = 'Username length must be at least 3 characters';
+          return next(
+            new Error('Username length must be at least 3 characters')
+          );
+        }
+        // assign username to user after all checks
+        user.username = newUsername;
+      }
+
+      // Check for new avatar
+      const newAvatar = req.body.avatar;
+      if (newAvatar) {
+        user.avatar = newAvatar;
+      }
+      // check for new first name
+      const newFirstname = req.body.firstname;
+      if (newFirstname) {
+        user.firstname = newFirstname;
+      }
+      // check for new last name
+      const newLastname = req.body.lastname;
+      if (newLastname) {
+        user.lastname = newLastname;
+      }
+      // check for new email already validated from express validator
+      const newEmail = req.body.email;
+      // check if email exists already
+      const userWithEmail = await User.findOne({ email: newEmail });
+      if (userWithEmail) {
+        res.status(400);
+        res.errormessage = 'Email already taken';
+        return next(new Error('Email already taken'));
+      }
+      if (newEmail) {
+        user.email = newEmail;
+      }
+      
+      if (
+        !newUsername &&
+        !newPassword &&
+        !newAvatar &&
+        !newFirstname &&
+        !newLastname &&
+        !newEmail
+      ) {
+        res.status(400);
+        res.errormessage = 'No details to change';
+        return next(new Error('No details to change'));
+      }
+      await user.save();
+
+      res.status(200);
+      res.json({
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email,
+        avatar: user.avatar,
+        username: user.username,
+        token,
+      });
+    }
+  } catch (error) {
+    res.status(500);
+    res.errormessage = error.message;
+    return next(new Error('Server error in changing user details'));
+  }
+};
 
 // @route POST api/auth/recover
 // @desc Recover Password - Generates token and Sends password reset email
@@ -164,6 +301,7 @@ const resetPassword = async (req, res, next) => {
 };
 
 module.exports = {
+  changeUserDetails,
   resetPassword,
   recoverPassword,
 };

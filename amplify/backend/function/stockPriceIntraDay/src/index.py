@@ -143,8 +143,123 @@ def create_data_request(data_curr_price, time_stamp):
   
   return data_request
 
+### Limit orders
+
+def getTransactions(collection):
+    """find all limit orders that can be acioned.
+    split into buys and sells
+
+    Args:
+        collection (db collection): the database collection that is passed in
+        in this case it will be the transactions
+
+    Returns:
+        commandcursor: the command cursor which will be iterated through to
+        get the separate lists
+    """
+
+    transactionscollection = collection.aggregate([
+        {'$facet':
+                  {
+                     'buy': [
+                                {
+                                  '$match': {
+                                    'orderType': 'LIMIT',
+                                    'status': 'PENDING',
+                                    'buyOrSell': 'BUY'
+                                  }
+                                }, {
+                                  '$lookup': {
+                                    'from': 'stocks',
+                                    'localField': 'stockId',
+                                    'foreignField': '_id',
+                                    'as': 'stock',
+                                    'pipeline': [
+                                      {
+                                        '$project': {
+                                          'daily_change.currentprice': 1
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }, {
+                                  '$unwind': {
+                                    'path': '$stock'
+                                  }
+                                }, {
+                                  '$match': {
+                                    '$expr': {
+                                      '$gte': [
+                                        '$stock.daily_change.currentprice', '$limitValue'
+                                      ]
+                                    }
+                                  }
+                                }],
+                      'sell': [
+                                {
+                                  '$match': {
+                                    'orderType': 'LIMIT',
+                                    'status': 'PENDING',
+                                    'buyOrSell': 'SELL'
+                                  }
+                                }, {
+                                  '$lookup': {
+                                    'from': 'stocks',
+                                    'localField': 'stockId',
+                                    'foreignField': '_id',
+                                    'as': 'stock',
+                                    'pipeline': [
+                                      {
+                                        '$project': {
+                                          'daily_change.currentprice': 1
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }, {
+                                  '$unwind': {
+                                    'path': '$stock'
+                                  }
+                                }, {
+                                  '$match': {
+                                    '$expr': {
+                                      '$lte': [
+                                        '$stock.daily_change.currentprice', '$limitValue'
+                                      ]
+                                    }
+                                  }
+                                }]
+                            }}])
+    return transactionscollection
+
+def commandCursorToLists(collection):
+    """make the coman cursor returned into two lists
+
+    Args:
+        collection (dbcollection): the transactions collection
+
+    Returns:
+        Lists: two lists, one of actionable buy transactions 
+        and one of actionable sell transactions
+    """
+    # get a list of the transactions
+    result = getTransactions(collection)
+    # empty llist to add the result to
+    transList = []
+    # loop through and add the list
+    for i in result:
+        transList.append(i)
+    # returns a list so need to get 1st element (which will be an object)
+    splitList = transList[0]
+    # the buy object contains a list of objects that can be actions
+    buyList = splitList['buy']
+    # the sell object contains a list of objects that can be actions
+    sellList = splitList['sell']
+    return buyList, sellList
+
 
 def handler(event,context):
+  ### connecting to database
   try:
     mongoURI = '' 
     environment = os.environ['ENVIRONMENT']
@@ -154,23 +269,24 @@ def handler(event,context):
         mongoURI = os.environ['MONGOURI']
     # Get the mongo connection 
     client = connectToDB(mongoURI)
-    
-
-    # specify db and collection
+    # specify db and collections
     db = client[os.environ["DATABASENAME"]]
-    collection = db[os.environ["COLLECTION"]]
-
+    stockCollection = db[os.environ["STOCKCOLLECTION"]]
+    holdingsCollection = db[os.environ["HOLDINGSCOLLECTION"]]
+    portfolioCollection = db[os.environ["PORTFOLIOCOLLECTION"]]
+    transactionCollection = db[os.environ["TRANSACTIONCOLLECTION"]]
+  
   except Exception as e:
     print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')
     return {
         'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
     }   
+  ######
 
   # run the web scraping program to get the current prices
   data_current_price = get_current_price()
 
-  
-  
+  ##### update the stocks collection
   try:
     # create the array with all of the UpdateOne requests
     # get the current time and convert to the correct format YYYY-MM-DDTHH:MM
@@ -179,14 +295,23 @@ def handler(event,context):
     requests_database = create_data_request(data_current_price, time_stamp_str)
 
     # write these requests to the Database
-    collection.bulk_write(requests_database)
+    stockCollection.bulk_write(requests_database)
 
-    return {
-        'Message': 'Data Successfully Updated',
-        'Time': time_stamp_str
-    }
+    
   except Exception as e:
         print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
-        }   
+        }
+
+  ####### Limit Orders
+
+
+
+
+
+
+  return {
+        'Message': 'Data Successfully Updated',
+        'Time': time_stamp_str
+    }

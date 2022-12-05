@@ -22,7 +22,16 @@
     "databasename": {
       "Type": "String"
     },
-    "collection": {
+    "stockcollection": {
+      "Type": "String"
+    },
+    "portfoliocollection": {
+      "Type": "String"
+    },
+    "holdingscollection": {
+      "Type": "String"
+    },
+    "transactioncollection": {
       "Type": "String"
     }
   },
@@ -85,8 +94,17 @@
             "DATABASENAME": {
               "Ref": "databasename"
             },
-            "COLLECTION": {
-              "Ref": "collection"
+            "STOCKCOLLECTION": {
+              "Ref": "stockcollection"
+            },
+            "PORTFOLIOCOLLECTION": {
+              "Ref": "portfoliocollection"
+            },
+            "HOLDINGSCOLLECTION": {
+              "Ref": "holdingscollection"
+            },
+            "TRANSACTIONCOLLECTION": {
+              "Ref": "transactioncollection"
             }
           }
         },

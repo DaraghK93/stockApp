@@ -1,4 +1,5 @@
 const League = require('../models/league.model')
+const Portfolio = require('../models/portfolio.model')
 const leagueService = require('../services/leagueServices')
 
 const mongoose = require("mongoose")
@@ -570,7 +571,9 @@ const leaveLeague = async (req,res,next) => {
           'The client has not sent the required portfolio ID to create a league'
         ),
       )
-    } 
+    }
+    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, userId: req.user.id}) 
+    res.json(portfolio)
   }
 
   catch (err) {
@@ -587,5 +590,6 @@ module.exports = {
     getPublicLeagues,
     joinLeaguebyCode,
     getMyLeagues,
-    getLeagueById
+    getLeagueById,
+    leaveLeague
   }

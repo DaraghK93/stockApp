@@ -18,6 +18,7 @@ import TimeLine from "../../components/gameComponents/individualGameScreenCompon
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 import CopyComponent from "../../components/widgets/CopyComponent/CopyComponent";
 
+
 function IndividualGameScreen() {
 
     /// League State ///
@@ -196,15 +197,16 @@ function IndividualGameScreen() {
                         </Container>
                     }
                     {isShownPortfolio && portfolio.holdings.length === 0 ?
-
+                    
                         <>
-                        <Container style={{textAlign:"center"}}>
-                            <br></br>
-                            <h2>No holdings to display - yet!</h2>
-                            <p>You have to spend money to make money, start trading here: </p>
-                            <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
-                        </Container>
-                        </> : portfolio.holdings.length > 0 &&
+                            <Container style={{ textAlign: "center" }}>
+                                <br></br>
+                                <h2>No holdings to display - yet!</h2>
+                                <p>You have to spend money to make money, start trading here: </p>
+                                <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
+                            </Container>
+                        </>
+                             : isShownPortfolio && 
                         <>
                             <Container>
                                 <Row>
@@ -219,8 +221,6 @@ function IndividualGameScreen() {
                                     <h2>Transaction History here</h2>
                                 </Row>
                             </Container>
-
-
                         </>
                     }
                 </>

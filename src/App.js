@@ -17,6 +17,7 @@ import ResetPage from './screens/resetPassword/resetPassword'
 import FAQsPage from './screens/faqs/faqs'
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
+import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage';
 
 /// React ///
 import { useEffect } from 'react';
@@ -88,8 +89,13 @@ function App() {
         <Route path='/faqs'
           element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />
 
-        <Route path='/auth/recover' element={<RequestResetPassword />} />
-        <Route path='/auth/reset/:token' element={<ResetPage />} />
+        <Route path='/auth/recover' element={ <RequestResetPassword/> } />
+        
+        <Route path='/auth/reset/:token' element={ <ResetPage/> } />
+
+        <Route path='/settings'
+          element={userInfo ? <UserSettingsPage /> : <Navigate to="/" />} />
+
 
       </Routes>
     </Router>

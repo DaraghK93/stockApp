@@ -1,5 +1,6 @@
 const League = require('../models/league.model')
 const Portfolio = require('../models/portfolio.model')
+const User = require('../models/user.model')
 const leagueService = require('../services/leagueServices')
 
 const mongoose = require("mongoose")
@@ -561,19 +562,32 @@ const getLeagueById = async (req,res,next) => {
 const leaveLeague = async (req,res,next) => {
   try{
     if (
-      typeof req.body.portfolioId === 'undefined' 
+      typeof req.body.portfolioId === 'undefined' ||
+      typeof req.body.leagueId === 'undefined'
     ) {
       // data is missing bad request
       res.status(400)
-      res.errormessage = 'Missing portfolio ID needed to leave the league.'
+      res.errormessage = 'Missing portfolio ID and league ID. Both needed to leave the league.'
       return next(
         new Error(
-          'The client has not sent the required portfolio ID to create a league'
+          'The client has not sent the required portfolio ID or league ID to leave the league'
         ),
       )
     }
-    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, userId: req.user.id}) 
-    res.json(portfolio)
+    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, leagueId: req.body.leagueId}) 
+    if(portfolio === null){
+      res.status(400)
+      res.errormessage = 'No such portfolio exists.'
+      return next(
+        new Error(
+          'The portfolio ID provided does not relate to any existing portfolio in that league.'
+        ),
+      )
+    }
+    await Portfolio.deleteOne({_id: req.body.portfolioId, leagueId: req.body.leagueId})
+    const league = await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId, users: portfolio.userId}})
+    const user = await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId, leagues: req.body.leagueId}})
+    res.json(user)
   }
 
   catch (err) {

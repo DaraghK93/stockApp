@@ -11,7 +11,7 @@ router.get('/',protectedRoute, getPublicLeagues)
 router.get('/myleagues',protectedRoute,getMyLeagues)
 router.post('/joinleague',protectedRoute,joinLeaguebyCode)
 router.get('/:leagueId',protectedRoute,getLeagueById)
-router.post('/leaveLeague',protectedRoute,leaveLeague)
+router.post('/leaveLeague',leaveLeague)
 
 
 

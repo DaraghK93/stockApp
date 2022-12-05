@@ -1,12 +1,14 @@
 import { Card } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import RangeSlider from "../widgets/RangeSlider/RangeSlider";
+import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 
 function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNewPortfolioBalance, portfolioBalance, buyOrSell, stockPrice, holding, gameTradeFee }) {
     // const [quantity, setQuantity] = useState(0);
 
     const [min, setMin] = useState()
     const [max, setMax] = useState()
+    const [error, setError] = useState("")
 
     // const sliderCall = (e) => {
     //     setQuantity(e.target.value)
@@ -22,13 +24,16 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
             setMin(1)
             // Max you can select is determined by protfolio balance 
             // Round down so you dont get 20 decimal places  
-            setMax(Math.floor((portfolioBalance-gameTradeFee)/stockPrice))
+            setMax(Math.floor((portfolioBalance-gameTradeFee)/limitPrice))
+            console.log("Max",max)
+            console.log("QTY",qty)
         }else if (buyOrSell === "Sell"){
             setMin(1)
             setMax(holding*stockPrice)
         }
         //// Only if the qty is within the max and min limit
         if (qty >= min && qty <= max){
+            setError("")
             if(buyOrSell === "Buy"){
                 /// For Buy the new the current balance minus the currentStock Price*Qty slected minus the trade fee
                 setNewPortfolioBalance((portfolioBalance - ((qty*limitPrice) + gameTradeFee)))
@@ -38,21 +43,24 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
                 //setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
                 console.log("Sell")
             }
+        }else{
+            setError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share. Try lowering the price.`)
         }
     },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice,limitPrice])
 
     return (
          <Card className="px-3">
-                <h5 style={{ marginTop: "10px"}}>Quantity</h5>
+                <h5 style={{ marginTop: "10px"}}>Stocks</h5>
                 <p>{`The number of stocks you wish to ${buyOrSell}`}</p>
                 <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
+                    {error && <MessageAlert variant="danger">{error}</MessageAlert>}
                      <RangeSlider 
                         setter={setQty}
                         state={qty}
                         min={min}
                         max={max}
                         startWidth={"2rem"}
-                        showError={true}
+                        showError={false}
                         reset={buyOrSell}
                         resetValue={"1"}
                     />

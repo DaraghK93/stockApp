@@ -241,6 +241,18 @@ function OrderConfirmationPage() {
                     {isShownLimitOrder &&
                         <Row className="my-2" sm={1} md={1} >
                             <Col style={{ marginBottom: "0.625rem" }}>
+                                <LimitPriceSelect
+                                    portfolioBalance={portfolio.portfolioBalance}
+                                    setDollarAmountSelected={setDollarAmountSelected}
+                                    qty={qty}
+                                    limitPrice={limitPrice}
+                                    buyOrSell={buyOrSell}
+                                    setLimitPrice={setLimitPrice}
+                                    stockPrice={stock.daily_change.currentprice}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                />
+                            </Col>
+                            <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitQuantitySelect
                                     portfolioBalance={portfolio.portfolioBalance}
                                     setQty={setQty}
@@ -254,17 +266,7 @@ function OrderConfirmationPage() {
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />
                             </Col>
-                            <Col style={{ marginBottom: "0.625rem" }}>
-                                <LimitPriceSelect
-                                    portfolioBalance={portfolio.portfolioBalance}
-                                    setDollarAmountSelected={setDollarAmountSelected}
-                                    qty={qty}
-                                    limitPrice={limitPrice}
-                                    buyOrSell={buyOrSell}
-                                    setLimitPrice={setLimitPrice}
-                                    setNewPortfolioBalance={setNewPortfolioBalance}
-                                />
-                            </Col>
+                            
                         </Row>
                     }
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 

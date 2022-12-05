@@ -1,8 +1,24 @@
 import { Card } from "react-bootstrap";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RangeSlider from "../widgets/RangeSlider/RangeSlider";
 
-function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPrice, setNewPortfolioBalance, limitPrice, buyOrSell }) {
+function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPrice, setNewPortfolioBalance, limitPrice, buyOrSell,stockPrice }) {
+    const [min, setMin] = useState()
+    const [max, setMax] = useState()
+
+    useEffect(() => {
+        //// Set the max and min values 
+        if (buyOrSell === "Buy"){
+            // Set the min you ca set price to 1 dollar 
+            setMin(1)
+            // Max is dollar off the current stock price  
+            setMax(stockPrice-1)
+        }else if (buyOrSell === "Sell"){
+            setMin(stockPrice+1)
+            setMax(stockPrice*1.15)
+        }
+    },[buyOrSell,setMin,setMax,stockPrice])
+
     // const [price, setPrice] = useState(0);
 
     // const sliderCall = (e) => {
@@ -21,8 +37,8 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
                         setter={setLimitPrice}
                         state={limitPrice}
                         label={"$"}
-                        min={1}
-                        max={10}
+                        min={min}
+                        max={max}
                         startWidth={"2rem"}
                         showError={true}
                         reset={buyOrSell}

@@ -67,7 +67,7 @@ function StockSummary() {
 
         <h3 className="stockdiscoveryRow">Top Gainers <TrendingUpIcon /><InfoButtonModal title="Top Gainers" info={
                         <div>
-                            <p></p> 
+                            <p>This section shows the top 20 companies ranked by largest % change over the past 24 hour period. Calculation of % change is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p> 
 
                         </div>} /></h3>
         <SideScrollMenu>

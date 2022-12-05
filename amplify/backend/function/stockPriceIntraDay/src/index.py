@@ -157,78 +157,81 @@ def getTransactions(collection):
         commandcursor: the command cursor which will be iterated through to
         get the separate lists
     """
-    transactionscollection = collection.aggregate([
-        {'$facet':
-                  {
-                     'buy': [
-                                {
-                                  '$match': {
-                                    'orderType': 'LIMIT',
-                                    'status': 'PENDING',
-                                    'buyOrSell': 'BUY'
-                                  }
-                                }, {
-                                  '$lookup': {
-                                    'from': 'stocks',
-                                    'localField': 'stockId',
-                                    'foreignField': '_id',
-                                    'as': 'stock',
-                                    'pipeline': [
-                                      {
-                                        '$project': {
-                                          'daily_change.currentprice': 1
+    try:
+      transactionscollection = collection.aggregate([
+            {'$facet':
+                      {
+                        'buy': [
+                                    {
+                                      '$match': {
+                                        'orderType': 'LIMIT',
+                                        'status': 'PENDING',
+                                        'buyOrSell': 'BUY'
+                                      }
+                                    }, {
+                                      '$lookup': {
+                                        'from': 'stocks',
+                                        'localField': 'stockId',
+                                        'foreignField': '_id',
+                                        'as': 'stock',
+                                        'pipeline': [
+                                          {
+                                            '$project': {
+                                              'daily_change.currentprice': 1
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }, {
+                                      '$unwind': {
+                                        'path': '$stock'
+                                      }
+                                    }, {
+                                      '$match': {
+                                        '$expr': {
+                                          '$gte': [
+                                            '$stock.daily_change.currentprice', '$limitValue'
+                                          ]
                                         }
                                       }
-                                    ]
-                                  }
-                                }, {
-                                  '$unwind': {
-                                    'path': '$stock'
-                                  }
-                                }, {
-                                  '$match': {
-                                    '$expr': {
-                                      '$gte': [
-                                        '$stock.daily_change.currentprice', '$limitValue'
-                                      ]
-                                    }
-                                  }
-                                }],
-                      'sell': [
-                                {
-                                  '$match': {
-                                    'orderType': 'LIMIT',
-                                    'status': 'PENDING',
-                                    'buyOrSell': 'SELL'
-                                  }
-                                }, {
-                                  '$lookup': {
-                                    'from': 'stocks',
-                                    'localField': 'stockId',
-                                    'foreignField': '_id',
-                                    'as': 'stock',
-                                    'pipeline': [
-                                      {
-                                        '$project': {
-                                          'daily_change.currentprice': 1
+                                    }],
+                          'sell': [
+                                    {
+                                      '$match': {
+                                        'orderType': 'LIMIT',
+                                        'status': 'PENDING',
+                                        'buyOrSell': 'SELL'
+                                      }
+                                    }, {
+                                      '$lookup': {
+                                        'from': 'stocks',
+                                        'localField': 'stockId',
+                                        'foreignField': '_id',
+                                        'as': 'stock',
+                                        'pipeline': [
+                                          {
+                                            '$project': {
+                                              'daily_change.currentprice': 1
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }, {
+                                      '$unwind': {
+                                        'path': '$stock'
+                                      }
+                                    }, {
+                                      '$match': {
+                                        '$expr': {
+                                          '$lte': [
+                                            '$stock.daily_change.currentprice', '$limitValue'
+                                          ]
                                         }
                                       }
-                                    ]
-                                  }
-                                }, {
-                                  '$unwind': {
-                                    'path': '$stock'
-                                  }
-                                }, {
-                                  '$match': {
-                                    '$expr': {
-                                      '$lte': [
-                                        '$stock.daily_change.currentprice', '$limitValue'
-                                      ]
-                                    }
-                                  }
-                                }]
-                            }}])
+                                    }]
+                                }}])
+    except Exception as e:
+        print(f'ERROR:Could not run get transactions function.\nException Details:\n\t{e}') 
     return transactionscollection
 
 def commandCursorToLists(collection):
@@ -244,16 +247,19 @@ def commandCursorToLists(collection):
     # get a list of the transactions
     # result = getTransactions(collection)
     # empty llist to add the result to
-    transList = []
-    # loop through and add the list
-    for i in collection:
-        transList.append(i)
-    # returns a list so need to get 1st element (which will be an object)
-    splitList = transList[0]
-    # the buy object contains a list of objects that can be actions
-    buyList = splitList['buy']
-    # the sell object contains a list of objects that can be actions
-    sellList = splitList['sell']
+    try:
+      transList = []
+      # loop through and add the list
+      for i in collection:
+          transList.append(i)
+      # returns a list so need to get 1st element (which will be an object)
+      splitList = transList[0]
+      # the buy object contains a list of objects that can be actions
+      buyList = splitList['buy']
+      # the sell object contains a list of objects that can be actions
+      sellList = splitList['sell']
+    except Exception as e:
+        print(f'ERROR:Could not run command cursor function.\nException Details:\n\t{e}')
     return buyList, sellList
 
 def getPortfolioUpdates(buys,sells):
@@ -268,12 +274,15 @@ def getPortfolioUpdates(buys,sells):
     """
     data_request = []
     #  portfolio updates
-    for i in buys:
-            data_request.append(UpdateOne({"_id": i["portfolioId"]},
-                                          {'$inc': {"frozenBalance": -i["value"]}}))
-    for i in sells:
-        data_request.append(UpdateOne({"_id": i["portfolioId"]},
-                                          {'$inc': {"remainder": i["value"]}}))
+    try:
+      for i in buys:
+              data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                            {'$inc': {"frozenBalance": -i["value"]}}))
+      for i in sells:
+          data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                            {'$inc': {"remainder": i["value"]}}))
+    except Exception as e:
+        print(f'ERROR:Could not run portfolio updates function.\nException Details:\n\t{e}')
     return data_request
 
 def getHoldingsUpdates(buys,sells):
@@ -289,12 +298,15 @@ def getHoldingsUpdates(buys,sells):
     data_request = []
 
     #  holdings updates
-    for i in buys:
-            data_request.append(UpdateOne({"_id": i["holdings"]},
-                                          {'$inc': {"units": i["units"]}}))
-    for i in sells:
-            data_request.append(UpdateOne({"_id": i["holdings"]},
-                                          {'$inc': {"frozenHoldingsUnits": -i["units"]}}))
+    try:
+      for i in buys:
+              data_request.append(UpdateOne({"_id": i["holdings"]},
+                                            {'$inc': {"units": i["units"]}}))
+      for i in sells:
+              data_request.append(UpdateOne({"_id": i["holdings"]},
+                                            {'$inc': {"frozenHoldingsUnits": -i["units"]}}))
+    except Exception as e:
+        print(f'ERROR:Could not run holdings updates function.\nException Details:\n\t{e}')
     return data_request
 
 def getTransactionsUpdates(buys,sells):
@@ -309,12 +321,15 @@ def getTransactionsUpdates(buys,sells):
     """
     data_request = []
     #  portfolio updates
-    for i in buys:
-            data_request.append(UpdateOne({"_id": i["_id"]},
-                                          {'$set': {"status": "COMPLETED"}}))
-    for i in sells:
-        data_request.append(UpdateOne({"_id": i["_id"]},
-                                      {'$set': {"status": "COMPLETED"}}))
+    try:
+      for i in buys:
+              data_request.append(UpdateOne({"_id": i["_id"]},
+                                            {'$set': {"status": "COMPLETED"}}))
+      for i in sells:
+          data_request.append(UpdateOne({"_id": i["_id"]},
+                                        {'$set': {"status": "COMPLETED"}}))
+    except Exception as e:
+        print(f'ERROR:Could not run transactions updates function.\nException Details:\n\t{e}')
     return data_request
 
 def handler(event,context):
@@ -356,21 +371,53 @@ def handler(event,context):
     # write these requests to the Database
     stockCollection.bulk_write(requests_database)
 
-    
   except Exception as e:
         print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
         }
-
+  
   ####### Limit Orders
+  transactions = getTransactions(transactionCollection)
+  buyList, sellList = commandCursorToLists(transactions)
+  holdingsUpdates = getHoldingsUpdates(buyList, sellList)
+  portfolioUpdates = getPortfolioUpdates(buyList, sellList)
+  transactionsupdates = getTransactionsUpdates(buyList, sellList)
+  port_matched_count = 0
+  hold_matched_count = 0
+  trans_matched_count = 0
+  if buyList + sellList != []:
+        # portfolio updates
+        try:
+            portres = portfolioCollection.bulk_write(portfolioUpdates)
+            port_matched_count = portres.matched_count
+            print(port_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to portfolios collection\nException Details:\n\t{e}')
 
+        # holdings updates
+        try:
+            holdres = holdingsCollection.bulk_write(holdingsUpdates)
+            hold_matched_count = holdres.matched_count
+            print(hold_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to holdings collection\nException Details:\n\t{e}')
 
-
-
+        # transactions updates
+        try:
+            transres = transactionCollection.bulk_write(transactionsupdates)
+            trans_matched_count = transres.matched_count
+            print(trans_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to transactions collection\nException Details:\n\t{e}')
+  else:
+      print("nothing to action")
 
 
   return {
         'Message': 'Data Successfully Updated',
-        'Time': time_stamp_str
+        'Time': time_stamp_str,
+        'portfolios_matched': port_matched_count,
+        'holdings_matched': hold_matched_count,
+        'transactions_updated': trans_matched_count
     }

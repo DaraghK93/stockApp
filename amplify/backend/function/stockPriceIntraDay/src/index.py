@@ -157,7 +157,6 @@ def getTransactions(collection):
         commandcursor: the command cursor which will be iterated through to
         get the separate lists
     """
-
     transactionscollection = collection.aggregate([
         {'$facet':
                   {
@@ -243,11 +242,11 @@ def commandCursorToLists(collection):
         and one of actionable sell transactions
     """
     # get a list of the transactions
-    result = getTransactions(collection)
+    # result = getTransactions(collection)
     # empty llist to add the result to
     transList = []
     # loop through and add the list
-    for i in result:
+    for i in collection:
         transList.append(i)
     # returns a list so need to get 1st element (which will be an object)
     splitList = transList[0]
@@ -257,6 +256,66 @@ def commandCursorToLists(collection):
     sellList = splitList['sell']
     return buyList, sellList
 
+def getPortfolioUpdates(buys,sells):
+    """get the list of updates that will be passed to the portofolio colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
+    data_request = []
+    #  portfolio updates
+    for i in buys:
+            data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                          {'$inc': {"frozenBalance": -i["value"]}}))
+    for i in sells:
+        data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                          {'$inc': {"remainder": i["value"]}}))
+    return data_request
+
+def getHoldingsUpdates(buys,sells):
+    """get the list of updates that will be passed to the holdings colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
+    data_request = []
+
+    #  holdings updates
+    for i in buys:
+            data_request.append(UpdateOne({"_id": i["holdings"]},
+                                          {'$inc': {"units": i["units"]}}))
+    for i in sells:
+            data_request.append(UpdateOne({"_id": i["holdings"]},
+                                          {'$inc': {"frozenHoldingsUnits": -i["units"]}}))
+    return data_request
+
+def getTransactionsUpdates(buys,sells):
+    """get the list of updates that will be passed to the transactions colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
+    data_request = []
+    #  portfolio updates
+    for i in buys:
+            data_request.append(UpdateOne({"_id": i["_id"]},
+                                          {'$set': {"status": "COMPLETED"}}))
+    for i in sells:
+        data_request.append(UpdateOne({"_id": i["_id"]},
+                                      {'$set': {"status": "COMPLETED"}}))
+    return data_request
 
 def handler(event,context):
   ### connecting to database

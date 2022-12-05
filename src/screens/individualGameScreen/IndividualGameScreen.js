@@ -38,6 +38,20 @@ function IndividualGameScreen() {
     const { userInfo } = user;
     const userToken = userInfo.token
     var accessString = league.accessCode
+    function ESGGameType() {
+        if (league.minERating === 0 && league.minSRating === 0 && league.minGRating === 0) {
+            return "No Restrictions"
+        }
+        else if (league.minERating > 0) {
+            return "Environment"
+        }
+        else if (league.minSRating > 0) {
+            return "Social"
+        }
+        else if (league.minGRating > 0) {
+            return "Governance"
+        }
+    }
 
     useEffect(() => {
         // Request is being sent set loading true   
@@ -173,7 +187,7 @@ function IndividualGameScreen() {
                                 maxTradesPerDay={league.maxDailyTrades}
                                 gameWinningValue={league.winningValue}
                                 stockTypes={league.sectors}
-                                ESGGameType={"test "}
+                                ESGGameType={ESGGameType()}
                             />
                         </Container>
                     }

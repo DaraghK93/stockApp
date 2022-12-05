@@ -35,6 +35,7 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+    const [limitOrderError, setLimitOrderError] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
    
     /// Game State ///
@@ -263,6 +264,8 @@ function OrderConfirmationPage() {
                                     gameTradeFee={gameTradeFee}
                                     setDollarAmountSelected={setDollarAmountSelected}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
+                                    limitOrderError={limitOrderError}
+                                    setLimitOrderError={setLimitOrderError}
                                 />
                             </Col>
                             
@@ -280,7 +283,15 @@ function OrderConfirmationPage() {
                             stockName={stock.longname}
                             gameTradeFee={gameTradeFee}
                 />
-                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Review Trade!"></BottomStickyButton>
+                    <BottomStickyButton 
+                        onClick={() =>{setShowAreYouSureModal(true)}} 
+                        text="Review Trade!" 
+                        disabled={
+                            limitOrderError
+
+
+
+                        }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

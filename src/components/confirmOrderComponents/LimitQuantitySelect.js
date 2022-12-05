@@ -3,17 +3,17 @@ import { useState, useEffect } from 'react';
 import RangeSlider from "../widgets/RangeSlider/RangeSlider";
 
 function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNewPortfolioBalance, portfolioBalance, buyOrSell, stockPrice, holding, gameTradeFee }) {
-    const [quantity, setQuantity] = useState(0);
+    // const [quantity, setQuantity] = useState(0);
 
     const [min, setMin] = useState()
     const [max, setMax] = useState()
 
-    const sliderCall = (e) => {
-        setQuantity(e.target.value)
-        setQty(e.target.value)
-        setAmountSelected(e.target.value * limitPrice)
-        setNewPortfolioBalance(portfolioBalance - (e.target.value * limitPrice))
-    }
+    // const sliderCall = (e) => {
+    //     setQuantity(e.target.value)
+    //     setQty(e.target.value)
+    //     setAmountSelected(e.target.value * limitPrice)
+    //     setNewPortfolioBalance(portfolioBalance - (e.target.value * limitPrice))
+    // }
 
      useEffect(() => {
         //// Set the max and min values 
@@ -27,7 +27,19 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setAmountSelected, setNew
             setMin(1)
             setMax(holding*stockPrice)
         }
-    },[])
+        //// Only if the qty is within the max and min limit
+        if (qty >= min && qty <= max){
+            if(buyOrSell === "Buy"){
+                /// For Buy the new the current balance minus the currentStock Price*Qty slected minus the trade fee
+                setNewPortfolioBalance((portfolioBalance - ((qty*stockPrice) + gameTradeFee)))
+            }else if(buyOrSell === "Sell"){
+                /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
+                //setQty(dollarAmountSelected / stockPrice)
+                //setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
+                console.log("Sell")
+            }
+        }
+    },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice])
 
     return (
          <Card className="px-3">

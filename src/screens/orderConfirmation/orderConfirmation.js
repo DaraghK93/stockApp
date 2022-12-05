@@ -161,6 +161,7 @@ function OrderConfirmationPage() {
         }
     },[buyOrSell])
 
+    console.log(newPortfolioBalance)
     return (
         <>
             { stockLoading || loading || portfolioLoading ? <LoadingSpinner /> 

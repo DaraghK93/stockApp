@@ -612,8 +612,10 @@ const leaveLeague = async (req,res,next) => {
     await Portfolio.deleteOne({_id: req.body.portfolioId, leagueId: req.body.leagueId})
     // update the user, removing the league and the portfolio
     const user = await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId, leagues: req.body.leagueId}})
-    // return the user
-    res.json(user)
+    // return success message
+    res.status(200).json({
+      message: 'You have successfully left the league.',
+    });
   }
 
   catch (err) {

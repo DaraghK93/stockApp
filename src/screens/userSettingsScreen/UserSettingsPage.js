@@ -183,8 +183,7 @@ function UserSettingsPage() {
             {loading && <LoadingSpinner />}
             <Form.Group className='py-2' controlId='oldPassword'>
               <Form.Label>
-                Current Password* - This is required if you want to update any
-                account information.
+                Current Password
               </Form.Label>
               <Form.Control
                 type='password'
@@ -193,6 +192,10 @@ function UserSettingsPage() {
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
+                <Form.Text id="passwordHelpBlock" muted>
+                This is required if you want to update any
+                account information.
+                </Form.Text>
             </Form.Group>
             <p>Choose new avatar</p>
             <Row className='py-3' md={4} sm={2} xs={2}>

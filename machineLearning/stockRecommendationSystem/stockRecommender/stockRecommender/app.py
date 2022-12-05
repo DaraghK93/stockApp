@@ -95,11 +95,10 @@ def get_user_stock(userID, client):
         # Setting the DB collection names
         user_collection = db['users']
         stocks_collection = db['stocks']
-        # Set user data so that portfolios can be checked
-        user = user_collection.find_one({"_id": ObjectId(userID)})
 
-        # Try - If user exists
+        # Try - Find user's most recent transaction
         try:
+            print("Start of try block:")
             output = user_collection.aggregate([{'$match': {'_id': ObjectId(userID)}}, {'$lookup': {'from': 'portfolios', 'localField': 'portfolios', 'foreignField': '_id', 'as': 'portfolios', 'pipeline': [{'$lookup': {'from': 'transactions', 'localField': 'transactions', 'foreignField': '_id', 'as': 'transactions'}}]}}, {
                 '$unwind': {
                     'path': '$portfolios'
@@ -135,32 +134,43 @@ def get_user_stock(userID, client):
                 }
             }
             ])
-            
+            print("Output:", output)
             output_list = list(output)
-            output_list_test = output[0]
+            print("Output List:", output_list)
+
             res_str = ""
             # Aggregate query returns a command cursor, this has to be iterated over to access any data.
             for doc in output_list:
+                print("For loop:")
                 res_str = doc['stock']
                 print("Res Str:", res_str)
-            return res_str
-
-        # In case of a user who doesn't have any portfolio yet, return biggest positive mover.
-        except:
-            print("Hitting no portfolio exception:")
-            top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
+            
+            if res_str == "":
+                print("Hitting no portfolio exception:")
+                top_mover = stocks_collection.aggregate([{"$match": {}}, {"$project": {'symbol': 1,
                                                                                    'daily_change.absoluteChange': 1,
                                                                                    'daily_change.percentageChange': 1,
                                                                                    'daily_change.currentprice': 1}},
                                                      {"$sort": {
                                                          'daily_change.percentageChange': -1}},
                                                      {"$limit": 1}])
-            top_mover_list = list(top_mover)
-            res_str = ""
-            # Aggregate query returns a command cursor, this has to be iterated over to access any data.
-            for doc in top_mover_list:
-                res_str = doc['symbol']
-            return res_str
+                top_mover_list = list(top_mover)
+                res_str = ""
+                # Aggregate query returns a command cursor, this has to be iterated over to access any data.
+                for doc in top_mover_list:
+                    res_str = doc['symbol']
+                return res_str
+                
+
+            else:
+                return res_str
+
+        # If no stock can be found
+        except Exception as e:
+            print(f'ERROR:Error encountered in finding seed stock for recommender system.\nException Details:\n\t{e}')
+        return {
+            'Message': 'Error encountered in get_user_stock function, when trying to obtain the seed stock.',
+        }
 
     # If user doesn't exist, print error
     except Exception as e:

@@ -14,14 +14,21 @@ function GamePortfolio({ data, name, totalValue }) {
                                 <h1>{String(name)}</h1>
                             </dt>
                             <dt style={{ fontSize: "150%" }}>{parseFloat(totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</dt>
-                            <dt style={{ color: "#00C49F" }}>+$CHANGE (+CHANGE%)</dt>
+
                         </dl>
                     </Row>
                     <Row>
                         <Col style={{ paddingLeft: 0 }}>
-                            {data.length > 0 ? <PortfolioGraph data={data}></PortfolioGraph> :
-                                <MessageAlert variant="info">No value history yet for this 
-                                portfolio! Come back tomorrow and see your portfolio value change <TrendingUpIcon></TrendingUpIcon></MessageAlert>
+                            {data.length > 0 ?
+
+                                <>
+                                    <dl className='infoList' style={{ padding: 0 }}>
+                                        <dt style={{ color: "#00C49F" }}>+$CHANGE (+CHANGE%)</dt>
+                                    </dl>
+                                    <PortfolioGraph data={data}></PortfolioGraph>
+                                </> :
+                                <MessageAlert variant="info">No value history yet for this
+                                    portfolio! Come back tomorrow and see your portfolio value change <TrendingUpIcon></TrendingUpIcon></MessageAlert>
                             }
                         </Col>
                     </Row>

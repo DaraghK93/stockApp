@@ -59,7 +59,8 @@ function Header() {
                   <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/myportfolios">Portfolios</NavDropdown.Item>
                   <div class="dropdown-divider"></div>
-                  <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
+                  <NavDropdown.Item as={Link}  to="/settings">Settings</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
                

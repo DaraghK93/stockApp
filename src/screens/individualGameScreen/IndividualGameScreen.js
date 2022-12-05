@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 import CopyComponent from "../../components/widgets/CopyComponent/CopyComponent";
+import TransactionHistory from "../../components/portfolioComponents/TransactionHistory/TransactionHistory"
 
 
 function IndividualGameScreen() {

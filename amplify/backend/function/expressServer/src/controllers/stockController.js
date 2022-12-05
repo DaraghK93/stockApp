@@ -49,7 +49,6 @@ const getAllStocks = async (req, res, next) => {
     if(keyword == "undefined"){     
       // Create the input for the recommender system API, save the output as recs
       let userID = req.user.id
-      console.log("User ID:",userID)
       let recommendData = await stockService.getRecomms(userID)
       let recs = recommendData.data.message
       

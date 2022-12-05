@@ -1,7 +1,9 @@
 import { Container, Card, Row, Col } from "react-bootstrap";
 import PortfolioGraph from "../../../portfolioComponents/portfolioGraph/portfoliograph";
+import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 
-function GamePortfolio({ data, name }) {
+function GamePortfolio({ data, name, totalValue }) {
     return (
         <>
             <Card className="priceChartStyle">
@@ -11,13 +13,23 @@ function GamePortfolio({ data, name }) {
                             <dt>
                                 <h1>{String(name)}</h1>
                             </dt>
-                            <dt style={{ fontSize: "150%" }}>$200</dt>
-                            <dt style={{ color: "#00C49F" }}>+$50 (+25%)</dt>
+                            <dt style={{ fontSize: "150%" }}>{parseFloat(totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</dt>
+
                         </dl>
                     </Row>
                     <Row>
                         <Col style={{ paddingLeft: 0 }}>
-                            <PortfolioGraph data={data}></PortfolioGraph>
+                            {data.length > 0 ?
+
+                                <>
+                                    <dl className='infoList' style={{ padding: 0 }}>
+                                        <dt style={{ color: "#00C49F" }}>+$CHANGE (+CHANGE%)</dt>
+                                    </dl>
+                                    <PortfolioGraph data={data}></PortfolioGraph>
+                                </> :
+                                <MessageAlert variant="info">No value history yet for this
+                                    portfolio! Come back tomorrow and see your portfolio value change <TrendingUpIcon></TrendingUpIcon></MessageAlert>
+                            }
                         </Col>
                     </Row>
                 </Container>

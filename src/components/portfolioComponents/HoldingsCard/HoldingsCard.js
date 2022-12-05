@@ -13,7 +13,7 @@ function HoldingsCard({ data, remainder }) {
                 <br />
                 <Container>
                     <span style={{fontSize:"120%",  display: "flex", justifyContent: "center", alignItems: "center" }}>Spending power</span>
-                    <span style={{fontSize:"140%",  display: "flex", justifyContent: "center", alignItems: "center" }}><strong>{parseFloat(remainder).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</strong></span>
+                    <span style={{fontSize:"140%",  display: "flex", justifyContent: "center", alignItems: "center" }}><strong>${remainder}</strong></span>
                 </Container>
                 
                     <TableHoldings data={data} />

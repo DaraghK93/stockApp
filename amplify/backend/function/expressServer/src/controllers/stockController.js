@@ -251,6 +251,22 @@ const getGameStocks = async (req, res, next) => {
       )
       }
     })
+
+    // check if esg ratings are correct
+    if (
+      !Number.isInteger(req.body.minERating) ||
+      !Number.isInteger(req.body.minERating) ||
+      !Number.isInteger(req.body.minERating)
+    ) {
+            // Invalid sector bad request
+            res.status(400)
+            res.errormessage = 'Invalid esg rating entered'
+            return next(
+              new Error(
+                'Invalid esg rating entered',
+              ),
+            )
+    }
         
     const type = req.params.type;
     let gameStocks;

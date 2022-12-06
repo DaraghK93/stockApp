@@ -1,4 +1,4 @@
-import { Card, Col, Container } from "react-bootstrap";
+import { Card, Col, Container, Table, Button } from "react-bootstrap";
 
 function TransactionHistory() {
     // const transactions =[
@@ -42,18 +42,41 @@ function TransactionHistory() {
     //         limitValue: { type: Number }
     //     }]
 
+    const columns =[
+        { label: "Logo", accessor: "", sortable: false, showHeader: true },
+        { label: "Ticker", accessor: "", sortable: true, showHeader: true },
+        { label: "Buy/Sell", accessor: "", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Value", accessor: "", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Order Type", accessor: "", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Date", accessor: "", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Fee", accessor: "", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Units", accessor: "", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Stock Price", accessor: "", sortable: true, sortbyOrder: "", showHeader: true }
+    ];
+
     return (
         <>
             <Card>
             <div className="holdingCard">
                     <Col>
-                        <h2 className="cardTitle">Transaction History</h2>
+                        <h2 className="cardTitle">Transactions</h2>
                     </Col>
                 </div>
                 <br />
                 <Container>
-                    <span>PENDING || COMPLETED || CANCELLED</span>
-                    <p>table here</p>
+                    <Button>Pending</Button> <Button>Completed</Button> <Button>Cancelled</Button>
+                    <Table style={{ borderCollapse: "collapse" }}>
+                        <thead>
+                            <tr key="cols">
+                                {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder }) => {
+                                    return <th
+                                        key={accessor}
+                                    ><strong>{label}</strong>
+                                    </th>;
+                                })}
+                            </tr>
+                        </thead>
+                        </Table>
                 </Container>
             </Card>
         </>

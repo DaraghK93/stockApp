@@ -18,7 +18,7 @@ router.get('/', protectedRoute, getAllStocks)
 // search stock by ticker symbol. This will give all data except prices for that ticker
 router.get('/:symbol', getStockBySymbol)
 // get the stocks playable in a game
-router.get('/gameStocks/:type', getGameStocks)
+router.get('/gameStocks/:type', protectedRoute, getGameStocks)
 
 
 

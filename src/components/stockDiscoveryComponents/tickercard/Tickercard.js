@@ -49,7 +49,7 @@ function TickerCard({ stock }) {
             <span className="noBorderGreyText"><center>{stock.longname}</center></span>
           </ListGroupItem>
           <ListGroupItem><center><span className="noBorderFont90" style={{ color: redOrGreen() }}>
-            <strong>{postiveSymbol}{parseFloat(stock.daily_change.percentageChange).toFixed(2)}%</strong> ({postiveSymbol}{absoluteChange})</span>
+            {postiveSymbol}{absoluteChange} <strong>({postiveSymbol}{parseFloat(stock.daily_change.percentageChange).toFixed(2)}%)</strong></span>
           </center>
           </ListGroupItem>
         </ListGroup>

@@ -10,11 +10,14 @@ import {Link} from "react-router-dom";
 import InfoButtonModal from '../../widgets/InfoButtonModal/InfoButtonModal'
 
 import PersonIcon from '@mui/icons-material/Person';
+import TimelineIcon from '@mui/icons-material/Timeline';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+import ForestIcon from '@mui/icons-material/Forest';
 import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
 import Groups3Icon from '@mui/icons-material/Groups3';
 import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
+import DataUsageIcon from '@mui/icons-material/DataUsage';
 import FactoryIcon from '@mui/icons-material/Factory';
 import LanIcon from '@mui/icons-material/Lan';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -60,13 +63,13 @@ function StockSummary() {
         <>
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <>
-        
-        <h3 className="stockdiscoveryRow">Recommended For You <PersonIcon /><InfoButtonModal title="Personalised Recommendations" info={
+
+        <h2 className="stockdiscoveryRowTitleTop">Recommended <PersonIcon /><InfoButtonModal title="Personalised Recommendations" info={
                         <div>
                             <p>FinOptimise uses what's known as a content based recommender system to suggest companies that you may be interested in based on your most recent transaction. This Machine Learning model will find you the most similar companies from our database.</p> 
                             <p> If you have not yet made a transaction, the recommender system will give you recommendations based on the highest positive mover over the past 24 hours.</p>
                             <p>More infomation on content based recommender systems and how they work can be found <a href='https://towardsdatascience.com/introduction-to-recommender-systems-1-971bd274f421'>here.</a></p>
-                        </div>} /></h3>
+                        </div>} /></h2>
         <SideScrollMenu>
                 {stocks[0].recommend.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -74,8 +77,13 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
+        <div className='discoverySectionDiv'></div>
 
-        <h2>Top Movers</h2>
+
+        <h2 className="stockdiscoveryRowTitle">Top Movers <TimelineIcon /><InfoButtonModal title="Personalised Recommendations" info={
+                        <div>
+                            <p>This section displays the top positive and negative movers over the past 24 hour period.</p>
+                        </div>} /></h2>
         <h3 className="stockdiscoveryRow">Top Gainers <TrendingUpIcon /><InfoButtonModal title="Top Gainers" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by largest positive % change in stock price over the past 24 hour period.</p> 
@@ -102,8 +110,13 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
+        <div className='discoverySectionDiv'></div>
 
-        <h2>Top ESG Stocks</h2>
+        <h2 className="stockdiscoveryRowTitle">Top ESG Stocks <ForestIcon /><InfoButtonModal title="Top ESG" info={
+                        <div>
+                            <p>This section shows the top 20 companies ranked by Environmental, Social and Governance (ESG) ratings.</p>
+                            <p>An explanation for ESG ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                        </div>} /></h2>
         <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeafIcon /><InfoButtonModal title="Top Environmental" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by their Environmental rating, as taken from their ESG scores.</p>
@@ -141,7 +154,11 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <h2>Top Stocks By Sector</h2>
+        <h2 className="stockdiscoveryRowTitle">Top Stocks By Sector <DataUsageIcon /><InfoButtonModal title="Top ESG" info={
+                        <div>
+                            <p>This section displays the top 20 movers by % of their price over the past 24 hour period in each of the 11 sectors in the S&P500.</p>
+                            <p>Detailed explanations of these 11 sectors can be found <a href='https://corporatefinanceinstitute.com/resources/valuation/the-sp-sectors/'>here.</a></p>
+                        </div>} /></h2>
         <h3 className="stockdiscoveryRow">Top Industrials <FactoryIcon /></h3>
         <SideScrollMenu>
                 {stocks[0].Industrials.map((stockObj) => (
@@ -153,7 +170,7 @@ function StockSummary() {
 
         <h3 className="stockdiscoveryRow">Top Technology <LanIcon /></h3>
         <SideScrollMenu>
-                {stocks[0].Industrials.map((stockObj) => (
+                {stocks[0].Technology.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>

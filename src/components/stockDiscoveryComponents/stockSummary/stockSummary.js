@@ -212,32 +212,32 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    {/* <h3 className="stockdiscoveryRow">Communication Services <AttachMoneyIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Communication Services <AttachMoneyIcon /></h3>
                     <SideScrollMenu>
                         {stocks[0].CommunicationServices.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
                                 <TickerCard key={stockObj._id} stock={stockObj} />
                             </div>
                         ))}
-                    </SideScrollMenu> */}
+                    </SideScrollMenu>
                     
-                    {/* <h3 className="stockdiscoveryRow">Basic Materials <AttachMoneyIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Basic Materials <AttachMoneyIcon /></h3>
                     <SideScrollMenu>
                         {stocks[0].BasicMaterials.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
                                 <TickerCard key={stockObj._id} stock={stockObj} />
                             </div>
                         ))}
-                    </SideScrollMenu> */}
+                    </SideScrollMenu>
 
-                    {/* <h3 className="stockdiscoveryRow">Energy <AttachMoneyIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Energy <AttachMoneyIcon /></h3>
                     <SideScrollMenu>
                         {stocks[0].Energy.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
                                 <TickerCard key={stockObj._id} stock={stockObj} />
                             </div>
                         ))}
-                    </SideScrollMenu> */}
+                    </SideScrollMenu>
 
         </>}
         </>

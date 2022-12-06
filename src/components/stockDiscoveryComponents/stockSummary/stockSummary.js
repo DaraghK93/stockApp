@@ -148,6 +148,97 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
+
+        <h3 className="stockdiscoveryRow">Industrials <AttachMoneyIcon /></h3>
+        <SideScrollMenu>
+                {stocks[0].Industrials.map((stockObj) => (
+                        <div className='sideScrollCard' key={stockObj._id}>
+                            <TickerCard key={stockObj._id} stock={stockObj}/>
+                        </div>
+                     ))}
+        </SideScrollMenu>
+
+        <h3 className="stockdiscoveryRow">Financial <AttachMoneyIcon /></h3>
+        <SideScrollMenu>
+                {stocks[0].Financial.map((stockObj) => (
+                        <div className='sideScrollCard' key={stockObj._id}>
+                            <TickerCard key={stockObj._id} stock={stockObj}/>
+                        </div>
+                     ))}
+        </SideScrollMenu>
+
+        <h3 className="stockdiscoveryRow">Healthcare <AttachMoneyIcon /></h3>
+        <SideScrollMenu>
+                {stocks[0].Healthcare.map((stockObj) => (
+                        <div className='sideScrollCard' key={stockObj._id}>
+                            <TickerCard key={stockObj._id} stock={stockObj}/>
+                        </div>
+                     ))}
+        </SideScrollMenu>
+
+        {/* <h3 className="stockdiscoveryRow">Consumer Cyclical <AttachMoneyIcon /></h3>
+        <SideScrollMenu>
+                {stocks[0].ConsumerCyclical.map((stockObj) => (
+                        <div className='sideScrollCard' key={stockObj._id}>
+                            <TickerCard key={stockObj._id} stock={stockObj}/>
+                        </div>
+                     ))}
+        </SideScrollMenu> */}
+
+                    {/* <h3 className="stockdiscoveryRow">Consumer Defense <AttachMoneyIcon /></h3>
+                    <SideScrollMenu>
+                        {stocks[0].ConsumerDefence.map((stockObj) => (
+                            <div className='sideScrollCard' key={stockObj._id}>
+                                <TickerCard key={stockObj._id} stock={stockObj} />
+                            </div>
+                        ))}
+                    </SideScrollMenu> */}
+
+                    <h3 className="stockdiscoveryRow">Real Estate <AttachMoneyIcon /></h3>
+                    <SideScrollMenu>
+                        {stocks[0].RealEstate.map((stockObj) => (
+                            <div className='sideScrollCard' key={stockObj._id}>
+                                <TickerCard key={stockObj._id} stock={stockObj} />
+                            </div>
+                        ))}
+                    </SideScrollMenu>
+
+                    <h3 className="stockdiscoveryRow">Utilities <AttachMoneyIcon /></h3>
+                    <SideScrollMenu>
+                        {stocks[0].Utilities.map((stockObj) => (
+                            <div className='sideScrollCard' key={stockObj._id}>
+                                <TickerCard key={stockObj._id} stock={stockObj} />
+                            </div>
+                        ))}
+                    </SideScrollMenu>
+
+                    {/* <h3 className="stockdiscoveryRow">Communication Services <AttachMoneyIcon /></h3>
+                    <SideScrollMenu>
+                        {stocks[0].CommunicationServices.map((stockObj) => (
+                            <div className='sideScrollCard' key={stockObj._id}>
+                                <TickerCard key={stockObj._id} stock={stockObj} />
+                            </div>
+                        ))}
+                    </SideScrollMenu> */}
+                    
+                    {/* <h3 className="stockdiscoveryRow">Basic Materials <AttachMoneyIcon /></h3>
+                    <SideScrollMenu>
+                        {stocks[0].BasicMaterials.map((stockObj) => (
+                            <div className='sideScrollCard' key={stockObj._id}>
+                                <TickerCard key={stockObj._id} stock={stockObj} />
+                            </div>
+                        ))}
+                    </SideScrollMenu> */}
+
+                    <h3 className="stockdiscoveryRow">Energy <AttachMoneyIcon /></h3>
+                    <SideScrollMenu>
+                        {stocks[0].Energy.map((stockObj) => (
+                            <div className='sideScrollCard' key={stockObj._id}>
+                                <TickerCard key={stockObj._id} stock={stockObj} />
+                            </div>
+                        ))}
+                    </SideScrollMenu>
+
         </>}
         </>
     )

@@ -572,14 +572,24 @@ const deleteLeague = async (req, res, next) => {
         ),
       )
     } 
+    if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false){
+      // check that the league ID is correct
+      res.status(404)
+      res.errormessage = 'No league found'
+      return next(
+        new Error(
+          'The chosen league does not exist.'
+        )
+      )
+    }
     const league = await League.findOne({_id: req.body.leagueId})
     // check that the league exists
     if(league===null){
       res.status(404)
-      res.errormessage = 'Invalid portfolio.'
+      res.errormessage = 'No league found with that ID.'
       return next(
         new Error(
-          'Portfolio must be associated to the user.'
+          'ID provided but not associated to a league.'
         )
       )
     }
@@ -593,8 +603,7 @@ const deleteLeague = async (req, res, next) => {
         )
       )
     }
-    await League.deleteOne({_id:league._id})
-    await Portfolio.deleteMany({leagueId: league._id})
+    await League.findByIdAndUpdate({_id:league._id}, {active: false, finished: true})
     res.json(
       league._id
     )

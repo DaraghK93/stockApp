@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import RangeSlider from "../widgets/RangeSlider/RangeSlider";
 import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 
-function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, setNewPortfolioBalance, portfolioBalance, buyOrSell, stockPrice, holding, gameTradeFee, limitOrderError, setLimitOrderError }) {
+function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, setNewPortfolioBalance, portfolioBalance, buyOrSell, stockPrice, holding, gameTradeFee, 
+    limitOrderQuantityError, setLimitOrderQuantityError }) {
     // const [quantity, setQuantity] = useState(0);
 
     const [min, setMin] = useState()
@@ -30,7 +31,7 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, 
         }
         //// Only if the qty is within the max and min limit
         if (qty >= min && qty <= max){
-            setLimitOrderError("")
+            setLimitOrderQuantityError("")
             if(buyOrSell === "Buy"){
                 /// For Buy the new the current balance minus the currentStock Price*Qty slected minus the trade fee
                 setNewPortfolioBalance((portfolioBalance - ((qty*limitPrice) + gameTradeFee)))
@@ -42,17 +43,19 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, 
                 //setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
                 console.log("Sell")
             }
-        }else{
-            setLimitOrderError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share. Try lowering the price or the number of stocks.`)
+        }else if (qty > max){
+            setLimitOrderQuantityError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share, try lowering the price or the number of stocks!`)
+        }else if (qty < min) {
+            setLimitOrderQuantityError(`Number of stocks must be at least ${min}, try moving the slider to the right!`)
         }
-    },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice,limitPrice])
+    },[buyOrSell,gameTradeFee,holding,max,min,portfolioBalance,qty,setNewPortfolioBalance,stockPrice,limitPrice,setDollarAmountSelected, setLimitOrderQuantityError])
 
     return (
          <Card className="px-3">
                 <h5 style={{ marginTop: "10px"}}>Stocks</h5>
                 <p>{`The number of stocks you wish to ${buyOrSell}`}</p>
                 <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
-                    {limitOrderError && <MessageAlert variant="danger">{limitOrderError}</MessageAlert>}
+                    {limitOrderQuantityError && <MessageAlert variant="danger">{limitOrderQuantityError}</MessageAlert>}
                      <RangeSlider 
                         setter={setQty}
                         state={qty}

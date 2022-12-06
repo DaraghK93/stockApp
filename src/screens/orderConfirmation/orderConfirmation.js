@@ -35,7 +35,8 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
-    const [limitOrderError, setLimitOrderError] = useState("")
+    const [limitOrderQuantityError, setLimitOrderQuantityError] = useState("")
+    const [limitOrderPriceError, setLimitOrderPriceError] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
    
     /// Game State ///
@@ -237,7 +238,7 @@ function OrderConfirmationPage() {
                         
                     }
                     {isShownLimitOrder &&
-                        <Row className="my-2" sm={1} md={1} >
+                        <Row className="my-2" sm={1} md={1} xs={1}>
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitPriceSelect
                                     portfolioBalance={portfolio.portfolioBalance}
@@ -248,6 +249,8 @@ function OrderConfirmationPage() {
                                     setLimitPrice={setLimitPrice}
                                     stockPrice={stock.daily_change.currentprice}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
+                                    limitOrderPriceError={limitOrderPriceError}
+                                    setLimitOrderPriceError={setLimitOrderPriceError}
                                 />
                             </Col>
                             <Col style={{ marginBottom: "0.625rem" }}>
@@ -262,8 +265,8 @@ function OrderConfirmationPage() {
                                     gameTradeFee={gameTradeFee}
                                     setDollarAmountSelected={setDollarAmountSelected}
                                     setNewPortfolioBalance={setNewPortfolioBalance}
-                                    limitOrderError={limitOrderError}
-                                    setLimitOrderError={setLimitOrderError}
+                                    limitOrderQuantityError={limitOrderQuantityError}
+                                    setLimitOrderQuantityError={setLimitOrderQuantityError}
                                 />
                             </Col>
                             
@@ -285,10 +288,7 @@ function OrderConfirmationPage() {
                         onClick={() =>{setShowAreYouSureModal(true)}} 
                         text="Review Trade!" 
                         disabled={
-                            limitOrderError
-
-
-
+                            (limitOrderQuantityError || limitOrderPriceError)
                         }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

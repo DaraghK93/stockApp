@@ -1,8 +1,9 @@
 import { Card } from "react-bootstrap";
 import { useState, useEffect } from 'react';
 import RangeSlider from "../widgets/RangeSlider/RangeSlider";
+import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 
-function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPrice, setNewPortfolioBalance, limitPrice, buyOrSell,stockPrice }) {
+function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPrice, setNewPortfolioBalance, limitPrice, buyOrSell,stockPrice, limitOrderPriceError, setLimitOrderPriceError }) {
     const [min, setMin] = useState()
     const [max, setMax] = useState()
 
@@ -17,7 +18,17 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
             setMin(stockPrice+1)
             setMax(stockPrice*1.15)
         }
-    },[buyOrSell,setMin,setMax,stockPrice])
+        /// Check for errors 
+        if (limitPrice > max){
+            setLimitOrderPriceError(`Price over ${parseFloat(max).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, try market buy if you want this price!`)
+        }else if(limitPrice < min){
+            setLimitOrderPriceError(`Price must be at least ${parseFloat(min).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, try moving the slider to the right!`)
+        }else{
+            setLimitOrderPriceError("")
+        }
+
+
+    },[buyOrSell,setMin,setMax,stockPrice,max,limitPrice,min,setLimitOrderPriceError])
 
     // const [price, setPrice] = useState(0);
 
@@ -33,6 +44,7 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
             <h5 style={{ marginTop: "10px"}}>Price</h5>
                 <p>{`The price at which you wish to ${buyOrSell} stocks`}</p>
                 <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
+                    {limitOrderPriceError && <MessageAlert variant="danger">{limitOrderPriceError}</MessageAlert>}
                      <RangeSlider 
                         setter={setLimitPrice}
                         state={limitPrice}
@@ -40,7 +52,7 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
                         min={min}
                         max={max}
                         startWidth={"2rem"}
-                        showError={true}
+                        showError={false}
                         reset={buyOrSell}
                         resetValue={"1"}
                     />

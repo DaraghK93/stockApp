@@ -575,26 +575,26 @@ const leaveLeague = async (req,res,next) => {
       )
     }
     // check that the leagueId can be cast to valid objectId
-if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false ){
-  // check that the stock ID is correct
-  res.status(404)
-  res.errormessage = 'No league found'
-  return next(
-  new Error(
-  'No league found'
-  )
-  )
-  }// check that the leagueId can be cast to valid objectId
-if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
-  // check that the stock ID is correct
-  res.status(404)
-  res.errormessage = 'No portfolio found'
-  return next(
-  new Error(
-  'No portfolio found'
-  )
-  )
-  }
+    if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false ){
+      // check that the stock ID is correct
+      res.status(404)
+      res.errormessage = 'No league found'
+      return next(
+      new Error(
+      'No league found'
+      )
+      )
+      }// check that the leagueId can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
+      // check that the portolio ID is correct
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+      new Error(
+      'No portfolio found'
+      )
+      )
+      }
     const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, leagueId: req.body.leagueId, userId: req.user.id}) 
     // check if a portfolio with league ID and user ID in it
     if(portfolio === null){
@@ -631,8 +631,8 @@ if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
     await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId, users: portfolio.userId}})
     // delete the portfolio
     await Portfolio.deleteOne({_id: req.body.portfolioId, leagueId: req.body.leagueId})
-    // update the user, removing the league and the portfolio
-    const user = await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId, leagues: req.body.leagueId}})
+    // update the user, removing the portfolio. Kept the league in so that users cannot rejoin
+    await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId}})
     // return success message
     res.status(200).json({
       message: 'You have successfully left the league.',

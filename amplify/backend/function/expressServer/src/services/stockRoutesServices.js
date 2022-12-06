@@ -265,11 +265,29 @@ const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
   return stocks
 }
 
+// gets the game stock summary to display on game stocks page
+const getAllGameStocks =  (sectors,minErating,minSRating,minGRating,pageNumber,pageSize) => {
+  const projectStatement = {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                            'daily_change.absoluteChange':1,
+                            'daily_change.percentageChange':1,
+                            'daily_change.currentprice':1,
+                            'esgrating.environment_score': 1}
+
+  const amountToSkip = pageSize * pageNumber;
+  const stocks = Stock.find({'esgrating.environment_score':{$gte:minErating},
+    'esgrating.social_score':{$gte:minSRating},
+    'esgrating.governance_score':{$gte:minGRating},
+    'sector':{$in:sectors}}).select(projectStatement).skip(amountToSkip).limit(20)
+                        
+  return stocks
+}
+
 
 
 module.exports = {
     getStockPriceData,
     getStockSummary,
     getRecomms,
-    gameStockSummary
+    gameStockSummary,
+    getAllGameStocks
 }

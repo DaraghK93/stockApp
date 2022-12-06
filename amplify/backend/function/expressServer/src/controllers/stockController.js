@@ -191,13 +191,33 @@ const getStockBySymbol = async (req, res, next) => {
   }
 };
 
+// @route   GET api/stocks/gameStocks/game
+// @desc    Get stocks that are playable in a game
+// @access  Private - add auth middleware to make it private
 const getGameStocks = async (req, res, next) => {
   try{
-    // the game rules are sent in the request body
-    // this might need to be changed but is ok for now
-    // this gets the game summary
+    const type = req.params.type;
+    let gameStocks;
     const {sectors,minErating,minSRating,minGRating} = req.body
-    const gameStocks = await stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+    
+    if (type === 'summary'){
+      // the game rules are sent in the request body
+      // this might need to be changed but is ok for now
+      // this gets the game summary
+      gameStocks = await stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+    }
+    else if (type === 'all'){
+      //hardcoding 20 per page for all stocks at the minute can change if needed
+      const stocksPerPage = 20;
+      const pageNumber = req.body.pageNumber;
+      gameStocks = await stockService.getAllGameStocks(sectors,minErating,minSRating,minGRating,pageNumber,stocksPerPage);
+    }
+    else{
+      // No stock found
+      res.status(400);
+      res.errormessage = 'Invalid param entered';
+      return next(new Error('Invalid param entered'));
+    }
     
     // put the find all stocks here and pass the game rules to it
     // there will be an if statement that checks req.query and if it's 

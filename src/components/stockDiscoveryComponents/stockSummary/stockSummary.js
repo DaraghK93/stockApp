@@ -67,8 +67,8 @@ function StockSummary() {
 
         <h3 className="stockdiscoveryRow">Top Gainers <TrendingUpIcon /><InfoButtonModal title="Top Gainers" info={
                         <div>
-                            <p>This section shows the top 20 companies ranked by largest % change over the past 24 hour period. Calculation of % change is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p> 
-
+                            <p>This section shows the top 20 companies ranked by largest positive % change in stock price over the past 24 hour period.</p> 
+                            <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p> 
                         </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topGainers.map((stockObj) => (
@@ -79,11 +79,10 @@ function StockSummary() {
         </SideScrollMenu>
 
 
-        <h3 className="stockdiscoveryRow">Top Losers <TrendingDownIcon /><InfoButtonModal title="Top Losers" info={
+                    <h3 className="stockdiscoveryRow">Top Losers <TrendingDownIcon /><InfoButtonModal title="Top Losers" info={
                         <div>
-                            <p>FinOptimise uses what's known as a content based recommender system to suggest companies that you may be interested in based on your most recent transaction. This Machine Learning model will find you the most similar companies from our database.</p> 
-                            <p> If you have not yet made a transaction, the recommender system will give you recommendations based on the highest positive mover over the past 24 hours.</p>
-                            <p>More infomation on content based recommender systems and how they work can be found <a href='https://towardsdatascience.com/introduction-to-recommender-systems-1-971bd274f421'>here.</a></p>
+                            <p>This section shows the top 20 companies ranked by largest negative % change in stock price over the past 24 hour period.</p>
+                            <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p>
                         </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topLosers.map((stockObj) => (
@@ -94,7 +93,11 @@ function StockSummary() {
         </SideScrollMenu>
 
 
-        <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeafIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeafIcon /><InfoButtonModal title="Top Environmental" info={
+                        <div>
+                            <p>This section shows the top 20 companies ranked by their Environmental rating, as taken from their ESG scores.</p>
+                            <p>An explanation for Environmental ratings, along with how they're calculated can be found <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p>
+                        </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topEnvironment.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>

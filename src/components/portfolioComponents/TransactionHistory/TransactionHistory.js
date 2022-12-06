@@ -52,6 +52,7 @@ function TransactionHistory() {
                 </div>
                 <br />
                 <Container>
+                    <span>PENDING || COMPLETED || CANCELLED</span>
                     <p>table here</p>
                 </Container>
             </Card>

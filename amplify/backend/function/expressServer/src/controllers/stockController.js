@@ -209,7 +209,11 @@ const getGameStocks = async (req, res, next) => {
     else if (type === 'all'){
       //hardcoding 20 per page for all stocks at the minute can change if needed
       const stocksPerPage = 20;
-      const pageNumber = req.body.pageNumber;
+      let pageNumber = req.body.pageNumber;
+      // if no page number included only show the first page
+      if(!pageNumber){
+        pageNumber =0
+      }
       gameStocks = await stockService.getAllGameStocks(sectors,minErating,minSRating,minGRating,pageNumber,stocksPerPage);
     }
     else{

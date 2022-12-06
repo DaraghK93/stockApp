@@ -48,7 +48,7 @@ const getAllStocks = async (req, res, next) => {
     /// if undefined return the stock summary 
     if(keyword == "undefined"){     
       // Create the input for the recommender system API, save the output as recs
-      let userID = "ObjectId('" + req.user.id + "')"
+      let userID = req.user.id
       let recommendData = await stockService.getRecomms(userID)
       let recs = recommendData.data.message
       
@@ -191,6 +191,33 @@ const getStockBySymbol = async (req, res, next) => {
   }
 };
 
+const getGameStocks = async (req, res, next) => {
+  try{
+    // the game rules are sent in the request body
+    // this might need to be changed but is ok for now
+    // this gets the game summary
+    const {sectors,minErating,minSRating,minGRating} = req.body
+    const gameStocks = await stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+    
+    // put the find all stocks here and pass the game rules to it
+    // there will be an if statement that checks req.query and if it's 
+    // keyword = all it finds all, or keyword = summary it gets the summary
+
+    if (gameStocks.length === 0) {
+      // No stock found
+      res.status(404);
+      res.errormessage = 'No stocks found for this game';
+      return next(new Error('No stocks found for this game'));
+    }
+    res.json(gameStocks)
+  } catch (err) {
+    console.error(err.message);
+    res.status(500)
+    res.errormessage = 'Server error in get game stocks';
+    return next(err);
+  }
+}
+
 
 module.exports = {
   getStockPrice,
@@ -198,4 +225,5 @@ module.exports = {
   addStock,
   getAllStocks,
   getStockBySymbol,
+  getGameStocks
 };

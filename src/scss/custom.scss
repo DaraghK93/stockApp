@@ -57,6 +57,9 @@
 .navbar-toggler {
     border-color: white !important;
 }
+// account Components */
+@import "./accountComponents/accountDetails.scss";
+
 
 body {
     background-color: $background;

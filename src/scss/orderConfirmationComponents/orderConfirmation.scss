@@ -1,35 +1,14 @@
 /* Variables */
 @import "../global_variables.scss";
 
-.selectionButton {
-    color: $text-colour;
-    background-color: $background;
-    border-bottom-color: $info;
-    border-left-color: $shadow;
-    border-top-color: $shadow;
-    border-right-color: $shadow;
-    border-bottom-width: 0.1875rem;
-    width: 9.375rem;
+.orderButtonSubtitle{
+    font-size: small;
+    padding: 0; 
+    margin: 0;
 }
 
-
-.selectionButton:hover, .selectionButton:active, .selectionButton:focus, .selectionButton.active .selectionButton:active:focus {
-    color: $text-colour;
-    background-color: $background;
-    border-bottom-color: $secondary;
-    border-left-color: $shadow;
-    border-top-color: $shadow;
-    border-right-color: $shadow;
-}
-
-.selectionButtonActive {
-    color: $text-colour;
-    background-color: $background;
-    border-bottom-color: $secondary;
-    border-left-color: $shadow;
-    border-top-color: $shadow;
-    border-right-color: $shadow;
-    border-bottom-width: 0.1875rem;
+.orderButton{
     width: 9.375rem;
+    font-size: x-large; 
 }
 

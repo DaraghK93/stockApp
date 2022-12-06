@@ -628,11 +628,11 @@ const leaveLeague = async (req,res,next) => {
       )
     }
     // update the league, removing the portfolio and the user
-    await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId, users: portfolio.userId}})
+    await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId}})
     // delete the portfolio
     await Portfolio.deleteOne({_id: req.body.portfolioId, leagueId: req.body.leagueId})
     // update the user, removing the portfolio. Kept the league in so that users cannot rejoin
-    await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId}})
+    await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId, leagues: league._id}})
     // return success message
     res.status(200).json({
       message: 'You have successfully left the league.',

@@ -6,6 +6,7 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../tickercard/Tickercard';
 import {useSelector} from 'react-redux';
+import {Link} from "react-router-dom";
 import InfoButtonModal from '../../widgets/InfoButtonModal/InfoButtonModal'
 
 import PersonIcon from '@mui/icons-material/Person';
@@ -96,7 +97,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeafIcon /><InfoButtonModal title="Top Environmental" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by their Environmental rating, as taken from their ESG scores.</p>
-                            <p>An explanation for Environmental ratings, along with how they're calculated can be found <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p>
+                            <p>An explanation for Environmental ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
                         </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topEnvironment.map((stockObj) => (
@@ -107,7 +108,11 @@ function StockSummary() {
         </SideScrollMenu>
 
 
-        <h3 className="stockdiscoveryRow">Companies That Have Great Social Structures <Groups3Icon /></h3>
+        <h3 className="stockdiscoveryRow">Top Social<Groups3Icon /><InfoButtonModal title="Top Social" info={
+                        <div>
+                            <p>This section shows the top 20 companies ranked by their Social rating, as taken from their ESG scores.</p>
+                            <p>An explanation for Social ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                        </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topSocial.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>

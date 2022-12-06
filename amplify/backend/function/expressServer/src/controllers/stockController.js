@@ -237,20 +237,15 @@ const getGameStocks = async (req, res, next) => {
           'No sector included',
         ),
       )
-    }
+    } 
 
-    sectorsCheck.forEach((x) => {
-      if (!sectorArray.includes(x)){
-      // Invalid sector bad request
-      res.status(400)
-      res.errormessage = 'Invalid sector entered'
-      return next(
-        new Error(
-          'Invalid sector entered',
-        ),
-      )
+    for (const element of sectorsCheck) {
+      if (!sectorArray.includes(element)) {
+        res.status(400);
+        res.errormessage = 'Invalid sector entered';
+        return next(new Error('Invalid sector entered'));
       }
-    })
+    }
 
     // check if esg ratings are correct
     if (

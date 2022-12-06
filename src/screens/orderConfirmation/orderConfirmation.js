@@ -236,6 +236,7 @@ function OrderConfirmationPage() {
                                     stockPrice={stock.daily_change.currentprice}
                                     orderType={orderType}
                                     limitPrice={limitPrice}
+                                    qty={qty}
                                 />
                             </Col>
                         </Row>
@@ -285,6 +286,8 @@ function OrderConfirmationPage() {
                                     stockPrice={stock.daily_change.currentprice}
                                     orderType={orderType}
                                     limitPrice={limitPrice}
+                                    qty={qty}
+                                    gameTradeFee={gameTradeFee}
                                 />
                             </Col>
                         </Row>

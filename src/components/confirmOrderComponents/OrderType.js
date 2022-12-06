@@ -1,12 +1,9 @@
 import { Card, Button, Row, Col } from 'react-bootstrap';
-import { useState } from "react";
 import InfoButtonModal from '../widgets/InfoButtonModal/InfoButtonModal';
 
 function OrderType({orderType,setOrderType,buyOrSell}) {
-    const [active, setActive] = useState("");
 
     const handleClick = (event) => {
-        setActive(event.target.id);
         if (event.target.id === "1") {
             setOrderType("Market Order")
         }
@@ -39,10 +36,11 @@ function OrderType({orderType,setOrderType,buyOrSell}) {
                                 active={orderType==="Market Order"}
                                 size="lg"
                                 onClick={handleClick}
-                                className={active === "1" ? "selectionButtonActive" : "selectionButton"}
+                                variant='outline-primary'
+                                className="orderButton"
                             >
                                 Market
-                                <p className="orderButtonSubtitle">
+                                <p  onClick={() => {handleClick({"target":{"id":"1"}})}} className="orderButtonSubtitle">
                                     {buyOrSell === "Buy"? <> Buy Now!</>:<>Sell Now!</>}
                                 </p>
                                 </Button>
@@ -53,9 +51,10 @@ function OrderType({orderType,setOrderType,buyOrSell}) {
                                 size="lg"
                                 active={orderType==="Limit Order"}  
                                 onClick={handleClick}
-                                className={active === "2" ? "selectionButtonActive" : "selectionButton"}
+                                variant='outline-primary'
+                                className="orderButton"
                             >Limit
-                            <p className="orderButtonSubtitle">
+                            <p onClick={() => {handleClick({"target":{"id":"2"}})}} className="orderButtonSubtitle">
                                 {buyOrSell === "Buy"? <> Buy Later!</>:<>Sell Later!</>}
                             </p>
                             </Button>

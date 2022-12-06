@@ -1,6 +1,8 @@
 import {Dropdown} from "react-bootstrap";
 
-function PortfolioSelectionDropdown({portfolios, state, setState}){
+function PortfolioSelectionDropdown({portfolios, state, setState,currentPortfolioName}){
+
+
 
     function onSelectHandler(e){
         setState(e)
@@ -8,12 +10,13 @@ function PortfolioSelectionDropdown({portfolios, state, setState}){
 
     return (
         <Dropdown className="dropdownStyle"  onSelect={onSelectHandler}>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-            Select Portfolio
+        <Dropdown.Toggle style={{"whiteSpace": "normal"}} size="lg" variant="success" id="dropdown-basic" >
+            {currentPortfolioName}
         </Dropdown.Toggle>
             <Dropdown.Menu style={{"width": "20rem"}}>
             {portfolios.map((portfolio,idx) => (
                 <Dropdown.Item
+                    
                     value={portfolio}
                     id={`${portfolio.portfolioName}-${idx}`}
                     key={`${portfolio.portfolioName}-${idx}`}

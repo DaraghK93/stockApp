@@ -13,58 +13,104 @@ exports = function(changeEvent) {
 
     const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
     return collection.aggregate([
-                                  {
-                                  // find all leagues that are valuebased and ongoing
-                                    '$match': {
-                                      'finished': false, 
-                                      'leagueType': 'valuebased'
-                                    }
-                                  }, {
-                                    // match on the foreign key portfolioID
-                                    // get the total values of all portfolios from the view
-                                    '$lookup': {
-                                      'from': 'portfoliosValue', 
-                                      'localField': 'portfolios', 
-                                      'foreignField': '_id', 
-                                      'as': 'values'
-                                    }
-                                  }, {
-                                    // set which fields to display, add new field max portfolio value
-                                    '$project': {
-                                      'leagueName': 1, 
-                                      'active': 1, 
-                                      'finished': 1, 
-                                      'winningValue': 1, 
-                                      'portfolioMax': {
-                                        '$max': '$values.totalValue'
-                                      }
-                                    }
-                                  }, {
-                                    // get the leagues where the max portfolio value is greater than
-                                    // the league  winning value
-                                    '$match': {
-                                      '$expr': {
-                                        '$gte': [
-                                          '$portfolioMax', '$winningValue'
-                                        ]
-                                      }
-                                    }
-                                  }, {
-                                    // set active to false and finished to true
-                                    '$set': {
-                                      'finished': true, 
-                                      'active': false
-                                    }
-                                  }, {
-                                    // remove portfolio max field so it's not added to the document
-                                    '$unset': 'portfolioMax'
-                                  }, {
-                                    // merge these changes (changes to active and finished) into
-                                    // the leagues collection, matching on leagueID
-                                    '$merge': {
-                                      'into': 'leagues', 
-                                      'on': '_id'
-                                    }
-                                  }
-                                ])
-                              }
+      {
+        '$match': {
+          'finished': false, 
+          'active': true, 
+          'leagueType': 'valueBased'
+        }
+      }, {
+        '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': 'portfolios', 
+          'foreignField': '_id', 
+          'as': 'values'
+        }
+      }, {
+        '$set': {
+          'portfolioMax': {
+            '$max': '$values.totalValue'
+          }
+        }
+      }, {
+        '$match': {
+          '$expr': {
+            '$lte': [
+              '$portfolioMax', '$winningValue'
+            ]
+          }
+        }
+      }, {
+        '$unset': [
+          'values', 'portfolioMax'
+        ]
+      }, {
+        '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': 'portfolios', 
+          'foreignField': '_id', 
+          'as': 'portfolios', 
+          'pipeline': [
+            {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'userId', 
+                'foreignField': '_id', 
+                'as': 'user'
+              }
+            }, {
+              '$unwind': {
+                'path': '$user'
+              }
+            }, {
+              '$set': {
+                'user': '$user.username'
+              }
+            }, {
+              '$project': {
+                'totalValue': 1, 
+                'user': 1
+              }
+            }
+          ]
+        }
+      }, {
+        '$unwind': {
+          'path': '$portfolios'
+        }
+      }, {
+        '$sort': {
+          'portfolios.totalValue': -1
+        }
+      }, {
+        '$group': {
+          '_id': '$_id', 
+          'league': {
+            '$first': '$$ROOT'
+          }, 
+          'portfolios': {
+            '$push': '$portfolios'
+          }
+        }
+      }, {
+        '$addFields': {
+          'league.portfolios': '$portfolios'
+        }
+      }, {
+        '$replaceRoot': {
+          'newRoot': '$league'
+        }
+      }, {
+        '$set': {
+          'finished': true, 
+          'active': false, 
+          'finalStandings': '$portfolios'
+        }
+      }, {
+        '$merge': {
+          'into': 'leagues', 
+          'on': '_id'
+        }
+      }
+    ])
+}

@@ -196,15 +196,71 @@ const getStockBySymbol = async (req, res, next) => {
 // @access  Private - add auth middleware to make it private
 const getGameStocks = async (req, res, next) => {
   try{
+    // check that all of the data is there
+    if (
+      typeof req.body.sectors === 'undefined' ||
+      typeof req.body.minERating === 'undefined'||
+      typeof req.body.minSRating === 'undefined'||
+      typeof req.body.minGRating === 'undefined'
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'Details missing for getting game stocks'
+      return next(
+        new Error(
+          'The client has not sent the required information to get game stocks',
+        ),
+      )
+    }
+
+    // check if sectors are correct
+    const sectorArray = ['Basic Materials',
+    'Communication Services',
+    'Consumer Cyclical',
+    'Consumer Defensive',
+    'Energy',
+    'Financial Services',
+    'Healthcare',
+    'Industrials',
+    'Real Estate',
+    'Technology',
+    'Utilities']
+
+    const sectorsCheck = req.body.sectors;
+
+    if(sectorsCheck.length === 0){
+      // Invalid sector bad request
+      res.status(400)
+      res.errormessage = 'No sector included'
+      return next(
+        new Error(
+          'No sector included',
+        ),
+      )
+    }
+
+    sectorsCheck.forEach((x) => {
+      if (!sectorArray.includes(x)){
+      // Invalid sector bad request
+      res.status(400)
+      res.errormessage = 'Invalid sector entered'
+      return next(
+        new Error(
+          'Invalid sector entered',
+        ),
+      )
+      }
+    })
+        
     const type = req.params.type;
     let gameStocks;
-    const {sectors,minErating,minSRating,minGRating} = req.body
+    const {sectors,minERating,minSRating,minGRating} = req.body
     
     if (type === 'summary'){
       // the game rules are sent in the request body
       // this might need to be changed but is ok for now
       // this gets the game summary
-      gameStocks = await stockService.gameStockSummary(sectors,minErating,minSRating,minGRating)
+      gameStocks = await stockService.gameStockSummary(sectors,minERating,minSRating,minGRating)
     }
     else if (type === 'all'){
       //hardcoding 20 per page for all stocks at the minute can change if needed
@@ -214,7 +270,7 @@ const getGameStocks = async (req, res, next) => {
       if(!pageNumber){
         pageNumber =0
       }
-      gameStocks = await stockService.getAllGameStocks(sectors,minErating,minSRating,minGRating,pageNumber,stocksPerPage);
+      gameStocks = await stockService.getAllGameStocks(sectors,minERating,minSRating,minGRating,pageNumber,stocksPerPage);
     }
     else{
       // No stock found

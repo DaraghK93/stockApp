@@ -277,7 +277,7 @@ const getAllGameStocks =  (sectors,minErating,minSRating,minGRating,pageNumber,p
   const stocks = Stock.find({'esgrating.environment_score':{$gte:minErating},
     'esgrating.social_score':{$gte:minSRating},
     'esgrating.governance_score':{$gte:minGRating},
-    'sector':{$in:sectors}}).select(projectStatement).skip(amountToSkip).limit(20)
+    'sector':{$in:sectors}}).select(projectStatement).skip(amountToSkip).limit(pageSize)
                         
   return stocks
 }

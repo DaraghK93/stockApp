@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getGameStocks} = require('../controllers/stockController');
+const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getGameStocks, testAll} = require('../controllers/stockController');
 const { errorHandler } = require("../middleware/errorMiddleware");
 const {protectedRoute} = require('../middleware/authMiddleware');
 
@@ -20,6 +20,8 @@ router.get('/:symbol', getStockBySymbol)
 // get the stocks playable in a game
 router.get('/gameStocks/game', getGameStocks)
 
+// get all stocks for testing
+router.post('/test/route', protectedRoute, testAll)
 
 
 module.exports = router;

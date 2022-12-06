@@ -39,6 +39,7 @@ function GameStocksSummary({ league }) {
 
   return (
     <>
+      <h2>Discover stocks</h2>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (

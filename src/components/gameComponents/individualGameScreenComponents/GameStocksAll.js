@@ -1,4 +1,4 @@
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 
 import { APIName } from '../../../constants/APIConstants';
 import { useState, useEffect } from 'react';
@@ -13,19 +13,37 @@ function GameStocksAll({ league }) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [page, setPage] = useState(1);
 
   //Redux
   const user = useSelector((state) => state.user);
   const { userInfo } = user;
   const userToken = userInfo.token;
 
+  function next() {
+    setPage(page + 1);
+  }
+  function prev() {
+    if (page > 0) {
+      setPage(page - 1);
+    }
+  }
+
   useEffect(() => {
     const getStocks = async () => {
       try {
+        console.log(page);
         setLoading(true);
-        let path = `/api/stock?keyword=undefined`;
-        const params = { headers: { 'x-auth-token': userToken } };
-        const res = await API.get(APIName, path, params);
+        let path = `/api/stock/test/route`;
+        let body = {
+          page: page,
+        };
+        let requestConfig = {
+          body,
+          headers: { 'x-auth-token': userToken },
+        };
+        const res = await API.post(APIName, path, requestConfig);
+        console.log(stocks);
         setStock(res);
         setLoading(false);
       } catch (error) {
@@ -35,78 +53,24 @@ function GameStocksAll({ league }) {
       }
     };
     getStocks();
-  }, [userToken]);
+  }, [userToken, page]);
 
   return (
     <>
+      <h2>All stocks</h2>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
         <MessageAlert variant='danger'>{error}</MessageAlert>
       ) : (
         <>
-          <h3 className='stockdiscoveryRow'>Today's Biggest Positive Movers</h3>
-          <SideScrollMenu>
-            {stocks[0].topGainers.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-
-          <h3 className='stockdiscoveryRow'>Today's Biggest Negative Movers</h3>
-          <SideScrollMenu>
-            {stocks[0].topLosers.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-
           <h3 className='stockdiscoveryRow'>
-            Companies That Have Great Environmental Policies
+            All stocks available to trade in this game
           </h3>
+          <Button onClick={next}>Next</Button>
+          <Button onClick={prev}>Previous</Button>
           <SideScrollMenu>
-            {stocks[0].topEnvironment.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-
-          <h3 className='stockdiscoveryRow'>
-            Companies That Have Great Social Structures
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].topSocial.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <h3 className='stockdiscoveryRow'>
-            Companies That Have Great Governance
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].topGovernance.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <h3 className='stockdiscoveryRow'>Today's Top Moving Tech Stocks</h3>
-          <SideScrollMenu>
-            {stocks[0].Technology.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <h3 className='stockdiscoveryRow'>
-            Today's Top Moving Financial Service Stocks
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].Financial.map((stockObj) => (
+            {stocks.map((stockObj) => (
               <div className='sideScrollCard' key={stockObj._id}>
                 <TickerCard key={stockObj._id} stock={stockObj} />
               </div>

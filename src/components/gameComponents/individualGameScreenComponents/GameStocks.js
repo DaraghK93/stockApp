@@ -4,8 +4,8 @@ import { useParams } from 'react-router-dom';
 import GameStocksSummary from './GameStocksSummary';
 import StockSearchBar from '../../stockDiscoveryComponents/stockSearchBar/StockSearchBar';
 import StockSearchResults from '../../stockDiscoveryComponents/stockSearchResults/StockSearchResults';
-import StockSummary from '../../stockDiscoveryComponents/stockSummary/stockSummary';
 import { useState, useEffect } from 'react';
+import GameStocksAll from './GameStocksAll';
 
 function GameStocks({ league }) {
   let { keyword } = useParams();
@@ -16,31 +16,37 @@ function GameStocks({ league }) {
     setIsStockSummary(!isStockSummary);
   }
 
-  useEffect(() => {}, [isStockSummary]);
+  useEffect(() => {
+    console.log(isStockSummary);
+  }, [isStockSummary]);
   return (
     <>
       <div className='stockDiscovery'>
         <Container>
-          <Row style={{ alignItems: 'center' }}>
-            <h1 style={{ textAlign: 'center' }}>Stock Discovery</h1>
+          <Row>
+            <h1 style={{ textAlign: 'center' }}>Tradable stocks</h1>
           </Row>
           <Row>
-            <Col>
-              <Button style={{ width: '9rem' }}>Show all stocks</Button>
+            <Col className='offset'>
+              <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
+                Toggle all stocks
+              </Button>
             </Col>
           </Row>
           <StockSearchBar />
         </Container>
-        {keyword === undefined ? (
+        {isStockSummary && keyword === undefined ? (
           <Row md={1} xs={1}>
             <GameStocksSummary />
           </Row>
-        ) : (
+        ) : isStockSummary && keyword !== undefined ? (
           <Row md={1} xs={1}>
             <Container>
               <StockSearchResults keyword={keyword} />
             </Container>
           </Row>
+        ) : !isStockSummary && (
+            <GameStocksAll></GameStocksAll>
         )}
       </div>
     </>

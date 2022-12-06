@@ -574,6 +574,27 @@ const leaveLeague = async (req,res,next) => {
         ),
       )
     }
+    // check that the leagueId can be cast to valid objectId
+if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false ){
+  // check that the stock ID is correct
+  res.status(404)
+  res.errormessage = 'No league found'
+  return next(
+  new Error(
+  'No league found'
+  )
+  )
+  }// check that the leagueId can be cast to valid objectId
+if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
+  // check that the stock ID is correct
+  res.status(404)
+  res.errormessage = 'No portfolio found'
+  return next(
+  new Error(
+  'No portfolio found'
+  )
+  )
+  }
     const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, leagueId: req.body.leagueId, userId: req.user.id}) 
     // check if a portfolio with league ID and user ID in it
     if(portfolio === null){

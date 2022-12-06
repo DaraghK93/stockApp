@@ -176,23 +176,23 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        {/* <h3 className="stockdiscoveryRow">Consumer Cyclical <AttachMoneyIcon /></h3>
+        <h3 className="stockdiscoveryRow">Consumer Cyclical <AttachMoneyIcon /></h3>
         <SideScrollMenu>
-                {stocks[0].ConsumerCyclical.map((stockObj) => (
+                {stocks[0].ConsumerCyc.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
                             <TickerCard key={stockObj._id} stock={stockObj}/>
                         </div>
                      ))}
-        </SideScrollMenu> */}
+        </SideScrollMenu>
 
-                    {/* <h3 className="stockdiscoveryRow">Consumer Defense <AttachMoneyIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Consumer Defense <AttachMoneyIcon /></h3>
                     <SideScrollMenu>
-                        {stocks[0].ConsumerDefence.map((stockObj) => (
+                        {stocks[0].ConsumerDef.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
                                 <TickerCard key={stockObj._id} stock={stockObj} />
                             </div>
                         ))}
-                    </SideScrollMenu> */}
+                    </SideScrollMenu>
 
                     <h3 className="stockdiscoveryRow">Real Estate <AttachMoneyIcon /></h3>
                     <SideScrollMenu>
@@ -230,14 +230,14 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu> */}
 
-                    <h3 className="stockdiscoveryRow">Energy <AttachMoneyIcon /></h3>
+                    {/* <h3 className="stockdiscoveryRow">Energy <AttachMoneyIcon /></h3>
                     <SideScrollMenu>
                         {stocks[0].Energy.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
                                 <TickerCard key={stockObj._id} stock={stockObj} />
                             </div>
                         ))}
-                    </SideScrollMenu>
+                    </SideScrollMenu> */}
 
         </>}
         </>

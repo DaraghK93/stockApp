@@ -282,18 +282,6 @@ const getAllGameStocks =  (sectors,minErating,minSRating,minGRating,pageNumber,p
   return stocks
 }
 
-function isNumber(str) {
-  if (typeof str !== 'string') {
-    return false;
-  }
-
-  if (str.trim() === '') {
-    return false;
-  }
-
-  return !isNaN(str);
-}
-
 
 
 module.exports = {
@@ -301,6 +289,5 @@ module.exports = {
     getStockSummary,
     getRecomms,
     gameStockSummary,
-    getAllGameStocks,
-    isNumber
+    getAllGameStocks
 }

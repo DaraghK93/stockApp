@@ -65,10 +65,10 @@ function GameStocksAll({ league }) {
       ) : (
         <>
           <h3 className='stockdiscoveryRow'>
-            All stocks available to trade in this game
+            Page {page}
           </h3>
-          <Button onClick={next}>Next</Button>
           <Button onClick={prev}>Previous</Button>
+          <Button onClick={next}>Next</Button>
           <SideScrollMenu>
             {stocks.map((stockObj) => (
               <div className='sideScrollCard' key={stockObj._id}>

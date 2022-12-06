@@ -34,13 +34,12 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
         }else if (dollarAmountSelected > max){
             if (buyOrSell === "Buy"){
                 /// If we a re greater than max in a buy order then we are trying to spend more money than we have 
-                setMarketPriceError(` 
-                    ${parseFloat(dollarAmountSelected).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} 
-                    with ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} 
-                    trade fee is greater than spending power of ${parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}`)
+                setMarketPriceError(`Max quantity with your spending power is ${parseFloat(portfolioBalance -gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, try reducing your quantity!`)
             }else if (buyOrSell === "Sell"){
                 setMarketPriceError(`Max amount you own and is available to sell is ${parseFloat(holding*stockPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} worth`)
             }
+        }else if (dollarAmountSelected < min){
+            setMarketPriceError(`Amount needs to be at least $1`)
         }
 
 

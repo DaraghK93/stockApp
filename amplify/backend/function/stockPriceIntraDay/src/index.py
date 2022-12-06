@@ -143,8 +143,205 @@ def create_data_request(data_curr_price, time_stamp):
   
   return data_request
 
+### Limit orders
+
+def getTransactions(collection):
+    """find all limit orders that can be acioned.
+    split into buys and sells
+
+    Args:
+        collection (db collection): the database collection that is passed in
+        in this case it will be the transactions
+
+    Returns:
+        commandcursor: the command cursor which will be iterated through to
+        get the separate lists
+    """
+    try:
+      transactionscollection = collection.aggregate([
+            {'$facet':
+                      {
+                        'buy': [
+                                    {
+                                      '$match': {
+                                        'orderType': 'LIMIT',
+                                        'status': 'PENDING',
+                                        'buyOrSell': 'BUY'
+                                      }
+                                    }, {
+                                      '$lookup': {
+                                        'from': 'stocks',
+                                        'localField': 'stockId',
+                                        'foreignField': '_id',
+                                        'as': 'stock',
+                                        'pipeline': [
+                                          {
+                                            '$project': {
+                                              'daily_change.currentprice': 1
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }, {
+                                      '$unwind': {
+                                        'path': '$stock'
+                                      }
+                                    }, {
+                                      '$match': {
+                                        '$expr': {
+                                          '$gte': [
+                                            '$stock.daily_change.currentprice', '$limitValue'
+                                          ]
+                                        }
+                                      }
+                                    }],
+                          'sell': [
+                                    {
+                                      '$match': {
+                                        'orderType': 'LIMIT',
+                                        'status': 'PENDING',
+                                        'buyOrSell': 'SELL'
+                                      }
+                                    }, {
+                                      '$lookup': {
+                                        'from': 'stocks',
+                                        'localField': 'stockId',
+                                        'foreignField': '_id',
+                                        'as': 'stock',
+                                        'pipeline': [
+                                          {
+                                            '$project': {
+                                              'daily_change.currentprice': 1
+                                            }
+                                          }
+                                        ]
+                                      }
+                                    }, {
+                                      '$unwind': {
+                                        'path': '$stock'
+                                      }
+                                    }, {
+                                      '$match': {
+                                        '$expr': {
+                                          '$lte': [
+                                            '$stock.daily_change.currentprice', '$limitValue'
+                                          ]
+                                        }
+                                      }
+                                    }]
+                                }}])
+    except Exception as e:
+        print(f'ERROR:Could not run get transactions function.\nException Details:\n\t{e}') 
+    return transactionscollection
+
+def commandCursorToLists(collection):
+    """make the coman cursor returned into two lists
+
+    Args:
+        collection (dbcollection): the transactions collection
+
+    Returns:
+        Lists: two lists, one of actionable buy transactions 
+        and one of actionable sell transactions
+    """
+    # get a list of the transactions
+    # result = getTransactions(collection)
+    # empty llist to add the result to
+    try:
+      transList = []
+      # loop through and add the list
+      for i in collection:
+          transList.append(i)
+      # returns a list so need to get 1st element (which will be an object)
+      splitList = transList[0]
+      # the buy object contains a list of objects that can be actions
+      buyList = splitList['buy']
+      # the sell object contains a list of objects that can be actions
+      sellList = splitList['sell']
+    except Exception as e:
+        print(f'ERROR:Could not run command cursor function.\nException Details:\n\t{e}')
+    return buyList, sellList
+
+def getPortfolioUpdates(buys,sells):
+    """get the list of updates that will be passed to the portofolio colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
+    data_request = []
+    #  portfolio updates
+    try:
+      # add all updateOnes to array for buy and sell
+      # buys take the value of transaction from the frozen balance
+      # sells add the value to the remainder
+      for i in buys:
+              data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                            {'$inc': {"frozenBalance": -i["value"]}}))
+      for i in sells:
+          data_request.append(UpdateOne({"_id": i["portfolioId"]},
+                                            {'$inc': {"remainder": i["value"]}}))
+    except Exception as e:
+        print(f'ERROR:Could not run portfolio updates function.\nException Details:\n\t{e}')
+    return data_request
+
+def getHoldingsUpdates(buys,sells):
+    """get the list of updates that will be passed to the holdings colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
+    data_request = []
+
+    #  holdings updates
+    try:
+      # add all updateOnes to array for buy and sell
+      # buys add the units of transaction to the holdings units
+      # sells take the units of the transaction from the frozen holdings
+      for i in buys:
+              data_request.append(UpdateOne({"_id": i["holdings"]},
+                                            {'$inc': {"units": i["units"]}}))
+      for i in sells:
+              data_request.append(UpdateOne({"_id": i["holdings"]},
+                                            {'$inc': {"frozenHoldingsUnits": -i["units"]}}))
+    except Exception as e:
+        print(f'ERROR:Could not run holdings updates function.\nException Details:\n\t{e}')
+    return data_request
+
+def getTransactionsUpdates(buys,sells):
+    """get the list of updates that will be passed to the transactions colection
+
+    Args:
+        buys (List): list of actionable buy objects
+        sells (List): list of actionable sell objects
+
+    Returns:
+        List: list of updateOnes that will be passed to bulkwrite
+    """
+    data_request = []
+    #  portfolio updates
+    try:
+      # add all updateOnes to array for buy and sell
+      # sets all transactions to completed
+      for i in buys:
+              data_request.append(UpdateOne({"_id": i["_id"]},
+                                            {'$set': {"status": "COMPLETED"}}))
+      for i in sells:
+          data_request.append(UpdateOne({"_id": i["_id"]},
+                                        {'$set': {"status": "COMPLETED"}}))
+    except Exception as e:
+        print(f'ERROR:Could not run transactions updates function.\nException Details:\n\t{e}')
+    return data_request
 
 def handler(event,context):
+  ### connecting to database
   try:
     mongoURI = '' 
     environment = os.environ['ENVIRONMENT']
@@ -154,23 +351,22 @@ def handler(event,context):
         mongoURI = os.environ['MONGOURI']
     # Get the mongo connection 
     client = connectToDB(mongoURI)
-    
-
-    # specify db and collection
+    # specify db and collections
     db = client[os.environ["DATABASENAME"]]
-    collection = db[os.environ["COLLECTION"]]
-
+    stockCollection = db[os.environ["STOCKCOLLECTION"]]
+    holdingsCollection = db[os.environ["HOLDINGSCOLLECTION"]]
+    portfolioCollection = db[os.environ["PORTFOLIOCOLLECTION"]]
+    transactionCollection = db[os.environ["TRANSACTIONCOLLECTION"]]
+  
   except Exception as e:
     print(f'ERROR:Error encountered in connecting to the database.\nException Details:\n\t{e}')
     return {
         'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
     }   
-
   # run the web scraping program to get the current prices
   data_current_price = get_current_price()
 
-  
-  
+  ### update the stocks collection
   try:
     # create the array with all of the UpdateOne requests
     # get the current time and convert to the correct format YYYY-MM-DDTHH:MM
@@ -179,14 +375,67 @@ def handler(event,context):
     requests_database = create_data_request(data_current_price, time_stamp_str)
 
     # write these requests to the Database
-    collection.bulk_write(requests_database)
+    stockCollection.bulk_write(requests_database)
 
-    return {
-        'Message': 'Data Successfully Updated',
-        'Time': time_stamp_str
-    }
   except Exception as e:
         print(f'ERROR:Error encountered in handler function.\nException Details:\n\t{e}')
         return {
             'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
-        }   
+        }
+  
+  ### Limit Orders
+  # get all actionable transactions
+  transactions = getTransactions(transactionCollection)
+  # get the list of buys and sells from the command cursor
+  buyList, sellList = commandCursorToLists(transactions)
+  # get the arrays of all updateOnes from the buys and sells for each collection
+  holdingsUpdates = getHoldingsUpdates(buyList, sellList)
+  portfolioUpdates = getPortfolioUpdates(buyList, sellList)
+  transactionsupdates = getTransactionsUpdates(buyList, sellList)
+  # initialise the match count to 0 so it's not referenced before initialisation below
+  port_matched_count = 0
+  hold_matched_count = 0
+  trans_matched_count = 0
+
+  # ensure the array is not empty so it doesn't throw an error
+  if buyList + sellList != []:
+        # portfolio updates
+        try:
+            portres = portfolioCollection.bulk_write(portfolioUpdates)
+            port_matched_count = portres.matched_count
+            print(port_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to portfolios collection\nException Details:\n\t{e}')
+            return {
+              'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }
+        # holdings updates
+        try:
+            holdres = holdingsCollection.bulk_write(holdingsUpdates)
+            hold_matched_count = holdres.matched_count
+            print(hold_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to holdings collection\nException Details:\n\t{e}')
+            return {
+              'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }
+        # transactions updates
+        try:
+            transres = transactionCollection.bulk_write(transactionsupdates)
+            trans_matched_count = transres.matched_count
+            print(trans_matched_count)
+        except Exception as e:
+            print(f'ERROR:cannot bulk write to transactions collection\nException Details:\n\t{e}')
+            return {
+              'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }
+  else:
+      print("nothing to action")
+
+  return {
+        'Message': 'Data Successfully Updated',
+        'Time': time_stamp_str,
+        'portfolios_matched': port_matched_count,
+        'holdings_matched': hold_matched_count,
+        'transactions_updated': trans_matched_count
+    }

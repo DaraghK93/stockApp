@@ -10,8 +10,20 @@
       "environmentVariableName": "DATABASENAME"
     },
     {
-      "cloudFormationParameterName": "collection",
-      "environmentVariableName": "COLLECTION"
+      "cloudFormationParameterName": "stockcollection",
+      "environmentVariableName": "STOCKCOLLECTION"
+    },
+    {
+      "cloudFormationParameterName": "portfoliocollection",
+      "environmentVariableName": "PORTFOLIOCOLLECTION"
+    },
+    {
+      "cloudFormationParameterName": "holdingscollection",
+      "environmentVariableName": "HOLDINGSCOLLECTION"
+    },
+    {
+      "cloudFormationParameterName": "transactioncollection",
+      "environmentVariableName": "TRANSACTIONCOLLECTION"
     }
   ]
 }

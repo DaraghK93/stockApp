@@ -256,7 +256,13 @@ const getGameStocks = async (req, res, next) => {
     if (
       !Number.isInteger(req.body.minERating) ||
       !Number.isInteger(req.body.minERating) ||
-      !Number.isInteger(req.body.minERating)
+      !Number.isInteger(req.body.minERating) ||
+      req.body.minERating < 0 ||
+      req.body.minSRating < 0 ||
+      req.body.minGRating < 0 ||
+      req.body.minERating > 1000 ||
+      req.body.minSRating > 1000 ||
+      req.body.minGRating > 1000
     ) {
             // Invalid sector bad request
             res.status(400)

@@ -189,7 +189,7 @@ def getTransactions(collection):
                                     }, {
                                       '$match': {
                                         '$expr': {
-                                          '$gte': [
+                                          '$lte': [
                                             '$stock.daily_change.currentprice', '$limitValue'
                                           ]
                                         }
@@ -223,7 +223,7 @@ def getTransactions(collection):
                                     }, {
                                       '$match': {
                                         '$expr': {
-                                          '$lte': [
+                                          '$gte': [
                                             '$stock.daily_change.currentprice', '$limitValue'
                                           ]
                                         }

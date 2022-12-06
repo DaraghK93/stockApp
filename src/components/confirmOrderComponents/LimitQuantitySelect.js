@@ -27,7 +27,7 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, 
             setMax(Math.floor((portfolioBalance-gameTradeFee)/limitPrice))
         }else if (buyOrSell === "Sell"){
             setMin(1)
-            setMax(holding*stockPrice)
+            setMax(parseFloat((holding).toFixed(2)))
         }
         //// Only if the qty is within the max and min limit
         if (qty >= min && qty <= max){
@@ -39,12 +39,16 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, 
                 setDollarAmountSelected(qty*limitPrice)
             }else if(buyOrSell === "Sell"){
                 /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
-                //setQty(dollarAmountSelected / stockPrice)
-                //setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
-                console.log("Sell")
+                setDollarAmountSelected(qty*limitPrice)
+                setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(qty*limitPrice) - parseFloat(gameTradeFee)))
             }
         }else if (qty > max){
-            setLimitOrderQuantityError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share, try lowering the price or the number of stocks!`)
+            /// Greeater than errors -> For buy they cant afford it, for sell they havent got that many 
+            if (buyOrSell === "Buy"){
+                setLimitOrderQuantityError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share, try lowering the price or the number of stocks!`)
+            }else if (buyOrSell === "Sell"){
+                setLimitOrderQuantityError(`You cant sell what you dont have, you own ${holding.toFixed(2)} stocks`)
+            }
         }else if (qty < min) {
             setLimitOrderQuantityError(`Number of stocks must be at least ${min}, try moving the slider to the right!`)
         }

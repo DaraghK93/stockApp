@@ -32,13 +32,6 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
 
     // const [price, setPrice] = useState(0);
 
-    // const sliderCall = (e) => {
-    //     setPrice(e.target.value)
-    //     setLimitPrice(e.target.value)
-    //     setAmountSelected(e.target.value * qty)
-    //     setNewPortfolioBalance(portfolioBalance - (e.target.value * qty))
-    // }
-
     return (
         <Card className="px-3">
             <h5 style={{ marginTop: "10px"}}>Price</h5>
@@ -54,7 +47,9 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
                         startWidth={"2rem"}
                         showError={false}
                         reset={buyOrSell}
-                        resetValue={"1"}
+                        resetValue={
+                            buyOrSell === "Buy"? "1" : stockPrice+1
+                            }
                     />
                 </Card.Body>
         </Card>

@@ -37,13 +37,48 @@
 
 .stockdiscoveryRow {
   margin:1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-left: 2rem;
   padding-right: 1rem;
   background-color: $stockdiscoverybackground;
   white-space: initial;
   word-wrap: break-word;
   width:90%;
+  text-align: left;
+}
+
+.stockdiscoveryRowTitle {
+  // margin:1rem;
+  margin-top: 3rem;
+  // margin-left: 2rem;
+  // padding-right: 1rem;
+  background-color: $stockdiscoverybackground;
+  white-space: initial;
+  word-wrap: break-word;
+  width:100%;
+  text-align: center;
+}
+
+.stockdiscoveryRowTitleTop {
+  // margin:1rem;
+  margin-top: 2.5rem;
+  margin-bottom: 2rem;
+  // margin-left: 2rem;
+  // padding-right: 1rem;
+  background-color: $stockdiscoverybackground;
+  white-space: initial;
+  word-wrap: break-word;
+  width:100%;
+  text-align: center;
+}
+
+.discoverySectionDiv{
+  border-bottom: solid;
+  border-color: rgb(170, 170, 170);
+  margin-top: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 .tickerCardImgContainer {

@@ -75,7 +75,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
     return(
         <Modal centered show={showState} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Please Review Your Order</Modal.Title>
+            <Modal.Title>Please Review Your Trade</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
@@ -92,10 +92,10 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
         </Modal.Body>
         <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>
-                Cancel Order 
+                Cancel Trade
         </Button>
         <Button variant="success" onClick={getStockInfo}>
-            Confirm Order
+            Confirm Trade
         </Button>
         </Modal.Footer>
     </Modal>

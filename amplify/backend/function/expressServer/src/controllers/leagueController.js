@@ -399,14 +399,18 @@ const joinLeaguebyCode = async (req, res, next) => {
 
       // get league object from db
       let league = await League.findOne({ accessCode, finished:false })
-
+      let user = await User.findOne({_id: req.user.id})
       // 404 for no such league
       if (!league) {
         res.status(404)
         res.errormessage = 'Invalid Access Code'
         return next(new Error('Invalid Access Code'))
       }
-
+      if (league.users.includes(req.user.id) && !user.leagues.includes(league._id)){
+        res.status(400)
+        res.errormessage = 'User has previously had a portfolio in this league and cannot rejoin.'
+        return next(new Error('The user previously left this league and cannot rejoin.'))
+      }
       const newLeague = await leagueService.joinLeague(league,currentUser)
 
       // check for error

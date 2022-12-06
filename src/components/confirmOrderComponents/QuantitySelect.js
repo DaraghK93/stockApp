@@ -25,6 +25,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
                 /// For Buy the new balance will be the cost of the transaction minus the current balance 
                 setNewPortfolioBalance((portfolioBalance - dollarAmountSelected - gameTradeFee))
             }else if(buyOrSell === "Sell"){
+                console.log("I AM HIT ")
                 /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
                 setQty(dollarAmountSelected / stockPrice)
                 setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))

@@ -27,9 +27,9 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         if(buyOrSell === "Buy"){
                 setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){
-                if (orderType === "Market Order"){
-                   setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}]) 
-                }else{
+                if (orderType === "Market Order" && (dollarAmountSelected <= (holding*stockPrice))){
+                    setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}]) 
+                }else if (orderType === "Limit Order"){
                     setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:((Math.floor(stockPrice*1.15))*holding)-dollarAmountSelected}]) 
                 }
                 

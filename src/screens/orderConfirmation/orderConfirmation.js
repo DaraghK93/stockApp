@@ -308,7 +308,7 @@ function OrderConfirmationPage() {
                         onClick={() =>{setShowAreYouSureModal(true)}} 
                         text="Review Trade!" 
                         disabled={
-                            (limitOrderQuantityError || limitOrderPriceError)
+                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError)
                         }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

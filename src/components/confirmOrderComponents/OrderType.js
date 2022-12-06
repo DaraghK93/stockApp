@@ -40,7 +40,7 @@ function OrderType({orderType,setOrderType,buyOrSell}) {
                                 className="orderButton"
                             >
                                 Market
-                                <p className="orderButtonSubtitle">
+                                <p  onClick={() => {handleClick({"target":{"id":"1"}})}} className="orderButtonSubtitle">
                                     {buyOrSell === "Buy"? <> Buy Now!</>:<>Sell Now!</>}
                                 </p>
                                 </Button>
@@ -54,7 +54,7 @@ function OrderType({orderType,setOrderType,buyOrSell}) {
                                 variant='outline-primary'
                                 className="orderButton"
                             >Limit
-                            <p className="orderButtonSubtitle">
+                            <p onClick={() => {handleClick({"target":{"id":"2"}})}} className="orderButtonSubtitle">
                                 {buyOrSell === "Buy"? <> Buy Later!</>:<>Sell Later!</>}
                             </p>
                             </Button>

@@ -108,7 +108,7 @@ function StockSummary() {
         </SideScrollMenu>
 
 
-        <h3 className="stockdiscoveryRow">Top Social<Groups3Icon /><InfoButtonModal title="Top Social" info={
+        <h3 className="stockdiscoveryRow">Top Social <Groups3Icon /><InfoButtonModal title="Top Social" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by their Social rating, as taken from their ESG scores.</p>
                             <p>An explanation for Social ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
@@ -120,7 +120,11 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <h3 className="stockdiscoveryRow">Companies That Have Great Governance <AssuredWorkloadIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Governance <AssuredWorkloadIcon /><InfoButtonModal title="Top Governance" info={
+                        <div>
+                            <p>This section shows the top 20 companies ranked by their Governance rating, as taken from their ESG scores.</p>
+                            <p>An explanation for Governance ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                        </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topGovernance.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -128,7 +132,7 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <h3 className="stockdiscoveryRow">Today's Top Moving Tech Stocks <LanIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Moving Tech Stocks <LanIcon /></h3>
         <SideScrollMenu>
                 {stocks[0].Technology.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -136,7 +140,7 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <h3 className="stockdiscoveryRow">Today's Top Moving Financial Service Stocks <AttachMoneyIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Moving Financial Service Stocks <AttachMoneyIcon /></h3>
         <SideScrollMenu>
                 {stocks[0].Financial.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>

@@ -61,7 +61,28 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                     />
                     </h5>
                     :
-                    <h5 style={{ marginTop: "10px" }}>New Spending Power</h5>
+                    <h5 style={{ marginTop: "10px" }}>New Spending Power
+                    <InfoButtonModal
+                        title="New Spending Power" info={
+                        <>
+                        <p>Spending Power is the amount in Dollars you have available to purchase stocks.</p>
+                        { buyOrSell === "Buy" ?
+                        <> 
+                        <p>You have selected <span className="semibolded">Buy</span> which means you are purchasing stocks.</p>
+                        <p>This results in your Spending Power <span className="semibolded redNegative">Decreasing.</span></p>
+                        </>
+                        :
+                        <>
+                        <p>You have selected <span className="semibolded">Sell</span> which means you are selling stocks you previously bought.</p>
+                        <p>This results in your Spending Power <span className="bolded greenPositive">Increasing.</span></p>
+                        </>
+                        
+                        }
+                        
+                        </>
+                        }
+                    />
+                    </h5>
                     }
                     <p><strong>{portfolioName}</strong>- Available Spending Power: {parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</p>
                     <ResponsiveContainer width="100%" height={300} margin={100}>

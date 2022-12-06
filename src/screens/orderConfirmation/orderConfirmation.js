@@ -224,24 +224,7 @@ function OrderConfirmationPage() {
                                 />
                                 </Col>
                         </Row>
-                        <Row>
-                            <Col style={{ marginBottom: "0.625rem" }}>
-                                <BalanceComponent
-                                    portfolioName={portfolio.portfolioName}
-                                    portfolioBalance={portfolio.portfolioBalance}
-                                    newPortfolioBalance={newPortfolioBalance}
-                                    dollarAmountSelected={dollarAmountSelected}
-                                    buyOrSell={buyOrSell}
-                                    holding={holding}
-                                    stockPrice={stock.daily_change.currentprice}
-                                    orderType={orderType}
-                                    limitPrice={limitPrice}
-                                    qty={qty}
-                                />
-                            </Col>
-                        </Row>
                     </>
-                        
                     }
                     {isShownLimitOrder &&
                         <Row className="my-2" sm={1} md={1} xs={1}>
@@ -259,7 +242,7 @@ function OrderConfirmationPage() {
                                     setLimitOrderPriceError={setLimitOrderPriceError}
                                 />
                             </Col>
-                            <Col style={{ marginBottom: "0.625rem" }}>
+                            <Col>
                                 <LimitQuantitySelect
                                     portfolioBalance={portfolio.portfolioBalance}
                                     setQty={setQty}
@@ -275,7 +258,9 @@ function OrderConfirmationPage() {
                                     setLimitOrderQuantityError={setLimitOrderQuantityError}
                                 />
                             </Col>
-                            <Col style={{ marginBottom: "0.625rem" }}>
+                        </Row>
+                    }
+                    <Col className="pb-3">
                                 <BalanceComponent
                                     portfolioName={portfolio.portfolioName}
                                     portfolioBalance={portfolio.portfolioBalance}
@@ -290,8 +275,6 @@ function OrderConfirmationPage() {
                                     gameTradeFee={gameTradeFee}
                                 />
                             </Col>
-                        </Row>
-                    }
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}
                             orderType={orderType}

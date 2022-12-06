@@ -1,14 +1,9 @@
 import { ProgressBar, Container, Row, Col, Image } from "react-bootstrap";
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-// link
-// copyable thing
-
-
+import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
 
 function ValueLine({ portfolios, winningValue, accessCode }) {
 
     const remainder = winningValue - portfolios[0].totalValue
-
     var accessString = accessCode.toString()
 
     function getWinnerText() {
@@ -16,21 +11,22 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             if (portfolios.length !== 1) {
                 return (
                     <>
-                        <p>There are only <strong>{portfolios.length} players</strong> in this game!
-                            Invite others to have better time using the access code: <strong>{accessCode} </strong>
-                            <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText(accessString) }}>Copy</ContentCopyIcon></p>
+                        <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow, so lonely!
+                            Invite others using the access code: <strong>{accessCode} </strong>
+                            <CopyComponent copyText={accessString} /></p>
                     </>)
             }
             else {
                 return (
                     <>
-                        <p>There is only <strong>{portfolios.length} player</strong> in this game! Invite others to have better time using the access code: <strong>{accessCode} </strong>
-                            <ContentCopyIcon fontSize="small" onClick={() => { navigator.clipboard.writeText(accessString) }}>Copy</ContentCopyIcon>
+                        <p>There is only <strong>{portfolios.length} player</strong> in this game! Wow, so lonely! Invite others using the access code: <strong>{accessCode} </strong>
+                            <CopyComponent copyText={accessString} />
                         </p>
                     </>)
             }
         }
         else {
+        
             if (portfolios[0].totalValue === portfolios[1].totalValue && portfolios[0].totalValue === portfolios[2].totalValue) {
                 return (<><p>It's a tight race! <strong>{portfolios[0].user}</strong>, <strong>{portfolios[1].user}</strong> and <strong>{portfolios[2].user}</strong> are all
                     in the lead with <strong>{parseFloat(portfolios[0].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</strong> in
@@ -96,7 +92,7 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
             </Row>
             <Row>
                 {getWinnerText()}
-        </Row>
+            </Row>
 
 
         </Container >

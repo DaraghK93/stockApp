@@ -15,12 +15,20 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
             // Max is dollar off the current stock price  
             setMax(stockPrice-1)
         }else if (buyOrSell === "Sell"){
-            setMin(stockPrice+1)
-            setMax(stockPrice*1.15)
+            setMin(Math.ceil(stockPrice))
+            // setMax(stockPrice*1.15)
+            setMax(Math.floor(stockPrice*1.15))
         }
         /// Check for errors 
         if (limitPrice > max){
-            setLimitOrderPriceError(`Price over ${parseFloat(max).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, try market buy if you want this price!`)
+            /// Limit price greater than the max
+            if (buyOrSell === "Buy"){
+                /// For Buy it means that it is too close to the current stock price
+                setLimitOrderPriceError(`Price over ${parseFloat(max).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, try market buy if you want this price!`)
+            }else if (buyOrSell === "Sell"){
+                /// For a sell it means you are trying to increase it above 15% growth 
+                setLimitOrderPriceError(`It's ambitious but prices over ${parseFloat(max).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} are too far from current price of ${parseFloat(stockPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}!`)
+            }
         }else if(limitPrice < min){
             setLimitOrderPriceError(`Price must be at least ${parseFloat(min).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, try moving the slider to the right!`)
         }else{
@@ -30,7 +38,6 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
 
     },[buyOrSell,setMin,setMax,stockPrice,max,limitPrice,min,setLimitOrderPriceError])
 
-    // const [price, setPrice] = useState(0);
 
     return (
         <Card className="px-3">

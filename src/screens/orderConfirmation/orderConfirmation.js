@@ -10,7 +10,7 @@ import LimitQuantitySelect from "../../components/confirmOrderComponents/LimitQu
 import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPriceSelect";
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
-
+import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
 import {useNavigate} from "react-router-dom"
 
 /// Redux ///
@@ -183,17 +183,23 @@ function OrderConfirmationPage() {
                                 </dt>
                             </dl>
                         </Col>
-                        <Col className="pb-2 pt-3">
-                            <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
+                    </Row>
+                    <Row md={1} className="py-2 pb-5" style={{"textAlign":"center","alignItems":"center"}}>
+                        <h3>Active Portfolio</h3>
+                        <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId} currentPortfolioName={portfolio.portfolioName}/>
+                    </Row>
+                    <Row className="py-2">
+                        <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
+                    </Row>
+                    <Row className="pt-4" md={1} xs={1} lg={1}>
+                        <Col>
+                         <OrderType
+                                orderType={orderType}
+                                setOrderType={setOrderType}
+                                buyOrSell={buyOrSell}
+                            />
                         </Col>
                     </Row>
-                    <Col style={{ marginBottom: "0.625rem" }}>
-                        <OrderType
-                            setBuyOrSell={setBuyOrSell}
-                            setOrderType={setOrderType}
-                            holding={holding}
-                        />
-                    </Col>
                     {isShownMarketOrder &&
                     <>
                     <Row className="my-2" sm={1} md={1} >
@@ -230,7 +236,7 @@ function OrderConfirmationPage() {
                         
                     }
                     {isShownLimitOrder &&
-                        <>
+                        <Row className="my-2" sm={1} md={1} >
                             <Col style={{ marginBottom: "0.625rem" }}>
                                 <LimitQuantitySelect
                                     portfolioBalance={portfolio.portfolioBalance}
@@ -249,7 +255,7 @@ function OrderConfirmationPage() {
                                     setNewPortfolioBalance={setNewPortfolioBalance}
                                 />
                             </Col>
-                        </>
+                        </Row>
                     }
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}
@@ -263,7 +269,7 @@ function OrderConfirmationPage() {
                             stockName={stock.longname}
                             gameTradeFee={gameTradeFee}
                 />
-                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Confirm Order"></BottomStickyButton>
+                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Review Trade!"></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

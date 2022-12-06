@@ -4,7 +4,7 @@ import {useEffect,useState} from 'react';
 
 
 
-function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell, stockPrice, holding }) {
+function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell, stockPrice, holding, orderType}) {
     const [data, setData] = useState(true);
 
     const CustomLabel = ({ viewBox, balance = 0, text }) => {
@@ -27,9 +27,14 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         if(buyOrSell === "Buy"){
                 setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){
-                setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}])
+                if (orderType === "Market Order"){
+                   setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}]) 
+                }else{
+                    setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:((Math.floor(stockPrice*1.15))*holding)-dollarAmountSelected}]) 
+                }
+                
         }
-    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance])
+    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance, orderType])
 
     return (
         <>

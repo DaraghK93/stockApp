@@ -32,12 +32,12 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, 
         //// Only if the qty is within the max and min limit
         if (qty >= min && qty <= max){
             setLimitOrderQuantityError("")
-            if(buyOrSell === "Buy"){
+            if(buyOrSell === "Buy" && (limitPrice>=1 && limitPrice <= stockPrice-1)){
                 /// For Buy the new the current balance minus the currentStock Price*Qty slected minus the trade fee
                 setNewPortfolioBalance((portfolioBalance - ((qty*limitPrice) + gameTradeFee)))
                 /// The amount slected will be the price times the quantity 
                 setDollarAmountSelected(qty*limitPrice)
-            }else if(buyOrSell === "Sell"){
+            }else if(buyOrSell === "Sell" && (limitPrice>=1 && limitPrice <= Math.floor(stockPrice*1.15))){
                 /// For sell the new portfolio balance will be the current portfolio balance + dollarAmount Select - game fee
                 setDollarAmountSelected(qty*limitPrice)
                 setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(qty*limitPrice) - parseFloat(gameTradeFee)))

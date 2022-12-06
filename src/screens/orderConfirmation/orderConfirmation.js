@@ -231,6 +231,8 @@ function OrderConfirmationPage() {
                                     buyOrSell={buyOrSell}
                                     holding={holding}
                                     stockPrice={stock.daily_change.currentprice}
+                                    orderType={orderType}
+                                    limitPrice={limitPrice}
                                 />
                             </Col>
                         </Row>
@@ -269,7 +271,19 @@ function OrderConfirmationPage() {
                                     setLimitOrderQuantityError={setLimitOrderQuantityError}
                                 />
                             </Col>
-                            
+                            <Col style={{ marginBottom: "0.625rem" }}>
+                                <BalanceComponent
+                                    portfolioName={portfolio.portfolioName}
+                                    portfolioBalance={portfolio.portfolioBalance}
+                                    newPortfolioBalance={newPortfolioBalance}
+                                    dollarAmountSelected={dollarAmountSelected}
+                                    buyOrSell={buyOrSell}
+                                    holding={holding}
+                                    stockPrice={stock.daily_change.currentprice}
+                                    orderType={orderType}
+                                    limitPrice={limitPrice}
+                                />
+                            </Col>
                         </Row>
                     }
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 

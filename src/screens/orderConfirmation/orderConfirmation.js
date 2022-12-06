@@ -183,12 +183,10 @@ function OrderConfirmationPage() {
                                 </dt>
                             </dl>
                         </Col>
-                        <Col className="pb-2 pt-3">
-                            <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId}/>
-                        </Col>
                     </Row>
-                    <Row className="py-2">
-                        <h2>{portfolio.portfolioName} </h2>
+                    <Row md={1} className="py-2 pb-5" style={{"textAlign":"center","alignItems":"center"}}>
+                        <h3>Active Portfolio</h3>
+                        <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
                     <Row className="py-2">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>

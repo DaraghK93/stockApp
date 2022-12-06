@@ -154,6 +154,8 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
+        <div className='discoverySectionDiv'></div>
+
         <h2 className="stockdiscoveryRowTitle">Top Stocks By Sector <DataUsageIcon /><InfoButtonModal title="Top ESG" info={
                         <div>
                             <p>This section displays the top 20 movers by % of their price over the past 24 hour period in each of the 11 sectors in the S&P500.</p>

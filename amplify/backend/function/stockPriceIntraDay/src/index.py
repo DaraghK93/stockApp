@@ -406,7 +406,9 @@ def handler(event,context):
             print(port_matched_count)
         except Exception as e:
             print(f'ERROR:cannot bulk write to portfolios collection\nException Details:\n\t{e}')
-
+            return {
+              'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }
         # holdings updates
         try:
             holdres = holdingsCollection.bulk_write(holdingsUpdates)
@@ -414,7 +416,9 @@ def handler(event,context):
             print(hold_matched_count)
         except Exception as e:
             print(f'ERROR:cannot bulk write to holdings collection\nException Details:\n\t{e}')
-
+            return {
+              'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }
         # transactions updates
         try:
             transres = transactionCollection.bulk_write(transactionsupdates)
@@ -422,6 +426,9 @@ def handler(event,context):
             print(trans_matched_count)
         except Exception as e:
             print(f'ERROR:cannot bulk write to transactions collection\nException Details:\n\t{e}')
+            return {
+              'Message': 'Error encountered, please view cloudwatch logs for detailied error messages',
+        }
   else:
       print("nothing to action")
 

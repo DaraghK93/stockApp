@@ -6,6 +6,7 @@ import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/Hold
 import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
+import GameStocks from "../../components/gameComponents/individualGameScreenComponents/GameStocks";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -173,7 +174,9 @@ function IndividualGameScreen() {
                         <><br></br><h2>This is rules screen</h2></>
                     }
                     {isShownStocks &&
-                        <><br></br><h2>This is stocks screen</h2></>
+                        <><br></br><h2>This is stocks screen</h2>
+                        <GameStocks league={league}></GameStocks>
+                        </>
                     }
                     {isShownPortfolio &&
                         <>

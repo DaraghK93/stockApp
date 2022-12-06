@@ -9,6 +9,7 @@ import StockSearchBar from '../../components/stockDiscoveryComponents/stockSearc
 import { useParams} from 'react-router-dom';
 import StockSummary from "../../components/stockDiscoveryComponents/stockSummary/stockSummary"
 import StockSearchResults from "../../components/stockDiscoveryComponents/stockSearchResults/StockSearchResults"
+import Footer from "../../components/layout/Footer/footer"
 
 function StockDiscoveryPage(){
     // keyword wil either be a word or undefiened, its used in search 
@@ -34,6 +35,7 @@ function StockDiscoveryPage(){
                     </Row>
                 )}
                 </div>
+                <Footer />
 </>
     )
     }

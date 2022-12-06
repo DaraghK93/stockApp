@@ -32,7 +32,6 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                 }else if (orderType === "Limit Order"){
                     setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:((Math.floor(stockPrice*1.15))*holding)-dollarAmountSelected}]) 
                 }
-                
         }
     }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance, orderType])
 

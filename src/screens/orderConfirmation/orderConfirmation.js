@@ -37,6 +37,7 @@ function OrderConfirmationPage() {
     const [limitPrice, setLimitPrice] = useState(0)
     const [limitOrderQuantityError, setLimitOrderQuantityError] = useState("")
     const [limitOrderPriceError, setLimitOrderPriceError] = useState("")
+    const [marketPriceError, setMarketPriceError] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
    
     /// Game State ///
@@ -218,6 +219,8 @@ function OrderConfirmationPage() {
                                     maxQuantity={portfolio.portfolioBalance-gameTradeFee}
                                     qty={qty}
                                     holding={holding}
+                                    marketPriceError = {marketPriceError}
+                                    setMarketPriceError = {setMarketPriceError}
                                 />
                                 </Col>
                         </Row>

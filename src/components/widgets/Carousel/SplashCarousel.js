@@ -1,5 +1,4 @@
 import Carousel from 'react-bootstrap/Carousel';
-
 function SplashCarousel() {
   return (
     <>
@@ -7,7 +6,7 @@ function SplashCarousel() {
         <Carousel.Item>
           <img
             className='d-block w-100'
-            src='https://picsum.photos/200'
+            src='/Splashpage_Carousel_1.png'
             alt='First slide'
           />
           <Carousel.Caption>
@@ -18,7 +17,7 @@ function SplashCarousel() {
         <Carousel.Item>
           <img
             className='d-block w-100'
-            src='https://picsum.photos/200'
+            src='/Splashpage_Carousel_2.png'
             alt='Second slide'
           />
 
@@ -30,7 +29,7 @@ function SplashCarousel() {
         <Carousel.Item>
           <img
             className='d-block w-100'
-            src='https://picsum.photos/200'
+            src='/Splashpage_Carousel_3.png'
             alt='Second slide'
           />
 
@@ -42,7 +41,7 @@ function SplashCarousel() {
         <Carousel.Item>
           <img
             className='d-block w-100'
-            src='https://picsum.photos/200'
+            src='/Splashpage_Carousel_4.png'
             alt='Third slide'
           />
 

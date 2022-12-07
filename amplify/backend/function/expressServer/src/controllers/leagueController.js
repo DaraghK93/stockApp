@@ -593,8 +593,16 @@ const deleteLeague = async (req, res, next) => {
         )
       )
     }
-    const userId = mongoose.Types.ObjectId(req.user.id)
-    if(!league.leagueAdmin.equals(userId)){
+    if(league.finished === true){
+      res.status(400)
+      res.errormessage = 'League is already finished or deleted.'
+      return next(
+        new Error(
+          'The chosen league has already finished or been deleted.'
+        )
+      )
+    }
+    if(!league.leagueAdmin !== req.user.id){
       res.status(400)
       res.errormessage = 'You do not have administrative permissions to delete this league.'
       return next(
@@ -604,8 +612,82 @@ const deleteLeague = async (req, res, next) => {
       )
     }
     await League.findByIdAndUpdate({_id:league._id}, {active: false, finished: true})
+    const finalLeague = await League.aggregate([
+      {
+        '$match': {
+          '_id': league._id
+        }
+      }, {
+        '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': 'portfolios', 
+          'foreignField': '_id', 
+          'as': 'portfolios', 
+          'pipeline': [
+            {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'userId', 
+                'foreignField': '_id', 
+                'as': 'user'
+              }
+            }, {
+              '$unwind': {
+                'path': '$user'
+              }
+            }, {
+              '$set': {
+                'user': '$user.username'
+              }
+            }, {
+              '$project': {
+                'totalValue': 1, 
+                'user': 1
+              }
+            }
+          ]
+        }
+      }, {
+        '$unwind': {
+          'path': '$portfolios'
+        }
+      }, {
+        '$sort': {
+          'portfolios.totalValue': -1
+        }
+      }, {
+        '$group': {
+          '_id': '$_id', 
+          'league': {
+            '$first': '$$ROOT'
+          }, 
+          'portfolios': {
+            '$push': '$portfolios'
+          }
+        }
+      }, {
+        '$addFields': {
+          'league.portfolios': '$portfolios'
+        }
+      }, {
+        '$replaceRoot': {
+          'newRoot': '$league'
+        }
+      }, {
+        '$set': {
+          'active': false, 
+          'finished': true, 
+          'finalStandings': '$portfolios'
+        }
+      }, {
+        '$merge': {
+          'into': 'leagues', 
+          'on': '_id'
+        }
+      }
+    ])
     res.json(
-      league._id
+      finalLeague
     )
   }
   catch (err) {

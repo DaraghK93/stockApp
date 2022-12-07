@@ -62,19 +62,5 @@ function LimitPriceSelect({ portfolioBalance, setAmountSelected, qty, setLimitPr
         </Card>
     )
 }
-//  <Card>
-//             <Container>
-//                 <h5 style={{ marginTop: "10px" }}>Limit Price</h5>
-//                 <p><strong>Portfolio A </strong>- Available Balance: ${portfolioBalance}</p>
-//                 <Row style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>
 
-//                     <h2 style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>${parseFloat(price).toFixed(2)}</h2>
-//                     <br></br><br></br><br></br>
-
-//                     </Row>
-//                     <input type="range" className="form-range" min={0} max={500} value={price} step={0.01}
-//                         onChange={sliderCall}
-//                     />
-//             </Container>
-//         </Card>
 export default LimitPriceSelect;

@@ -605,7 +605,7 @@ const deleteLeague = async (req, res, next) => {
         )
       )
     }
-    if(!league.leagueAdmin !== req.user.id){
+    if(league.leagueAdmin != req.user.id){
       res.status(400)
       res.errormessage = 'You do not have administrative permissions to delete this league.'
       return next(
@@ -615,7 +615,7 @@ const deleteLeague = async (req, res, next) => {
       )
     }
     await League.findByIdAndUpdate({_id:league._id}, {active: false, finished: true})
-    const finalLeague = await League.aggregate([
+    await League.aggregate([
       {
         '$match': {
           '_id': league._id
@@ -689,8 +689,9 @@ const deleteLeague = async (req, res, next) => {
         }
       }
     ])
+    const returnLeague = await League.findOne({_id: req.body.leagueId})
     res.json(
-      finalLeague
+      returnLeague
     )
   }
   catch (err) {

@@ -250,8 +250,8 @@ const getGameStocks = async (req, res, next) => {
     // check if esg ratings are correct
     if (
       !Number.isInteger(req.body.minERating) ||
-      !Number.isInteger(req.body.minERating) ||
-      !Number.isInteger(req.body.minERating) ||
+      !Number.isInteger(req.body.minSRating) ||
+      !Number.isInteger(req.body.minGRating) ||
       req.body.minERating < 0 ||
       req.body.minSRating < 0 ||
       req.body.minGRating < 0 ||
@@ -379,8 +379,8 @@ try{
   // check if esg ratings are correct
   if (
     !Number.isInteger(req.body.minERating) ||
-    !Number.isInteger(req.body.minERating) ||
-    !Number.isInteger(req.body.minERating) ||
+    !Number.isInteger(req.body.minSRating) ||
+    !Number.isInteger(req.body.minGRating) ||
     req.body.minERating < 0 ||
     req.body.minSRating < 0 ||
     req.body.minGRating < 0 ||

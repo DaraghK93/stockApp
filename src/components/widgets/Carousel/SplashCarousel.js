@@ -10,7 +10,7 @@ function SplashCarousel() {
             alt='First slide'
           />
           <Carousel.Caption>
-            <h3>Create or join a game</h3>
+            <h3>Create or Join a Game</h3>
             <p>Create or join a game with custom rules</p>
           </Carousel.Caption>
         </Carousel.Item>
@@ -22,8 +22,8 @@ function SplashCarousel() {
           />
 
           <Carousel.Caption>
-            <h3>Explore stocks</h3>
-            <p>Explore a wide range of stocks with personalised recommendations</p>
+            <h3>Explore Stocks</h3>
+            <p>Explore stocks with personalised recommendations</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
@@ -35,7 +35,7 @@ function SplashCarousel() {
 
           <Carousel.Caption>
             <h3>Research the best stocks to trade</h3>
-            <p>Explore stocks using our advanced artificial intellingce</p>
+            <p>Explore stocks using our advanced A.I. tools</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>

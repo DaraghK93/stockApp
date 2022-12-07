@@ -8,7 +8,6 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 import { useSelector } from 'react-redux';
-import { Rowing } from '@mui/icons-material';
 
 function GameStocksAll({ league }) {
   const [stocks, setStock] = useState({});
@@ -33,18 +32,21 @@ function GameStocksAll({ league }) {
   useEffect(() => {
     const getStocks = async () => {
       try {
-        console.log(page);
         setLoading(true);
-        let path = `/api/stock/test/route`;
+        let path = `/api/stock/gameStocks/all`;
         let body = {
-          page: page,
+          sectors: league.sectors,
+          minERating: league.minERating,
+          minSRating: league.minSRating,
+          minGRating: league.minGRating,
+          pageNumber: page,
         };
         let requestConfig = {
           body,
           headers: { 'x-auth-token': userToken },
         };
         const res = await API.post(APIName, path, requestConfig);
-        console.log(stocks);
+
         setStock(res);
         setLoading(false);
       } catch (error) {
@@ -79,7 +81,7 @@ function GameStocksAll({ league }) {
               </div>
             ))}
           </SideScrollMenu>
-          <Button onClick={prev}>Previous</Button>
+          {/* <Button onClick={prev}>Previous</Button>
           <Button onClick={next}>Next</Button>
           <Container style={{ border: 'solid' }}>
             <Row>
@@ -89,7 +91,7 @@ function GameStocksAll({ league }) {
                 </Col>
               ))}
             </Row>
-          </Container>
+          </Container> */}
         </>
       )}
     </>

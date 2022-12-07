@@ -8,7 +8,7 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 
-function GameStockSearchResults({ keyword }) {
+function GameStockSearchResults({ keyword, league }) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -21,9 +21,19 @@ function GameStockSearchResults({ keyword }) {
     const getStocks = async () => {
       try {
         setLoading(true);
-        let path = `/api/stock?keyword=${keyword}`;
-        const params = { headers: { 'x-auth-token': userToken } };
-        const res = await API.get(APIName, path, params);
+        let path = `/api/stock/gameStocks/search/${keyword}`;
+        let body = {
+            sectors: league.sectors,
+            minERating: league.minERating,
+            minSRating: league.minSRating,
+            minGRating: league.minGRating,
+          };
+          let requestConfig = {
+            body,
+            headers: { 'x-auth-token': userToken },
+          };
+          const res = await API.post(APIName, path, requestConfig);
+
         setStock(res);
         setLoading(false);
       } catch (error) {

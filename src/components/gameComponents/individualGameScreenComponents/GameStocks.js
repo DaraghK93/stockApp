@@ -21,6 +21,7 @@ function GameStocks({ league }) {
   useEffect(() => {
     console.log(isStockSummary);
     console.log(keyword);
+    console.log(league);
   }, [isStockSummary, keyword]);
   return (
     <>
@@ -42,16 +43,17 @@ function GameStocks({ league }) {
         </Container>
         {isStockSummary && keyword === undefined ? (
           <Row md={1} xs={1}>
-            <GameStocksSummary />
+            <GameStocksSummary league={league} />
+            {/* <GameStocksSummary league={league}></GameStocksSummary> */}
           </Row>
         ) : !isStockSummary && keyword === undefined ? (
-          <GameStocksAll></GameStocksAll>
+          <GameStocksAll league={league}></GameStocksAll>
         ) : (
           keyword !== undefined && (
             <Container>
               <Row md={1} xs={1}>
                 <Container>
-                  <GameStockSearchResults keyword={keyword} />
+                  <GameStockSearchResults keyword={keyword} league={league} />
                 </Container>
               </Row>
             </Container>

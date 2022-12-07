@@ -23,9 +23,19 @@ function GameStocksSummary({ league }) {
     const getStocks = async () => {
       try {
         setLoading(true);
-        let path = `/api/stock?keyword=undefined`;
-        const params = { headers: { 'x-auth-token': userToken } };
-        const res = await API.get(APIName, path, params);
+
+        let path = `/api/stock/gameStocks/summary`;
+        let body = {
+          sectors: league.sectors,
+          minERating: league.minERating,
+          minSRating: league.minSRating,
+          minGRating: league.minGRating,
+        };
+        let requestConfig = {
+          body,
+          headers: { 'x-auth-token': userToken },
+        };
+        const res = await API.post(APIName, path, requestConfig);
         setStock(res);
         setLoading(false);
       } catch (error) {
@@ -90,24 +100,6 @@ function GameStocksSummary({ league }) {
           </h3>
           <SideScrollMenu>
             {stocks[0].topGovernance.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <h3 className='stockdiscoveryRow'>Today's Top Moving Tech Stocks</h3>
-          <SideScrollMenu>
-            {stocks[0].Technology.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <h3 className='stockdiscoveryRow'>
-            Today's Top Moving Financial Service Stocks
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].Financial.map((stockObj) => (
               <div className='sideScrollCard' key={stockObj._id}>
                 <TickerCard key={stockObj._id} stock={stockObj} />
               </div>

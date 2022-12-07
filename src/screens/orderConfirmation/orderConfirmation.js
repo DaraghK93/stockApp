@@ -101,7 +101,8 @@ function OrderConfirmationPage() {
         setLimitOrderQuantityError("")
         setLimitOrderPriceError("")
         setMarketPriceError("")
-    }, [orderType])
+        setSpendingPowerError("")
+    }, [orderType,portfolioId])
 
 
     /// Portfolio Id 

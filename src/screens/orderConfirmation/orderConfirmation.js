@@ -96,7 +96,10 @@ function OrderConfirmationPage() {
             setIsShownMarketOrder(false)
             setIsShownLimitOrder(true)
         }
-
+        /// Reset the errors when you switch orders
+        setLimitOrderQuantityError("")
+        setLimitOrderPriceError("")
+        setMarketPriceError("")
     }, [orderType])
 
 

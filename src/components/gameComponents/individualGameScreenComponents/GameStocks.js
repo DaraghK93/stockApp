@@ -22,7 +22,17 @@ function GameStocks({ league }) {
       <div className='stockDiscovery'>
         <Container>
           <Row className='py-3'>
-            <h1 style={{ textAlign: 'center' }}>Tradable stocks</h1>
+            {isStockSummary && keyword === undefined ? (
+              <h1 style={{ textAlign: 'center' }}>Tradable stocks - Summary</h1>
+            ) : !isStockSummary && keyword === undefined ? (
+              <h1 style={{ textAlign: 'center' }}>
+                Tradable stocks - All Stocks
+              </h1>
+            ) : (
+              <h1 style={{ textAlign: 'center' }}>
+                Tradable stocks - Search
+              </h1>
+            )}
           </Row>
           <Row>
             <Col style={{ alignItems: 'center' }} className='text-center'>

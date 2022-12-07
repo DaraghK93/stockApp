@@ -49,11 +49,6 @@ function GameStocksSummary({ league }) {
 
   return (
     <>
-      <Row className='mx-4'>
-        <Col className='py-4'>
-          <h2>Discover stocks</h2>
-        </Col>
-      </Row>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (

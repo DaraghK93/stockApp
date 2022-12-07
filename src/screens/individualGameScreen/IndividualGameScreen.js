@@ -155,6 +155,8 @@ function IndividualGameScreen() {
         }
     }
 
+    console.log(portfolio)
+
 
     return (
         <>
@@ -222,7 +224,7 @@ function IndividualGameScreen() {
                                 </Row>
                                 <Row>
                                     <Col><br></br>
-                                        <TransactionHistory />
+                                        <TransactionHistory transactions={portfolio.transactions}/>
                                     </Col>
                                 </Row>
                             </Container>

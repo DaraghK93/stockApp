@@ -48,7 +48,7 @@ function SplashCarousel() {
           <Carousel.Caption>
             <h3>Compete against friends</h3>
             <p>
-              See in real time where you stand against others
+              See in real time where you stand against your friends
             </p>
           </Carousel.Caption>
         </Carousel.Item>

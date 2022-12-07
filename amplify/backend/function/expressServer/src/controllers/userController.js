@@ -161,7 +161,7 @@ const loginUser = async (req, res, next) => {
     jwt.sign(
       payload,
       jwtSecret,
-      { expiresIn: 30 },
+      { expiresIn: 6000 },
       (err, token) => {
         if (err) throw err
         res.json({

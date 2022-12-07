@@ -8,7 +8,8 @@ import {
   USER_LOGIN_REQUEST,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
-  USER_LOGOUT, // For userLoginLogoutReducer
+  USER_LOGOUT,
+  USER_VERIFY_JWT_REQUEST,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
@@ -51,8 +52,12 @@ export function login(email, password) {
 
 export function verifyJWT(jwtToken) {
   return (dispatch) => {
+    /// Set the verify state loading to true 
+    dispatch({ type: USER_VERIFY_JWT_REQUEST })
+
+
     /// Decode the JWT 
-    console.log("I am hit")
+    console.log("I am hit",jwtToken)
     var dateNow = new Date();
     let decoded = jwt_decode(jwtToken)
     var d = new Date(0); // The 0 there is the key, which sets the date to the epoch

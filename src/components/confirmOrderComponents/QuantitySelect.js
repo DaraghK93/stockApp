@@ -17,10 +17,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
             setMax(holding*stockPrice)
         }
 
-        // if (portfolioBalance < gameTradeFee){
-        //     /// Portfolio balance is not enough to make a trade 
-        //     setMarketPriceError(`Your current spending power ${parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} is less than the game trade fee of ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, you dont have enough to make this trade!`)
-        // }
+       
         //// Only Update the states if within max and min limits 
         if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= max){
             setMarketPriceError("")
@@ -36,7 +33,8 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
                 setNewPortfolioBalance((parseFloat(portfolioBalance) + parseFloat(dollarAmountSelected) - parseFloat(gameTradeFee)))
             }
         }else if (dollarAmountSelected > max){
-            if (buyOrSell === "Buy"){
+            /// Greater than 0 test here as the 0 test case is caught in portfolio balance component 
+            if (buyOrSell === "Buy" && (portfolioBalance-gameTradeFee > 0)){
                 /// If we a re greater than max in a buy order then we are trying to spend more money than we have 
                 setMarketPriceError(`You can only spend ${parseFloat(portfolioBalance-gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} due to the ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} game trade fee`)
             }else if (buyOrSell === "Sell"){

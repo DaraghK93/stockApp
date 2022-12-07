@@ -44,7 +44,8 @@ function LimitQuantitySelect({setQty, qty, limitPrice, setDollarAmountSelected, 
             }
         }else if (qty > max){
             /// Greeater than errors -> For buy they cant afford it, for sell they havent got that many 
-            if (buyOrSell === "Buy"){
+            /// Greater than 0 test here as the 0 test case is caught in portfolio balance component 
+            if (buyOrSell === "Buy" && (portfolioBalance-gameTradeFee > 0)){
                 setLimitOrderQuantityError(`Cannot afford ${qty} stocks at ${parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} a share, try lowering the price or the number of stocks!`)
             }else if (buyOrSell === "Sell"){
                 setLimitOrderQuantityError(`You cant sell what you dont have, you own ${holding.toFixed(2)} stocks`)

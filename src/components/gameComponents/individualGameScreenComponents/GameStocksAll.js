@@ -21,7 +21,9 @@ function GameStocksAll({ league }) {
   const userToken = userInfo.token;
 
   function next() {
-    setPage(page + 1);
+    if (!error) {
+      setPage(page + 1);
+    }
   }
   function prev() {
     if (page > 0) {
@@ -51,6 +53,7 @@ function GameStocksAll({ league }) {
         setLoading(false);
         setError('');
       } catch (error) {
+        prev();
         console.log(error);
         setError(error.response.data.errormessage);
         setLoading(false);
@@ -61,11 +64,15 @@ function GameStocksAll({ league }) {
 
   return (
     <>
-      <h2>All stocks</h2>
-      <h3 className='stockdiscoveryRow'>Page {page}</h3>
-      <Row className='py-2'>
-        <Col>
+      <Row className='mx-4'>
+        <Col className='py-4'>
+          <h2>All stocks - Page {page}</h2>
+        </Col>
+      </Row>
+      <Row className='mx-4'>
+        <Col className='py-2'>
           <Button onClick={prev}>Previous</Button>
+          {'  '}
           <Button onClick={next}>Next</Button>
         </Col>
       </Row>

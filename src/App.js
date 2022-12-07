@@ -51,10 +51,10 @@ function App() {
           element={userInfo ? <Navigate to="/stockdiscovery" /> : <HomeScreen />} />
 
         <Route path='/register'
-          element={userInfo ? <Navigate to="/stockdiscovery" /> : <RegistrationPage />} />
+          element={userInfo ? <Navigate to="/game" /> : <RegistrationPage />} />
 
         <Route path='/login'
-          element={userInfo ? <Navigate to="/stockdiscovery" /> : <LoginPage />} />
+          element={userInfo ? <Navigate to="/game" /> : <LoginPage />} />
 
         <Route path='/stockdiscovery/'
           element={userInfo ? <StockDiscoveryPage /> : <Navigate to="/" />} />

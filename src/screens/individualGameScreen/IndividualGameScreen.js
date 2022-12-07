@@ -155,7 +155,7 @@ function IndividualGameScreen() {
         }
     }
 
-    console.log(portfolio)
+    // console.log(portfolio)
 
 
     return (

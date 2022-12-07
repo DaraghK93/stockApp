@@ -13,26 +13,26 @@ exports = function(changeEvent) {
 
   const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
   return collection.aggregate([
-    {
+    {// match on active and valueBased leagues
       '$match': {
         'finished': false, 
         'active': true, 
         'leagueType': 'valueBased'
       }
-    }, {
+    }, {// bring in portfolio values
       '$lookup': {
         'from': 'portfolioValues', 
         'localField': 'portfolios', 
         'foreignField': '_id', 
         'as': 'values'
       }
-    }, {
+    }, {// set the max value to a portfolioMax field
       '$set': {
         'portfolioMax': {
           '$max': '$values.totalValue'
         }
       }
-    }, {
+    }, {// match on leagues where max portfolio value is >= winningValue
       '$match': {
         '$expr': {
           '$gte': [
@@ -40,18 +40,18 @@ exports = function(changeEvent) {
           ]
         }
       }
-    }, {
+    }, {// get rid of that field
       '$unset': [
         'values', 'portfolioMax'
       ]
-    }, {
+    }, {// lookup the portfolio values and sort to get leaderboard
       '$lookup': {
         'from': 'portfolioValues', 
         'localField': 'portfolios', 
         'foreignField': '_id', 
         'as': 'portfolios', 
         'pipeline': [
-          {
+          { // bring in usenames
             '$lookup': {
               'from': 'users', 
               'localField': 'userId', 
@@ -66,7 +66,7 @@ exports = function(changeEvent) {
             '$set': {
               'user': '$user.username'
             }
-          }, {
+          }, { // set the totalValue and username
             '$project': {
               'totalValue': 1, 
               'user': 1
@@ -74,15 +74,15 @@ exports = function(changeEvent) {
           }
         ]
       }
-    }, {
+    }, { // make into objects
       '$unwind': {
         'path': '$portfolios'
       }
-    }, {
+    }, {// sort
       '$sort': {
         'portfolios.totalValue': -1
       }
-    }, {
+    }, { // group byleague and portfolio 
       '$group': {
         '_id': '$_id', 
         'league': {
@@ -92,21 +92,21 @@ exports = function(changeEvent) {
           '$push': '$portfolios'
         }
       }
-    }, {
+    }, {// set the pportfolios field to the leaderboard
       '$addFields': {
         'league.portfolios': '$portfolios'
       }
-    }, {
+    }, {// make league the root object
       '$replaceRoot': {
         'newRoot': '$league'
       }
-    }, {
+    }, {// finish the league and set finalStandings
       '$set': {
         'finished': true, 
         'active': false, 
         'finalStandings': '$portfolios'
       }
-    }, {
+    }, {// merge to documents
       '$merge': {
         'into': 'leagues', 
         'on': '_id'

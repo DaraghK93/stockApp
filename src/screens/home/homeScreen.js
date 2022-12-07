@@ -14,6 +14,7 @@ import ChartCard from '../../components/stockVisualisationComponents/ChartCard/C
 import SplashCarousel from '../../components/widgets/Carousel/SplashCarousel';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMenu';
+import Footer from '../../components/layout/Footer/footer'
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -811,10 +812,8 @@ function HomeScreen() {
           </Col>
         </Row>
       </Container>
-      <div className='footer'>
-        <p>Here is all the info for the footer</p>
-        <p>FinOptimise all rights reserved. Not financial advice</p>
-      </div>
+      <Footer />
+    
     </>
   );
 }

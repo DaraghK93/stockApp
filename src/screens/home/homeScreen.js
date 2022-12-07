@@ -658,8 +658,12 @@ function HomeScreen() {
           </Col>
         </Row>
         <Row>
+          <Col>
+            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border:"none"}}></Image>
+          </Col>
+        <Row>
           <Col className='mx-4'>
-            <p>
+            <p className='splashpageParagraph'>
               FinOptimise is a fantasy stock trading game. Play with friends.
               Use our artificial intelligence to pick the best stocks. Good
               luck!
@@ -673,10 +677,7 @@ function HomeScreen() {
             </Button>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border:"none"}}></Image>
-          </Col>
+
         </Row>
       </Container>
       <Row className='py-4 banner'>
@@ -691,9 +692,8 @@ function HomeScreen() {
         </Row>
         <Row>
           <Col className='mx-4'>
-            <p>
-              Experience the stock market risk free. Research stocks to get
-              ahead. Compete with friends
+            <p className='splashpageParagraph'>
+              Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
             </p>
           </Col>
         </Row>

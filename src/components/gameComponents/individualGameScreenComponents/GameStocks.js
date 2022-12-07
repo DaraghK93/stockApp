@@ -2,8 +2,7 @@ import { Row, Col, Container, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import GameStocksSummary from './GameStocksSummary';
-import StockSearchBar from '../../stockDiscoveryComponents/stockSearchBar/StockSearchBar';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import GameStocksAll from './GameStocksAll';
 import GameStockSearchResults from './GameStockSearchResults';
 import GameStockSearchBar from './GameStockSearchBar';

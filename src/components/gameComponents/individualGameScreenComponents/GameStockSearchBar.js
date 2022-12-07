@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from '../../layout/FormContainer/FormContainer';
+import { Row, Col } from 'react-bootstrap';
 
 // Search feature fucntion which passes the user input as props
 function GameStockSearchBar({ leagueId }) {
@@ -29,6 +30,15 @@ function GameStockSearchBar({ leagueId }) {
     <>
       <FormContainer>
         <Form onSubmit={submitHandler}>
+          {showBackButton && (
+            <Row>
+              <Col style={{ alignItems: 'center' }} className='text-center'>
+                <Button type='submit' style={{ width: '10rem' }}>
+                  Toggle all stocks
+                </Button>{' '}
+              </Col>
+            </Row>
+          )}
           <div className='searchForm'>
             <Form.Control
               type='text'
@@ -37,11 +47,7 @@ function GameStockSearchBar({ leagueId }) {
               placeholder='Search Stocks'
             ></Form.Control>
             <div className='searchButton'>
-              {showBackButton ? (
-                <Button type='submit'>Back/Search</Button>
-              ) : (
-                <Button type='submit'>Search</Button>
-              )}
+              <Button type='submit'>Search</Button>
             </div>
           </div>
         </Form>

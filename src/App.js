@@ -24,7 +24,8 @@ import { useEffect } from 'react';
 
 /// Redux ///
 import { useSelector,useDispatch } from 'react-redux';
-import {updateActivePortfolios} from './actions/portfolioActions';
+import {verifyJWT} from './actions/userActions';
+// import {updateActivePortfolios} from './actions/portfolioActions';
 
 function App() {
   /// Get the user state from redux, will be used to see if user is logged in  
@@ -35,8 +36,12 @@ function App() {
    useEffect(() => {
         /// If the user is logged in 
         if (userInfo){
+          /// Need to check the valididty of the usersInfo 
+          dispatch(verifyJWT(userInfo.token))  
+
+
           /// Set the active portfolio state 
-          dispatch(updateActivePortfolios(userInfo.token))   
+          // dispatch(updateActivePortfolios(userInfo.token))   
         }
     },[dispatch,userInfo])
 

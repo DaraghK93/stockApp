@@ -17,7 +17,8 @@ import {
   USER_CHANGEDETAILS_FAIL
 } from '../constants/userActionConstants'
 import { APIName } from '../constants/APIConstants'
-import { API } from 'aws-amplify'
+import { API } from 'aws-amplify';
+import jwt_decode from "jwt-decode";
 
 export function login(email, password) {
   // Return an async function so that it can be awaited in component that calls it
@@ -47,6 +48,31 @@ export function login(email, password) {
     }
   }
 }
+
+export function verifyJWT(jwtToken) {
+  return (dispatch) => {
+    /// Decode the JWT 
+    console.log("I am hit")
+    var dateNow = new Date();
+    let decoded = jwt_decode(jwtToken)
+    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
+    d.setUTCSeconds(decoded.exp);
+    console.log(d)
+    /// Check if expiry time is less than current time
+    /// Need to convert the tokens expirt time to milliseconds 
+    if(decoded.exp * 1000 < dateNow.getTime()){
+      console.log("I AM EXPIRED")
+      // remvoe the users info from local storage
+      localStorage.removeItem('userInfo')
+      // Dispatch the logout action
+      dispatch({ type: USER_LOGOUT })
+    }else{
+      console.log("NOT EXPIRED")
+    }
+  }
+}
+
+
 
 export function logout() {
   return (dispatch) => {

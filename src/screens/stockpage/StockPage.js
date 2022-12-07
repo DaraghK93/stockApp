@@ -3,7 +3,7 @@
 //  <URL>/stock/:symbol
 // Description:
 //  This screen contains the components rendered to the user when they click on an individual stock
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
@@ -38,6 +38,9 @@ function StockPage() {
 
     /// React Router ///
     const navigate = useNavigate() 
+
+    // get symbol from query Params
+    const { symbol } = useParams()
 
     var lineColor;
     var gradientColor;
@@ -75,8 +78,6 @@ function StockPage() {
             try {
                 // Request is being sent set loading true   
                 setLoading(true);
-                // get the symbol from the href, got last index of last slash and used substring method
-                const symbol = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
                 // Set the path and use symbol to get single stock
                 let path = `/api/stock/${symbol}`
                 // Send the request with API package
@@ -93,7 +94,7 @@ function StockPage() {
             }
         }
         getStockInfo();
-    }, [])
+    }, [symbol])
 
 
 

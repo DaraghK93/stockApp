@@ -15,10 +15,10 @@ function GameStockSearchBar({ leagueId }) {
     if (keyword.trim()) {
       navigate(`/search/game/${leagueId}/${keyword}`);
       setShowBackButton(true);
-      setKeyword(undefined);
     } else {
       navigate(`/game/${leagueId}`);
       setShowBackButton(false);
+      setKeyword(undefined);
     }
     //reset form to blank after search
     e.target.reset();

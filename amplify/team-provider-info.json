@@ -39,7 +39,10 @@
         "stockPriceIntraDay": {
           "environment": "prod",
           "databasename": "dev",
-          "collection": "stocks"
+          "stockcollection": "stocks",
+          "portfoliocollection": "portfolios",
+          "holdingscollection": "holdings",
+          "transactioncollection": "transactions"
         }
       }
     }

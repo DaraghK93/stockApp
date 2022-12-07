@@ -35,7 +35,8 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
 
     return (
             <Card className="px-3">
-                <h5 style={{ marginTop: "10px"}}>Quantity</h5>
+                <h5 style={{ marginTop: "10px"}}>Quantity </h5>
+                <p>{`Excludes ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} trade fee`}</p>
                 <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
                     <h2>{parseFloat(qty).toFixed(2)} stocks</h2>
                      <RangeSlider 

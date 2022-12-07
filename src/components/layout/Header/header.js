@@ -43,7 +43,7 @@ function Header() {
     <Navbar expand="lg" variant="dark"
       className="navbar">
       <Container>
-        <Navbar.Brand style={{ color: 'white' }} as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
+        <Navbar.Brand style={{ color: 'white' }} as={Link} to="/game">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
         <Navbar.Toggle style={{ color: "white" }} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {userInfo ?
@@ -58,7 +58,7 @@ function Header() {
                   <NavDropdown  className="justify-content-end userDropDown"  title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
                   <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/myportfolios">Portfolios</NavDropdown.Item>
-                  <div class="dropdown-divider"></div>
+                  <div className="dropdown-divider"></div>
                   <NavDropdown.Item as={Link}  to="/settings">Settings</NavDropdown.Item>
                 <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
                 </NavDropdown>

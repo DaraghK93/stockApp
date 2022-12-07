@@ -146,5 +146,3 @@ function LeaderBoard({ leaderBoardInfo }) {
 }
 
 export default LeaderBoard;
-
-

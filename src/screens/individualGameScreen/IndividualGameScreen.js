@@ -34,6 +34,8 @@ function IndividualGameScreen() {
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
+    const [portfolioLoading, setPortfolioLoading] = useState();
+    const [portfolioError, setPortfolioError] = useState();
 
     /// Redux State ///
     const user = useSelector((state) => state.user)
@@ -79,7 +81,7 @@ function IndividualGameScreen() {
 
     useEffect(() => {
         // Request is being sent set loading true   
-        setLoading(true);
+        setPortfolioLoading(true);
         // get the league Id from the href, got last index of last slash and used substring method
         const leagueId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
         let path = `/api/portfolio/${leagueId}`;
@@ -89,13 +91,13 @@ function IndividualGameScreen() {
         API.get(APIName, path, myInit)
             .then((response) => {
                 setPortfolio(response)
-                setLoading(false)
+                setPortfolioLoading(false)
             })
             .catch((error) => {
                 /// This will be an error from API call 
                 console.log(error);
-                setError(error.response.data.errormessage)
-                setLoading(false)
+                setPortfolioError(error.response.data.errormessage)
+                setPortfolioLoading(false)
             });
     }, [userToken])
 
@@ -131,6 +133,7 @@ function IndividualGameScreen() {
         }
     }
 
+
     function timeOrValueLine() {
 
         if (league.finished === true) {
@@ -160,7 +163,10 @@ function IndividualGameScreen() {
 
     return (
         <>
-            {loading || typeof portfolio === "undefined" ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            {loading || portfolioLoading ? <LoadingSpinner /> 
+            : error ? <MessageAlert variant='danger'>{error}</MessageAlert> 
+            : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert>
+            :
                 <>
                     <div className="container-img">
                         <Image className="gameImage" src={league.image}></Image>
@@ -202,7 +208,7 @@ function IndividualGameScreen() {
                         </Container>
                     }
                     {isShownPortfolio && portfolio.holdings.length === 0 ?
-                    
+
                         <>
                             <Container style={{ textAlign: "center" }}>
                                 <br></br>
@@ -211,7 +217,7 @@ function IndividualGameScreen() {
                                 <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
                             </Container>
                         </>
-                             : isShownPortfolio &&
+                        : isShownPortfolio &&
                         <>
                             <Container>
                                 <Row>

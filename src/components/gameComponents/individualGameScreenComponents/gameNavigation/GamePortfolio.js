@@ -19,7 +19,7 @@ function GamePortfolio({ data, name, totalValue }) {
                     </Row>
                     <Row>
                         <Col style={{ paddingLeft: 0 }}>
-                            {data.length > 0 ?
+                            {data.length > 1 ?
 
                                 <>
                                     <dl className='infoList' style={{ padding: 0 }}>

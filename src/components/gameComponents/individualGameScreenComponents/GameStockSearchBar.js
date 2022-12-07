@@ -13,7 +13,7 @@ function GameStockSearchBar({ leagueId }) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/search/game/${leagueId}/${keyword}`);
+      navigate(`/search/game/${keyword}/${leagueId}`);
       setShowBackButton(true);
     } else {
       navigate(`/game/${leagueId}`);

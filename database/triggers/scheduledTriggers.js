@@ -24,8 +24,82 @@ exports = function() {
     const today = new Date().setHours(0,0,0,0);
     // update any league where the endDate is today
     // active to false, finished to true. ends the league
-    return collection.updateMany({ endDateDate: new Date(today) }, {$set:{active:false, finished:true}});
-  
+    return collection.aggregate([
+      {
+        '$match': {
+          'active': true, 
+          'finished': false, 
+          'startDate': new Date(today)
+        }
+      }, {
+        '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': 'portfolios', 
+          'foreignField': '_id', 
+          'as': 'portfolios', 
+          'pipeline': [
+            {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'userId', 
+                'foreignField': '_id', 
+                'as': 'user'
+              }
+            }, {
+              '$unwind': {
+                'path': '$user'
+              }
+            }, {
+              '$set': {
+                'user': '$user.username'
+              }
+            }, {
+              '$project': {
+                'totalValue': 1, 
+                'user': 1
+              }
+            }
+          ]
+        }
+      }, {
+        '$unwind': {
+          'path': '$portfolios'
+        }
+      }, {
+        '$sort': {
+          'portfolios.totalValue': -1
+        }
+      }, {
+        '$group': {
+          '_id': '$_id', 
+          'league': {
+            '$first': '$$ROOT'
+          }, 
+          'portfolios': {
+            '$push': '$portfolios'
+          }
+        }
+      }, {
+        '$addFields': {
+          'league.portfolios': '$portfolios'
+        }
+      }, {
+        '$replaceRoot': {
+          'newRoot': '$league'
+        }
+      }, {
+        '$set': {
+          'active': false, 
+          'finished': true, 
+          'finalStandings': '$portfolios'
+        }
+      }, {
+        '$merge': {
+          'into': 'leagues', 
+          'on': '_id'
+        }
+      }
+    ]);
   }
 
   exports = function() {

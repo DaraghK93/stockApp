@@ -1,27 +1,20 @@
 import { Card, Col, Container, Table, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import moment from "moment";
+import {Link} from "react-router-dom"
 
 function TransactionHistory({ transactions }) {
-    const [status, setStatus] = useState("CANCELLED")
+
     const [showCancelCol, setShowCancelCol] = useState("")
     const [data, setData] =useState("")
+    const [currentStatus, setCurrentStatus] = useState("COMPLETED")
 
-    const updateStatus = (e) => {
-        setStatus(e.target.value)
+    useEffect(() => {
         const filtered = transactions.filter(transaction => {
-             return transaction.status === e.target.value
-        })
-        setData(filtered)
-        if (e.target.value == "PENDING") {
-            setShowCancelCol(true)
-
-        }
-        else {
-            setShowCancelCol(false)
-        }
-
-    };
+            return transaction.status === "COMPLETED"
+       })
+       setData(filtered)
+    }, [transactions])
 
 
     const columns = [
@@ -36,6 +29,23 @@ function TransactionHistory({ transactions }) {
         { label: "CANCEL", accessor: "10", sortable: true, sortbyOrder: "", showHeader: showCancelCol },
     ];
 
+    const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
+
+    const updateStatus = (status) => {
+        setCurrentStatus(status)
+        const filtered = transactions.filter(transaction => {
+            return transaction.status === status
+       })
+       setData(filtered)
+       if (status === "PENDING") {
+           setShowCancelCol(true)
+
+       }
+       else {
+           setShowCancelCol(false)
+       }
+    }
+
 
     return (
         <>
@@ -47,9 +57,19 @@ function TransactionHistory({ transactions }) {
                 </div>
                 <br />
                 <Container>
-                    <Button id={1} value="PENDING" onClick={updateStatus}>Pending</Button> <Button id={2} value="COMPLETED" onClick={updateStatus}>Completed</Button> <Button
-                        id={3} value="CANCELLED" onClick={updateStatus}>Cancelled</Button>
 
+
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <nav>
+                            <ul key="updateStatus" className="pagination">
+                                {statuses.map(status => (
+                                    <li key={status} value={status} className={currentStatus === status ? 'page-item active' : 'page-item'}>
+                                        <button onClick={() => updateStatus(status)} className="page-link"> {status} </button>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                </div>
                     <Table style={{ borderCollapse: "collapse" }}>
                         <thead>
                             <tr key="cols">
@@ -57,7 +77,7 @@ function TransactionHistory({ transactions }) {
                                     return <th
                                         key={accessor}
                                         className={showHeader ? "leaderBoardShow" : "leaderBoardHide"}
-                                    ><strong>{label}</strong>
+                                    ><strong><center>{label}</center></strong>
                                     </th>;
                                 })}
                             </tr>
@@ -66,15 +86,29 @@ function TransactionHistory({ transactions }) {
                             {data ?
                                 data.map((transaction, index) => (
                             <tr key={index}>
-                                <td key={transaction.date}>{moment(transaction.date).format('DD-MM-YYYY')}</td>
-                                <td key={transaction.stock[0].logo}>{String(transaction.stock[0].logo)}</td>
-                                <td key={transaction.stock[0].symbol}>{transaction.stock[0].symbol}</td>
-                                <td key={transaction.buyOrSell}>{transaction.buyOrSell}</td>
-                                <td key={transaction.value}>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                                <td key={transaction.orderType}>{transaction.orderType}</td>
-                                <td key={transaction.tradingFee}>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
-                                <td key={transaction.units}>{transaction.units.toFixed(2)}</td>
-                                <td className={showCancelCol ? "leaderBoardShow" : "leaderBoardHide"}><Button variant="danger">Cancel</Button></td>
+                                <td key={transaction.date}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
+                                <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>
+                                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                <div style={{
+                                                    width: "3.5rem",
+                                                    height: "2rem",
+                                                }}>
+                                                    <img src={transaction.stock[0].logo} style={{
+                                                        height: "100%",
+                                                        maxWidth: "100%",
+                                                        display: "block",
+                                                        objectFit: "contain"
+                                                    }} alt="company logo"></img>
+                                                </div>
+                                            </div>
+                                        </Link></center></td>
+                                <td key={transaction.stock[0].symbol}><center>{transaction.stock[0].symbol}</center></td>
+                                <td key={transaction.buyOrSell}><center>{transaction.buyOrSell}</center></td>
+                                <td key={transaction.value}><center>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                <td key={transaction.orderType}><center>{transaction.orderType}</center></td>
+                                <td key={transaction.tradingFee}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                <td key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
+                                <td className={showCancelCol ? "leaderBoardShow" : "leaderBoardHide"}><center><Button variant="danger">Cancel</Button></center></td>
 
 
 

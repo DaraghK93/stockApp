@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 /// Redux ///
 import { useSelector,useDispatch } from 'react-redux';
 import {verifyJWT} from './actions/userActions';
+import LoadingSpinner from './components/widgets/LoadingSpinner/LoadingSpinner';
 // import {updateActivePortfolios} from './actions/portfolioActions';
 
 function App() {
@@ -32,11 +33,12 @@ function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const { userInfo } = user;
-
+  const validJWT = useSelector((state) => state.validJWT)
+  const {loading} = validJWT;
    useEffect(() => {
         /// If the user is logged in 
         if (userInfo){
-          /// Need to check the valididty of the usersInfo 
+          /// Need to check the valididty of the usersInfo token  
           dispatch(verifyJWT(userInfo.token))  
 
 
@@ -48,6 +50,9 @@ function App() {
 
 
   return (
+    <>
+    {loading ? <LoadingSpinner/>
+    :
     <Router>
       <Header />
       <Routes>
@@ -100,10 +105,10 @@ function App() {
 
         <Route path='/settings'
           element={userInfo ? <UserSettingsPage /> : <Navigate to="/" />} />
-
-
       </Routes>
     </Router>
+    }
+    </>
   );
 }
 

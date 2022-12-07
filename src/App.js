@@ -40,8 +40,6 @@ function App() {
         if (userInfo){
           /// Need to check the valididty of the usersInfo token  
           dispatch(verifyJWT(userInfo.token))  
-
-
           /// Set the active portfolio state 
           // dispatch(updateActivePortfolios(userInfo.token))   
         }

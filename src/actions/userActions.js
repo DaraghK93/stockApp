@@ -9,13 +9,15 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
-  USER_VERIFY_JWT_REQUEST,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
   USER_REGISTER_FAIL,
   USER_CHANGEDETAILS_REQUEST,
   USER_CHANGEDETAILS_SUCCESS,
-  USER_CHANGEDETAILS_FAIL
+  USER_CHANGEDETAILS_FAIL,
+  USER_VERIFY_JWT_REQUEST,
+  USER_VERIFY_JWT_SUCCESS,
+  USER_VERIFY_JWT_FAIL
 } from '../constants/userActionConstants'
 import { APIName } from '../constants/APIConstants'
 import { API } from 'aws-amplify';
@@ -54,25 +56,23 @@ export function verifyJWT(jwtToken) {
   return (dispatch) => {
     /// Set the verify state loading to true 
     dispatch({ type: USER_VERIFY_JWT_REQUEST })
-
-
     /// Decode the JWT 
-    console.log("I am hit",jwtToken)
-    var dateNow = new Date();
     let decoded = jwt_decode(jwtToken)
-    var d = new Date(0); // The 0 there is the key, which sets the date to the epoch
-    d.setUTCSeconds(decoded.exp);
-    console.log(d)
-    /// Check if expiry time is less than current time
-    /// Need to convert the tokens expirt time to milliseconds 
-    if(decoded.exp * 1000 < dateNow.getTime()){
-      console.log("I AM EXPIRED")
-      // remvoe the users info from local storage
+    /// Get the difference in units of days to when the token expires 
+    var dateNow = new Date();
+    let difference = (decoded.exp * 1000) - dateNow.getTime() // * 1000 here to convert seconds -> ms 
+    let daysToExpire = Math.ceil(difference / (1000 * 3600 * 24));
+    /// If there token expires today or in the past then make them log back in 
+    if (daysToExpire <= 1){
+      // remove the users info from local storage, will have old JWT in it 
       localStorage.removeItem('userInfo')
-      // Dispatch the logout action
+      /// Dispatch logout action will remove userInfo from redux 
       dispatch({ type: USER_LOGOUT })
+      /// Dispatch the User verify fail, will set valid to false and loading to false 
+      dispatch({ type: USER_VERIFY_JWT_FAIL })
     }else{
-      console.log("NOT EXPIRED")
+      /// Token is ok set the valid state to true and loading false
+      dispatch({type: USER_VERIFY_JWT_SUCCESS})
     }
   }
 }

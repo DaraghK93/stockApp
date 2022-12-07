@@ -8,12 +8,13 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 import { useSelector } from 'react-redux';
+import { Rowing } from '@mui/icons-material';
 
 function GameStocksAll({ league }) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   //Redux
   const user = useSelector((state) => state.user);
@@ -58,17 +59,19 @@ function GameStocksAll({ league }) {
   return (
     <>
       <h2>All stocks</h2>
+      <h3 className='stockdiscoveryRow'>Page {page}</h3>
+      <Row className='py-2'>
+        <Col>
+          <Button onClick={prev}>Previous</Button>
+          <Button onClick={next}>Next</Button>
+        </Col>
+      </Row>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
         <MessageAlert variant='danger'>{error}</MessageAlert>
       ) : (
         <>
-          <h3 className='stockdiscoveryRow'>
-            Page {page}
-          </h3>
-          <Button onClick={prev}>Previous</Button>
-          <Button onClick={next}>Next</Button>
           <SideScrollMenu>
             {stocks.map((stockObj) => (
               <div className='sideScrollCard' key={stockObj._id}>
@@ -76,6 +79,17 @@ function GameStocksAll({ league }) {
               </div>
             ))}
           </SideScrollMenu>
+          <Button onClick={prev}>Previous</Button>
+          <Button onClick={next}>Next</Button>
+          <Container style={{ border: 'solid' }}>
+            <Row>
+              {stocks.map((stockObj) => (
+                <Col md={3} className='py-2'>
+                  <TickerCard key={stockObj._id} stock={stockObj} />
+                </Col>
+              ))}
+            </Row>
+          </Container>
         </>
       )}
     </>

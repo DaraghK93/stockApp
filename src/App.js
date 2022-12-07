@@ -25,6 +25,7 @@ import { useEffect } from 'react';
 /// Redux ///
 import { useSelector,useDispatch } from 'react-redux';
 import {updateActivePortfolios} from './actions/portfolioActions';
+import GameStocks from './components/gameComponents/individualGameScreenComponents/GameStocks';
 
 function App() {
   /// Get the user state from redux, will be used to see if user is logged in  
@@ -61,6 +62,9 @@ function App() {
 
         <Route path='/search/stock/:keyword'
           element={userInfo ? <StockDiscoveryPage /> : <Navigate to="/" />} />
+
+        <Route path='/search/game/:gameId/:keyword'
+          element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
         <Route path='/stock/:symbol'
           element={userInfo ? <StockPage /> : <Navigate to="/" />} />

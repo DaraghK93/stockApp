@@ -3,9 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import GameStocksSummary from './GameStocksSummary';
 import StockSearchBar from '../../stockDiscoveryComponents/stockSearchBar/StockSearchBar';
-import StockSearchResults from '../../stockDiscoveryComponents/stockSearchResults/StockSearchResults';
 import { useState, useEffect } from 'react';
 import GameStocksAll from './GameStocksAll';
+import GameStockSearchResults from './GameStockSearchResults';
+import GameStockSearchBar from './GameStockSearchBar';
 
 function GameStocks({ league }) {
   let { keyword } = useParams();
@@ -14,11 +15,13 @@ function GameStocks({ league }) {
 
   function toggleStockSummary() {
     setIsStockSummary(!isStockSummary);
+    keyword = undefined;
   }
 
   useEffect(() => {
     console.log(isStockSummary);
-  }, [isStockSummary]);
+    console.log(keyword);
+  }, [isStockSummary, keyword]);
   return (
     <>
       <div className='stockDiscovery'>
@@ -28,25 +31,31 @@ function GameStocks({ league }) {
           </Row>
           <Row>
             <Col className='offset'>
-              <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
-                Toggle all stocks
-              </Button>
+              {keyword === undefined && (
+                <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
+                  Toggle all stocks
+                </Button>
+              )}
             </Col>
           </Row>
-          <StockSearchBar />
+          <GameStockSearchBar leagueId={league._id} />
         </Container>
         {isStockSummary && keyword === undefined ? (
           <Row md={1} xs={1}>
             <GameStocksSummary />
           </Row>
-        ) : isStockSummary && keyword !== undefined ? (
-          <Row md={1} xs={1}>
+        ) : !isStockSummary && keyword === undefined ? (
+          <GameStocksAll></GameStocksAll>
+        ) : (
+          keyword !== undefined && (
             <Container>
-              <StockSearchResults keyword={keyword} />
+              <Row md={1} xs={1}>
+                <Container>
+                  <GameStockSearchResults keyword={keyword} />
+                </Container>
+              </Row>
             </Container>
-          </Row>
-        ) : !isStockSummary && (
-            <GameStocksAll></GameStocksAll>
+          )
         )}
       </div>
     </>

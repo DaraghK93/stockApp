@@ -63,7 +63,7 @@ function App() {
         <Route path='/search/stock/:keyword'
           element={userInfo ? <StockDiscoveryPage /> : <Navigate to="/" />} />
 
-        <Route path='/search/game/:gameId/:keyword'
+        <Route path='/search/game/:keyword/:gameId'
           element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
         <Route path='/stock/:symbol'

@@ -71,9 +71,9 @@ function GameStocksAll({ league }) {
       </Row>
       <Row className='mx-4'>
         <Col className='py-2'>
-          <Button onClick={prev}>Previous</Button>
+          <Button onClick={prev}>Previous 20 stocks</Button>
           {'  '}
-          <Button onClick={next}>Next</Button>
+          <Button onClick={next}>Next 20 stocks</Button>
         </Col>
       </Row>
       {loading ? (

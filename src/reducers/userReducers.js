@@ -8,9 +8,10 @@
 /// Imports ///
 // userActionConstants - These are the action constants for the reducers 
 import {  
-    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT, // For userLoginLogoutReducer 
+    USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT,  // For userLoginLogoutReducer 
     USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, // For userRegisterReducer
-    USER_CHANGEDETAILS_REQUEST, USER_CHANGEDETAILS_SUCCESS, USER_CHANGEDETAILS_FAIL // For userChangeDetailsReducer
+    USER_CHANGEDETAILS_REQUEST, USER_CHANGEDETAILS_SUCCESS, USER_CHANGEDETAILS_FAIL, // For userChangeDetailsReducer
+    USER_VERIFY_JWT_REQUEST,USER_VERIFY_JWT_SUCCESS, USER_VERIFY_JWT_FAIL // For userJWTVerifyReducer
 } from "../constants/userActionConstants";
 
 /// userLoginReducer ///
@@ -60,6 +61,27 @@ export function userRegisterReducer(state = {}, action) {
         default:
             return state; 
     }    
+}
+
+/// userJWTVerifyReducer ////
+// Description:
+//  Reducer used to tell if the JWT is valis
+export function userJWTVerifyReducer(state={}, action){
+    // Check action 
+    switch (action.type){
+        /// Request has been made set loading to true 
+        case USER_VERIFY_JWT_REQUEST:
+            // Set loading to true 
+            return {loading: true}
+        case USER_VERIFY_JWT_SUCCESS:
+            /// The token is valis,set valid to true 
+            return {valid: true, loading: false}
+        case USER_VERIFY_JWT_FAIL:
+            /// The token is not valid 
+            return {valid: false, loading: false}
+        default:
+            return state;
+    }
 }
 
 /// userChangeDetailsReducer ///

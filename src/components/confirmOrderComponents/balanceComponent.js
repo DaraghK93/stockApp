@@ -25,6 +25,7 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
     };
 
     useEffect(() => {
+        const setGraphData = () => {
         if(buyOrSell === "Buy"){
                 setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){
@@ -34,7 +35,9 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                     setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:((Math.floor(stockPrice*1.15))*holding)-dollarAmountSelected}]) 
                 }
         }
-    }, [buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance, orderType])
+        }
+        setGraphData()
+    }, [setData,buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance, orderType])
 
     return (
         <>
@@ -53,8 +56,7 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                         <p><span className="semibolded">{qty}</span> x <span className="semibolded"> {parseFloat(limitPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> = <span className="semibolded">{parseFloat(limitPrice*qty).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} </span></p>
                         <p>Your Potential Spending Power is this number added onto your current Spending Power of <span className="semibolded"> {parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> minus the Game trade fee of <span className="semibolded">{parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span></p>
                         <p><span className="bolded">Potential New Spending Power:</span> </p><p><span className="semibolded">{parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> +  
-                            <span className="semibolded">{parseFloat(limitPrice*qty).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> - <span className="semibolded">{parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> =
-                            <span className="bolded">{parseFloat(((limitPrice*qty)+portfolioBalance)-gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} </span>
+                            <span className="semibolded">{parseFloat(limitPrice*qty).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> - <span className="semibolded">{parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</span> = <span className="bolded">{parseFloat(((limitPrice*qty)+portfolioBalance)-gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} </span>
                         </p>
                         </>
                         }

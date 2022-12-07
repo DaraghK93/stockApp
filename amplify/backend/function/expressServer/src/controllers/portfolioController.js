@@ -462,7 +462,8 @@ const getLeaguePortfolio = async (req,res,next) => {
                       // only show the symbol and shortname
                       '$project': {
                         'symbol': 1, 
-                        'shortname': 1
+                        'shortname': 1,
+                        'logo':1
                       }
                     }
                   ]

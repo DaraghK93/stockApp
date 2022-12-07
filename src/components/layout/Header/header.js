@@ -43,7 +43,7 @@ function Header() {
     <Navbar expand="lg" variant="dark"
       className="navbar">
       <Container>
-        <Navbar.Brand style={{ color: 'white' }} as={Link} to="/">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
+        <Navbar.Brand style={{ color: 'white' }} as={Link} to="/game">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
         <Navbar.Toggle style={{ color: "white" }} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {userInfo ?

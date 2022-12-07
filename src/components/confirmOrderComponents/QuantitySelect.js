@@ -17,6 +17,10 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
             setMax(holding*stockPrice)
         }
 
+        // if (portfolioBalance < gameTradeFee){
+        //     /// Portfolio balance is not enough to make a trade 
+        //     setMarketPriceError(`Your current spending power ${parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} is less than the game trade fee of ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, you dont have enough to make this trade!`)
+        // }
         //// Only Update the states if within max and min limits 
         if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= max){
             setMarketPriceError("")

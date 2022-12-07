@@ -39,6 +39,7 @@ function OrderConfirmationPage() {
     const [limitOrderPriceError, setLimitOrderPriceError] = useState("")
     const [marketPriceError, setMarketPriceError] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
+    const [spendingPowerError, setSpendingPowerError] = useState("");
    
     /// Game State ///
     const [gameTradeFee, setGameTradeFee] = useState()
@@ -276,6 +277,9 @@ function OrderConfirmationPage() {
                                     limitPrice={limitPrice}
                                     qty={qty}
                                     gameTradeFee={gameTradeFee}
+                                    marketPriceError = {marketPriceError}
+                                    spendingPowerError= {spendingPowerError}
+                                    setSpendingPowerError={setSpendingPowerError}
                                 />
                             </Col>
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
@@ -294,7 +298,7 @@ function OrderConfirmationPage() {
                         onClick={() =>{setShowAreYouSureModal(true)}} 
                         text="Review Trade!" 
                         disabled={
-                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError)
+                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError || spendingPowerError)
                         }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

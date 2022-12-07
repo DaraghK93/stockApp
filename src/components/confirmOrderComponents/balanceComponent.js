@@ -2,10 +2,11 @@ import { Card, Container } from "react-bootstrap";
 import { Pie, PieChart, Cell, ResponsiveContainer, Label } from "recharts";
 import {useEffect,useState} from 'react';
 import InfoButtonModal from "../widgets/InfoButtonModal/InfoButtonModal";
+import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 
 
 
-function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell, stockPrice, holding, orderType, limitPrice, qty, gameTradeFee}) {
+function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSelected, portfolioBalance, buyOrSell, stockPrice, holding, orderType, limitPrice, qty, gameTradeFee, spendingPowerError, setSpendingPowerError}) {
     const [data, setData] = useState(true);
 
     const CustomLabel = ({ viewBox, balance = 0, text }) => {
@@ -26,7 +27,10 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
 
     useEffect(() => {
         const setGraphData = () => {
-        if(buyOrSell === "Buy"){
+        /// If your current spending power is greater than the game trade fee you cant complete the order
+        if (portfolioBalance < gameTradeFee){
+            setSpendingPowerError(`Available spending power of ${parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} less than game trade fee of ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, you dont have enough to make this trade!`)
+        }else if(buyOrSell === "Buy"){
                 setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){
                 if (orderType === "Market Order" && (dollarAmountSelected <= (holding*stockPrice))){
@@ -37,7 +41,7 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         }
         }
         setGraphData()
-    }, [setData,buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance, orderType])
+    }, [setData,buyOrSell,dollarAmountSelected,newPortfolioBalance,stockPrice,holding,portfolioBalance, orderType, gameTradeFee, setSpendingPowerError])
 
     return (
         <>
@@ -87,6 +91,8 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                     </h5>
                     }
                     <p><strong>{portfolioName}</strong>- Available Spending Power: {parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</p>
+                    {spendingPowerError ? <MessageAlert variant="danger">{spendingPowerError}</MessageAlert>
+                    :
                     <ResponsiveContainer width="100%" height={300} margin={100}>
                         <PieChart height={260} width={500}>
                             <Pie
@@ -116,6 +122,8 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                             </Pie>
                         </PieChart>
                     </ResponsiveContainer>
+                    }
+                    
 
                 </Container>
             </Card>

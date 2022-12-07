@@ -2,6 +2,7 @@ import { Card, Col, Container, Table, Button } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import moment from "moment";
 import {Link} from "react-router-dom"
+import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 
 function TransactionHistory({ transactions }) {
 
@@ -18,11 +19,11 @@ function TransactionHistory({ transactions }) {
 
 
     const columns = [
-        { label: "Date", accessor: "1", sortable: true, sortbyOrder: "", showHeader: true },
-        { label: "Logo", accessor: "2", sortable: false, showHeader: true },
+        { label: "Date", accessor: "1", sortable: true, sortbyOrder: "", showHeader: true },//
+        { label: "Logo", accessor: "2", sortable: false, showHeader: true },//
         { label: "Ticker", accessor: "3", sortable: true, showHeader: true },
         { label: "Buy/Sell", accessor: "4", sortable: true, sortbyOrder: "", showHeader: true },
-        { label: "Value", accessor: "5", sortable: true, sortbyOrder: "", showHeader: true },
+        { label: "Value", accessor: "5", sortable: true, sortbyOrder: "", showHeader: true },//
         { label: "Order Type", accessor: "6", sortable: true, sortbyOrder: "", showHeader: true },
         { label: "Fee", accessor: "7", sortable: true, sortbyOrder: "", showHeader: true },
         { label: "Units", accessor: "8", sortable: true, sortbyOrder: "", showHeader: true },
@@ -70,6 +71,7 @@ function TransactionHistory({ transactions }) {
                             </ul>
                         </nav>
                 </div>
+                {data.length > 0 ?
                     <Table style={{ borderCollapse: "collapse" }}>
                         <thead>
                             <tr key="cols">
@@ -109,10 +111,6 @@ function TransactionHistory({ transactions }) {
                                 <td key={transaction.tradingFee}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                 <td key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
                                 <td className={showCancelCol ? "leaderBoardShow" : "leaderBoardHide"}><center><Button variant="danger">Cancel</Button></center></td>
-
-
-
-
                             </tr>
                             ))
                         
@@ -122,10 +120,11 @@ function TransactionHistory({ transactions }) {
                         </>
                         }
 
-
-
                         </tbody>
                     </Table>
+                     :
+                     <MessageAlert variant="info">No {currentStatus.toLowerCase()} transactions for this game!</MessageAlert>
+                    }
                 </Container>
             </Card>
         </>
@@ -133,48 +132,3 @@ function TransactionHistory({ transactions }) {
 }
 
 export default TransactionHistory;
-
-
-
-
-    // const transactions = [
-    //     {
-    //         portfolioId: 123,
-    //         stock: "stock object", // returns entire stock object
-    //         holdings: "holdings object", //
-    //         units: 4,
-    //         value: 200,
-    //         date: "04-12-2022",
-    //         buyOrSell: "SELL",
-    //         orderType: "MARKET",
-    //         status: "PENDING",
-    //         tradingFee: 30,
-    //         limitValue: 0
-    //     },
-    //     {
-    //         portfolioId: 1234,
-    //         stock: "stock object", // returns entire stock object
-    //         holdings: "holdings object", //
-    //         units: 6,
-    //         value: 300,
-    //         date: "04-12-2022",
-    //         buyOrSell: "BUY",
-    //         orderType: "LIMIT",
-    //         status: "COMPLETED",
-    //         tradingFee: 20,
-    //         limitValue: 0
-    //     },
-    //     {
-    //         portfolioId: 12345,
-    //         stock: "stock object", // returns entire stock object
-    //         holdings: "holdings object", //
-    //         units: 2,
-    //         value: 100,
-    //         date: "04-12-2022",
-    //         buyOrSell: "BUY",
-    //         orderType: "MARKET",
-    //         status: "CANCELLED",
-    //         tradingFee: 30,
-    //         limitValue: 0
-    //     },
-    // ]

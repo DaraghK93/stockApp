@@ -23,7 +23,7 @@ exports = function() {
     const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
     const today = new Date().setHours(0,0,0,0);
     // update any league where the endDate is today
-    // active to false, finished to true. ends the league
+    // active to false, finished to true, sets the snapshot of leaderboard as finalStandings ends the league
     return collection.aggregate([
       {
         '$match': {

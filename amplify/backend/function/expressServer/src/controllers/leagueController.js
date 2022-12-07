@@ -1,6 +1,5 @@
 const League = require('../models/league.model')
 const Portfolio = require('../models/portfolio.model')
-const Portfolio = require('../models/portfolio.model')
 const User = require('../models/user.model')
 const leagueService = require('../services/leagueServices')
 

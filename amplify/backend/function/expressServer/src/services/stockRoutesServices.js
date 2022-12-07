@@ -233,7 +233,9 @@ const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
                             'daily_change.absoluteChange':1,
                             'daily_change.percentageChange':1,
                             'daily_change.currentprice':1,
-                            'esgrating.environment_score': 1}
+                            'esgrating.environment_score': 1,
+                            'esgrating.social_score': 1,
+                            'esgrating.governance_score': 1}
 
                         
   const stocks =  Stock.aggregate([
@@ -271,7 +273,9 @@ const getAllGameStocks =  (sectors,minErating,minSRating,minGRating,pageNumber,p
                             'daily_change.absoluteChange':1,
                             'daily_change.percentageChange':1,
                             'daily_change.currentprice':1,
-                            'esgrating.environment_score': 1}
+                            'esgrating.environment_score': 1,
+                            'esgrating.social_score': 1,
+                            'esgrating.governance_score': 1}
 
   const amountToSkip = pageSize * pageNumber;
   const stocks = Stock.find({'esgrating.environment_score':{$gte:minErating},

@@ -23,19 +23,20 @@ function GameStockSearchResults({ keyword, league }) {
         setLoading(true);
         let path = `/api/stock/gameStocks/search/${keyword}`;
         let body = {
-            sectors: league.sectors,
-            minERating: league.minERating,
-            minSRating: league.minSRating,
-            minGRating: league.minGRating,
-          };
-          let requestConfig = {
-            body,
-            headers: { 'x-auth-token': userToken },
-          };
-          const res = await API.post(APIName, path, requestConfig);
+          sectors: league.sectors,
+          minERating: league.minERating,
+          minSRating: league.minSRating,
+          minGRating: league.minGRating,
+        };
+        let requestConfig = {
+          body,
+          headers: { 'x-auth-token': userToken },
+        };
+        const res = await API.post(APIName, path, requestConfig);
 
         setStock(res);
         setLoading(false);
+        setError('');
       } catch (error) {
         console.log(error);
         setError(error.response.data.errormessage);

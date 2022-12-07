@@ -201,7 +201,7 @@ function IndividualGameScreen() {
                         </Container>
                     }
                     {isShownStocks &&
-                        <><br></br><h2>This is stocks screen</h2>
+                        <>
                         <GameStocks league={league}></GameStocks>
                         </>
                     }

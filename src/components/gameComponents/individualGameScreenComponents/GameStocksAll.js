@@ -49,6 +49,7 @@ function GameStocksAll({ league }) {
 
         setStock(res);
         setLoading(false);
+        setError('');
       } catch (error) {
         console.log(error);
         setError(error.response.data.errormessage);

@@ -18,20 +18,15 @@ function GameStocks({ league }) {
     keyword = undefined;
   }
 
-  useEffect(() => {
-    console.log(isStockSummary);
-    console.log(keyword);
-    console.log(league);
-  }, [isStockSummary, keyword]);
   return (
     <>
       <div className='stockDiscovery'>
         <Container>
-          <Row>
+          <Row className='py-3'>
             <h1 style={{ textAlign: 'center' }}>Tradable stocks</h1>
           </Row>
           <Row>
-            <Col className='offset'>
+            <Col style={{ alignItems: 'center' }} className='text-center'>
               {keyword === undefined && (
                 <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
                   Toggle all stocks

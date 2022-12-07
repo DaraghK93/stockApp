@@ -631,6 +631,15 @@ const leaveLeague = async (req,res,next) => {
         ),
       )
     }
+    if(league.finished === true){
+      res.status(400)
+      res.errormessage = 'This league is already finished.'
+      return next(
+        new Error(
+          'You cannot leave any league that is already finished.'
+        ),
+      )
+    }
     // update the league, removing the portfolio and the user
     await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId}})
     // delete the portfolio

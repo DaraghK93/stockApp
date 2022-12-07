@@ -364,6 +364,29 @@ const sellStock = async (req, res, next) => {
     // otherwise fee is 0
     transactionFee = 0
   }
+  if(req.body.orderType === "LIMIT"){
+    // if a limit order make sure they can't go negative
+    if(portfolio.remainder - transactionFee < 0){
+      res.status(400)
+        res.errormessage = 'Cannot afford to put this sell order in place.'
+        return next(
+          new Error(
+            'Cannot complete as the portfolio balance will be less than 0 because of the transaction fee.'
+          )
+        )
+    }
+  }
+  else{
+    if(portfolio.remainder + value - transactionFee < 0){
+      res.status(400)
+        res.errormessage = 'Cannot afford to make this sale as the user balance will be less than 0.'
+        return next(
+          new Error(
+            'Cannot complete as the portfolio balance will be less than 0 due to the transaction fee being greater than the amount of the sale and the current remainder.'
+          )
+        )
+    }
+  }
     // use the sellStock service found in the services folder
     const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee, transactionStatus)
     if (newPortfolio.error) {

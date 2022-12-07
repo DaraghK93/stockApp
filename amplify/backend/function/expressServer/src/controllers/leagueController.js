@@ -1,5 +1,7 @@
 const League = require('../models/league.model')
 const Portfolio = require('../models/portfolio.model')
+const Portfolio = require('../models/portfolio.model')
+const User = require('../models/user.model')
 const leagueService = require('../services/leagueServices')
 
 const mongoose = require("mongoose")
@@ -185,26 +187,6 @@ const createLeague = async (req, res, next) => {
         active = true
   }
 
-    // instantiate league so we can add formatteed endDate
-    let league = {}
-    // ensure league is at least a day long
-    if (leagueType === "timeBased") {
-      // get dates in the correct format with no hours,mins,secs
-    const end = new Date(endDate).setHours(0,0,0,0)
-    league.endDate = end
-      // check that the difference between start and end is at least 1
-      // divide to get it in terms of days
-    if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
-      res.status(400)
-      res.errormessage = 'Time based games must be at least a day long'
-      return next(
-        new Error(
-          'Time based games must be at least a day long',
-          ),
-        )
-      }
-    }
-
     // ensure the tradingFee is in the right interval
     if (tradingFee < 0 || tradingFee > 300) {
       res.status(400)
@@ -231,7 +213,7 @@ const createLeague = async (req, res, next) => {
     // assign the remaining foelds to the league object
     // if league is timeBased, endDate will be already assigned
     // otherwise it will be an empty object
-    league = {
+    let league = {
         leagueName,
         startingBalance,
         leagueType,
@@ -251,6 +233,24 @@ const createLeague = async (req, res, next) => {
         portfolios,
         leagueAdmin: req.user.id,   // gets this from JWT
       };
+    
+   // ensure league is at least a day long
+   if (leagueType === "timeBased") {
+     // get dates in the correct format with no hours,mins,secs
+   const end = new Date(endDate).setHours(0,0,0,0)
+   league.endDate = end
+     // check that the difference between start and end is at least 1
+     // divide to get it in terms of days
+   if ((end - start)/(1000 * 60 * 60 * 24) < 1) {
+     res.status(400)
+     res.errormessage = 'Time based games must be at least a day long'
+     return next(
+       new Error(
+         'Time based games must be at least a day long',
+         ),
+       )
+     }
+   }
    
   // call the service that generates the unique accessCode
     let newLeague = await leagueService.saveLeague(league)
@@ -398,14 +398,18 @@ const joinLeaguebyCode = async (req, res, next) => {
 
       // get league object from db
       let league = await League.findOne({ accessCode, finished:false })
-
+      let user = await User.findOne({_id: req.user.id})
       // 404 for no such league
       if (!league) {
         res.status(404)
         res.errormessage = 'Invalid Access Code'
         return next(new Error('Invalid Access Code'))
       }
-
+      if (league.users.includes(req.user.id) && !user.leagues.includes(league._id)){
+        res.status(400)
+        res.errormessage = 'User has previously had a portfolio in this league and cannot rejoin.'
+        return next(new Error('The user previously left this league and cannot rejoin.'))
+      }
       const newLeague = await leagueService.joinLeague(league,currentUser)
 
       // check for error
@@ -700,11 +704,110 @@ const deleteLeague = async (req, res, next) => {
 }
 
 
+const leaveLeague = async (req,res,next) => {
+  try{
+    if (
+      typeof req.body.portfolioId === 'undefined' ||
+      typeof req.body.leagueId === 'undefined'
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'Missing portfolio ID and league ID. Both needed to leave the league.'
+      return next(
+        new Error(
+          'The client has not sent the required portfolio ID or league ID to leave the league'
+        ),
+      )
+    }
+    // check that the leagueId can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false ){
+      // check that the stock ID is correct
+      res.status(404)
+      res.errormessage = 'No league found'
+      return next(
+      new Error(
+      'No league found'
+      )
+      )
+      }// check that the leagueId can be cast to valid objectId
+    if (mongoose.Types.ObjectId.isValid(req.body.portfolioId) === false ){
+      // check that the portolio ID is correct
+      res.status(404)
+      res.errormessage = 'No portfolio found'
+      return next(
+      new Error(
+      'No portfolio found'
+      )
+      )
+      }
+    const portfolio = await Portfolio.findOne({_id: req.body.portfolioId, leagueId: req.body.leagueId, userId: req.user.id}) 
+    // check if a portfolio with league ID and user ID in it
+    if(portfolio === null){
+      res.status(404)
+      res.errormessage = 'No such portfolio exists.'
+      return next(
+        new Error(
+          'The portfolio ID provided does not relate to any existing portfolio in that league.'
+        ),
+      )
+    }
+    // check if league exists with that portfolio and that user
+    const league = await League.findOne({_id: req.body.leagueId, portfolios: req.body.portfolioId, users: req.user.id}) 
+    if(league === null){
+      res.status(404)
+      res.errormessage = 'No such league exists.'
+      return next(
+        new Error(
+          'The league ID provided does not relate to any existing league containing that user.'
+        ),
+      )
+    }
+    // the league admin can't leave the league
+    if(league.leagueAdmin == req.user.id){
+      res.status(400)
+      res.errormessage = 'The admin cannot leave the league.'
+      return next(
+        new Error(
+          'The league admin cannot leave the league, only other users.'
+        ),
+      )
+    }
+    if(league.finished === true){
+      res.status(400)
+      res.errormessage = 'This league is already finished.'
+      return next(
+        new Error(
+          'You cannot leave any league that is already finished.'
+        ),
+      )
+    }
+    // update the league, removing the portfolio and the user
+    await League.findOneAndUpdate({_id: req.body.leagueId}, {$pull: {portfolios: req.body.portfolioId, users: req.user.id}})
+    // delete the portfolio
+    await Portfolio.deleteOne({_id: req.body.portfolioId, leagueId: req.body.leagueId})
+    // update the user, removing the portfolio. Kept the league in so that users cannot rejoin
+    await User.findOneAndUpdate({_id: portfolio.userId}, {$pull: {portfolios: req.body.portfolioId, leagues: league._id}})
+    // return success message
+    res.status(200).json({
+      message: 'You have successfully left the league.',
+    });
+  }
+
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in leaving a league'
+    res.status(500)
+    return next(err)
+  }
+
+}
+
 module.exports = {
     createLeague,
     getPublicLeagues,
     joinLeaguebyCode,
     getMyLeagues,
     getLeagueById,
-    deleteLeague
+    deleteLeague,
+    leaveLeague
   }

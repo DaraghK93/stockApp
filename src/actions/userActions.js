@@ -11,7 +11,10 @@ import {
   USER_LOGOUT, // For userLoginLogoutReducer
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_REGISTER_FAIL
+  USER_REGISTER_FAIL,
+  USER_CHANGEDETAILS_REQUEST,
+  USER_CHANGEDETAILS_SUCCESS,
+  USER_CHANGEDETAILS_FAIL
 } from '../constants/userActionConstants'
 import { APIName } from '../constants/APIConstants'
 import { API } from 'aws-amplify'
@@ -90,6 +93,55 @@ export function registerUser(
       // Error in regsitraing user set the message
       dispatch({
         type: USER_REGISTER_FAIL,
+        payload: error.response.data.errormessage,
+      })
+    }
+  }
+}
+
+export function changeUserDetails(
+  password,
+  username,
+  newPassword,
+  avatar,
+  firstname,
+  lastname,
+  email,
+  userToken
+) {
+
+  return async (dispatch) => {
+    try {
+      // Initiate the request
+      dispatch({ type: USER_CHANGEDETAILS_REQUEST })
+      // Request body
+      let body = {
+        password: password,
+        username: username ? username : undefined,
+        newPassword: newPassword ? newPassword : undefined,
+        avatar: avatar ? avatar : undefined,
+        firstname: firstname ? firstname : undefined,
+        lastname: lastname ? lastname : undefined,
+        email: email? email : undefined,
+      };
+      // Configure the HTTP request
+      let path = `/api/auth/changeuserdetails`;
+      let requestConfig = {
+        body,
+        headers: { 'x-auth-token': userToken },
+      };
+      //// Sent the request to backend
+      const data = await API.post(APIName, path, requestConfig)
+      //// Dispatch change details success as this will set user state in redux
+      dispatch({ type: USER_CHANGEDETAILS_SUCCESS, payload: data })
+      //// Dispatch login success as this will set user state in redux
+      dispatch({ type: USER_LOGIN_SUCCESS, payload: data })
+      //// Set the user in localstorage
+      localStorage.setItem('userInfo', JSON.stringify(data))
+    } catch (error) {
+      // Error in changing user details set the message
+      dispatch({
+        type: USER_CHANGEDETAILS_FAIL,
         payload: error.response.data.errormessage,
       })
     }

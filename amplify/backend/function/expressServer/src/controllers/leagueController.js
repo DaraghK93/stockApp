@@ -622,7 +622,7 @@ const leaveLeague = async (req,res,next) => {
       )
     }
     // the league admin can't leave the league
-    if(league.leagueAdmin === req.user.id){
+    if(league.leagueAdmin == req.user.id){
       res.status(400)
       res.errormessage = 'The admin cannot leave the league.'
       return next(

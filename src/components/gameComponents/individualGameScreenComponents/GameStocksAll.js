@@ -66,7 +66,7 @@ function GameStocksAll({ league }) {
     <>
       <Row className='mx-4'>
         <Col className='py-4'>
-          <h2>All stocks - Page {page}</h2>
+          <h2>All stocks - Page {page+1}</h2>
         </Col>
       </Row>
       <Row className='mx-4'>

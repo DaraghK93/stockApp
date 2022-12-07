@@ -75,8 +75,8 @@ function StockPage() {
             try {
                 // Request is being sent set loading true   
                 setLoading(true);
-                // get the symbol from the url string, use regex to extract capital letters only
-                const symbol = window.location.href.replace(/[^A-Z]/g, '');
+                // get the symbol from the href, got last index of last slash and used substring method
+                const symbol = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
                 // Set the path and use symbol to get single stock
                 let path = `/api/stock/${symbol}`
                 // Send the request with API package

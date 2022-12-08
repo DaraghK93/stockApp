@@ -53,7 +53,9 @@ function GameStocksAll({ league }) {
         setLoading(false);
         setError('');
       } catch (error) {
-        setPage(page - 1);
+        if (page > 0) {
+          setPage(page - 1);
+        }
         console.log(error);
         setError(error.response.data.errormessage);
         setLoading(false);
@@ -75,8 +77,8 @@ function GameStocksAll({ league }) {
             <Button onClick={prev}>To page {page}</Button>
           </Col>
         )}
-        <Col className='text-end py-2' >
-          <Button onClick={next}>To page {page+2}</Button>
+        <Col className='text-end py-2'>
+          <Button onClick={next}>To page {page + 2}</Button>
         </Col>
       </Row>
       {loading ? (

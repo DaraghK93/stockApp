@@ -22,8 +22,4 @@ router.post('/gameStocks/:type', protectedRoute, getGameStocks)
 // for searching game stocks
 router.post('/gameStocks/search/:keyword', protectedRoute, getAllGameStocks)
 
-// get all stocks for testing
-router.post('/test/route', protectedRoute, testAll)
-
-
 module.exports = router;

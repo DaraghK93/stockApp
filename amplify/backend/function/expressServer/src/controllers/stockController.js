@@ -445,6 +445,5 @@ module.exports = {
   getAllStocks,
   getStockBySymbol,
   getGameStocks,
-  getAllGameStocks,
-  testAll
+  getAllGameStocks
 };

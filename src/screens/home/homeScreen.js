@@ -664,8 +664,7 @@ function HomeScreen() {
           <Row>
             <Col className='mx-4'>
               <p className='splashpageParagraph'>
-                FinOptimise is a fantasy stock trading game. Play with friends.
-                Use our artificial intelligence to pick the best stocks. Good
+                FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
                 luck!
               </p>
             </Col>
@@ -680,23 +679,8 @@ function HomeScreen() {
 
         </Row>
       </Container>
-      <Row className='py-4 banner'>
-        <p className='quote'>"Slick" - The independent</p>
-        <p className='quote'>"Future 5 star app" - The Guardian</p>
-      </Row>
+
       <Container className='splash-page-container'>
-        <Row className='py-4'>
-          <Col>
-            <h2>About the App</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className='mx-4'>
-            <p className='splashpageParagraph'>
-              Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
-            </p>
-          </Col>
-        </Row>
         <Row className='py-4'>
           <Col sm md={8} className='offset-md-2'>
             <SplashCarousel></SplashCarousel>
@@ -794,16 +778,16 @@ function HomeScreen() {
             <h2>Ethical Investing</h2>
           </Col>
         </Row>
+        <Row className='py-4'>
+          <Col>
+            <p style={{ textAlign: 'center', margin:"0.5rem 0rem 0rem 0rem"}}>
+            Practice Ethical Investing with Environmental Social and Governance (ESG) ratings in mind.
+            </p>
+          </Col>
+        </Row>
         <Row className='esg-row' style={{ alignItems: 'center' }}>
           <Col sm md={8} className='stockInfoCol offset-md-2'>
             <ChartCardESG title={'ESG Rating'} edata={5} sdata={4} gdata={5} />
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <p style={{ textAlign: 'center', marginBottom:"0.5rem"}}>
-            Practice Ethical Investing with Environmenatal Social and Governance (ESG) ratings in mind.
-            </p>
           </Col>
         </Row>
         <Row className='py-4'>
@@ -819,7 +803,7 @@ function HomeScreen() {
           <Col>
             <div className='stockDisplay'>
               <h2 style={{ textAlign: 'center', color: "white" }}>Learn About Investing</h2>
-              <p style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Learn about the basics of investing on our education page.</p>
+              <p style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Learn about the basics of investing on our education page. With useful definitions and links to external resources that will help you build healthy financial habits.</p>
             </div>
           </Col>
         </Row>

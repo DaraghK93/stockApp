@@ -690,7 +690,7 @@ const deleteLeague = async (req, res, next) => {
     ])
 
     res.status(200).json({
-      message: 'You have successfully left the league.'
+      message: 'You have successfully deleted the league.'
     })
   }
   catch (err) {

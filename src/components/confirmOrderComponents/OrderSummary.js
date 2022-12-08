@@ -5,40 +5,59 @@ function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, n
 
     return (
                 <Container>
-                    <h5 style={{ marginTop: "10px" }}>Order Summary</h5>
-                    <Row>
-                     <tbody>
-                            <tr>
-                                <td>Buy/ Sell</td>
-                                <td>{buyOrSell}</td>
-                            </tr>
-                            <tr>
-                                <td>Quantity</td>
-                                <td>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</td>
-                            </tr>
-                            {buyOrSell === "Buy" ?
-                                <tr>
-                                    <td className="bolded">Total</td>
-                                    <td className="bolded">{(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                                </tr>
+                    <Row className="textCenter">
+                        <h2>{buyOrSell}</h2>
+                    </Row>
+                    <Row className="textCenter">
+                        <h2>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</h2>
+                    </Row>
+                    <Row className="textCenter">
+                         {buyOrSell === "Buy" ?
+                                    <h2>Total {(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
                             :
                             <>
                             {parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee) >= 0 ?
-                            <tr>
-                                <td className="bolded">Total</td>
-                                <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                            </tr>
+                                <h2>Total {(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
                             :
-                            <tr>
-                                <td className="bolded">Total</td>
-                                <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                            </tr>
+                                <h2>Total {(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
                             } 
                             </>
-                        }
-                        </tbody>
+                         }
                     </Row>
-                    <Row className="py-5">
+                    
+{/* 
+
+                    //  <tbody>
+                    //         <tr>
+                    //             <td>Buy/ Sell</td>
+                    //             <td>{buyOrSell}</td>
+                    //         </tr>
+                    //         <tr>
+                    //             <td>Quantity</td>
+                    //             <td>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</td>
+                    //         </tr>
+                    //         {buyOrSell === "Buy" ?
+                    //             <tr>
+                    //                 <td className="bolded">Total</td>
+                    //                 <td className="bolded">{(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                    //             </tr>
+                    //         :
+                    //         <>
+                    //         {parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee) >= 0 ?
+                    //         <tr>
+                    //             <td className="bolded">Total</td>
+                    //             <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                    //         </tr>
+                    //         :
+                    //         <tr>
+                    //             <td className="bolded">Total</td>
+                    //             <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                    //         </tr>
+                    //         } 
+                    //         </>
+                    //     }
+                    //     </tbody> */}
+                    <Row className="pt-2">
                     <Accordion  defaultActiveKey="0">
                         <Accordion.Item eventKey="0">
                             <Accordion.Header align="center" style={{"justify-content": "center"}}>Trade Details</Accordion.Header>

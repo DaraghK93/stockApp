@@ -13,6 +13,8 @@ Globals:
     Environment:
       Variables:
         ENVIRONMENT: prod
+        MONGOURI: mongodb://host.docker.internal:27017/
+        DATABASENAME: dev
   Api:
     TracingEnabled: True
 

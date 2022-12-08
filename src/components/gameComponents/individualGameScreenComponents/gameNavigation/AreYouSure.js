@@ -148,7 +148,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
         </Button>
         }  
         {success &&
-        <Button variant="success">
+        <Button variant="link">
             <Link to={'/game/creategame'} style={{ colour: "white", textDecoration: 'none' }}>Return to Games</Link>
         </Button>
         }  

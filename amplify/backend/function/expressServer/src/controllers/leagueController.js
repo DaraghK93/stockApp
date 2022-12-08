@@ -486,7 +486,8 @@ const getLeagueById = async (req,res,next) => {
                 '$project': {
                   'totalValue': 1, 
                   'user': 1, 
-                  'valueHistory': 1
+                  'valueHistory': 1,
+                  'avatar':1
                 }
               }
             ]
@@ -501,6 +502,7 @@ const getLeagueById = async (req,res,next) => {
               {
                 '$project': {
                   'username': 1
+                  
                 }
               }
             ]

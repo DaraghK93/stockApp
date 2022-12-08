@@ -15,6 +15,7 @@ const registerUser = async (req, res, next) => {
       email,
       username,
       password,
+      avatar,
       overeighteen
     } = req.body
 
@@ -71,6 +72,7 @@ const registerUser = async (req, res, next) => {
       username,
       email,
       password,
+      avatar,
       overeighteen,
     })
 

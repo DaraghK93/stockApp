@@ -480,13 +480,15 @@ const getLeagueById = async (req,res,next) => {
                 }
               }, {// set user as jst their username
                 '$set': {
-                  'user': '$user.username'
+                  'user': '$user.username',
+                  'avatar': '$user.avatar'
                 }
               }, {// show totalvalue, username, and valuehistory array
                 '$project': {
                   'totalValue': 1, 
                   'user': 1, 
-                  'valueHistory': 1
+                  'valueHistory': 1,
+                  'avatar':1
                 }
               }
             ]
@@ -501,6 +503,7 @@ const getLeagueById = async (req,res,next) => {
               {
                 '$project': {
                   'username': 1
+
                 }
               }
             ]

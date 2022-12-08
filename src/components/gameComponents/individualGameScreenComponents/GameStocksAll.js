@@ -65,15 +65,18 @@ function GameStocksAll({ league }) {
   return (
     <>
       <Row className='mx-4'>
-        <Col className='py-4'>
+        <Col className='py-4 text-center'>
           <h2>Page {page + 1}</h2>
         </Col>
       </Row>
       <Row className='mx-4'>
-        <Col className='py-2'>
-          <Button onClick={prev}>Previous 20 stocks</Button>
-          {'  '}
-          <Button onClick={next}>Next 20 stocks</Button>
+        {page > 0 && (
+          <Col className='py-2'>
+            <Button onClick={prev}>To page {page}</Button>
+          </Col>
+        )}
+        <Col className='text-end py-2' >
+          <Button onClick={next}>To page {page+2}</Button>
         </Col>
       </Row>
       {loading ? (
@@ -89,17 +92,6 @@ function GameStocksAll({ league }) {
               </div>
             ))}
           </SideScrollMenu>
-          {/* <Button onClick={prev}>Previous</Button>
-          <Button onClick={next}>Next</Button>
-          <Container style={{ border: 'solid' }}>
-            <Row>
-              {stocks.map((stockObj) => (
-                <Col md={3} className='py-2'>
-                  <TickerCard key={stockObj._id} stock={stockObj} />
-                </Col>
-              ))}
-            </Row>
-          </Container> */}
         </>
       )}
     </>

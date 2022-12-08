@@ -314,24 +314,6 @@ const getGameStocks = async (req, res, next) => {
   }
 }
 
-///// TEST ROUTE TO BE DELETED BEFORE MERGE //////
-//////////////////////////////////////////////////
-const testAll = async (req, res, next) => {
-  try{
-    const page = req.body.page;
-    console.log(req)
-    const noToSkip = page * 20;
-    const stocks = await Stock.find().select({prices: 0}).skip(noToSkip).limit(20);
-    console.log(stocks.length)
-    res.json(stocks)
-  } catch (err) {
-    console.error(err.message);
-    res.status(500)
-    res.errormessage = 'Server error in test all';
-    return next(err);
-  }
-}
-
 
 // @route   GET api/stocks
 // @desc    Searches for stocks suitable for a given game by keyword

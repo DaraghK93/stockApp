@@ -100,3 +100,20 @@
   border: none;
   font-size:90%
 }
+
+mark.positive {
+  color:green;
+  background: none;
+  font-weight: bold;
+}
+
+mark.negative {
+  color:red;
+  background: none;
+  font-weight: bold;
+}
+
+mark.bold {
+  font-weight: bold;
+  background: none;
+}

@@ -70,38 +70,6 @@ function GameStocksSummary({ league }) {
               </div>
             ))}
           </SideScrollMenu>
-
-          <h3 className='stockdiscoveryRow'>
-            Companies That Have Great Environmental Policies
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].topEnvironment.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-
-          <h3 className='stockdiscoveryRow'>
-            Companies That Have Great Social Structures
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].topSocial.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <h3 className='stockdiscoveryRow'>
-            Companies That Have Great Governance
-          </h3>
-          <SideScrollMenu>
-            {stocks[0].topGovernance.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
         </>
       )}
     </>

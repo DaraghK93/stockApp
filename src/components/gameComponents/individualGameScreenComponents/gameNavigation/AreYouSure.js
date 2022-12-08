@@ -152,7 +152,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
         }  
         {success &&
         <Link className="w-100" to={'/game'}>
-        <Button>
+        <Button centered>
             Return to Games
         </Button>
         </Link>

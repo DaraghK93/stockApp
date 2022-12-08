@@ -214,7 +214,8 @@ function IndividualGameScreen() {
                             <Container>
                                 {isAdmin() &&
                             <Button 
-                            // onClick={() =>{setShowAreYouSureModal(true)}} 
+                            onClick={() =>{setShowAreYouSureModal(true)}} 
+                            style={{margin: '1rem'}}
                             >Delete League</Button>
                             }
                             {

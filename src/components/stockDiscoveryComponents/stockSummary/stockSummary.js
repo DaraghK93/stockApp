@@ -137,7 +137,7 @@ function StockSummary() {
                             <p>This section shows the<mark class="bold">top 20 companies</mark>ranked by<mark class="positive">largest positive % change</mark>in stock price over the<mark class="bold">past 24 hour period</mark>in each of the 11 sectors in the S&P500.</p>
                             <p>Detailed explanations of these 11 sectors can be found <a href='https://corporatefinanceinstitute.com/resources/valuation/the-sp-sectors/'>here.</a></p>
                         </div>} /></h2>
-        <h3 className="stockdiscoveryRow">Top Industrials <Factory /></h3>
+        <h3 className="stockdiscoveryRow">Industrials <Factory /></h3>
         <SideScrollMenu>
                 {stocks[0].Industrials.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -146,7 +146,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Technology <Lan /></h3>
+        <h3 className="stockdiscoveryRow">Technology <Lan /></h3>
         <SideScrollMenu>
                 {stocks[0].Technology.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -155,7 +155,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Financial <AttachMoney /></h3>
+        <h3 className="stockdiscoveryRow">Financial <AttachMoney /></h3>
         <SideScrollMenu>
                 {stocks[0].Financial.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -164,7 +164,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Healthcare <LocalHospital /></h3>
+        <h3 className="stockdiscoveryRow">Healthcare <LocalHospital /></h3>
         <SideScrollMenu>
                 {stocks[0].Healthcare.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -173,7 +173,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Consumer Cyclical <People /></h3>
+        <h3 className="stockdiscoveryRow">Consumer Cyclical <People /></h3>
         <SideScrollMenu>
                 {stocks[0].ConsumerCyc.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -182,7 +182,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Consumer Defensive <Groups /></h3>
+                    <h3 className="stockdiscoveryRow">Consumer Defensive <Groups /></h3>
                     <SideScrollMenu>
                         {stocks[0].ConsumerDef.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -191,7 +191,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Real Estate <Home /></h3>
+                    <h3 className="stockdiscoveryRow">Real Estate <Home /></h3>
                     <SideScrollMenu>
                         {stocks[0].RealEstate.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -200,7 +200,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Utilities <ElectricalServices /></h3>
+                    <h3 className="stockdiscoveryRow">Utilities <ElectricalServices /></h3>
                     <SideScrollMenu>
                         {stocks[0].Utilities.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -209,7 +209,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Communication Services <Cloud /></h3>
+                    <h3 className="stockdiscoveryRow">Communication Services <Cloud /></h3>
                     <SideScrollMenu>
                         {stocks[0].CommunicationServices.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -218,7 +218,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
                     
-                    <h3 className="stockdiscoveryRow">Top Basic Materials <Science /></h3>
+                    <h3 className="stockdiscoveryRow">Basic Materials <Science /></h3>
                     <SideScrollMenu>
                         {stocks[0].BasicMaterials.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -227,7 +227,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Energy <ElectricBolt /></h3>
+                    <h3 className="stockdiscoveryRow">Energy <ElectricBolt /></h3>
                     <SideScrollMenu>
                         {stocks[0].Energy.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>

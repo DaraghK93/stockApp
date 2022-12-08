@@ -59,7 +59,7 @@ function IndividualGameScreen() {
     }
 
     function isAdmin() {
-        if (league.leagueAdmin == userInfo.id){
+        if (league.leagueAdmin === userInfo.id){
             return true
         }
         else {
@@ -210,22 +210,22 @@ function IndividualGameScreen() {
                                 stockTypes={league.sectors}
                                 ESGGameType={ESGGameType()}
                             />
-<Container>
-    {isAdmin() &&
+                            <Container>
+                                {isAdmin() &&
                             <Button 
                             // onClick={() =>{setShowAreYouSureModal(true)}} 
                             >Delete League</Button>
-    }
-    {
-        !isAdmin() &&
-        <Button 
+                            }
+                            {
+                                !isAdmin() &&
+                                <Button 
                             onClick={() =>{setShowAreYouSureModal(true)}} 
                             >Leave League</Button>
-    }
-</Container>
-<AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
-                            leagueId = {league._id}
-                            content = "hello"
+                            }
+                        </Container>
+                        <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
+                            leagueId={league._id}
+                            isAdmin={isAdmin()}
                 />
                             </Container>
 

@@ -6,7 +6,7 @@ import { API } from "aws-amplify";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 
-function AreYouSure({showState,setShowState, leagueId, content}){
+function AreYouSure({showState,setShowState, leagueId, isAdmin}){
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -39,10 +39,11 @@ function AreYouSure({showState,setShowState, leagueId, content}){
                     }
                 }
                 /// Send the request 
-                const res = await API.post(APIName, path, myInit)
+                const res = await API.put(APIName, path, myInit)
                 /// Set the success message using the
                 setSuccess(`League Deleted Successfully! This will now appear in your Complete Games`)
                 setLoading(false)
+                console.log(res)
         }catch(error){
             setError(error.response.data.errormessage)
             setLoading(false)
@@ -60,13 +61,28 @@ function AreYouSure({showState,setShowState, leagueId, content}){
     return(
         <Modal centered show={showState} onHide={handleClose}>
         <Modal.Header closeButton>
-            <Modal.Title>Please Review Your Trade</Modal.Title>
+            {isAdmin === true &&
+                    <Modal.Title>Are you sure you want to delete this league?</Modal.Title>
+                    }
+                    {
+                        isAdmin === false &&
+                        <Modal.Title>Are you sure you want to leave this league?</Modal.Title>
+                            }
+            
         </Modal.Header>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
             {success && <MessageAlert variant="success">{success}</MessageAlert>}
             {loading && <LoadingSpinner/>}
-            HELLO {content}
+            hi
+            {/* {
+            isAdmin &&
+            "hi"
+                    }
+            {
+            !isAdmin &&
+            "not hi"
+                } */}
         </Modal.Body>
         <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>

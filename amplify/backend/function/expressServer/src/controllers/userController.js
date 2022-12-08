@@ -9,12 +9,13 @@ const getJWTSecret = require('../utils/JWT')
 const registerUser = async (req, res, next) => {
   try {
     // Parse the body
-    const {
+    let {
       firstname,
       lastname,
       email,
       username,
       password,
+      avatar,
       overeighteen
     } = req.body
 
@@ -71,6 +72,7 @@ const registerUser = async (req, res, next) => {
       username,
       email,
       password,
+      avatar,
       overeighteen,
     })
 
@@ -97,6 +99,7 @@ const registerUser = async (req, res, next) => {
       (err, token) => {
         if (err) throw err
         res.json({
+          _id : user.id,
           firstname,
           lastname,
           email,
@@ -165,13 +168,11 @@ const loginUser = async (req, res, next) => {
       (err, token) => {
         if (err) throw err
         res.json({
+          _id: user.id,
           firstname: user.firstname,
           lastname: user.lastname,
           email,
           username: user.username,
-          dob: user.dob,
-          image: user.image,
-          bio: user.bio,
           portfolios: user.portfolios,
           token,
         })

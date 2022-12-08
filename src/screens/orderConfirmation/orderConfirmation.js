@@ -295,6 +295,7 @@ function OrderConfirmationPage() {
                             stockName={stock.longname}
                             gameTradeFee={gameTradeFee}
                             stockLogo={stock.logo}
+                            gameId={portfolioId}
                 />
                     <BottomStickyButton 
                         onClick={() =>{setShowAreYouSureModal(true)}} 

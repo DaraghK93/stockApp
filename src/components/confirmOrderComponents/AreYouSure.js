@@ -8,7 +8,7 @@ import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../widgets/LoadingSpinner/LoadingSpinner";
 import {AttachMoney, Clear} from '@mui/icons-material';
 
-function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,dollarAmountSelected,qty,limitPrice,stockName,gameTradeFee, stockLogo}){
+function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,dollarAmountSelected,qty,limitPrice,stockName,gameTradeFee, stockLogo, gameId}){
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -109,6 +109,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                     qty={qty}
                     stockLogo={stockLogo}
                     orderSuccess={success}
+                    gameId={gameId}
                     />
         </Modal.Body>
         {!success &&

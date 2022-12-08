@@ -1,15 +1,15 @@
-import { Container, Row, Col, Table } from "react-bootstrap";
+import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Confetti from 'react-confetti'
+import { Link } from "react-router-dom";
 
 
-function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee, orderSuccess}) {
+function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee, orderSuccess, gameId}) {
 
     return (
                 <Container>
                     {!orderSuccess ?
-
                     <>
                     <Row className="textCenter">
                         <h3>{buyOrSell}</h3>
@@ -99,14 +99,28 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                     </Row>
                     </>
                 :
+                <>
                 <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
                     <h2 className="greenSuccess">Trade Complete!</h2>
                     <h2 className="greenSuccess">Congratulations </h2>
                     <Col className="w-100">
                         <CheckCircleOutlineSharpIcon className="greenSuccess"style={{"fontSize":"10rem"}}/>
                     </Col>
-                    <Confetti numberOfPieces={400} />
+                    <Confetti recycle={false}/>
                 </Row>
+                <Row md={2} className="textCenter">
+                    <Col>
+                     <Link className="w-100" to={`/stockdiscovery`}>
+                        <Button className="mb-2 w-100">Browse More Stocks</Button>
+                    </Link>
+                    </Col>
+                   <Col>
+                    <Link className="w-100" to={`/game/${gameId}`}>
+                        <Button className="mb-2 w-100">View Leaderboard</Button>
+                    </Link>
+                    </Col>
+                </Row> 
+                </>
                 }
                 </Container>
     )

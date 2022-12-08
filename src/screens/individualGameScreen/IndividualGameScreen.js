@@ -221,6 +221,7 @@ function IndividualGameScreen() {
                                 !isAdmin() &&
                                 <Button 
                             onClick={() =>{setShowAreYouSureModal(true)}} 
+                            style={{margin: '1rem'}}
                             >Leave League</Button>
                             }
                         </Container>

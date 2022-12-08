@@ -20,7 +20,7 @@ const UserSchema = new mongoose.Schema(
                     "/avatar_2.jpeg",
                     "/avatar_3.jpeg",
                     "/avatar_4.jpeg"],
-            defualt: "/avatar_3.jpeg"},
+            default: "/avatar_3.jpeg"},
     email: {
       type: String,
       trim: true,

@@ -9,7 +9,7 @@ const getJWTSecret = require('../utils/JWT')
 const registerUser = async (req, res, next) => {
   try {
     // Parse the body
-    const {
+    let {
       firstname,
       lastname,
       email,

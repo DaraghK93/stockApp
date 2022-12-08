@@ -1,19 +1,37 @@
 import { Container, Table, Row } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
+import {LocalAtm} from '@mui/icons-material';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
-function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
+function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
 
     return (
                 <Container>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <div style={{
+                            width: "10rem",
+                            height: "9rem",
+                        }}>
+                            <img src={stockLogo} style={{
+                                maxWidth: "100%",
+                                height: "100%",
+                                display: "block",
+                                objectFit: "contain",
+                                marginLeft: "auto",
+                                marginRight: "auto"}} 
+                                alt="company logo">
+                            </img>
+                        </div>
+                    </div>
                     <Row className="textCenter">
-                        <h2>{buyOrSell}</h2>
+                        <h3>{buyOrSell}</h3>
                     </Row>
                     <Row className="textCenter">
-                        <h2>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</h2>
+                        <h3>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</h3>
                     </Row>
                     <Row className="textCenter">
                          {buyOrSell === "Buy" ?
-                                    <h2>Total {(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
+                                <h2>Total {(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
                             :
                             <>
                             {parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee) >= 0 ?
@@ -24,9 +42,11 @@ function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, n
                             </>
                          }
                     </Row>
-                    
+                    {/* <div  style={{"justify-content": "center"}} className="textCenter">
+                        <LocalAtm color="success" style={{"fontSize":"4rem"}}/>
+                    </div> */}
                     <Row className="pt-2">
-                    <Accordion  defaultActiveKey="0">
+                    <Accordion>
                         <Accordion.Item eventKey="0">
                             <Accordion.Header align="center" style={{"justify-content": "center"}}>Trade Details</Accordion.Header>
                             <Accordion.Body>

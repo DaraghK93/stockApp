@@ -280,7 +280,7 @@ const getGameStocks = async (req, res, next) => {
     }
     else if (type === 'all'){
       //hardcoding 20 per page for all stocks at the minute can change if needed
-      const stocksPerPage = 20;
+      const stocksPerPage = 24;
       let pageNumber = req.body.pageNumber;
       // if no page number included only show the first page
       if(!pageNumber){
@@ -404,6 +404,11 @@ try{
   const minSRating = req.body.minSRating;
   const minGRating = req.body.minGRating;
   const sectors = req.body.sectors;
+  const page = req.body.pageNumber;
+
+  // number to skip is stocks per page * page number
+  const noPerPage = 24;
+  const noToSkip = page * noPerPage;
 
   /// if undefined return the stock summary
   if (keyword == 'undefined') {
@@ -427,7 +432,14 @@ try{
         { 'esgrating.governance_score': { $gte: minGRating } },
         { sector: { $in: sectors } },
       ],
-    }).select({ prices: 0 });
+    }).select({ prices: 0 }).skip(noToSkip).limit(noPerPage);
+
+    if (stocks.length === 0) {
+      // No stock found
+      res.status(404);
+      res.errormessage = 'No stocks found for this game';
+      return next(new Error('No stocks found for this game'));
+    }
     res.json(stocks);
   }
 } catch(err){

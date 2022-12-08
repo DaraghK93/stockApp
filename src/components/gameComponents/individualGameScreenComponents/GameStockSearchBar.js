@@ -34,7 +34,7 @@ function GameStockSearchBar({ leagueId }) {
             <Row>
               <Col style={{ alignItems: 'center' }} className='text-center'>
                 <Button type='submit' style={{ width: '10rem' }}>
-                  Toggle all stocks
+                  Back
                 </Button>{' '}
               </Col>
             </Row>

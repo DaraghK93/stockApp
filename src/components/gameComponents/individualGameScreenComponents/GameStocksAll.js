@@ -1,4 +1,4 @@
-import { Row, Col, Button } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 
 import { APIName } from '../../../constants/APIConstants';
 import { useState, useEffect } from 'react';
@@ -66,34 +66,64 @@ function GameStocksAll({ league }) {
 
   return (
     <>
-      <Row className='mx-4'>
-        <Col className='py-4 text-center'>
-          <h2>Page {page + 1}</h2>
-        </Col>
-      </Row>
-      <Row className='mx-4'>
-        {page > 0 && (
-          <Col className='py-2'>
-            <Button onClick={prev}>To page {page}</Button>
-          </Col>
-        )}
-        <Col className='text-end py-2'>
-          <Button onClick={next}>To page {page + 2}</Button>
-        </Col>
-      </Row>
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
         <MessageAlert variant='danger'>{error}</MessageAlert>
       ) : (
         <>
-          <SideScrollMenu>
+          {/* <SideScrollMenu>
             {stocks.map((stockObj) => (
               <div className='sideScrollCard' key={stockObj._id}>
                 <TickerCard key={stockObj._id} stock={stockObj} />
               </div>
             ))}
           </SideScrollMenu>
+          <Row className='mx-4'>
+            {page > 0 && (
+              <Col className='py-2 my-auto'>
+                <Button onClick={prev}>Page {page}</Button>
+              </Col>
+            )}
+            <Col className='py-2 text-center'>
+              <h2>Page {page + 1}</h2>
+            </Col>
+            <Col className='text-end py-2 my-auto'>
+              <Button onClick={next}>Page {page + 2}</Button>
+            </Col>
+          </Row> */}
+          <Container className='py-3'>
+            <Row>
+              {stocks.map((stockObj) => (
+                <Col xs={6} md={3} xl={2} className='py-2' key={stockObj._id}>
+                  <TickerCard
+                    className='text'
+                    key={stockObj._id}
+                    stock={stockObj}
+                  />
+                </Col>
+              ))}
+            </Row>
+            <Row className='mx-3'>
+              {page > 0 ? (
+                <Col className='py-2'>
+                  <Button onClick={prev}>Page {page}</Button>
+                </Col>
+              ) : (
+                <Col className='py-2'>
+                  <Button disabled={true} onClick={prev}>
+                    Page {page}
+                  </Button>
+                </Col>
+              )}
+              <Col className='py-2 text-center my-auto'>
+                <h4>Page {page + 1}</h4>
+              </Col>
+              <Col className='text-end py-2 my-auto'>
+                <Button onClick={next}>Page {page + 2}</Button>
+              </Col>
+            </Row>
+          </Container>
         </>
       )}
     </>

@@ -22,8 +22,8 @@ function TickerCard({ stock }) {
   }
 
   return (
-    <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
-      <Card className="h-100 tickercardstyle">
+    <Card className="h-100 tickercardstyle mx-auto">
+        <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
 
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div style={{
@@ -53,8 +53,8 @@ function TickerCard({ stock }) {
           </center>
           </ListGroupItem>
         </ListGroup>
-      </Card>
     </Link>
+      </Card>
   );
 }
 

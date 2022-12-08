@@ -37,9 +37,13 @@ function GameStocks({ league }) {
           </Row>
           <Row>
             <Col style={{ alignItems: 'center' }} className='text-center'>
-              {keyword === undefined && (
+              {keyword === undefined && isStockSummary ? (
                 <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
-                  Toggle all stocks
+                  All stocks
+                </Button>
+              ) : keyword === undefined && !isStockSummary && (
+                <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
+                  Summary
                 </Button>
               )}
             </Col>
@@ -56,9 +60,7 @@ function GameStocks({ league }) {
           keyword !== undefined && (
             <Container>
               <Row md={1} xs={1}>
-                <Container>
                   <GameStockSearchResults keyword={keyword} league={league} />
-                </Container>
               </Row>
             </Container>
           )

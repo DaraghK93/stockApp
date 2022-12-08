@@ -59,12 +59,10 @@ function IndividualGameScreen() {
     }
 
     function isAdmin() {
-        console.log(userInfo)
-        if (league.leagueAdmin === userInfo.id){
+        if (league.leagueAdmin === userInfo.username){
             return true
         }
         else {
-            console.log("HELLO")
 
             return false
         }

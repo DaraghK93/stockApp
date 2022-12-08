@@ -1,4 +1,4 @@
-import { Modal, Button} from "react-bootstrap";
+import { Modal, Button, Row} from "react-bootstrap";
 import {useState,useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {APIName} from '../../../../constants/APIConstants'
@@ -43,7 +43,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
                     }
                 }
                 /// Send the request 
-                const res = await API.put(APIName, path, myInit)
+                await API.put(APIName, path, myInit)
                 /// Set the success message using the
                 setSuccess(`League Deleted Successfully! This will now appear in your Completed Games`)
                 setLoading(false)
@@ -69,7 +69,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
                     }
                 }
                 /// Send the request 
-                const res = await API.post(APIName, path, myInit)
+                await API.post(APIName, path, myInit)
                 /// Set the success message using the
                 setSuccess(`Succesfully left the league! The associated portfolio has also been deleted.`)
                 setLoading(false)
@@ -89,8 +89,8 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
     }
 
     return(
-        <Modal centered show={showState} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal centered show={showState} onHide={handleClose} backdrop="static">
+        <Modal.Header>
             {
             success &&
             <Modal.Title>Are you happy with yourself?</Modal.Title>
@@ -111,7 +111,6 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
             {success && <MessageAlert variant="success">{success}</MessageAlert>}
             {loading && <LoadingSpinner/>}
-            {/* hi */}
             {!success &&
             isAdmin === true &&
                     <div>
@@ -151,11 +150,13 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
         </Button>
         }  
         {success &&
+        <Row className="textCenter">
         <Link className="w-100" to={'/game'}>
-        <Button centered>
+        <Button>
             Return to Games
         </Button>
         </Link>
+        </Row>
         }  
         </Modal.Footer>
     </Modal>

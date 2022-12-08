@@ -76,7 +76,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
     return(
         <Modal centered show={showState} onHide={handleClose} backdrop="static">
             <Row md={1} sm={1} xs={1} className="textCenter pt-1">
-                <Modal.Title>{stockName}</Modal.Title>
+                <Modal.Title className="bolded">{stockName}</Modal.Title>
                 <h5 className="newSpendingPowerSubtitle">New Spending Power {parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</h5>
             </Row>
         <Modal.Body>

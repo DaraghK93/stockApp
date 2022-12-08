@@ -81,7 +81,6 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
             </Row>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-            {/* {success && <MessageAlert variant="success">{success}</MessageAlert>} */}
             {loading && <LoadingSpinner/>}
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <div style={{

@@ -1,6 +1,8 @@
 import { Container, Row, Col, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
+import Confetti from 'react-confetti'
+
 
 function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee, orderSuccess}) {
 
@@ -103,7 +105,7 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                     <Col className="w-100">
                         <CheckCircleOutlineSharpIcon className="greenSuccess"style={{"fontSize":"10rem"}}/>
                     </Col>
-                    
+                    <Confetti numberOfPieces={400} />
                 </Row>
                 }
                 </Container>

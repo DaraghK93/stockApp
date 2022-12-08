@@ -44,7 +44,7 @@ function StockSummary() {
 
     return(
         <>
-        {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+        {loading ? <LoadingSpinner/> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <>
 
         <h2 className="stockdiscoveryRowTitle">Recommended<Person /> <InfoButtonModalWhite title="Personalised Recommendations" info={

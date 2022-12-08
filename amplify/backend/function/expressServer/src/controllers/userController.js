@@ -168,13 +168,11 @@ const loginUser = async (req, res, next) => {
       (err, token) => {
         if (err) throw err
         res.json({
+          _id: user.id,
           firstname: user.firstname,
           lastname: user.lastname,
           email,
           username: user.username,
-          dob: user.dob,
-          image: user.image,
-          bio: user.bio,
           portfolios: user.portfolios,
           token,
         })

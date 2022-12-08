@@ -111,7 +111,11 @@ function GameStocksAll({ league }) {
                 </Col>
               ) : (
                 <Col className='py-2'>
-                  <Button disabled={true} onClick={prev}>
+                  <Button
+                    disabled={true}
+                    onClick={prev}
+                    style={{ background: 'white', border: 0 }}
+                  >
                     Page {page}
                   </Button>
                 </Col>

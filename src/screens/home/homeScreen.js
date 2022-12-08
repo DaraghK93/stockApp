@@ -665,7 +665,6 @@ function HomeScreen() {
             <Col className='mx-4'>
               <p className='splashpageParagraph'>
                 FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
-                luck!
               </p>
             </Col>
           </Row>
@@ -709,7 +708,6 @@ function HomeScreen() {
           <Col>
             <div className='stockDisplay'>
               <h3 style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Explore hundreds of stocks from the world's premier stock market index.</h3>
-              <h3 style={{ textAlign: 'center' }}></h3>
               <div className='stockDisplayCol'>
                 <SideScrollMenu>
                   {stocks.map((stockObj) => (
@@ -809,7 +807,7 @@ function HomeScreen() {
         </Row>
         <Row>
           <Col>
-          <img src='/education_screen.jpg' style={{resizeMode: "cover",width: "60%", border:"2px solid #d4d4d4"}}></img>
+          <img src='/education_screen.jpg' style={{resizeMode: "cover",width: "60%", border:"2px solid #d4d4d4"}} alt="Description here"></img>
           </Col>
         </Row>
         <Row className='py-4'>

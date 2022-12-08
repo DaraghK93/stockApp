@@ -35,7 +35,11 @@ function OrderConfirmationPage() {
     const [isShownMarketOrder, setIsShownMarketOrder] = useState(false)
     const [isShownLimitOrder, setIsShownLimitOrder] = useState(false)
     const [limitPrice, setLimitPrice] = useState(0)
+    const [limitOrderQuantityError, setLimitOrderQuantityError] = useState("")
+    const [limitOrderPriceError, setLimitOrderPriceError] = useState("")
+    const [marketPriceError, setMarketPriceError] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
+    const [spendingPowerError, setSpendingPowerError] = useState("");
    
     /// Game State ///
     const [gameTradeFee, setGameTradeFee] = useState()
@@ -93,8 +97,12 @@ function OrderConfirmationPage() {
             setIsShownMarketOrder(false)
             setIsShownLimitOrder(true)
         }
-
-    }, [orderType])
+        /// Reset the errors when you switch orders
+        setLimitOrderQuantityError("")
+        setLimitOrderPriceError("")
+        setMarketPriceError("")
+        setSpendingPowerError("")
+    }, [orderType,portfolioId])
 
 
     /// Portfolio Id 
@@ -216,11 +224,48 @@ function OrderConfirmationPage() {
                                     maxQuantity={portfolio.portfolioBalance-gameTradeFee}
                                     qty={qty}
                                     holding={holding}
+                                    marketPriceError = {marketPriceError}
+                                    setMarketPriceError = {setMarketPriceError}
                                 />
                                 </Col>
                         </Row>
-                        <Row>
+                    </>
+                    }
+                    {isShownLimitOrder &&
+                        <Row className="my-2" sm={1} md={1} xs={1}>
                             <Col style={{ marginBottom: "0.625rem" }}>
+                                <LimitPriceSelect
+                                    portfolioBalance={portfolio.portfolioBalance}
+                                    setDollarAmountSelected={setDollarAmountSelected}
+                                    qty={qty}
+                                    limitPrice={limitPrice}
+                                    buyOrSell={buyOrSell}
+                                    setLimitPrice={setLimitPrice}
+                                    stockPrice={stock.daily_change.currentprice}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                    limitOrderPriceError={limitOrderPriceError}
+                                    setLimitOrderPriceError={setLimitOrderPriceError}
+                                />
+                            </Col>
+                            <Col>
+                                <LimitQuantitySelect
+                                    portfolioBalance={portfolio.portfolioBalance}
+                                    setQty={setQty}
+                                    qty={qty}
+                                    buyOrSell={buyOrSell}
+                                    stockPrice={stock.daily_change.currentprice}
+                                    limitPrice={limitPrice}
+                                    holding={holding}
+                                    gameTradeFee={gameTradeFee}
+                                    setDollarAmountSelected={setDollarAmountSelected}
+                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                    limitOrderQuantityError={limitOrderQuantityError}
+                                    setLimitOrderQuantityError={setLimitOrderQuantityError}
+                                />
+                            </Col>
+                        </Row>
+                    }
+                    <Col className="pb-3">
                                 <BalanceComponent
                                     portfolioName={portfolio.portfolioName}
                                     portfolioBalance={portfolio.portfolioBalance}
@@ -229,34 +274,15 @@ function OrderConfirmationPage() {
                                     buyOrSell={buyOrSell}
                                     holding={holding}
                                     stockPrice={stock.daily_change.currentprice}
-                                />
-                            </Col>
-                        </Row>
-                    </>
-                        
-                    }
-                    {isShownLimitOrder &&
-                        <Row className="my-2" sm={1} md={1} >
-                            <Col style={{ marginBottom: "0.625rem" }}>
-                                <LimitQuantitySelect
-                                    portfolioBalance={portfolio.portfolioBalance}
-                                    setQty={setQty}
+                                    orderType={orderType}
                                     limitPrice={limitPrice}
-                                    setDollarAmountSelected={setDollarAmountSelected}
-                                    setNewPortfolioBalance={setNewPortfolioBalance}
-                                />
-                            </Col>
-                            <Col style={{ marginBottom: "0.625rem" }}>
-                                <LimitPriceSelect
-                                    portfolioBalance={portfolio.portfolioBalance}
-                                    setDollarAmountSelected={setDollarAmountSelected}
                                     qty={qty}
-                                    setLimitPrice={setLimitPrice}
-                                    setNewPortfolioBalance={setNewPortfolioBalance}
+                                    gameTradeFee={gameTradeFee}
+                                    marketPriceError = {marketPriceError}
+                                    spendingPowerError= {spendingPowerError}
+                                    setSpendingPowerError={setSpendingPowerError}
                                 />
                             </Col>
-                        </Row>
-                    }
                     <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             buyOrSell={buyOrSell}
                             orderType={orderType}
@@ -269,7 +295,12 @@ function OrderConfirmationPage() {
                             stockName={stock.longname}
                             gameTradeFee={gameTradeFee}
                 />
-                    <BottomStickyButton onClick={() =>{setShowAreYouSureModal(true)}} text="Review Trade!"></BottomStickyButton>
+                    <BottomStickyButton 
+                        onClick={() =>{setShowAreYouSureModal(true)}} 
+                        text="Review Trade!" 
+                        disabled={
+                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError || spendingPowerError)
+                        }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>
             }

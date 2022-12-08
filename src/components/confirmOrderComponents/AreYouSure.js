@@ -1,4 +1,4 @@
-import { Modal, Button} from "react-bootstrap";
+import { Modal, Button, Row} from "react-bootstrap";
 import OrderSummary from "./OrderSummary";
 import {useState,useEffect} from 'react';
 import {useSelector} from 'react-redux';
@@ -74,8 +74,11 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
 
     return(
         <Modal centered show={showState} onHide={handleClose}>
-        <Modal.Header closeButton>
-            <Modal.Title>Please Review Your Trade</Modal.Title>
+        <Modal.Header>
+            <Row className="textCenter">
+                <Modal.Title>{stockName}</Modal.Title>
+                <h5 className="newSpendingPowerSubtitle">New Spending Power {parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</h5>
+            </Row>
         </Modal.Header>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}

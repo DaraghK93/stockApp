@@ -25,38 +25,6 @@ function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, n
                          }
                     </Row>
                     
-{/* 
-
-                    //  <tbody>
-                    //         <tr>
-                    //             <td>Buy/ Sell</td>
-                    //             <td>{buyOrSell}</td>
-                    //         </tr>
-                    //         <tr>
-                    //             <td>Quantity</td>
-                    //             <td>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</td>
-                    //         </tr>
-                    //         {buyOrSell === "Buy" ?
-                    //             <tr>
-                    //                 <td className="bolded">Total</td>
-                    //                 <td className="bolded">{(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                    //             </tr>
-                    //         :
-                    //         <>
-                    //         {parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee) >= 0 ?
-                    //         <tr>
-                    //             <td className="bolded">Total</td>
-                    //             <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                    //         </tr>
-                    //         :
-                    //         <tr>
-                    //             <td className="bolded">Total</td>
-                    //             <td className="bolded">{(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                    //         </tr>
-                    //         } 
-                    //         </>
-                    //     }
-                    //     </tbody> */}
                     <Row className="pt-2">
                     <Accordion  defaultActiveKey="0">
                         <Accordion.Item eventKey="0">

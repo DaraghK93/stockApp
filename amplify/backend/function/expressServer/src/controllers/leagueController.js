@@ -614,7 +614,6 @@ const deleteLeague = async (req, res, next) => {
         )
       )
     }
-    await League.findByIdAndUpdate({_id:league._id}, {active: false, finished: true})
     await League.aggregate([
       {
         '$match': {
@@ -689,10 +688,10 @@ const deleteLeague = async (req, res, next) => {
         }
       }
     ])
-    const returnLeague = await League.findOne({_id: req.body.leagueId})
-    res.json(
-      returnLeague
-    )
+
+    res.status(200).json({
+      message: 'You have successfully left the league.'
+    })
   }
   catch (err) {
     console.error(err.message);

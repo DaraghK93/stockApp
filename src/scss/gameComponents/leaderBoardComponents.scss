@@ -4,7 +4,7 @@
 
 .leaderBoardStyle {
     color: $leaderBoardTxt;
-    background-color: $leaderBoardBg;
+    background-color: transparentize($leaderBoardBg, 0.3);
 }
 
 .leaderBoardStyle2 {

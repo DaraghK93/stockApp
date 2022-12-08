@@ -9,26 +9,7 @@ import {useSelector} from 'react-redux';
 import {Link} from "react-router-dom";
 import InfoButtonModal from '../../widgets/InfoButtonModal/InfoButtonModal'
 
-import PersonIcon from '@mui/icons-material/Person';
-import TimelineIcon from '@mui/icons-material/Timeline';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
-import ForestIcon from '@mui/icons-material/Forest';
-import EnergySavingsLeafIcon from '@mui/icons-material/EnergySavingsLeaf';
-import Groups3Icon from '@mui/icons-material/Groups3';
-import AssuredWorkloadIcon from '@mui/icons-material/AssuredWorkload';
-import DataUsageIcon from '@mui/icons-material/DataUsage';
-import FactoryIcon from '@mui/icons-material/Factory';
-import LanIcon from '@mui/icons-material/Lan';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import PeopleIcon from '@mui/icons-material/People';
-import GroupsIcon from '@mui/icons-material/Groups';
-import HomeIcon from '@mui/icons-material/Home';
-import ElectricalServicesIcon from '@mui/icons-material/ElectricalServices';
-import CloudIcon from '@mui/icons-material/Cloud';
-import ScienceIcon from '@mui/icons-material/Science';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
+import {PersonIcon, TimelineIcon, TrendingUpIcon, TrendingDownIcon, ForestIcon, EnergySavingsLeafIcon, Groups3Icon, AssuredWorkloadIcon, DataUsageIcon, FactoryIcon, LanIcon, AttachMoneyIcon, LocalHospitalIcon, PeopleIcon, GroupsIcon, HomeIcon, ElectricalServicesIcon, CloudIcon, ScienceIcon, ElectricBoltIcon} from '@mui/icons-material';
 
 function StockSummary() {
     const [stocks, setStock] = useState({});

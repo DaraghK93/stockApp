@@ -40,6 +40,7 @@ function TransactionHistory({ transactions }) {
             const filtered = transactions.filter(transaction => {
                 return transaction.status === currentStatus && transaction.buyOrSell === e.target.value
             })
+            console.log(filtered)
             setData(filtered)
         }
     }
@@ -202,7 +203,7 @@ function TransactionHistory({ transactions }) {
                             </thead>
                             <tbody>
                                 {data.map((transaction, index) => (
-                                    (<Fragment key={`${transaction.stock[0].symbol}-fragment`}>
+                                    (<Fragment key={`${index}-fragment`}>
                                         <tr key={transaction.stock[0].symbol}>
                                             <td key={transaction.date} className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
                                             <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>

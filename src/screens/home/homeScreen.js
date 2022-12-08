@@ -654,29 +654,29 @@ function HomeScreen() {
       <Container className='splash-page-container'>
         <Row className='py-4'>
           <Col className='mx-4'>
-            <h1>FinOptimse - Fantasy Stock Trading Game</h1>
+            <h1>Fantasy Stock Trading Game</h1>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border:"none"}}></Image>
+            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image>
           </Col>
-        <Row>
-          <Col className='mx-4'>
-            <p className='splashpageParagraph'>
-              FinOptimise is a fantasy stock trading game. Play with friends.
-              Use our artificial intelligence to pick the best stocks. Good
-              luck!
-            </p>
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <Button onClick={navigateLogin} className='btn-lg'>
-              Play Now
-            </Button>
-          </Col>
-        </Row>
+          <Row>
+            <Col className='mx-4'>
+              <p className='splashpageParagraph'>
+                FinOptimise is a fantasy stock trading game. Play with friends.
+                Use our artificial intelligence to pick the best stocks. Good
+                luck!
+              </p>
+            </Col>
+          </Row>
+          <Row className='py-4'>
+            <Col>
+              <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+                Play Now
+              </Button>
+            </Col>
+          </Row>
 
         </Row>
       </Container>
@@ -718,46 +718,50 @@ function HomeScreen() {
             </p>
           </Col>
         </Row>
-        <Row className='py-4'>
+      </Container>
+
+      <Container className='stockDisplayContainer'>
+        <Row>
           <Col>
-            <h2 style={{ textAlign: 'center' }}>Artificial Intelligence</h2>
+            <div className='stockDisplay'>
+              <h3 style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Explore hundreds of stocks from the world's premier stock market index.</h3>
+              <h3 style={{ textAlign: 'center' }}></h3>
+              <div className='stockDisplayCol'>
+                <SideScrollMenu>
+                  {stocks.map((stockObj) => (
+                    <div
+                      className='sideScrollCard not-clickable stockDisplayCol splashScroller'
+                      key={stockObj._id}
+                    >
+                      <TickerCard key={stockObj._id} stock={stockObj} />
+                    </div>
+                  ))}
+                </SideScrollMenu>
+              </div>
+            </div>
           </Col>
         </Row>
-        <Row>
-          <Col className='mx-4'>
-            <p style={{ textAlign: 'center' }}>
-              Get personalised stock recommendations
-            </p>
+        <Row className='py-4'>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              Explore Now
+            </Button>
           </Col>
         </Row>
       </Container>
-      <Row className='stockDisplayContainer'>
-        <div className='stockDisplay'>
-          <h2 style={{ textAlign: 'center' }}>Artificial Intelligence</h2>
-          <div className='stockDisplayCol'>
-            <SideScrollMenu>
-              {stocks.map((stockObj) => (
-                <div
-                  className='sideScrollCard not-clickable stockDisplayCol splashScroller'
-                  key={stockObj._id}
-                >
-                  <TickerCard key={stockObj._id} stock={stockObj}/>
-                </div>
-              ))}
-            </SideScrollMenu>
-          </div>
-        </div>
-      </Row>
-      <Container>
-        <Row>
-          <Row className='pt-5'>
-            <Col>
-              <p style={{ textAlign: 'center' }}>
-                Get the latest news and tweets on each stock. With sentiment
-                classification
+      <Container className='splash-page-container'>
+        <Row className='py-4'>
+          <Col>
+            <h2>Advanced A.I. Tools</h2>
+          </Col>
+          <Row>
+            <Col className='mx-4'>
+              <p className='splashpageParagraph'>
+                Use our A.I. tools to get the latest news and tweets relating to each stock, with sentiment classification of the contents into Positive, Neautral or Negative categories.
               </p>
             </Col>
           </Row>
+
           <Col sm md={8} className='offset-md-2'>
             <Card id='newsCardContainer' className='newsCardContainer'>
               <h2 className='newsCardContainerHeading'>News Feed</h2>
@@ -776,13 +780,6 @@ function HomeScreen() {
                 </>
               </Card.Body>
             </Card>
-          </Col>
-        </Row>
-        <Row className='pt-4'>
-          <Col>
-            <p style={{ textAlign: 'center' }}>
-              Sentiment breakdown of each article and tweet in our database
-            </p>
           </Col>
         </Row>
         <Row>
@@ -814,7 +811,7 @@ function HomeScreen() {
         </Row>
       </Container>
       <Footer />
-    
+
     </>
   );
 }

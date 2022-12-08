@@ -24,6 +24,8 @@ import { useEffect } from 'react';
 
 /// Redux ///
 import { useSelector,useDispatch } from 'react-redux';
+import {verifyJWT} from './actions/userActions';
+import LoadingSpinner from './components/widgets/LoadingSpinner/LoadingSpinner';
 import {updateActivePortfolios} from './actions/portfolioActions';
 
 function App() {
@@ -31,18 +33,26 @@ function App() {
   const dispatch = useDispatch()
   const user = useSelector((state) => state.user)
   const { userInfo } = user;
+  /// validJWT state is used for validating the JWT token 
+  const validJWT = useSelector((state) => state.validJWT)
+  const {loading} = validJWT;
 
    useEffect(() => {
         /// If the user is logged in 
         if (userInfo){
+          /// Need to check the valididty of the usersInfo token  
+          dispatch(verifyJWT(userInfo.token))  
           /// Set the active portfolio state 
           dispatch(updateActivePortfolios(userInfo.token))   
         }
     },[dispatch,userInfo])
 
 
-
+  /// loading is from the validJWT redux state 
   return (
+    <>
+    {loading ? <LoadingSpinner/>
+    :
     <Router>
       <Header />
       <Routes>
@@ -98,10 +108,10 @@ function App() {
 
         <Route path='/settings'
           element={userInfo ? <UserSettingsPage /> : <Navigate to="/" />} />
-
-
       </Routes>
     </Router>
+    }
+    </>
   );
 }
 

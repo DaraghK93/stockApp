@@ -459,10 +459,11 @@ const getLeaguePortfolio = async (req,res,next) => {
                   'as': 'stock', 
                   'pipeline': [
                     {
-                      // only show the symbol and shortname
+                      // only show the symbol, shortname and logo
                       '$project': {
                         'symbol': 1, 
-                        'shortname': 1
+                        'shortname': 1,
+                        'logo':1
                       }
                     }
                   ]

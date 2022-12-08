@@ -19,151 +19,91 @@ exports = function() {
   // scheduled trigger
   // runs at 21:00 everyday as a CRON Job - 00 21 * * * - cron expr
   exports = function() {
-  
+
     const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
-    const today = new Date().setHours(0,0,0,0);
-    // update any league where the endDate is today
-    // active to false, finished to true. ends the league
-    return collection.aggregate([
-      {
-        '$match': {
-          'active': true, 
-          'finished': false, 
-          'startDate': new Date(today)
-        }
-      }, {
-        '$lookup': {
-          'from': 'portfolioValues', 
-          'localField': 'portfolios', 
-          'foreignField': '_id', 
-          'as': 'portfolios', 
-          'pipeline': [
-            {
-              '$lookup': {
-                'from': 'users', 
-                'localField': 'userId', 
-                'foreignField': '_id', 
-                'as': 'user'
-              }
-            }, {
-              '$unwind': {
-                'path': '$user'
-              }
-            }, {
-              '$set': {
-                'user': '$user.username'
-              }
-            }, {
-              '$project': {
-                'totalValue': 1, 
-                'user': 1
+        const today = new Date().setHours(0,0,0,0);
+        // update any league where the endDate is today
+        // active to false, finished to true.  ends the league
+        return collection.aggregate([
+          {
+            '$match': {
+              // match on active timebased leagues where endDate is today
+              'leagueType':"timeBased",
+              'active': true, 
+              'finished': false, 
+              'endDate': new Date(today)
+            }
+          }, {
+            // get portfolio values
+            '$lookup': {
+              'from': 'portfolioValues', 
+              'localField': 'portfolios', 
+              'foreignField': '_id', 
+              'as': 'portfolios', 
+              'pipeline': [
+                {// lookup user names
+                  '$lookup': {
+                    'from': 'users', 
+                    'localField': 'userId', 
+                    'foreignField': '_id', 
+                    'as': 'user'
+                  }
+                }, {
+                  // set into array
+                  '$unwind': {
+                    'path': '$user'
+                  }
+                }, {
+                  // set user as the username
+                  '$set': {
+                    'user': '$user.username'
+                  }
+                }, {// just show value and username
+                  '$project': {
+                    'totalValue': 1, 
+                    'user': 1
+                  }
+                }
+              ]
+            }
+          }, {// make portfolios into array for sorting
+            '$unwind': {
+              'path': '$portfolios'
+            }
+          }, {// sort to get leaderboard
+            '$sort': {
+              'portfolios.totalValue': -1
+            }
+          }, {// group by league and portfolios and make into their own objects
+            '$group': {
+              '_id': '$_id', 
+              'league': {
+                '$first': '$$ROOT'
+              }, 
+              // push the leaderboard to portfolio field
+              'portfolios': {
+                '$push': '$portfolios'
               }
             }
-          ]
-        }
-      }, {
-        '$unwind': {
-          'path': '$portfolios'
-        }
-      }, {
-        '$sort': {
-          'portfolios.totalValue': -1
-        }
-      }, {
-        '$group': {
-          '_id': '$_id', 
-          'league': {
-            '$first': '$$ROOT'
-          }, 
-          'portfolios': {
-            '$push': '$portfolios'
+          }, {// add that field to main league object
+            '$addFields': {
+              'league.portfolios': '$portfolios'
+            }
+          }, {// make league the root object
+            '$replaceRoot': {
+              'newRoot': '$league'
+            }
+          }, {// finish the game and set leaderboard to finalStandings
+            '$set': {
+              'active': false, 
+              'finished': true, 
+              'finalStandings': '$portfolios'
+            }
+          }, {// merge the changes
+            '$merge': {
+              'into': 'leagues', 
+              'on': '_id'
+            }
           }
-        }
-      }, {
-        '$addFields': {
-          'league.portfolios': '$portfolios'
-        }
-      }, {
-        '$replaceRoot': {
-          'newRoot': '$league'
-        }
-      }, {
-        '$set': {
-          'active': false, 
-          'finished': true, 
-          'finalStandings': '$portfolios'
-        }
-      }, {
-        '$merge': {
-          'into': 'leagues', 
-          'on': '_id'
-        }
+        ]);
       }
-    ]);
-  }
-
-  exports = function() {
-
-    // Access a mongodb service:
-    const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
-    const today = new Date().setHours(0,0,0,0);
-    return collection.aggregate([
-    {
-      // get leagues fromm leagueId
-        '$lookup': {
-            'from': 'leagues', 
-            'localField': 'leagueId', 
-            'foreignField': '_id', 
-            'as': 'league'
-        }
-    }, {
-      // get portfolio values from portfolioID
-        '$lookup': {
-            'from': 'portfolioValues', 
-            'localField': '_id', 
-            'foreignField': '_id', 
-            'as': 'totalVal'
-        }
-    }, {
-      // make the arrays objects
-        '$unwind': {
-            'path': '$totalVal'
-        }
-    }, {
-        '$unwind': {
-            'path': '$league'
-        }
-    }, {
-      // get only portfolios associated with ongoing leagues
-        '$match': {
-            'league.finished': false
-        }
-    }, {
-      // push the object to value history
-        '$set': {
-            'valueHistory': {
-                '$concatArrays': [
-                    '$valueHistory', [
-                        {
-                            'date':   new Date(today), 
-                            'value': '$totalVal.totalValue'
-                        }
-                    ]
-                ]
-            }
-        }
-    }, {
-      // only return id and valuthistory
-        '$project': {
-            'valueHistory': 1
-        }
-    }, {
-      // // merge into the collection
-        '$merge': {
-            'into': 'portfolios', 
-            'on': '_id'
-        }
-    }
-])
-                            
-};

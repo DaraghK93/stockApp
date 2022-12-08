@@ -228,8 +228,8 @@ function TransactionHistory({ transactions }) {
                                             <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
                                             <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                             <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}><center><Button variant="danger">Cancel</Button></center></td>
-                                            <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide" }key={index + 200}><center><Button style={{ padding: 0, margin: 0, color: "black" }}
-
+                                            <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide" } key={index + 200}>
+                                                <center><Button style={{ padding: 0, margin: 0, color: "black" }}
                                                 variant="link"
                                                 onClick={event => handleExpandRow(event, transaction.stock[0].symbol)}>
                                                 {

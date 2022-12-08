@@ -788,28 +788,55 @@ function HomeScreen() {
           </Col>
         </Row>
       </Container>
-      <Container>
+      <Container className='splash-page-container'>
         <Row className='py-4'>
           <Col>
-            <h2 style={{ textAlign: 'center' }}>
-              Environmenatal Social and Governance (ESG) Investing
-            </h2>
-          </Col>
-        </Row>
-        {/* <TickerCard key={} stock={} /> */}
-        <Row>
-          <Col>
-            <p style={{ textAlign: 'center' }}>
-              See at a glance the ESG rating of each stock
-            </p>
+            <h2>Ethical Investing</h2>
           </Col>
         </Row>
         <Row className='esg-row' style={{ alignItems: 'center' }}>
           <Col sm md={8} className='stockInfoCol offset-md-2'>
-            <ChartCardESG title={'ESG Rating'} edata={3} sdata={2} gdata={1} />
+            <ChartCardESG title={'ESG Rating'} edata={5} sdata={4} gdata={5} />
+          </Col>
+        </Row>
+        <Row className='py-4'>
+          <Col>
+            <p style={{ textAlign: 'center', marginBottom:"0.5rem"}}>
+            Practice Ethical Investing with Environmenatal Social and Governance (ESG) ratings in mind.
+            </p>
+          </Col>
+        </Row>
+        <Row className='py-4'>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              Explore Now
+            </Button>
           </Col>
         </Row>
       </Container>
+      <Container className='stockDisplayContainer'>
+        <Row>
+          <Col>
+            <div className='stockDisplay'>
+              <h2 style={{ textAlign: 'center', color: "white" }}>Learn About Investing</h2>
+              <p style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Learn about the basics of investing on our education page.</p>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          <img src='/education_screen.jpg' style={{resizeMode: "cover",width: "60%", border:"2px solid #d4d4d4"}}></img>
+          </Col>
+        </Row>
+        <Row className='py-4'>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              Learn Now
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+
       <Footer />
 
     </>

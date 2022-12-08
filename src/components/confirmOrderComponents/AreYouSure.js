@@ -56,8 +56,8 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                 }
                 /// Send the request 
                 const res = await API.post(APIName, path, myInit)
-                /// Set the success message using the
-                setSuccess(`Order Successful! $${res.remainder.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} available left to spend`)
+                /// Set the success message, will 
+                setSuccess(res)
                 setLoading(false)
         }catch(error){
             setError(error.response.data.errormessage)
@@ -81,8 +81,24 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
             </Row>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-            {success && <MessageAlert variant="success">{success}</MessageAlert>}
+            {/* {success && <MessageAlert variant="success">{success}</MessageAlert>} */}
             {loading && <LoadingSpinner/>}
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <div style={{
+                            width: "10rem",
+                            height: "9rem",
+                        }}>
+                            <img src={stockLogo} style={{
+                                maxWidth: "100%",
+                                height: "100%",
+                                display: "block",
+                                objectFit: "contain",
+                                marginLeft: "auto",
+                                marginRight: "auto"}} 
+                                alt="company logo">
+                            </img>
+                        </div>
+                    </div>
             <OrderSummary
                     stockName={stockName}
                     buyOrSell={buyOrSell}
@@ -92,8 +108,10 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                     gameTradeFee={gameTradeFee}
                     qty={qty}
                     stockLogo={stockLogo}
+                    orderSuccess={success}
                     />
         </Modal.Body>
+        {!success &&
         <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>
                 Cancel <Clear style={{"verticalAlign":"bottom"}}/>
@@ -102,6 +120,7 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
             Lets Do It! <AttachMoney  style={{"verticalAlign":"bottom"}}/>
         </Button>
         </Modal.Footer>
+        }
     </Modal>
     )
 }

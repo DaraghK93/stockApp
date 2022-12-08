@@ -1,26 +1,14 @@
-import { Container, Row, Table } from "react-bootstrap";
+import { Container, Row, Col, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 
-function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
+function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee, orderSuccess}) {
 
     return (
                 <Container>
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <div style={{
-                            width: "10rem",
-                            height: "9rem",
-                        }}>
-                            <img src={stockLogo} style={{
-                                maxWidth: "100%",
-                                height: "100%",
-                                display: "block",
-                                objectFit: "contain",
-                                marginLeft: "auto",
-                                marginRight: "auto"}} 
-                                alt="company logo">
-                            </img>
-                        </div>
-                    </div>
+                    {!orderSuccess ?
+
+                    <>
                     <Row className="textCenter">
                         <h3>{buyOrSell}</h3>
                     </Row>
@@ -107,6 +95,17 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                         </Accordion.Item>
                     </Accordion>  
                     </Row>
+                    </>
+                :
+                <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
+                    <h2 className="greenSuccess">Trade Complete!</h2>
+                    <h2 className="greenSuccess">Congratulations </h2>
+                    <Col className="w-100">
+                        <CheckCircleOutlineSharpIcon className="greenSuccess"style={{"fontSize":"10rem"}}/>
+                    </Col>
+                    
+                </Row>
+                }
                 </Container>
     )
 }

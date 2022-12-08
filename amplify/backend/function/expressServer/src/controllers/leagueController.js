@@ -561,6 +561,148 @@ const getLeagueById = async (req,res,next) => {
 
 }
 
+const deleteLeague = async (req, res, next) => {
+  try {
+    if (
+      typeof req.body.leagueId === 'undefined' 
+    ) {
+      // data is missing bad request
+      res.status(400)
+      res.errormessage = 'The league Id must be provided to delete a league.'
+      return next(
+        new Error(
+          'The client has not sent the required league Id that they wish to delete.'
+        ),
+      )
+    } 
+    if (mongoose.Types.ObjectId.isValid(req.body.leagueId) === false){
+      // check that the league ID is correct
+      res.status(404)
+      res.errormessage = 'No league found'
+      return next(
+        new Error(
+          'The chosen league does not exist.'
+        )
+      )
+    }
+    const league = await League.findOne({_id: req.body.leagueId})
+    // check that the league exists
+    if(league===null){
+      res.status(404)
+      res.errormessage = 'No league found with that ID.'
+      return next(
+        new Error(
+          'ID provided but not associated to a league.'
+        )
+      )
+    }
+    if(league.finished === true){
+      res.status(400)
+      res.errormessage = 'League is already finished or deleted.'
+      return next(
+        new Error(
+          'The chosen league has already finished or been deleted.'
+        )
+      )
+    }
+    if(league.leagueAdmin != req.user.id){
+      res.status(400)
+      res.errormessage = 'You do not have administrative permissions to delete this league.'
+      return next(
+        new Error(
+          'You must be the admin of the league to delete the league.'
+        )
+      )
+    }
+    await League.aggregate([
+      {
+        '$match': {
+          '_id': league._id
+        }
+      }, {
+        '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': 'portfolios', 
+          'foreignField': '_id', 
+          'as': 'portfolios', 
+          'pipeline': [
+            {
+              '$lookup': {
+                'from': 'users', 
+                'localField': 'userId', 
+                'foreignField': '_id', 
+                'as': 'user'
+              }
+            }, {
+              '$unwind': {
+                'path': '$user'
+              }
+            }, {
+              '$set': {
+                'user': '$user.username'
+              }
+            }, {
+              '$project': {
+                'totalValue': 1, 
+                'user': 1
+              }
+            }
+          ]
+        }
+      }, {
+        '$unwind': {
+          'path': '$portfolios'
+        }
+      }, {
+        '$sort': {
+          'portfolios.totalValue': -1
+        }
+      }, {
+        '$group': {
+          '_id': '$_id', 
+          'league': {
+            '$first': '$$ROOT'
+          }, 
+          'portfolios': {
+            '$push': '$portfolios'
+          }
+        }
+      }, {
+        '$addFields': {
+          'league.portfolios': '$portfolios'
+        }
+      }, {
+        '$replaceRoot': {
+          'newRoot': '$league'
+        }
+      }, {
+        '$set': {
+          'active': false, 
+          'finished': true, 
+          'finalStandings': '$portfolios'
+        }
+      }, {
+        '$merge': {
+          'into': 'leagues', 
+          'on': '_id'
+        }
+      }
+    ])
+
+    res.status(200).json({
+      message: 'You have successfully deleted the league.'
+    })
+  }
+  catch (err) {
+    console.error(err.message);
+    res.errormessage = 'Server error in deleting the league';
+    res.status(500)
+    return next(err);
+  }
+
+}
+
+
 const leaveLeague = async (req,res,next) => {
   try{
     if (
@@ -665,5 +807,6 @@ module.exports = {
     joinLeaguebyCode,
     getMyLeagues,
     getLeagueById,
+    deleteLeague,
     leaveLeague
   }

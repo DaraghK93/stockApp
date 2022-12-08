@@ -1,11 +1,13 @@
 import { Modal, Button} from "react-bootstrap";
 import {useState,useEffect} from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {APIName} from '../../../../constants/APIConstants'
 import { API } from "aws-amplify";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
-import { Link } from "react-router-dom";
-import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
+import { Link } from "react-router-dom"
+import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner"
+import {updateActivePortfolios} from '../../../../actions/portfolioActions';
+
 
 function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
     
@@ -13,6 +15,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("")
     
+    const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
     const { userInfo } = user;
     const userToken = userInfo.token
@@ -44,7 +47,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
                 /// Set the success message using the
                 setSuccess(`League Deleted Successfully! This will now appear in your Completed Games`)
                 setLoading(false)
-                console.log(res)
+                dispatch(updateActivePortfolios(userInfo.token)) 
         }catch(error){
             setError(error.response.data.errormessage)
             setLoading(false)
@@ -70,7 +73,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
                 /// Set the success message using the
                 setSuccess(`Succesfully left the league! The associated portfolio has also been deleted.`)
                 setLoading(false)
-                console.log(res)
+                dispatch(updateActivePortfolios(userInfo.token)) 
         }catch(error){
             setError(error.response.data.errormessage)
             setLoading(false)
@@ -148,9 +151,11 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
         </Button>
         }  
         {success &&
-        <Button variant="link">
-            <Link to={'/game/creategame'} style={{ colour: "white", textDecoration: 'none' }}>Return to Games</Link>
+        <Link className="w-100" to={'/game'}>
+        <Button>
+            Return to Games
         </Button>
+        </Link>
         }  
         </Modal.Footer>
     </Modal>

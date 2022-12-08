@@ -103,7 +103,7 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                 <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
                     <h2 className="greenSuccess">Trade Complete!</h2>
                     <h2 className="greenSuccess">Congratulations </h2>
-                    <Col className="w-100">
+                    <Col className="w-100 mb-4">
                         <CheckCircleOutlineSharpIcon className="greenSuccess"style={{"fontSize":"10rem"}}/>
                     </Col>
                     <Confetti recycle={false}/>

@@ -41,10 +41,16 @@ function GameStocks({ league }) {
                 <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
                   All stocks
                 </Button>
-              ) : keyword === undefined && !isStockSummary && (
-                <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
-                  Summary
-                </Button>
+              ) : (
+                keyword === undefined &&
+                !isStockSummary && (
+                  <Button
+                    onClick={toggleStockSummary}
+                    style={{ width: '10rem' }}
+                  >
+                    Summary
+                  </Button>
+                )
               )}
             </Col>
           </Row>
@@ -60,7 +66,7 @@ function GameStocks({ league }) {
           keyword !== undefined && (
             <Container>
               <Row md={1} xs={1}>
-                  <GameStockSearchResults keyword={keyword} league={league} />
+                <GameStockSearchResults keyword={keyword} league={league} />
               </Row>
             </Container>
           )

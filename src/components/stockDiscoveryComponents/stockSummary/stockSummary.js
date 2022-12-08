@@ -47,7 +47,7 @@ function StockSummary() {
         {loading ? <LoadingSpinner/> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <>
 
-        <h2 className="stockdiscoveryRowTitle">Recommended<Person /> <InfoButtonModalWhite title="Personalised Recommendations" info={
+        <h2 className="stockdiscoveryRowTitleTop">Recommended<Person /> <InfoButtonModalWhite title="Personalised Recommendations" info={
                         <div>
                             <p>FinOptimise uses what's known as a content based recommender system to suggest companies that you may be interested in based on your most recent transaction. This Machine Learning model will find you the most similar companies from our database.</p> 
                             <p> If you have not yet made a transaction, the recommender system will give you recommendations based on the <mark class="positive">highest positive mover</mark>over the<mark class="bold">past 24 hours.</mark></p>
@@ -235,7 +235,7 @@ function StockSummary() {
                             </div>
                         ))}
                     </SideScrollMenu>
-                            <Footer />
+                    <Footer />
         </>}
         </>
     )

@@ -9,7 +9,7 @@ import {useSelector} from 'react-redux';
 import {Link} from "react-router-dom";
 import InfoButtonModal from '../../widgets/InfoButtonModal/InfoButtonModal'
 
-import {PersonIcon, TimelineIcon, TrendingUpIcon, TrendingDownIcon, ForestIcon, EnergySavingsLeafIcon, Groups3Icon, AssuredWorkloadIcon, DataUsageIcon, FactoryIcon, LanIcon, AttachMoneyIcon, LocalHospitalIcon, PeopleIcon, GroupsIcon, HomeIcon, ElectricalServicesIcon, CloudIcon, ScienceIcon, ElectricBoltIcon} from '@mui/icons-material';
+import { Person, Timeline, TrendingUp, TrendingDown, Forest, EnergySavingsLeaf, Groups3, AssuredWorkload, DataUsage, Factory, Lan, AttachMoney, LocalHospital, People, Groups, Home, ElectricalServices, Cloud, Science, ElectricBolt } from '@mui/icons-material';
 
 function StockSummary() {
     const [stocks, setStock] = useState({});
@@ -45,7 +45,7 @@ function StockSummary() {
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <>
 
-        <h2 className="stockdiscoveryRowTitleTop">Recommended <PersonIcon /><InfoButtonModal title="Personalised Recommendations" info={
+        <h2 className="stockdiscoveryRowTitle">Recommended <Person /><InfoButtonModal title="Personalised Recommendations" info={
                         <div>
                             <p>FinOptimise uses what's known as a content based recommender system to suggest companies that you may be interested in based on your most recent transaction. This Machine Learning model will find you the most similar companies from our database.</p> 
                             <p> If you have not yet made a transaction, the recommender system will give you recommendations based on the highest positive mover over the past 24 hours.</p>
@@ -58,14 +58,12 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <div className='discoverySectionDiv'></div>
 
-
-        <h2 className="stockdiscoveryRowTitle">Top Movers <TimelineIcon /><InfoButtonModal title="Personalised Recommendations" info={
+        <h2 className="stockdiscoveryRowTitle">Top Movers <Timeline /><InfoButtonModal title="Personalised Recommendations" info={
                         <div>
                             <p>This section displays the top positive and negative movers over the past 24 hour period.</p>
                         </div>} /></h2>
-        <h3 className="stockdiscoveryRow">Top Gainers <TrendingUpIcon /><InfoButtonModal title="Top Gainers" info={
+        <h3 className="stockdiscoveryRow">Top Gainers <TrendingUp /><InfoButtonModal title="Top Gainers" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by largest positive % change in stock price over the past 24 hour period.</p> 
                             <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p> 
@@ -79,7 +77,7 @@ function StockSummary() {
         </SideScrollMenu>
 
 
-                    <h3 className="stockdiscoveryRow">Top Losers <TrendingDownIcon /><InfoButtonModal title="Top Losers" info={
+                    <h3 className="stockdiscoveryRow">Top Losers <TrendingDown /><InfoButtonModal title="Top Losers" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by largest negative % change in stock price over the past 24 hour period.</p>
                             <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p>
@@ -91,14 +89,13 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <div className='discoverySectionDiv'></div>
 
-        <h2 className="stockdiscoveryRowTitle">Top ESG Stocks <ForestIcon /><InfoButtonModal title="Top ESG" info={
+        <h2 className="stockdiscoveryRowTitle">Top ESG Stocks <Forest /><InfoButtonModal title="Top ESG" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by Environmental, Social and Governance (ESG) ratings.</p>
                             <p>An explanation for ESG ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
                         </div>} /></h2>
-        <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeafIcon /><InfoButtonModal title="Top Environmental" info={
+        <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeaf /><InfoButtonModal title="Top Environmental" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by their Environmental rating, as taken from their ESG scores.</p>
                             <p>An explanation for Environmental ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
@@ -111,7 +108,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Social <Groups3Icon /><InfoButtonModal title="Top Social" info={
+        <h3 className="stockdiscoveryRow">Top Social <Groups3 /><InfoButtonModal title="Top Social" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by their Social rating, as taken from their ESG scores.</p>
                             <p>An explanation for Social ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
@@ -123,7 +120,7 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <h3 className="stockdiscoveryRow">Top Governance <AssuredWorkloadIcon /><InfoButtonModal title="Top Governance" info={
+        <h3 className="stockdiscoveryRow">Top Governance <AssuredWorkload /><InfoButtonModal title="Top Governance" info={
                         <div>
                             <p>This section shows the top 20 companies ranked by their Governance rating, as taken from their ESG scores.</p>
                             <p>An explanation for Governance ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
@@ -135,14 +132,13 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <div className='discoverySectionDiv'></div>
 
-        <h2 className="stockdiscoveryRowTitle">Top Stocks By Sector <DataUsageIcon /><InfoButtonModal title="Top ESG" info={
+        <h2 className="stockdiscoveryRowTitle">Top Stocks By Sector <DataUsage /><InfoButtonModal title="Top ESG" info={
                         <div>
                             <p>This section displays the top 20 movers by % of their price over the past 24 hour period in each of the 11 sectors in the S&P500.</p>
                             <p>Detailed explanations of these 11 sectors can be found <a href='https://corporatefinanceinstitute.com/resources/valuation/the-sp-sectors/'>here.</a></p>
                         </div>} /></h2>
-        <h3 className="stockdiscoveryRow">Top Industrials <FactoryIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Industrials <Factory /></h3>
         <SideScrollMenu>
                 {stocks[0].Industrials.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -151,7 +147,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Technology <LanIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Technology <Lan /></h3>
         <SideScrollMenu>
                 {stocks[0].Technology.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -160,7 +156,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Financial <AttachMoneyIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Financial <AttachMoney /></h3>
         <SideScrollMenu>
                 {stocks[0].Financial.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -169,7 +165,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Healthcare <LocalHospitalIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Healthcare <LocalHospital /></h3>
         <SideScrollMenu>
                 {stocks[0].Healthcare.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -178,7 +174,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-        <h3 className="stockdiscoveryRow">Top Consumer Cyclical <PeopleIcon /></h3>
+        <h3 className="stockdiscoveryRow">Top Consumer Cyclical <People /></h3>
         <SideScrollMenu>
                 {stocks[0].ConsumerCyc.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -187,7 +183,7 @@ function StockSummary() {
                      ))}
         </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Consumer Defensive <GroupsIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Top Consumer Defensive <Groups /></h3>
                     <SideScrollMenu>
                         {stocks[0].ConsumerDef.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -196,7 +192,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Real Estate <HomeIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Top Real Estate <Home /></h3>
                     <SideScrollMenu>
                         {stocks[0].RealEstate.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -205,7 +201,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Utilities <ElectricalServicesIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Top Utilities <ElectricalServices /></h3>
                     <SideScrollMenu>
                         {stocks[0].Utilities.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -214,7 +210,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Communication Services <CloudIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Top Communication Services <Cloud /></h3>
                     <SideScrollMenu>
                         {stocks[0].CommunicationServices.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -223,7 +219,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
                     
-                    <h3 className="stockdiscoveryRow">Top Basic Materials <ScienceIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Top Basic Materials <Science /></h3>
                     <SideScrollMenu>
                         {stocks[0].BasicMaterials.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>
@@ -232,7 +228,7 @@ function StockSummary() {
                         ))}
                     </SideScrollMenu>
 
-                    <h3 className="stockdiscoveryRow">Top Energy <ElectricBoltIcon /></h3>
+                    <h3 className="stockdiscoveryRow">Top Energy <ElectricBolt /></h3>
                     <SideScrollMenu>
                         {stocks[0].Energy.map((stockObj) => (
                             <div className='sideScrollCard' key={stockObj._id}>

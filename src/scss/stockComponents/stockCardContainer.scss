@@ -48,8 +48,12 @@
 }
 
 .stockdiscoveryRowTitle {
-  margin-top: 3rem;
-  background-color: $stockdiscoverybackground;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  color: #FFFFFF;
+  background-color: #0080FF;
   white-space: initial;
   word-wrap: break-word;
   width:100%;
@@ -59,7 +63,8 @@
 .stockdiscoveryRowTitleTop {
   margin-top: 2.5rem;
   margin-bottom: 2rem;
-  background-color: $stockdiscoverybackground;
+  color: #FFFFFF;
+  background-color: #0080FF;
   white-space: initial;
   word-wrap: break-word;
   width:100%;

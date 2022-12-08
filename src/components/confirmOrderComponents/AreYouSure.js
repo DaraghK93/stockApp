@@ -1,4 +1,4 @@
-import { Modal, Button} from "react-bootstrap";
+import { Modal, Button, Row} from "react-bootstrap";
 import OrderSummary from "./OrderSummary";
 import {useState,useEffect} from 'react';
 import {useSelector} from 'react-redux';
@@ -6,8 +6,9 @@ import {APIName} from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 import MessageAlert from "../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../widgets/LoadingSpinner/LoadingSpinner";
+import {AttachMoney, Clear} from '@mui/icons-material';
 
-function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,dollarAmountSelected,qty,limitPrice,stockName,gameTradeFee}){
+function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderType,newPortfolioBalance,dollarAmountSelected,qty,limitPrice,stockName,gameTradeFee, stockLogo, gameId}){
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -55,8 +56,8 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                 }
                 /// Send the request 
                 const res = await API.post(APIName, path, myInit)
-                /// Set the success message using the
-                setSuccess(`Order Successful! $${res.remainder.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} available left to spend`)
+                /// Set the success message, will 
+                setSuccess(res)
                 setLoading(false)
         }catch(error){
             setError(error.response.data.errormessage)
@@ -73,14 +74,30 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
     }
 
     return(
-        <Modal centered show={showState} onHide={handleClose}>
-        <Modal.Header closeButton>
-            <Modal.Title>Please Review Your Trade</Modal.Title>
-        </Modal.Header>
+        <Modal centered show={showState} onHide={handleClose} backdrop="static">
+            <Row md={1} sm={1} xs={1} className="textCenter pt-1">
+                <Modal.Title className="bolded">{stockName}</Modal.Title>
+                <h5 className="newSpendingPowerSubtitle">New Spending Power {parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD'})}</h5>
+            </Row>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-            {success && <MessageAlert variant="success">{success}</MessageAlert>}
             {loading && <LoadingSpinner/>}
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <div style={{
+                            width: "10rem",
+                            height: "9rem",
+                        }}>
+                            <img src={stockLogo} style={{
+                                maxWidth: "100%",
+                                height: "100%",
+                                display: "block",
+                                objectFit: "contain",
+                                marginLeft: "auto",
+                                marginRight: "auto"}} 
+                                alt="company logo">
+                            </img>
+                        </div>
+                    </div>
             <OrderSummary
                     stockName={stockName}
                     buyOrSell={buyOrSell}
@@ -88,16 +105,22 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
                     newPortfolioBalance={newPortfolioBalance}
                     dollarAmountSelected={dollarAmountSelected}
                     gameTradeFee={gameTradeFee}
-                    qty={qty}/>
+                    qty={qty}
+                    stockLogo={stockLogo}
+                    orderSuccess={success}
+                    gameId={gameId}
+                    />
         </Modal.Body>
+        {!success &&
         <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>
-                Cancel Trade
+                Cancel <Clear style={{"verticalAlign":"bottom"}}/>
         </Button>
         <Button variant="success" onClick={getStockInfo}>
-            Confirm Trade
+            Lets Do It! <AttachMoney  style={{"verticalAlign":"bottom"}}/>
         </Button>
         </Modal.Footer>
+        }
     </Modal>
     )
 }

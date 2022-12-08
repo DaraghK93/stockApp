@@ -1,7 +1,5 @@
-import { Container, Table, Row } from "react-bootstrap";
+import { Container, Row, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
-import {LocalAtm} from '@mui/icons-material';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
 
@@ -42,14 +40,12 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                             </>
                          }
                     </Row>
-                    {/* <div  style={{"justify-content": "center"}} className="textCenter">
-                        <LocalAtm color="success" style={{"fontSize":"4rem"}}/>
-                    </div> */}
                     <Row className="pt-2">
                     <Accordion>
                         <Accordion.Item eventKey="0">
-                            <Accordion.Header align="center" style={{"justify-content": "center"}}>Trade Details</Accordion.Header>
+                            <Accordion.Header align="center" style={{"justifyContent": "center"}}>Trade Details</Accordion.Header>
                             <Accordion.Body>
+                            <Table>
                             <tbody>
                             <tr>
                                 <td>Stock</td>
@@ -106,6 +102,7 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                         </tr>
                         } 
                         </tbody>
+                        </Table>
                             </Accordion.Body>
                         </Accordion.Item>
                     </Accordion>  

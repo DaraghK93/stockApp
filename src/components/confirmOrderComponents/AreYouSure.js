@@ -96,10 +96,10 @@ function AreYouSure({showState,setShowState,portfolioId,stockId,buyOrSell,orderT
         </Modal.Body>
         <Modal.Footer>
             <Button variant="danger" onClick={handleClose}>
-                Cancel <Clear style={{"vertical-align":"bottom"}}/>
+                Cancel <Clear style={{"verticalAlign":"bottom"}}/>
         </Button>
         <Button variant="success" onClick={getStockInfo}>
-            Lets Do It! <AttachMoney  style={{"vertical-align":"bottom"}}/>
+            Lets Do It! <AttachMoney  style={{"verticalAlign":"bottom"}}/>
         </Button>
         </Modal.Footer>
     </Modal>

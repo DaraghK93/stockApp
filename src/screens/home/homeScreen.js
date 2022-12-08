@@ -89,7 +89,7 @@ function HomeScreen() {
   var stocks = [
     {
       _id: {
-        $oid: '63457b69e940127420948dd0',
+        $oid: '1',
       },
       idnumber: '326',
       exchange: 'NMS',
@@ -124,7 +124,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c8b',
+        $oid: '2',
       },
       idnumber: '1',
       exchange: 'NYQ',
@@ -159,7 +159,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c8c',
+        $oid: '3',
       },
       idnumber: '2',
       exchange: 'NYQ',
@@ -194,7 +194,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948cb3',
+        $oid: '4',
       },
       idnumber: '41',
       exchange: 'NMS',
@@ -229,7 +229,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948ca11',
+        $oid: '5',
       },
       idnumber: '23',
       exchange: 'NMS',
@@ -264,7 +264,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948ca1',
+        $oid: '6',
       },
       idnumber: '410',
       exchange: 'NMS',
@@ -299,7 +299,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b68e940127420948db0',
+        $oid: '7',
       },
       idnumber: '294',
       exchange: 'NMS',
@@ -334,7 +334,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c93',
+        $oid: '8',
       },
       idnumber: '9',
       exchange: 'NMS',
@@ -369,7 +369,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b69e940127420941dd0',
+        $oid: '9',
       },
       idnumber: '326',
       exchange: 'NMS',
@@ -404,7 +404,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c8b1',
+        $oid: '10',
       },
       idnumber: '1',
       exchange: 'NYQ',
@@ -439,7 +439,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c8c1',
+        $oid: '11',
       },
       idnumber: '2',
       exchange: 'NYQ',
@@ -474,7 +474,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948cb31',
+        $oid: '12',
       },
       idnumber: '41',
       exchange: 'NMS',
@@ -509,7 +509,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948ca111',
+        $oid: '13',
       },
       idnumber: '23',
       exchange: 'NMS',
@@ -544,7 +544,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b6ae940127420948e24',
+        $oid: '14',
       },
       idnumber: '410',
       exchange: 'NMS',
@@ -579,7 +579,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b68e940127420948db01',
+        $oid: '15',
       },
       idnumber: '294',
       exchange: 'NMS',
@@ -614,7 +614,7 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c931',
+        $oid: '16',
       },
       idnumber: '9',
       exchange: 'NMS',

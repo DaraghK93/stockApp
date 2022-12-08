@@ -52,11 +52,17 @@ function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, n
                             } 
                             </>
                         }
-                            
-                            <tr style={{"borderTopWidth":"2px","borderTopColor":"grey"}}>
+                        {buyOrSell === "Sell" && orderType === "Limit Order"?
+                        <tr style={{"borderTopWidth":"2px","borderTopColor":"grey"}}>
+                                <td className="bolded">Potential New Spending Power</td>
+                                <td className="bolded">{parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
+                        </tr>
+                        :<tr style={{"borderTopWidth":"2px","borderTopColor":"grey"}}>
                                 <td className="bolded">New Spending Power</td>
                                 <td className="bolded">{parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
-                            </tr>
+                        </tr>
+                        } 
+                            
 
 
 

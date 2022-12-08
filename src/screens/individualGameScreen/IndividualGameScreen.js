@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 import CopyComponent from "../../components/widgets/CopyComponent/CopyComponent";
+import TransactionHistory from "../../components/portfolioComponents/TransactionHistory/TransactionHistory"
 
 
 function IndividualGameScreen() {
@@ -157,6 +158,8 @@ function IndividualGameScreen() {
         }
     }
 
+    // console.log(portfolio)
+
 
     return (
         <>
@@ -226,9 +229,12 @@ function IndividualGameScreen() {
                                     </Col>
                                 </Row>
                                 <Row>
-                                    <h2>Transaction History here</h2>
+                                    <Col><br></br>
+                                        <TransactionHistory transactions={portfolio.transactions}/>
+                                    </Col>
                                 </Row>
                             </Container>
+                            <br></br>
                         </>
                     }
                 </>

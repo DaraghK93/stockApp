@@ -44,7 +44,7 @@ function GameStockSearchResults({ keyword, league }) {
       }
     };
     getStocks();
-  }, [userToken, keyword]);
+  }, [userToken, keyword, league]);
 
   return (
     <>

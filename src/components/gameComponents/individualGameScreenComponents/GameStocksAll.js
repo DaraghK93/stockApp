@@ -1,4 +1,4 @@
-import { Row, Col, Container, Button } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 import { APIName } from '../../../constants/APIConstants';
 import { useState, useEffect } from 'react';
@@ -53,14 +53,14 @@ function GameStocksAll({ league }) {
         setLoading(false);
         setError('');
       } catch (error) {
-        prev();
+        setPage(page - 1);
         console.log(error);
         setError(error.response.data.errormessage);
         setLoading(false);
       }
     };
     getStocks();
-  }, [userToken, page]);
+  }, [userToken, page, league]);
 
   return (
     <>

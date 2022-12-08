@@ -4,33 +4,33 @@ import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from '../../layout/FormContainer/FormContainer';
 import { Row, Col } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
 
 // Search feature fucntion which passes the user input as props
 function GameStockSearchBar({ leagueId }) {
-  const [keyword, setKeyword] = useState('');
+  let { keyword } = useParams();
+
+  const [keywords, setKeywords] = useState('');
   const navigate = useNavigate();
-  const [showBackButton, setShowBackButton] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keyword.trim()) {
-      navigate(`/search/game/${keyword}/${leagueId}`);
-      setShowBackButton(true);
+    if (keywords.trim()) {
+      navigate(`/search/game/${keywords}/${leagueId}`);
     } else {
       navigate(`/game/${leagueId}`);
-      setShowBackButton(false);
-      setKeyword(undefined);
+      setKeywords('');
     }
     //reset form to blank after search
     e.target.reset();
-    setKeyword('');
+    setKeywords('');
   };
 
   return (
     <>
       <FormContainer>
         <Form onSubmit={submitHandler}>
-          {showBackButton && (
+          {keyword && (
             <Row>
               <Col style={{ alignItems: 'center' }} className='text-center'>
                 <Button type='submit' style={{ width: '10rem' }}>
@@ -43,7 +43,7 @@ function GameStockSearchBar({ leagueId }) {
             <Form.Control
               type='text'
               name='search'
-              onChange={(e) => setKeyword(e.target.value)}
+              onChange={(e) => setKeywords(e.target.value)}
               placeholder='Search Stocks'
             ></Form.Control>
             <div className='searchButton'>

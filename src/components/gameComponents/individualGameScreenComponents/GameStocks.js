@@ -14,7 +14,6 @@ function GameStocks({ league }) {
 
   function toggleStockSummary() {
     setIsStockSummary(!isStockSummary);
-    keyword = undefined;
   }
 
   return (
@@ -29,9 +28,11 @@ function GameStocks({ league }) {
                 Tradable stocks - All Stocks
               </h1>
             ) : (
-              <h1 style={{ textAlign: 'center' }}>
-                Tradable stocks - Search
-              </h1>
+              keyword !== undefined && (
+                <h1 style={{ textAlign: 'center' }}>
+                  Tradable stocks - Search
+                </h1>
+              )
             )}
           </Row>
           <Row>
@@ -48,7 +49,6 @@ function GameStocks({ league }) {
         {isStockSummary && keyword === undefined ? (
           <Row md={1} xs={1}>
             <GameStocksSummary league={league} />
-            {/* <GameStocksSummary league={league}></GameStocksSummary> */}
           </Row>
         ) : !isStockSummary && keyword === undefined ? (
           <GameStocksAll league={league}></GameStocksAll>

@@ -1,5 +1,3 @@
-import { Row, Col, Container } from 'react-bootstrap';
-
 import { APIName } from '../../../constants/APIConstants';
 import { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
@@ -45,7 +43,7 @@ function GameStocksSummary({ league }) {
       }
     };
     getStocks();
-  }, [userToken]);
+  }, [userToken, league]);
 
   return (
     <>

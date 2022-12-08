@@ -225,6 +225,7 @@ function IndividualGameScreen() {
                         </Container>
                         <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
                             leagueId={league._id}
+                            portfolioId={portfolio._id}
                             isAdmin={isAdmin()}
                 />
                             </Container>

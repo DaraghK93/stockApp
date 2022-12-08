@@ -4,9 +4,10 @@ import {useSelector} from 'react-redux';
 import {APIName} from '../../../../constants/APIConstants'
 import { API } from "aws-amplify";
 import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
+import { Link } from "react-router-dom";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 
-function AreYouSure({showState,setShowState, leagueId, isAdmin}){
+function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
     
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -35,13 +36,39 @@ function AreYouSure({showState,setShowState, leagueId, isAdmin}){
                 let myInit = {
                     headers : {"x-auth-token": userToken},       
                     body: {
-                        leagueId: leagueId
+                        leagueId: leagueId,
                     }
                 }
                 /// Send the request 
                 const res = await API.put(APIName, path, myInit)
                 /// Set the success message using the
-                setSuccess(`League Deleted Successfully! This will now appear in your Complete Games`)
+                setSuccess(`League Deleted Successfully! This will now appear in your Completed Games`)
+                setLoading(false)
+                console.log(res)
+        }catch(error){
+            setError(error.response.data.errormessage)
+            setLoading(false)
+        }
+     }
+
+     const leaveLeague = async () => {
+        try{
+                /// Set the portfolio Loading to true and reset error
+                setLoading(true)
+                setError()
+
+                const path = '/api/league/leaveleague'
+                let myInit = {
+                    headers : {"x-auth-token": userToken},       
+                    body: {
+                        portfolioId: portfolioId,
+                        leagueId: leagueId
+                    }
+                }
+                /// Send the request 
+                const res = await API.post(APIName, path, myInit)
+                /// Set the success message using the
+                setSuccess(`Succesfully left the league! The associated portfolio has also been deleted.`)
                 setLoading(false)
                 console.log(res)
         }catch(error){
@@ -61,36 +88,70 @@ function AreYouSure({showState,setShowState, leagueId, isAdmin}){
     return(
         <Modal centered show={showState} onHide={handleClose}>
         <Modal.Header closeButton>
-            {isAdmin === true &&
+            {
+            success &&
+            <Modal.Title>Are you happy with yourself?</Modal.Title>
+            }
+            {
+                !success &&
+            isAdmin === true &&
                     <Modal.Title>Are you sure you want to delete this league?</Modal.Title>
                     }
-                    {
-                        isAdmin === false &&
-                        <Modal.Title>Are you sure you want to leave this league?</Modal.Title>
-                            }
+            {
+                !success &&
+            isAdmin === false &&
+                    <Modal.Title>Are you sure you want to leave this league?</Modal.Title>
+                    }
             
         </Modal.Header>
         <Modal.Body>
             {error && <MessageAlert variant="danger">{error}</MessageAlert>}
             {success && <MessageAlert variant="success">{success}</MessageAlert>}
             {loading && <LoadingSpinner/>}
-            hi
-            {/* {
-            isAdmin &&
-            "hi"
+            {/* hi */}
+            {!success &&
+            isAdmin === true &&
+                    <div>
+                        <span className="semibolded">#StopTheCount!</span>
+                        <p>By clicking confirm, this league will automatically finish and will
+                        be found on the 'Games' page under 'Completed'. League members will no longer be able to 
+                        trade stocks in the associated portfolio. </p>
+                        <p>The final league standings will be based on the standings at this current 
+                        time.
+                    </p>
+                    </div>
                     }
-            {
-            !isAdmin &&
-            "not hi"
-                } */}
+            {!success &&
+            isAdmin === false &&
+                    <div>
+                        <span className="semibolded">The Irish Goodbye</span>
+                        <p>By clicking <b>confirm</b>, you will be removed from this league and no one will notice until it's too late. The portfolio 
+                        associated to this league will also be deleted.</p>
+                    </div>
+                    }
         </Modal.Body>
         <Modal.Footer>
+            {!success &&
             <Button variant="danger" onClick={handleClose}>
                 Cancel
-        </Button>
+        </Button>}
+        {!success &&
+            isAdmin === true &&
         <Button variant="success" onClick={deleteLeague}>
             Confirm
         </Button>
+        }  
+        {!success &&
+            isAdmin === false &&
+        <Button variant="success" onClick={leaveLeague}>
+            Confirm
+        </Button>
+        }  
+        {success &&
+        <Button variant="success">
+            <Link to={'/game/creategame'} style={{ colour: "white", textDecoration: 'none' }}>Return to Games</Link>
+        </Button>
+        }  
         </Modal.Footer>
     </Modal>
     )

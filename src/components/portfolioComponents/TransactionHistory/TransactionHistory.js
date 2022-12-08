@@ -40,7 +40,6 @@ function TransactionHistory({ transactions }) {
             const filtered = transactions.filter(transaction => {
                 return transaction.status === currentStatus && transaction.buyOrSell === e.target.value
             })
-            console.log(filtered)
             setData(filtered)
         }
     }

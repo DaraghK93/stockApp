@@ -733,6 +733,7 @@ function HomeScreen() {
       </Container>
       <Row className='stockDisplayContainer'>
         <div className='stockDisplay'>
+          <h2 style={{ textAlign: 'center' }}>Artificial Intelligence</h2>
           <div className='stockDisplayCol'>
             <SideScrollMenu>
               {stocks.map((stockObj) => (

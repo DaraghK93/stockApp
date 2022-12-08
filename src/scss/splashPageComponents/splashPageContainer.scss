@@ -51,6 +51,10 @@
     // mix-blend-mode: color-burn;
 }
 
+.carousel{
+    max-width: 100%;
+}
+
 .carousel-caption{
     // background:rgb(183, 183, 183);
     background-color:rgba(103, 103, 103, 0.9)
@@ -120,12 +124,63 @@
     margin-bottom: 4rem;
 }
 
-@media only screen and (min-width: 350px) {
+// @media only screen and (min-width: 350px) {
+//     .splashLogo {
+//     max-width: 15rem;
+// }
+// }
+
+// @media (max-width: 900px) {
+//     .carousel {
+//       width:auto;
+//       height:auto;
+//     }
+// }
+
+@media (min-width:320px) {
+    /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
     .splashLogo {
-    max-width: 15rem;
-}
+        max-width: 15rem;
+    }
+    .carousel-caption{
+        font-size: 1px;
+    }
+    .splash-page-container {
+        width: 95%;
+    }
 }
 
+@media (min-width:480px) {
+    /* smartphones, Android phones, landscape iPhone */
+    .splash-page-container {
+        width: 95%;
+    }
+}
+
+@media (min-width:600px) {
+    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    .splash-page-container {
+        width: 80%;
+    }
+}
+
+@media (min-width:801px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .splash-page-container {
+        width: 75%;
+    }
+}
+
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+    .splash-page-container {
+        width: 70%;
+    }
+}
+
+@media (min-width:1281px) {
+    /* hi-res laptops and desktops */
+}
 
 .firstTickers {
     width: 10rem;

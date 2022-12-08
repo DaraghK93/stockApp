@@ -91,7 +91,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b69e940127420948dd0',
       },
-      idnumber: '326',
+      idnumber: '326j',
       exchange: 'NMS',
       symbol: 'NVDA',
       shortname: 'NVIDIA Corporation',
@@ -126,7 +126,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948c8b',
       },
-      idnumber: '1',
+      idnumber: 'jkl0',
       exchange: 'NYQ',
       symbol: 'MMM',
       shortname: '3M Company',
@@ -161,7 +161,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948c8c',
       },
-      idnumber: '2',
+      idnumber: '222',
       exchange: 'NYQ',
       symbol: 'ABT',
       shortname: 'Abbott Laboratories',
@@ -196,7 +196,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948cb3',
       },
-      idnumber: '41',
+      idnumber: '41222',
       exchange: 'NMS',
       symbol: 'AAPL',
       shortname: 'Apple Inc.',
@@ -231,7 +231,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948ca1',
       },
-      idnumber: '23',
+      idnumber: '23543',
       exchange: 'NMS',
       symbol: 'AMZN',
       shortname: 'Amazon.com, Inc.',
@@ -266,7 +266,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b6ae940127420948e24',
       },
-      idnumber: '410',
+      idnumber: '410fdas',
       exchange: 'NMS',
       symbol: 'TSLA',
       shortname: 'Tesla, Inc.',
@@ -301,7 +301,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b68e940127420948db0',
       },
-      idnumber: '294',
+      idnumber: '2945656',
       exchange: 'NMS',
       symbol: 'MSFT',
       shortname: 'Microsoft Corporation',
@@ -336,7 +336,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948c93',
       },
-      idnumber: '9',
+      idnumber: '909',
       exchange: 'NMS',
       symbol: 'AMD',
       shortname: 'Advanced Micro Devices, Inc.',
@@ -371,7 +371,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948cb5',
       },
-      idnumber: '326',
+      idnumber: '326675',
       exchange: 'NMS',
       symbol: 'NVDA',
       shortname: 'NVIDIA Corporation',
@@ -405,9 +405,8 @@ function HomeScreen() {
     {
       _id: {
         $oid: '63457b66e940127420948ce0',
-
       },
-      idnumber: '1',
+      idnumber: '1jjk12',
       exchange: 'NYQ',
       symbol: 'MMM',
       shortname: '3M Company',
@@ -442,7 +441,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b66e940127420948ce3',
       },
-      idnumber: '2',
+      idnumber: '22k2j2',
       exchange: 'NYQ',
       symbol: 'ABT',
       shortname: 'Abbott Laboratories',
@@ -477,7 +476,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b66e940127420948ce1',
       },
-      idnumber: '41',
+      idnumber: '411',
       exchange: 'NMS',
       symbol: 'AAPL',
       shortname: 'Apple Inc.',
@@ -512,7 +511,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b66e940127420948cdb',
       },
-      idnumber: '23',
+      idnumber: '23323',
       exchange: 'NMS',
       symbol: 'AMZN',
       shortname: 'Amazon.com, Inc.',
@@ -547,7 +546,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b66e940127420948ce7',
       },
-      idnumber: '410',
+      idnumber: '014410',
       exchange: 'NMS',
       symbol: 'TSLA',
       shortname: 'Tesla, Inc.',
@@ -582,7 +581,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b66e940127420948ce8',
       },
-      idnumber: '294',
+      idnumber: '294dfdf',
       exchange: 'NMS',
       symbol: 'MSFT',
       shortname: 'Microsoft Corporation',
@@ -617,7 +616,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b66e940127420948ce9',
       },
-      idnumber: '9',
+      idnumber: '99d9f9da',
       exchange: 'NMS',
       symbol: 'AMD',
       shortname: 'Advanced Micro Devices, Inc.',
@@ -649,6 +648,7 @@ function HomeScreen() {
       },
     },
   ];
+
 
   return (
     <>
@@ -714,7 +714,7 @@ function HomeScreen() {
                   {stocks.map((stockObj) => (
                     <div
                       className='sideScrollCard not-clickable stockDisplayCol splashScroller'
-                      key={stockObj._id}
+                      key={stockObj.idnumber}
                     >
                       <TickerCard key={stockObj._id} stock={stockObj} />
                     </div>

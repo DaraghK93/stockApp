@@ -11,9 +11,8 @@ const InfoButtonModalWhite = ({ title, info }) => {
 
     return (
         <>
-            <sup>
-                <Info className="infoButtonWhiteStyle" onClick={handleShow}></Info>
-            </sup>
+            <Info className="infoButtonWhiteStyle" onClick={handleShow}></Info>
+
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>

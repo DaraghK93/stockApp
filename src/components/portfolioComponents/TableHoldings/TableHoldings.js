@@ -41,7 +41,7 @@ function TableHoldings({ data }) {
     window.addEventListener("resize", showCols);
 
     function showCols() {
-        if (window.innerWidth >= 576) {
+        if (window.innerWidth >= 800) {
             setShowCol(true)
             setHideCol(false)
         }

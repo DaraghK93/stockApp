@@ -44,10 +44,12 @@ function TransactionHistory({ transactions }) {
         }
     }
 
-    window.addEventListener("resize", showCols);
+    window.addEventListener("resize", showCols, true)
+   
+
 
     function showCols() {
-        if (window.innerWidth >= 576) {
+        if (window.innerWidth >= 800) {
             setHideMobile(true)
             setHideDesktop(false)
         }
@@ -170,7 +172,7 @@ function TransactionHistory({ transactions }) {
 
 
                     </div><center>
-                    <Button value="BUY" onClick={filterBuySell}>BUY</Button> <Button value="SELL" onClick={filterBuySell}>SELL</Button> <Button value="ALL" onClick={filterBuySell}>ALL</Button>
+                        <Button value="BUY" onClick={filterBuySell}>BUY</Button> <Button value="SELL" onClick={filterBuySell}>SELL</Button> <Button value="ALL" onClick={filterBuySell}>ALL</Button>
                     </center>
                     {data.length > 0 ?
                         <Table style={{ borderCollapse: "collapse" }}>
@@ -228,15 +230,15 @@ function TransactionHistory({ transactions }) {
                                             <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
                                             <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                             <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}><center><Button variant="danger">Cancel</Button></center></td>
-                                            <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide" } key={index + 200}>
+                                            <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide"} key={index + 200}>
                                                 <center><Button style={{ padding: 0, margin: 0, color: "black" }}
-                                                variant="link"
-                                                onClick={event => handleExpandRow(event, transaction.stock[0].symbol)}>
-                                                {
-                                                    expandState[transaction.stock[0].symbol] ?
-                                                        <ChevronUp /> : <ChevronDown />
-                                                }
-                                            </Button></center></td>
+                                                    variant="link"
+                                                    onClick={event => handleExpandRow(event, transaction.stock[0].symbol)}>
+                                                    {
+                                                        expandState[transaction.stock[0].symbol] ?
+                                                            <ChevronUp /> : <ChevronDown />
+                                                    }
+                                                </Button></center></td>
                                         </tr>
                                         <>
                                             {

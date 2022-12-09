@@ -91,7 +91,11 @@ function GameStockSearchResults({ keyword, league }) {
                 </Col>
               ) : (
                 <Col className='py-2'>
-                  <Button disabled={true} onClick={prev} style={{background: 'white', border: 0}}>
+                  <Button
+                    disabled={true}
+                    onClick={prev}
+                    style={{ background: 'white', border: 0 }}
+                  >
                     Page {page}
                   </Button>
                 </Col>
@@ -99,9 +103,21 @@ function GameStockSearchResults({ keyword, league }) {
               <Col className='py-2 text-center my-auto'>
                 <h4>Page {page + 1}</h4>
               </Col>
-              <Col className='text-end py-2 my-auto'>
-                <Button onClick={next}>Page {page + 2}</Button>
-              </Col>
+              {stocks.length === 24 ? (
+                <Col className='text-end py-2 my-auto'>
+                  <Button onClick={next}>Page {page + 2}</Button>
+                </Col>
+              ) : (
+                <Col className='py-2'>
+                  <Button
+                    disabled={true}
+                    onClick={next}
+                    style={{ background: 'white', border: 0 }}
+                  >
+                    Page {page + 2}
+                  </Button>
+                </Col>
+              )}
             </Row>
           </Container>
         </>

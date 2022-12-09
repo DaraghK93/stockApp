@@ -1,6 +1,6 @@
 const express = require("express")
 const router = express.Router()
-const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getGameStocks, getAllGameStocks, testAll} = require('../controllers/stockController');
+const { getStockPrice, updateStock, addStock, getAllStocks, getStockBySymbol, getGameStocks, getAllGameStocks} = require('../controllers/stockController');
 const { errorHandler } = require("../middleware/errorMiddleware");
 const {protectedRoute} = require('../middleware/authMiddleware');
 

@@ -4,7 +4,7 @@
 
 .leaderBoardStyle {
     color: $leaderBoardTxt;
-    background-color: $leaderBoardBg;
+    background-color: transparentize($leaderBoardBg, 0.3);
 }
 
 .leaderBoardStyle2 {
@@ -21,7 +21,7 @@
 }
 
 .leaderBoardBackground{
-    background-image: url('../../img/background_pattern_2.jpg');
+    background-image: url("../../img/background_pattern_2.jpg") !important;
     // width:100%;
     height:100%;
     background-size: cover;

@@ -51,10 +51,10 @@ function UserSettingsPage() {
   let { error, success, loading } = userChangeDetails;
 
   var images = [
-    '/avatar_1.jpeg',
-    '/avatar_2.jpeg',
-    '/avatar_3.jpeg',
-    '/avatar_4.jpeg',
+    '/avatar_1.jpg',
+    '/avatar_2.jpg',
+    '/avatar_3.jpg',
+    '/avatar_4.jpg',
   ];
 
   function useTrait(initialValue) {

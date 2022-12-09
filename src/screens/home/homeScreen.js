@@ -14,6 +14,7 @@ import ChartCard from '../../components/stockVisualisationComponents/ChartCard/C
 import SplashCarousel from '../../components/widgets/Carousel/SplashCarousel';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMenu';
+import Footer from '../../components/layout/Footer/footer'
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -90,7 +91,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b69e940127420948dd0',
       },
-      idnumber: '326',
+      idnumber: '326j',
       exchange: 'NMS',
       symbol: 'NVDA',
       shortname: 'NVIDIA Corporation',
@@ -125,7 +126,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948c8b',
       },
-      idnumber: '1',
+      idnumber: 'jkl0',
       exchange: 'NYQ',
       symbol: 'MMM',
       shortname: '3M Company',
@@ -160,7 +161,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948c8c',
       },
-      idnumber: '2',
+      idnumber: '222',
       exchange: 'NYQ',
       symbol: 'ABT',
       shortname: 'Abbott Laboratories',
@@ -195,7 +196,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948cb3',
       },
-      idnumber: '41',
+      idnumber: '41222',
       exchange: 'NMS',
       symbol: 'AAPL',
       shortname: 'Apple Inc.',
@@ -230,7 +231,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948ca1',
       },
-      idnumber: '23',
+      idnumber: '23543',
       exchange: 'NMS',
       symbol: 'AMZN',
       shortname: 'Amazon.com, Inc.',
@@ -265,7 +266,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b6ae940127420948e24',
       },
-      idnumber: '410',
+      idnumber: '410fdas',
       exchange: 'NMS',
       symbol: 'TSLA',
       shortname: 'Tesla, Inc.',
@@ -300,7 +301,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b68e940127420948db0',
       },
-      idnumber: '294',
+      idnumber: '2945656',
       exchange: 'NMS',
       symbol: 'MSFT',
       shortname: 'Microsoft Corporation',
@@ -335,7 +336,7 @@ function HomeScreen() {
       _id: {
         $oid: '63457b65e940127420948c93',
       },
-      idnumber: '9',
+      idnumber: '909',
       exchange: 'NMS',
       symbol: 'AMD',
       shortname: 'Advanced Micro Devices, Inc.',
@@ -368,9 +369,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b69e940127420948dd0',
+        $oid: '63457b65e940127420948cb5',
       },
-      idnumber: '326',
+      idnumber: '326675',
       exchange: 'NMS',
       symbol: 'NVDA',
       shortname: 'NVIDIA Corporation',
@@ -403,9 +404,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c8b',
+        $oid: '63457b66e940127420948ce0',
       },
-      idnumber: '1',
+      idnumber: '1jjk12',
       exchange: 'NYQ',
       symbol: 'MMM',
       shortname: '3M Company',
@@ -438,9 +439,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c8c',
+        $oid: '63457b66e940127420948ce3',
       },
-      idnumber: '2',
+      idnumber: '22k2j2',
       exchange: 'NYQ',
       symbol: 'ABT',
       shortname: 'Abbott Laboratories',
@@ -473,9 +474,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948cb3',
+        $oid: '63457b66e940127420948ce1',
       },
-      idnumber: '41',
+      idnumber: '411',
       exchange: 'NMS',
       symbol: 'AAPL',
       shortname: 'Apple Inc.',
@@ -508,9 +509,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948ca1',
+        $oid: '63457b66e940127420948cdb',
       },
-      idnumber: '23',
+      idnumber: '23323',
       exchange: 'NMS',
       symbol: 'AMZN',
       shortname: 'Amazon.com, Inc.',
@@ -543,9 +544,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b6ae940127420948e24',
+        $oid: '63457b66e940127420948ce7',
       },
-      idnumber: '410',
+      idnumber: '014410',
       exchange: 'NMS',
       symbol: 'TSLA',
       shortname: 'Tesla, Inc.',
@@ -578,9 +579,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b68e940127420948db0',
+        $oid: '63457b66e940127420948ce8',
       },
-      idnumber: '294',
+      idnumber: '294dfdf',
       exchange: 'NMS',
       symbol: 'MSFT',
       shortname: 'Microsoft Corporation',
@@ -613,9 +614,9 @@ function HomeScreen() {
     },
     {
       _id: {
-        $oid: '63457b65e940127420948c93',
+        $oid: '63457b66e940127420948ce9',
       },
-      idnumber: '9',
+      idnumber: '99d9f9da',
       exchange: 'NMS',
       symbol: 'AMD',
       shortname: 'Advanced Micro Devices, Inc.',
@@ -648,54 +649,38 @@ function HomeScreen() {
     },
   ];
 
+
   return (
     <>
       <Container className='splash-page-container'>
         <Row className='py-4'>
           <Col className='mx-4'>
-            <h1>FinOptimse - Fantasy Stock Trading Game</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col className='mx-4'>
-            <p>
-              FinOptimise is a fantasy stock trading game. Play with friends.
-              Use our artificial intelligence to pick the best stocks. Good
-              luck!
-            </p>
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <Button onClick={navigateLogin} className='btn-lg'>
-              Play Now
-            </Button>
+            <h1>Fantasy Stock Trading Game</h1>
           </Col>
         </Row>
         <Row>
           <Col>
-            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border:"none"}}></Image>
+            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image>
           </Col>
+          <Row>
+            <Col className='mx-4'>
+              <p className='splashpageParagraph'>
+                FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
+              </p>
+            </Col>
+          </Row>
+          <Row className='py-4'>
+            <Col>
+              <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+                Play Now
+              </Button>
+            </Col>
+          </Row>
+
         </Row>
       </Container>
-      <Row className='py-4 banner'>
-        <p className='quote'>"Slick" - The independent</p>
-        <p className='quote'>"Future 5 star app" - The Guardian</p>
-      </Row>
+
       <Container className='splash-page-container'>
-        <Row className='py-4'>
-          <Col>
-            <h2>About the App</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className='mx-4'>
-            <p>
-              Experience the stock market risk free. Research stocks to get
-              ahead. Compete with friends
-            </p>
-          </Col>
-        </Row>
         <Row className='py-4'>
           <Col sm md={8} className='offset-md-2'>
             <SplashCarousel></SplashCarousel>
@@ -717,45 +702,49 @@ function HomeScreen() {
             </p>
           </Col>
         </Row>
-        <Row className='py-4'>
+      </Container>
+
+      <Container className='stockDisplayContainer'>
+        <Row>
           <Col>
-            <h2 style={{ textAlign: 'center' }}>Artificial Intelligence</h2>
+            <div className='stockDisplay'>
+              <h3 style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Explore hundreds of stocks from the world's premier stock market index.</h3>
+              <div className='stockDisplayCol'>
+                <SideScrollMenu>
+                  {stocks.map((stockObj) => (
+                    <div
+                      className='sideScrollCard not-clickable stockDisplayCol splashScroller'
+                      key={stockObj.idnumber}
+                    >
+                      <TickerCard key={stockObj._id} stock={stockObj} />
+                    </div>
+                  ))}
+                </SideScrollMenu>
+              </div>
+            </div>
           </Col>
         </Row>
-        <Row>
-          <Col className='mx-4'>
-            <p style={{ textAlign: 'center' }}>
-              Get personalised stock recommendations
-            </p>
+        <Row className='py-4'>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              Explore Now
+            </Button>
           </Col>
         </Row>
       </Container>
-      <Row className='stockDisplayContainer'>
-        <div className='stockDisplay'>
-          <div className='stockDisplayCol'>
-            <SideScrollMenu>
-              {stocks.map((stockObj) => (
-                <div
-                  className='sideScrollCard not-clickable stockDisplayCol splashScroller'
-                  key={stockObj._id}
-                >
-                  <TickerCard key={stockObj._id} stock={stockObj}/>
-                </div>
-              ))}
-            </SideScrollMenu>
-          </div>
-        </div>
-      </Row>
-      <Container>
-        <Row>
-          <Row className='pt-5'>
-            <Col>
-              <p style={{ textAlign: 'center' }}>
-                Get the latest news and tweets on each stock. With sentiment
-                classification
+      <Container className='splash-page-container'>
+        <Row className='py-4'>
+          <Col>
+            <h2>Advanced A.I. Tools</h2>
+          </Col>
+          <Row>
+            <Col className='mx-4'>
+              <p className='splashpageParagraph'>
+                Use our A.I. tools to get the latest news and tweets relating to each stock, with sentiment classification of the contents into Positive, Neautral or Negative categories.
               </p>
             </Col>
           </Row>
+
           <Col sm md={8} className='offset-md-2'>
             <Card id='newsCardContainer' className='newsCardContainer'>
               <h2 className='newsCardContainerHeading'>News Feed</h2>
@@ -776,45 +765,63 @@ function HomeScreen() {
             </Card>
           </Col>
         </Row>
-        <Row className='pt-4'>
-          <Col>
-            <p style={{ textAlign: 'center' }}>
-              Sentiment breakdown of each article and tweet in our database
-            </p>
-          </Col>
-        </Row>
         <Row>
           <Col sm md={8} className='stockInfoCol offset-md-2'>
             <ChartCard title={'Twitter Sentiment'} data={stockSentimentData} />
           </Col>
         </Row>
       </Container>
-      <Container>
+      <Container className='splash-page-container'>
         <Row className='py-4'>
           <Col>
-            <h2 style={{ textAlign: 'center' }}>
-              Environmenatal Social and Governance (ESG) Investing
-            </h2>
+            <h2>Ethical Investing</h2>
           </Col>
         </Row>
-        {/* <TickerCard key={} stock={} /> */}
-        <Row>
+        <Row className='py-4'>
           <Col>
-            <p style={{ textAlign: 'center' }}>
-              See at a glance the ESG rating of each stock
+            <p style={{ textAlign: 'center', margin:"0.5rem 0rem 0rem 0rem"}}>
+            Practice Ethical Investing with Environmental Social and Governance (ESG) ratings in mind.
             </p>
           </Col>
         </Row>
         <Row className='esg-row' style={{ alignItems: 'center' }}>
           <Col sm md={8} className='stockInfoCol offset-md-2'>
-            <ChartCardESG title={'ESG Rating'} edata={3} sdata={2} gdata={1} />
+            <ChartCardESG title={'ESG Rating'} edata={5} sdata={4} gdata={5} />
+          </Col>
+        </Row>
+        <Row className='py-4'>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              Explore Now
+            </Button>
           </Col>
         </Row>
       </Container>
-      <div className='footer'>
-        <p>Here is all the info for the footer</p>
-        <p>FinOptimise all rights reserved. Not financial advice</p>
-      </div>
+      <Container className='stockDisplayContainer'>
+        <Row>
+          <Col>
+            <div className='stockDisplay'>
+              <h2 style={{ textAlign: 'center', color: "white" }}>Learn About Investing</h2>
+              <p style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Learn about the basics of investing on our education page. With useful definitions and links to external resources that will help you build healthy financial habits.</p>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+          <img src='/education_screen.jpg' style={{resizeMode: "cover",width: "60%", border:"2px solid #d4d4d4"}} alt="Description here"></img>
+          </Col>
+        </Row>
+        <Row className='py-4'>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              Learn Now
+            </Button>
+          </Col>
+        </Row>
+      </Container>
+
+      <Footer />
+
     </>
   );
 }

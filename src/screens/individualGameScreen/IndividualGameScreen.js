@@ -92,6 +92,7 @@ function IndividualGameScreen() {
                 setPortfolio(response)
                 setPortfolioLoading(false)
             })
+
             .catch((error) => {
                 /// This will be an error from API call 
                 console.log(error);
@@ -169,18 +170,23 @@ function IndividualGameScreen() {
                         <Image className="gameImage" src={league.image}></Image>
                         <div className="centeredGameImg"><br></br><br></br>
                             <h1 className="ImgTxt">{league.leagueName}</h1><br></br>
-                            <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
-                                <CopyComponent copyText={accessString} /></p>
+                            {!league.finished ? <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
+                                                     <CopyComponent copyText={accessString} /></p>
+                            : <h2 className="ImgTxt">Game Over!</h2> }
 
                         </div>
                     </div>
                     <GameNavBar disPlayScreen={disPlayScreen} active={active} />
                     {isShownLeaderBoard &&
                         <>
+                        
                             <Container>
                                 {timeOrValueLine()}
                             </Container>
-                            <LeaderBoard leaderBoardInfo={league.portfolios} />
+                            {!league.finished ? (<LeaderBoard leaderBoardInfo={league.portfolios} />) :
+                            
+                            (<LeaderBoard leaderBoardInfo={league.finalStandings} />)
+                            }   
                         </>
                     }
                     {isShownGameDetails &&

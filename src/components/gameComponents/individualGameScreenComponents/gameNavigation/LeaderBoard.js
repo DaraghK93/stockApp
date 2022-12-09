@@ -76,7 +76,6 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                 <p><strong><span className="rankingText">3rd place</span></strong><br></br>
                                                     @{leaderBoardInfo[2].user.toString()}
                                                     <br></br>{parseFloat(leaderBoardInfo[2].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-
                                                 </p>
                                             </Col>
                                             <br></br><br></br>

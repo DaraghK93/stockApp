@@ -199,6 +199,7 @@ function TableHoldings({ data }) {
                             ))}
                         </tbody>
                     </Table>
+                    {data.length > 5 ?
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <nav>
                             <ul key="pagination" className="pagination">
@@ -209,27 +210,43 @@ function TableHoldings({ data }) {
                                 ))}
                             </ul>
                         </nav>
-
-                        <ul className="pagination">
-                            <Dropdown className="d-inline mx-2">
-                                <Dropdown.Toggle
-                                    id="dropdown-autoclose-true">
-                                    Show {postsPerPage}
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                    <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
-                                    <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
-                                    <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </ul>
-                    </div>
+             
+                            <ul className="pagination">
+                                <Dropdown className="d-inline mx-2">
+                                    <Dropdown.Toggle
+                                        id="dropdown-autoclose-true">
+                                        Show {postsPerPage}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {
+                                            data.length < 15 ?
+                                                <>
+                                                    <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                    <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                    <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                </>
+                                                : data.length < 10 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                                    :
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                        <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                        }
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </ul> 
+                    </div>: null}
 
                 </Container> :
                 <Container>
                     <MessageAlert variant='info' >
-                        You have no holdings! <Link to="/stockdiscovery/" style={{color:"black"}}><strong>Click here</strong></Link> to start 
+                        You have no holdings! <Link to="/stockdiscovery/" style={{ color: "black" }}><strong>Click here</strong></Link> to start
                         exploring stocks and building your portfolio!
                     </MessageAlert>
                 </Container>

@@ -1,4 +1,4 @@
-import { Card, Col, Container, Table, Button } from "react-bootstrap";
+import { Card, Col, Container, Table, Button, Dropdown } from "react-bootstrap";
 import { useState, useEffect, Fragment } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom"
@@ -21,6 +21,15 @@ function TransactionHistory({ transactions }) {
     // states for showing and hiding in desktop
     const [hideMobile, setHideMobile] = useState()
     const [hideDesktop, setHideDesktop] = useState()
+    // for pagination
+    const [postsPerPage, setPostsPerPage] = useState(5)
+    const pageNumbers = [];
+    const [currentPage, setCurrentPage] = useState(1)
+    const totalPosts = data.length;
+    // currentview
+    const indexOfLastPage = currentPage * postsPerPage;
+    const indexOfFirstPage = indexOfLastPage - postsPerPage;
+    const currentPosts = data.slice(indexOfFirstPage, indexOfLastPage)
 
     useEffect(() => {
         showCols()
@@ -45,7 +54,7 @@ function TransactionHistory({ transactions }) {
     }
 
     window.addEventListener("resize", showCols, true)
-   
+
 
 
     function showCols() {
@@ -68,9 +77,8 @@ function TransactionHistory({ transactions }) {
         { label: "Order Type", accessor: "orderType", sortable: true, sortbyOrder: "", showHeader: hideMobile },
         { label: "Fee", accessor: "tradingFee", sortable: true, sortbyOrder: "", showHeader: hideMobile },
         { label: "Units", accessor: "units", sortable: true, sortbyOrder: "", showHeader: hideMobile },
-        { label: "Limit Value", accessor: "1", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
-        { label: "", accessor: "2", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
-        { label: "", accessor: "3", sortable: false, sortbyOrder: "", showHeader: true },
+        { label: "Limit Value", accessor: "", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
+        { label: "", accessor: "", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
     ];
 
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
@@ -144,6 +152,25 @@ function TransactionHistory({ transactions }) {
         handleSorting(accessor, sortOrder);
     }
 
+    //pagination
+    for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+        pageNumbers.push(i)
+    }
+    const pagination = (pageNumbers) => {
+        setCurrentPage(pageNumbers)
+    }
+
+    //change amount of posts shown
+    const changePostsPerPage = (e) => {
+        if (e.target.id !== "all") {
+            setPostsPerPage(e.target.id)
+        }
+        else {
+            setPostsPerPage(totalPosts)
+        }
+    }
+
+
 
     return (
         <>
@@ -175,98 +202,147 @@ function TransactionHistory({ transactions }) {
                         <Button value="BUY" onClick={filterBuySell}>BUY</Button> <Button value="SELL" onClick={filterBuySell}>SELL</Button> <Button value="ALL" onClick={filterBuySell}>ALL</Button>
                     </center>
                     {data.length > 0 ?
-                        <Table style={{ borderCollapse: "collapse" }}>
-                            <thead>
-                                <tr key="cols">
-                                    {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder }) => {
+                        <>
+                            <Table style={{ borderCollapse: "collapse" }}>
+                                <thead>
+                                    <tr key="cols">
+                                        {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder }) => {
 
-                                        function arrow() {
-                                            if (sortable === true) {
-                                                if (sortField === accessor && order === "asc") {
-                                                    return <ChevronUp size={15}></ChevronUp>
+                                            function arrow() {
+                                                if (sortable === true) {
+                                                    if (sortField === accessor && order === "asc") {
+                                                        return <ChevronUp size={15}></ChevronUp>
+                                                    }
+                                                    else {
+                                                        return <ChevronDown size={15}></ChevronDown>
+                                                    }
                                                 }
                                                 else {
-                                                    return <ChevronDown size={15}></ChevronDown>
+                                                    return ""
                                                 }
                                             }
-                                            else {
-                                                return ""
-                                            }
-                                        }
-                                        return <th
-                                            key={accessor}
-                                            onClick={sortable ? () => handleSortingChange(accessor) : null}
-                                            className={showHeader ? "leaderBoardShow" : "leaderBoardHide"}
-                                        ><strong><center>{label}{arrow()}</center></strong>
-                                        </th>;
-                                    })}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {data.map((transaction, index) => (
-                                    (<Fragment key={`${index}-fragment`}>
-                                        <tr key={transaction.stock[0].symbol}>
-                                            <td key={transaction.date} className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
-                                            <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>
-                                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                                                    <div style={{
-                                                        width: "3.5rem",
-                                                        height: "2rem",
-                                                    }}>
-                                                        <img src={transaction.stock[0].logo} style={{
-                                                            height: "100%",
-                                                            maxWidth: "100%",
-                                                            display: "block",
-                                                            objectFit: "contain"
-                                                        }} alt="company logo"></img>
+                                            return <th
+                                                key={accessor}
+                                                onClick={sortable ? () => handleSortingChange(accessor) : null}
+                                                className={showHeader ? "leaderBoardShow" : "leaderBoardHide"}
+                                            ><strong><center>{label}{arrow()}</center></strong>
+                                            </th>;
+                                        })}
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {currentPosts.map((transaction, index) => (
+                                        (<Fragment key={`${index}-fragment`}>
+                                            <tr key={transaction.stock[0].symbol}>
+                                                <td key={transaction.date} className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
+                                                <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>
+                                                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                        <div style={{
+                                                            width: "3.5rem",
+                                                            height: "2rem",
+                                                        }}>
+                                                            <img src={transaction.stock[0].logo} style={{
+                                                                height: "100%",
+                                                                maxWidth: "100%",
+                                                                display: "block",
+                                                                objectFit: "contain"
+                                                            }} alt="company logo"></img>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </Link></center></td>
-                                            <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.stock[0].symbol}><center>{transaction.stock[0].symbol}</center></td>
-                                            <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.buyOrSell}><center>{transaction.buyOrSell}</center></td>
-                                            <td className={hidePendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value}><center>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
-                                            <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.orderType}><center>{transaction.orderType}</center></td>
-                                            <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.tradingFee}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
-                                            <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
-                                            <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
-                                            <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}><center><Button variant="danger">Cancel</Button></center></td>
-                                            <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide"} key={index + 200}>
-                                                <center><Button style={{ padding: 0, margin: 0, color: "black" }}
-                                                    variant="link"
-                                                    onClick={event => handleExpandRow(event, transaction.stock[0].symbol)}>
-                                                    {
-                                                        expandState[transaction.stock[0].symbol] ?
-                                                            <ChevronUp /> : <ChevronDown />
-                                                    }
-                                                </Button></center></td>
-                                        </tr>
-                                        <>
-                                            {
-                                                expandedRows.includes(transaction.stock[0].symbol) ?
-                                                    <tr key={`${transaction.stock[0].symbol}-expanded`}>
-                                                        <td key={`${transaction.stock[0].symbol}-expanded-row2`} colSpan="6">
-                                                            <div>
-                                                                <h3>{transaction.stock[0].shortname}</h3>
+                                                </Link></center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.stock[0].symbol}><center>{transaction.stock[0].symbol}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.buyOrSell}><center>{transaction.buyOrSell}</center></td>
+                                                <td className={hidePendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value}><center>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.orderType}><center>{transaction.orderType}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.tradingFee}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
+                                                <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                                <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}><center><Button variant="danger">Cancel</Button></center></td>
+                                                <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide"} key={index + 200}>
+                                                    <center><Button style={{ padding: 0, margin: 0, color: "black" }}
+                                                        variant="link"
+                                                        onClick={event => handleExpandRow(event, transaction.stock[0].symbol)}>
+                                                        {
+                                                            expandState[transaction.stock[0].symbol] ?
+                                                                <ChevronUp /> : <ChevronDown />
+                                                        }
+                                                    </Button></center></td>
+                                            </tr>
+                                            <>
+                                                {
+                                                    expandedRows.includes(transaction.stock[0].symbol) ?
+                                                        <tr key={`${transaction.stock[0].symbol}-expanded`}>
+                                                            <td key={`${transaction.stock[0].symbol}-expanded-row2`} colSpan="6">
+                                                                <div>
+                                                                    <h3>{transaction.stock[0].shortname}</h3>
 
 
-                                                                <ul style={{ listStyleType: "none" }}>
-                                                                    <li><strong>Date: </strong>{moment(transaction.date).format('DD-MM-YYYY')}</li>
-                                                                    <li><strong>Ticker: </strong>{transaction.stock[0].symbol}</li>
-                                                                    <li><strong>Buy/ Sell: </strong>{transaction.buyOrSell}</li>
-                                                                    <li><strong>Value: </strong>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
-                                                                    <li><strong>Order Type: </strong>{transaction.orderType}</li>
-                                                                    <li><strong>Trading Fee: </strong>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
-                                                                    <li><strong>Stocks: </strong>{transaction.units.toFixed(2)}</li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                    </tr> : null
-                                            }
-                                        </>
-                                    </Fragment>)
-                                ))}
-                            </tbody>
-                        </Table>
+                                                                    <ul style={{ listStyleType: "none" }}>
+                                                                        <li><strong>Date: </strong>{moment(transaction.date).format('DD-MM-YYYY')}</li>
+                                                                        <li><strong>Ticker: </strong>{transaction.stock[0].symbol}</li>
+                                                                        <li><strong>Buy/ Sell: </strong>{transaction.buyOrSell}</li>
+                                                                        <li><strong>Value: </strong>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
+                                                                        <li><strong>Order Type: </strong>{transaction.orderType}</li>
+                                                                        <li><strong>Trading Fee: </strong>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
+                                                                        <li><strong>Stocks: </strong>{transaction.units.toFixed(2)}</li>
+                                                                    </ul>
+                                                                </div>
+                                                            </td>
+                                                        </tr> : null
+                                                }
+                                            </>
+                                        </Fragment>)
+                                    ))}
+                                </tbody>
+                            </Table>
+                            {data.length > 5 ?
+                                <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                    <nav>
+                                        <ul key="pagination" className="pagination">
+                                            {pageNumbers.map(number => (
+                                                <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                                                    <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </nav>
+
+                                    <ul className="pagination">
+                                        <Dropdown className="d-inline mx-2">
+                                            <Dropdown.Toggle
+                                                id="dropdown-autoclose-true">
+                                                Show {postsPerPage}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {
+                                                    data.length < 15 ?
+                                                        <>
+                                                            <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                            <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                            <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                        </>
+                                                        : data.length < 10 ?
+                                                            <>
+                                                                <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                                <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                            </>
+                                                            :
+                                                            <>
+                                                                <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                                <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                                <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                                                <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+
+                                                            </>
+
+                                                }
+
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </ul>
+                                </div> : null}
+
+                        </>
                         :
                         <MessageAlert variant="info">No {currentStatus.toLowerCase()} transactions for this game!</MessageAlert>
                     }
@@ -277,15 +353,3 @@ function TransactionHistory({ transactions }) {
 }
 
 export default TransactionHistory;
-
-
-// Logo or Ticker
-// Buy/Sell
-// Limit Price
-// Units
-// Cancel
-
-// change nav to limit orders or pending limit orders
-
-// remove Fee
-//Date

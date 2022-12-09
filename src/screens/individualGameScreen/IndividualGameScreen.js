@@ -215,6 +215,7 @@ function IndividualGameScreen() {
                             <Container>
                                 {isAdmin() &&
                             <Button 
+                            variant="danger"
                             onClick={() =>{setShowAreYouSureModal(true)}} 
                             style={{margin: '1rem'}}
                             >Delete League</Button>
@@ -222,6 +223,7 @@ function IndividualGameScreen() {
                             {
                                 !isAdmin() &&
                                 <Button 
+                                variant="danger"
                             onClick={() =>{setShowAreYouSureModal(true)}} 
                             style={{margin: '1rem'}}
                             >Leave League</Button>

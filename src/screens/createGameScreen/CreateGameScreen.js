@@ -20,7 +20,11 @@ function CreateGameScreen(){
     const {userInfo} = user;
 
     /// screen - The screen number
-    const [screen, setScreen]       = useState(1)
+    const [screen, setScreen]       = useState(1);
+    /// QucikGameSelection 
+    const [quickGame, setQuickGame] = useState();
+
+
     /// Page 1 State - Name, Type and Image for game
     const [gameName, setGameName]   = useState(`${userInfo.firstname}'s Stock Trading Game`)
     const [gameType, setGameType]   = useState("")
@@ -62,7 +66,11 @@ function CreateGameScreen(){
                 {screen === 1 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false}>
-                       <GameQuickGameSelection/> 
+                       <GameQuickGameSelection
+                        quickGame={quickGame} setQuickGame={setQuickGame}
+                        
+                       
+                       /> 
                     </GameCreationOptionsCard>
                         
                 </Col>

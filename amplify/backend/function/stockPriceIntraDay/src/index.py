@@ -332,10 +332,10 @@ def getTransactionsUpdates(buys,sells):
       # sets all transactions to completed
       for i in buys:
               data_request.append(UpdateOne({"_id": i["_id"]},
-                                            {'$set': {"status": "COMPLETED"}}))
+                                            {'$set': {"status": "COMPLETED", "date": datetime.datetime.utcnow()}}))
       for i in sells:
           data_request.append(UpdateOne({"_id": i["_id"]},
-                                        {'$set': {"status": "COMPLETED"}}))
+                                        {'$set': {"status": "COMPLETED", "date": datetime.datetime.utcnow()}}))
     except Exception as e:
         print(f'ERROR:Could not run transactions updates function.\nException Details:\n\t{e}')
     return data_request

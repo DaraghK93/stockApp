@@ -33,7 +33,7 @@ function LeaderBoard({ leaderBoardInfo }) {
     window.addEventListener("resize", showCols);
 
     function showCols() {
-        if (window.innerWidth >= 576) {
+        if (window.innerWidth >= 800) {
             setShowCol(true)
         }
         else {
@@ -55,7 +55,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                     {showTop3 &&
                                         <Row xs={3} style={{ textAlign: "center" }}>
                                             <Col xs={4}>
-                                                <Image src={"/avatar.png"} className="top3ImgStyle secondplace" />
+                                                <Image src={leaderBoardInfo[1].avatar ? leaderBoardInfo[1].avatar: "/avatar_3.jpg"} className="top3ImgStyle secondplace" />
                                                 <p><strong><span className="rankingText" >2nd place</span></strong>   <br></br>
                                                     @{leaderBoardInfo[1].user.toString()}
                                                     <br></br>{parseFloat(leaderBoardInfo[1].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
@@ -64,7 +64,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                             </Col>
                                             <Col xs={4}>
                                                 <Image src={"/crown.png"} style={{ width: "50%" }} /><div style={{ height: "5px" }} />
-                                                <Image src={"/avatar.png"} className="top3ImgStyle firstplace" />
+                                                <Image src={leaderBoardInfo[0].avatar ? leaderBoardInfo[0].avatar: "/avatar_3.jpg"} className="top3ImgStyle firstplace" />
                                                 <p><strong><span className="rankingText">1st place</span></strong>  <br></br>
                                                     @{leaderBoardInfo[0].user.toString()}
                                                     <br></br>{parseFloat(leaderBoardInfo[0].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
@@ -72,7 +72,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                 </p>
                                             </Col>
                                             <Col xs={4}>
-                                                <Image src={"/avatar.png"} className="top3ImgStyle thirdplace" />
+                                                <Image src={leaderBoardInfo[2].avatar ? leaderBoardInfo[2].avatar: "/avatar_3.jpg"} className="top3ImgStyle thirdplace" />
                                                 <p><strong><span className="rankingText">3rd place</span></strong><br></br>
                                                     @{leaderBoardInfo[2].user.toString()}
                                                     <br></br>{parseFloat(leaderBoardInfo[2].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
@@ -112,7 +112,7 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                             <tr key={item.user} className="leaderboradRowStyle">
                                                                 <td className="leftCurvedBorders"><center>{item.rank}</center></td>
                                                                 <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={item.picture}><center>
-                                                                    <Image src={"/avatar.png"} className="leaderBoardAvatarStyle" alt="user avatar"></Image>
+                                                                    <Image src={item.avatar ? item.avatar : "/avatar_3.jpg"} className="leaderBoardAvatarStyle" alt="user avatar"></Image>
                                                                 </center>
                                                                 </td>
                                                                 <td><center>@{item.user}</center></td>

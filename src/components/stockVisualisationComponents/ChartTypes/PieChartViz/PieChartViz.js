@@ -9,7 +9,7 @@ import {
 function PieChartViz({ data }) {
 
     const COLORS = [
-        '#00C49F', '#FF8042', '#FFBB28' ];
+        '#32CD32', '#FF0000', '#FFBB28'  ];
 
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {

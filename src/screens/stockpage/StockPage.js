@@ -171,10 +171,6 @@ function StockPage() {
 };
 
 
-//<Col className="stockInfoCol">
-//                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
-//                            <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
-//                            </Link>
-//                        </Col>
+
 
 export default StockPage;

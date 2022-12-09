@@ -13,6 +13,7 @@ const ChartCard = ({ title, data }) => {
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
     const [noDataMessage, setNoDataMessage] = useState("");
+    const [sentiment, setSentiment] = useState("neutral");
 
     useEffect(() => {
         // value totoal will be 0 if these is no data 
@@ -21,6 +22,26 @@ const ChartCard = ({ title, data }) => {
         data.forEach(function (item, index) {
             valueTotal = valueTotal + item.value
         })
+
+
+        if(data[2].value === data[0].value && data[2].value === data[1].value){
+            setSentiment("neutral")
+        }
+        else if (data[0].value === data[1].value){
+            setSentiment("neutral")
+        }
+        else if (data[0].value > data[1].value && data[0].value >= data[2].value){
+            setSentiment("positive")
+        }
+        else if (data[1].value > data[0].value && data[1].value >= data[2].value){
+            setSentiment("negative")
+        }
+        else{
+            setSentiment("neutral")
+        }
+
+
+
         if (valueTotal === 0) {
             setNoDataMessage("No data to show at the minute")
         } else {
@@ -109,10 +130,12 @@ const ChartCard = ({ title, data }) => {
             <Card className="infoCardStyle">
                 <Container className="infoCardContainer">
                     <h2>{title}<InfoButtonModal title={titlesetting()} info={information()} /></h2>
+                    
                     {noDataMessage
                         ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert>
 
                         : <>
+                        <span className="bolded">Overall Sentiment: <SentimentBadge sentiment={sentiment} /></span>
                             <Dropdown>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                     Graph Type

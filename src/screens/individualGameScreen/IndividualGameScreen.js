@@ -136,14 +136,10 @@ function IndividualGameScreen() {
 
     function timeOrValueLine() {
 
-        if (league.finished === true) {
-            return (
-                <>
-                    <p>The game is over!</p>
-                </>
-            )
-        }
-        else {
+        if (!league.finished) {
+         
+               
+         
             if (league.leagueType === "timeBased") {
                 return (
                     <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
@@ -155,7 +151,8 @@ function IndividualGameScreen() {
                     <ValueLine portfolios={league.portfolios} winningValue={league.winningValue} accessCode={league.accessCode}></ValueLine>
                 )
             }
-        }
+        } 
+
     }
 
 

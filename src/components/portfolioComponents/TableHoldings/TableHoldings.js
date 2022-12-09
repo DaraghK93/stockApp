@@ -36,6 +36,10 @@ function TableHoldings({ data }) {
 
     useEffect(() => {
         showCols()
+        const filtered = data.filter(holding => {
+            return parseFloat(holding.units) > 0
+        })
+        setTableData(filtered)
     }, [])
 
     window.addEventListener("resize", showCols);
@@ -199,7 +203,7 @@ function TableHoldings({ data }) {
                             ))}
                         </tbody>
                     </Table>
-                    {data.length > 5 ?
+                    {tableData.length > 5 ?
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <nav>
                             <ul key="pagination" className="pagination">
@@ -219,13 +223,13 @@ function TableHoldings({ data }) {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         {
-                                            data.length < 15 ?
+                                            tableData.length < 15 ?
                                                 <>
                                                     <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
                                                     <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                                     <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
                                                 </>
-                                                : data.length < 10 ?
+                                                : tableData.length < 10 ?
                                                     <>
                                                         <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
                                                         <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>

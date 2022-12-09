@@ -60,6 +60,11 @@ function CreateGameScreen(){
             <Row className="containerContent">
                 {screen === 1 ?
                 <Col>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false}/>
+                        
+                </Col>
+                :screen === 2 ?
+                <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)}>
                         <GameNameImageTypeSelection 
                             gameType={gameType} setGameType={setGameType}  
@@ -68,7 +73,7 @@ function CreateGameScreen(){
                             />
                     </GameCreationOptionsCard>
                 </Col>
-                :screen === 2 ?
+                :screen === 3 ?
                 <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
                         <GameDurationSelection 
@@ -80,7 +85,7 @@ function CreateGameScreen(){
                         />
                     </GameCreationOptionsCard>
                 </Col>
-                :screen === 3 ?
+                :screen === 4 ?
                 <Col>
                     <GameCreationOptionsCard 
                         screen={screen} 
@@ -102,7 +107,7 @@ function CreateGameScreen(){
                         />
                     </GameCreationOptionsCard>
                 </Col>
-                :screen === 4 && gameType === "valueBased" ?
+                :screen === 5 && gameType === "valueBased" ?
                 <Col>
                     <GameCreationOptionsCard 
                         screen={screen} 
@@ -119,7 +124,7 @@ function CreateGameScreen(){
                         />
                     </GameCreationOptionsCard>
                 </Col>
-                :(screen === 5 && gameType === "valueBased") || (screen === 4 && gameType === "timeBased")?
+                :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
                     <Col>
                         <GameCreationOptionsCard 
                             screen={screen} 
@@ -135,7 +140,7 @@ function CreateGameScreen(){
                             />
                         </GameCreationOptionsCard>
                     </Col>
-                :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
+                :(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")?
                 <Col>
                     <GameCreationOptionsCard 
                         screen={screen} 

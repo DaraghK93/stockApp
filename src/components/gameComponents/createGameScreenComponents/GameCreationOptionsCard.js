@@ -101,7 +101,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                         >Back</Button>
                     }
                     </Col>
-                    {(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")  ?
+                    {(screen === 8 && gameType === "valueBased") || (screen === 7 && gameType === "timeBased")  ?
                         <Col className="prevNextCol">
                             <Button
                                 className="prevNextButtons"

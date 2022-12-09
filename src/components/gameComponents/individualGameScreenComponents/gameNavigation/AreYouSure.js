@@ -1,4 +1,4 @@
-import { Modal, Button, Row} from "react-bootstrap";
+import { Modal, Button, Container} from "react-bootstrap";
 import {useState,useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {APIName} from '../../../../constants/APIConstants'
@@ -150,13 +150,13 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
         </Button>
         }  
         {success &&
-        <Row className="textCenter">
+        <Container className="textCenter">
         <Link className="w-100" to={'/game'}>
         <Button>
             Return to Games
         </Button>
         </Link>
-        </Row>
+        </Container>
         }  
         </Modal.Footer>
     </Modal>

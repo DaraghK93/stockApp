@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 
 /// Componeents ///
 import GameCreationOptionsCard from '../../components/gameComponents/createGameScreenComponents/GameCreationOptionsCard';
+import GameQuickGameSelection from '../../components/gameComponents/createGameScreenComponents/GameQuickGameSelection';
 import GameNameImageTypeSelection from '../../components/gameComponents/createGameScreenComponents/GameNameImageTypeSelection';
 import GameDurationSelection from '../../components/gameComponents/createGameScreenComponents/GameDurationSelection';
 import GameBalanceFeesTradeSelection from '../../components/gameComponents/createGameScreenComponents/GameBalanceFeesTradesSelection';
@@ -60,7 +61,9 @@ function CreateGameScreen(){
             <Row className="containerContent">
                 {screen === 1 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false}/>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false}>
+                       <GameQuickGameSelection/> 
+                    </GameCreationOptionsCard>
                         
                 </Col>
                 :screen === 2 ?

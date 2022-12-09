@@ -23,7 +23,9 @@ import {updateActivePortfolios} from '../../../actions/portfolioActions';
 function GameCreationOptionsCard({children, setScreen, screen, disableNextStep, 
                                 gameName, gameType, gameImage, gameStartDate, gameEndDate, 
                                 startingBalance, tradingFee, maxTradesPerDay, gameWinningValue,  
-                                stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating}){
+                                stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating,
+                                mobileScreen
+                            }){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -84,9 +86,10 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
         }
     }
 
-    return(
-        <Card className="my-5">
-            <Card.Body>
+
+    const Content = () => {
+        return (
+            <>
                 {children}
                 {error && <MessageAlert variant="danger">{error}</MessageAlert>}
                 {loading && <LoadingSpinner/>}
@@ -121,8 +124,23 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                         </Col>
                     }      
             </Row>
-            </Card.Body>
-        </Card>
+            </>
+        )
+    }
+
+
+
+    return(
+        <>
+        {mobileScreen === true ? <Content/>
+        :
+        <Card className="my-5">
+           <Card.Body>
+             <Content/>
+           </Card.Body>
+        </Card> 
+    }
+    </>
     )
 
 }

@@ -21,6 +21,8 @@ function CreateGameScreen(){
 
     /// screen - The screen number
     const [screen, setScreen]       = useState(1);
+    const [mobileScreen, setMobileScreen] = useState(true)
+
     /// QucikGameSelection 
     const [quickGame, setQuickGame] = useState();
 
@@ -60,12 +62,26 @@ function CreateGameScreen(){
     const maxWinningValue    = Math.round(startingBalance*1.15)
     const minWinningValue    = Math.round(startingBalance*1.01)
 
+
+    /// For mobile views 
+    window.addEventListener("resize", screenSizeChange);
+
+    function screenSizeChange() {
+        if (window.innerWidth >= 800) {
+            setMobileScreen(false)
+        }
+        else {
+            setMobileScreen(true)
+        }
+    }
+
+    console.log(mobileScreen)
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
                 {screen === 1 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false}>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false} mobileScreen={mobileScreen}>
                        <GameQuickGameSelection
                         quickGame={quickGame} setQuickGame={setQuickGame}
                         
@@ -76,7 +92,7 @@ function CreateGameScreen(){
                 </Col>
                 :screen === 2 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)}>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)} mobileScreen={mobileScreen}>
                         <GameNameImageTypeSelection 
                             gameType={gameType} setGameType={setGameType}  
                             gameName={gameName} setGameName={setGameName} 
@@ -86,7 +102,7 @@ function CreateGameScreen(){
                 </Col>
                 :screen === 3 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType}>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} mobileScreen={mobileScreen}>
                         <GameDurationSelection 
                             gameStartDate={gameStartDate} 
                             setGameStartDate={setGameStartDate}
@@ -107,7 +123,7 @@ function CreateGameScreen(){
                             && (tradingFee>=minTradingFee && tradingFee<=maxTradingFee) 
                             && (maxTradesPerDay>=minTrades && maxTradesPerDay<=maxTrades))
                         }
-                        >
+                        mobileScreen={mobileScreen}>
                         <GameBalanceFeesTradeSelection
                             startingBalance = {startingBalance}
                             setStartingBalance = {setStartingBalance}
@@ -127,7 +143,7 @@ function CreateGameScreen(){
                         disableNextStep={
                             !(gameWinningValue>=minWinningValue&&gameWinningValue<=maxWinningValue)
                         }
-                        >
+                        mobileScreen={mobileScreen} >
                         <GameWinningValueSelection 
                             startingBalance = {startingBalance}
                             gameWinningValue = {gameWinningValue} 
@@ -144,7 +160,7 @@ function CreateGameScreen(){
                             disableNextStep={
                                 (stockTypes.length === 0)
                             }
-                            >
+                            mobileScreen={mobileScreen}>
                             <GameSectorsSelection 
                                 stockTypes={stockTypes} 
                                 setStockTypes={setStockTypes}
@@ -158,7 +174,7 @@ function CreateGameScreen(){
                         setScreen={setScreen} 
                         gameType={gameType}
                         disableNextStep={!(ESGGameType)}
-                        >
+                        mobileScreen={mobileScreen}>
                         <GameESGRestrictionsSelection
                             setMinEnvironmentRating={setMinEnvironmentRating}
                             setMinSocialRating={setMinSocialRating}
@@ -178,7 +194,7 @@ function CreateGameScreen(){
                         gameWinningValue={gameWinningValue} stockTypes={stockTypes} 
                         minEnvironmentRating={minEnvironmentRating}  minSocialRating={minSocialRating} 
                         minGovernanceRating={minGovernanceRating}
-                        >
+                        mobileScreen={mobileScreen}>
                             <GameCreationSummary 
                                 gameType={gameType}
                                 gameName={gameName}

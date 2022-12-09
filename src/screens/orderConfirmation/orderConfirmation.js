@@ -43,10 +43,11 @@ function OrderConfirmationPage() {
    
     /// Game State ///
     const [gameTradeFee, setGameTradeFee] = useState()
-
+    const [gameId, setGameId] = useState()
+    
     //// Portfolio State ////
     const [portfolio, setPortfolio] = useState({})
-    const [portfolioId, setPortfolioId] = useState()
+    
     const [portfolioLoading, setPortfolioLoading] = useState(true)
     const [portfolioError, setPortfolioError] = useState()
     const [newPortfolioBalance, setNewPortfolioBalance] = useState()
@@ -102,7 +103,7 @@ function OrderConfirmationPage() {
         setLimitOrderPriceError("")
         setMarketPriceError("")
         setSpendingPowerError("")
-    }, [orderType,portfolioId])
+    }, [orderType,gameId])
 
 
     /// Portfolio Id 
@@ -112,7 +113,7 @@ function OrderConfirmationPage() {
                 /// Set the portfolio Loading to true and reset error
                 setPortfolioLoading(true)
                 setPortfolioError()
-                let path = `/api/portfolio/${portfolioId}`;
+                let path = `/api/portfolio/${gameId}`;
                 let myInit = {
                     headers : {"x-auth-token": userToken},       
                 }
@@ -144,19 +145,19 @@ function OrderConfirmationPage() {
             }
         }
         /// Need to set an intial value ///
-        if (typeof portfolioId === "undefined" && loading === false){
+        if (typeof gameId === "undefined" && loading === false){
             /// Add in a savety check here if a user naviagtes to the page by typing in url redirect them to the game screen
             if (activePortfolios.length === 0){
                 navigate(`/game`)
             }else{
               /// For now set the current portfolio to the first portfolio may need to revisit this ///
-            setPortfolioId(activePortfolios[0].leagueId)  
+            setGameId(activePortfolios[0].leagueId)  
             }
-        }else if(portfolioId){
+        }else if(gameId){
             /// Get the portfolio data 
             getPortfolioInfo()
         }
-    },[portfolioId,activePortfolios,loading, userToken,navigate,stock._id,stock])
+    },[gameId,activePortfolios,loading, userToken,navigate,stock._id,stock])
 
     /// buy/sell reset ///
     // This useEffect id used to reset values whne the user swiches between buy/sell
@@ -194,7 +195,7 @@ function OrderConfirmationPage() {
                     </Row>
                     <Row md={1} className="py-2 pb-5" style={{"textAlign":"center","alignItems":"center"}}>
                         <h3>Active Portfolio</h3>
-                        <PortfolioSelectionDropdown portfolios={activePortfolios} state={portfolioId} setState={setPortfolioId} currentPortfolioName={portfolio.portfolioName}/>
+                        <PortfolioSelectionDropdown portfolios={activePortfolios} state={gameId} setState={setGameId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
                     <Row className="py-2">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
@@ -294,6 +295,8 @@ function OrderConfirmationPage() {
                             limitPrice={limitPrice}
                             stockName={stock.longname}
                             gameTradeFee={gameTradeFee}
+                            stockLogo={stock.logo}
+                            gameId={gameId}
                 />
                     <BottomStickyButton 
                         onClick={() =>{setShowAreYouSureModal(true)}} 

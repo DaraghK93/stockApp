@@ -1,13 +1,42 @@
-import { Container, Table } from "react-bootstrap";
+import { Container, Row, Col, Table, Button } from "react-bootstrap";
+import Accordion from 'react-bootstrap/Accordion';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
+import Confetti from 'react-confetti'
+import { Link } from "react-router-dom";
 
-function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee}) {
+
+function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee, orderSuccess, gameId}) {
 
     return (
-        <>
                 <Container>
-                    <h5 style={{ marginTop: "10px" }}>Order Summary</h5>
-                    <Table>
-                        <tbody>
+                    {!orderSuccess ?
+                    <>
+                    <Row className="textCenter">
+                        <h3>{buyOrSell}</h3>
+                    </Row>
+                    <Row className="textCenter">
+                        <h3>{parseFloat(qty).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits: 2})} stocks</h3>
+                    </Row>
+                    <Row className="textCenter">
+                         {buyOrSell === "Buy" ?
+                                <h2>Total {(parseFloat(dollarAmountSelected)+parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
+                            :
+                            <>
+                            {parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee) >= 0 ?
+                                <h2>Total {(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
+                            :
+                                <h2>Total {(parseFloat(dollarAmountSelected)-parseFloat(gameTradeFee)).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</h2>
+                            } 
+                            </>
+                         }
+                    </Row>
+                    <Row className="pt-2">
+                    <Accordion>
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header align="center" style={{"justifyContent": "center"}}>Trade Details</Accordion.Header>
+                            <Accordion.Body>
+                            <Table>
+                            <tbody>
                             <tr>
                                 <td>Stock</td>
                                 <td>{stockName}</td>
@@ -62,14 +91,38 @@ function OrderSummary({ stockName, buyOrSell, orderType, dollarAmountSelected, n
                                 <td className="bolded">{parseFloat(newPortfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</td>
                         </tr>
                         } 
-                            
-
-
-
                         </tbody>
-                    </Table>
+                        </Table>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>  
+                    </Row>
+                    </>
+                :
+                <>
+                <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
+                    <h2 className="greenSuccess">Trade Complete!</h2>
+                    <h2 className="greenSuccess">Congratulations </h2>
+                    <Col className="w-100 mb-4">
+                        <CheckCircleOutlineSharpIcon className="greenSuccess"style={{"fontSize":"10rem"}}/>
+                    </Col>
+                    <Confetti numberOfPieces={500} recycle={false}/>
+                </Row>
+                <Row md={2} className="textCenter">
+                    <Col>
+                     <Link className="w-100" to={`/stockdiscovery`}>
+                        <Button className="mb-2 w-100">Browse More Stocks</Button>
+                    </Link>
+                    </Col>
+                   <Col>
+                    <Link className="w-100" to={`/game/${gameId}`}>
+                        <Button className="mb-2 w-100">View Leaderboard</Button>
+                    </Link>
+                    </Col>
+                </Row> 
+                </>
+                }
                 </Container>
-        </>
     )
 }
 

@@ -19,6 +19,7 @@ function StockDiscoveryPage(){
                 {/* <h1 style={{textAlign:"center"}}>Stock Discovery</h1> */}
 
                 <StockSearchBar/>
+                <div style={{paddingBottom: "1rem"}}></div>
                 </Container>
                 {keyword === undefined ? (
                     <Row md={1} xs={1}

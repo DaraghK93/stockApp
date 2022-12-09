@@ -401,13 +401,13 @@ const gameStockSummary = (sectors, minErating, minSRating, minGRating) => {
     {
       $facet: {
         topGainers: [
-          { $match: matchStatement },
+          { $match: {$and: [matchStatement,  {'daily_change.percentageChange': {$gt: 0}} ] } },
           { $project: projectStatement },
           { $sort: { 'daily_change.percentageChange': -1 } },
           { $limit: 20 },
         ],
         topLosers: [
-          { $match: matchStatement },
+          { $match: {$and: [matchStatement,  {'daily_change.percentageChange': {$lt: 0}} ] } },
           { $project: projectStatement },
           { $sort: { 'daily_change.percentageChange': 1 } },
           { $limit: 20 },

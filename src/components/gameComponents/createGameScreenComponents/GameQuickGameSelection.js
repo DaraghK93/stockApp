@@ -1,12 +1,16 @@
 import {Card,Row,Col, ToggleButton} from "react-bootstrap"
+import SprintIcon from "../../icons/SprintIcon";
+import RaceFlagIcon from "../../icons/RaceFlag";
+import TreeIcon from "../../icons/TreeIcon";
+import CoderIcon from "../../icons/CoderIcon";
 
 function GameQuickGameSelection({quickGame,setQuickGame}){
     console.log(quickGame)
 
     return(
          <>
-        <Card.Title className="gameOptionsCardTitle">Select a Game</Card.Title>
-        <Row>
+        <Card.Title className="gameOptionsCardTitle">Quick Game or Configure Game</Card.Title>
+        <Row md={4} sm={1} xs={1}>
             <Col>
                 <ToggleButton
                             className="gameDetailsToggleButton"
@@ -18,12 +22,13 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                             checked={quickGame === "gameOne"}
                             onChange={(e) => setQuickGame(e.currentTarget.value)}
                         >
-                        <Card>
+                        <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Game One</Card.Title>
+                                    <Card.Title>Quick Sprint</Card.Title>
                                         <Card.Text>
-                                            Race to a goal value
+                                            1 Week, $100,000, most profit wins!
                                         </Card.Text>
+                                        <SprintIcon height="5rem" width="5rem" color="green"/>
                                 </Card.Body>
                         </Card>
                 </ToggleButton>
@@ -39,12 +44,13 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                             checked={quickGame === "gameTwo"}
                             onChange={(e) => setQuickGame("gameTwo")}
                         >
-                       <Card>
+                       <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Game Two</Card.Title>
+                                    <Card.Title>Stock Race</Card.Title>
                                         <Card.Text>
-                                            Race to a goal value
+                                            Turn $100,000 into $105,000 to win! 
                                         </Card.Text>
+                                        <RaceFlagIcon height="5rem" width="5rem" />
                                 </Card.Body>
                         </Card>
                 </ToggleButton>
@@ -60,12 +66,13 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                             checked={quickGame === "gameThree"}
                             onChange={(e) => setQuickGame(e.currentTarget.value)}
                         >
-                        <Card>
+                        <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Game Three</Card.Title>
+                                    <Card.Title>Tree Huggers</Card.Title>
                                         <Card.Text>
-                                            Race to a goal value
+                                            Environmentally Friendly Stocks Only! 
                                         </Card.Text>
+                                        <TreeIcon height="5rem" width="5rem"/>
                                 </Card.Body>
                         </Card>  
                 </ToggleButton>
@@ -81,12 +88,13 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                             checked={quickGame === "gameFour"}
                             onChange={(e) => setQuickGame(e.currentTarget.value)}
                         >
-                        <Card>
+                        <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Game Four</Card.Title>
+                                    <Card.Title>Silicon Valley</Card.Title>
                                         <Card.Text>
-                                            Race to a goal value
+                                            Technology Stocks Only! 
                                         </Card.Text>
+                                        <CoderIcon height="5rem" width="5rem"/>
                                 </Card.Body>
                         </Card>  
                 </ToggleButton>

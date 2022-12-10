@@ -51,6 +51,8 @@
 /* Splash Page */
 @import "./splashPageComponents/splashPageContainer.scss";
 
+@import "./widgetsComponents/swiperCarousel.scss";
+
 .navbar-dark .navbar-toggler-icon {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png");
 }

@@ -133,6 +133,31 @@ function GameQuickGameSelection({quickGame,setQuickGame,
             setMinEnvironmentRating(0)
             setMinSocialRating(0)
             setMinGovernanceRating(0)
+        }else if (e.currentTarget.value === "gameThree"){
+            /// Set the name
+            setGameName("Quick Environment Game")
+            /// Set the type
+            setGameType("timeBased")
+            /// Set the image 
+            setGameImage("/stock_photo_3.jpg")
+            /// Set the start date and end date - end is a week from now
+            setGameStartDate(new Date())
+            const weekFromdate = new Date();
+            weekFromdate.setDate(weekFromdate.getDate() + 7);
+            setGameEndDate(weekFromdate)
+            /// Set the starting balance 
+            setStartingBalance(100000)
+            /// Set the trading fee 
+            setTradingFee(5)
+            /// Set the max trades per day 
+            setMaxTradesPerDay(20)
+            ///  Set the staock types 
+            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+            /// Set the ESG game Type
+            setESGGameType("Environment")
+            setMinEnvironmentRating(700)
+            setMinSocialRating(0)
+            setMinGovernanceRating(0)
         }
     }
 

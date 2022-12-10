@@ -83,7 +83,7 @@ function CreateGameScreen(){
         <Container style={{"textAlign":"center","alignItems":"center","marginBottom":"100px"}}>
             <Row className="containerContent">
                 {screen === 1 ?
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(quickGame)} mobileScreen={mobileScreen}>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(quickGame)} mobileScreen={mobileScreen} quickGame={quickGame}>
                        <GameQuickGameSelection
                         quickGame={quickGame} setQuickGame={setQuickGame}
                         setGameName={setGameName} setGameType={setGameType}
@@ -95,16 +95,16 @@ function CreateGameScreen(){
                         setMinGovernanceRating={setMinGovernanceRating}
                        /> 
                     </GameCreationOptionsCard>
-                :screen === 2 ?
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)} mobileScreen={mobileScreen}>
+                :screen === 2 && quickGame === "customGame"?
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)} mobileScreen={mobileScreen} quickGame={quickGame}>
                         <GameNameImageTypeSelection 
                             gameType={gameType} setGameType={setGameType}  
                             gameName={gameName} setGameName={setGameName} 
                             gameImage={gameImage} setGameImage={setGameImage}
                             />
                     </GameCreationOptionsCard>
-                :screen === 3 ?
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} mobileScreen={mobileScreen}>
+                :screen === 3 && quickGame === "customGame"?
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} mobileScreen={mobileScreen} quickGame={quickGame}>
                         <GameDurationSelection 
                             gameStartDate={gameStartDate} 
                             setGameStartDate={setGameStartDate}
@@ -113,11 +113,12 @@ function CreateGameScreen(){
                             gameType={gameType}
                         />
                     </GameCreationOptionsCard>
-                :screen === 4 ?
+                :screen === 4 && quickGame === "customGame"?
                     <GameCreationOptionsCard 
                         screen={screen} 
                         setScreen={setScreen} 
                         gameType={gameType}
+                        quickGame={quickGame}
                         disableNextStep={
                             !((startingBalance>= minStartingBalance && startingBalance<=maxStartingBalance) 
                             && (tradingFee>=minTradingFee && tradingFee<=maxTradingFee) 
@@ -133,9 +134,10 @@ function CreateGameScreen(){
                             setMaxTradesPerDay ={setMaxTradesPerDay}
                         />
                     </GameCreationOptionsCard>
-                :screen === 5 && gameType === "valueBased" ?
+                :screen === 5 && gameType === "valueBased" && quickGame === "customGame"?
                     <GameCreationOptionsCard 
                         screen={screen} 
+                        quickGame={quickGame}
                         setScreen={setScreen} 
                         gameType={gameType}
                         disableNextStep={
@@ -148,10 +150,11 @@ function CreateGameScreen(){
                             setGameWinningValue = {setGameWinningValue}
                         />
                     </GameCreationOptionsCard>
-                :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
+                :(screen === 6 && gameType === "valueBased" && quickGame === "customGame") || (screen === 5 && gameType === "timeBased" && quickGame === "customGame")?
                         <GameCreationOptionsCard 
                             screen={screen} 
                             setScreen={setScreen} 
+                            quickGame={quickGame}
                             gameType={gameType}
                             disableNextStep={
                                 (stockTypes.length === 0)
@@ -162,10 +165,11 @@ function CreateGameScreen(){
                                 setStockTypes={setStockTypes}
                             />
                         </GameCreationOptionsCard>
-                :(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")?
+                :(screen === 7 && gameType === "valueBased" && quickGame === "customGame") || (screen === 6 && gameType === "timeBased" && quickGame === "customGame")?
                     <GameCreationOptionsCard 
                         screen={screen} 
                         setScreen={setScreen} 
+                        quickGame={quickGame}
                         gameType={gameType}
                         disableNextStep={!(ESGGameType)}
                         mobileScreen={mobileScreen}>
@@ -186,7 +190,7 @@ function CreateGameScreen(){
                         gameWinningValue={gameWinningValue} stockTypes={stockTypes} 
                         minEnvironmentRating={minEnvironmentRating}  minSocialRating={minSocialRating} 
                         minGovernanceRating={minGovernanceRating}
-                        mobileScreen={mobileScreen}>
+                        mobileScreen={mobileScreen} quickGame={quickGame}>
                             <GameCreationSummary 
                                 gameType={gameType}
                                 gameName={gameName}

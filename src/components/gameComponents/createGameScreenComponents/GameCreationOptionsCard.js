@@ -24,7 +24,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 gameName, gameType, gameImage, gameStartDate, gameEndDate, 
                                 startingBalance, tradingFee, maxTradesPerDay, gameWinningValue,  
                                 stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating,
-                                mobileScreen
+                                mobileScreen, quickGame
                             }){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -85,7 +85,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             setLoading(false)
         }
     }
-
+    console.log(quickGame)
     const PrevNextButtons = () => {
         return(
             <Row className="containerButtons" lg={2} md={2} xs={2}>
@@ -94,7 +94,11 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                         <Button
                             className="prevNextButtons"
                             onClick={() => {
-                                setScreen(screen-1)
+                                if (quickGame !== "customGame"){
+                                    setScreen(1) 
+                                }else{
+                                  setScreen(screen-1)  
+                                }
                             }}
                         >Back</Button>
                     }
@@ -113,7 +117,16 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 className="prevNextButtons"
                                 disabled={disableNextStep}
                                 onClick={() => {
-                                    setScreen(screen+1)
+                                    //// If its not a customised game 
+                                    if (quickGame !== "customGame"){
+                                        if (gameType === "valueBased"){
+                                            setScreen(8)
+                                        }else if(gameType === "timeBased"){
+                                            setScreen(7)
+                                        }
+                                    }else{
+                                        setScreen(screen+1)
+                                    }
                                 }}
                             >Next</Button>
                         </Col>

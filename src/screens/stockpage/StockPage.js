@@ -62,6 +62,8 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
+    var myPercentage;
+
     const DayData = event => {
         // toggle shown data
         setData(day);
@@ -74,7 +76,7 @@ function StockPage() {
         setData(oneWeekPrices);
         setActive(event.target.id);
         setAbsoluteChange((oneWeekPrices[oneWeekPrices.length - 1].price - oneWeekPrices[0].price).toFixed(2))
-        setPercentageChange((oneWeekPrices[oneWeekPrices.length - 1].price/ oneWeekPrices[0].price ).toFixed(2))
+        setPercentageChange((((oneWeekPrices[oneWeekPrices.length - 1].price - oneWeekPrices[0].price) / oneWeekPrices[oneWeekPrices.length - 1].price) * 100).toFixed(2))
         redOrGreen()
 
     };
@@ -83,7 +85,7 @@ function StockPage() {
         setData(oneMonthPrices);
         setActive(event.target.id);
         setAbsoluteChange((oneMonthPrices[oneMonthPrices.length - 1].price - oneMonthPrices[0].price).toFixed(2))
-        setPercentageChange(((oneMonthPrices[oneMonthPrices.length - 1].price/oneMonthPrices[0].price )).toFixed(2))
+        setPercentageChange((((oneMonthPrices[oneMonthPrices.length - 1].price - oneMonthPrices[0].price) / oneMonthPrices[oneMonthPrices.length - 1].price) * 100).toFixed(2))
         redOrGreen()
     };
     const YearData = event => {
@@ -91,7 +93,7 @@ function StockPage() {
         setData(oneYearPrices);
         setActive(event.target.id);
         setAbsoluteChange((oneYearPrices[oneYearPrices.length - 1].price - oneYearPrices[0].price).toFixed(2))
-        setPercentageChange((oneYearPrices[oneYearPrices.length - 1].price / oneYearPrices[0].price ).toFixed(2) )
+        setPercentageChange((((oneYearPrices[oneYearPrices.length - 1].price - oneYearPrices[0].price) / oneYearPrices[oneYearPrices.length - 1].price) * 100).toFixed(2))
         redOrGreen()
     }
 

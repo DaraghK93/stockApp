@@ -31,6 +31,8 @@ function StockPage() {
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
     const [showTradeModal, setShowTradeModal] = useState(false)
+    const [absoluteChange, setAbsoluteChange] = useState()
+    const [percentageChange, setPercentageChange] = useState()
 
 
     const day = [
@@ -44,8 +46,8 @@ function StockPage() {
     const oneWeekPrices = stock.week
     const oneMonthPrices = stock.month
     const oneYearPrices = stock.year
-    const [active, setActive] = useState("4");
-    const [data, setData] = useState(oneYearPrices);
+    const [active, setActive] = useState("1");
+    const [data, setData] = useState(day);
     /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
     const { activePortfolios } = portfolios;
@@ -60,54 +62,51 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
-
     const DayData = event => {
         // toggle shown data
         setData(day);
+        setAbsoluteChange(stock.daily_change.absoluteChange)
+        setPercentageChange(stock.daily_change.percentageChange)
         setActive(event.target.id);
     };
     const WeekData = event => {
         // toggle shown data
         setData(oneWeekPrices);
         setActive(event.target.id);
+        setAbsoluteChange((oneWeekPrices[oneWeekPrices.length - 1].price - oneWeekPrices[0].price).toFixed(2))
+        setPercentageChange((oneWeekPrices[0].price/ oneWeekPrices[oneWeekPrices.length - 1].price).toFixed(2))
+        redOrGreen()
+
     };
     const MonthData = event => {
         // toggle shown data
         setData(oneMonthPrices);
         setActive(event.target.id);
+        setAbsoluteChange((oneMonthPrices[oneMonthPrices.length - 1].price - oneMonthPrices[0].price).toFixed(2))
+        setPercentageChange((oneMonthPrices[0].price/ oneMonthPrices[oneMonthPrices.length - 1].price).toFixed(2))
+        redOrGreen()
     };
     const YearData = event => {
         // toggle shown data
         setData(oneYearPrices);
         setActive(event.target.id);
+        setAbsoluteChange((oneYearPrices[oneYearPrices.length - 1].price - oneYearPrices[0].price).toFixed(2))
+        setPercentageChange((oneYearPrices[0].price/ oneYearPrices[oneYearPrices.length - 1].price).toFixed(2))
+        redOrGreen()
     }
 
-    useEffect(() => {
-        // showTick()
-        setData(oneYearPrices)
-        setActive("4")
-    }, [oneYearPrices])
-
-
-
-
-
-    // console.log(oneYearPrices)
-    // console.log("today", oneYearPrices[0])
-    // console.log("last year", oneYearPrices[oneYearPrices.length - 1])
-
-    // function redOrGreen() {
-    //     if (parseFloat(oneYearPrices[oneYearPrices.length - 1] - oneYearPrices[0]) > 0) {
-    //         lineColor = "#00C49F"
-    //         gradientColor = "#b5e8df"
-    //         positiveSymbol = "+"
-    //     }
-    //     else {
-    //         lineColor = "#d61e1e"
-    //         gradientColor = "#ffc9c9"
-    //     }
-    //     return lineColor
-    // }
+    function redOrGreen() {
+        if (absoluteChange > 0) {
+            lineColor = "#00C49F"
+            gradientColor = "#b5e8df"
+            positiveSymbol = "+"
+        }
+        else {
+            lineColor = "#d61e1e"
+            gradientColor = "#ffc9c9"
+        }
+        return lineColor
+    }
 
     // redOrGreen()
 
@@ -139,6 +138,8 @@ function StockPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res)
+
+
                 setLoading(false)
             } catch (error) {
                 // Log the error 
@@ -149,6 +150,10 @@ function StockPage() {
             }
         }
         getStockInfo();
+        setData(day)
+        setActive("1")
+        // DayData
+        // DaysData ()
     }, [symbol])
 
 
@@ -175,9 +180,8 @@ function StockPage() {
                                 <dt>{stock.symbol}
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
-                                <dt
-                                    style={{ color: "#00C49F" }}
-                                >{positiveSymbol}${stock.daily_change.absoluteChange.toFixed(2)} ({positiveSymbol}{stock.daily_change.percentageChange.toFixed(2)}%)
+                                <dt style={{ color: redOrGreen() }}>
+                                    {positiveSymbol}{absoluteChange} ({positiveSymbol}{percentageChange}%)
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
                             </dl>
@@ -201,7 +205,6 @@ function StockPage() {
                             <Card className="priceChartStyle">
                                 <Container>
                                     <Row>
-
                                         <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} />
                                     </Row>
                                     <Row

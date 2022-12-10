@@ -154,7 +154,7 @@ function IndividualGameScreen() {
         } else { 
             return (
                 
-                <p style={{"textAlign":"center","padding-top":"1rem"}}> <strong>{league.finalStandings[0].user} </strong> 
+                <p style={{"textAlign":"center","padding-top":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
                 is the winner! Don't let them win another! create a game <Link to="/game">here!</Link> </p>
             )
         }

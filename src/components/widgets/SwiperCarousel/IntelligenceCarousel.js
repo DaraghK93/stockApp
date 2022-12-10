@@ -42,9 +42,9 @@ const IntelligenceCarousel = () => {
             <div class="swiperImage">
               <img className="swiperImageActual" src="splash_carousel_2_1.png" alt="" />
             </div>
-            <div class="swiper-slide">
-              <div class="captionTitle"><h2>Create or Join a Game</h2></div>
-              <div class="caption"><p>Create or join a game with custom rules</p></div>
+            <div class="swiper-slide" >
+              <div class="captionTitle"><h2>Company specific news feeds</h2></div>
+              <div class="caption" ><p>Use our in-built, company specific news feeds from a range of publications to keep up to date with companies and get an advantage over other players in the league.</p></div>
               <div></div>
               <br></br>
             </div>
@@ -52,26 +52,25 @@ const IntelligenceCarousel = () => {
           <SwiperSlide>
             <img className="swiperImageActual" src="splash_carousel_2_2.png" alt="" />
             <div class="swiper-slide">
-              <div class="captionTitle"><h2>Explore Stocks</h2></div>
-              <div class="caption"><p>Explore stocks with personalised recommendations</p></div>
+              <div class="captionTitle"><h2>Sentiment Analysis</h2></div>
+              <div class="caption"><p>Use our sentiment analysis tools to see the whether the current sentiment of a company is Positive, Negative or Neutral both on Twitter and across our News Feed.</p></div>
               <div></div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <img className="swiperImageActual" src="splash_carousel_2_3.png" alt="" />
             <div class="swiper-slide">
-              <div class="captionTitle"><h2>Research the best stocks to trade</h2></div>
-              <div class="caption"><p>Explore stocks using our advanced A.I. tools</p></div>
+              <div class="captionTitle"><h2>ESG Investing</h2></div>
+              <div class="caption"><p>Use our clear and easy to understand ESG Ratings to help you invest ethically.</p></div>
               <div></div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <img className="swiperImageActual" src="splash_carousel_2_4.png" alt="" />
             <div class="swiper-slide">
-              <div class="captionTitle"><h2>Compete against friends</h2></div>
-              <div class="caption"><p>See in real time where you stand against your friends
-
-              </p></div>
+              <div class="captionTitle"><h2>Learn About the Basics</h2></div>
+              <div class="caption"><p>Use our education section to read about the basics of investing and to find more resources for further reading/watching. Use that newfound knowledge to get the upper hand in your league!</p>
+              </div>
               <div></div>
             </div>
           </SwiperSlide>

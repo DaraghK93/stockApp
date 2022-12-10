@@ -1,6 +1,6 @@
 // import Swiper core and required modules
 import React from 'react'
-import { Swiper, SwiperSlide, Scrollbar } from "swiper/react"
+import { Swiper, SwiperSlide } from "swiper/react"
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper'
 import 'swiper/swiper-bundle.min.css'
 import 'swiper/swiper.min.css'

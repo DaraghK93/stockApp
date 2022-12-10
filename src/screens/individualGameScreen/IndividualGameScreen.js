@@ -7,6 +7,7 @@ import LeaderBoard from "../../components/gameComponents/individualGameScreenCom
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
 /// API ///
 import { APIName } from '../../constants/APIConstants'
@@ -139,8 +140,6 @@ function IndividualGameScreen() {
 
         if (!league.finished) {
          
-               
-         
             if (league.leagueType === "timeBased") {
                 return (
                     <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
@@ -152,11 +151,15 @@ function IndividualGameScreen() {
                     <ValueLine portfolios={league.portfolios} winningValue={league.winningValue} accessCode={league.accessCode}></ValueLine>
                 )
             }
-        } 
+        } else { 
+            return (
+                
+                <p style={{"textAlign":"center","padding-top":"1rem"}}> <strong>{league.finalStandings[0].user} </strong> 
+                is the winner! Don't let them win another! create a game <Link to="/game">here!</Link> </p>
+            )
+        }
 
     }
-
-    // console.log(portfolio)
 
 
     return (

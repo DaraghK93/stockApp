@@ -14,6 +14,7 @@ const ChartCard = ({ title, data }) => {
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
     const [noDataMessage, setNoDataMessage] = useState("");
     const [sentiment, setSentiment] = useState("neutral");
+    const [currentChart, setCurrentChart] = useState("");
 
     useEffect(() => {
         // value totoal will be 0 if these is no data 
@@ -47,14 +48,18 @@ const ChartCard = ({ title, data }) => {
         } else {
             if (String(title) === "ESG Rating") {
                 setIsShownBarChart(true);
+                setCurrentChart("Bar Chart")
             }
             else if (String(title) === "News Sentiment") {
                 setIsShownPieChart(true);
+                setCurrentChart("Pie Chart")
             }
             else if (String(title) === "Twitter Sentiment") {
                 setIsShownRadarChart(true);
+                setCurrentChart("Radar Chart")
             }
         }
+
     }, [data, title]);
 
 
@@ -63,6 +68,7 @@ const ChartCard = ({ title, data }) => {
         setIsShownBarChart(true);
         setIsShownPieChart(false);
         setIsShownRadarChart(false);
+        setCurrentChart("Bar Chart")
     };
 
     const showPieChart = event => {
@@ -70,6 +76,7 @@ const ChartCard = ({ title, data }) => {
         setIsShownPieChart(true);
         setIsShownBarChart(false);
         setIsShownRadarChart(false);
+        setCurrentChart("Pie Chart")
     };
 
     const showRadarChart = event => {
@@ -77,6 +84,7 @@ const ChartCard = ({ title, data }) => {
         setIsShownRadarChart(true);
         setIsShownBarChart(false);
         setIsShownPieChart(false);
+        setCurrentChart("Radar Chart")
     };
 
 
@@ -140,7 +148,7 @@ const ChartCard = ({ title, data }) => {
                         <span className="bolded" style={{fontSize:"1rem", marginBottom:3}}>Overall Sentiment <SentimentBadge sentiment={sentiment} /></span>
                             </Col><Col className="col-md-3 col-sm-3 col-3"><Dropdown style={{marginBottom:3 }}>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                                    Graph Type
+                                    {currentChart}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>

@@ -26,21 +26,19 @@ exports = function() {
         return collection.aggregate([
           {
             '$match': {
-              // match on active timebased leagues where endDate is today
               'leagueType':"timeBased",
               'active': true, 
               'finished': false, 
               'endDate': new Date(today)
             }
           }, {
-            // get portfolio values
             '$lookup': {
               'from': 'portfolioValues', 
               'localField': 'portfolios', 
               'foreignField': '_id', 
               'as': 'portfolios', 
               'pipeline': [
-                {// lookup user names
+                {
                   '$lookup': {
                     'from': 'users', 
                     'localField': 'userId', 
@@ -48,16 +46,14 @@ exports = function() {
                     'as': 'user'
                   }
                 }, {
-                  // set into array
                   '$unwind': {
                     'path': '$user'
                   }
                 }, {
-                  // set user as the username
                   '$set': {
                     'user': '$user.username'
                   }
-                }, {// just show value and username
+                }, {
                   '$project': {
                     'totalValue': 1, 
                     'user': 1
@@ -65,40 +61,42 @@ exports = function() {
                 }
               ]
             }
-          }, {// make portfolios into array for sorting
+          }, {
             '$unwind': {
               'path': '$portfolios'
             }
-          }, {// sort to get leaderboard
+          }, {
             '$sort': {
               'portfolios.totalValue': -1
             }
-          }, {// group by league and portfolios and make into their own objects
+          }, {
             '$group': {
               '_id': '$_id', 
               'league': {
                 '$first': '$$ROOT'
               }, 
-              // push the leaderboard to portfolio field
               'portfolios': {
                 '$push': '$portfolios'
               }
             }
-          }, {// add that field to main league object
+          }, {
             '$addFields': {
               'league.portfolios': '$portfolios'
             }
-          }, {// make league the root object
+          }, {
             '$replaceRoot': {
               'newRoot': '$league'
             }
-          }, {// finish the game and set leaderboard to finalStandings
+          }, {
             '$set': {
               'active': false, 
               'finished': true, 
               'finalStandings': '$portfolios'
             }
-          }, {// merge the changes
+          }, {
+            '$unset': 'portfolios'
+          },
+          {
             '$merge': {
               'into': 'leagues', 
               'on': '_id'
@@ -106,3 +104,4 @@ exports = function() {
           }
         ]);
       }
+    

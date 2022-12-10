@@ -105,3 +105,13 @@ exports = function() {
         ]);
       }
     
+
+// reset the daily trades
+// runs every day at 9pm
+// resets the tradesToday field in all portfolios
+exports = function() {
+  // Access a mongodb service:
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
+  // find the portfolios where tradesToday are greater than 0 and set them back to 0
+  return collection.updateMany({ tradesToday : {$gt:0}}, {$set:{tradesToday: 0 }});
+};

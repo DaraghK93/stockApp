@@ -76,7 +76,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                 dispatch(updateActivePortfolios(userInfo.token))  
             }
             /// Will need to be updated to redirect to game page 
-            navigate(`/game`)
+            navigate(`/game/${res.newLeague._id}`)
             setLoading(false)
         }catch(error){
             /// Will be hit if error in the POST 

@@ -82,6 +82,7 @@ function TransactionHistory({ transactions }) {
     ];
 
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
+    // const buySellAll = ["BUY", "SELL", "ALL"]
 
     const updateStatus = (status) => {
         setCurrentStatus(status)
@@ -196,8 +197,6 @@ function TransactionHistory({ transactions }) {
                         </nav>
                         <br></br>
 
-
-
                     </div><center>
                         <Button value="BUY" onClick={filterBuySell}>BUY</Button> <Button value="SELL" onClick={filterBuySell}>SELL</Button> <Button value="ALL" onClick={filterBuySell}>ALL</Button>
                     </center>
@@ -206,7 +205,7 @@ function TransactionHistory({ transactions }) {
                             <Table style={{ borderCollapse: "collapse" }}>
                                 <thead>
                                     <tr key="cols">
-                                        {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder }) => {
+                                        {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder, test }) => {
 
                                             function arrow() {
                                                 if (sortable === true) {

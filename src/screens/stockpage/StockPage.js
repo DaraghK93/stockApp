@@ -5,7 +5,7 @@
 //  This screen contains the components rendered to the user when they click on an individual stock
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 import ChartCardESG from "../../components/stockVisualisationComponents/ChartCard/ChartCard(ESG)";
@@ -22,7 +22,7 @@ import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 /// Redux ///
-import { useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 function StockPage() {
@@ -32,12 +32,26 @@ function StockPage() {
     const [error, setError] = useState("");
     const [showTradeModal, setShowTradeModal] = useState(false)
 
+
+    const day = [
+        { date: '01-10', price: 400 },
+        { date: '01-11', price: 700 },
+        { date: '01-12', price: 60 },
+        { date: '01-13', price: 700 },
+        { date: '01-01', price: 500 }]
+
+    // data coming directly from the stock object provided above. This means that another request is not needed
+    const oneWeekPrices = stock.week
+    const oneMonthPrices = stock.month
+    const oneYearPrices = stock.year
+    const [active, setActive] = useState("4");
+    const [data, setData] = useState(oneYearPrices);
     /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
     const { activePortfolios } = portfolios;
 
     /// React Router ///
-    const navigate = useNavigate() 
+    const navigate = useNavigate()
 
     // get symbol from query Params
     const { symbol } = useParams()
@@ -46,26 +60,67 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
-    function redOrGreen() {
-        if (parseFloat(stock.daily_change.absoluteChange) >= 0) {
-            lineColor = "#00C49F"
-            gradientColor = "#b5e8df"
-            positiveSymbol = "+"
-        }
-        else {
-            lineColor = "#d61e1e"
-            gradientColor = "#ffc9c9"
-        }
-        return lineColor
+
+    const DayData = event => {
+        // toggle shown data
+        setData(day);
+        setActive(event.target.id);
+    };
+    const WeekData = event => {
+        // toggle shown data
+        setData(oneWeekPrices);
+        setActive(event.target.id);
+    };
+    const MonthData = event => {
+        // toggle shown data
+        setData(oneMonthPrices);
+        setActive(event.target.id);
+    };
+    const YearData = event => {
+        // toggle shown data
+        setData(oneYearPrices);
+        setActive(event.target.id);
     }
 
-    function onClickTradeButton(){ 
-        if(activePortfolios.length === 0){
+    useEffect(() => {
+        // showTick()
+        setData(oneYearPrices)
+        setActive("4")
+    }, [oneYearPrices])
+
+
+
+
+
+    // console.log(oneYearPrices)
+    // console.log("today", oneYearPrices[0])
+    // console.log("last year", oneYearPrices[oneYearPrices.length - 1])
+
+    // function redOrGreen() {
+    //     if (parseFloat(oneYearPrices[oneYearPrices.length - 1] - oneYearPrices[0]) > 0) {
+    //         lineColor = "#00C49F"
+    //         gradientColor = "#b5e8df"
+    //         positiveSymbol = "+"
+    //     }
+    //     else {
+    //         lineColor = "#d61e1e"
+    //         gradientColor = "#ffc9c9"
+    //     }
+    //     return lineColor
+    // }
+
+    // redOrGreen()
+
+
+
+
+    function onClickTradeButton() {
+        if (activePortfolios.length === 0) {
             /// No Active Portfolios, show a info modal 
             setShowTradeModal(true)
-        }else{
+        } else {
             /// Redirect to the trade page
-            navigate(`/stock/${stock.symbol}/confirmorder`) 
+            navigate(`/stock/${stock.symbol}/confirmorder`)
         }
     }
 
@@ -99,10 +154,10 @@ function StockPage() {
 
 
     return (
-        
+
         <>
-        
-        
+
+
             {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
                 <Container>
                     <Row>
@@ -114,13 +169,15 @@ function StockPage() {
                                 <dt>
                                     <h1>
                                         {stock.longname}<InfoButtonModal
-                                        title="Company Information"
-                                        info={stock.longbusinesssummary} /></h1>
+                                            title="Company Information"
+                                            info={stock.longbusinesssummary} /></h1>
                                 </dt>
                                 <dt>{stock.symbol}
-                                    </dt>
+                                </dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
-                                <dt style={{ color: redOrGreen() }}>{positiveSymbol}${stock.daily_change.absoluteChange.toFixed(2)} ({positiveSymbol}{stock.daily_change.percentageChange.toFixed(2)}%)
+                                <dt
+                                    style={{ color: "#00C49F" }}
+                                >{positiveSymbol}${stock.daily_change.absoluteChange.toFixed(2)} ({positiveSymbol}{stock.daily_change.percentageChange.toFixed(2)}%)
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
                             </dl>
@@ -129,24 +186,50 @@ function StockPage() {
                     <Row>
                         <Col className="stockInfoCol">
                             <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
-                            <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"No Active Portofolios"} 
-                            bodyText={
-                                <>
-                                <p>It appears you don't have an active portfolio!</p>
-                                <p>To be able to trade stocks you need to be part of an active game.</p>
-                                <p>You can view your active games or create a new game from the <Link className="linkStyle" to={"/game/"}>Game Screen</Link> </p>
-                                </>
-                                }/>
+                            <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"No Active Portofolios"}
+                                bodyText={
+                                    <>
+                                        <p>It appears you don't have an active portfolio!</p>
+                                        <p>To be able to trade stocks you need to be part of an active game.</p>
+                                        <p>You can view your active games or create a new game from the <Link className="linkStyle" to={"/game/"}>Game Screen</Link> </p>
+                                    </>
+                                } />
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <StockPriceChart stock={stock} lineColor={lineColor} gradientColor={gradientColor} />
+                            <Card className="priceChartStyle">
+                                <Container>
+                                    <Row>
+
+                                        <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} />
+                                    </Row>
+                                    <Row
+                                        style={{
+                                            justifyContent: "center"
+                                        }}>
+                                        <Col className="centeredCol">
+                                            <Button id={"1"} className={active === "1" ? 'btn-outline-info:active' : "btn-outline-info"} onClick={DayData}>1D</Button>
+                                        </Col>
+                                        <Col className="centeredCol">
+                                            <Button id={"2"} className={active === "2" ? 'btn-outline-info:active' : "btn-outline-info"} onClick={WeekData}>1W</Button>
+                                        </Col>
+                                        <Col className="centeredCol">
+                                            <Button id={"3"} className={active === "3" ? 'btn-outline-info:active' : "btn-outline-info"} onClick={MonthData}>1M</Button>
+                                        </Col>
+                                        <Col className="centeredCol">
+                                            <Button id={"4"} className={active === "4" ? 'btn-outline-info:active' : "btn-outline-info"} onClick={YearData}>1Y</Button>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </Card>
+
+
                         </Col>
                     </Row>
                     <Row xl={3} lg={2} md={2} xs={1}>
                         <Col sm md={8} className="stockInfoCol">
-                        <ChartCardESG title={"ESG Rating"} edata={((stock.esgrating.environment_score)/1000)*5} sdata={((stock.esgrating.social_score)/1000)*5} gdata={((stock.esgrating.governance_score)/1000)*5}/>
+                            <ChartCardESG title={"ESG Rating"} edata={((stock.esgrating.environment_score) / 1000) * 5} sdata={((stock.esgrating.social_score) / 1000) * 5} gdata={((stock.esgrating.governance_score) / 1000) * 5} />
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
                             <ChartCard title={"News Sentiment"} data={stock.newsSentiment} />
@@ -160,7 +243,7 @@ function StockPage() {
                             <NewsArticleContainer symbol={stock.symbol} shortname={stock.shortname} longname={stock.longname} />
                         </Col>
                         <Col className="stockInfoCol">
-                        <TweetContainer stock={stock.symbol}></TweetContainer>
+                            <TweetContainer stock={stock.symbol}></TweetContainer>
                         </Col>
                     </Row>
                     <div className='footerStyle'></div>
@@ -169,12 +252,5 @@ function StockPage() {
         </>
     )
 };
-
-
-//<Col className="stockInfoCol">
-//                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
-//                            <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
-//                            </Link>
-//                        </Col>
 
 export default StockPage;

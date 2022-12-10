@@ -4,6 +4,7 @@ import RaceFlagIcon from "../../icons/RaceFlag";
 import TreeIcon from "../../icons/TreeIcon";
 import CoderIcon from "../../icons/CoderIcon";
 import PencilIcon from "../../icons/PencilIcon";
+import {useSelector} from 'react-redux';
 
 function GameQuickGameSelection({quickGame,setQuickGame,
     setGameName,
@@ -22,6 +23,10 @@ function GameQuickGameSelection({quickGame,setQuickGame,
     setGameWinningValue
 
 }){
+    /// Redux ///
+    const user = useSelector((state) => state.user)
+    // Get the userInfo piece of state, dont need loading and error
+    const {userInfo} = user;
    
     // const gameSettings = {
     //     "gameOne": {
@@ -183,43 +188,36 @@ function GameQuickGameSelection({quickGame,setQuickGame,
             setMinEnvironmentRating(0)
             setMinSocialRating(0)
             setMinGovernanceRating(0)
+        }else if(e.currentTarget.value === "customGame"){
+            /// Set the name
+            setGameName(`${userInfo.firstname}'s Stock Trading Game`)
+            /// Set the type
+            setGameType("")
+            /// Set the image 
+            setGameImage("")
+            /// Set the start date and end date - end is a week from now
+            setGameStartDate(new Date())
+            const weekFromdate = new Date();
+            weekFromdate.setDate(weekFromdate.getDate() + 7);
+            setGameEndDate(weekFromdate)
+            /// Set the starting balance 
+            setStartingBalance(100000)
+            /// Set the trading fee 
+            setTradingFee(20)
+            /// Set the max trades per day 
+            setMaxTradesPerDay(5)
+            /// set game winning value 
+            setGameWinningValue()
+            ///  Set the staock types 
+            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+            /// Set the ESG game Type
+            setESGGameType("")
+            setMinEnvironmentRating("")
+            setMinSocialRating("")
+            setMinGovernanceRating("")
+
         }
     }
-
-
-
-    // /// Called when the quickGame State changes ///
-    // useEffect(() => {
-    //     console.log(quickGame)
-    //     /// Quick Game One - 7 Days 100k 
-    //     if(quickGame === "gameOne"){
-    //         /// Set the name
-    //         setGameName("Quick Sprint Game")
-    //         /// Set the type
-    //         setGameType("timeBased")
-    //         /// Set the image 
-    //         setGameImage("/stock_photo_1.jpg")
-    //         // /// Set the start date and end date - end is a week from now
-    //         // setGameStartDate(new Date())
-    //         // const date = new Date();
-    //         // date.setDate(date.getDate() + 7);
-    //         // console.log(date)
-            
-
-
-    //     }
-
-    //     /// Qucik Game Two - Value Game 100k to 105k 
-
-    //     /// Qucik Game Three - Environment Game 
-
-    //     /// Quick Game Four - Tech Stocks Only 
-
-
-
-
-    // },[quickGame,setGameName,setGameType,setGameImage,setGameStartDate,setGameEndDate])
-
 
     return(
         <>
@@ -256,7 +254,6 @@ function GameQuickGameSelection({quickGame,setQuickGame,
                             variant='outline-primary'
                             value="gameTwo"
                             checked={quickGame === "gameTwo"}
-                            // onChange={(e) => setQuickGame("gameTwo")}
                             onChange={gameChange}
                         >
                        <Card className="quickGameCard">

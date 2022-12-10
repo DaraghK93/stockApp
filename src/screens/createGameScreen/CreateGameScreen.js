@@ -79,9 +79,6 @@ function CreateGameScreen(){
     useEffect(() => {
         screenSizeChange()
     },[])
-
-
-
     return(
         <Container style={{"textAlign":"center","alignItems":"center","marginBottom":"100px"}}>
             <Row className="containerContent">
@@ -89,6 +86,13 @@ function CreateGameScreen(){
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(quickGame)} mobileScreen={mobileScreen}>
                        <GameQuickGameSelection
                         quickGame={quickGame} setQuickGame={setQuickGame}
+                        setGameName={setGameName} setGameType={setGameType}
+                        setGameImage={setGameImage} setGameStartDate={setGameStartDate}
+                        setGameEndDate={setGameEndDate} setStartingBalance={setStartingBalance}
+                        setTradingFee={setTradingFee} setMaxTradesPerDay={setMaxTradesPerDay}
+                        setStockTypes={setStockTypes} setESGGameType={setESGGameType}
+                        setMinEnvironmentRating={setMinEnvironmentRating} setMinSocialRating={setMinSocialRating}
+                        setMinGovernanceRating={setMinGovernanceRating}
                        /> 
                     </GameCreationOptionsCard>
                 :screen === 2 ?

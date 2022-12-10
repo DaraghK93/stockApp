@@ -103,7 +103,7 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
             </Col>
         </Row>
         <Row>
-            <Card.Text className="gameOptionsCardText m-0">Or</Card.Text>
+            <Card.Text className="gameOptionsCardText m-0 bolded">Or</Card.Text>
             <Col>
                  <ToggleButton
                             className="gameDetailsToggleButton"

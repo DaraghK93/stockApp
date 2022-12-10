@@ -83,7 +83,7 @@ function CreateGameScreen(){
 
 
     return(
-        <Container style={{"textAlign":"center","alignItems":"center"}}>
+        <Container style={{"textAlign":"center","alignItems":"center","marginBottom":"100px"}}>
             <Row className="containerContent">
                 {screen === 1 ?
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(quickGame)} mobileScreen={mobileScreen}>

@@ -95,7 +95,6 @@
 
 .customGameCard{
     color: black;
-    margin-bottom: 1rem;
     
 }
 
@@ -109,10 +108,25 @@
        font-size: 0.75rem;
     }
 
+    .quickGameCard{
+        height: 14rem;
+        width: 12rem;
+    }
+
+    .customGameCard{
+        height: 12.5rem;
+        width: 15rem;
+    }
+
+    .quickGameCardBodyText{
+        font-size: 1.5rem;
+        margin: 0;
+    }
+
+
     .quickGameCardIcons{
-        height: 3rem;
-        width: 3rem;
-        color:red
+        height: 5rem;
+        width: 5rem;
     }
 }
 

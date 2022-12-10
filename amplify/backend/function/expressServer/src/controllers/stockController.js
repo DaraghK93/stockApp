@@ -190,17 +190,183 @@ const getStockBySymbol = async (req, res, next) => {
   }
 };
 
+// @route   GET api/stocks
+// @desc    Searches for stocks suitable for a given game by keyword
+// @access  Private - add auth middleware to make it private
+const getAllGameStocks = async (req, res, next) => {
+  // This is the search term entered into the search box
+
+// check if category is summary and if not, return all stocks, else 
+// return the aggregate query for different stock categories
+try{
+  const {sectors,minERating,minSRating,minGRating} = req.query
+  // check that all of the data is there
+  if (
+    typeof req.query.sectors === 'undefined' ||
+    typeof req.query.minERating === 'undefined'||
+    typeof req.query.minSRating === 'undefined'||
+    typeof req.query.minGRating === 'undefined' ||
+    req.query.sectors === '' ||
+    req.query.minERating === ''||
+    req.query.minSRating === ''||
+    req.query.minGRating === ''
+  ) {
+    // data is missing bad request
+    res.status(400);
+    res.errormessage = 'Details missing for searching game stocks';
+    return next(
+      new Error(
+        'The client has not sent the required information to search game stocks'
+      )
+    );
+  }
+
+  // check if sectors are correct
+  const sectorArray = ['Basic Materials',
+  'Communication Services',
+  'Consumer Cyclical',
+  'Consumer Defensive',
+  'Energy',
+  'Financial Services',
+  'Healthcare',
+  'Industrials',
+  'Real Estate',
+  'Technology',
+  'Utilities']
+
+  const sectorsCheck = req.query.sectors;
+
+  if(sectorsCheck.length === 0){
+    // Invalid sector bad request
+    res.status(400)
+    res.errormessage = 'No sector included'
+    return next(
+      new Error(
+        'No sector included',
+      ),
+    )
+  } 
+
+  for (const element of sectorsCheck) {
+    if (!sectorArray.includes(element)) {
+      res.status(400);
+      res.errormessage = 'Invalid sector entered';
+      return next(new Error('Invalid sector entered'));
+    }
+  }    
+  const minERatingINT = parseInt(minERating);
+  const minSRatingINT = parseInt(minSRating);
+  const minGRatingINT = parseInt(minGRating);
+
+  // check if esg ratings are correct
+  if (
+    !Number.isInteger(minERatingINT) ||
+    !Number.isInteger(minSRatingINT) ||
+    !Number.isInteger(minGRatingINT) ||
+    minERatingINT < 0 ||
+    minSRatingINT < 0 ||
+    minGRatingINT < 0 ||
+    minERatingINT > 1000 ||
+    minSRatingINT > 1000 ||
+    minGRatingINT > 1000
+  ) {
+          // Invalid sector bad request
+          res.status(400)
+          res.errormessage = 'Invalid esg rating entered'
+          return next(
+            new Error(
+              'Invalid esg rating entered',
+            ),
+          )
+  }
+
+  /// keyword is query param
+  let keyword = req.params.keyword;
+
+  let pageNumber = req.query.pageNumber;
+  let pageNumberINT = parseInt(pageNumber);
+
+  // if no page number included only show the first page
+  if(!pageNumber){
+    pageNumberINT =0
+  }
+  
+  //check pagenumber query
+  if (      
+    !Number.isInteger(pageNumberINT) ||
+    pageNumberINT < 0
+  ) {
+    // Invalid page number bad request
+    res.status(400)
+    res.errormessage = 'Invalid page number entered'
+    return next(
+      new Error(
+        'Invalid page number entered',
+      ),
+    )
+  }
+
+  // number to skip is stocks per page * page number
+  const noPerPage = 24;
+  const noToSkip = pageNumberINT * noPerPage;
+
+  /// if undefined return the stock summary
+  if (keyword == 'undefined') {
+  } else {
+    // Keyword defined search for the stocks
+    const stocks = await Stock.find({
+      $and: [
+        {
+          $or: [
+            { symbol: { $regex: keyword, $options: 'i' } },
+            { longname: { $regex: keyword, $options: 'i' } },
+            { shortname: { $regex: keyword, $options: 'i' } },
+            { industry: { $regex: keyword, $options: 'i' } },
+            { sector: { $regex: keyword, $options: 'i' } },
+          ],
+          // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings)
+        },
+
+        { 'esgrating.environment_score': { $gte: minERatingINT } },
+        { 'esgrating.social_score': { $gte: minSRatingINT } },
+        { 'esgrating.governance_score': { $gte: minGRatingINT } },
+        { sector: { $in: sectors } },
+      ],
+    }).select({ prices: 0 }).skip(noToSkip).limit(noPerPage);
+
+    if (stocks.length === 0) {
+      // No stock found
+      res.status(404);
+      res.errormessage = 'No stocks found for this game';
+      return next(new Error('No stocks found for this game'));
+    }
+    res.json(stocks);
+  }
+} catch(err){
+ console.error(err.message);
+ res.status(500)
+ res.errormessage = 'Server error in get All Game Stocks';
+ return next(err);
+}
+}
+
 // @route   GET api/stocks/gameStocks/game
 // @desc    Get stocks that are playable in a game
 // @access  Private - add auth middleware to make it private
 const getGameStocks = async (req, res, next) => {
   try{
+    const {sectors,minERating,minSRating,minGRating} = req.query
+
     // check that all of the data is there
     if (
-      typeof req.body.sectors === 'undefined' ||
-      typeof req.body.minERating === 'undefined'||
-      typeof req.body.minSRating === 'undefined'||
-      typeof req.body.minGRating === 'undefined'
+      typeof req.query.sectors === 'undefined' ||
+      typeof req.query.minERating === 'undefined'||
+      typeof req.query.minSRating === 'undefined'||
+      typeof req.query.minGRating === 'undefined' ||
+      req.query.sectors === '' ||
+      req.query.minERating === ''||
+      req.query.minSRating === ''||
+      req.query.minGRating === ''
     ) {
       // data is missing bad request
       res.status(400)
@@ -211,6 +377,7 @@ const getGameStocks = async (req, res, next) => {
         ),
       )
     }
+
 
     // check if sectors are correct
     const sectorArray = ['Basic Materials',
@@ -225,7 +392,7 @@ const getGameStocks = async (req, res, next) => {
     'Technology',
     'Utilities']
 
-    const sectorsCheck = req.body.sectors;
+    const sectorsCheck = req.query.sectors;
 
     if(sectorsCheck.length === 0){
       // Invalid sector bad request
@@ -245,18 +412,21 @@ const getGameStocks = async (req, res, next) => {
         return next(new Error('Invalid sector entered'));
       }
     }
+    const minERatingINT = parseInt(minERating);
+    const minSRatingINT = parseInt(minSRating);
+    const minGRatingINT = parseInt(minGRating);
 
     // check if esg ratings are correct
     if (
-      !Number.isInteger(req.body.minERating) ||
-      !Number.isInteger(req.body.minSRating) ||
-      !Number.isInteger(req.body.minGRating) ||
-      req.body.minERating < 0 ||
-      req.body.minSRating < 0 ||
-      req.body.minGRating < 0 ||
-      req.body.minERating > 1000 ||
-      req.body.minSRating > 1000 ||
-      req.body.minGRating > 1000
+      !Number.isInteger(minERatingINT) ||
+      !Number.isInteger(minSRatingINT) ||
+      !Number.isInteger(minGRatingINT) ||
+      minERatingINT < 0 ||
+      minSRatingINT < 0 ||
+      minGRatingINT < 0 ||
+      minERatingINT > 1000 ||
+      minSRatingINT > 1000 ||
+      minGRatingINT > 1000
     ) {
             // Invalid sector bad request
             res.status(400)
@@ -270,23 +440,44 @@ const getGameStocks = async (req, res, next) => {
         
     const type = req.params.type;
     let gameStocks;
-    const {sectors,minERating,minSRating,minGRating} = req.body
+
     
     if (type === 'summary'){
-      // the game rules are sent in the request body
+      // the game rules are sent in the request query
       // this might need to be changed but is ok for now
       // this gets the game summary
-      gameStocks = await stockService.gameStockSummary(sectors,minERating,minSRating,minGRating)
+      gameStocks = await stockService.gameStockSummary(sectors,minERatingINT,minSRatingINT,minGRatingINT)
     }
     else if (type === 'all'){
       //hardcoding 20 per page for all stocks at the minute can change if needed
       const stocksPerPage = 24;
-      let pageNumber = req.body.pageNumber;
+      let pageNumber = req.query.pageNumber;
+      let pageNumberINT = parseInt(pageNumber);
+
       // if no page number included only show the first page
+      console.log('pagenumber =' +pageNumber)
       if(!pageNumber){
-        pageNumber =0
+        console.log('here')
+        pageNumberINT =0
       }
-      gameStocks = await stockService.getAllGameStocks(sectors,minERating,minSRating,minGRating,pageNumber,stocksPerPage);
+
+      //check pagenumber query
+      if (      
+        !Number.isInteger(pageNumberINT) ||
+        pageNumberINT < 0
+      ) {
+        // Invalid page number bad request
+        res.status(400)
+        res.errormessage = 'Invalid page number entered'
+        return next(
+          new Error(
+            'Invalid page number entered',
+          ),
+        )
+      }
+      
+
+      gameStocks = await stockService.getAllGameStocks(sectors,minERatingINT,minSRatingINT,minGRatingINT,pageNumberINT,stocksPerPage);
     }
     else{
       // No stock found
@@ -312,142 +503,6 @@ const getGameStocks = async (req, res, next) => {
     res.errormessage = 'Server error in get game stocks';
     return next(err);
   }
-}
-
-
-// @route   GET api/stocks
-// @desc    Searches for stocks suitable for a given game by keyword
-// @access  Private - add auth middleware to make it private
-const getAllGameStocks = async (req, res, next) => {
-  // This is the search term entered into the search box
-
-// check if category is summary and if not, return all stocks, else 
-// return the aggregate query for different stock categories
-try{
-  // check that all of the data is there
-  if (
-    typeof req.body.sectors === 'undefined' ||
-    typeof req.body.minERating === 'undefined' ||
-    typeof req.body.minSRating === 'undefined' ||
-    typeof req.body.minGRating === 'undefined'
-  ) {
-    // data is missing bad request
-    res.status(400);
-    res.errormessage = 'Details missing for searching game stocks';
-    return next(
-      new Error(
-        'The client has not sent the required information to search game stocks'
-      )
-    );
-  }
-
-  // check if sectors are correct
-  const sectorArray = ['Basic Materials',
-  'Communication Services',
-  'Consumer Cyclical',
-  'Consumer Defensive',
-  'Energy',
-  'Financial Services',
-  'Healthcare',
-  'Industrials',
-  'Real Estate',
-  'Technology',
-  'Utilities']
-
-  const sectorsCheck = req.body.sectors;
-
-  if(sectorsCheck.length === 0){
-    // Invalid sector bad request
-    res.status(400)
-    res.errormessage = 'No sector included'
-    return next(
-      new Error(
-        'No sector included',
-      ),
-    )
-  } 
-
-  for (const element of sectorsCheck) {
-    if (!sectorArray.includes(element)) {
-      res.status(400);
-      res.errormessage = 'Invalid sector entered';
-      return next(new Error('Invalid sector entered'));
-    }
-  }
-
-  // check if esg ratings are correct
-  if (
-    !Number.isInteger(req.body.minERating) ||
-    !Number.isInteger(req.body.minSRating) ||
-    !Number.isInteger(req.body.minGRating) ||
-    req.body.minERating < 0 ||
-    req.body.minSRating < 0 ||
-    req.body.minGRating < 0 ||
-    req.body.minERating > 1000 ||
-    req.body.minSRating > 1000 ||
-    req.body.minGRating > 1000
-  ) {
-          // Invalid sector bad request
-          res.status(400)
-          res.errormessage = 'Invalid esg rating entered'
-          return next(
-            new Error(
-              'Invalid esg rating entered',
-            ),
-          )
-  }
-
-  /// keyword is query param
-  let keyword = req.params.keyword;
-
-  const minERating = req.body.minERating;
-  const minSRating = req.body.minSRating;
-  const minGRating = req.body.minGRating;
-  const sectors = req.body.sectors;
-  const page = req.body.pageNumber;
-
-  // number to skip is stocks per page * page number
-  const noPerPage = 24;
-  const noToSkip = page * noPerPage;
-
-  /// if undefined return the stock summary
-  if (keyword == 'undefined') {
-  } else {
-    // Keyword defined search for the stocks
-    const stocks = await Stock.find({
-      $and: [
-        {
-          $or: [
-            { symbol: { $regex: keyword, $options: 'i' } },
-            { longname: { $regex: keyword, $options: 'i' } },
-            { shortname: { $regex: keyword, $options: 'i' } },
-            { industry: { $regex: keyword, $options: 'i' } },
-            { sector: { $regex: keyword, $options: 'i' } },
-          ],
-          // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings)
-        },
-
-        { 'esgrating.environment_score': { $gte: minERating } },
-        { 'esgrating.social_score': { $gte: minSRating } },
-        { 'esgrating.governance_score': { $gte: minGRating } },
-        { sector: { $in: sectors } },
-      ],
-    }).select({ prices: 0 }).skip(noToSkip).limit(noPerPage);
-
-    if (stocks.length === 0) {
-      // No stock found
-      res.status(404);
-      res.errormessage = 'No stocks found for this game';
-      return next(new Error('No stocks found for this game'));
-    }
-    res.json(stocks);
-  }
-} catch(err){
- console.error(err.message);
- res.status(500)
- res.errormessage = 'Server error in get All Game Stocks';
- return next(err);
-}
 }
 
 module.exports = {

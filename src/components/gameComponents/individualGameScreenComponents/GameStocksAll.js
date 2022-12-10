@@ -35,7 +35,7 @@ function GameStocksAll({ league }) {
       try {
         setLoading(true);
         let path = `/api/stock/gameStocks/all`;
-        let body = {
+        let queryStringParameters = {
           sectors: league.sectors,
           minERating: league.minERating,
           minSRating: league.minSRating,
@@ -43,10 +43,10 @@ function GameStocksAll({ league }) {
           pageNumber: page,
         };
         let requestConfig = {
-          body,
+          queryStringParameters,
           headers: { 'x-auth-token': userToken },
         };
-        const res = await API.post(APIName, path, requestConfig);
+        const res = await API.get(APIName, path, requestConfig);
 
         setStock(res);
         setLoading(false);

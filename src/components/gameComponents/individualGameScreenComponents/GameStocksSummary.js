@@ -23,17 +23,17 @@ function GameStocksSummary({ league }) {
         setLoading(true);
 
         let path = `/api/stock/gameStocks/summary`;
-        let body = {
+        let queryStringParameters = {
           sectors: league.sectors,
           minERating: league.minERating,
           minSRating: league.minSRating,
           minGRating: league.minGRating,
         };
         let requestConfig = {
-          body,
+          queryStringParameters,
           headers: { 'x-auth-token': userToken },
         };
-        const res = await API.post(APIName, path, requestConfig);
+        const res = await API.get(APIName, path, requestConfig);
         setStock(res);
         setLoading(false);
       } catch (error) {

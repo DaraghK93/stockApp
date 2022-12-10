@@ -5,17 +5,15 @@
 //  This screen contains the components redenred to the user when they first visit the page
 
 /// Imports ///
-import { Container, Row, Col, Button, Card, Image } from 'react-bootstrap';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-import NewsArticleCard from '../../components/newsComponents/newsArticleCard/NewsArticleCard';
-import ChartCardESG from '../../components/stockVisualisationComponents/ChartCard/ChartCard(ESG)';
-import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMenu';
 import Footer from '../../components/layout/Footer/footer'
 import GameCarousel from '../../components/widgets/SwiperCarousel/GameCarousel';
 import IntelligenceCarousel from '../../components/widgets/SwiperCarousel/IntelligenceCarousel';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -25,67 +23,6 @@ function HomeScreen() {
     e.preventDefault();
     navigate(`/login`);
   };
-
-  var articles = [
-    {
-      headline:
-        "Apple plans to give 25% wage increase",
-      source: 'Sky News',
-      link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…1',
-      category: 'Business',
-      description:
-        'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
-      image:
-        'https://images.unsplash.com/photo-1579693409321-1be2df1ab130?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8YXBwbGUlMjBpbmN8ZW58MHx8MHx8&w=1000&q=80',
-      pubDate: '2022-10-13T06:22:00.000+00:00',
-      sentiment: 'positive',
-    },
-    {
-      headline:
-        "Rumours that Apple are insolvent labelled 'concerning' by analysts",
-      source: 'Sky News',
-      link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…2',
-      category: 'Business',
-      description:
-        'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Aerial_view_of_Apple_Park_dllu.jpg/1200px-Aerial_view_of_Apple_Park_dllu.jpg',
-      pubDate: '2022-10-14T06:22:00.000+00:00',
-      sentiment: 'negative',
-    },
-    {
-      headline:
-        "Apple's advertising relationship with twitter brought into question",
-      source: 'Sky News',
-      link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…3',
-      category: 'Business',
-      description:
-        'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
-      image:
-        'https://st3.depositphotos.com/1022914/16288/i/1600/depositphotos_162882208-stock-photo-apple-inc-logo-on-the.jpg',
-      pubDate: '2022-10-15T06:22:00.000+00:00',
-      sentiment: 'neutral',
-    },
-    {
-      headline:
-        "Apple to lay off 30% of staff",
-      source: 'Sky News',
-      link: 'https://news.sky.com/story/jacob-rees-mogg-says-he-has-confidence-in-b…4',
-      category: 'Business',
-      description:
-        'Jacob Rees-Mogg has declared his confidence in the governor of the Ban…',
-      image:
-        'https://image.cnbcfm.com/api/v1/image/106941688-1631644205737-AppleEventSEP14KeynoteTim_Cook02.jpg?v=1631795513&w=1920&h=1080',
-      pubDate: '2022-10-16T06:22:00.000+00:00',
-      sentiment: 'negative',
-    },
-  ];
-
-  const stockSentimentData = [
-    { name: 'Positive', value: 100 },
-    { name: 'Negative', value: 98 },
-    { name: 'Neutral', value: 26 },
-  ];
 
   var stocks = [
     {
@@ -655,8 +592,9 @@ function HomeScreen() {
     <>
       <Container className='splash-page-container'>
         <Row className='py-4' style={{ maxWidth: "80%", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <h1>Fantasy Stock Trading Game</h1>
-          <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image>
+          <h1 style={{ color: "#0080FF"}}><AttachMoneyIcon />FinOptimise<AttachMoneyIcon /></h1>
+          <h1 style={{ color: "#0080FF"}}>Fantasy Stock Trading Game</h1>
+          {/* <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image> */}
           <p className='splashpageParagraph'>
             FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
           </p>
@@ -668,29 +606,12 @@ function HomeScreen() {
         </Row>
         <Row>
           <Row><GameCarousel /></Row>
-          <Row className='py-4' style={{ justifyContent: "center" }}>
-            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", maxWidth: "20%" }}>
+          <Col>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
               Play Now
             </Button>
-          </Row>
-        </Row>
-      </Container>
-
-      <Container className='splash-page-container'>
-        <Row className='py-4'>
-          <Col>
-            <h2>About the Game</h2>
-          </Col>
-        </Row>
-        <Row>
-          <Col className='mx-4'>
-            <p>
-              Create a league, invite your friends, test your skills, Research
-              stocks to get ahead. Use our advanced artificial intelligence
-              models to analyse the news and twitter to see if sentiment is
-              positive negative or neutral. Get personalised stock
-              recommendations based on your previous trades
-            </p>
+            <br></br>
+            <br></br>
           </Col>
         </Row>
       </Container>
@@ -725,11 +646,11 @@ function HomeScreen() {
       </Container>
       <Container className='splash-page-container'>
         <Row className='py-4'>
-          <h2>Advanced A.I. Tools</h2>
+          <h1>Advanced A.I. Tools</h1>
           <Row>
             <Col className='mx-4'>
               <p className='splashpageParagraph'>
-                Use our A.I. tools to get the latest news and tweets relating to each stock, with sentiment classification of the contents into Positive, Neautral or Negative categories.
+                Use our A.I. tools to arm yourself with the information needed to get the inside scoop and get ahead of your friends in your league. Get the latest news and tweets relating to each stock, with sentiment classification of the contents into Positive, Neautral or Negative categories.
               </p>
             </Col>
           </Row>

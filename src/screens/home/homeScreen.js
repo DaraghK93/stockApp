@@ -15,6 +15,7 @@ import SplashCarousel from '../../components/widgets/Carousel/SplashCarousel';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMenu';
 import Footer from '../../components/layout/Footer/footer'
+import Carousel from '../../components/widgets/SwiperCarousel/SwiperCarousel';
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -657,6 +658,7 @@ function HomeScreen() {
           <Col className='mx-4'>
             <h1>Fantasy Stock Trading Game</h1>
           </Col>
+          <Row><Carousel/></Row>
         </Row>
         <Row>
           <Col>

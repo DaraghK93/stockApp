@@ -87,6 +87,9 @@ function App() {
         <Route path='/game/:gameId'
           element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
+        <Route path='/game/:redirect/:gameId'
+          element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
+
         <Route path="/stock/:symbol/confirmorder"
           element={userInfo ? <OrderConfirmationPage /> : <Navigate to="/" />} />
 

@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react';
 import { API } from 'aws-amplify';
 import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
-import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 import { useSelector } from 'react-redux';
 
@@ -72,26 +71,6 @@ function GameStocksAll({ league }) {
         <MessageAlert variant='danger'>{error}</MessageAlert>
       ) : (
         <>
-          {/* <SideScrollMenu>
-            {stocks.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
-          <Row className='mx-4'>
-            {page > 0 && (
-              <Col className='py-2 my-auto'>
-                <Button onClick={prev}>Page {page}</Button>
-              </Col>
-            )}
-            <Col className='py-2 text-center'>
-              <h2>Page {page + 1}</h2>
-            </Col>
-            <Col className='text-end py-2 my-auto'>
-              <Button onClick={next}>Page {page + 2}</Button>
-            </Col>
-          </Row> */}
           <Container className='py-3'>
             <Row>
               {stocks.map((stockObj) => (

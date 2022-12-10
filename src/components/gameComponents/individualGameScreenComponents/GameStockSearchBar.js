@@ -1,16 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from '../../layout/FormContainer/FormContainer';
-import { Row, Col } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
+import ScreenSelectionRadioButton from '../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton';
+
 // Search feature fucntion which passes the user input as props
-function GameStockSearchBar({ leagueId }) {
+function GameStockSearchBar({ leagueId, currScreen }) {
   let { keyword } = useParams();
 
   const [keywords, setKeywords] = useState('');
+  const [screen, setScreen] = useState(currScreen);
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
@@ -18,7 +21,7 @@ function GameStockSearchBar({ leagueId }) {
     if (keywords.trim()) {
       navigate(`/search/game/${keywords}/${leagueId}`);
     } else {
-      navigate(`/game/${leagueId}`);
+      navigate(`/game/all/${leagueId}`);
       setKeywords('');
     }
     //reset form to blank after search
@@ -26,19 +29,33 @@ function GameStockSearchBar({ leagueId }) {
     setKeywords('');
   };
 
+  /// The choices for the screens, used for buttons at top of screen
+  var screenChocies = [
+    { name: 'All Stocksss', value: '1' },
+    { name: 'Summaryss', value: '2' },
+  ];
+
+  useEffect(() => {
+    if (screen === '1') {
+      navigate(`/game/all/${leagueId}`);
+    } else if (screen === '2') {
+      navigate(`/game/summary/${leagueId}`);
+    }
+  }, [screen]);
+
   return (
     <>
+      {keyword && (
+        <Row className='py-3' lg={1} md={1} xs={1}>
+          <ScreenSelectionRadioButton
+            choices={screenChocies}
+            state={screen}
+            setter={setScreen}
+          />
+        </Row>
+      )}
       <FormContainer>
         <Form onSubmit={submitHandler}>
-          {keyword && (
-            <Row>
-              <Col style={{ alignItems: 'center' }} className='text-center'>
-                <Button type='submit' style={{ width: '10rem' }}>
-                  Back
-                </Button>{' '}
-              </Col>
-            </Row>
-          )}
           <div className='searchForm'>
             <Form.Control
               type='text'

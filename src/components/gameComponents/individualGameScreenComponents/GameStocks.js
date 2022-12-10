@@ -1,66 +1,68 @@
-import { Row, Col, Container, Button } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import GameStocksSummary from './GameStocksSummary';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GameStocksAll from './GameStocksAll';
 import GameStockSearchResults from './GameStockSearchResults';
 import GameStockSearchBar from './GameStockSearchBar';
 
+import ScreenSelectionRadioButton from '../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton';
+
 function GameStocks({ league }) {
   let { keyword } = useParams();
+  let { redirect } = useParams();
 
-  const [isStockSummary, setIsStockSummary] = useState(true);
+  const [screen, setScreen] = useState('1');
 
-  function toggleStockSummary() {
-    setIsStockSummary(!isStockSummary);
-  }
+  /// The choices for the screens, used for buttons at top of screen
+  var screenChocies = [
+    { name: 'All Stocks', value: '1' },
+    { name: 'Summary', value: '2' },
+  ];
+
+  useEffect(() => {
+    if (redirect) {
+      if (redirect === 'all') {
+        setScreen('1');
+      }
+      if (redirect === 'summary') {
+        setScreen('2');
+      }
+    }
+  }, [redirect]);
+
+  useEffect(() => {
+    setScreen(screen);
+  }, [screen]);
 
   return (
     <>
-      <div className='stockDiscovery'>
+      <div className='stockDiscovery mb-5'>
         <Container>
           <Row className='py-3'>
-            {isStockSummary && keyword === undefined ? (
-              <h1 style={{ textAlign: 'center' }}>Tradable stocks - Summary</h1>
-            ) : !isStockSummary && keyword === undefined ? (
-              <h1 style={{ textAlign: 'center' }}>
-                Tradable stocks - All Stocks
-              </h1>
-            ) : (
-              keyword !== undefined && (
-                <h1 style={{ textAlign: 'center' }}>
-                  Tradable stocks - Search
-                </h1>
-              )
-            )}
+            <h1 style={{ textAlign: 'center' }}>Tradable stocks</h1>
           </Row>
+          {keyword === undefined && (
+            <Row className='py-3' lg={1} md={1} xs={1}>
+              <ScreenSelectionRadioButton
+                choices={screenChocies}
+                state={screen}
+                setter={setScreen}
+              />
+            </Row>
+          )}
           <Row>
-            <Col style={{ alignItems: 'center' }} className='text-center'>
-              {keyword === undefined && isStockSummary ? (
-                <Button onClick={toggleStockSummary} style={{ width: '10rem' }}>
-                  All stocks
-                </Button>
-              ) : (
-                keyword === undefined &&
-                !isStockSummary && (
-                  <Button
-                    onClick={toggleStockSummary}
-                    style={{ width: '10rem' }}
-                  >
-                    Summary
-                  </Button>
-                )
-              )}
+            <Col>
+              <GameStockSearchBar leagueId={league._id} currScreen={screen} />
             </Col>
           </Row>
-          <GameStockSearchBar leagueId={league._id} />
         </Container>
-        {isStockSummary && keyword === undefined ? (
+        {screen === '2' && keyword === undefined ? (
           <Row md={1} xs={1}>
             <GameStocksSummary league={league} />
           </Row>
-        ) : !isStockSummary && keyword === undefined ? (
+        ) : screen === '1' && keyword === undefined ? (
           <GameStocksAll league={league}></GameStocksAll>
         ) : (
           keyword !== undefined && (

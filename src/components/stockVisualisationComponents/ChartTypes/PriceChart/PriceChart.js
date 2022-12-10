@@ -11,7 +11,7 @@ import {
 import { useState, useEffect } from "react";
 import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 
-function StockPriceChart({ data, lineColor, gradientColor }) {
+function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
 
     const [tickBoolean, setTickBoolean] = useState(false)
  
@@ -55,7 +55,7 @@ function StockPriceChart({ data, lineColor, gradientColor }) {
                 <YAxis unit='$'
                     width={80}
                     stroke="#595959" />
-                <Area type="monotone" dataKey="price" stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
+                <Area type="monotone" dataKey={dataKey} stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
             </AreaChart>
         </ResponsiveContainer>
 

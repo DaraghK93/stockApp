@@ -122,7 +122,6 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
         )
     }
 
-
     const Content = () => {
         return (
             <>
@@ -140,8 +139,6 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
         )
     }
 
-
-
     return(
         <>
         {mobileScreen === true ? <Content className="my-5"/>
@@ -154,7 +151,6 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
     }
     </>
     )
-
 }
 
 

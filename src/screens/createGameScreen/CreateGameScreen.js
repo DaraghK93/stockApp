@@ -1,5 +1,5 @@
 import { useState,useEffect } from 'react'
-import { Container, Row, Col} from "react-bootstrap"
+import { Container, Row} from "react-bootstrap"
 import {useSelector} from 'react-redux';
 
 /// Componeents ///

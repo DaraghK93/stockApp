@@ -10,6 +10,7 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
     return(
          <>
         <Card.Title className="gameOptionsCardTitle">Select Game</Card.Title>
+        <Card.Text className="gameOptionsCardText">Get Started Now With a Quick Game</Card.Text>
         <Row md={4} sm={2} xs={2}>
             <Col>
                 <ToggleButton
@@ -101,6 +102,7 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
             </Col>
         </Row>
         <Row>
+            <Card.Text className="gameOptionsCardText">Or Customise Your Own Game</Card.Text>
             <Col>
                 Configure Own Game
             </Col>

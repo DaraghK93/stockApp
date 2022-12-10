@@ -15,6 +15,7 @@ import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tic
 import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMenu';
 import Footer from '../../components/layout/Footer/footer'
 import GameCarousel from '../../components/widgets/SwiperCarousel/GameCarousel';
+import IntelligenceCarousel from '../../components/widgets/SwiperCarousel/IntelligenceCarousel';
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -652,43 +653,30 @@ function HomeScreen() {
 
   return (
     <>
-      {/* <Container className='splash-page-container'> 
-        <Row className='py-4'>
-            <h1>Fantasy Stock Trading Game</h1>
-          <Row><Carousel/></Row>
+      <Container className='splash-page-container'>
+        <Row className='py-4' style={{ maxWidth: "80%", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
+          <h1>Fantasy Stock Trading Game</h1>
+          <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image>
+          <p className='splashpageParagraph'>
+            FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
+          </p>
         </Row>
-      </Container> */}
-      
+      </Container>
+
       <Container className='splash-page-container'>
         <Row className='py-4'>
-          <Col className='mx-4'>
-            <h1>Fantasy Stock Trading Game</h1>
-          </Col>
         </Row>
         <Row>
-          <Col>
-            <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image>
-          </Col>
-          <Row>
-            <Col className='mx-4'>
-              <p className='splashpageParagraph'>
-                FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
-              </p>
-            </Col>
-          </Row>
-          <Row><GameCarousel/></Row>
-          <Row className='py-4'>
-              <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", maxWidth:"20%"}}>
-                Play Now
-              </Button>
+          <Row><GameCarousel /></Row>
+          <Row className='py-4' style={{ justifyContent: "center" }}>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", maxWidth: "20%" }}>
+              Play Now
+            </Button>
           </Row>
         </Row>
       </Container>
 
       <Container className='splash-page-container'>
-      <Row className='py-4'>
-          <Row><GameCarousel/></Row>
-        </Row>
         <Row className='py-4'>
           <Col>
             <h2>About the Game</h2>
@@ -737,9 +725,7 @@ function HomeScreen() {
       </Container>
       <Container className='splash-page-container'>
         <Row className='py-4'>
-          <Col>
-            <h2>Advanced A.I. Tools</h2>
-          </Col>
+          <h2>Advanced A.I. Tools</h2>
           <Row>
             <Col className='mx-4'>
               <p className='splashpageParagraph'>
@@ -747,82 +733,10 @@ function HomeScreen() {
               </p>
             </Col>
           </Row>
+          <Row><IntelligenceCarousel /></Row>
+        </Row>
 
-          <Col sm md={8} className='offset-md-2'>
-            <Card id='newsCardContainer' className='newsCardContainer'>
-              <h2 className='newsCardContainerHeading'>News Feed</h2>
-              <Card.Body className='newsCardContainerBody'>
-                <>
-                  <Row xs={1} md={1}>
-                    {articles.map((article) => (
-                      <Col
-                        key={`${article.link}`}
-                        className='pb-3 not-clickable'
-                      >
-                        <NewsArticleCard article={article} />
-                      </Col>
-                    ))}
-                  </Row>
-                </>
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col sm md={8} className='stockInfoCol offset-md-2'>
-            <ChartCard title={'Twitter Sentiment'} data={stockSentimentData} />
-          </Col>
-        </Row>
       </Container>
-      <Container className='splash-page-container'>
-        <Row className='py-4'>
-          <Col>
-            <h2>Ethical Investing</h2>
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <p style={{ textAlign: 'center', margin:"0.5rem 0rem 0rem 0rem"}}>
-            Practice Ethical Investing with Environmental Social and Governance (ESG) ratings in mind.
-            </p>
-          </Col>
-        </Row>
-        <Row className='esg-row' style={{ alignItems: 'center' }}>
-          <Col sm md={8} className='stockInfoCol offset-md-2'>
-            <ChartCardESG title={'ESG Rating'} edata={5} sdata={4} gdata={5} />
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
-              Explore Now
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-      <Container className='stockDisplayContainer'>
-        <Row>
-          <Col>
-            <div className='stockDisplay'>
-              <h2 style={{ textAlign: 'center', color: "white" }}>Learn About Investing</h2>
-              <p style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Learn about the basics of investing on our education page. With useful definitions and links to external resources that will help you build healthy financial habits.</p>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          <img src='/education_screen.jpg' style={{resizeMode: "cover",width: "60%", border:"2px solid #d4d4d4"}} alt="Description here"></img>
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
-              Learn Now
-            </Button>
-          </Col>
-        </Row>
-      </Container>
-
       <Footer />
 
     </>

@@ -7,7 +7,7 @@ import 'swiper/swiper.min.css'
 
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
-const GameCarousel = () => {
+const IntelligenceCarousel = () => {
   return (
     <div className='swiperComponent'>
       <Swiper
@@ -40,7 +40,7 @@ const GameCarousel = () => {
         <div className="swiper-wrapper">
           <SwiperSlide>
             <div class="swiperImage">
-              <img className="swiperImageActual" src="splash_carousel_1_1.png" alt="" />
+              <img className="swiperImageActual" src="splash_carousel_2_1.png" alt="" />
             </div>
             <div class="swiper-slide">
               <div class="captionTitle"><h2>Create or Join a Game</h2></div>
@@ -50,7 +50,7 @@ const GameCarousel = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <img className="swiperImageActual" src="splash_carousel_1_2.png" alt="" />
+            <img className="swiperImageActual" src="splash_carousel_2_2.png" alt="" />
             <div class="swiper-slide">
               <div class="captionTitle"><h2>Explore Stocks</h2></div>
               <div class="caption"><p>Explore stocks with personalised recommendations</p></div>
@@ -58,7 +58,7 @@ const GameCarousel = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <img className="swiperImageActual" src="splash_carousel_1_3.png" alt="" />
+            <img className="swiperImageActual" src="splash_carousel_2_3.png" alt="" />
             <div class="swiper-slide">
               <div class="captionTitle"><h2>Research the best stocks to trade</h2></div>
               <div class="caption"><p>Explore stocks using our advanced A.I. tools</p></div>
@@ -66,7 +66,7 @@ const GameCarousel = () => {
             </div>
           </SwiperSlide>
           <SwiperSlide>
-            <img className="swiperImageActual" src="splash_carousel_1_4.png" alt="" />
+            <img className="swiperImageActual" src="splash_carousel_2_4.png" alt="" />
             <div class="swiper-slide">
               <div class="captionTitle"><h2>Compete against friends</h2></div>
               <div class="caption"><p>See in real time where you stand against your friends
@@ -81,4 +81,4 @@ const GameCarousel = () => {
   );
 };
 
-export default GameCarousel;
+export default IntelligenceCarousel;

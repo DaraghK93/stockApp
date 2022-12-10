@@ -31,8 +31,8 @@ function GameStockSearchBar({ leagueId, currScreen }) {
 
   /// The choices for the screens, used for buttons at top of screen
   var screenChocies = [
-    { name: 'All Stocksss', value: '1' },
-    { name: 'Summaryss', value: '2' },
+    { name: 'All Stocks', value: '1' },
+    { name: 'Summary', value: '2' },
   ];
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
     } else if (screen === '2') {
       navigate(`/game/summary/${leagueId}`);
     }
-  }, [screen]);
+  }, [screen, leagueId, navigate]);
 
   return (
     <>

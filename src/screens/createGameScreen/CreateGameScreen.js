@@ -86,16 +86,12 @@ function CreateGameScreen(){
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
                 {screen === 1 ?
-                <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(quickGame)} mobileScreen={mobileScreen}>
                        <GameQuickGameSelection
                         quickGame={quickGame} setQuickGame={setQuickGame}
                        /> 
                     </GameCreationOptionsCard>
-                        
-                </Col>
                 :screen === 2 ?
-                <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(gameType&&gameName&&gameImage)} mobileScreen={mobileScreen}>
                         <GameNameImageTypeSelection 
                             gameType={gameType} setGameType={setGameType}  
@@ -103,9 +99,7 @@ function CreateGameScreen(){
                             gameImage={gameImage} setGameImage={setGameImage}
                             />
                     </GameCreationOptionsCard>
-                </Col>
                 :screen === 3 ?
-                <Col>
                     <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} mobileScreen={mobileScreen}>
                         <GameDurationSelection 
                             gameStartDate={gameStartDate} 
@@ -115,9 +109,7 @@ function CreateGameScreen(){
                             gameType={gameType}
                         />
                     </GameCreationOptionsCard>
-                </Col>
                 :screen === 4 ?
-                <Col>
                     <GameCreationOptionsCard 
                         screen={screen} 
                         setScreen={setScreen} 
@@ -137,9 +129,7 @@ function CreateGameScreen(){
                             setMaxTradesPerDay ={setMaxTradesPerDay}
                         />
                     </GameCreationOptionsCard>
-                </Col>
                 :screen === 5 && gameType === "valueBased" ?
-                <Col>
                     <GameCreationOptionsCard 
                         screen={screen} 
                         setScreen={setScreen} 
@@ -154,9 +144,7 @@ function CreateGameScreen(){
                             setGameWinningValue = {setGameWinningValue}
                         />
                     </GameCreationOptionsCard>
-                </Col>
                 :(screen === 6 && gameType === "valueBased") || (screen === 5 && gameType === "timeBased")?
-                    <Col>
                         <GameCreationOptionsCard 
                             screen={screen} 
                             setScreen={setScreen} 
@@ -170,9 +158,7 @@ function CreateGameScreen(){
                                 setStockTypes={setStockTypes}
                             />
                         </GameCreationOptionsCard>
-                    </Col>
                 :(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")?
-                <Col>
                     <GameCreationOptionsCard 
                         screen={screen} 
                         setScreen={setScreen} 
@@ -187,9 +173,7 @@ function CreateGameScreen(){
                             setESGGameType={setESGGameType}
                         />
                     </GameCreationOptionsCard>
-                </Col>
                 :
-                <Col>
                     <GameCreationOptionsCard 
                         screen={screen} setScreen={setScreen} 
                         gameName={gameName} gameType={gameType} gameImage={gameImage} 
@@ -212,7 +196,6 @@ function CreateGameScreen(){
                                 ESGGameType={ESGGameType}
                             />
                     </GameCreationOptionsCard>
-                </Col>
                 }   
             </Row>
         </Container>

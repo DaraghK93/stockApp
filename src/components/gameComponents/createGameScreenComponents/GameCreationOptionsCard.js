@@ -86,14 +86,9 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
         }
     }
 
-
-    const Content = () => {
-        return (
-            <>
-                {children}
-                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                {loading && <LoadingSpinner/>}
-                <Row className="containerButtons" lg={2} md={2} xs={2}>
+    const PrevNextButtons = () => {
+        return(
+            <Row className="containerButtons" lg={2} md={2} xs={2}>
                     <Col className="prevNextCol">
                         {screen > 1 &&
                         <Button
@@ -124,6 +119,23 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                         </Col>
                         }
             </Row>
+        )
+    }
+
+
+    const Content = () => {
+        return (
+            <>
+                {children}
+                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                {loading && <LoadingSpinner/>}
+                {mobileScreen === true ?
+                    <Card className="tradeButtonCard rounded-0" >
+                        <PrevNextButtons />
+                    </Card>
+                :
+                    <PrevNextButtons />
+            }
             </>
         )
     }
@@ -132,7 +144,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
 
     return(
         <>
-        {mobileScreen === true ? <Content/>
+        {mobileScreen === true ? <Content className="my-5"/>
         :
         <Card className="my-5">
            <Card.Body>

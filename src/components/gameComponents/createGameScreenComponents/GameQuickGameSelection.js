@@ -9,7 +9,7 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
 
     return(
          <>
-        <Card.Title className="gameOptionsCardTitle">Quick Game or Configure Game</Card.Title>
+        <Card.Title className="gameOptionsCardTitle">Select Game</Card.Title>
         <Row md={4} sm={2} xs={2}>
             <Col>
                 <ToggleButton
@@ -24,11 +24,11 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                         >
                         <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Quick Sprint</Card.Title>
+                                    <SprintIcon className="quickGameCardIcons" color="green"/>
                                         <Card.Text className="quickGameCardBodyText">
-                                            1 Week, $100,000, most profit wins!
+                                            7 Days $100k to spend!
                                         </Card.Text>
-                                        <SprintIcon className="quickGameCardIcons" color="green"/>
+                                        
                                 </Card.Body>
                         </Card>
                 </ToggleButton>
@@ -46,11 +46,11 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                         >
                        <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Stock Race</Card.Title>
+                                    <RaceFlagIcon className="quickGameCardIcons" />
                                         <Card.Text className="quickGameCardBodyText">
-                                            Turn $100,000 into $105,000 to win! 
+                                            Turn $100k into $105k first to win! 
                                         </Card.Text>
-                                        <RaceFlagIcon className="quickGameCardIcons" />
+                                        
                                 </Card.Body>
                         </Card>
                 </ToggleButton>
@@ -68,11 +68,11 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                         >
                         <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Tree Huggers</Card.Title>
+                                    <TreeIcon className="quickGameCardIcons"/>
                                         <Card.Text className="quickGameCardBodyText">
                                             Green Stocks Only! 
                                         </Card.Text>
-                                        <TreeIcon className="quickGameCardIcons"/>
+                                       
                                 </Card.Body>
                         </Card>  
                 </ToggleButton>
@@ -90,11 +90,11 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
                         >
                         <Card className="quickGameCard">
                                 <Card.Body>
-                                    <Card.Title>Silicon Valley</Card.Title>
+                                    <CoderIcon className="quickGameCardIcons"/>
                                         <Card.Text className="quickGameCardBodyText">
                                             Technology Stocks Only! 
                                         </Card.Text>
-                                        <CoderIcon className="quickGameCardIcons"/>
+                                        
                                 </Card.Body>
                         </Card>  
                 </ToggleButton>

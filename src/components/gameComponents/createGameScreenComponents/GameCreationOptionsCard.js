@@ -122,7 +122,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 }}
                             >Next</Button>
                         </Col>
-                    }      
+                        }
             </Row>
             </>
         )

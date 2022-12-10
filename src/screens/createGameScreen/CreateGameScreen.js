@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import { Container, Row, Col} from "react-bootstrap"
 import {useSelector} from 'react-redux';
 
@@ -21,7 +21,7 @@ function CreateGameScreen(){
 
     /// screen - The screen number
     const [screen, setScreen]       = useState(1);
-    const [mobileScreen, setMobileScreen] = useState(true)
+    const [mobileScreen, setMobileScreen] = useState()
 
     /// QucikGameSelection 
     const [quickGame, setQuickGame] = useState();
@@ -75,17 +75,21 @@ function CreateGameScreen(){
         }
     }
 
-    console.log(mobileScreen)
+    /// Set the initial size of Window ///
+    useEffect(() => {
+        screenSizeChange()
+    },[])
+
+
+
     return(
         <Container style={{"textAlign":"center","alignItems":"center"}}>
             <Row className="containerContent">
                 {screen === 1 ?
                 <Col>
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={false} mobileScreen={mobileScreen}>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} disableNextStep={!(quickGame)} mobileScreen={mobileScreen}>
                        <GameQuickGameSelection
                         quickGame={quickGame} setQuickGame={setQuickGame}
-                        
-                       
                        /> 
                     </GameCreationOptionsCard>
                         

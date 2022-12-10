@@ -70,7 +70,6 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
-            console.log(res)
             if (res.newLeague.active){
                 /// If the game is active then update the active portfolios state in redux 
                 /// Called becuase creating a game will also create a portfolio
@@ -85,7 +84,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             setLoading(false)
         }
     }
-    console.log(quickGame)
+    
     const PrevNextButtons = () => {
         return(
             <Row className="containerButtons" lg={2} md={2} xs={2}>
@@ -117,7 +116,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 className="prevNextButtons"
                                 disabled={disableNextStep}
                                 onClick={() => {
-                                    //// If its not a customised game 
+                                    // If its not a customised game i.e a quickgame 
                                     if (quickGame !== "customGame"){
                                         if (gameType === "valueBased"){
                                             setScreen(8)
@@ -125,6 +124,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                             setScreen(7)
                                         }
                                     }else{
+                                        // Normal flow 
                                         setScreen(screen+1)
                                     }
                                 }}
@@ -135,9 +135,25 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
         )
     }
 
-    const Content = () => {
-        return (
+    return(
+        <>
+        {mobileScreen === true ? 
             <>
+                {children}
+                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                {loading && <LoadingSpinner/>}
+                {mobileScreen === true ?
+                    <Card className="tradeButtonCard rounded-0" >
+                        <PrevNextButtons />
+                    </Card>
+                :
+                    <PrevNextButtons />
+                }
+            </>
+        :
+        <Card className="my-5">
+           <Card.Body>
+               <>
                 {children}
                 {error && <MessageAlert variant="danger">{error}</MessageAlert>}
                 {loading && <LoadingSpinner/>}
@@ -149,16 +165,6 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                     <PrevNextButtons />
             }
             </>
-        )
-    }
-
-    return(
-        <>
-        {mobileScreen === true ? <Content className="my-5"/>
-        :
-        <Card className="my-5">
-           <Card.Body>
-             <Content/>
            </Card.Body>
         </Card> 
     }

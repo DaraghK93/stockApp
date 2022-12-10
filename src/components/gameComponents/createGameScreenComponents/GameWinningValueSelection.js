@@ -13,7 +13,6 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
     const [error, setError] = useState(true)
 
     useEffect(() => { 
-        console.log(gameWinningValue)
         // On the first load will gameWinningValue will be undefined, set the initial value 
         if (typeof gameWinningValue === "undefined"){
             setLoading(true)
@@ -24,10 +23,6 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
         /// If a user changes the portfolio starting balance and comes back to this page need to update the max and min to reflect this 
         }else if (Math.round(gameWinningValue*1.01) !== min || Math.round(gameWinningValue*1.15) !== max){
             setLoading(true)
-            console.log("min",min)
-            console.log("max",max)
-            console.log("staring balance",startingBalance)
-            console.log(Math.round(gameWinningValue*1.01))
             setMin(Math.round(startingBalance*1.01))
             setMax(Math.round(startingBalance*1.15))
             /// If the game winning value not within the limits of max and min then reset it too as doesnt max sense 
@@ -49,7 +44,7 @@ function GameWinningValueSelection({startingBalance, gameWinningValue, setGameWi
             setWarning(false)
         }
     },[gameWinningValue,setGameWinningValue,startingBalance, max, min])
-    
+
     return(
         <>
         <Card.Title className="gameOptionsCardTitle">Game Winning Value</Card.Title>

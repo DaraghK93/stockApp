@@ -115,3 +115,66 @@ exports = function() {
   // find the portfolios where tradesToday are greater than 0 and set them back to 0
   return collection.updateMany({ tradesToday : {$gt:0}}, {$set:{tradesToday: 0 }});
 };
+
+
+
+exports = function() {
+
+
+  // Access a mongodb service:
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
+  const today = new Date().setHours(0,0,0,0);
+  return collection.aggregate([
+  {
+      '$lookup': {
+          'from': 'leagues', 
+          'localField': 'leagueId', 
+          'foreignField': '_id', 
+          'as': 'league'
+      }
+  }, {
+      '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': '_id', 
+          'foreignField': '_id', 
+          'as': 'totalVal'
+      }
+  }, {
+      '$unwind': {
+          'path': '$totalVal'
+      }
+  }, {
+      '$unwind': {
+          'path': '$league'
+      }
+  }, {
+      '$match': {
+          'league.finished': false
+      }
+  }, {
+      '$set': {
+          'valueHistory': {
+              '$concatArrays': [
+                  '$valueHistory', [
+                      {
+                          'date':   new Date(today), 
+                          'value': '$totalVal.totalValue'
+                      }
+                  ]
+              ]
+          }
+      }
+  }, {
+      '$project': {
+          'valueHistory': 1
+      }
+  }, {
+      '$merge': {
+          'into': 'portfolios', 
+          'on': '_id'
+      }
+  }
+])
+                          
+                          
+};

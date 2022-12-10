@@ -63,6 +63,7 @@ const GameCarousel = () => {
               <div class="captionTitle"><h2>Research the best stocks to trade</h2></div>
               <div class="caption"><p>Explore stocks using our advanced A.I. tools</p></div>
               <div></div>
+              <br></br>
             </div>
           </SwiperSlide>
           <SwiperSlide>

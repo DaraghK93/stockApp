@@ -18,7 +18,8 @@ function GameQuickGameSelection({quickGame,setQuickGame,
     setESGGameType,
     setMinEnvironmentRating,
     setMinSocialRating,
-    setMinGovernanceRating
+    setMinGovernanceRating,
+    setGameWinningValue
 
 }){
    
@@ -100,6 +101,31 @@ function GameQuickGameSelection({quickGame,setQuickGame,
             setTradingFee(5)
             /// Set the max trades per day 
             setMaxTradesPerDay(20)
+            ///  Set the staock types 
+            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+            /// Set the ESG game Type
+            setESGGameType("No Restrictions")
+            setMinEnvironmentRating(0)
+            setMinSocialRating(0)
+            setMinGovernanceRating(0)
+        }else if (e.currentTarget.value === "gameTwo"){
+            /// Set the name
+            setGameName("Quick Race To Value Game")
+            /// Set the type
+            setGameType("valueBased")
+            /// Set the image 
+            setGameImage("/stock_photo_2.jpg")
+            /// Set the start date and end date - end is blank for value based
+            setGameStartDate(new Date())
+            setGameEndDate("")
+            /// Set the starting balance 
+            setStartingBalance(100000)
+            /// Set the trading fee 
+            setTradingFee(5)
+            /// Set the max trades per day 
+            setMaxTradesPerDay(20)
+            /// Set the winning value 
+            setGameWinningValue(105000)
             ///  Set the staock types 
             setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
             /// Set the ESG game Type

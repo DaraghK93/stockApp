@@ -92,7 +92,7 @@ function CreateGameScreen(){
                         setTradingFee={setTradingFee} setMaxTradesPerDay={setMaxTradesPerDay}
                         setStockTypes={setStockTypes} setESGGameType={setESGGameType}
                         setMinEnvironmentRating={setMinEnvironmentRating} setMinSocialRating={setMinSocialRating}
-                        setMinGovernanceRating={setMinGovernanceRating}
+                        setMinGovernanceRating={setMinGovernanceRating}  setGameWinningValue={setGameWinningValue}
                        /> 
                     </GameCreationOptionsCard>
                 :screen === 2 && quickGame === "customGame"?

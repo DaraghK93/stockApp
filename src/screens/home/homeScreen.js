@@ -11,11 +11,10 @@ import { useNavigate } from 'react-router-dom';
 import NewsArticleCard from '../../components/newsComponents/newsArticleCard/NewsArticleCard';
 import ChartCardESG from '../../components/stockVisualisationComponents/ChartCard/ChartCard(ESG)';
 import ChartCard from '../../components/stockVisualisationComponents/ChartCard/ChartCard';
-import SplashCarousel from '../../components/widgets/Carousel/SplashCarousel';
 import TickerCard from '../../components/stockDiscoveryComponents/tickercard/Tickercard';
 import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMenu';
 import Footer from '../../components/layout/Footer/footer'
-import Carousel from '../../components/widgets/SwiperCarousel/SwiperCarousel';
+import GameCarousel from '../../components/widgets/SwiperCarousel/GameCarousel';
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -653,12 +652,18 @@ function HomeScreen() {
 
   return (
     <>
+      {/* <Container className='splash-page-container'> 
+        <Row className='py-4'>
+            <h1>Fantasy Stock Trading Game</h1>
+          <Row><Carousel/></Row>
+        </Row>
+      </Container> */}
+      
       <Container className='splash-page-container'>
         <Row className='py-4'>
           <Col className='mx-4'>
             <h1>Fantasy Stock Trading Game</h1>
           </Col>
-          <Row><Carousel/></Row>
         </Row>
         <Row>
           <Col>
@@ -671,22 +676,18 @@ function HomeScreen() {
               </p>
             </Col>
           </Row>
+          <Row><GameCarousel/></Row>
           <Row className='py-4'>
-            <Col>
-              <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+              <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", maxWidth:"20%"}}>
                 Play Now
               </Button>
-            </Col>
           </Row>
-
         </Row>
       </Container>
 
       <Container className='splash-page-container'>
-        <Row className='py-4'>
-          <Col sm md={8} className='offset-md-2'>
-            <SplashCarousel></SplashCarousel>
-          </Col>
+      <Row className='py-4'>
+          <Row><GameCarousel/></Row>
         </Row>
         <Row className='py-4'>
           <Col>

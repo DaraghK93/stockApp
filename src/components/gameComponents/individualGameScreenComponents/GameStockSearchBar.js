@@ -31,8 +31,8 @@ function GameStockSearchBar({ leagueId, currScreen }) {
 
   /// The choices for the screens, used for buttons at top of screen
   var screenChocies = [
-    { name: 'All Stocksll', value: '1' },
-    { name: 'Summaryll', value: '2' },
+    { name: 'All Stocks', value: '1' },
+    { name: 'Summary', value: '2' },
   ];
 
   useEffect(() => {
@@ -42,7 +42,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
       navigate(`/game/summary/${leagueId}`);
     }
     // eslint-disable-next-line
-  }, [screen, leagueId ]);
+  }, [screen, leagueId]);
 
   return (
     <>

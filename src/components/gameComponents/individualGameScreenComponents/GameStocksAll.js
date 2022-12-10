@@ -86,7 +86,7 @@ function GameStocksAll({ league }) {
             <Row className='mx-3'>
               {page > 0 ? (
                 <Col className='py-2'>
-                  <Button onClick={prev}>Page {page}</Button>
+                  <Button onClick={prev}>Back</Button>
                 </Col>
               ) : (
                 <Col className='py-2'>
@@ -95,7 +95,7 @@ function GameStocksAll({ league }) {
                     onClick={prev}
                     style={{ background: 'white', border: 0 }}
                   >
-                    Page {page}
+                    Back
                   </Button>
                 </Col>
               )}
@@ -104,7 +104,7 @@ function GameStocksAll({ league }) {
               </Col>
               {stocks.length === 24 ? (
                 <Col className='text-end py-2 my-auto'>
-                  <Button onClick={next}>Page {page + 2}</Button>
+                  <Button onClick={next}>Next</Button>
                 </Col>
               ) : (
                 <Col className='py-2'>
@@ -113,7 +113,7 @@ function GameStocksAll({ league }) {
                     onClick={next}
                     style={{ background: 'white', border: 0 }}
                   >
-                    Page {page + 2}
+                    Next
                   </Button>
                 </Col>
               )}

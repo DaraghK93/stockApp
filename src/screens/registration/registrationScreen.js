@@ -36,6 +36,9 @@ function RegistrationPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [passwordErrorMessage, setPasswordErrorMessage] = useState(null)
 
+  // toggle showing password text
+  const [passwordShown, setPasswordShown] = useState(false);
+
   /// Redux ///
   const dispatch = useDispatch()
   /// Need loading and error from registration
@@ -132,33 +135,42 @@ function RegistrationPage() {
             required
           />
         </Form.Group>
-        <Form.Group className="py-2" controlId="password">
-          <Form.Label>Password</Form.Label>
-          <InfoButtonHover title="Password Requirements" info={"Passwords must be at least 8 characters long, contain at least one lower case character (a-z), one upper case character (A-Z) and one number [0-9]!"} />
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="py-2" controlId="confirmPassword">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChange={(event) => {
-              setConfirmPassword(event.target.value)
-            }}
-            required
-          />
-        </Form.Group>
+        <Form.Group className='py-2' controlId='newPassword'>
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type={passwordShown ? 'text' : 'password'}
+                placeholder='Enter Password'
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group className='py-2' controlId='confirmNewPassword'>
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type={passwordShown ? 'text' : 'password'}
+                placeholder='Confirm Password'
+                value={confirmPassword}
+                onChange={(event) => setConfirmPassword(event.target.value)}
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Check
+                type='checkbox'
+                id='show password'
+                label='Show password'
+                onChange={(e) => {
+                  setPasswordShown(e.target.checked);
+                }}
+              />
+            </Form.Group>
+            <p style={{ fontSize: 12 }}>
+              Passwords must be at least 8 characters long, contain at least one
+              lower case character (a-z), one upper case character (A-Z) and one
+              number [0-9]!
+            </p>
         {passwordErrorMessage && (
           <MessageAlert variant="danger">{passwordErrorMessage}</MessageAlert>
         )}
-        <br></br>
         <Form.Group>
           <Form.Check
             type="checkbox"

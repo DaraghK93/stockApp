@@ -27,19 +27,32 @@ function GameQuickGameSelection({quickGame,setQuickGame,
     const user = useSelector((state) => state.user)
     // Get the userInfo piece of state, dont need loading and error
     const {userInfo} = user;
+
+    /// Dates reused in game settings 
+    const weekFromdate = new Date();
+    weekFromdate.setDate(weekFromdate.getDate() + 7);
+
+    /// All sectors ///
+    const allSectors = ['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities']
+
    
-    // const gameSettings = {
-    //     "gameOne": {
-    //         "name": "Quick Sprint Game",
-    //         "type": "timeBased",
-    //         "start": new Date(),
-    //         "end": 
-    //         "startingBalance":
-    //         "tradeFee":
-    //         "maxDailyTrades":
-    //         "sectors":
-    //         "ESGRestrictions":
-    //     },
+    const gameSettings = {
+        "gameOne": {
+            "name": "Quick Sprint Game",
+            "type": "timeBased",
+            "image": "/stock_photo_1.jpg",
+            "startDate": new Date(),
+            "endDate": weekFromdate,
+            "startingBalance": 100000,
+            "tradeFee": 5,
+            "maxDailyTrades": 20,
+            "winningValue":"",
+            "sectors": allSectors, 
+            "ESGRestrictions": "No Restrictions",
+            "minERating": 0, 
+            "minSRating": 0,
+            "minGRating":0
+        }}
         // "gameTwo": {
         //     "name": 
         //     "type":
@@ -85,34 +98,35 @@ function GameQuickGameSelection({quickGame,setQuickGame,
         //     "ESGRestrictions":
         // }
     //}
-
+    
     const gameChange = (e) => {
         setQuickGame(e.currentTarget.value)
+        console.log(gameSettings[e.currentTarget.value])
         if(e.currentTarget.value === "gameOne"){
             /// Set the name
-            setGameName("Quick Sprint Game")
+            setGameName(gameSettings[e.currentTarget.value]["name"])
             /// Set the type
-            setGameType("timeBased")
+            setGameType(gameSettings[e.currentTarget.value]["type"])
             /// Set the image 
-            setGameImage("/stock_photo_1.jpg")
+            setGameImage(gameSettings[e.currentTarget.value]["image"])
             /// Set the start date and end date - end is a week from now
-            setGameStartDate(new Date())
-            const weekFromdate = new Date();
-            weekFromdate.setDate(weekFromdate.getDate() + 7);
-            setGameEndDate(weekFromdate)
+            setGameStartDate(gameSettings[e.currentTarget.value]["startDate"])
+            setGameEndDate(gameSettings[e.currentTarget.value]["endDate"])
             /// Set the starting balance 
-            setStartingBalance(100000)
+            setStartingBalance(gameSettings[e.currentTarget.value]["startingBalance"])
             /// Set the trading fee 
-            setTradingFee(5)
+            setTradingFee(gameSettings[e.currentTarget.value]["tradeFee"])
             /// Set the max trades per day 
-            setMaxTradesPerDay(20)
+            setMaxTradesPerDay(gameSettings[e.currentTarget.value]["maxDailyTrades"])
+            /// Set the winning value 
+            setGameWinningValue(gameSettings[e.currentTarget.value]["winningValue"])
             ///  Set the staock types 
-            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+            setStockTypes(gameSettings[e.currentTarget.value]["sectors"])
             /// Set the ESG game Type
-            setESGGameType("No Restrictions")
-            setMinEnvironmentRating(0)
-            setMinSocialRating(0)
-            setMinGovernanceRating(0)
+            setESGGameType(gameSettings[e.currentTarget.value]["ESGRestrictions"])
+            setMinEnvironmentRating(gameSettings[e.currentTarget.value]["minERating"])
+            setMinSocialRating(gameSettings[e.currentTarget.value]["minSRating"])
+            setMinGovernanceRating(gameSettings[e.currentTarget.value]["minGRating"])
         }else if (e.currentTarget.value === "gameTwo"){
             /// Set the name
             setGameName("Quick Race To Value Game")

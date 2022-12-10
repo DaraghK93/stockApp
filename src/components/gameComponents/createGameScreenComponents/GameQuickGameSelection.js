@@ -52,185 +52,206 @@ function GameQuickGameSelection({quickGame,setQuickGame,
             "minERating": 0, 
             "minSRating": 0,
             "minGRating":0
-        }}
-        // "gameTwo": {
-        //     "name": 
-        //     "type":
-        //     "start":
-        //     "end":
-        //     "startingBalance":
-        //     "tradeFee":
-        //     "maxDailyTrades":
-        //     "sectors":
-        //     "ESGRestrictions":
-        // },
-        // "gameThree": {
-        //     "name": 
-        //     "type":
-        //     "start":
-        //     "end":
-        //     "startingBalance":
-        //     "tradeFee":
-        //     "maxDailyTrades":
-        //     "sectors":
-        //     "ESGRestrictions":
-        // },
-        // "gameFour": {
-        //     "name": 
-        //     "type":
-        //     "start":
-        //     "end":
-        //     "startingBalance":
-        //     "tradeFee":
-        //     "maxDailyTrades":
-        //     "sectors":
-        //     "ESGRestrictions":
-        // },
-        // "customGame":{
-        //     "name": 
-        //     "type":
-        //     "start":
-        //     "end":
-        //     "startingBalance":
-        //     "tradeFee":
-        //     "maxDailyTrades":
-        //     "sectors":
-        //     "ESGRestrictions":
-        // }
-    //}
+        },
+        "gameTwo": {
+            "name": "Quick Race To Value Game",
+            "type": "valueBased",
+            "image": "/stock_photo_2.jpg",
+            "startDate": new Date(),
+            "endDate": "",
+            "startingBalance": 100000,
+            "tradeFee": 5,
+            "maxDailyTrades": 20,
+            "winningValue":105000,
+            "sectors": allSectors, 
+            "ESGRestrictions": "No Restrictions",
+            "minERating": 0, 
+            "minSRating": 0,
+            "minGRating":0
+        },
+        "gameThree": {
+            "name": "Quick Environment Game",
+            "type": "timeBased",
+            "image": "/stock_photo_3.jpg",
+            "startDate": new Date(),
+            "endDate": weekFromdate,
+            "startingBalance": 100000,
+            "tradeFee": 5,
+            "maxDailyTrades": 20,
+            "winningValue":105000,
+            "sectors": allSectors, 
+            "ESGRestrictions": "Environment",
+            "minERating": 700, 
+            "minSRating": 0,
+            "minGRating":0
+        },
+        "gameFour": {
+            "name": "Quick Tech Only Game",
+            "type": "timeBased",
+            "image": "/stock_photo_4.jpg",
+            "startDate": new Date(),
+            "endDate": weekFromdate,
+            "startingBalance": 100000,
+            "tradeFee": 5,
+            "maxDailyTrades": 20,
+            "winningValue":105000,
+            "sectors": ['Technology'], 
+            "ESGRestrictions": "No Restrictions",
+            "minERating": 0, 
+            "minSRating": 0,
+            "minGRating":0
+        },
+        "customGame":{
+            "name": `${userInfo.firstname}'s Stock Trading Game`,
+            "type": "",
+            "image": "",
+            "startDate": new Date(),
+            "endDate": weekFromdate,
+            "startingBalance": 100000,
+            "tradeFee": 20,
+            "maxDailyTrades": 5,
+            // "winningValue": ,
+            "sectors": allSectors, 
+            "ESGRestrictions": "",
+            "minERating": "", 
+            "minSRating": "",
+            "minGRating":""
+        }
+    }
     
     const gameChange = (e) => {
         setQuickGame(e.currentTarget.value)
         console.log(gameSettings[e.currentTarget.value])
-        if(e.currentTarget.value === "gameOne"){
-            /// Set the name
-            setGameName(gameSettings[e.currentTarget.value]["name"])
-            /// Set the type
-            setGameType(gameSettings[e.currentTarget.value]["type"])
-            /// Set the image 
-            setGameImage(gameSettings[e.currentTarget.value]["image"])
-            /// Set the start date and end date - end is a week from now
-            setGameStartDate(gameSettings[e.currentTarget.value]["startDate"])
-            setGameEndDate(gameSettings[e.currentTarget.value]["endDate"])
-            /// Set the starting balance 
-            setStartingBalance(gameSettings[e.currentTarget.value]["startingBalance"])
-            /// Set the trading fee 
-            setTradingFee(gameSettings[e.currentTarget.value]["tradeFee"])
-            /// Set the max trades per day 
-            setMaxTradesPerDay(gameSettings[e.currentTarget.value]["maxDailyTrades"])
-            /// Set the winning value 
-            setGameWinningValue(gameSettings[e.currentTarget.value]["winningValue"])
-            ///  Set the staock types 
-            setStockTypes(gameSettings[e.currentTarget.value]["sectors"])
-            /// Set the ESG game Type
-            setESGGameType(gameSettings[e.currentTarget.value]["ESGRestrictions"])
-            setMinEnvironmentRating(gameSettings[e.currentTarget.value]["minERating"])
-            setMinSocialRating(gameSettings[e.currentTarget.value]["minSRating"])
-            setMinGovernanceRating(gameSettings[e.currentTarget.value]["minGRating"])
-        }else if (e.currentTarget.value === "gameTwo"){
-            /// Set the name
-            setGameName("Quick Race To Value Game")
-            /// Set the type
-            setGameType("valueBased")
-            /// Set the image 
-            setGameImage("/stock_photo_2.jpg")
-            /// Set the start date and end date - end is blank for value based
-            setGameStartDate(new Date())
-            setGameEndDate("")
-            /// Set the starting balance 
-            setStartingBalance(100000)
-            /// Set the trading fee 
-            setTradingFee(5)
-            /// Set the max trades per day 
-            setMaxTradesPerDay(20)
-            /// Set the winning value 
-            setGameWinningValue(105000)
-            ///  Set the staock types 
-            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
-            /// Set the ESG game Type
-            setESGGameType("No Restrictions")
-            setMinEnvironmentRating(0)
-            setMinSocialRating(0)
-            setMinGovernanceRating(0)
-        }else if (e.currentTarget.value === "gameThree"){
-            /// Set the name
-            setGameName("Quick Environment Game")
-            /// Set the type
-            setGameType("timeBased")
-            /// Set the image 
-            setGameImage("/stock_photo_3.jpg")
-            /// Set the start date and end date - end is a week from now
-            setGameStartDate(new Date())
-            const weekFromdate = new Date();
-            weekFromdate.setDate(weekFromdate.getDate() + 7);
-            setGameEndDate(weekFromdate)
-            /// Set the starting balance 
-            setStartingBalance(100000)
-            /// Set the trading fee 
-            setTradingFee(5)
-            /// Set the max trades per day 
-            setMaxTradesPerDay(20)
-            ///  Set the staock types 
-            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
-            /// Set the ESG game Type
-            setESGGameType("Environment")
-            setMinEnvironmentRating(700)
-            setMinSocialRating(0)
-            setMinGovernanceRating(0)
-        }else if (e.currentTarget.value === "gameFour"){
-            /// Set the name
-            setGameName("Quick Tech Only Game")
-            /// Set the type
-            setGameType("timeBased")
-            /// Set the image 
-            setGameImage("/stock_photo_4.jpg")
-            /// Set the start date and end date - end is a week from now
-            setGameStartDate(new Date())
-            const weekFromdate = new Date();
-            weekFromdate.setDate(weekFromdate.getDate() + 7);
-            setGameEndDate(weekFromdate)
-            /// Set the starting balance 
-            setStartingBalance(100000)
-            /// Set the trading fee 
-            setTradingFee(5)
-            /// Set the max trades per day 
-            setMaxTradesPerDay(20)
-            ///  Set the staock types 
-            setStockTypes(['Technology'])
-            /// Set the ESG game Type
-            setESGGameType("No Restrictions")
-            setMinEnvironmentRating(0)
-            setMinSocialRating(0)
-            setMinGovernanceRating(0)
-        }else if(e.currentTarget.value === "customGame"){
-            /// Set the name
-            setGameName(`${userInfo.firstname}'s Stock Trading Game`)
-            /// Set the type
-            setGameType("")
-            /// Set the image 
-            setGameImage("")
-            /// Set the start date and end date - end is a week from now
-            setGameStartDate(new Date())
-            const weekFromdate = new Date();
-            weekFromdate.setDate(weekFromdate.getDate() + 7);
-            setGameEndDate(weekFromdate)
-            /// Set the starting balance 
-            setStartingBalance(100000)
-            /// Set the trading fee 
-            setTradingFee(20)
-            /// Set the max trades per day 
-            setMaxTradesPerDay(5)
-            /// set game winning value 
-            setGameWinningValue()
-            ///  Set the staock types 
-            setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
-            /// Set the ESG game Type
-            setESGGameType("")
-            setMinEnvironmentRating("")
-            setMinSocialRating("")
-            setMinGovernanceRating("")
+        // if(e.currentTarget.value === "gameOne"){
+        /// Set the name
+        setGameName(gameSettings[e.currentTarget.value]["name"])
+        /// Set the type
+        setGameType(gameSettings[e.currentTarget.value]["type"])
+        /// Set the image 
+        setGameImage(gameSettings[e.currentTarget.value]["image"])
+        /// Set the start date and end date - end is a week from now
+        setGameStartDate(gameSettings[e.currentTarget.value]["startDate"])
+        setGameEndDate(gameSettings[e.currentTarget.value]["endDate"])
+        /// Set the starting balance 
+        setStartingBalance(gameSettings[e.currentTarget.value]["startingBalance"])
+        /// Set the trading fee 
+        setTradingFee(gameSettings[e.currentTarget.value]["tradeFee"])
+        /// Set the max trades per day 
+        setMaxTradesPerDay(gameSettings[e.currentTarget.value]["maxDailyTrades"])
+        /// Set the winning value 
+        setGameWinningValue(gameSettings[e.currentTarget.value]["winningValue"])
+        // console.log("GAME SETTINGS",gameSettings[e.currentTarget.value]["winningValue"])
+        ///  Set the staock types 
+        setStockTypes(gameSettings[e.currentTarget.value]["sectors"])
+        /// Set the ESG game Type
+        setESGGameType(gameSettings[e.currentTarget.value]["ESGRestrictions"])
+        setMinEnvironmentRating(gameSettings[e.currentTarget.value]["minERating"])
+        setMinSocialRating(gameSettings[e.currentTarget.value]["minSRating"])
+        setMinGovernanceRating(gameSettings[e.currentTarget.value]["minGRating"])
+        // }else if (e.currentTarget.value === "gameTwo"){
+        //     /// Set the name
+        //     setGameName("Quick Race To Value Game")
+        //     /// Set the type
+        //     setGameType("valueBased")
+        //     /// Set the image 
+        //     setGameImage("/stock_photo_2.jpg")
+        //     /// Set the start date and end date - end is blank for value based
+        //     setGameStartDate(new Date())
+        //     setGameEndDate("")
+        //     /// Set the starting balance 
+        //     setStartingBalance(100000)
+        //     /// Set the trading fee 
+        //     setTradingFee(5)
+        //     /// Set the max trades per day 
+        //     setMaxTradesPerDay(20)
+        //     /// Set the winning value 
+        //     setGameWinningValue(105000)
+        //     ///  Set the staock types 
+        //     setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+        //     /// Set the ESG game Type
+        //     setESGGameType("No Restrictions")
+        //     setMinEnvironmentRating(0)
+        //     setMinSocialRating(0)
+        //     setMinGovernanceRating(0)
+        // }else if (e.currentTarget.value === "gameThree"){
+        //     /// Set the name
+        //     setGameName("Quick Environment Game")
+        //     /// Set the type
+        //     setGameType("timeBased")
+        //     /// Set the image 
+        //     setGameImage("/stock_photo_3.jpg")
+        //     /// Set the start date and end date - end is a week from now
+        //     setGameStartDate(new Date())
+        //     const weekFromdate = new Date();
+        //     weekFromdate.setDate(weekFromdate.getDate() + 7);
+        //     setGameEndDate(weekFromdate)
+        //     /// Set the starting balance 
+        //     setStartingBalance(100000)
+        //     /// Set the trading fee 
+        //     setTradingFee(5)
+        //     /// Set the max trades per day 
+        //     setMaxTradesPerDay(20)
+        //     ///  Set the staock types 
+        //     setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+        //     /// Set the ESG game Type
+        //     setESGGameType("Environment")
+        //     setMinEnvironmentRating(700)
+        //     setMinSocialRating(0)
+        //     setMinGovernanceRating(0)
+        // }else if (e.currentTarget.value === "gameFour"){
+        //     /// Set the name
+        //     setGameName("Quick Tech Only Game")
+        //     /// Set the type
+        //     setGameType("timeBased")
+        //     /// Set the image 
+        //     setGameImage("/stock_photo_4.jpg")
+        //     /// Set the start date and end date - end is a week from now
+        //     setGameStartDate(new Date())
+        //     const weekFromdate = new Date();
+        //     weekFromdate.setDate(weekFromdate.getDate() + 7);
+        //     setGameEndDate(weekFromdate)
+        //     /// Set the starting balance 
+        //     setStartingBalance(100000)
+        //     /// Set the trading fee 
+        //     setTradingFee(5)
+        //     /// Set the max trades per day 
+        //     setMaxTradesPerDay(20)
+        //     ///  Set the staock types 
+        //     setStockTypes(['Technology'])
+        //     /// Set the ESG game Type
+        //     setESGGameType("No Restrictions")
+        //     setMinEnvironmentRating(0)
+        //     setMinSocialRating(0)
+        //     setMinGovernanceRating(0)
+        // }else if(e.currentTarget.value === "customGame"){
+        //     /// Set the name
+        //     setGameName(`${userInfo.firstname}'s Stock Trading Game`)
+        //     /// Set the type
+        //     setGameType("")
+        //     /// Set the image 
+        //     setGameImage("")
+        //     /// Set the start date and end date - end is a week from now
+        //     setGameStartDate(new Date())
+        //     const weekFromdate = new Date();
+        //     weekFromdate.setDate(weekFromdate.getDate() + 7);
+        //     setGameEndDate(weekFromdate)
+        //     /// Set the starting balance 
+        //     setStartingBalance(100000)
+        //     /// Set the trading fee 
+        //     setTradingFee(20)
+        //     /// Set the max trades per day 
+        //     setMaxTradesPerDay(5)
+        //     /// set game winning value 
+        //     setGameWinningValue()
+        //     ///  Set the staock types 
+        //     setStockTypes(['Basic Materials','Communication Services','Consumer Cyclical','Consumer Defensive','Energy','Financial Services','Healthcare','Industrials','Real Estate','Technology','Utilities'])
+        //     /// Set the ESG game Type
+        //     setESGGameType("")
+        //     setMinEnvironmentRating("")
+        //     setMinSocialRating("")
+        //     setMinGovernanceRating("")
 
-        }
+        // }
     }
 
     return(

@@ -1,5 +1,5 @@
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import { Container } from "react-bootstrap";
 
 function RadarChartViz({ data, overallSentiment }) {

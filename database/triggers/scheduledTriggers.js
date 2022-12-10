@@ -7,13 +7,12 @@
 // runs on at 9:00am everyday as a CRON Job - 00 9 * * * - cron expr
 exports = function() {
 
-    const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
-    // get today in date format
-    const today = new Date().setHours(0,0,0,0);
-    //update any collection where the startDate is today. set active to true. starts the league
-    return collection.updateMany({ startDate: new Date(today) }, {$set:{active:true}});
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
+  const today = new Date().setHours(0,0,0,0);
   
-  }
+  return collection.updateMany({startDate: new Date(today),finished: false }, {$set:{active:true}});
+};
+  
   
   // finish time based leagues function
   // scheduled trigger

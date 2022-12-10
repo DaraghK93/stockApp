@@ -1,4 +1,4 @@
-import { Container, Dropdown, Card } from "react-bootstrap";
+import { Container, Dropdown, Card, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
@@ -135,8 +135,10 @@ const ChartCard = ({ title, data }) => {
                         ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert>
 
                         : <>
-                        <span className="bolded">Overall Sentiment: <SentimentBadge sentiment={sentiment} /></span>
-                            <Dropdown>
+                        <Row>
+                        <Col className="col-md-8 col-sm-8 col-12">
+                        <span className="bolded" style={{fontSize:"1rem"}}>Overall Sentiment <SentimentBadge sentiment={sentiment} /></span>
+                            </Col><Col className="col-md-3 col-sm-3 col-3"><Dropdown>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                     Graph Type
                                 </Dropdown.Toggle>
@@ -145,10 +147,10 @@ const ChartCard = ({ title, data }) => {
                                     <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
                                     <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
                                 </Dropdown.Menu>
-                            </Dropdown>
+                            </Dropdown></Col></Row>
                             {isShownBarChart && <BarChartViz data={data} />}
                             {isShownPieChart && <PieChartViz data={data} />}
-                            {isShownRadarChart && <RadarChartViz data={data} />}
+                            {isShownRadarChart && <RadarChartViz data={data} overallSentiment={sentiment} />}
                         </>
                     }
                 </Container>

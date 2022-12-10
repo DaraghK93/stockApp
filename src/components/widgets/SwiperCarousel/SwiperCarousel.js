@@ -35,12 +35,27 @@ const Carousel = () => {
         </SwiperSlide>
         <SwiperSlide>
           <img src="splash_carousel_1_2.png" alt="" />
+          <div class="swiper-slide">
+          <div class="captionTitle"><h2>Create or Join a Game</h2></div>
+          <div class="caption"><p>Create or join a game with custom rules</p></div>
+          <div></div>
+        </div>
         </SwiperSlide>
         <SwiperSlide>
           <img src="splash_carousel_1_3.png" alt="" />
+          <div class="swiper-slide">
+          <div class="captionTitle"><h2>Create or Join a Game</h2></div>
+          <div class="caption"><p>Create or join a game with custom rules</p></div>
+          <div></div>
+        </div>
         </SwiperSlide>
         <SwiperSlide>
           <img src="splash_carousel_1_4.png" alt="" />
+          <div class="swiper-slide">
+          <div class="captionTitle"><h2>Create or Join a Game</h2></div>
+          <div class="caption"><p>Create or join a game with custom rules</p></div>
+          <div></div>
+        </div>
         </SwiperSlide>
       ...
     </Swiper>

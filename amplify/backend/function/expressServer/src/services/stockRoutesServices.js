@@ -187,188 +187,107 @@ const getStockSummary = (schema, recommended) => {
           { $limit: 20 },
         ],
         // agg query for top governance
-        topGovernance: [
-          { $match: {} },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-              'esgrating.governance_score': 1,
-            },
-          },
-          { $sort: { 'esgrating.governance_score': -1 } },
-          { $limit: 20 },
-        ],
-        topGainers: [
-          { $match: {} },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        topLosers: [
-          { $match: {} },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': 1 } },
-          { $limit: 20 },
-        ],
-        Industrials: [
-          { $match: { sector: 'Industrials' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        Technology: [
-          { $match: { sector: 'Technology' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        Financial: [
-          { $match: { sector: 'Financial Services' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        Healthcare: [
-          { $match: { sector: 'Healthcare' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        ConsumerCyc: [
-          { $match: { sector: 'Consumer Cyclical' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        ConsumerDef: [
-          { $match: { sector: 'Consumer Defensive' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        RealEstate: [
-          { $match: { sector: 'Real Estate' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
-        Utilities: [
-          { $match: { sector: 'Utilities' } },
-          {
-            $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-            },
-          },
-          { $sort: { 'daily_change.percentageChange': -1 } },
-          { $limit: 20 },
-        ],
+        topGovernance: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                  'daily_change.absoluteChange':1,
+                                                  'daily_change.percentageChange':1,
+                                                  'daily_change.currentprice':1,
+                                                  'esgrating.governance_score': 1}},
+        {$sort: {'esgrating.governance_score': -1}},
+        { $limit: 20}],
+        topGainers: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                    'daily_change.absoluteChange':1,
+                                                    'daily_change.percentageChange':1,
+                                                    'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        topLosers: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                              'daily_change.absoluteChange':1,
+                                              'daily_change.percentageChange':1,
+                                              'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': 1}},
+        { $limit: 20}],
+        Industrials: [{$match :{sector:"Industrials"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                              'daily_change.absoluteChange':1,
+                                              'daily_change.percentageChange':1,
+                                              'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Technology: [{$match :{sector:"Technology"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                                    'daily_change.absoluteChange':1,
+                                                                    'daily_change.percentageChange':1,
+                                                                    'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Financial: [{$match :{sector:"Financial Services"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        Healthcare: [{$match :{sector:"Healthcare"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        ConsumerCyc: [{$match :{sector:"Consumer Cyclical"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+        ConsumerDef: [{$match :{sector:"Consumer Defensive"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+         RealEstate: [{$match :{sector:"Real Estate"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+      CommunicationServices: [{ $match: { sector: "Communication Services" } }, {
+        $project: {
+          'symbol': 1, 'longname': 1, 'exchange': 1, 'logo': 1,
+          'daily_change.absoluteChange': 1,
+          'daily_change.percentageChange': 1,
+          'daily_change.currentprice': 1
+        }
       },
-    },
-  ]);
-  return stocks;
-};
+      { $sort: { 'daily_change.percentageChange': -1 } },
+      { $limit: 20 }],
+      BasicMaterials: [{ $match: { sector: "Basic Materials" } }, {
+        $project: {
+          'symbol': 1, 'longname': 1, 'exchange': 1, 'logo': 1,
+          'daily_change.absoluteChange': 1,
+          'daily_change.percentageChange': 1,
+          'daily_change.currentprice': 1
+        }
+      },
+      { $sort: { 'daily_change.percentageChange': -1 } },
+      { $limit: 20 }],
+      Energy: [{ $match: { sector: "Energy" } }, {
+        $project: {
+          'symbol': 1, 'longname': 1, 'exchange': 1, 'logo': 1,
+          'daily_change.absoluteChange': 1,
+          'daily_change.percentageChange': 1,
+          'daily_change.currentprice': 1
+        }
+      },
+      { $sort: { 'daily_change.percentageChange': -1 } },
+      { $limit: 20 }],
+        Utilities: [{$match :{sector:"Utilities"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                                                            'daily_change.absoluteChange':1,
+                                                            'daily_change.percentageChange':1,
+                                                            'daily_change.currentprice':1}},
+        {$sort: {'daily_change.percentageChange': -1}},
+        { $limit: 20}],
+      }
+  }])
+return stocks
+}
 
 // gets the game stock summary to display on game stocks page
 const gameStockSummary = (sectors, minErating, minSRating, minGRating) => {

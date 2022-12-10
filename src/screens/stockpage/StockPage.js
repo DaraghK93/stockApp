@@ -28,6 +28,9 @@ import { useSelector } from 'react-redux';
 function StockPage() {
     /// Component State ///
     const [loading, setLoading] = useState(true);
+    const [stockPricesLoading, setStockPricesLoading] = useState(true)
+
+
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
     const [showTradeModal, setShowTradeModal] = useState(false)
@@ -97,6 +100,9 @@ function StockPage() {
         redOrGreen()
     }
 
+
+
+
     function redOrGreen() {
         if (absoluteChange > 0) {
             lineColor = "#00C49F"
@@ -109,11 +115,6 @@ function StockPage() {
         }
         return lineColor
     }
-
-    // redOrGreen()
-
-
-
 
     function onClickTradeButton() {
         if (activePortfolios.length === 0) {
@@ -140,8 +141,6 @@ function StockPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res)
-
-
                 setLoading(false)
             } catch (error) {
                 // Log the error 
@@ -152,20 +151,30 @@ function StockPage() {
             }
         }
         getStockInfo();
-        setData(day)
-        setActive("1")
-        // DayData
-        // DaysData ()
+
     }, [symbol])
 
+    useEffect(() => {
+        try {
+        setStockPricesLoading(true)
+        setData(day)
+        setActive("1")
+        setAbsoluteChange(stock.daily_change.absoluteChange)
+        setPercentageChange(stock.daily_change.percentageChange)
+        setStockPricesLoading(false)
+        } catch (e) {
+            setStockPricesLoading(false)
 
+        }
+    }, [stock])
 
     return (
 
         <>
 
 
-            {loading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert> :
+            {loading || stockPricesLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert>
+            : 
                 <Container>
                     <Row>
                         <Col className="col-md-3 col-sm-3 col-3">

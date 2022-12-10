@@ -13,6 +13,8 @@ import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 
 function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
 
+    console.log(data)
+
     const [tickBoolean, setTickBoolean] = useState(false)
  
     window.addEventListener("resize", showTick);
@@ -47,14 +49,26 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
                 <CartesianGrid strokeDasharray="3 3" vertical={false}></CartesianGrid>
                 <Tooltip content={<CustomToolTip />} />
 
-                <XAxis dataKey="date"
+                <XAxis 
+                dataKey="date"
+           
+
+           
                     stroke="#595959"
                     tick={tickBoolean}
                 >
                 </XAxis>
                 <YAxis unit='$'
-                    width={80}
-                    stroke="#595959" />
+                    width={100}
+                    // stroke="#595959"
+                    tickFormatter={(value) => value.toFixed(2)}
+                    type= "number"
+                    domain = {["dataMin - 0.5", "dataMax + 0.5"]}
+                    allowDecimals={true}
+                    tickInterval= {1}
+           
+             
+                    />
                 <Area type="monotone" dataKey={dataKey} stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
             </AreaChart>
         </ResponsiveContainer>

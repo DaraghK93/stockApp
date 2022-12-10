@@ -3,6 +3,7 @@ import SprintIcon from "../../icons/SprintIcon";
 import RaceFlagIcon from "../../icons/RaceFlag";
 import TreeIcon from "../../icons/TreeIcon";
 import CoderIcon from "../../icons/CoderIcon";
+import PencilIcon from "../../icons/PencilIcon";
 
 function GameQuickGameSelection({quickGame,setQuickGame}){
     console.log(quickGame)
@@ -102,9 +103,28 @@ function GameQuickGameSelection({quickGame,setQuickGame}){
             </Col>
         </Row>
         <Row>
-            <Card.Text className="gameOptionsCardText">Or Customise Your Own Game</Card.Text>
+            <Card.Text className="gameOptionsCardText m-0">Or</Card.Text>
             <Col>
-                Configure Own Game
+                 <ToggleButton
+                            className="gameDetailsToggleButton"
+                            key="customGame"
+                            id="radio-customGame"
+                            type="radio"
+                            variant='outline-primary'
+                            value="customGame"
+                            checked={quickGame === "customGame"}
+                            onChange={(e) => setQuickGame(e.currentTarget.value)}
+                        >
+                        <Card className="customGameCard">
+                                <Card.Body>
+                                    <PencilIcon className="quickGameCardIcons"/>
+                                        <Card.Text className="quickGameCardBodyText">
+                                            Customise Your Own Game!
+                                        </Card.Text>
+                                        
+                                </Card.Body>
+                        </Card>  
+                </ToggleButton>
             </Col>
         </Row>
         </>

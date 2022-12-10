@@ -72,6 +72,8 @@ const IntelligenceCarousel = () => {
               <div class="caption"><p>Use our education section to read about the basics of investing and to find more resources for further reading/watching. Use that newfound knowledge to get the upper hand in your league!</p>
               </div>
               <div></div>
+              <div></div>
+              <br></br>
             </div>
           </SwiperSlide>
         </div>

@@ -51,9 +51,6 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
 
                 <XAxis 
                 dataKey="date"
-           
-
-           
                     stroke="#595959"
                     tick={tickBoolean}
                 >

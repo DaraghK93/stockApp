@@ -65,8 +65,6 @@ function StockPage() {
     var gradientColor;
     var positiveSymbol;
 
-    var myPercentage;
-
     const DayData = event => {
         // toggle shown data
         setData(day);
@@ -104,7 +102,7 @@ function StockPage() {
 
 
     function redOrGreen() {
-        if (absoluteChange > 0) {
+        if (parseFloat(absoluteChange) > 0) {
             lineColor = "#00C49F"
             gradientColor = "#b5e8df"
             positiveSymbol = "+"
@@ -171,8 +169,6 @@ function StockPage() {
     return (
 
         <>
-
-
             {loading || stockPricesLoading ? <LoadingSpinner /> : error ? <MessageAlert variant='danger'>{error}</MessageAlert>
             : 
                 <Container>
@@ -192,7 +188,7 @@ function StockPage() {
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
                                 <dt style={{ color: redOrGreen() }}>
-                                    {positiveSymbol}{absoluteChange} ({positiveSymbol}{percentageChange}%)
+                                    {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange}%)
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
                             </dl>

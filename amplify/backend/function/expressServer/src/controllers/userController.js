@@ -11,7 +11,6 @@ const { validationResult } = require('express-validator');
 
 const registerUser = async (req, res, next) => {
   try {
-    console.log(req.body.email);
     const errors = validationResult(req);
     //validate input
     if (!errors.isEmpty() && errors.errors[0].msg === 'Invalid email entered') {

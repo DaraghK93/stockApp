@@ -187,15 +187,20 @@ function OrderConfirmationPage() {
     useEffect(() => {
         console.log("CALLEDD HERE")
         /// Make sure they are not undefined before the check 
-        if (typeof gameRestrictions !== "undefined" && typeof stock !== "undefined"){
+        if (typeof gameRestrictions !== "undefined" && typeof stock !== "undefined" && stock !== ''){
             console.log("GOT HERE")
+            console.log(typeof stock)
+            console.log(gameRestrictions)
+            /// Reset them as they may have switched portfolio 
+            setGameESGRestrictionError("")
+            setGameSectorRestrictionError("")
             /// Do a check first for ESG restrictions 
             if (stock.esgrating.environment_score < gameRestrictions.minERating){
-                setGameESGRestrictionError("environment")
+                setGameESGRestrictionError("Environment")
             }else if (stock.esgrating.governance_score < gameRestrictions.minGRating){
-                setGameESGRestrictionError("governance")
+                setGameESGRestrictionError("Governance")
             }else if (stock.esgrating.social_score < gameRestrictions.minSRating){
-                setGameESGRestrictionError("social")
+                setGameESGRestrictionError("Social")
             }
             //// Now do a check for the sectors 
             /// true  -> Sector is tradabale
@@ -231,12 +236,17 @@ function OrderConfirmationPage() {
                             </dl>
                         </Col>
                     </Row>
-                    <Row md={1} className="py-2 pb-5" style={{"textAlign":"center","alignItems":"center"}}>
+                    <Row md={1} className="py-2" style={{"textAlign":"center","alignItems":"center"}}>
                         <h3>Active Portfolio</h3>
                         <PortfolioSelectionDropdown portfolios={activePortfolios} state={gameId} setState={setGameId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
-                    {}
-                    <Row className="py-2">
+                    {gameESGRestrictionError && 
+                    <Row md={1} style={{"textAlign":"center","alignItems":"center", "justifyContent":"center"}}>
+                        <MessageAlert className="tradeRestrictionsError" variant='danger'>Unfortunately this stock does not meet the minimum {gameESGRestrictionError} rating</MessageAlert>
+                    </Row>
+                    
+                   }
+                    <Row className="py-3">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
                     </Row>
                     <Row className="pt-4" md={1} xs={1} lg={1}>

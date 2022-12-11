@@ -17,10 +17,13 @@ import { logout } from '../../../actions/userActions'
 
 function Header() {
   const [active, setActive] = useState("")
+  const [expanded, setExpanded] = useState(false);
+
 
   
   const setActiveLink = (e) => {
     setActive(e.target.id)
+    setExpanded(false)
   }
 
 
@@ -40,11 +43,11 @@ function Header() {
   }
 
   return (
-    <Navbar fixed="top" expand="lg" variant="dark"
+    <Navbar expanded={expanded} fixed="top" expand="lg" variant="dark"
       className="navbar">
       <Container>
         <Navbar.Brand style={{ color: 'white' }} as={Link} to="/game">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
-        <Navbar.Toggle style={{ color: "white" }} aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle style={{ color: "white" }} onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {userInfo ?
             (

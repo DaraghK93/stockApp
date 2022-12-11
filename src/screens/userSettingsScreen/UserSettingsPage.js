@@ -95,6 +95,7 @@ function UserSettingsPage() {
       payload: null,
     });
     return () => {};
+    // eslint-disable-next-line
   }, []);
 
   const traitError = useTrait('');

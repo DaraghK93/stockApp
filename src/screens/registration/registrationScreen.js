@@ -64,6 +64,7 @@ function RegistrationPage() {
       payload: null,
     });
     return () => {};
+    // eslint-disable-next-line
   }, []);
 
   function handleSubmit(event) {

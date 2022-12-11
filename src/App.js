@@ -17,7 +17,8 @@ import ResetPage from './screens/resetPassword/resetPassword'
 import FAQsPage from './screens/faqs/faqs'
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
 import PortfolioPage from './screens/portfolio/portfolio';
-import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage';
+import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage'
+import WelcomePage from './screens/welcomeScreen/welcomePage';
 
 /// React ///
 import { useEffect } from 'react';
@@ -61,7 +62,7 @@ function App() {
           element={userInfo ? <Navigate to="/stockdiscovery" /> : <HomeScreen />} />
 
         <Route path='/register'
-          element={userInfo ? <Navigate to="/game" /> : <RegistrationPage />} />
+          element={userInfo ? <Navigate to="/welcome" /> : <RegistrationPage />} />
 
         <Route path='/login'
           element={userInfo ? <Navigate to="/game" /> : <LoginPage />} />
@@ -98,6 +99,9 @@ function App() {
         
         <Route path='/faqs'
           element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />
+
+        <Route path='/welcome'
+          element={userInfo ? <WelcomePage /> : <Navigate to="/" />} />
 
         <Route path='/auth/recover' element={ <RequestResetPassword/> } />
         

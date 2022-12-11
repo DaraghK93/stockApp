@@ -118,7 +118,6 @@ function GameQuickGameSelection({quickGame,setQuickGame,setGameName,setGameType,
         setMaxTradesPerDay(gameSettings[e.currentTarget.value]["maxDailyTrades"])
         /// Set the winning value 
         setGameWinningValue(gameSettings[e.currentTarget.value]["winningValue"])
-        // console.log("GAME SETTINGS",gameSettings[e.currentTarget.value]["winningValue"])
         ///  Set the staock types 
         setStockTypes(gameSettings[e.currentTarget.value]["sectors"])
         /// Set the ESG game Type

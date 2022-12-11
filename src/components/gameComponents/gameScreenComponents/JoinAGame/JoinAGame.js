@@ -12,18 +12,15 @@ import {updateActivePortfolios} from '../../../../actions/portfolioActions';
 import Modal from 'react-bootstrap/Modal';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Confetti from 'react-confetti'
-import { ContentPasteSearchOutlined } from "@mui/icons-material";
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [league, setleague] = useState("")
     const [leagueName, setLeagueName] = useState("")
-    const [LeagueID, setLeagueID] = useState("")
     
-    const [show, setShow] = useState(false);
+    const setShow = useState(false);
     const handleClose = () => setShow(false);
 
     /// Redux
@@ -35,12 +32,9 @@ function JoinAGame(){
     const handleSubmit = async(event) =>{
         event.preventDefault()
         try{
-            const handleShow = () => setShow(true);
             setLoading(true)
             setError("")
             setLeagueName("")
-            setleague("")
-            setLeagueID("")
             let path = '/api/league/joinleague'
             // auth token in header
             // access token in the body 
@@ -100,10 +94,7 @@ function JoinAGame(){
                         </Row>    
                         </Form>
                    </FormContainer>
-                    {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                    {/* {leagueName && <MessageAlert variant="success">Succesfully Joined <span className="bolded">{leagueName}</span>, Goodluck!</MessageAlert>} */}
-                {/* {typeof leagueName !== "undefined" && <JoinGameSuccess showState={show} setShowState={setShow} leagueNameSuccess={leagueName}/>} */}
-                    
+                    {error && <MessageAlert variant="danger">{error}</MessageAlert>}                  
                 {leagueName &&
                     <Modal show={setShow} onHide={handleClose} backdrop="static">
                         <Modal.Body>
@@ -123,7 +114,7 @@ function JoinAGame(){
                                 </Col>
                                 <Col>
                                     <Link className="w-100" to={`/stockdiscovery`}>
-                                        <Button className="mb-2 w-100">Stock Discovery</Button>
+                                        <Button className="mb-2 w-100">Explore Stocks</Button>
                                     </Link>
                                 </Col>
                                 

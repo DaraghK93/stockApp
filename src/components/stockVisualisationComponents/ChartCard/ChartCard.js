@@ -145,7 +145,7 @@ const ChartCard = ({ title, data }) => {
                         : <>
                         <Row>
                         <Col className="col-md-8 col-sm-8 col-12">
-                        <span className="bolded" style={{fontSize:"1rem", marginBottom:3}}>Overall Sentiment <SentimentBadge sentiment={sentiment} /></span>
+                        <span className="bolded" style={{fontSize:"1rem", marginBottom:3}}>Overall Sentiment <SentimentBadge customStyle={{fontSize:"0.80rem"}} sentiment={sentiment} /></span>
                             </Col><Col className="col-md-3 col-sm-3 col-3"><Dropdown style={{marginBottom:3 }}>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
                                     {currentChart}

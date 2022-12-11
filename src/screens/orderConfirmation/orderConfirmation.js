@@ -224,8 +224,8 @@ function OrderConfirmationPage() {
                                     </h1>
                                 </dt>
                                 <dt>{stock.symbol}</dt>
-                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
-                                </dt>
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
+                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
                             </dl>
                         </Col>
                     </Row>

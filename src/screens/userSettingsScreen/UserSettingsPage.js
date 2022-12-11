@@ -79,18 +79,23 @@ function UserSettingsPage() {
   useEffect(() => {
     // Register the onbeforeunload event
     window.onbeforeunload = () => {
-      // Dispatch your action here
       dispatch({
         type: 'RESET_ERROR',
         payload: null,
       });
     };
-
-    // Unregister the event when the component is unmounted
     return () => {
       window.onbeforeunload = null;
     };
   });
+
+  useEffect(() => {
+    dispatch({
+      type: 'RESET_ERROR',
+      payload: null,
+    });
+    return () => {};
+  }, []);
 
   const traitError = useTrait('');
 

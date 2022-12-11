@@ -13,7 +13,6 @@ import SideScrollMenu from '../../components/widgets/SideScrollMenu/SideScrollMe
 import Footer from '../../components/layout/Footer/footer'
 import GameCarousel from '../../components/widgets/SwiperCarousel/GameCarousel';
 import IntelligenceCarousel from '../../components/widgets/SwiperCarousel/IntelligenceCarousel';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 
 function HomeScreen() {
   const navigate = useNavigate();
@@ -592,9 +591,8 @@ function HomeScreen() {
     <>
       <Container className='splash-page-container'>
         <Row className='py-4' style={{ maxWidth: "80%", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <h1 style={{ color: "#0080FF"}}><AttachMoneyIcon />FinOptimise<AttachMoneyIcon /></h1>
-          <h1 style={{ color: "#0080FF"}}>Fantasy Stock Trading Game</h1>
-          {/* <Image thumbnail src={'FinOptimizeLogo.png'} className='splashLogo' style={{ border: "none" }}></Image> */}
+          <h1 style={{ fontWeight:"bold" }}>FinOptimise</h1>
+          <h1 style={{ fontWeight:"bold" }}>Fantasy Stock Trading Game</h1>
           <p className='splashpageParagraph'>
             FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
           </p>

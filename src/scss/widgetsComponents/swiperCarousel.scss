@@ -7,3 +7,48 @@
 .caption{
   font-size: larger;
 }
+
+
+@media (min-width:320px) {
+  /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+  // .splashLogo {
+  //     max-width: 15rem;
+  // }
+  // .carousel-caption{
+  //     font-size: 1px;
+  // }
+  // .splash-page-container {
+  //     width: 95%;
+  // }
+}
+
+@media (min-width:480px) {
+  /* smartphones, Android phones, landscape iPhone */
+
+}
+
+@media (min-width:600px) {
+  /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+
+}
+
+@media (min-width:801px) {
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .swiperImageActual{
+    max-width: 50%;
+  }
+}
+
+@media (min-width:1025px) {
+  /* big landscape tablets, laptops, and desktops */
+  .swiperImageActual{
+    max-width: 30%;
+  }
+}
+
+@media (min-width:1281px) {
+  /* hi-res laptops and desktops */
+  .swiperImageActual{
+    max-width: 25%;
+  }
+}

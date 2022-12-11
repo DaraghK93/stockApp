@@ -57,6 +57,24 @@ const registerUser = async (req, res, next) => {
       return next(new Error('Invalid email address entered.'));
     }
 
+    // username length
+    if (username.length < 3) {
+      res.status(400);
+      res.errormessage = 'Username length must be at least 3 characters';
+      return next(
+        new Error('Username length must be at least 3 characters')
+      );
+    }
+    if (username.length > 12) {
+      res.status(400);
+      res.errormessage = 'Username length must be less than 12 characters';
+      return next(
+        new Error('Username length must be less than 12 characters')
+      );
+    }
+
+    
+
     let user = await User.findOne({ email })
 
     // Check for existing user

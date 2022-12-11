@@ -99,6 +99,13 @@ const changeUserDetails = async (req, res, next) => {
             new Error('Username length must be at least 3 characters')
           );
         }
+        if (newUsername.length > 12) {
+          res.status(400);
+          res.errormessage = 'Username length must be less than 12 characters';
+          return next(
+            new Error('Username length must be less than 12 characters')
+          );
+        }
         // assign username to user after all checks
         user.username = newUsername;
       }

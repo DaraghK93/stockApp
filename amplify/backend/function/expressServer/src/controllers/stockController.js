@@ -148,6 +148,7 @@ const getStockBySymbol = async (req, res, next) => {
     const oneWeek = stockPriceData[0]
     const oneMonth = stockPriceData[1]
     const oneYear = stockPriceData[2]
+    const oneDay = stockPriceData[3]
     /// Get the search query for news articles
     const newsQuery = await articleService.buildSearchQueryForCompany(stocks[0].shortname,stocks[0].longname, stocks[0].symbol )
     /// Execute the query to get the articles 
@@ -179,7 +180,8 @@ const getStockBySymbol = async (req, res, next) => {
       twitterSentiment:twitterSentiment,
       week: oneWeek, 
       month: oneMonth,
-      year: oneYear
+      year: oneYear,
+      day: oneDay
     }
     res.json(returnStocks);
   } catch (err) {

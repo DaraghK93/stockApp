@@ -29,6 +29,7 @@ function StockPage() {
     /// Component State ///
     const [loading, setLoading] = useState(true);
     const [stockPricesLoading, setStockPricesLoading] = useState(true)
+    const [dateType, setDateType] = useState("daily")
 
 
     const [stock, setStock] = useState('');
@@ -39,6 +40,7 @@ function StockPage() {
 
 
     // data coming directly from the stock object provided above. This means that another request is not needed
+
     const oneDayPrices = stock.day
     const oneWeekPrices = stock.week
     const oneMonthPrices = stock.month
@@ -65,6 +67,7 @@ function StockPage() {
         setAbsoluteChange(stock.daily_change.absoluteChange)
         setPercentageChange(stock.daily_change.percentageChange)
         setActive(event.target.id);
+        setDateType("daily")
     };
     const WeekData = event => {
         // toggle shown data
@@ -72,6 +75,7 @@ function StockPage() {
         setActive(event.target.id);
         setAbsoluteChange((oneWeekPrices[oneWeekPrices.length - 1].price - oneWeekPrices[0].price).toFixed(2))
         setPercentageChange((((oneWeekPrices[oneWeekPrices.length - 1].price - oneWeekPrices[0].price) / oneWeekPrices[oneWeekPrices.length - 1].price) * 100).toFixed(2))
+        setDateType("weekly")
         redOrGreen()
 
     };
@@ -81,6 +85,7 @@ function StockPage() {
         setActive(event.target.id);
         setAbsoluteChange((oneMonthPrices[oneMonthPrices.length - 1].price - oneMonthPrices[0].price).toFixed(2))
         setPercentageChange((((oneMonthPrices[oneMonthPrices.length - 1].price - oneMonthPrices[0].price) / oneMonthPrices[oneMonthPrices.length - 1].price) * 100).toFixed(2))
+        setDateType("monthly")
         redOrGreen()
     };
     const YearData = event => {
@@ -89,11 +94,9 @@ function StockPage() {
         setActive(event.target.id);
         setAbsoluteChange((oneYearPrices[oneYearPrices.length - 1].price - oneYearPrices[0].price).toFixed(2))
         setPercentageChange((((oneYearPrices[oneYearPrices.length - 1].price - oneYearPrices[0].price) / oneYearPrices[oneYearPrices.length - 1].price) * 100).toFixed(2))
+        setDateType("yearly")
         redOrGreen()
     }
-
-
-
 
     function redOrGreen() {
         if (parseFloat(absoluteChange) > 0) {
@@ -149,7 +152,7 @@ function StockPage() {
     useEffect(() => {
         try {
         setStockPricesLoading(true)
-        setData(oneDayPrices)
+        setData(oneDayPrices.reverse())
         setActive("1")
         setAbsoluteChange(stock.daily_change.absoluteChange)
         setPercentageChange(stock.daily_change.percentageChange)
@@ -206,7 +209,7 @@ function StockPage() {
                             <Card className="priceChartStyle">
                                 <Container>
                                     <Row>
-                                        <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"price"}/>
+                                        <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"price"} datetype={dateType}/>
                                     </Row>
                                     <Row
                                         style={{

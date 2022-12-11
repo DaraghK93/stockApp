@@ -10,8 +10,9 @@ import {
 
 import { useState, useEffect } from "react";
 import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
+import moment from "moment";
 
-function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
+function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) {
 
     const [tickBoolean, setTickBoolean] = useState(false)
  
@@ -29,6 +30,22 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
     useEffect(() => {
         showTick()
     }, [])
+
+    const dateFormatter = (value) => {
+    if (datetype === "daily"){
+
+        return moment(value).format('h:mma')
+    }
+    else if (datetype === "weekly") {
+        return moment(value).format('MMMM Do')
+    }
+    else if (datetype === "monthly") {
+        return moment(value).format('MMM Do')
+    }
+    else {
+        return moment(value).format('MMM YYYY')
+    }
+}
 
     return (
         <ResponsiveContainer width="100%" height={400} margin={100}>
@@ -51,19 +68,22 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
                 dataKey="date"
                     stroke="#595959"
                     tick={tickBoolean}
+
+                    tickFormatter={(value) => dateFormatter(value)}
+                    tickInterval={"2"}
+                    // type="datetime"
+                    // tickInterval={30 * 24 * 3600 * 1000}
                 >
                 </XAxis>
                 <YAxis 
                     width={100}
                     stroke="#595959"
-                    // tickInterval= {10}
+                    tickInterval= {1}
                     tickFormatter={(value) => parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })}
                     type= "number"
                     domain = {["dataMin", "dataMax"]}
                     allowDecimals={false}
                 
-           
-             
                     />
                 <Area type="monotone" dataKey={dataKey} stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
             </AreaChart>

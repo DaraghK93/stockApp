@@ -130,7 +130,6 @@ function IndividualGameScreen() {
             setisShownLeaderBoard(true)
             setisShownPortfolio(false)
             setisShownStocks(false)
-
         }
     }
 

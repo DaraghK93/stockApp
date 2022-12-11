@@ -22,7 +22,8 @@ import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
 /// Redux ///
-import { useSelector } from 'react-redux';
+import { useSelector,useDispatch } from 'react-redux';
+import {updateActivePortfolios} from '../../actions/portfolioActions';
 
 
 function StockPage() {
@@ -48,8 +49,11 @@ function StockPage() {
     const [active, setActive] = useState("1");
     const [data, setData] = useState(oneDayPrices);
     /// Redux State ///
+    const dispatch = useDispatch()
     const portfolios = useSelector((state) => state.portfolios)
+    const user = useSelector((state) => state.user)
     const { activePortfolios } = portfolios;
+    const { userInfo } = user;
 
     /// React Router ///
     const navigate = useNavigate()
@@ -137,6 +141,7 @@ function StockPage() {
                 // Set the state for the stock and loading to false 
                 setStock(res)
                 setLoading(false)
+                dispatch(updateActivePortfolios(userInfo.token)) 
             } catch (error) {
                 // Log the error 
                 console.log(error)
@@ -146,8 +151,7 @@ function StockPage() {
             }
         }
         getStockInfo();
-
-    }, [symbol])
+    }, [symbol, dispatch,userInfo])
 
     useEffect(() => {
         try {

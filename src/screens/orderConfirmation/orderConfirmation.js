@@ -45,6 +45,8 @@ function OrderConfirmationPage() {
     const [gameTradeFee, setGameTradeFee] = useState()
     const [gameId, setGameId] = useState()
     const [gameRestrictions, setGameRestrictions] = useState()
+    const [gameESGRestrictionError, setGameESGRestrictionError] = useState()
+    const [gameSectorRestrictionError, setGameSectorRestrictionError] = useState()
     
     //// Portfolio State ////
     const [portfolio, setPortfolio] = useState({})
@@ -182,8 +184,29 @@ function OrderConfirmationPage() {
 
 
     //// Cehck for the environment and sector scores ////
-    console.log(gameRestrictions)
-    console.log(stock)
+    useEffect(() => {
+        console.log("CALLEDD HERE")
+        /// Make sure they are not undefined before the check 
+        if (typeof gameRestrictions !== "undefined" && typeof stock !== "undefined"){
+            console.log("GOT HERE")
+            /// Do a check first for ESG restrictions 
+            if (stock.esgrating.environment_score < gameRestrictions.minERating){
+                setGameESGRestrictionError("environment")
+            }else if (stock.esgrating.governance_score < gameRestrictions.minGRating){
+                setGameESGRestrictionError("governance")
+            }else if (stock.esgrating.social_score < gameRestrictions.minSRating){
+                setGameESGRestrictionError("social")
+            }
+            //// Now do a check for the sectors 
+            /// true  -> Sector is tradabale
+            /// false -> Sector is not tradeable 
+            setGameSectorRestrictionError(gameRestrictions.sectors.includes(stock.sector))
+            console.log(gameRestrictions)
+            console.log(stock)
+        }
+       
+    },[gameRestrictions,stock])
+    
 
     return (
         <>
@@ -212,6 +235,7 @@ function OrderConfirmationPage() {
                         <h3>Active Portfolio</h3>
                         <PortfolioSelectionDropdown portfolios={activePortfolios} state={gameId} setState={setGameId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
+                    {}
                     <Row className="py-2">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
                     </Row>

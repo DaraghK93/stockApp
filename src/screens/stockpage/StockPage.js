@@ -171,7 +171,7 @@ function StockPage() {
                 <Container>
                     <Row>
                         <Col className="col-md-3 col-sm-3 col-3">
-                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
+                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem", paddingLeft: "1rem" }} />
                         </Col>
                         <Col className="stockInfoCol col-md-7 col-sm-12 col-8">
                             <dl className='infoList'>
@@ -184,10 +184,11 @@ function StockPage() {
                                 <dt>{stock.symbol}
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
-                                <dt style={{ color: redOrGreen() }}>
-                                    {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange}%)
+                                <dt style={{ fontSize: "120%" }}>Sector: {stock.sector}</dt>
+                                <dt style={{ color: redOrGreen(), fontSize: "100%" }}>
+                                    {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} (<strong>{positiveSymbol}{percentageChange}%</strong>)
                                 </dt>
-                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
+                             
                             </dl>
                         </Col>
                     </Row>

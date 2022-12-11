@@ -15,6 +15,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
     // data state
     const [data, setData] = useState(transactions)
     const [currentStatus, setCurrentStatus] = useState("COMPLETED")
+    const [currentType, setCurrentType] = useState("ALL")
     // for rows that expand
     const [expandedRows, setExpandedRows] = useState([]);
     const [expandState, setExpandState] = useState({});
@@ -42,23 +43,9 @@ function TransactionHistory({ transactions, cancelOrder }) {
         setData(filtered)
     }, [transactions])
 
-    function filterBuySell(e) {
-        if (e.target.value === "ALL") {
-            const filtered = transactions.filter(transaction => {
-                return transaction.status === currentStatus
-            })
-            setData(filtered)
-        } else {
-            const filtered = transactions.filter(transaction => {
-                return transaction.status === currentStatus && transaction.buyOrSell === e.target.value
-            })
-            setData(filtered)
-        }
-    }
+
 
     window.addEventListener("resize", showCols, true)
-
-
 
     function showCols() {
         if (window.innerWidth >= 800) {
@@ -85,14 +72,23 @@ function TransactionHistory({ transactions, cancelOrder }) {
     ];
 
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
-    // const buySellAll = ["BUY", "SELL", "ALL"]
+    const buySellAll = ["BUY", "SELL", "ALL"]
 
     const updateStatus = (status) => {
         setCurrentStatus(status)
-        const filtered = transactions.filter(transaction => {
-            return transaction.status === status
-        })
-        setData(filtered)
+        if (currentType === "ALL"){
+            const filtered = transactions.filter(transaction => {
+                return transaction.status === status
+            })
+            setData(filtered)
+        }
+        else {
+            const filtered = transactions.filter(transaction => {
+                return transaction.status === status && transaction.buyOrSell === currentType
+            })
+            setData(filtered)
+        }
+
         if (status === "PENDING") {
             setShowPendingCol(true)
             setHidePendingCol(false)
@@ -103,6 +99,22 @@ function TransactionHistory({ transactions, cancelOrder }) {
             setHidePendingCol(true)
         }
     }
+
+    const filterBuySell = (type) => {
+        setCurrentType(type)
+        if (type === "ALL") {
+            const filtered = transactions.filter(transaction => {
+                return transaction.status === currentStatus
+            })
+            setData(filtered)
+        } else {
+            const filtered = transactions.filter(transaction => {
+                return transaction.status === currentStatus && transaction.buyOrSell === type
+            })
+            setData(filtered)
+        }
+    }
+
 
     // expand row function
     const handleExpandRow = (event, userId) => {
@@ -173,11 +185,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
             setPostsPerPage(totalPosts)
         }
     }
-    // router.post('/cancelLimitOrder',protectedRoute,cancelLimitOrder)
-
-
-
-
 
     return (
         <>
@@ -189,7 +196,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
                 </div>
                 <br />
                 <Container>
-
 
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <nav>
@@ -203,9 +209,18 @@ function TransactionHistory({ transactions, cancelOrder }) {
                         </nav>
                         <br></br>
 
-                    </div><center>
-                        <Button value="BUY" onClick={filterBuySell}>BUY</Button> <Button value="SELL" onClick={filterBuySell}>SELL</Button> <Button value="ALL" onClick={filterBuySell}>ALL</Button>
-                    </center>
+                    </div>
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                        <ul key="buySellAll" className="pagination">
+                            {buySellAll.map(type => (
+                                <li key={type} value={type} className={currentType === type ? 'page-item active' : 'page-item'}>
+                                    <button onClick={() => filterBuySell(type)} className="page-link"> {type} </button>
+                                </li>
+                            ))}
+
+                        </ul>
+                    </div>
+
                     {data.length > 0 ?
                         <>
                             <Table style={{ borderCollapse: "collapse" }}>
@@ -263,11 +278,11 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                                 <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
                                                 <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                 {showPendingCol &&
-                                                <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}>
-                                                    <center>
-                                                        <Button variant="danger" 
-                                                        onClick={() => cancelOrder(transaction._id, transaction.portfolioId)}
-                                                        >Cancel</Button>
+                                                    <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}>
+                                                        <center>
+                                                            <Button variant="danger"
+                                                                onClick={() => cancelOrder(transaction._id, transaction.portfolioId)}
+                                                            >Cancel</Button>
                                                         </center></td>
                                                 }
                                                 <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide"} key={index + 200}>

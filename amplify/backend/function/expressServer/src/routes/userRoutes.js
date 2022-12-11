@@ -8,7 +8,7 @@ const { body } = require('express-validator');
 router.post(
     '/',
     [
-      body('email', 'Invalid email entered').trim().isEmail({domain_specific_validation: true}).normalizeEmail(),
+      body('email', 'Invalid email entered').trim().isEmail()
     ],
     registerUser
   );

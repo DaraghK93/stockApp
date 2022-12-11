@@ -155,7 +155,7 @@ function StockPage() {
     useEffect(() => {
         try {
         setStockPricesLoading(true)
-        setData(day)
+        setData(oneYearPrices)
         setActive("1")
         setAbsoluteChange(stock.daily_change.absoluteChange)
         setPercentageChange(stock.daily_change.percentageChange)
@@ -164,7 +164,7 @@ function StockPage() {
             setStockPricesLoading(false)
 
         }
-    }, [stock])
+    }, [stock, oneYearPrices])
 
     return (
 

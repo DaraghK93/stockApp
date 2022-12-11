@@ -19,6 +19,7 @@ function JoinAGame(){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [leagueName, setLeagueName] = useState("")
+    const [leagueId, setLeagueId] = useState("")
 
     const setShow = useState(false);
     const handleClose = () => setShow(false);
@@ -46,6 +47,7 @@ function JoinAGame(){
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             setLeagueName(res.newLeague.leagueName)
+            setLeagueId(res.newLeague._id)
             if (res.newLeague.active){
                 /// If the game being joined is active then update the active portfolios state in redux 
                 /// Called becuase joining a game will also create a new portfolio for that game 
@@ -107,8 +109,8 @@ function JoinAGame(){
                             </Row>
                             <Row md={2} className="textCenter">
                                 <Col>
-                                    <Link className="w-100" to={`/game`} onClick={() => window.location.reload()}>
-                                        <Button className="mb-2 w-100">My Games</Button>
+                                    <Link className="w-100" to={`/game/${leagueId}`} >
+                                        <Button className="mb-2 w-100">View League</Button>
                                     </Link>
                                 </Col>
                                 <Col>

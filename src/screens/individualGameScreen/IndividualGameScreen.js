@@ -160,18 +160,7 @@ function IndividualGameScreen() {
         }
 
     }
-
-    function leaderboardFields() {
-        let info;
-        if (league.finished) {
-            info = league.finalStandings
-        } else {
-            info = league.portfolios
-        }
-        return <LeaderBoard leaderBoardInfo={info} />
-        }
     
-
     return (
         <>
             {loading || portfolioLoading ? <LoadingSpinner /> 
@@ -196,7 +185,8 @@ function IndividualGameScreen() {
                             <Container>
                                 {timeOrValueLine()}
                             </Container>
-                                {leaderboardFields()}
+                                {league.finished ? <LeaderBoard leaderBoardInfo={league.finalStandings} startingBalance={league.startingBalance} /> 
+                                : <LeaderBoard leaderBoardInfo={league.portfolios} startingBalance={league.startingBalance} />}
                         </>
                     }
                     {isShownGameDetails &&

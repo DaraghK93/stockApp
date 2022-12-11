@@ -1,14 +1,15 @@
 import { Fragment, useState, useEffect } from "react"
 import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
-// import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-// import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 
-function LeaderBoard({ leaderBoardInfo }) {
+
+function LeaderBoard({ leaderBoardInfo, startingBalance }) {
 
     const [showTop3, setShowTop3] = useState(false);
     const [showCol, setShowCol] = useState(true)
-    console.log(change)
+    console.log(startingBalance)
     useEffect(() => {
         if (leaderBoardInfo.length > 3) {
             setShowTop3(true)
@@ -16,15 +17,16 @@ function LeaderBoard({ leaderBoardInfo }) {
         showCols()
     }, [leaderBoardInfo])
 
-
     function applyRank() {
         var rank = 1;
+        // let change;
         for (var i = 0; i < leaderBoardInfo.length; i++) {
             // increase rank only if current score less than previous
             if (i > 0 && leaderBoardInfo[i].totalValue < leaderBoardInfo[i - 1].totalValue) {
                 rank++;
             }
             leaderBoardInfo[i].rank = rank;
+
         }
     }
     applyRank()
@@ -41,8 +43,26 @@ function LeaderBoard({ leaderBoardInfo }) {
         }
     }
 
-    function setChange(item) {
-        let dailyChange = 
+    function setChange(element) {
+        let change;
+        if (!element.valueHistory || element.valueHistory.length === 0 ) {
+            change = element.totalValue - startingBalance
+        } else {
+            change = element.totalValue - element.valueHistory[element.valueHistory.length -1].value
+        }
+        if (change > 0) {
+            return <center>+{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />
+            </center>
+        } else if (change < 0) {
+            return <center>-{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            <KeyboardDoubleArrowDownIcon style={{ fill: '#22ff00' }} />
+            </center>
+        } else {
+            return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+      
+            </center>
+        }
     }
 
 
@@ -123,11 +143,14 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                                 <td><center>{parseFloat(item.totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                                 <td id={item.dailyChange} className="rightCurvedBorders"
                                                                     style={{ verticalAlign: "middle" }}>
-
-
-                                                                    <center>+{parseFloat(20).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                                                                        {/* <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /> */}
-                                                                    </center></td>
+                                                                        {/* {item.change >= 0 ? <center>+{parseFloat(item.change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                                                                                                        <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />
+                                                                                            </center>
+                                                                        : <center>-{parseFloat(item.change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                                                                                <KeyboardDoubleArrowDownIcon style={{ fill: '#22ff00' }} />  
+                                                                          </center> } */}
+                                                                          {setChange(item)}
+                                                                    </td>
                                                             </tr>
                                                             <tr key={`${item.user}padding`} style={{ height: "5px" }} ></tr>
                                                         </Fragment>)

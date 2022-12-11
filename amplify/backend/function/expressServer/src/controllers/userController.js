@@ -2,12 +2,24 @@ const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const getJWTSecret = require('../utils/JWT')
+
+const { validationResult } = require('express-validator');
+
 // @desc Register new user
 // @route POST /api/users
 // @access Public
 
 const registerUser = async (req, res, next) => {
   try {
+    console.log(req.body.email);
+    const errors = validationResult(req);
+    //validate input
+    if (!errors.isEmpty() && errors.errors[0].msg === 'Invalid email entered') {
+      res.status(400);
+      res.errormessage = 'Invalid email address. Please try again';
+      return next(new Error('Invalid email address entered.'));
+    }
+
     // Parse the body
     let {
       firstname,

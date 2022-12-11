@@ -505,7 +505,11 @@ const getLeaguePortfolio = async (req,res,next) => {
                   {
                       '$project': {
                           'tradingFee': 1, 
-                          'maxDailyTrades': 1
+                          'maxDailyTrades': 1,
+                          'sectors':1,
+                          'minERating':1,
+                          'minSRating':1,
+                          'minGRating':1
                       }
                   }
               ]

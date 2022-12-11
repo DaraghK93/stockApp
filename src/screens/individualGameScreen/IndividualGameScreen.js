@@ -9,7 +9,7 @@ import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
 import { Link } from "react-router-dom";
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
-import {Logout, Delete} from '@mui/icons-material';
+import {Logout, Cancel} from '@mui/icons-material';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -220,7 +220,7 @@ function IndividualGameScreen() {
                             variant="danger"
                             onClick={() =>{setShowAreYouSureModal(true)}} 
                             style={{margin: '1rem'}}
-                            >Delete League <Delete/></Button>
+                            >Cancel League <Cancel/></Button>
                             }
                             {
                                 !isAdmin() && league.finished !== true &&

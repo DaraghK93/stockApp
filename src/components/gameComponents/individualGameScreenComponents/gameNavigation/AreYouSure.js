@@ -98,7 +98,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
             {
                 !success &&
             isAdmin === true &&
-                    <Modal.Title>Are you sure you want to delete this league?</Modal.Title>
+                    <Modal.Title>Are you sure you want to cancel this league?</Modal.Title>
                     }
             {
                 !success &&

@@ -38,19 +38,13 @@ function StockPage() {
     const [percentageChange, setPercentageChange] = useState()
 
 
-    const day = [
-        { date: '01-10', price: 400 },
-        { date: '01-11', price: 700 },
-        { date: '01-12', price: 60 },
-        { date: '01-13', price: 700 },
-        { date: '01-01', price: 500 }]
-
     // data coming directly from the stock object provided above. This means that another request is not needed
+    const oneDayPrices = stock.day
     const oneWeekPrices = stock.week
     const oneMonthPrices = stock.month
     const oneYearPrices = stock.year
     const [active, setActive] = useState("1");
-    const [data, setData] = useState(day);
+    const [data, setData] = useState(oneDayPrices);
     /// Redux State ///
     const portfolios = useSelector((state) => state.portfolios)
     const { activePortfolios } = portfolios;
@@ -67,7 +61,7 @@ function StockPage() {
 
     const DayData = event => {
         // toggle shown data
-        setData(day);
+        setData(oneDayPrices);
         setAbsoluteChange(stock.daily_change.absoluteChange)
         setPercentageChange(stock.daily_change.percentageChange)
         setActive(event.target.id);
@@ -155,7 +149,7 @@ function StockPage() {
     useEffect(() => {
         try {
         setStockPricesLoading(true)
-        setData(oneYearPrices)
+        setData(oneDayPrices)
         setActive("1")
         setAbsoluteChange(stock.daily_change.absoluteChange)
         setPercentageChange(stock.daily_change.percentageChange)
@@ -164,7 +158,7 @@ function StockPage() {
             setStockPricesLoading(false)
 
         }
-    }, [stock, oneYearPrices])
+    }, [stock, oneDayPrices])
 
     return (
 

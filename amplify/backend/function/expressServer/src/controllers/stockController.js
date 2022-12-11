@@ -200,6 +200,13 @@ const getAllGameStocks = async (req, res, next) => {
 // return the aggregate query for different stock categories
 try{
   const {sectors,minERating,minSRating,minGRating} = req.query
+  // with query params 1 entry === string > 1 entry === object need to handle for this
+  let gameSectors = [];
+  if(typeof sectors === 'string'){
+    gameSectors.push(sectors)
+  } else if (typeof sectors === 'object') {
+    gameSectors = sectors;
+  }
   // check that all of the data is there
   if (
     typeof req.query.sectors === 'undefined' ||
@@ -209,7 +216,8 @@ try{
     req.query.sectors === '' ||
     req.query.minERating === ''||
     req.query.minSRating === ''||
-    req.query.minGRating === ''
+    req.query.minGRating === '' ||
+    gameSectors.length < 1
   ) {
     // data is missing bad request
     res.status(400);
@@ -234,7 +242,7 @@ try{
   'Technology',
   'Utilities']
 
-  const sectorsCheck = req.query.sectors;
+  const sectorsCheck = gameSectors;
 
   if(sectorsCheck.length === 0){
     // Invalid sector bad request
@@ -330,7 +338,7 @@ try{
         { 'esgrating.environment_score': { $gte: minERatingINT } },
         { 'esgrating.social_score': { $gte: minSRatingINT } },
         { 'esgrating.governance_score': { $gte: minGRatingINT } },
-        { sector: { $in: sectors } },
+        { sector: { $in: gameSectors } },
       ],
     }).select({ prices: 0 }).skip(noToSkip).limit(noPerPage);
 
@@ -356,6 +364,13 @@ try{
 const getGameStocks = async (req, res, next) => {
   try{
     const {sectors,minERating,minSRating,minGRating} = req.query
+    // with query params 1 entry === string > 1 entry === object need to handle for this
+    let gameSectors = [];
+    if(typeof sectors === 'string'){
+      gameSectors.push(sectors)
+    } else if (typeof sectors === 'object') {
+      gameSectors = sectors;
+    }
 
     // check that all of the data is there
     if (
@@ -366,7 +381,8 @@ const getGameStocks = async (req, res, next) => {
       req.query.sectors === '' ||
       req.query.minERating === ''||
       req.query.minSRating === ''||
-      req.query.minGRating === ''
+      req.query.minGRating === '' ||
+      gameSectors.length < 1
     ) {
       // data is missing bad request
       res.status(400)
@@ -392,7 +408,7 @@ const getGameStocks = async (req, res, next) => {
     'Technology',
     'Utilities']
 
-    const sectorsCheck = req.query.sectors;
+    const sectorsCheck = gameSectors;
 
     if(sectorsCheck.length === 0){
       // Invalid sector bad request
@@ -446,7 +462,7 @@ const getGameStocks = async (req, res, next) => {
       // the game rules are sent in the request query
       // this might need to be changed but is ok for now
       // this gets the game summary
-      gameStocks = await stockService.gameStockSummary(sectors,minERatingINT,minSRatingINT,minGRatingINT)
+      gameStocks = await stockService.gameStockSummary(gameSectors,minERatingINT,minSRatingINT,minGRatingINT)
     }
     else if (type === 'all'){
       //hardcoding 20 per page for all stocks at the minute can change if needed
@@ -477,7 +493,7 @@ const getGameStocks = async (req, res, next) => {
       }
       
 
-      gameStocks = await stockService.getAllGameStocks(sectors,minERatingINT,minSRatingINT,minGRatingINT,pageNumberINT,stocksPerPage);
+      gameStocks = await stockService.getAllGameStocks(gameSectors,minERatingINT,minSRatingINT,minGRatingINT,pageNumberINT,stocksPerPage);
     }
     else{
       // No stock found

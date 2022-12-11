@@ -1,23 +1,26 @@
 /* ***************************** Stock Card Container ***************************** */
 @import "../global_variables.scss";
 
-
-::-webkit-scrollbar {
-  width: 0;
-  overflow: none;
-  height: 0;
+::-webkit-scrollbar-track {
+  background: $shadow;
 }
+::-webkit-scrollbar-thumb {
+  background: grey;
+}
+
+.createGameScrollBars{
 
 ::-webkit-scrollbar-track {
   background: $background;
 }
 ::-webkit-scrollbar-thumb {
-  background: $shadow;
+  background:$shadow;
   border-radius: 100vw;
   border: .20em solid $background;
 
 }
 
+}
 
 .tickercardstyle {
   width: 10rem;

@@ -230,7 +230,7 @@ function IndividualGameScreen() {
                             <br></br><h2>This is stocks screen</h2>
                         </Container>
                     }
-                    {isShownPortfolio && portfolio.holdings.length && portfolio.transactions.length === 0 ?
+                    {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
 
                         <>
                             <Container style={{ textAlign: "center" }}>

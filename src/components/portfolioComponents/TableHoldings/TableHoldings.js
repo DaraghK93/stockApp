@@ -40,7 +40,7 @@ function TableHoldings({ data }) {
             return parseFloat(holding.units) > 0
         })
         setTableData(filtered)
-    }, [])
+    }, [data])
 
     window.addEventListener("resize", showCols);
 

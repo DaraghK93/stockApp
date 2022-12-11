@@ -97,6 +97,18 @@ h1,
 
 .stockInfoCol {
     margin-bottom: 0.625rem;
+
+::-webkit-scrollbar {
+  width: 0;
+  overflow: none;
+  height: 0;
+}
+
+
+
+
+
+
 }
 
 .infoCardStyle {

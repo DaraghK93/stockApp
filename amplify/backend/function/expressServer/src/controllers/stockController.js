@@ -471,9 +471,7 @@ const getGameStocks = async (req, res, next) => {
       let pageNumberINT = parseInt(pageNumber);
 
       // if no page number included only show the first page
-      console.log('pagenumber =' +pageNumber)
       if(!pageNumber){
-        console.log('here')
         pageNumberINT =0
       }
 

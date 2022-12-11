@@ -13,8 +13,6 @@ import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 
 function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
 
-    console.log(data)
-
     const [tickBoolean, setTickBoolean] = useState(false)
  
     window.addEventListener("resize", showTick);

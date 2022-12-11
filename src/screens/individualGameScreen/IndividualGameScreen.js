@@ -18,7 +18,6 @@ import TimeLine from "../../components/gameComponents/individualGameScreenCompon
 import ValueLine from "../../components/gameComponents/individualGameScreenComponents/ValueLine";
 import CopyComponent from "../../components/widgets/CopyComponent/CopyComponent";
 import TransactionHistory from "../../components/portfolioComponents/TransactionHistory/TransactionHistory";
-import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 
 function IndividualGameScreen() {
 
@@ -158,9 +157,6 @@ function IndividualGameScreen() {
         }
     }
 
-    // console.log(portfolio)
-
-
     return (
         <>
             {loading || portfolioLoading ? <LoadingSpinner /> 
@@ -217,7 +213,8 @@ function IndividualGameScreen() {
                                 <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
                             </Container>
                         </>
-                        : isShownPortfolio &&
+                        :
+                         isShownPortfolio &&
                         <>
                             <Container>
                                 <Row>

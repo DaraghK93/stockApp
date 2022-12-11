@@ -8,8 +8,13 @@ function GamePortfolio({ data, name, totalValue }) {
     var lineColor;
     var gradientColor;
     var positiveSymbol;
+    var absoluteChange;
+    var percentageChange
 
     function redOrGreen() {
+        absoluteChange = data[0].value - data[1].value
+        percentageChange = ((data[0].value - data[1].value) / data[1].value) * 100
+
         if (parseFloat(absoluteChange) > 0) {
             lineColor = "#00C49F"
             gradientColor = "#b5e8df"
@@ -21,10 +26,6 @@ function GamePortfolio({ data, name, totalValue }) {
         }
         return lineColor
     }
-
-
-    const absoluteChange = data[0].value - data[1].value
-    const percentageChange = ((data[0].value - data[1].value)/ data[1].value) * 100
 
     return (
         <>
@@ -41,15 +42,17 @@ function GamePortfolio({ data, name, totalValue }) {
                     </Row>
                     <Row>
                         <Col style={{ paddingLeft: 0 }}>
-                            {data.length > 1 ?
+                            {data.length === 0 ?
+
+                                <MessageAlert variant="info">No value history yet for this
+                                    portfolio! Come back tomorrow and see your portfolio value change <TrendingUpIcon></TrendingUpIcon></MessageAlert>
+                                :
                                 <>
                                     <dl className='infoList' style={{ padding: 0 }}>
                                         <dt style={{ color: redOrGreen() }}> {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
                                     </dl>
                                     <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"value"} />
-                                </> :
-                                <MessageAlert variant="info">No value history yet for this
-                                    portfolio! Come back tomorrow and see your portfolio value change <TrendingUpIcon></TrendingUpIcon></MessageAlert>
+                                </>
                             }
                         </Col>
                     </Row>

@@ -11,7 +11,8 @@ import {
     USER_LOGIN_REQUEST,USER_LOGIN_SUCCESS,USER_LOGIN_FAIL,USER_LOGOUT,  // For userLoginLogoutReducer 
     USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_REGISTER_FAIL, // For userRegisterReducer
     USER_CHANGEDETAILS_REQUEST, USER_CHANGEDETAILS_SUCCESS, USER_CHANGEDETAILS_FAIL, // For userChangeDetailsReducer
-    USER_VERIFY_JWT_REQUEST,USER_VERIFY_JWT_SUCCESS, USER_VERIFY_JWT_FAIL // For userJWTVerifyReducer
+    USER_VERIFY_JWT_REQUEST,USER_VERIFY_JWT_SUCCESS, USER_VERIFY_JWT_FAIL, // For userJWTVerifyReducer
+    RESET_ERROR
 } from "../constants/userActionConstants";
 
 /// userLoginReducer ///
@@ -49,6 +50,8 @@ export function userRegisterReducer(state = {}, action) {
         case USER_REGISTER_REQUEST:
             // Set loading to true 
             return {loading: true}
+        case RESET_ERROR:
+            return {error: action.payload}
         // User succfully registered 
         case USER_REGISTER_SUCCESS:
             // have user deatials at this point 
@@ -94,6 +97,8 @@ export function userChangeDetailsReducer(state = {}, action) {
         case USER_CHANGEDETAILS_REQUEST:
             // Set loading to true 
             return {loading: true, success: false}
+        case RESET_ERROR:
+            return {error: action.payload}
         // User succfully registered 
         case USER_CHANGEDETAILS_SUCCESS:
             // have user deatials at this point 

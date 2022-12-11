@@ -24,3 +24,6 @@ export const USER_CHANGEDETAILS_FAIL    = "USER_CHANGEDETAILS_FAIL";
 export const USER_VERIFY_JWT_REQUEST  = "USER_VERIFY_JWT_REQUEST";
 export const USER_VERIFY_JWT_SUCCESS  = "USER_VERIFY_JWT_SUCCESS";
 export const USER_VERIFY_JWT_FAIL     = "USER_VERIFY_JWT_FAIL";
+
+// Reset errors for components
+export const RESET_ERROR  =  "RESET_ERROR";

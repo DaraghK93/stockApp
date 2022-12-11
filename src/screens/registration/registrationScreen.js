@@ -4,9 +4,8 @@
 // Description:
 //  This screen contains the components rendered to the user when they are registering to use the site.
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
-import InfoButtonHover from '../../components/widgets/InfoButtonHover/InfoButtonHover';
 
 // The below three imports are used for the dropdown menu for location. react-bootstrap-country-select
 // was installed for this.
@@ -44,6 +43,22 @@ function RegistrationPage() {
   /// Need loading and error from registration
   const userRegistration = useSelector((state) => state.userRegistration)
   const { loading, error } = userRegistration
+
+  useEffect(() => {
+    // Register the onbeforeunload event
+    window.onbeforeunload = () => {
+      // Dispatch your action here
+      dispatch({
+        type: 'RESET_ERROR',
+        payload: null,
+      });
+    };
+
+    // Unregister the event when the component is unmounted
+    return () => {
+      window.onbeforeunload = null;
+    };
+  });
 
   function handleSubmit(event) {
     event.preventDefault()

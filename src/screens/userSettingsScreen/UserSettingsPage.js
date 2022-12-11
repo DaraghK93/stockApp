@@ -3,7 +3,7 @@
 //  <URL>/changeuserdetails
 // Description:
 //  This screen contains the components for a user to change their account details
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
@@ -75,6 +75,22 @@ function UserSettingsPage() {
       set,
     };
   }
+
+  useEffect(() => {
+    // Register the onbeforeunload event
+    window.onbeforeunload = () => {
+      // Dispatch your action here
+      dispatch({
+        type: 'RESET_ERROR',
+        payload: null,
+      });
+    };
+
+    // Unregister the event when the component is unmounted
+    return () => {
+      window.onbeforeunload = null;
+    };
+  });
 
   const traitError = useTrait('');
 

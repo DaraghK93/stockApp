@@ -16,6 +16,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
 
     const [noOfTicks, setNoOfTicks] = useState("")
 
+
     useEffect(() => {
 
         function showTick(event) {

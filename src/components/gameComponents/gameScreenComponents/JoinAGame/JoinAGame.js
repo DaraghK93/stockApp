@@ -127,12 +127,12 @@ function JoinAGame(){
                             <Row md={2} className="textCenter">
                                 <Col>
                                     <Link className="w-100" to={`/game`}>
-                                        <Button className="mb-2 w-100">Go To My Games</Button>
+                                        <Button className="mb-2 w-100">My Games</Button>
                                     </Link>
                                 </Col>
                                 <Col>
                                     <Link className="w-100" to={`/stockdiscovery`}>
-                                        <Button className="mb-2 w-100">Go To Stock Discovery</Button>
+                                        <Button className="mb-2 w-100">Stock Discovery</Button>
                                     </Link>
                                 </Col>
                                 

@@ -13,6 +13,7 @@ import Modal from 'react-bootstrap/Modal';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Confetti from 'react-confetti'
 import { ContentPasteSearchOutlined } from "@mui/icons-material";
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
@@ -51,17 +52,7 @@ function JoinAGame(){
             }
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
-            setleague(res)
             setLeagueName(res.newLeague.leagueName)
-            setLeagueID(res.newLeague._id)
-
-            console.log("League:", league)
-            console.log("League ID:",LeagueID)
-            console.log("Res Type:",typeof(res))
-            console.log("LeagueName Type:",typeof(LeagueName))
-            console.log("LeagueID Type:",typeof(LeagueID))
-
-            console.log("League ID here:",LeagueID)
             if (res.newLeague.active){
                 /// If the game being joined is active then update the active portfolios state in redux 
                 /// Called becuase joining a game will also create a new portfolio for that game 
@@ -118,7 +109,7 @@ function JoinAGame(){
                         <Modal.Body>
                             <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
                         <Confetti numberOfPieces={500} recycle={false}/>
-                                <h2 className="greenSuccess">Succesfully joined league: "{leagueName}"!</h2>
+                                <h2 className="greenSuccess"><GroupAddIcon /> Succesfully joined league: "{leagueName}"!</h2>
                                 <Col className="w-100 mb-4">
                                     <CheckCircleOutlineSharpIcon className="greenSuccess" style={{ "fontSize": "10rem" }} />
                                 </Col>
@@ -126,7 +117,7 @@ function JoinAGame(){
                             </Row>
                             <Row md={2} className="textCenter">
                                 <Col>
-                                    <Link className="w-100" to={`/game`}>
+                                    <Link className="w-100" to={`/game`} onClick={() => window.location.reload()}>
                                         <Button className="mb-2 w-100">My Games</Button>
                                     </Link>
                                 </Col>

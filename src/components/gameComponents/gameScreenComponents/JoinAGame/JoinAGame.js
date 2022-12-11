@@ -9,12 +9,21 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 import {useSelector,useDispatch} from 'react-redux';
 import {updateActivePortfolios} from '../../../../actions/portfolioActions';
+import Modal from 'react-bootstrap/Modal';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
+import Confetti from 'react-confetti'
+import { ContentPasteSearchOutlined } from "@mui/icons-material";
 
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [league, setleague] = useState("")
     const [leagueName, setLeagueName] = useState("")
+    const [LeagueID, setLeagueID] = useState("")
+    
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
 
     /// Redux
     const dispatch = useDispatch()
@@ -25,9 +34,12 @@ function JoinAGame(){
     const handleSubmit = async(event) =>{
         event.preventDefault()
         try{
+            const handleShow = () => setShow(true);
             setLoading(true)
             setError("")
             setLeagueName("")
+            setleague("")
+            setLeagueID("")
             let path = '/api/league/joinleague'
             // auth token in header
             // access token in the body 
@@ -39,7 +51,17 @@ function JoinAGame(){
             }
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
+            setleague(res)
             setLeagueName(res.newLeague.leagueName)
+            setLeagueID(res.newLeague._id)
+
+            console.log("League:", league)
+            console.log("League ID:",LeagueID)
+            console.log("Res Type:",typeof(res))
+            console.log("LeagueName Type:",typeof(LeagueName))
+            console.log("LeagueID Type:",typeof(LeagueID))
+
+            console.log("League ID here:",LeagueID)
             if (res.newLeague.active){
                 /// If the game being joined is active then update the active portfolios state in redux 
                 /// Called becuase joining a game will also create a new portfolio for that game 
@@ -88,7 +110,34 @@ function JoinAGame(){
                         </Form>
                    </FormContainer>
                     {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                    {leagueName && <MessageAlert variant="success">Succesfully Joined <span className="bolded">{leagueName}</span>, Goodluck!</MessageAlert>}
+                    {/* {leagueName && <MessageAlert variant="success">Succesfully Joined <span className="bolded">{leagueName}</span>, Goodluck!</MessageAlert>} */}
+                {/* {typeof leagueName !== "undefined" && <JoinGameSuccess showState={show} setShowState={setShow} leagueNameSuccess={leagueName}/>} */}
+                    
+                {leagueName &&
+                    <Modal show={setShow} onHide={handleClose} backdrop="static">
+                        <Modal.Body>
+                            <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
+                                <h2 className="greenSuccess">Succesfully joined {leagueName}!</h2>
+                                <Col className="w-100 mb-4">
+                                    <CheckCircleOutlineSharpIcon className="greenSuccess" style={{ "fontSize": "10rem" }} />
+                                </Col>
+                                <Confetti numberOfPieces={500} recycle={false} />
+                            </Row>
+                            <Row md={2} className="textCenter">
+                                <Col>
+                                    <Link className="w-100" to={`/game`}>
+                                        <Button className="mb-2 w-100">Go To My Games</Button>
+                                    </Link>
+                                </Col>
+                                <Col>
+                                    <Link className="w-100" to={`/game/`}>
+                                        <Button className="mb-2 w-100">Go To Stock Discovery</Button>
+                                    </Link>
+                                </Col>
+                            </Row>
+                        </Modal.Body>
+                    </Modal>
+                }
                     {loading && <LoadingSpinner/>}
             </Card.Body>
         </Card>

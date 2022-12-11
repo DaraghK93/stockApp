@@ -44,6 +44,7 @@ function OrderConfirmationPage() {
     /// Game State ///
     const [gameTradeFee, setGameTradeFee] = useState()
     const [gameId, setGameId] = useState()
+    const [gameRestrictions, setGameRestrictions] = useState()
     
     //// Portfolio State ////
     const [portfolio, setPortfolio] = useState({})
@@ -77,6 +78,7 @@ function OrderConfirmationPage() {
                 let path = `/api/stock/${symbol}`
                 // Send the request with API package
                 const res = await API.get(APIName, path)
+                // console.log(res)
                 // Set the state for the stock and loading to false 
                 setStock(res)
                 setStockLoading(false)
@@ -119,11 +121,19 @@ function OrderConfirmationPage() {
                 }
                 /// Send the request 
                 const res = await API.get(APIName, path, myInit)
+                // console.log(res)
                 /// Set the current portfolio 
                 setPortfolio({
                     id: res._id,
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
+                })
+                /// Set the game restrictions 
+                setGameRestrictions({
+                    minERating: res.league.minERating,
+                    minSRating: res.league.minSRating,
+                    minGRating: res.league.minGRating,
+                    sectors: res.league.sectors
                 })
                 /// Need to get the users current holding 
                 if (res.holdings.length > 0){
@@ -169,6 +179,11 @@ function OrderConfirmationPage() {
             setDollarAmountSelected(1)
         }
     },[buyOrSell])
+
+
+    //// Cehck for the environment and sector scores ////
+    console.log(gameRestrictions)
+    console.log(stock)
 
     return (
         <>

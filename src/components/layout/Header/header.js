@@ -40,7 +40,7 @@ function Header() {
   }
 
   return (
-    <Navbar expand="lg" variant="dark"
+    <Navbar fixed="top" expand="lg" variant="dark"
       className="navbar">
       <Container>
         <Navbar.Brand style={{ color: 'white' }} as={Link} to="/game">FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
@@ -56,10 +56,8 @@ function Header() {
                 </Nav>
                 <Nav>
                   <NavDropdown  className="justify-content-end userDropDown"  title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
-                  <NavDropdown.Item as={Link} to="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/myportfolios">Portfolios</NavDropdown.Item>
-                  <div className="dropdown-divider"></div>
                   <NavDropdown.Item as={Link}  to="/settings">Settings</NavDropdown.Item>
+                  <div className="dropdown-divider"></div>
                 <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>

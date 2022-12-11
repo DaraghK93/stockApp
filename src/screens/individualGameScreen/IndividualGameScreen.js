@@ -173,7 +173,6 @@ function IndividualGameScreen() {
         }
     }
 
-    // console.log(portfolio)
 
 
     return (
@@ -216,7 +215,7 @@ function IndividualGameScreen() {
                                 ESGGameType={ESGGameType()}
                             />
                             <Container>
-                                {isAdmin() &&
+                                {isAdmin() && league.finished !== true &&
                             <Button 
                             variant="danger"
                             onClick={() =>{setShowAreYouSureModal(true)}} 
@@ -224,7 +223,7 @@ function IndividualGameScreen() {
                             >Delete League <Delete/></Button>
                             }
                             {
-                                !isAdmin() &&
+                                !isAdmin() && league.finished !== true &&
                                 <Button 
                                 variant="danger"
                             onClick={() =>{setShowAreYouSureModal(true)}} 

@@ -8,9 +8,13 @@ import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
 import { Link } from "react-router-dom";
+import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
+import {Logout, Cancel} from '@mui/icons-material';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
+
+
 
 /// Redux ///
 import { useSelector } from 'react-redux';
@@ -31,6 +35,7 @@ function IndividualGameScreen() {
     const [isShownGameDetails, setisShownGameDetails] = useState(false);
     const [isShownStocks, setisShownStocks] = useState(false);
     const [isShownPortfolio, setisShownPortfolio] = useState(false);
+    const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
@@ -54,6 +59,16 @@ function IndividualGameScreen() {
         }
         else if (league.minGRating > 0) {
             return "Governance"
+        }
+    }
+
+    function isAdmin() {
+        if (league.leagueAdmin === userInfo.username){
+            return true
+        }
+        else {
+
+            return false
         }
     }
 
@@ -158,7 +173,6 @@ function IndividualGameScreen() {
         }
     }
 
-    // console.log(portfolio)
 
 
     return (
@@ -200,7 +214,30 @@ function IndividualGameScreen() {
                                 stockTypes={league.sectors}
                                 ESGGameType={ESGGameType()}
                             />
+                            <Container>
+                                {isAdmin() && league.finished !== true &&
+                            <Button 
+                            variant="danger"
+                            onClick={() =>{setShowAreYouSureModal(true)}} 
+                            style={{margin: '1rem'}}
+                            >Cancel League <Cancel/></Button>
+                            }
+                            {
+                                !isAdmin() && league.finished !== true &&
+                                <Button 
+                                variant="danger"
+                            onClick={() =>{setShowAreYouSureModal(true)}} 
+                            style={{margin: '1rem'}}
+                            >Leave League <Logout/></Button>
+                            }
                         </Container>
+                        <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
+                            leagueId={league._id}
+                            portfolioId={portfolio._id}
+                            isAdmin={isAdmin()}
+                />
+                            </Container>
+
                     }
                     {isShownStocks &&
                         <Container>

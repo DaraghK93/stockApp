@@ -261,6 +261,9 @@ const checkLeagueRules = async (portfolio, stock, transactionFee) => {
         // if there are no leagues then return an error
         return {error:404, errormessage: "No League Found"}
       }
+      else if (league.active === false){
+        return {error:400, errormessage: "This league is not active. It may be over, check completed games!"}
+      }
       else {
         transactionFee = league.tradingFee
         if (!league.sectors.includes(stock.sector)){

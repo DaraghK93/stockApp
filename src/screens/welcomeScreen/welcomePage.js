@@ -40,16 +40,12 @@ function WelcomePage() {
                 <Container className="infoCardContainer">
                     <h3>Learn </h3>
                     <FlatColorIconsReading className="welcomeCardIcons"/>
-                    <p>Are you a beginner? Are you a seasoned expert? Regardless of which 
-                        category you fall into, there's lots of information to be found for users 
-                        of all levels as well as articles and YouTube videos that could give you the edge.
-                    </p>
                     <p>
-                        Users can also learn all about the game and the different types of games and trading 
-                        that are available through the application.
+                        Don't know your stocks from your stonks? Want to learn the basics about investing?
                     </p>
-                    <p>Get started today!</p>
-                    <Button as={Link} to="/faqs">Expand my Mind!</Button>
+                    <p>Head to the education section and start learning today!
+                        </p>
+                    <Button className="welcomeButton" as={Link} to="/faqs">Expand my Mind!</Button>
                     
                     
                 </Container>
@@ -58,35 +54,29 @@ function WelcomePage() {
                         <Col sm md={8} className="stockInfoCol">
                         <Card style={{backgroundColor:"#80ced7"}} height={100} className="welcomeInfoCardStyle">
                 <Container className="infoCardContainer">
-                    <h3>Play <TwemojiGameDie/></h3>
+                    <h3>Play </h3>
+                    <TwemojiGameDie className="welcomeCardIcons"/>
                     <p>
-                        Are you a competitive person? Maybe you learn best through games. 
-                    </p>
-                    <p>
-                        Users can also learn all about the game and the different types of games and trading 
-                        that are available through the application.
-                    </p>
-                    <p>Get started today!</p>
-                    <Button as={Link} to="/faqs">Lets Play!</Button>
+                        Think you know more than your friends? Prove it here by creating a league and inviting them to play!
+                        </p>
+                        <p>Head to the games section and show us what you can do!
+                        </p>
+                    <Button className="welcomeButton" as={Link} to="/game">Lets Play!</Button>
                     
                     
                 </Container>
             </Card>
                         </Col>
                         <Col sm md={8} className="stockInfoCol">
-                        <Card style={{backgroundColor:"#8E6C88"}} height={100} className="welcomeInfoCardStyle">
+                        <Card style={{backgroundColor:"#cb88fd"}} height={100} className="welcomeInfoCardStyle">
                 <Container className="infoCardContainer">
-                    <h3>Explore <FlatColorIconsBinoculars/></h3>
-                    <p>Are you a beginner? Are you a seasoned expert? Regardless of which 
-                        category you fall into, there's lots of information to be found for users 
-                        of all levels as well as articles and YouTube videos that could give you the edge.
-                    </p>
+                    <h3>Explore </h3>
+                    <FlatColorIconsBinoculars className="welcomeCardIcons"/>
                     <p>
-                        Users can also learn all about the game and the different types of games and trading 
-                        that are available through the application.
+                        Not all those who wander are lost, but you can get lost in the nearly 500 stocks that can be found on the app!
                     </p>
-                    <p>Get started today!</p>
-                    <Button as={Link} to="/faqs">I'm ready!</Button>
+                    <p>Realise the full capabilities of FinOptimise!</p>
+                    <Button className="welcomeButton" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
                     
                     
                 </Container>

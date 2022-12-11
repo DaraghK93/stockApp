@@ -5,7 +5,10 @@ import { Link } from "react-router-dom"
 import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import { ChevronUp, ChevronDown } from "react-feather"
 
-function TransactionHistory({ transactions }) {
+function TransactionHistory({ transactions, cancelOrder }) {
+
+    // console.log(transactions)
+
     // for column in pending
     const [showPendingCol, setShowPendingCol] = useState(false)
     const [hidePendingCol, setHidePendingCol] = useState(true)
@@ -170,6 +173,9 @@ function TransactionHistory({ transactions }) {
             setPostsPerPage(totalPosts)
         }
     }
+    // router.post('/cancelLimitOrder',protectedRoute,cancelLimitOrder)
+
+
 
 
 
@@ -203,7 +209,7 @@ function TransactionHistory({ transactions }) {
                     {data.length > 0 ?
                         <>
                             <Table style={{ borderCollapse: "collapse" }}>
-                                <thead>
+                                <thead style={{ color: "black", verticalAlign: "middle", fontSize: "80%", textAlign: "center" }} >
                                     <tr key="cols">
                                         {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder, test }) => {
 
@@ -256,7 +262,14 @@ function TransactionHistory({ transactions }) {
                                                 <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.tradingFee}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                 <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
                                                 <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
-                                                <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}><center><Button variant="danger">Cancel</Button></center></td>
+                                                {showPendingCol &&
+                                                <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}>
+                                                    <center>
+                                                        <Button variant="danger" 
+                                                        onClick={() => cancelOrder(transaction._id, transaction.portfolioId)}
+                                                        >Cancel</Button>
+                                                        </center></td>
+                                                }
                                                 <td className={hideDesktop ? "leaderBoardShow" : "leaderBoardHide"} key={index + 200}>
                                                     <center><Button style={{ padding: 0, margin: 0, color: "black" }}
                                                         variant="link"

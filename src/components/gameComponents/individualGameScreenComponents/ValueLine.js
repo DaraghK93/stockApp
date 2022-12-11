@@ -59,20 +59,20 @@ function ValueLine({ portfolios, winningValue, accessCode }) {
     function progressBars() {
         if (portfolios.length >= 3) {
             return <>
-                <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 50) } now={portfolios[0].totalValue} />
-                <ProgressBar label={portfolios[1].user} striped variant="success" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 50) } now={portfolios[1].totalValue} />
-                <ProgressBar label={portfolios[2].user} striped variant="danger" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 50) } now={portfolios[2].totalValue} />
+                <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 40) } now={portfolios[0].totalValue} />
+                <ProgressBar label={portfolios[1].user} striped variant="success" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 40) } now={portfolios[1].totalValue} />
+                <ProgressBar label={portfolios[2].user} striped variant="danger" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 40) } now={portfolios[2].totalValue} />
             </>
         }
         else if (portfolios.length === 2) {
             return <>
-                <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 50) } now={portfolios[0].totalValue} />
-                <ProgressBar label={portfolios[1].user} striped variant="success" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 50) } now={portfolios[1].totalValue} />
+                <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={portfolios[1].totalValue -( portfolios[1].totalValue/ 40) } now={portfolios[0].totalValue} />
+                <ProgressBar label={portfolios[1].user} striped variant="success" max={winningValue} min={portfolios[1].totalValue -( portfolios[1].totalValue/ 40) } now={portfolios[1].totalValue} />
             </>
         }
         else if (portfolios.length === 1) {
             return <>
-                <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={portfolios[2].totalValue -( portfolios[2].totalValue/ 50) } now={portfolios[0].totalValue} />
+                <ProgressBar label={portfolios[0].user} striped variant="info" max={winningValue} min={portfolios[0].totalValue -( portfolios[0].totalValue/ 40) } now={portfolios[0].totalValue} />
             </>
         }
     }

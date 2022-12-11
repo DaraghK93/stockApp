@@ -25,7 +25,7 @@ function TableHoldings({ data }) {
     const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
 
     const columns = [
-        { label: "Logo", accessor: "logo", sortable: false, showHeader: true },
+        { label: "Company", accessor: "logo", sortable: false, showHeader: true },
         { label: "Ticker", accessor: "symbol", sortable: true, showHeader: showCol },
         { label: "Value", accessor: "currentValue", sortable: true, sortbyOrder: "desc", showHeader: true },
         { label: "Qty", accessor: "units", sortable: true, sortbyOrder: "desc", showHeader: showCol },
@@ -115,7 +115,7 @@ function TableHoldings({ data }) {
 
     return (
         <>
-            {data.length > 0 ?
+            {tableData.length > 0 ?
                 <Container>
 
 

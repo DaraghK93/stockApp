@@ -30,6 +30,7 @@ function IndividualGameScreen() {
     const [isShownGameDetails, setisShownGameDetails] = useState(false);
     const [isShownStocks, setisShownStocks] = useState(false);
     const [isShownPortfolio, setisShownPortfolio] = useState(false);
+    const [success, setSuccess] = useState("")
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
@@ -41,6 +42,7 @@ function IndividualGameScreen() {
     const { userInfo } = user;
     const userToken = userInfo.token
     var accessString = league.accessCode
+
     function ESGGameType() {
         if (league.minERating === 0 && league.minSRating === 0 && league.minGRating === 0) {
             return "No Restrictions"
@@ -98,7 +100,7 @@ function IndividualGameScreen() {
                 setPortfolioError(error.response.data.errormessage)
                 setPortfolioLoading(false)
             });
-    }, [userToken])
+    }, [userToken, success])
 
 
     const disPlayScreen = (e) => {
@@ -157,6 +159,31 @@ function IndividualGameScreen() {
         }
     }
 
+
+    const cancelOrder = async ( transactionId, portfolioId ) => {
+        try{
+                /// Set the portfolio Loading to true and reset error
+                setLoading(true)
+                setError()
+                const path = '/api/portfolio/cancelLimitOrder'
+                let myInit = {
+                    headers : {"x-auth-token": userToken},       
+                    body: {
+                        transactionId: transactionId, 
+                        portfolioId: portfolioId, 
+                    }
+                }
+                /// Send the request 
+                await API.post(APIName, path, myInit)
+                /// Set the success message using the
+                setSuccess("Success")
+                setLoading(false)
+        }catch(error){
+            setError(error.response.data.errormessage)
+            setLoading(false)
+        }
+     }
+
     return (
         <>
             {loading || portfolioLoading ? <LoadingSpinner /> 
@@ -203,7 +230,7 @@ function IndividualGameScreen() {
                             <br></br><h2>This is stocks screen</h2>
                         </Container>
                     }
-                    {isShownPortfolio && portfolio.holdings.length === 0 ?
+                    {isShownPortfolio && portfolio.holdings.length && portfolio.transactions.length === 0 ?
 
                         <>
                             <Container style={{ textAlign: "center" }}>
@@ -227,7 +254,7 @@ function IndividualGameScreen() {
                                 </Row>
                                 <Row>
                                     <Col><br></br>
-                                        <TransactionHistory transactions={portfolio.transactions}/>
+                                        <TransactionHistory transactions={portfolio.transactions} cancelOrder={cancelOrder} />
                                     </Col>
                                 </Row>
                             </Container>

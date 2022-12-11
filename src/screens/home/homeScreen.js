@@ -605,7 +605,7 @@ function HomeScreen() {
         </Row>
         <Row>
           <Col className='mb-3'>
-            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", margin:"2rem 1rem 2rem 1rem" }}>
               Play Now
             </Button>
           </Col>
@@ -634,7 +634,7 @@ function HomeScreen() {
         </Row>
         <Row className='py-4'>
           <Col>
-            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", marginTop:"2rem"}}>
               Explore Now
             </Button>
           </Col>
@@ -654,7 +654,13 @@ function HomeScreen() {
             </Col>
           </Row>
           <Row><IntelligenceCarousel /></Row>
-
+          <Row>
+          <Col className='mb-3'>
+            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem", margin:"2rem 1rem 1rem 1rem" }}>
+              Start Learning
+            </Button>
+          </Col>
+        </Row>
       </Container>
       <Footer />
 

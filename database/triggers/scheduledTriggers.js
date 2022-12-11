@@ -7,13 +7,12 @@
 // runs on at 9:00am everyday as a CRON Job - 00 9 * * * - cron expr
 exports = function() {
 
-    const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
-    // get today in date format
-    const today = new Date().setHours(0,0,0,0);
-    //update any collection where the startDate is today. set active to true. starts the league
-    return collection.updateMany({ startDate: new Date(today) }, {$set:{active:true}});
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
+  const today = new Date().setHours(0,0,0,0);
   
-  }
+  return collection.updateMany({startDate: new Date(today),finished: false }, {$set:{active:true}});
+};
+  
   
   // finish time based leagues function
   // scheduled trigger
@@ -27,21 +26,19 @@ exports = function() {
         return collection.aggregate([
           {
             '$match': {
-              // match on active timebased leagues where endDate is today
               'leagueType':"timeBased",
               'active': true, 
               'finished': false, 
               'endDate': new Date(today)
             }
           }, {
-            // get portfolio values
             '$lookup': {
               'from': 'portfolioValues', 
               'localField': 'portfolios', 
               'foreignField': '_id', 
               'as': 'portfolios', 
               'pipeline': [
-                {// lookup user names
+                {
                   '$lookup': {
                     'from': 'users', 
                     'localField': 'userId', 
@@ -49,16 +46,14 @@ exports = function() {
                     'as': 'user'
                   }
                 }, {
-                  // set into array
                   '$unwind': {
                     'path': '$user'
                   }
                 }, {
-                  // set user as the username
                   '$set': {
                     'user': '$user.username'
                   }
-                }, {// just show value and username
+                }, {
                   '$project': {
                     'totalValue': 1, 
                     'user': 1
@@ -66,40 +61,42 @@ exports = function() {
                 }
               ]
             }
-          }, {// make portfolios into array for sorting
+          }, {
             '$unwind': {
               'path': '$portfolios'
             }
-          }, {// sort to get leaderboard
+          }, {
             '$sort': {
               'portfolios.totalValue': -1
             }
-          }, {// group by league and portfolios and make into their own objects
+          }, {
             '$group': {
               '_id': '$_id', 
               'league': {
                 '$first': '$$ROOT'
               }, 
-              // push the leaderboard to portfolio field
               'portfolios': {
                 '$push': '$portfolios'
               }
             }
-          }, {// add that field to main league object
+          }, {
             '$addFields': {
               'league.portfolios': '$portfolios'
             }
-          }, {// make league the root object
+          }, {
             '$replaceRoot': {
               'newRoot': '$league'
             }
-          }, {// finish the game and set leaderboard to finalStandings
+          }, {
             '$set': {
               'active': false, 
               'finished': true, 
               'finalStandings': '$portfolios'
             }
-          }, {// merge the changes
+          }, {
+            '$unset': 'portfolios'
+          },
+          {
             '$merge': {
               'into': 'leagues', 
               'on': '_id'
@@ -107,3 +104,77 @@ exports = function() {
           }
         ]);
       }
+    
+
+// reset the daily trades
+// runs every day at 9pm
+// resets the tradesToday field in all portfolios
+exports = function() {
+  // Access a mongodb service:
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
+  // find the portfolios where tradesToday are greater than 0 and set them back to 0
+  return collection.updateMany({ tradesToday : {$gt:0}}, {$set:{tradesToday: 0 }});
+};
+
+
+
+exports = function() {
+
+
+  // Access a mongodb service:
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("portfolios");
+  const today = new Date().setHours(0,0,0,0);
+  return collection.aggregate([
+  {
+      '$lookup': {
+          'from': 'leagues', 
+          'localField': 'leagueId', 
+          'foreignField': '_id', 
+          'as': 'league'
+      }
+  }, {
+      '$lookup': {
+          'from': 'portfolioValues', 
+          'localField': '_id', 
+          'foreignField': '_id', 
+          'as': 'totalVal'
+      }
+  }, {
+      '$unwind': {
+          'path': '$totalVal'
+      }
+  }, {
+      '$unwind': {
+          'path': '$league'
+      }
+  }, {
+      '$match': {
+          'league.finished': false
+      }
+  }, {
+      '$set': {
+          'valueHistory': {
+              '$concatArrays': [
+                  '$valueHistory', [
+                      {
+                          'date':   new Date(today), 
+                          'value': '$totalVal.totalValue'
+                      }
+                  ]
+              ]
+          }
+      }
+  }, {
+      '$project': {
+          'valueHistory': 1
+      }
+  }, {
+      '$merge': {
+          'into': 'portfolios', 
+          'on': '_id'
+      }
+  }
+])
+                          
+                          
+};

@@ -154,7 +154,7 @@ function IndividualGameScreen() {
         } else { 
             return (
                 
-                <p style={{"textAlign":"center","padding-top":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
+                <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
                 is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
             )
         }
@@ -171,7 +171,7 @@ function IndividualGameScreen() {
         if (portfolio.valueHistory.length === 0 ) {
             return <LeaderBoard leaderBoardInfo={info} change={league.startingBalance}/>
         } else {
-            return <LeaderBoard leaderBoardInfo={info} change={portfolio.valueHistory[-1].value}/>
+            return <LeaderBoard leaderBoardInfo={info} change={portfolio.valueHistory[portfolio.valueHistory.length -1].value}/>
         }
     }
 

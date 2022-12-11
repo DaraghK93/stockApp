@@ -117,7 +117,8 @@ function JoinAGame(){
                     <Modal show={setShow} onHide={handleClose} backdrop="static">
                         <Modal.Body>
                             <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
-                                <h2 className="greenSuccess">Succesfully joined {leagueName}!</h2>
+                        <Confetti numberOfPieces={500} recycle={false}/>
+                                <h2 className="greenSuccess">Succesfully joined league: "{leagueName}"!</h2>
                                 <Col className="w-100 mb-4">
                                     <CheckCircleOutlineSharpIcon className="greenSuccess" style={{ "fontSize": "10rem" }} />
                                 </Col>
@@ -130,10 +131,11 @@ function JoinAGame(){
                                     </Link>
                                 </Col>
                                 <Col>
-                                    <Link className="w-100" to={`/game/`}>
+                                    <Link className="w-100" to={`/stockdiscovery`}>
                                         <Button className="mb-2 w-100">Go To Stock Discovery</Button>
                                     </Link>
                                 </Col>
+                                
                             </Row>
                         </Modal.Body>
                     </Modal>

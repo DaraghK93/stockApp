@@ -23,6 +23,7 @@ function getStockPriceData (stocks) {
     function getDatesInRange(startDate, endDate) {
         // the below function will create an array of dates from today back one month
         const date = new Date(startDate.getTime())
+        
     
         const dates = []
     
@@ -39,23 +40,33 @@ function getStockPriceData (stocks) {
         return dates
     }
     var formattedTimeArray = []
-    var formattedTimeOutputArray = []
     const startTime = moment()
-    const remainder = 20 - (startTime.minute() % 20)
-    const datestart = moment(startTime).add(remainder, "minutes")
+    const startTimesMoment = new Date(startTime)
+    let showDate
+    if (startTimesMoment.getDay() === 6){
+      // checks if today is Saturday and instead sets it to 11pm on Friday (the last time the lambda runs)
+      showDate = moment(startTimesMoment).subtract(1, "days").set({hour:23,minute:0,second:0,millisecond:0})
+    }
+    else if (startTimesMoment.getDay() === 0){
+      // checks if today is Sunday and instead sets it to 11pm on Friday (the last time the lambda runs)
+      showDate = moment(startTimesMoment).subtract(2, "days").set({hour:23,minute:0,second:0,millisecond:0})
+    }
+    else {
+      showDate = startTimesMoment
+    }
+    const remainder = 20 - (showDate.minute() % 20)
+    const datestart = moment(showDate).add(remainder, "minutes")
     const oneDayTimes = timeOneDay(datestart)
-    const standardFormattingDay = oneDayTimes[0]
-    const niceFormattingDay = oneDayTimes[1]
+    const standardFormattingDay = oneDayTimes
+
     function timeOneDay(datestart) {
+      // this function gets 20 min intervals from start date and time back to yesterday at the same time
         var formattedTime
-        var formattedTimeOutput
         for (i = 0; i < 24*3 + 1; i++) { //fill in all of the hours
           formattedTime = (moment(datestart).subtract(i*20, "minutes")).format("YYYY-MM-DD[T]HH:mm")
-          formattedTimeOutput = (moment(datestart).subtract(i*20, "minutes")).format("MMM DD HH:mm")
           formattedTimeArray.push(formattedTime) //add to beginning of array
-          formattedTimeOutputArray.push(formattedTimeOutput) //add to beginning of array
         } //do this for all 24 hours
-        return [formattedTimeArray, formattedTimeOutputArray]
+        return formattedTimeArray
       }
 
     // Date() gives us the current date, Date(end_Date) interprets the 
@@ -71,10 +82,6 @@ function getStockPriceData (stocks) {
     dateRangeYear = getDatesInRange(yearStart, today)
 
 
-    // get dates in format DD/MM for the graphs
-    // dateRangeWeekNoYear = getDatesInRange(weekStart, today)[1]
-    // dateRangeMonthNoYear = getDatesInRange(monthStart, today)[1]
-    // dateRangeYearNoYear = getDatesInRange(yearStart, today)[1]
 
     // create an object for the prices (similar to python dictionary)
     const prices_day = []
@@ -86,14 +93,13 @@ function getStockPriceData (stocks) {
     for (var i = 0; i < standardFormattingDay.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
         if(typeof(daily_prices[standardFormattingDay[i]]) != 'undefined'){     
-        prices_day.push({"date": niceFormattingDay[i], "price": daily_prices[standardFormattingDay[i]]["Close"] })}}
-    console.log(dateRangeWeek)
+        prices_day.push({"date": standardFormattingDay[i], "price": daily_prices[standardFormattingDay[i]]["Close"] })}}
     // ***One Week***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeWeek.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
         if(typeof(weekly_prices[dateRangeWeek[i]+"T20:00"]) != 'undefined'){     
-        prices_week.push({"date": dateRangeWeek[i], "price": weekly_prices[dateRangeWeek[i]+"T20:00"]["Close"] })}}
+        prices_week.push({"date": dateRangeWeek[i]+"T20:00", "price": weekly_prices[dateRangeWeek[i]+"T20:00"]["Close"] })}}
         
     // ***One Month***
     // loop through the date range list and extract the data
@@ -101,14 +107,14 @@ function getStockPriceData (stocks) {
         // the format of the data keys is "YYYY-MM-DDT20:00"
         if(typeof(monthly_prices[dateRangeMonth[i]+"T20:00"]) != 'undefined'){
         
-        prices_month.push({"date": dateRangeMonth[i], "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
+        prices_month.push({"date": dateRangeMonth[i]+"T20:00", "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
     
     // ***One Year***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeYear.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
         if(typeof(yearly_prices[dateRangeYear[i]+"T20:00"]) != 'undefined'){
-        prices_year.push({"date": dateRangeYear[i], "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
+        prices_year.push({"date": dateRangeYear[i]+"T20:00", "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
     
     return [prices_week, prices_month,prices_year, prices_day]
 

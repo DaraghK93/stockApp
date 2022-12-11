@@ -9,7 +9,6 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
 
     const [showTop3, setShowTop3] = useState(false);
     const [showCol, setShowCol] = useState(true)
-    console.log(startingBalance)
     useEffect(() => {
         if (leaderBoardInfo.length > 3) {
             setShowTop3(true)
@@ -55,7 +54,7 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
             <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />
             </center>
         } else if (change < 0) {
-            return <center>-{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
             <KeyboardDoubleArrowDownIcon style={{ fill: '#22ff00' }} />
             </center>
         } else {

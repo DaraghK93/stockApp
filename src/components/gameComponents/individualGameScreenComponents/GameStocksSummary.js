@@ -7,6 +7,8 @@ import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 import { useSelector } from 'react-redux';
 
+import { Row, Col, Container } from 'react-bootstrap';
+
 function GameStocksSummary({ league }) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
@@ -50,7 +52,13 @@ function GameStocksSummary({ league }) {
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
-        <MessageAlert variant='danger'>{error}</MessageAlert>
+        <Container>
+          <Row>
+            <Col className='text-center mx-5'>
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            </Col>
+          </Row>
+        </Container>
       ) : (
         <>
           <h3 className='stockdiscoveryRow'>Today's Biggest Positive Movers</h3>

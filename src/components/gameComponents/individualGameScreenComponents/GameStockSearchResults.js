@@ -65,7 +65,13 @@ function GameStockSearchResults({ keyword, league }) {
       {loading ? (
         <LoadingSpinner />
       ) : error ? (
-        <MessageAlert variant='danger'>{error}</MessageAlert>
+        <Container>
+          <Row>
+            <Col className='text-center mx-5'>
+              <MessageAlert variant='danger'>{error}</MessageAlert>
+            </Col>
+          </Row>
+        </Container>
       ) : Object.keys(stocks).length !== 0 ? (
         <>
           <h3 className='stockdiscoveryRow'>
@@ -123,9 +129,15 @@ function GameStockSearchResults({ keyword, league }) {
         </>
       ) : (
         <>
-          <MessageAlert variant='danger'>
-            No results match your search term "{keyword}"
-          </MessageAlert>
+          <Container>
+            <Row>
+              <Col className='text-center mx-5'>
+                <MessageAlert variant='danger'>
+                  No results match your search term "{keyword}"
+                </MessageAlert>
+              </Col>
+            </Row>
+          </Container>
         </>
       )}
     </>

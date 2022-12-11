@@ -603,13 +603,13 @@ function HomeScreen() {
 
       <Container className='splash-page-container'>
         <Row>
-          <Row><GameCarousel /></Row>
-          <Col>
+          <Col><GameCarousel /></Col>
+        </Row>
+        <Row>
+          <Col className='mb-3'>
             <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
               Play Now
             </Button>
-            <br></br>
-            <br></br>
           </Col>
         </Row>
       </Container>
@@ -644,7 +644,10 @@ function HomeScreen() {
       </Container>
       <Container className='splash-page-container'>
         <Row className='py-4'>
+          <Col>
           <h1>Advanced A.I. Tools</h1>
+          </Col>
+        </Row>
           <Row>
             <Col className='mx-4'>
               <p className='splashpageParagraph'>
@@ -653,7 +656,6 @@ function HomeScreen() {
             </Col>
           </Row>
           <Row><IntelligenceCarousel /></Row>
-        </Row>
 
       </Container>
       <Footer />

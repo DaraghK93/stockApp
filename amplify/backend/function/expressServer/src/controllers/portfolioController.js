@@ -122,7 +122,7 @@ const buyStock = async (req, res, next) => {
     else if ( req.body.units <= 0){
       // check that the units and values exist
       res.status(400)
-      res.errormessage = 'Units must be greater than 0'
+      res.errormessage = 'Quantity must be greater than 0'
       return next(
         new Error(
           'Units are negative. Should be a positive number'
@@ -364,6 +364,29 @@ const sellStock = async (req, res, next) => {
     // otherwise fee is 0
     transactionFee = 0
   }
+  if(req.body.orderType === "LIMIT"){
+    // if a limit order make sure they can't go negative
+    if(portfolio.remainder - transactionFee < 0){
+      res.status(400)
+        res.errormessage = 'Cannot afford to put this sell order in place.'
+        return next(
+          new Error(
+            'Cannot complete as the portfolio balance will be less than 0 because of the transaction fee.'
+          )
+        )
+    }
+  }
+  else{
+    if(portfolio.remainder + value - transactionFee < 0){
+      res.status(400)
+        res.errormessage = 'Cannot afford to make this sale as the user balance will be less than 0.'
+        return next(
+          new Error(
+            'Cannot complete as the portfolio balance will be less than 0 due to the transaction fee being greater than the amount of the sale and the current remainder.'
+          )
+        )
+    }
+  }
     // use the sellStock service found in the services folder
     const newPortfolio = await PortfolioService.sellStock(req.body, portfolio.remainder, value, transactionFee, transactionStatus)
     if (newPortfolio.error) {
@@ -436,10 +459,11 @@ const getLeaguePortfolio = async (req,res,next) => {
                   'as': 'stock', 
                   'pipeline': [
                     {
-                      // only show the symbol and shortname
+                      // only show the symbol, shortname and logo
                       '$project': {
                         'symbol': 1, 
-                        'shortname': 1
+                        'shortname': 1,
+                        'logo':1
                       }
                     }
                   ]

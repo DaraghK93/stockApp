@@ -37,13 +37,50 @@
 
 .stockdiscoveryRow {
   margin:1rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
   margin-left: 2rem;
   padding-right: 1rem;
   background-color: $stockdiscoverybackground;
   white-space: initial;
   word-wrap: break-word;
   width:90%;
+  text-align: left;
+}
+
+.stockdiscoveryRowTitle {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  // color: #000000;
+  background-color: #ffffff;
+  white-space: initial;
+  word-wrap: break-word;
+  width:100%;
+  text-align: center;
+}
+
+.stockdiscoveryRowTitleTop {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  // color: #000000;
+  background-color: #ffffff;
+  white-space: initial;
+  word-wrap: break-word;
+  width:100%;
+  text-align: center;
+}
+
+.discoverySectionDiv{
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #C0C0C0;
+  margin-top: 4rem;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 .tickerCardImgContainer {
@@ -64,4 +101,21 @@
 .noBorderFont90{
   border: none;
   font-size:90%
+}
+
+mark.positive {
+  color:green;
+  background: none;
+  font-weight: bold;
+}
+
+mark.negative {
+  color:red;
+  background: none;
+  font-weight: bold;
+}
+
+mark.bold {
+  font-weight: bold;
+  background: none;
 }

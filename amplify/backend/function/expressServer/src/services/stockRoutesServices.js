@@ -115,9 +115,9 @@ function getStockPriceData (stocks) {
 };
 
 // This function makes an API call to the API gateway for the recommender lambda function
-const getRecomms = async (stock) => {
-    // This sets the body of the request to the stock ticker input. This will be changed to take in user ID in the next iteration.
-    var data = '{"stock":' + '"' + stock + '"}';
+const getRecomms = async (userID) => {
+    // This sets the body of the request to the userID. 
+    var data = '{"userid":' + '"' + userID + '"}';
     try {
       const resp = await axios({
         method: 'GET',
@@ -146,7 +146,9 @@ const stocks =  schema.aggregate([
                 'daily_change.currentprice': 1,
                 'esgrating.environment_score': 1
             }
-        }
+        },
+        {$addFields: {"order": {$indexOfArray: [recommended, "$symbol" ]}}},
+        {$sort: {"order": 1}}
         ],
         // agg query for top environment
         topEnvironment: [{$match :{}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
@@ -226,6 +228,36 @@ const stocks =  schema.aggregate([
                                                             'daily_change.currentprice':1}},
         {$sort: {'daily_change.percentageChange': -1}},
         { $limit: 20}],
+      CommunicationServices: [{ $match: { sector: "Communication Services" } }, {
+        $project: {
+          'symbol': 1, 'longname': 1, 'exchange': 1, 'logo': 1,
+          'daily_change.absoluteChange': 1,
+          'daily_change.percentageChange': 1,
+          'daily_change.currentprice': 1
+        }
+      },
+      { $sort: { 'daily_change.percentageChange': -1 } },
+      { $limit: 20 }],
+      BasicMaterials: [{ $match: { sector: "Basic Materials" } }, {
+        $project: {
+          'symbol': 1, 'longname': 1, 'exchange': 1, 'logo': 1,
+          'daily_change.absoluteChange': 1,
+          'daily_change.percentageChange': 1,
+          'daily_change.currentprice': 1
+        }
+      },
+      { $sort: { 'daily_change.percentageChange': -1 } },
+      { $limit: 20 }],
+      Energy: [{ $match: { sector: "Energy" } }, {
+        $project: {
+          'symbol': 1, 'longname': 1, 'exchange': 1, 'logo': 1,
+          'daily_change.absoluteChange': 1,
+          'daily_change.percentageChange': 1,
+          'daily_change.currentprice': 1
+        }
+      },
+      { $sort: { 'daily_change.percentageChange': -1 } },
+      { $limit: 20 }],
         Utilities: [{$match :{sector:"Utilities"}},{$project: {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
                                                             'daily_change.absoluteChange':1,
                                                             'daily_change.percentageChange':1,
@@ -237,8 +269,78 @@ const stocks =  schema.aggregate([
 return stocks
 }
 
+// gets the game stock summary to display on game stocks page
+const gameStockSummary =  (sectors,minErating,minSRating,minGRating) => {
+
+  // match statement, will be the same for them all
+  // filters for the min ratings are >= game rating
+  // filters for the sectors that are pplayable
+  const matchStatement = {'esgrating.environment_score':{$gte:minErating},
+                          'esgrating.social_score':{$gte:minSRating},
+                          'esgrating.governance_score':{$gte:minGRating},
+                          'sector':{$in:sectors}}
+
+  // this decides what fields are included in the response
+  // corresponds to the info shown on the ticker cars
+  const projectStatement = {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                            'daily_change.absoluteChange':1,
+                            'daily_change.percentageChange':1,
+                            'daily_change.currentprice':1,
+                            'esgrating.environment_score': 1}
+
+                        
+  const stocks =  Stock.aggregate([
+    { $facet: 
+        {
+        // agg query for top environment
+        topEnvironment: [{$match : matchStatement},
+                         {$project: projectStatement },
+                         {$sort: {'esgrating.environment_score': -1}},
+                         { $limit: 20}], 
+        // agg query for top social
+        topSocial: [{$match :matchStatement},{$project: projectStatement },
+                      {$sort: {'esgrating.social_score': -1}},
+                      { $limit: 20}],
+        // agg query for top governance
+        topGovernance: [{$match :matchStatement},{$project: projectStatement},
+                        {$sort: {'esgrating.governance_score': -1}},
+                        { $limit: 20}],
+        topGainers: [{$match :matchStatement},{$project: projectStatement},
+                      {$sort: {'daily_change.percentageChange': -1}},
+                      { $limit: 20}],
+        topLosers: [{$match :matchStatement},{$project: projectStatement},
+                    {$sort: {'daily_change.percentageChange': 1}},
+                    { $limit: 20}],
+                 
+        
+      }
+  }])
+  return stocks
+}
+
+// gets the game stock summary to display on game stocks page
+const getAllGameStocks =  (sectors,minErating,minSRating,minGRating,pageNumber,pageSize) => {
+  const projectStatement = {'symbol': 1,'longname': 1,'exchange':1,'logo':1,
+                            'daily_change.absoluteChange':1,
+                            'daily_change.percentageChange':1,
+                            'daily_change.currentprice':1,
+                            'esgrating.environment_score': 1}
+
+  const amountToSkip = pageSize * pageNumber;
+  const stocks = Stock.find({'esgrating.environment_score':{$gte:minErating},
+    'esgrating.social_score':{$gte:minSRating},
+    'esgrating.governance_score':{$gte:minGRating},
+    'sector':{$in:sectors}}).select(projectStatement).skip(amountToSkip).limit(pageSize)
+                        
+  return stocks
+}
+
+
+
 module.exports = {
     getStockPriceData,
     getStockSummary,
-    getRecomms
+    getRecomms,
+    gameStockSummary,
+    getAllGameStocks
 }

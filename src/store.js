@@ -6,7 +6,7 @@
 import {configureStore, getDefaultMiddleware} from '@reduxjs/toolkit'
 
 /// Reducers ///
-import {userLoginLogoutReducer,userRegisterReducer} from './reducers/userReducers';
+import {userLoginLogoutReducer,userRegisterReducer, userChangeDetailsReducer, userJWTVerifyReducer} from './reducers/userReducers';
 import {portfolioReducer} from './reducers/portfolioReducers';
 
 /// Initial State ///#
@@ -26,8 +26,10 @@ const initialState = {
 const store = configureStore({
     reducer:{
         user: userLoginLogoutReducer,
+        validJWT: userJWTVerifyReducer,
         userRegistration: userRegisterReducer,
-        portfolios: portfolioReducer
+        portfolios: portfolioReducer,
+        userChangeDetails: userChangeDetailsReducer
     },
     middleware: [...getDefaultMiddleware()],
     devTools: true,

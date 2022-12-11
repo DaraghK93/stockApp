@@ -15,7 +15,12 @@ const UserSchema = new mongoose.Schema(
     firstname: { type: String, trim: true, required: true },
     lastname: { type: String, trim: true, required: true },
     username: { type: String, trim: true, required: true, unique: true },
-
+    avatar:{ type: String,
+             enum: ["/avatar_1.jpg",
+                    "/avatar_2.jpg",
+                    "/avatar_3.jpg",
+                    "/avatar_4.jpg"],
+            default: "/avatar_3.jpg"},
     email: {
       type: String,
       trim: true,
@@ -30,7 +35,6 @@ const UserSchema = new mongoose.Schema(
     overeighteen: { type: Boolean, trim: true, required: true, default: true },
     password: { type: String, trim: true, required: true },
     location: { type: String, trim: true },
-    image: { type: String },
     bio: { type: String },
     portfolios: [{type: Schema.Types.ObjectId, ref: "PortfolioData"}],
     leagues: [{type: Schema.Types.ObjectId, ref: "league" }],
@@ -50,5 +54,6 @@ UserSchema.methods.generatePasswordReset = function() {
   this.resetPasswordToken = crypto.randomBytes(20).toString('hex');
   this.resetPasswordExpires = Date.now() + 3600000; //expires in an hour
 };
+
 
 module.exports = mongoose.model('UserData', UserSchema)

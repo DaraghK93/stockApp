@@ -9,12 +9,13 @@ const getJWTSecret = require('../utils/JWT')
 const registerUser = async (req, res, next) => {
   try {
     // Parse the body
-    const {
+    let {
       firstname,
       lastname,
       email,
       username,
       password,
+      avatar,
       overeighteen
     } = req.body
 
@@ -43,6 +44,14 @@ const registerUser = async (req, res, next) => {
       res.errormessage = 'User already exists'
       return next(new Error('User already exists'))
     }
+    let userWithUsername = await User.findOne({ username })
+
+    // Check for existing user
+    if (userWithUsername) {
+      res.status(400)
+      res.errormessage = 'Username already taken'
+      return next(new Error('Username already taken'))
+    }
     // Check if user ticked over eighteen checkbox
     if (overeighteen !== true) {
       res.status(400)
@@ -63,6 +72,7 @@ const registerUser = async (req, res, next) => {
       username,
       email,
       password,
+      avatar,
       overeighteen,
     })
 
@@ -85,10 +95,11 @@ const registerUser = async (req, res, next) => {
     jwt.sign(
       payload,
       jwtSecret,
-      { expiresIn: 360000 },
+      { expiresIn: 172800 },
       (err, token) => {
         if (err) throw err
         res.json({
+          _id : user.id,
           firstname,
           lastname,
           email,
@@ -153,17 +164,15 @@ const loginUser = async (req, res, next) => {
     jwt.sign(
       payload,
       jwtSecret,
-      { expiresIn: 360000 },
+      { expiresIn: 172800 },
       (err, token) => {
         if (err) throw err
         res.json({
+          _id: user.id,
           firstname: user.firstname,
           lastname: user.lastname,
           email,
           username: user.username,
-          dob: user.dob,
-          image: user.image,
-          bio: user.bio,
           portfolios: user.portfolios,
           token,
         })

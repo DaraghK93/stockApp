@@ -25,8 +25,10 @@ const portfoliosView = () => {
         '$addFields': {
           'totalValue': {
             '$add': [
-              '$remainder', {
+              '$remainder', '$frozenBalance', {
                 '$sum': '$result.currentValue'
+              }, {
+                '$sum': '$result.frozenValue'
               }
             ]
           }
@@ -39,7 +41,8 @@ const portfoliosView = () => {
           'remainder': 1, 
           'leagueId': 1, 
           'userId': 1, 
-          'valueHistory': 1
+          'valueHistory': 1, 
+          'frozenBalance': 1
         }
       }
     ])

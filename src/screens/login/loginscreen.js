@@ -63,6 +63,9 @@ function LoginPage() {
           <Col className="text-center py-2">
             <a href="/auth/recover" style={{color:'#006195'}}>Forgot password?</a>
           </Col>
+          <Col className="text-center py-2">
+            <a href="/register" style={{color:'#006195'}}>Create account</a>
+          </Col>
         </Row>
         <Row>
           <Col className="text-center py-4">
@@ -71,6 +74,7 @@ function LoginPage() {
             </Button>
           </Col>
         </Row>
+
       </Form>
     </FormContainer>
   )

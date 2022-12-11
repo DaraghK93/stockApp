@@ -3,7 +3,7 @@
 //  <URL>/stock/:symbol
 // Description:
 //  This screen contains the components rendered to the user when they click on an individual stock
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import { Container, Row, Col } from "react-bootstrap";
 import StockPriceChart from "../../components/stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
@@ -15,16 +15,32 @@ import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
 import NewsArticleContainer from '../../components/newsComponents/newsArticleContainer/NewsArticleContainer';
 import BottomStickyButton from '../../components/widgets/BottomStickyButton/BottomStickyButton';
 import TweetContainer from '../../components/tweetComponents/tweetContainer/tweetContainer';
+import BasicModal from "../../components/widgets/BasicModal/BasicModal";
 
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
+/// Redux ///
+import { useSelector} from 'react-redux';
+
 
 function StockPage() {
+    /// Component State ///
     const [loading, setLoading] = useState(true);
     const [stock, setStock] = useState('');
     const [error, setError] = useState("");
+    const [showTradeModal, setShowTradeModal] = useState(false)
+
+    /// Redux State ///
+    const portfolios = useSelector((state) => state.portfolios)
+    const { activePortfolios } = portfolios;
+
+    /// React Router ///
+    const navigate = useNavigate() 
+
+    // get symbol from query Params
+    const { symbol } = useParams()
 
     var lineColor;
     var gradientColor;
@@ -43,6 +59,17 @@ function StockPage() {
         return lineColor
     }
 
+    function onClickTradeButton(){ 
+        if(activePortfolios.length === 0){
+            /// No Active Portfolios, show a info modal 
+            setShowTradeModal(true)
+        }else{
+            /// Redirect to the trade page
+            navigate(`/stock/${stock.symbol}/confirmorder`) 
+        }
+    }
+
+
     useEffect(() => {
         /// getStockInfo ///
         // Description:
@@ -51,8 +78,6 @@ function StockPage() {
             try {
                 // Request is being sent set loading true   
                 setLoading(true);
-                // get the symbol from the url string, use regex to extract capital letters only
-                const symbol = window.location.href.replace(/[^A-Z]/g, '');
                 // Set the path and use symbol to get single stock
                 let path = `/api/stock/${symbol}`
                 // Send the request with API package
@@ -69,7 +94,7 @@ function StockPage() {
             }
         }
         getStockInfo();
-    }, [])
+    }, [symbol])
 
 
 
@@ -103,9 +128,15 @@ function StockPage() {
                     </Row>
                     <Row>
                         <Col className="stockInfoCol">
-                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
-                            <BottomStickyButton text="Lets Trade!" />
-                            </Link>
+                            <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
+                            <BasicModal showState={showTradeModal} setShowState={setShowTradeModal} title={"No Active Portofolios"} 
+                            bodyText={
+                                <>
+                                <p>It appears you don't have an active portfolio!</p>
+                                <p>To be able to trade stocks you need to be part of an active game.</p>
+                                <p>You can view your active games or create a new game from the <Link className="linkStyle" to={"/game/"}>Game Screen</Link> </p>
+                                </>
+                                }/>
                         </Col>
                     </Row>
                     <Row>
@@ -138,5 +169,12 @@ function StockPage() {
         </>
     )
 };
+
+
+//<Col className="stockInfoCol">
+//                        <Link to={`/stock/${stock.symbol}/confirmorder`}>
+//                            <BottomStickyButton onClick={onClickTradeButton} text="Lets Trade!" />
+//                            </Link>
+//                        </Col>
 
 export default StockPage;

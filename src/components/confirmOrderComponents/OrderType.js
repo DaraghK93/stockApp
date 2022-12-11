@@ -1,22 +1,9 @@
-import { Card, Container, Button, Row, Col } from 'react-bootstrap';
-import { useState } from "react";
+import { Card, Button, Row, Col } from 'react-bootstrap';
+import InfoButtonModal from '../widgets/InfoButtonModal/InfoButtonModal';
 
-function OrderType({ setBuyOrSell, setOrderType }) {
-    const [active, setActive] = useState("");
-    const [active2, setActive2] = useState("");
+function OrderType({orderType,setOrderType,buyOrSell}) {
 
     const handleClick = (event) => {
-        setActive(event.target.id);
-        if (event.target.id === "1") {
-            setBuyOrSell("Buy")
-        }
-        else if (event.target.id === "2") {
-            setBuyOrSell("Sell")
-        }
-    }
-
-    const handleClick2 = (event) => {
-        setActive2(event.target.id);
         if (event.target.id === "1") {
             setOrderType("Market Order")
         }
@@ -26,47 +13,54 @@ function OrderType({ setBuyOrSell, setOrderType }) {
     }
 
     return (
-        <>
-            <Card>
-                <Container>
-                    <h5 style={{ marginTop: "10px" }}>Order Type</h5>
-                    <Row style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
-                        <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
-                            <Button
-                                onClick={handleClick}
-                                id={"1"}
-                                className={active === "1" ? "selectionButtonActive" : "selectionButton"}
-                            >Buy</Button>
-                        </Col>
-
-                        <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
-                            <Button
-                                id={"2"}
-                                onClick={handleClick}
-                                className={active === "2" ? "selectionButtonActive" : "selectionButton"}
-                            >Sell</Button>
-                        </Col>
-                    </Row>
+            <Card className="px-3">
+                    <h5 style={{ marginTop: "10px" }}>Order Type
+                     <InfoButtonModal title="Order Type" info={
+                        <>
+                        <p>There are two types of orders to choose from, these are <b>Market</b> and <b>Limit</b> orders.</p>
+                        <span className="semibolded">Market Orders - Instant</span>
+                        <p>Market Orders are orders that are completed instantly, if the user has enough money to do so.
+                        These are the most common types of orders that users will see in the real world.</p>
+                        <span className="semibolded">Limit Orders - Future</span>
+                        <p>Limit orders are orders that are put in place ahead of time based on the investor's predictions.
+                        For example, if an investor thinks that a stock may drop below a certain price, but that
+                        the stock is worth more than that price, they can place a limit order to buy that stock as soon as it
+                        hits that price. This is an example of an investor buying low in the hopes of making a profit when it increases.</p> 
+                        </>
+                   }/>
+                    </h5>
                     <Row style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "10px" }}>
                         <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
                             <Button
                                 id={"1"}
-                                onClick={handleClick2}
-                                className={active2 === "1" ? "selectionButtonActive" : "selectionButton"}
+                                active={orderType==="Market Order"}
+                                size="lg"
+                                onClick={handleClick}
+                                variant='outline-primary'
+                                className="orderButton"
                             >
-                                Market Order</Button>
+                                Market
+                                <p  onClick={() => {handleClick({"target":{"id":"1"}})}} className="orderButtonSubtitle">
+                                    {buyOrSell === "Buy"? <> Buy Now!</>:<>Sell Now!</>}
+                                </p>
+                                </Button>
                         </Col>
                         <Col style={{ display: "flex", alignItems: "center", justifyContent: "center", padding: "5px" }}>
                             <Button
                                 id={"2"}
-                                onClick={handleClick2}
-                                className={active2 === "2" ? "selectionButtonActive" : "selectionButton"}
-                            >Limit Order</Button>
+                                size="lg"
+                                active={orderType==="Limit Order"}  
+                                onClick={handleClick}
+                                variant='outline-primary'
+                                className="orderButton"
+                            >Limit
+                            <p onClick={() => {handleClick({"target":{"id":"2"}})}} className="orderButtonSubtitle">
+                                {buyOrSell === "Buy"? <> Buy Later!</>:<>Sell Later!</>}
+                            </p>
+                            </Button>
                         </Col>
                     </Row>
-                </Container>
             </Card>
-        </>
     );
 }
 

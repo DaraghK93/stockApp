@@ -1,0 +1,195 @@
+@import "../global_variables.scss";
+
+
+.splash-page-container {
+    align-items: center;
+    text-align: center;
+    width: 70%;
+}
+
+.banner {
+    text-align: center;
+    background-color: $primary;
+    margin-top: 3rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.quote {
+    font-weight: normal;
+    font-style: italic;
+    color: white;
+}
+
+.footer {
+    margin-top: 3rem;
+    margin-left: 0;
+    margin-right: 0;
+    background-color: $primary;
+    text-decoration-color: white;
+    text-align: center ;
+    color: white;
+    padding: 3rem;
+    
+}
+
+.stockDisplay {
+    background-color: $primary;
+    align-items: center;
+    margin: auto;
+    width:80%
+}
+
+.stockDisplayContainer {
+    //height: 25rem;
+    background-color: $primary;
+    padding: 2rem 0;
+    align-items: center;
+    text-align: center;
+    // width: 70%;
+}
+
+.d-block{
+    // max-width: 80%;
+    // mix-blend-mode: color-burn;
+}
+
+.carousel{
+    max-width: 100%;
+}
+
+.carousel-caption{
+    // background:rgb(183, 183, 183);
+    background-color:rgba(103, 103, 103, 0.9)
+    // opacity: 0.2;
+}
+
+.splashpageParagraph{
+    text-align: center;
+    font-size: large;
+}
+
+.carousel-caption h5{
+    font-size: 45px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 25px;
+    color:black;
+}
+
+.carousel-caption p{
+    width: 75%;
+    margin: auto;
+    font-size: 18px;
+    line-height: 1.9;
+    color:white;
+}
+
+.stockDisplayCol {
+    background-color: $primary;
+    ::-webkit-scrollbar-track {
+        background: $primary;
+        margin-inline-start: 0rem;
+        margin-inline-end: 0rem;
+      }
+    ::-webkit-scrollbar-thumb {
+        border: .20em solid $primary;
+    }
+      .cardContainer {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: 100%;
+        .sideScrollCard {
+          display: inline-block;
+          padding: 0.1875rem;
+          padding-top:0;
+        }
+
+      
+      }
+              .tickercardstyle {
+            width: 10rem;
+            height: 100%;
+            display: block;
+            border-width: none;
+            box-shadow: none;
+            border-color: none;
+          }
+}
+
+.not-clickable {
+    pointer-events: none;
+}
+
+.splashLogo{
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+// @media only screen and (min-width: 350px) {
+//     .splashLogo {
+//     max-width: 15rem;
+// }
+// }
+
+// @media (max-width: 900px) {
+//     .carousel {
+//       width:auto;
+//       height:auto;
+//     }
+// }
+
+@media (min-width:320px) {
+    /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
+    .splashLogo {
+        max-width: 15rem;
+    }
+    .carousel-caption{
+        font-size: 1px;
+    }
+    .splash-page-container {
+        width: 95%;
+    }
+}
+
+@media (min-width:480px) {
+    /* smartphones, Android phones, landscape iPhone */
+    .splash-page-container {
+        width: 95%;
+    }
+}
+
+@media (min-width:600px) {
+    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
+    .splash-page-container {
+        width: 80%;
+    }
+}
+
+@media (min-width:801px) {
+    /* tablet, landscape iPad, lo-res laptops ands desktops */
+    .splash-page-container {
+        width: 75%;
+    }
+}
+
+@media (min-width:1025px) {
+    /* big landscape tablets, laptops, and desktops */
+    .splash-page-container {
+        width: 70%;
+    }
+}
+
+@media (min-width:1281px) {
+    /* hi-res laptops and desktops */
+}
+
+.firstTickers {
+    width: 10rem;
+    height: 100%;
+    display: block;
+    border-width: 1.5px;
+    box-shadow: 5px 5px $shadow;
+  }
+

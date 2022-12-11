@@ -2,22 +2,29 @@ import {Row } from 'react-bootstrap';
 import { APIName } from '../../../constants/APIConstants'
 import { useState, useEffect } from 'react';
 import { API } from "aws-amplify";
+import {useSelector} from 'react-redux';
 import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import SideScrollMenu from '../../widgets/SideScrollMenu/SideScrollMenu';
 import TickerCard from '../tickercard/Tickercard';
+
 
 function StockSearchResults({keyword}) {
     const [stocks, setStock] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
+    const user = useSelector((state) => state.user)
+    const { userInfo } = user
+    const userToken = userInfo.token
+
      useEffect(() => {
      const getStocks = async () =>{
             try{
                 setLoading(true)
                 let path = `/api/stock?keyword=${keyword}`
-                const res = await API.get(APIName, path)
+                const params = {headers : {"x-auth-token": userToken}}
+                const res = await API.get(APIName, path, params)
                 setStock(res)
                 setLoading(false) 
             }catch(error){
@@ -27,7 +34,7 @@ function StockSearchResults({keyword}) {
             }
         }
         getStocks()
-    },[keyword])
+    },[userToken, keyword])
 
 
 

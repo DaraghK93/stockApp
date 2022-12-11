@@ -11,60 +11,106 @@
 
 exports = function(changeEvent) {
 
-    const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
-    return collection.aggregate([
-                                  {
-                                  // find all leagues that are valuebased and ongoing
-                                    '$match': {
-                                      'finished': false, 
-                                      'leagueType': 'valuebased'
-                                    }
-                                  }, {
-                                    // match on the foreign key portfolioID
-                                    // get the total values of all portfolios from the view
-                                    '$lookup': {
-                                      'from': 'portfoliosValue', 
-                                      'localField': 'portfolios', 
-                                      'foreignField': '_id', 
-                                      'as': 'values'
-                                    }
-                                  }, {
-                                    // set which fields to display, add new field max portfolio value
-                                    '$project': {
-                                      'leagueName': 1, 
-                                      'active': 1, 
-                                      'finished': 1, 
-                                      'winningValue': 1, 
-                                      'portfolioMax': {
-                                        '$max': '$values.totalValue'
-                                      }
-                                    }
-                                  }, {
-                                    // get the leagues where the max portfolio value is greater than
-                                    // the league  winning value
-                                    '$match': {
-                                      '$expr': {
-                                        '$gte': [
-                                          '$portfolioMax', '$winningValue'
-                                        ]
-                                      }
-                                    }
-                                  }, {
-                                    // set active to false and finished to true
-                                    '$set': {
-                                      'finished': true, 
-                                      'active': false
-                                    }
-                                  }, {
-                                    // remove portfolio max field so it's not added to the document
-                                    '$unset': 'portfolioMax'
-                                  }, {
-                                    // merge these changes (changes to active and finished) into
-                                    // the leagues collection, matching on leagueID
-                                    '$merge': {
-                                      'into': 'leagues', 
-                                      'on': '_id'
-                                    }
-                                  }
-                                ])
-                              }
+  const collection = context.services.get("finOptimiseDB").db("dev").collection("leagues");
+  return collection.aggregate([
+    {// match on active and valueBased leagues
+      '$match': {
+        'finished': false, 
+        'active': true, 
+        'leagueType': 'valueBased'
+      }
+    }, {// bring in portfolio values
+      '$lookup': {
+        'from': 'portfolioValues', 
+        'localField': 'portfolios', 
+        'foreignField': '_id', 
+        'as': 'values'
+      }
+    }, {// set the max value to a portfolioMax field
+      '$set': {
+        'portfolioMax': {
+          '$max': '$values.totalValue'
+        }
+      }
+    }, {// match on leagues where max portfolio value is >= winningValue
+      '$match': {
+        '$expr': {
+          '$gte': [
+            '$portfolioMax', '$winningValue'
+          ]
+        }
+      }
+    }, {// get rid of that field
+      '$unset': [
+        'values', 'portfolioMax'
+      ]
+    }, {// lookup the portfolio values and sort to get leaderboard
+      '$lookup': {
+        'from': 'portfolioValues', 
+        'localField': 'portfolios', 
+        'foreignField': '_id', 
+        'as': 'portfolios', 
+        'pipeline': [
+          { // bring in usenames
+            '$lookup': {
+              'from': 'users', 
+              'localField': 'userId', 
+              'foreignField': '_id', 
+              'as': 'user'
+            }
+          }, {
+            '$unwind': {
+              'path': '$user'
+            }
+          }, {
+            '$set': {
+              'user': '$user.username'
+            }
+          }, { // set the totalValue and username
+            '$project': {
+              'totalValue': 1, 
+              'user': 1
+            }
+          }
+        ]
+      }
+    }, { // make into objects
+      '$unwind': {
+        'path': '$portfolios'
+      }
+    }, {// sort
+      '$sort': {
+        'portfolios.totalValue': -1
+      }
+    }, { // group byleague and portfolio 
+      '$group': {
+        '_id': '$_id', 
+        'league': {
+          '$first': '$$ROOT'
+        }, 
+        'portfolios': {
+          '$push': '$portfolios'
+        }
+      }
+    }, {// set the pportfolios field to the leaderboard
+      '$addFields': {
+        'league.portfolios': '$portfolios'
+      }
+    }, {// make league the root object
+      '$replaceRoot': {
+        'newRoot': '$league'
+      }
+    }, {// finish the league and set finalStandings
+      '$set': {
+        'finished': true, 
+        'active': false, 
+        'finalStandings': '$portfolios'
+      }
+    }, {// merge to documents
+      '$merge': {
+        'into': 'leagues', 
+        'on': '_id'
+      }
+    }
+  ]);
+};

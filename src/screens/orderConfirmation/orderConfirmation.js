@@ -12,6 +12,7 @@ import PortfolioSelectionDropdown from "../../components/portfolioComponents/por
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
 import {useNavigate} from "react-router-dom"
+import { Link } from 'react-router-dom';
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -137,6 +138,7 @@ function OrderConfirmationPage() {
                     minGRating: res.league.minGRating,
                     sectors: res.league.sectors
                 })
+                console.log(res.league)
                 /// Need to get the users current holding 
                 if (res.holdings.length > 0){
                     res.holdings.forEach(item =>{
@@ -188,12 +190,11 @@ function OrderConfirmationPage() {
         console.log("CALLEDD HERE")
         /// Make sure they are not undefined before the check 
         if (typeof gameRestrictions !== "undefined" && typeof stock !== "undefined" && stock !== ''){
-            console.log("GOT HERE")
-            console.log(typeof stock)
-            console.log(gameRestrictions)
+            // console.log("GOT HERE")
+            // console.log(typeof stock)
             /// Reset them as they may have switched portfolio 
             setGameESGRestrictionError("")
-            setGameSectorRestrictionError("")
+            setGameSectorRestrictionError(false)
             /// Do a check first for ESG restrictions 
             if (stock.esgrating.environment_score < gameRestrictions.minERating){
                 setGameESGRestrictionError("Environment")
@@ -205,7 +206,7 @@ function OrderConfirmationPage() {
             //// Now do a check for the sectors 
             /// true  -> Sector is tradabale
             /// false -> Sector is not tradeable 
-            setGameSectorRestrictionError(gameRestrictions.sectors.includes(stock.sector))
+            setGameSectorRestrictionError(!gameRestrictions.sectors.includes(stock.sector))
             console.log(gameRestrictions)
             console.log(stock)
         }
@@ -240,9 +241,15 @@ function OrderConfirmationPage() {
                         <h3>Active Portfolio</h3>
                         <PortfolioSelectionDropdown portfolios={activePortfolios} state={gameId} setState={setGameId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
-                    {gameESGRestrictionError && 
+                    {(gameESGRestrictionError || gameSectorRestrictionError) && 
                     <Row md={1} style={{"textAlign":"center","alignItems":"center", "justifyContent":"center"}}>
-                        <MessageAlert className="tradeRestrictionsError" variant='danger'>Unfortunately this stock does not meet the minimum {gameESGRestrictionError} rating</MessageAlert>
+                        <MessageAlert className="tradeRestrictionsError" variant='danger'>
+                            {gameESGRestrictionError &&<p>Minimum {gameESGRestrictionError} rating not met</p>}
+                            {gameSectorRestrictionError && <p>{stock.sector} sector stocks not tradable due to game restrictions</p>}
+                            <p>
+                                Try a different portfolio or view the avaiable stocks to trade from the <Link to={`/game/${gameId}`}>Game Page</Link>
+                            </p>
+                        </MessageAlert>
                     </Row>
                     
                    }
@@ -351,7 +358,7 @@ function OrderConfirmationPage() {
                         onClick={() =>{setShowAreYouSureModal(true)}} 
                         text="Review Trade!" 
                         disabled={
-                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError || spendingPowerError)
+                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError || spendingPowerError || gameESGRestrictionError || gameSectorRestrictionError)
                         }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

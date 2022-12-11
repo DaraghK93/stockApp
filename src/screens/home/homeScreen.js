@@ -602,8 +602,6 @@ function HomeScreen() {
       </Container>
 
       <Container className='splash-page-container'>
-        <Row className='py-4'>
-        </Row>
         <Row>
           <Row><GameCarousel /></Row>
           <Col>

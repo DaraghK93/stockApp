@@ -161,6 +161,19 @@ function IndividualGameScreen() {
 
     }
 
+    function leaderboardFields() {
+        let info;
+        if (league.finished) {
+            info = league.finalStandings
+        } else {
+            info = league.portfolios
+        }
+        if (portfolio.valueHistory.length === 0 ) {
+            return <LeaderBoard leaderBoardInfo={info} change={league.startingBalance}/>
+        } else {
+            return <LeaderBoard leaderBoardInfo={info} change={portfolio.valueHistory[-1].value}/>
+        }
+    }
 
     return (
         <>
@@ -186,10 +199,7 @@ function IndividualGameScreen() {
                             <Container>
                                 {timeOrValueLine()}
                             </Container>
-                            {!league.finished ? (<LeaderBoard leaderBoardInfo={league.portfolios} />) :
-                            
-                            (<LeaderBoard leaderBoardInfo={league.finalStandings} />)
-                            }   
+                                {leaderboardFields()}
                         </>
                     }
                     {isShownGameDetails &&

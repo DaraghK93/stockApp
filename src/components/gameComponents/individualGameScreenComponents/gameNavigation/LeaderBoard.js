@@ -4,11 +4,11 @@ import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'reac
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 
-function LeaderBoard({ leaderBoardInfo }) {
+function LeaderBoard({ leaderBoardInfo, change }) {
 
     const [showTop3, setShowTop3] = useState(false);
     const [showCol, setShowCol] = useState(true)
-
+    console.log(change)
     useEffect(() => {
         if (leaderBoardInfo.length > 3) {
             setShowTop3(true)

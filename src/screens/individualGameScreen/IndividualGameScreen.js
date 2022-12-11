@@ -135,6 +135,34 @@ function IndividualGameScreen() {
         }
     }
 
+    function checkForDraw() {
+        if (league.finalStandings.length > 1) {
+
+        if (league.finalStandings[0].totalValue !== league.finalStandings[1].totalValue) {
+        return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
+        is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
+        } else {
+            let draws = [league.finalStandings[0].user]
+            for (let i = 1; i <league.finalStandings.length; i++) {
+                if (league.finalStandings[i].totalValue === league.finalStandings[0].totalValue ) {
+                    draws.push(league.finalStandings[i].user)
+                } else {
+                    break
+                }
+            
+            }
+            let drawString = draws.join(', ')
+            // replace last comma with and
+            drawString = drawString.replace(/,(?=[^,]+$)/, ', and ')
+            return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon>Draw between <strong>{drawString}! </strong> 
+             Have another go <Link to="/game">here!</Link> </p>
+        }
+    } else {
+        return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
+        is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
+    }
+}
+    
 
     function timeOrValueLine() {
 
@@ -154,12 +182,12 @@ function IndividualGameScreen() {
         } else { 
             return (
                 
-                <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
-                is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
+                checkForDraw()
             )
         }
 
     }
+
     
     return (
         <>

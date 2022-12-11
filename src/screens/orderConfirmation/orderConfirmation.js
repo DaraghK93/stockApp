@@ -81,7 +81,6 @@ function OrderConfirmationPage() {
                 let path = `/api/stock/${symbol}`
                 // Send the request with API package
                 const res = await API.get(APIName, path)
-                // console.log(res)
                 // Set the state for the stock and loading to false 
                 setStock(res)
                 setStockLoading(false)
@@ -124,7 +123,6 @@ function OrderConfirmationPage() {
                 }
                 /// Send the request 
                 const res = await API.get(APIName, path, myInit)
-                // console.log(res)
                 /// Set the current portfolio 
                 setPortfolio({
                     id: res._id,
@@ -138,7 +136,6 @@ function OrderConfirmationPage() {
                     minGRating: res.league.minGRating,
                     sectors: res.league.sectors
                 })
-                console.log(res.league)
                 /// Need to get the users current holding 
                 if (res.holdings.length > 0){
                     res.holdings.forEach(item =>{
@@ -187,11 +184,8 @@ function OrderConfirmationPage() {
 
     //// Cehck for the environment and sector scores ////
     useEffect(() => {
-        console.log("CALLEDD HERE")
         /// Make sure they are not undefined before the check 
         if (typeof gameRestrictions !== "undefined" && typeof stock !== "undefined" && stock !== ''){
-            // console.log("GOT HERE")
-            // console.log(typeof stock)
             /// Reset them as they may have switched portfolio 
             setGameESGRestrictionError("")
             setGameSectorRestrictionError(false)
@@ -207,8 +201,6 @@ function OrderConfirmationPage() {
             /// true  -> Sector is tradabale
             /// false -> Sector is not tradeable 
             setGameSectorRestrictionError(!gameRestrictions.sectors.includes(stock.sector))
-            console.log(gameRestrictions)
-            console.log(stock)
         }
        
     },[gameRestrictions,stock])
@@ -247,7 +239,7 @@ function OrderConfirmationPage() {
                             {gameESGRestrictionError &&<p>Minimum {gameESGRestrictionError} rating not met</p>}
                             {gameSectorRestrictionError && <p>{stock.sector} sector stocks not tradable due to game restrictions</p>}
                             <p>
-                                Try a different portfolio or view the avaiable stocks to trade from the <Link to={`/game/${gameId}`}>Game Page</Link>
+                                Try a different portfolio or view the available stocks to trade from the <Link to={`/game/${gameId}`}>Game Page</Link>
                             </p>
                         </MessageAlert>
                     </Row>

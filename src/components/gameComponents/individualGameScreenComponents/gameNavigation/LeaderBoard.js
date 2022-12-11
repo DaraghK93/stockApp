@@ -55,7 +55,7 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
             </center>
         } else if (change < 0) {
             return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-            <KeyboardDoubleArrowDownIcon style={{ fill: '#22ff00' }} />
+            <KeyboardDoubleArrowDownIcon style={{ fill: '#FF0000'}} />
             </center>
         } else {
             return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}

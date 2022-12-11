@@ -45,7 +45,7 @@ function AreYouSure({showState,setShowState, leagueId, portfolioId, isAdmin}){
                 /// Send the request 
                 await API.put(APIName, path, myInit)
                 /// Set the success message using the
-                setSuccess(`League Deleted Successfully! This will now appear in your Completed Games`)
+                setSuccess(`League Cancelled Successfully! This will now appear in your Completed Games`)
                 setLoading(false)
                 dispatch(updateActivePortfolios(userInfo.token)) 
         }catch(error){

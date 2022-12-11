@@ -56,11 +56,12 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
                 <YAxis 
                     width={100}
                     stroke="#595959"
-                    tickFormatter={(value) => parseFloat(value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+                    // tickInterval= {10}
+                    tickFormatter={(value) => parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })}
                     type= "number"
-                    domain = {["dataMin - 0.5", "dataMax + 0.5"]}
-                    allowDecimals={true}
-                    tickInterval= {1}
+                    domain = {["dataMin", "dataMax"]}
+                    allowDecimals={false}
+                
            
              
                     />

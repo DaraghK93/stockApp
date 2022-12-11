@@ -8,51 +8,65 @@ import {
     Tooltip
 } from "recharts";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 import moment from "moment";
 
 function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) {
 
     const [noOfTicks, setNoOfTicks] = useState("")
- 
-    var showTick = useCallback(() => {
-        if (window.innerWidth >= 800 ) {
-            if (datetype === "yearly"){
-                setNoOfTicks(40)
-            }
-            else if (datetype === "monthly"){
-                setNoOfTicks(10)
-            }
-            else {
-                setNoOfTicks(0)
-            }
-        }
-        else {
-            if (datetype === "yearly"){
-                setNoOfTicks(80)
-            }
-            else {
-                setNoOfTicks(0)
-            }
-        }
-    },[datetype])
 
     useEffect(() => {
-        window.addEventListener("resize", showTick);
-        return () => {
-            window.removeEventListener("resize", showTick);
-        };
-    }, [showTick]);
 
-    window.addEventListener("resize", showTick);
+        function showTick(event) {
+            if (window.innerWidth >= 800 ) {
+                if (datetype === "yearly"){
+                    setNoOfTicks(20)
+                }
+                else if (datetype === "monthly"){
+                    setNoOfTicks(2)
+                }
+                else if (datetype === "weekly"){
+                    setNoOfTicks(0)
+                }
+                else if (datetype === "daily"){
+                    setNoOfTicks(5)
+                }
+            }
+            else {
+                if (datetype === "yearly"){
+                    setNoOfTicks(80)
+                }
+                else if (datetype === "monthly"){
+                    setNoOfTicks(5)
+                }
+
+                else if (datetype === "weekly"){
+                    setNoOfTicks(0)
+                }
+                
+                else if (datetype === "daily"){
+                    setNoOfTicks(10)
+                }
+                else {
+                    setNoOfTicks(0)
+                }
+            }
+        }
+
+        window.addEventListener("resize", showTick);
+        // return () => {
+        //     window.removeEventListener("resize", showTick);
+        // };
+    }, [datetype]);
+
 
     const dateFormatter = (value) => {
     if (datetype === "daily"){
         return moment(value).format('h:mma')
     }
     else if (datetype === "weekly") {
-        return moment(value).format('MMMM Do')
+        return moment(value).format('MMM Do')
     }
     else if (datetype === "monthly") {
         return moment(value).format('MMM Do')

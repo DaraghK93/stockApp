@@ -94,7 +94,6 @@ function JoinAGame(){
                         </Form>
                    </FormContainer>
                     {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                    {error && <MessageAlert variant="danger">{error}</MessageAlert>}                  
                 {leagueName &&
                     <Modal show={setShow} onHide={handleClose} backdrop="static">
                         <Modal.Body>

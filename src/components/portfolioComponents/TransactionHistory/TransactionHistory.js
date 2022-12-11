@@ -4,6 +4,7 @@ import moment from "moment";
 import { Link } from "react-router-dom"
 import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import { ChevronUp, ChevronDown } from "react-feather"
+import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
 
 function TransactionHistory({ transactions, cancelOrder }) {
 
@@ -191,7 +192,12 @@ function TransactionHistory({ transactions, cancelOrder }) {
             <Card>
                 <div className="holdingCard">
                     <Col>
-                        <h2 className="cardTitle">Transactions</h2>
+                        <h2 className="cardTitle">Transactions<InfoButtonModal title={"What are transactions?"} info={
+                            <p>This is a record of the stock purchases that you have made in this game. This includes pending transactions which are your unfulfilled limit orders, completed 
+                                transactions and cancelled transactions.
+                            </p>
+                            
+                            } /></h2>
                     </Col>
                 </div>
                 <br />

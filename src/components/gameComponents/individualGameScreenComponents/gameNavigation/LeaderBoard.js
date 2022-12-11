@@ -4,7 +4,7 @@ import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'reac
 // import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 
-function LeaderBoard({ leaderBoardInfo, change }) {
+function LeaderBoard({ leaderBoardInfo }) {
 
     const [showTop3, setShowTop3] = useState(false);
     const [showCol, setShowCol] = useState(true)
@@ -39,6 +39,10 @@ function LeaderBoard({ leaderBoardInfo, change }) {
         else {
             setShowCol(false)
         }
+    }
+
+    function setChange(item) {
+        let dailyChange = 
     }
 
 

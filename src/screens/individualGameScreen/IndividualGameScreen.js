@@ -168,12 +168,9 @@ function IndividualGameScreen() {
         } else {
             info = league.portfolios
         }
-        if (portfolio.valueHistory.length === 0 ) {
-            return <LeaderBoard leaderBoardInfo={info} change={league.startingBalance}/>
-        } else {
-            return <LeaderBoard leaderBoardInfo={info} change={portfolio.valueHistory[portfolio.valueHistory.length -1].value}/>
+        return <LeaderBoard leaderBoardInfo={info} />
         }
-    }
+    
 
     return (
         <>

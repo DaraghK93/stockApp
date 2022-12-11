@@ -45,8 +45,6 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
                 </>
             )  
         } else {
-
-
             return  <>
                      <span>
                          <p>Only <strong>{leftDaysUntil}</strong> more days left until this game begins! <strong>Get Practising!</strong></p>

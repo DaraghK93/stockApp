@@ -7,12 +7,13 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
 
     var startDateIn = moment(startDate);
     var endDateIn = moment(endDate);
-    const currentDate = moment()
+    const currentDate = moment().startOf('day')
     const max = endDateIn.diff(startDateIn, "days")
     const now = currentDate.diff(startDateIn, "days")
     const leftDays = max - now
-    var accessString = accessCode.toString()
+    const leftDaysUntil = startDateIn.diff(currentDate, "days")
 
+    var accessString = accessCode.toString()
     function lessThanThreePlayersText() {
         if (portfolios.length < 3) {
             if (portfolios.length !== 1) {
@@ -44,14 +45,14 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
                 </>
             )  
         } else {
-            return (
-                <>
-                    <span>
-                        <p>Only <strong>{leftDays}</strong> more days left until this game begins! <strong>Get Practising!</strong></p>
-                        {lessThanThreePlayersText()}
-                    </span>
-                </>
-            )
+
+
+            return  <>
+                     <span>
+                         <p>Only <strong>{leftDaysUntil}</strong> more days left until this game begins! <strong>Get Practising!</strong></p>
+                         {lessThanThreePlayersText()}
+                     </span>
+                    </>
         }
     }
     

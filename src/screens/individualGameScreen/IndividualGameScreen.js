@@ -140,7 +140,7 @@ function IndividualGameScreen() {
 
         if (!league.finished) {
          
-            if (league.leagueType === "timeBased") {
+            if (league.leagueType === "timeBased" || (!league.active) ) {
                 return (
                     <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
 

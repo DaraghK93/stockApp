@@ -142,12 +142,6 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
                                                                 <td><center>{parseFloat(item.totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                                 <td id={item.dailyChange} className="rightCurvedBorders"
                                                                     style={{ verticalAlign: "middle" }}>
-                                                                        {/* {item.change >= 0 ? <center>+{parseFloat(item.change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                                                                                                        <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />
-                                                                                            </center>
-                                                                        : <center>-{parseFloat(item.change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                                                                                <KeyboardDoubleArrowDownIcon style={{ fill: '#22ff00' }} />  
-                                                                          </center> } */}
                                                                           {setChange(item)}
                                                                     </td>
                                                             </tr>

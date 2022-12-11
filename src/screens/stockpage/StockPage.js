@@ -208,7 +208,7 @@ function StockPage() {
                         <Col>
                             <Card className="priceChartStyle">
                                 <Container>
-                                    <Row>
+                                    <Row style={{paddingBottom:"1rem"}}>
                                         <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"price"} datetype={dateType}/>
                                     </Row>
                                     <Row

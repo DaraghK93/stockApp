@@ -8,32 +8,47 @@ import {
     Tooltip
 } from "recharts";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import CustomToolTip from "../../../widgets/ToolTip/ToolTip"
 import moment from "moment";
 
 function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) {
 
-    const [tickBoolean, setTickBoolean] = useState(false)
+    const [noOfTicks, setNoOfTicks] = useState("")
  
-    window.addEventListener("resize", showTick);
-
-    function showTick() {
-        if (window.innerWidth >= 576) {
-            setTickBoolean(true)
+    var showTick = useCallback(() => {
+        if (window.innerWidth >= 800 ) {
+            if (datetype === "yearly"){
+                setNoOfTicks(40)
+            }
+            else if (datetype === "monthly"){
+                setNoOfTicks(10)
+            }
+            else {
+                setNoOfTicks(0)
+            }
         }
         else {
-            setTickBoolean(false)
+            if (datetype === "yearly"){
+                setNoOfTicks(80)
+            }
+            else {
+                setNoOfTicks(0)
+            }
         }
-    }
+    },[datetype])
 
     useEffect(() => {
-        showTick()
-    }, [])
+        window.addEventListener("resize", showTick);
+        return () => {
+            window.removeEventListener("resize", showTick);
+        };
+    }, [showTick]);
+
+    window.addEventListener("resize", showTick);
 
     const dateFormatter = (value) => {
     if (datetype === "daily"){
-
         return moment(value).format('h:mma')
     }
     else if (datetype === "weekly") {
@@ -67,23 +82,26 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 <XAxis 
                 dataKey="date"
                     stroke="#595959"
-                    tick={tickBoolean}
-
+                    interval={noOfTicks}
+                    // tickCount={20}
                     tickFormatter={(value) => dateFormatter(value)}
-                    tickInterval={"2"}
+                    // tickInterval={"2"}
                     // type="datetime"
                     // tickInterval={30 * 24 * 3600 * 1000}
+                    // allowDataOverflow 
                 >
                 </XAxis>
                 <YAxis 
                     width={100}
                     stroke="#595959"
-                    tickInterval= {1}
+                    // interval={2}
+                    // tickInterval= {0}
+                    // tickCount={3}
                     tickFormatter={(value) => parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })}
                     type= "number"
                     domain = {["dataMin", "dataMax"]}
                     allowDecimals={false}
-                
+             
                     />
                 <Area type="monotone" dataKey={dataKey} stroke={lineColor} strokeWidth={2} fillOpacity={1} fill="url(#colorPrice)" />
             </AreaChart>

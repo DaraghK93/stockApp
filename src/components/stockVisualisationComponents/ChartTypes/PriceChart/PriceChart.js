@@ -51,11 +51,12 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 }
             }
         }
-
+        showTick()
         window.addEventListener("resize", showTick);
-        // return () => {
-        //     window.removeEventListener("resize", showTick);
-        // };
+        return () => {
+            window.removeEventListener("resize", showTick);
+        };
+        
     }, [datetype]);
 
 

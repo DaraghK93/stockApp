@@ -8,8 +8,14 @@ import {
 
 function PieChartViz({ data }) {
 
+    const renderColorfulLegendText = (value, entry) => {
+        const color = "black";
+      
+        return <span style={{ color }}>{value}</span>;
+      }
+
     const COLORS = [
-        '#00C49F', '#FF8042', '#FFBB28' ];
+        '#32CD32', '#FF0000', '#FFBB28'  ];
 
     const RADIAN = Math.PI / 180;
     const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
@@ -18,7 +24,7 @@ function PieChartViz({ data }) {
         const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
         return (
-            <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+            <text x={x} y={y} className="bolded" fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
                 {`${(percent * 100).toFixed(0)}%`}
             </text>
         );
@@ -28,7 +34,7 @@ function PieChartViz({ data }) {
         <>
             <ResponsiveContainer width="100%" height={300}>
                 <PieChart width={400} height={400}>
-                    <Legend layout="vertical" verticalAlign="middle" align="left" />
+                    <Legend layout="vertical" verticalAlign="middle" align="left" formatter={renderColorfulLegendText} />
                     <Pie
                         data={data}
                         cx="50%"

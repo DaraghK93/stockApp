@@ -1,4 +1,4 @@
-import { Container, Dropdown, Card } from "react-bootstrap";
+import { Container, Dropdown, Card, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import BarChartViz from "../ChartTypes/BarChartViz/BarChartViz";
 import PieChartViz from "../ChartTypes/PieChartViz/PieChartViz";
@@ -13,6 +13,8 @@ const ChartCard = ({ title, data }) => {
     const [isShownPieChart, setIsShownPieChart] = useState(false);
     const [isShownRadarChart, setIsShownRadarChart] = useState(false);
     const [noDataMessage, setNoDataMessage] = useState("");
+    const [sentiment, setSentiment] = useState("neutral");
+    const [currentChart, setCurrentChart] = useState("");
 
     useEffect(() => {
         // value totoal will be 0 if these is no data 
@@ -21,19 +23,43 @@ const ChartCard = ({ title, data }) => {
         data.forEach(function (item, index) {
             valueTotal = valueTotal + item.value
         })
+
+
+        if(data[2].value === data[0].value && data[2].value === data[1].value){
+            setSentiment("neutral")
+        }
+        else if (data[0].value === data[1].value){
+            setSentiment("neutral")
+        }
+        else if (data[0].value > data[1].value && data[0].value >= data[2].value){
+            setSentiment("positive")
+        }
+        else if (data[1].value > data[0].value && data[1].value >= data[2].value){
+            setSentiment("negative")
+        }
+        else{
+            setSentiment("neutral")
+        }
+
+
+
         if (valueTotal === 0) {
             setNoDataMessage("No data to show at the minute")
         } else {
             if (String(title) === "ESG Rating") {
                 setIsShownBarChart(true);
+                setCurrentChart("Bar Chart")
             }
             else if (String(title) === "News Sentiment") {
                 setIsShownPieChart(true);
+                setCurrentChart("Pie Chart")
             }
             else if (String(title) === "Twitter Sentiment") {
                 setIsShownRadarChart(true);
+                setCurrentChart("Radar Chart")
             }
         }
+
     }, [data, title]);
 
 
@@ -42,6 +68,7 @@ const ChartCard = ({ title, data }) => {
         setIsShownBarChart(true);
         setIsShownPieChart(false);
         setIsShownRadarChart(false);
+        setCurrentChart("Bar Chart")
     };
 
     const showPieChart = event => {
@@ -49,6 +76,7 @@ const ChartCard = ({ title, data }) => {
         setIsShownPieChart(true);
         setIsShownBarChart(false);
         setIsShownRadarChart(false);
+        setCurrentChart("Pie Chart")
     };
 
     const showRadarChart = event => {
@@ -56,6 +84,7 @@ const ChartCard = ({ title, data }) => {
         setIsShownRadarChart(true);
         setIsShownBarChart(false);
         setIsShownPieChart(false);
+        setCurrentChart("Radar Chart")
     };
 
 
@@ -109,23 +138,27 @@ const ChartCard = ({ title, data }) => {
             <Card className="infoCardStyle">
                 <Container className="infoCardContainer">
                     <h2>{title}<InfoButtonModal title={titlesetting()} info={information()} /></h2>
+                    
                     {noDataMessage
                         ? <MessageAlert variant='info'>{noDataMessage}</MessageAlert>
 
                         : <>
-                            <Dropdown>
+                        <Row>
+                        <Col className="col-md-8 col-sm-8 col-12">
+                        <span className="bolded" style={{fontSize:"1rem", marginBottom:3}}>Overall Sentiment <SentimentBadge customStyle={{fontSize:"0.80rem"}} sentiment={sentiment} /></span>
+                            </Col><Col className="col-md-3 col-sm-3 col-3"><Dropdown style={{marginBottom:3 }}>
                                 <Dropdown.Toggle variant="success" id="dropdown-basic" size="sm">
-                                    Graph Type
+                                    {currentChart}
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                     <Dropdown.Item onClick={showPieChart}>Pie Chart</Dropdown.Item>
                                     <Dropdown.Item onClick={showRadarChart}>Radar Chart</Dropdown.Item>
                                     <Dropdown.Item onClick={showBarChart}>Bar Chart</Dropdown.Item>
                                 </Dropdown.Menu>
-                            </Dropdown>
-                            {isShownBarChart && <BarChartViz data={data} />}
+                            </Dropdown></Col></Row>
+                            {isShownBarChart && <BarChartViz data={data} title={title}/>}
                             {isShownPieChart && <PieChartViz data={data} />}
-                            {isShownRadarChart && <RadarChartViz data={data} />}
+                            {isShownRadarChart && <RadarChartViz data={data} overallSentiment={sentiment} />}
                         </>
                     }
                 </Container>

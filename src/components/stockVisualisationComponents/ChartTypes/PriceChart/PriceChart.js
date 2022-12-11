@@ -58,10 +58,10 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey }) {
                     tick={tickBoolean}
                 >
                 </XAxis>
-                <YAxis unit='$'
+                <YAxis 
                     width={100}
-                    // stroke="#595959"
-                    tickFormatter={(value) => value.toFixed(2)}
+                    stroke="#595959"
+                    tickFormatter={(value) => parseFloat(value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
                     type= "number"
                     domain = {["dataMin - 0.5", "dataMax + 0.5"]}
                     allowDecimals={true}

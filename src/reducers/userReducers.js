@@ -25,6 +25,8 @@ export function userLoginLogoutReducer (state={}, action) {
         // User has made request to login set loading true 
         case USER_LOGIN_REQUEST:
             return {loading:true}
+        case RESET_ERROR:
+            return {error: action.payload}
         // User has succesfully logged into the system, set loading false and the user state to payload 
         case USER_LOGIN_SUCCESS:
             return {loading: false, userInfo: action.payload}

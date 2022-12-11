@@ -5,7 +5,7 @@ import "../../scss/global_variables.scss";
 //  <URL>/login
 // Description:
 //  This screen contains the components redenred to the user when they are logging in
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../../actions/userActions'
@@ -33,6 +33,14 @@ function LoginPage() {
     event.preventDefault()
     dispatch(login(email, password))
   }
+
+  useEffect(() => {
+    dispatch({
+      type: 'RESET_ERROR',
+      payload: null,
+    });
+    return () => {};
+  }, []);
 
   //
   return (

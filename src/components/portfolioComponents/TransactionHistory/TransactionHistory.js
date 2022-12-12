@@ -8,8 +8,6 @@ import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
 
 function TransactionHistory({ transactions, cancelOrder }) {
 
-    // console.log(transactions)
-
     // for column in pending
     const [showPendingCol, setShowPendingCol] = useState(false)
     const [hidePendingCol, setHidePendingCol] = useState(true)
@@ -68,8 +66,8 @@ function TransactionHistory({ transactions, cancelOrder }) {
         { label: "Order Type", accessor: "orderType", sortable: true, sortbyOrder: "", showHeader: hideMobile },
         { label: "Fee", accessor: "tradingFee", sortable: true, sortbyOrder: "", showHeader: hideMobile },
         { label: "Units", accessor: "units", sortable: true, sortbyOrder: "", showHeader: hideMobile },
-        { label: "Limit Value", accessor: "", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
-        { label: "", accessor: "", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
+        { label: "Limit Value", accessor: "1", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
+        { label: "", accessor: "2", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
     ];
 
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]

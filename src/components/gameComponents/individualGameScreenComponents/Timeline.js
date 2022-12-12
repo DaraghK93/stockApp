@@ -15,8 +15,8 @@ function TimeLine({
     setActive
  }) {
 
-    var startDateIn = moment(startDate);
-    var endDateIn = moment(endDate);
+    var startDateIn = moment(startDate).startOf('day');
+    var endDateIn = moment(endDate).startOf('day');
     const currentDate = moment().startOf('day')
     const max = endDateIn.diff(startDateIn, "days")
     const now = currentDate.diff(startDateIn, "days")
@@ -84,11 +84,6 @@ function TimeLine({
                 <Col style={{ paddingRight: "1rem" }}>
                     <br></br>
 
-                    <ProgressBar striped variant="info" max={max} min={0} now={now} />
-                    <span>
-                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>Make a trade now.</strong></p>
-                        {lessThanThreePlayersText()}
-                    </span>
 
                    {scheduledOrActive()}
 

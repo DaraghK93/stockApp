@@ -10,7 +10,8 @@ import {Link} from "react-router-dom";
 import InfoButtonModal from '../../widgets/InfoButtonModal/InfoButtonModal'
 import InfoButtonModalWhite from '../../widgets/InfoButtonModal/InfoButtonModal(white)'
 import Footer from "../../../components/layout/Footer/footer"
-
+import { IcBaselineCurrencyExchange } from '../../icons/CurrencyExchangeIcon';
+import { Fa6SolidChartPie } from '../../icons/PieChart';
 import { Person, Timeline, TrendingUp, TrendingDown, Forest, EnergySavingsLeaf, Groups3, AssuredWorkload, DataUsage, Factory, Lan, AttachMoney, LocalHospital, People, Groups, Home, ElectricalServices, Cloud, Science, ElectricBolt } from '@mui/icons-material';
 
 function StockSummary() {
@@ -46,13 +47,19 @@ function StockSummary() {
         <>
         {loading ? <LoadingSpinner/> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <>
-
-        <h2 className="stockdiscoveryRowTitleTop">Recommended<Person /> <InfoButtonModalWhite title="Personalised Recommendations" info={
+        <h2 className="stockdiscoveryRowTitle">Suggested For You<Person/> <InfoButtonModalWhite title="Personalised Recommendations" info={
                         <div>
-                            <p>FinOptimise uses what's known as a content based recommender system to suggest companies that you may be interested in based on your most recent transaction. This Machine Learning model will find you the most similar companies from our database.</p> 
-                            <p> If you have not yet made a transaction, the recommender system will give you recommendations based on the <mark class="positive">highest positive mover</mark>over the<mark class="bold">past 24 hours.</mark></p>
+                            <p>FinOptimise uses a Machine Learning technology known as a content based recommender systems to suggest companies that you may be interested in. Our Machine Learning models provide two suggested rows:</p>
+                            <p><b>Recommended</b> provides recommendations of companies<mark class="positive">similar to your holdings.</mark></p>
+                            <p><b>Diversify Your Portfolio</b> provides recommendations of companies that are<mark class="negative">dissimilar to your holdings.</mark></p> 
                             <p>More infomation on content based recommender systems and how they work can be found <a href='https://towardsdatascience.com/introduction-to-recommender-systems-1-971bd274f421'>here.</a></p>
                         </div>} /></h2>
+        <h3 className="stockdiscoveryRow">Recommended <IcBaselineCurrencyExchange/> <InfoButtonModalWhite title="Recommended" info={
+                        <div>
+                            
+                            <p>This Machine Learning model will suggest companies from our database that are<mark class="positive">similar</mark>to your most recent transaction.</p>
+                            <p> If you have not yet made a transaction, the recommender system will give you recommendations based on companies<mark class="positive">similar</mark>to the<mark class="positive">highest positive mover</mark>over the<mark class="bold">past 24 hours.</mark></p>
+                        </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].recommend.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>
@@ -60,6 +67,11 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
+        <h3 className="stockdiscoveryRow">Diversify Your Portfolio <Fa6SolidChartPie/> <InfoButtonModalWhite title="Diversify Your Portfolio" info={
+                        <div>
+                            <p>This Machine Learning model will suggest companies from our database that are<mark class="negative">dissimilar</mark>to your most recent transaction.</p>
+                            <p> If you have not yet made a transaction, the recommender system will give you recommendations based on companies<mark class="negative">dissimilar</mark>to the<mark class="positive">highest positive mover</mark>over the<mark class="bold">past 24 hours.</mark></p>
+                        </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].derecommend.map((stockObj) => (
                         <div className='sideScrollCard' key={stockObj._id}>

@@ -226,7 +226,7 @@ function OrderConfirmationPage() {
                                 </dt>
                                 <dt>{stock.symbol}</dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
-                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
+                                <dt style={{ fontSize: "120%" }}>Sector: {stock.sector}</dt>
                                 </dt>
                                 <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>                  
                             </dl>

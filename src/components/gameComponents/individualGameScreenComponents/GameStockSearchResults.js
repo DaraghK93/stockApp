@@ -64,7 +64,25 @@ function GameStockSearchResults({ keyword, league }) {
     <>
       {loading ? (
         <LoadingSpinner />
-      ) : error ? (
+      ) : error === 'No stocks found for this game' ? (
+        <Container>
+          <Row>
+            <Col className='text-center mx-5'>
+              <MessageAlert variant='danger'>
+                {
+                  <div>
+                    <p>
+                      Looks like the stock you are looking for cannot be traded
+                      in this game
+                    </p>
+                    <p>Check the details tab for game restrictions</p>
+                  </div>
+                }
+              </MessageAlert>
+            </Col>
+          </Row>
+        </Container>
+      ) : error && error !== 'No stocks found for this game' ? (
         <Container>
           <Row>
             <Col className='text-center mx-5'>

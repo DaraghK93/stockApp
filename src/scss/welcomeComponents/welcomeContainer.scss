@@ -1,0 +1,63 @@
+@import "../global_variables.scss";
+
+
+.welcome-page-container {
+    align-items: center;
+    text-align: center;
+    width: 70%;
+    margin-top: 3rem;
+}
+
+.welcomeInfoCardStyle {
+    height: 100%;
+    padding: 0.625rem;
+    margin: 0.625rem;
+    margin-bottom: 3rem;
+    padding-bottom: 0;
+    display: flex;
+    color: black;
+    position: relative;
+    align-items: center;
+}
+
+.welcomeButtonDesktop {
+    display: flex;
+    width: 75%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 1rem;
+}
+
+.welcomeButtonMobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.welcomeCardIcons{
+    margin-top: 1rem;
+    height: 6rem;
+    width: 6rem;
+}
+
+.headerIconWelcome{
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.firstAcc .accordion-button {
+    background-color: #63C7B2 !important;
+}
+
+.secondAcc .accordion-button {
+    background-color: #80ced7 !important;
+}
+
+.thirdAcc .accordion-button {
+    background-color: #cb88fd !important;
+}

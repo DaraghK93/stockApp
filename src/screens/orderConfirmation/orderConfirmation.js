@@ -1,6 +1,6 @@
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 import BottomStickyButton from "../../components/widgets/BottomStickyButton/BottomStickyButton";
 import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
@@ -11,7 +11,7 @@ import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPrice
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
-import {useNavigate} from "react-router-dom"
+import {useNavigate, Link} from "react-router-dom"
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -178,7 +178,8 @@ function OrderConfirmationPage() {
             : <Container >
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
-                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
+                        <Link to={`/stock/${stock.symbol}`}><img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} /></Link>
+                        
                         </Col>
                         <Col className="stockInfoCol col-md-4 col-sm-8 col-6">
                             <dl className='infoList'>
@@ -190,6 +191,7 @@ function OrderConfirmationPage() {
                                 <dt>{stock.symbol}</dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
                                 </dt>
+                                <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>
                             </dl>
                         </Col>
                     </Row>

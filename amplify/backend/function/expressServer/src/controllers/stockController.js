@@ -1,9 +1,8 @@
 const Stock = require('../models/stock.model');
 const User = require('../models/user.model');
 
-
 /// Imports ///
-const stockService = require('../services/stockRoutesServices')
+const stockService = require('../services/stockRoutesServices');
 const articleService = require('../services/articleService');
 const twitterService = require('../services/twitterService');
 
@@ -25,7 +24,7 @@ const getStockPrice = async (req, res, next) => {
     res.json(stock[0].prices);
   } catch (err) {
     console.error(err.message);
-    res.status(500)
+    res.status(500);
     res.errormessage = 'Server error in get Stock Price';
     return next(err);
   }
@@ -41,16 +40,16 @@ const getAllStocks = async (req, res, next) => {
 
   // check if category is summary and if not, return all stocks, else
   // return the aggregate query for different stock categories
-  try{
+  try {
     /// keyword is query param
     const keyword = req.query.keyword;
 
     /// if undefined return the stock summary
     if(keyword == "undefined"){     
       // Create the input for the recommender system API, save the output as recs
-      let userID = req.user.id
-      let recommendData = await stockService.getRecomms(userID)
-      let recs = recommendData.data.message
+      let userID = req.user.id;
+      let recommendData = await stockService.getRecomms(userID);
+      let recs = recommendData.data.message;
 
       // Keyword undefied just return the top stocks, also feed in recs to function
       const stocks = await stockService.getStockSummary(Stock, recs);
@@ -74,13 +73,14 @@ const getAllStocks = async (req, res, next) => {
         res.json([])
       }
     }
-  }catch(err){
+  } catch (err) {
     console.error(err.message);
-    res.status(500)
+    console.log('error = ' + err.message);
+    res.status(500);
     res.errormessage = 'Server error in get All Stocks';
     return next(err);
   }
-}
+};
 
 // @desc Add new stock data
 // @route POST /api/stock/addStock/
@@ -98,7 +98,7 @@ const addStock = async (req, res, next) => {
     res.json({ stock });
   } catch (err) {
     console.error(err.message);
-    res.status(500)
+    res.status(500);
     res.errormessage = 'Server error in add Stock';
     return next(err);
   }
@@ -181,13 +181,13 @@ const getStockBySymbol = async (req, res, next) => {
       esgrating: stocks[0].esgrating,
       logo: stocks[0].logo,
       daily_change: stocks[0].daily_change,
-      newsSentiment:newsSentiment,
-      twitterSentiment:twitterSentiment,
+      newsSentiment: newsSentiment,
+      twitterSentiment: twitterSentiment,
       week: oneWeek,
       month: oneMonth,
       year: oneYear,
-      day: oneDay
-    }
+      day: oneDay,
+    };
     // console.log(stocks)
     res.json(returnStocks);
   } catch (err) {

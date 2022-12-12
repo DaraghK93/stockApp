@@ -182,7 +182,8 @@ function StockPage() {
                 <Container>
                     <Row>
                         <Col className="col-md-3 col-sm-3 col-3">
-                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem", paddingLeft: "1rem" }} />
+                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{
+                                  maxHeight:"12rem", paddingTop: "1.25rem", paddingLeft: "1rem", position:"relative", float:"right" }} />
                         </Col>
                         <Col className="stockInfoCol col-md-7 col-sm-12 col-8">
                             <dl className='infoList'>

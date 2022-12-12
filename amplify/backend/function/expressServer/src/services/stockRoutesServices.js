@@ -40,26 +40,12 @@ function getStockPriceData (stocks) {
         return dates
     }
     var formattedTimeArray = []
-    const startTime = moment()
-    const startTimesMoment = new Date(startTime)
-    let showDate
-    if (startTimesMoment.getDay() === 6){
-      // checks if today is Saturday and instead sets it to 11pm on Friday (the last time the lambda runs)
-      showDate = moment(startTimesMoment).subtract(1, "days").set({hour:23,minute:0,second:0,millisecond:0})
-    }
-    else if (startTimesMoment.getDay() === 0){
-      // checks if today is Sunday and instead sets it to 11pm on Friday (the last time the lambda runs)
-      showDate = moment(startTimesMoment).subtract(2, "days").set({hour:23,minute:0,second:0,millisecond:0})
-    }
-    else if (startTimesMoment.getDay() === 0 && startTimesMoment.getHours < 9){
-      // checks if today is Monday and before 9am sets it to 11pm on Friday (the last time the lambda runs)
-      showDate = moment(startTimesMoment).subtract(3, "days").set({hour:23,minute:0,second:0,millisecond:0})
-    }
-    else {
-      showDate = moment(startTimesMoment)
-    }
-    const remainder = 20 - (showDate.minute() % 20)
-    const datestart = moment(showDate).add(remainder, "minutes")
+
+    // get the last date in the prices object
+    const showDate = Object.keys(stocks[0].prices).pop()
+
+    // convert to moment
+    const datestart = moment(showDate)
     const oneDayTimes = timeOneDay(datestart)
     const standardFormattingDay = oneDayTimes
 

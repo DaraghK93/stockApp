@@ -165,14 +165,14 @@ function UserSettingsPage() {
             userToken
           )
         );
-        // setPassword('');
-        // setUsername('');
-        // setFirstname('');
-        // setLastname('');
-        // setAvatar('');
-        // setNewPassword('');
-        // setConfirmNewPassword('');
-        // setEmail('');
+        setPassword('');
+        setUsername('');
+        setFirstname('');
+        setLastname('');
+        setAvatar('');
+        setNewPassword('');
+        setConfirmNewPassword('');
+        setEmail('');
       }
     } else {
       setCurrPasswordEnteredError(true);

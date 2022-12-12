@@ -39,35 +39,16 @@ function getStockPriceData (stocks) {
         }
         return dates
     }
-    var formattedTimeArray = []
-    const startTime = moment()
-    const startTimesMoment = new Date(startTime)
-    let showDate
-    if (startTimesMoment.getDay() === 6){
-      // checks if today is Saturday and instead sets it to 11pm on Friday (the last time the lambda runs)
-      showDate = moment(startTimesMoment).subtract(1, "days").set({hour:23,minute:0,second:0,millisecond:0})
-    }
-    else if (startTimesMoment.getDay() === 0){
-      // checks if today is Sunday and instead sets it to 11pm on Friday (the last time the lambda runs)
-      showDate = moment(startTimesMoment).subtract(2, "days").set({hour:23,minute:0,second:0,millisecond:0})
-    }
-    else {
-      showDate = startTimesMoment
-    }
-    const remainder = 20 - (showDate.minute() % 20)
-    const datestart = moment(showDate).add(remainder, "minutes")
-    const oneDayTimes = timeOneDay(datestart)
-    const standardFormattingDay = oneDayTimes
+    // var formattedTimeArray = []
+    const tempStocks = stocks[0].prices
 
-    function timeOneDay(datestart) {
-      // this function gets 20 min intervals from start date and time back to yesterday at the same time
-        var formattedTime
-        for (i = 0; i < 24*3 + 1; i++) { //fill in all of the hours
-          formattedTime = (moment(datestart).subtract(i*20, "minutes")).format("YYYY-MM-DD[T]HH:mm")
-          formattedTimeArray.push(formattedTime) //add to beginning of array
-        } //do this for all 24 hours
-        return formattedTimeArray
-      }
+    // get the last date in the prices object
+    // const showDate = Object.entries(tempStocks).pop()
+    const getAllDates = Object.fromEntries(
+      Object.entries(tempStocks).slice(-42)
+    )
+    const getAllDatesArray = Object.keys(getAllDates)
+    
 
     // Date() gives us the current date, Date(end_Date) interprets the 
     // input date and creates a date that can be used in the function
@@ -90,10 +71,9 @@ function getStockPriceData (stocks) {
     const prices_year = []
     // ***One Day***
     // loop through the date range list and extract the data
-    for (var i = 0; i < standardFormattingDay.length; i++) { 
-        // the format of the data keys is "YYYY-MM-DDT20:00"
-        if(typeof(daily_prices[standardFormattingDay[i]]) != 'undefined'){     
-        prices_day.push({"date": standardFormattingDay[i], "price": daily_prices[standardFormattingDay[i]]["Close"] })}}
+    for (var i = 0; i < getAllDatesArray.length; i++) { 
+        // the format of the data keys is "YYYY-MM-DDT20:00" 
+        prices_day.push({"date": getAllDatesArray[i], "price": getAllDates[getAllDatesArray[i]]["Close"] })}
     // ***One Week***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeWeek.length; i++) { 

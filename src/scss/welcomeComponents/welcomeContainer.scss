@@ -5,25 +5,38 @@
     align-items: center;
     text-align: center;
     width: 70%;
+    margin-top: 3rem;
 }
 
 .welcomeInfoCardStyle {
-    height: 90%;
+    height: 100%;
     padding: 0.625rem;
     margin: 0.625rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 3.125rem;
+    margin-bottom: 3rem;
+    padding-bottom: 0;
     display: flex;
     color: black;
     position: relative;
-    align-items: center
+    align-items: center;
 }
 
-.welcomeButton {
+.welcomeButtonDesktop {
+    display: flex;
+    width: 75%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 1rem;
+}
+
+.welcomeButtonMobile {
     display: flex;
     justify-content: center;
     align-items: center;
-    bottom: 0
 }
 
 .welcomeCardIcons{

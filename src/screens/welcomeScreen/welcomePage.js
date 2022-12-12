@@ -43,7 +43,7 @@ function WelcomePage() {
                         <Col>
                         <h1>Thanks for joining FinOptimise!</h1>
                         <h2>
-                            Start learning all about how stocks and markets work!
+                            Whether you're completely new to stock trading or a seasoned campaigner, we've got you covered!
                         </h2>
                         </Col>
                     </Row>
@@ -61,7 +61,7 @@ function WelcomePage() {
                     </p>
                     <p>Head to the education section and start learning today!
                         </p>
-                    <Button className="welcomeButton" as={Link} to="/faqs">Expand my Mind!</Button>
+                    <Button className="welcomeButtonDesktop" as={Link} to="/faqs">Expand my Mind!</Button>
                     
                     
                 </Container>
@@ -77,22 +77,22 @@ function WelcomePage() {
                         </p>
                         <p>Head to the games section and show us what you can do!
                         </p>
-                    <Button className="welcomeButton" as={Link} to="/game">Lets Play!</Button>
+                    <Button className="welcomeButtonDesktop" as={Link} to="/game">Lets Play!</Button>
                     
                     
                 </Container>
             </Card>
                         </Col>
-                        <Col sm md={8} className="stockInfoCol">
+                        <Col sm md={8} className="stockInfoCol" height={100}>
                         <Card style={{backgroundColor:"#cb88fd"}} height={100} className="welcomeInfoCardStyle">
-                <Container className="infoCardContainer">
+                <Container style={{height:"100%"}}>
                     <h3>Explore </h3>
                     <FlatColorIconsBinoculars className="welcomeCardIcons"/>
                     <p>
                         Not all those who wander are lost, but you can get lost in the nearly 500 stocks that can be found on the app!
                     </p>
                     <p>Realise the full capabilities of FinOptimise!</p>
-                    <Button className="welcomeButton" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
+                    <Button className="welcomeButtonDesktop" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
                     
                     
                 </Container>
@@ -115,7 +115,7 @@ function WelcomePage() {
                     </p>
                     <p>Head to the education section and start learning today!
                         </p>
-                    <Button className="welcomeButton" as={Link} to="/faqs">Expand my Mind!</Button>                    
+                    <Button className="welcomeButtonMobile" as={Link} to="/faqs">Expand my Mind!</Button>                    
                 </Container>
                       </Accordion.Body>
           </Accordion.Item>
@@ -130,7 +130,7 @@ function WelcomePage() {
                         </p>
                         <p>Head to the games section and show us what you can do!
                         </p>
-                    <Button className="welcomeButton" as={Link} to="/game">Lets Play!</Button>
+                    <Button className="welcomeButtonMobile" as={Link} to="/game">Lets Play!</Button>
                     
                     
                 </Container>
@@ -139,14 +139,14 @@ function WelcomePage() {
           <Accordion.Item className="thirdAcc" eventKey="2">
                       <Accordion.Header ><span className="bolded">Explore <FlatColorIconsBinoculars className="headerIconWelcome"/></span></Accordion.Header>
                       <Accordion.Body style={{backgroundColor:"#cb88fd"}}>
-                      <Container className="infoCardContainer">
+                      <Container className="infoCardContainer" centered>
                     <h3>Explore </h3>
                     <FlatColorIconsBinoculars className="welcomeCardIcons"/>
                     <p>
                         Not all those who wander are lost, but you can get lost in the nearly 500 stocks that can be found on the app!
                     </p>
                     <p>Realise the full capabilities of FinOptimise!</p>
-                    <Button className="welcomeButton" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
+                    <Button className="welcomeButtonMobile" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
                 </Container>
                       </Accordion.Body>
           </Accordion.Item>

@@ -4,23 +4,13 @@ import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
 function ValueLine({ portfolios, 
     winningValue, 
     accessCode,
-    setisShownGameDetails,
-    setisShownLeaderBoard,
-    setisShownPortfolio,
-    setisShownStocks,
-    setActive
+
 }) {
 
     const remainder = winningValue - portfolios[0].totalValue
     var accessString = accessCode.toString()
 
-    function showGameStocksPage(){
-        setisShownGameDetails(false)
-        setisShownLeaderBoard(false)
-        setisShownPortfolio(false)
-        setisShownStocks(true)
-        setActive("2")
-    }
+
 
     function getWinnerText() {
         if (portfolios.length < 3) {
@@ -30,7 +20,7 @@ function ValueLine({ portfolios,
                         <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow, so lonely!
                             Invite others using the access code: <strong>{accessCode} </strong>
                             <CopyComponent copyText={accessString} /></p>
-                        <p>While you're here why not get ahead and <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p>
+                        <p>While you're here why not get ahead and <strong>make a trade now!</strong></p>
                     </>)
             }
             else {
@@ -39,7 +29,7 @@ function ValueLine({ portfolios,
                         <p>There is only <strong>{portfolios.length} player</strong> in this game! Wow, so lonely! Invite others using the access code: <strong>{accessCode} </strong>
                             <CopyComponent copyText={accessString} />
                         </p>
-                        <p>While you're here why not get ahead and <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p>
+                        <p>While you're here why not get ahead and <strong>make a trade now!</strong></p>
                     </>)
             }
         }
@@ -51,7 +41,7 @@ function ValueLine({ portfolios,
                     their accounts. </p>
                     <p>Only one of them only has to make <strong>
                         {parseFloat(remainder).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                    </strong> to be crowned the winner. Don't let them win, <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p></>)
+                    </strong> to be crowned the winner. Don't let them win, <strong>make a trade now!</strong></p></>)
 
             }
             else if (portfolios[0].totalValue === portfolios[1].totalValue) {
@@ -60,7 +50,7 @@ function ValueLine({ portfolios,
                     their accounts. </p>
                     <p>Only one of them only has to make <strong>
                         {parseFloat(remainder).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                    </strong> to be crowned the winner. Don't let them win, <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p></>)
+                    </strong> to be crowned the winner. Don't let them win, <strong>make a trade now!</strong></p></>)
             }
             else {
                 return (<><p>It's a tight race, with <strong>{portfolios[0].user}</strong> in the lead with <strong>
@@ -68,7 +58,7 @@ function ValueLine({ portfolios,
                     their account. </p>
                     <p>They only have to make <strong>
                         {parseFloat(remainder).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                    </strong> to be crowned the winner. Don't let them win, <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p></>)
+                    </strong> to be crowned the winner. Don't let them win, <strong>make a trade now!</strong></p></>)
             }
         }
     }

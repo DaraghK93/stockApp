@@ -201,11 +201,6 @@ function IndividualGameScreen() {
                     endDate={league.endDate} 
                     portfolios={league.portfolios} 
                     accessCode={league.accessCode}
-                    setisShownGameDetails={setisShownGameDetails}
-                    setisShownLeaderBoard={setisShownLeaderBoard}
-                    setisShownPortfolio={setisShownPortfolio}
-                    setisShownStocks={setisShownStocks}
-                    setActive={setActive}
                     ></TimeLine>
 
                 )
@@ -216,11 +211,6 @@ function IndividualGameScreen() {
                     portfolios={league.portfolios} 
                     winningValue={league.winningValue} 
                     accessCode={league.accessCode}
-                    setisShownGameDetails={setisShownGameDetails}
-                    setisShownLeaderBoard={setisShownLeaderBoard}
-                    setisShownPortfolio={setisShownPortfolio}
-                    setisShownStocks={setisShownStocks}
-                    setActive={setActive}
                     ></ValueLine>
                 )
             }

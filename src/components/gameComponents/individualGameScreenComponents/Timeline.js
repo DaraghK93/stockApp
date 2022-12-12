@@ -12,15 +12,17 @@ function TimeLine({
     setisShownLeaderBoard,
     setisShownPortfolio,
     setisShownStocks,
-    setActive
+    setActive,
  }) {
 
-    var startDateIn = moment(startDate);
-    var endDateIn = moment(endDate);
-    const currentDate = moment()
+    var startDateIn = moment(startDate).startOf('day');
+    var endDateIn = moment(endDate).startOf('day');
+    const currentDate = moment().startOf('day')
     const max = endDateIn.diff(startDateIn, "days")
     const now = currentDate.diff(startDateIn, "days")
     const leftDays = max - now
+    const leftDaysUntil = startDateIn.diff(currentDate, "days")
+
     var accessString = accessCode.toString()
 
     function showGameStocksPage(){
@@ -31,6 +33,7 @@ function TimeLine({
         setActive("2")
     }
 
+    
 
     function lessThanThreePlayersText() {
         if (portfolios.length < 3) {
@@ -51,17 +54,41 @@ function TimeLine({
         }
     }
 
+
+    function scheduledOrActive() {
+        if (!(currentDate < startDateIn)) {
+
+            return (
+                <>
+                <ProgressBar striped variant="info" max={max} min={0} now={now} />
+                    <span>
+                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong className="linkStyle" onClick={showGameStocksPage()}>Make a trade now.</strong></p>
+                        {lessThanThreePlayersText()}
+                    </span>
+                </>
+            )  
+        } else {
+            return  <>
+                     <span>
+                         <p>Only <strong>{leftDaysUntil}</strong> more days left until this game begins! <strong>Get Practising!</strong></p>
+                         {lessThanThreePlayersText()}
+                     </span>
+                    </>
+        }
+    }
+    
+
+
     return (
         <Container>
             <Row>
                 <Col xs="auto"><br></br><HourglassBottomIcon fontSize="large" /></Col>
+                
                 <Col style={{ paddingRight: "1rem" }}>
                     <br></br>
-                    <ProgressBar striped variant="info" max={max} min={0} now={now} />
-                    <span>
-                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>Make a trade now.</strong></p>
-                        {lessThanThreePlayersText()}
-                    </span>
+
+
+                   {scheduledOrActive()}
                 </Col>
             </Row>
         </Container>

@@ -163,7 +163,7 @@ function StockPage() {
     useEffect(() => {
         try {
         setStockPricesLoading(true)
-        setData(oneDayPrices.reverse())
+        setData(oneDayPrices)
         setActive("1")
         setAbsoluteChange(stock.daily_change.absoluteChange)
         setPercentageChange(stock.daily_change.percentageChange)

@@ -191,7 +191,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
                 <div className="holdingCard">
                     <Col>
                         <h2 className="cardTitle">Transactions<InfoButtonModal title={"What are transactions?"} info={
-                            <p>This is a record of the stock purchases that you have made in this game. This includes pending transactions which are your unfulfilled limit orders, completed 
+                            <p>This is a record of the stock purchases and sales that you have made in this game. This includes pending transactions which are your unfulfilled limit orders, completed 
                                 transactions and cancelled transactions.
                             </p>
                             
@@ -375,7 +375,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
 
                         </>
                         :
-                        <MessageAlert variant="info">No {currentStatus.toLowerCase()} transactions for this game!</MessageAlert>
+                        <MessageAlert variant="info">No {currentStatus.toLowerCase()} {currentType !== "ALL" ? currentType.toLocaleLowerCase() : null} transactions for this game!</MessageAlert>
                     }
                 </Container>
             </Card>

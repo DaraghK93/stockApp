@@ -205,17 +205,17 @@ function TableHoldings({ data }) {
                         </tbody>
                     </Table>
                     {tableData.length > 5 ?
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <nav>
-                            <ul key="pagination" className="pagination">
-                                {pageNumbers.map(number => (
-                                    <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-                                        <button onClick={() => pagination(number)} className="page-link"> {number} </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
-             
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <nav>
+                                <ul key="pagination" className="pagination">
+                                    {pageNumbers.map(number => (
+                                        <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                                            <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
+
                             <ul className="pagination">
                                 <Dropdown className="d-inline mx-2">
                                     <Dropdown.Toggle
@@ -224,18 +224,19 @@ function TableHoldings({ data }) {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         {
-
-                                            tableData.length < 15 ?
+                                            tableData.length < 10 ?
                                                 <>
                                                     <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                                    <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                                     <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
-                                                </>
-                                                : tableData.length < 10 ?
+                                                </> :
+
+                                                tableData.length < 15 ?
                                                     <>
                                                         <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                                         <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
                                                     </>
+
 
                                                     :
                                                     <>
@@ -247,8 +248,8 @@ function TableHoldings({ data }) {
                                         }
                                     </Dropdown.Menu>
                                 </Dropdown>
-                            </ul> 
-                    </div>: null}
+                            </ul>
+                        </div> : null}
 
                 </Container> :
                 <Container>

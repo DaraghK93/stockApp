@@ -10,6 +10,14 @@ function GameDurationSelection({gameStartDate, setGameStartDate, gameEndDate, se
         setGameStartDate(value[0])
         /// Set the end date 
         setGameEndDate(value[1])
+        if (gameType === "timeBased" && value[0].getFullYear() === value[1].getFullYear() &&  value[0].getMonth() === value[1].getMonth() && value[0].getDate() === value[1].getDate()){
+            console.log("EQUAL")
+            console.log("Start",value[0])
+            console.log("END",value[1])
+        }else{
+            console.log("NOT EQUAL")
+        }
+       
     }
     return(
         <>

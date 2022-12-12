@@ -78,7 +78,7 @@ function GameStocksAll({ league }) {
       ) : (
         <>
           <Container className='py-3'>
-            <Row>
+            <Row style={{ marginLeft:"auto", marginRight:"auto"}}>
               {stocks.map((stockObj) => (
                 <Col xs={6} md={3} xl={2} className='py-2' key={stockObj._id}>
                   <TickerCard

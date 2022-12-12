@@ -26,7 +26,7 @@ import TransactionHistory from "../../components/portfolioComponents/Transaction
 function IndividualGameScreen() {
 
     /// League State ///
-    const [active, setActive] = useState("")
+    const [active, setActive] = useState("4")
     const [loading, setLoading] = useState(true);
     const [league, setLeague] = useState('');
     const [error, setError] = useState("");

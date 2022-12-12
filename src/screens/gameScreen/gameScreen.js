@@ -63,7 +63,7 @@ function GameScreen(){
     return(
         <>
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
-        <Container>
+        <Container style={{paddingBottom:"2rem"}}>
             <Row className="py-3" lg={1} md={1} xs={1}>
                 <ScreenSelectionRadioButton choices={screenChocies} state={screen} setter={setScreen}/>
             </Row>

@@ -13,7 +13,6 @@ import Modal from 'react-bootstrap/Modal';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Confetti from 'react-confetti'
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')

@@ -51,7 +51,6 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
 
     },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max,holding,setMarketPriceError,min])
 
-    console.log(min)
     return (
             <Card className="px-3">
                 <h5 style={{ marginTop: "10px"}}>Quantity </h5>

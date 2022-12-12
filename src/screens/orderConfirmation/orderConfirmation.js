@@ -130,7 +130,7 @@ function OrderConfirmationPage() {
                     res.holdings.forEach(item =>{
                         /// If the user has a postion in this stock it will match the stock ID 
                         /// the units will also not equal to 0 
-                        if(item.stockId === stock.id && item.units > 1){
+                        if(item.stockId === stock.id && item.units > 0){
                             setHolding(item.units)
                         }
                     });

@@ -46,7 +46,7 @@ function TimeLine({
                 <>
                 <ProgressBar striped variant="info" max={max} min={0} now={now} />
                     <span>
-                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong className="linkStyle" 
+                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong
                         >Make a trade now.</strong></p>
                         {lessThanThreePlayersText()}
                     </span>

@@ -9,13 +9,21 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import LoadingSpinner from "../../../widgets/LoadingSpinner/LoadingSpinner";
 import {useSelector,useDispatch} from 'react-redux';
 import {updateActivePortfolios} from '../../../../actions/portfolioActions';
-
+import Modal from 'react-bootstrap/Modal';
+import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
+import Confetti from 'react-confetti'
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 function JoinAGame(){
     const [accessCode, setAccessCode] = useState('')
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [leagueName, setLeagueName] = useState("")
+    const [leagueId, setLeagueId] = useState("")
 
+    const setShow = useState(false);
+    const handleClose = () => setShow(false);
     /// Redux
     const dispatch = useDispatch()
     const user = useSelector((state) => state.user)
@@ -40,6 +48,7 @@ function JoinAGame(){
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             setLeagueName(res.newLeague.leagueName)
+            setLeagueId(res.newLeague._id)
             if (res.newLeague.active){
                 /// If the game being joined is active then update the active portfolios state in redux 
                 /// Called becuase joining a game will also create a new portfolio for that game 
@@ -88,7 +97,33 @@ function JoinAGame(){
                         </Form>
                    </FormContainer>
                     {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                    {leagueName && <MessageAlert variant="success">Succesfully Joined <span className="bolded">{leagueName}</span>, Goodluck!</MessageAlert>}
+                {leagueName &&
+                    <Modal show={setShow} onHide={handleClose} backdrop="static">
+                        <Modal.Body>
+                            <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
+                        <Confetti numberOfPieces={500} recycle={false}/>
+                                <h2 className="greenSuccess"><GroupAddIcon /> Succesfully joined league: {leagueName}!</h2>
+                                <Col className="w-100 mb-4">
+                                    <CheckCircleOutlineSharpIcon className="greenSuccess" style={{ "fontSize": "10rem" }} />
+                                </Col>
+                                <Confetti numberOfPieces={500} recycle={false} />
+                            </Row>
+                            <Row md={2} className="textCenter">
+                                <Col>
+                                    <Link className="w-100" to={`/game/${leagueId}`} >
+                                        <Button className="mb-2 w-100">View League <EmojiEventsIcon></EmojiEventsIcon></Button>
+                                    </Link>
+                                </Col>
+                                <Col>
+                                    <Link className="w-100" to={`/stockdiscovery`}>
+                                        <Button className="mb-2 w-100">Explore Stocks <QueryStatsIcon></QueryStatsIcon></Button>
+                                    </Link>
+                                </Col>
+
+                            </Row>
+                        </Modal.Body>
+                    </Modal>
+                }
                     {loading && <LoadingSpinner/>}
             </Card.Body>
         </Card>

@@ -16,9 +16,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
 
     const [noOfTicks, setNoOfTicks] = useState("")
 
-
     useEffect(() => {
-
         function showTick(event) {
             if (window.innerWidth >= 800 ) {
                 if (datetype === "yearly"){
@@ -81,7 +79,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 margin={{
                     top: 10,
                     right: 30,
-                    left: -25,
+                    left: -30,
                     bottom: 0
                 }}>
                 <defs>

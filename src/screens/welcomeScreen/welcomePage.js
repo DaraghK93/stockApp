@@ -139,7 +139,7 @@ function WelcomePage() {
           <Accordion.Item className="thirdAcc" eventKey="2">
                       <Accordion.Header ><span className="bolded">Explore <FlatColorIconsBinoculars className="headerIconWelcome"/></span></Accordion.Header>
                       <Accordion.Body style={{backgroundColor:"#cb88fd"}}>
-                      <Container className="infoCardContainer" centered>
+                      <Container className="infoCardContainer">
                     <h3>Explore </h3>
                     <FlatColorIconsBinoculars className="welcomeCardIcons"/>
                     <p>

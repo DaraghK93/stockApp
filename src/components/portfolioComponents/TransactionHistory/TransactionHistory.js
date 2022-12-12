@@ -229,7 +229,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
                         <>
                             <Table style={{ borderCollapse: "collapse" }}>
                                 <thead style={{ color: "black", verticalAlign: "middle", fontSize: "80%", textAlign: "center" }} >
-                                    <tr key="cols">
+                                    <tr style={{ verticalAlign: "middle" }} key="cols">
                                         {columns.map(({ label, accessor, sortable, showHeader, sortbyOrder, test }) => {
 
                                             function arrow() {

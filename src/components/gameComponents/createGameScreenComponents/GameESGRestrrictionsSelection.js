@@ -21,7 +21,7 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
       "Environment" : {
             "description": "For the Tree Huggers",
             "stocks":408,
-            "rating":4,
+            "rating":3.5,
             "minEnvironmentRating":700,
             "minSocialRating":0,
             "minGovernanceRating":0
@@ -29,7 +29,7 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
         "Social":{
             "description":"For Human Rights Activists",
             "stocks":412,
-            "rating":2.5,
+            "rating":2,
             "minEnvironmentRating":0,
             "minSocialRating":400,
             "minGovernanceRating":0
@@ -37,7 +37,7 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
        "Governance":{
             "description": "For the Ethical Investors",
             "stocks":338,
-            "rating":3.5,
+            "rating":3,
             "minEnvironmentRating":0,
             "minSocialRating":0,
             "minGovernanceRating":600
@@ -99,9 +99,6 @@ function GameESGRestrictionsSelection({setMinEnvironmentRating,setMinSocialRatin
                         <Card.Body>
                             <Card.Text className="black">
                                 {ESGRating[value].description}
-                            </Card.Text>
-                            <Card.Text className="black">
-                                {ESGRating[value].stocks} Stocks to choose from
                             </Card.Text>
                             { value === "Environment" ?
                                 <EnvironmentalRating erating={ESGRating[value].rating} />

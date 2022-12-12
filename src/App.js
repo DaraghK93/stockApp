@@ -7,8 +7,6 @@ import StockDiscoveryPage from './screens/stockDiscovery/stockDiscoveryScreen';
 import StockPage from './screens/stockpage/StockPage';
 import OrderConfirmationPage from './screens/orderConfirmation/orderConfirmation';
 import NotFound from './screens/errorScreens/notFound';
-import MyPortfolios from './screens/myPortfolios/myPortfolios';
-import CreatePortfolio from './screens/createPortfolio/createPortfolio';
 import HomeScreen from './screens/home/homeScreen';
 import GameScreen from './screens/gameScreen/gameScreen';
 import CreateGameScreen from './screens/createGameScreen/CreateGameScreen';
@@ -16,7 +14,6 @@ import RequestResetPassword from './screens/resetPassword/requestResetPassword'
 import ResetPage from './screens/resetPassword/resetPassword'
 import FAQsPage from './screens/faqs/faqs'
 import IndividualGameScreen from './screens/individualGameScreen/IndividualGameScreen';
-import PortfolioPage from './screens/portfolio/portfolio';
 import UserSettingsPage from './screens/userSettingsScreen/UserSettingsPage'
 import WelcomePage from './screens/welcomeScreen/welcomePage';
 
@@ -87,15 +84,6 @@ function App() {
 
         <Route path="/stock/:symbol/confirmorder"
           element={userInfo ? <OrderConfirmationPage /> : <Navigate to="/" />} />
-
-        <Route path='/myportfolios'
-          element={userInfo ? <MyPortfolios /> : <Navigate to="/" />} />
-
-        <Route path='/createportfolio'
-          element={userInfo ? <CreatePortfolio /> : <Navigate to="/" />} />
-
-        <Route path='/portfolio' 
-         element={userInfo ? <PortfolioPage />  : <Navigate to="/" />} />
         
         <Route path='/faqs'
           element={userInfo ? <FAQsPage /> : <Navigate to="/" />} />

@@ -12,3 +12,14 @@
     font-size: x-large; 
 }
 
+.tradeRestrictionsError{
+    text-align:center;
+    width: 20rem;
+}
+
+@media only screen and (min-width: 1120px){ 
+    .tradeRestrictionsError{
+        text-align:center;
+        width: 40rem;
+    }
+}

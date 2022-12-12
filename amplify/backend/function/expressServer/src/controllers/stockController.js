@@ -352,8 +352,8 @@ try{
     if (stocks.length === 0) {
       // No stock found
       res.status(404);
-      res.errormessage = 'Looks like the stock you are looking for cannot be traded in this game. Check the details tab for game restrictions';
-      return next(new Error('Looks like the stock you are looking for cannot be traded in this game. Check the details tab for game restrictions'));
+      res.errormessage = 'No stocks found for this game';
+      return next(new Error('No stocks found for this game'));
     }
     res.json(stocks);
   }
@@ -514,8 +514,8 @@ const getGameStocks = async (req, res, next) => {
     if (gameStocks.length === 0) {
       // No stock found
       res.status(404);
-      res.errormessage = 'Looks like the stock you are looking for cannot be traded in this game. Check the details tab for game restrictions';
-      return next(new Error('Looks like the stock you are looking for cannot be traded in this game. Check the details tab for game restrictions'));
+      res.errormessage = 'No stocks found for this game';
+      return next(new Error('No stocks found for this game'));
     }
     res.json(gameStocks)
   } catch (err) {

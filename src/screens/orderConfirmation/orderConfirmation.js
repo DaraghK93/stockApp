@@ -11,7 +11,7 @@ import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPrice
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
-import {useNavigate, Link} from "react-router-dom"
+import {useNavigate, Link} from "react-router-dom";
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -44,6 +44,9 @@ function OrderConfirmationPage() {
     /// Game State ///
     const [gameTradeFee, setGameTradeFee] = useState()
     const [gameId, setGameId] = useState()
+    const [gameRestrictions, setGameRestrictions] = useState()
+    const [gameESGRestrictionError, setGameESGRestrictionError] = useState()
+    const [gameSectorRestrictionError, setGameSectorRestrictionError] = useState()
     
     //// Portfolio State ////
     const [portfolio, setPortfolio] = useState({})
@@ -125,6 +128,13 @@ function OrderConfirmationPage() {
                     portfolioName: res.portfolioName,
                     portfolioBalance: res.remainder
                 })
+                /// Set the game restrictions 
+                setGameRestrictions({
+                    minERating: res.league.minERating,
+                    minSRating: res.league.minSRating,
+                    minGRating: res.league.minGRating,
+                    sectors: res.league.sectors
+                })
                 /// Need to get the users current holding 
                 if (res.holdings.length > 0){
                     res.holdings.forEach(item =>{
@@ -170,6 +180,31 @@ function OrderConfirmationPage() {
         }
     },[buyOrSell])
 
+
+    //// Cehck for the environment and sector scores ////
+    useEffect(() => {
+        /// Make sure they are not undefined before the check 
+        if (typeof gameRestrictions !== "undefined" && typeof stock !== "undefined" && stock !== ''){
+            /// Reset them as they may have switched portfolio 
+            setGameESGRestrictionError("")
+            setGameSectorRestrictionError(false)
+            /// Do a check first for ESG restrictions 
+            if (stock.esgrating.environment_score < gameRestrictions.minERating){
+                setGameESGRestrictionError("Environment")
+            }else if (stock.esgrating.governance_score < gameRestrictions.minGRating){
+                setGameESGRestrictionError("Governance")
+            }else if (stock.esgrating.social_score < gameRestrictions.minSRating){
+                setGameESGRestrictionError("Social")
+            }
+            //// Now do a check for the sectors 
+            /// true  -> Sector is tradabale
+            /// false -> Sector is not tradeable 
+            setGameSectorRestrictionError(!gameRestrictions.sectors.includes(stock.sector))
+        }
+       
+    },[gameRestrictions,stock])
+    
+
     return (
         <>
             { stockLoading || loading || portfolioLoading ? <LoadingSpinner /> 
@@ -191,16 +226,29 @@ function OrderConfirmationPage() {
                                 </dt>
                                 <dt>{stock.symbol}</dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
+                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
                                 </dt>
-                                <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>
+                                <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>                  
                             </dl>
                         </Col>
                     </Row>
-                    <Row md={1} className="py-2 pb-5" style={{"textAlign":"center","alignItems":"center"}}>
+                    <Row md={1} className="py-2" style={{"textAlign":"center","alignItems":"center"}}>
                         <h3>Active Portfolio</h3>
                         <PortfolioSelectionDropdown portfolios={activePortfolios} state={gameId} setState={setGameId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
-                    <Row className="py-2">
+                    {(gameESGRestrictionError || gameSectorRestrictionError) && 
+                    <Row md={1} style={{"textAlign":"center","alignItems":"center", "justifyContent":"center"}}>
+                        <MessageAlert className="tradeRestrictionsError" variant='danger'>
+                            {gameESGRestrictionError &&<p>Minimum {gameESGRestrictionError} rating not met</p>}
+                            {gameSectorRestrictionError && <p>{stock.sector} sector stocks not tradable due to game restrictions</p>}
+                            <p>
+                                Try a different portfolio or view the available stocks to trade from the <span className="bolded">Trade Section</span> of the <Link className="linkStyle" to={`/game/${gameId}`}>Game Page!</Link>
+                            </p>
+                        </MessageAlert>
+                    </Row>
+                    
+                   }
+                    <Row className="py-3">
                         <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
                     </Row>
                     <Row className="pt-4" md={1} xs={1} lg={1}>
@@ -305,7 +353,7 @@ function OrderConfirmationPage() {
                         onClick={() =>{setShowAreYouSureModal(true)}} 
                         text="Review Trade!" 
                         disabled={
-                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError || spendingPowerError)
+                            (limitOrderQuantityError || limitOrderPriceError || marketPriceError || spendingPowerError || gameESGRestrictionError || gameSectorRestrictionError)
                         }></BottomStickyButton>
                     <div className='footerStyle'></div>
                 </Container>

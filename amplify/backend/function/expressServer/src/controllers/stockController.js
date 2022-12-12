@@ -56,6 +56,21 @@ const getAllStocks = async (req, res, next) => {
       const stocks = await stockService.getStockSummary(Stock, recs)
       res.json(stocks)
     }else{ 
+      console.log('before = '+keyword)
+      cleanKeyword = keyword.match(/\w|\d|\s/g).join("")
+      console.log('after = '+keyword)
+      const query = {
+        keyword: {
+          $regex: /[^\w\d\s]/,
+          $replace: ""
+        },
+        symbol: {
+          $search: keyword
+        }
+      };
+      const options = {};
+      //const newStocks = Stock.find(query,options);
+      //console.log(newStocks);
       // Keyword defined search for the stocks 
        const stocks = await Stock.find({
         "$or": [

@@ -591,8 +591,8 @@ function HomeScreen() {
     <>
       <Container className='splash-page-container'>
         <Row className='py-4' style={{ maxWidth: "80%", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
-          <h1 style={{ fontWeight:"bold" }}>FinOptimise</h1>
-          <h1 style={{ fontWeight:"bold" }}>Fantasy Stock Trading Game</h1>
+          <h1 style={{ fontWeight:"bold", paddingBottom:"0.5rem" }}>FinOptimise</h1>
+          <h2>Fantasy Stock Trading Game</h2>
           <p className='splashpageParagraph'>
             FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
           </p>

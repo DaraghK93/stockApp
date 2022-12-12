@@ -32,8 +32,7 @@ function WelcomePage() {
     useEffect(() => {
         screenSizeChange()
     },[])
-
-
+    
 
     return (
         
@@ -104,9 +103,9 @@ function WelcomePage() {
                     </Container>
                     }
                     {mobileScreen &&
-                    <Accordion>
-                    <Accordion.Item style={{backgroundColor:"#63C7B2"}} eventKey="0">
-                      <Accordion.Header style={{backgroundColor:"#63C7B2"}}><span className="bolded">Learn</span></Accordion.Header>
+                    <Accordion style={{marginBottom:"2.5rem", marginTop:"1.5rem"}}>
+                    <Accordion.Item className="firstAcc" eventKey="0">
+                      <Accordion.Header><span className="bolded">Learn <FlatColorIconsReading className="headerIconWelcome"/></span></Accordion.Header>
                       <Accordion.Body style={{backgroundColor:"#63C7B2"}}>
                       <Container className="infoCardContainer">
                     <h3>Learn </h3>
@@ -120,33 +119,34 @@ function WelcomePage() {
                 </Container>
                       </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item style={{backgroundColor:"#80ced7"}} eventKey="1">
-                      <Accordion.Header style={{backgroundColor:"#80ced7"}}><span className="bolded">Play</span></Accordion.Header>
+          <Accordion.Item className="secondAcc" eventKey="1">
+                      <Accordion.Header><span className="bolded">Play <TwemojiGameDie className="headerIconWelcome"/></span></Accordion.Header>
                       <Accordion.Body style={{backgroundColor:"#80ced7"}}>
                       <Container className="infoCardContainer">
-                    <h3>Learn </h3>
-                    <FlatColorIconsReading className="welcomeCardIcons"/>
+                    <h3>Play </h3>
+                    <TwemojiGameDie className="welcomeCardIcons"/>
                     <p>
-                        Don't know your stocks from your stonks? Want to learn the basics about investing?
-                    </p>
-                    <p>Head to the education section and start learning today!
+                        Think you know more than your friends? Prove it here by creating a league and inviting them to play!
                         </p>
-                    <Button className="welcomeButton" as={Link} to="/faqs">Expand my Mind!</Button>                    
+                        <p>Head to the games section and show us what you can do!
+                        </p>
+                    <Button className="welcomeButton" as={Link} to="/game">Lets Play!</Button>
+                    
+                    
                 </Container>
                       </Accordion.Body>
           </Accordion.Item>
-          <Accordion.Item style={{backgroundColor:"#63C7B2"}} eventKey="2">
-                      <Accordion.Header style={{backgroundColor:"#63C7B2"}}><span className="bolded">Explore</span></Accordion.Header>
-                      <Accordion.Body style={{backgroundColor:"#63C7B2"}}>
+          <Accordion.Item className="thirdAcc" eventKey="2">
+                      <Accordion.Header ><span className="bolded">Explore <FlatColorIconsBinoculars className="headerIconWelcome"/></span></Accordion.Header>
+                      <Accordion.Body style={{backgroundColor:"#cb88fd"}}>
                       <Container className="infoCardContainer">
-                    <h3>Learn </h3>
-                    <FlatColorIconsReading className="welcomeCardIcons"/>
+                    <h3>Explore </h3>
+                    <FlatColorIconsBinoculars className="welcomeCardIcons"/>
                     <p>
-                        Don't know your stocks from your stonks? Want to learn the basics about investing?
+                        Not all those who wander are lost, but you can get lost in the nearly 500 stocks that can be found on the app!
                     </p>
-                    <p>Head to the education section and start learning today!
-                        </p>
-                    <Button className="welcomeButton" as={Link} to="/faqs">Expand my Mind!</Button>                    
+                    <p>Realise the full capabilities of FinOptimise!</p>
+                    <Button className="welcomeButton" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
                 </Container>
                       </Accordion.Body>
           </Accordion.Item>

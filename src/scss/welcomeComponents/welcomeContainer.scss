@@ -32,52 +32,19 @@
     width: 6rem;
 }
 
-
-
-@media (min-width:320px) {
-    /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
-    .splashLogo {
-        max-width: 15rem;
-    }
+.headerIconWelcome{
+    height: 1.5rem;
+    width: 1.5rem;
 }
 
-@media (min-width:480px) {
-    /* smartphones, Android phones, landscape iPhone */
-    .splash-page-container {
-        width: 95%;
-    }
+.firstAcc .accordion-button {
+    background-color: #63C7B2 !important;
 }
 
-@media (min-width:600px) {
-    /* portrait tablets, portrait iPad, e-readers (Nook/Kindle), landscape 800x480 phones (Android) */
-    .splash-page-container {
-        width: 80%;
-    }
+.secondAcc .accordion-button {
+    background-color: #80ced7 !important;
 }
 
-@media (min-width:801px) {
-    /* tablet, landscape iPad, lo-res laptops ands desktops */
-    .splash-page-container {
-        width: 75%;
-    }
+.thirdAcc .accordion-button {
+    background-color: #cb88fd !important;
 }
-
-@media (min-width:1025px) {
-    /* big landscape tablets, laptops, and desktops */
-    .splash-page-container {
-        width: 70%;
-    }
-}
-
-@media (min-width:1281px) {
-    /* hi-res laptops and desktops */
-}
-
-.firstTickers {
-    width: 10rem;
-    height: 100%;
-    display: block;
-    border-width: 1.5px;
-    box-shadow: 5px 5px $shadow;
-  }
-

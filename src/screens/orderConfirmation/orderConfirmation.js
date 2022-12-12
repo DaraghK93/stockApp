@@ -201,7 +201,12 @@ function OrderConfirmationPage() {
                         <PortfolioSelectionDropdown portfolios={activePortfolios} state={gameId} setState={setGameId} currentPortfolioName={portfolio.portfolioName}/>
                     </Row>
                     <Row className="py-2">
-                        <BuyOrSell state={buyOrSell} setter={setBuyOrSell} holding={holding}/>
+                        <BuyOrSell 
+                            state={buyOrSell} 
+                            setter={setBuyOrSell} 
+                            holding={holding}
+                           
+                            />
                     </Row>
                     <Row className="pt-4" md={1} xs={1} lg={1}>
                         <Col>
@@ -209,6 +214,8 @@ function OrderConfirmationPage() {
                                 orderType={orderType}
                                 setOrderType={setOrderType}
                                 buyOrSell={buyOrSell}
+                                portfolioBalance={portfolio.portfolioBalance}
+                                gameTradeFee={gameTradeFee}
                             />
                         </Col>
                     </Row>

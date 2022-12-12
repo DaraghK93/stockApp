@@ -30,7 +30,7 @@ function ValueLine({ portfolios,
                         <p>There are only <strong>{portfolios.length} players</strong> in this game! Wow, so lonely!
                             Invite others using the access code: <strong>{accessCode} </strong>
                             <CopyComponent copyText={accessString} /></p>
-                        <p>While you're here why not get ahead and, <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p>
+                        <p>While you're here why not get ahead and <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p>
                     </>)
             }
             else {
@@ -39,7 +39,7 @@ function ValueLine({ portfolios,
                         <p>There is only <strong>{portfolios.length} player</strong> in this game! Wow, so lonely! Invite others using the access code: <strong>{accessCode} </strong>
                             <CopyComponent copyText={accessString} />
                         </p>
-                        <p>While you're here why not get ahead and, <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p>
+                        <p>While you're here why not get ahead and <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>make a trade now!</strong></p>
                     </>)
             }
         }

@@ -25,6 +25,8 @@ import { API } from "aws-amplify";
 import { useSelector,useDispatch } from 'react-redux';
 import {updateActivePortfolios} from '../../actions/portfolioActions';
 
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 function StockPage() {
     /// Component State ///
@@ -64,6 +66,7 @@ function StockPage() {
     var lineColor;
     var gradientColor;
     var positiveSymbol;
+    var arrow;
 
     const DayData = event => {
         // toggle shown data
@@ -107,10 +110,12 @@ function StockPage() {
             lineColor = "#00C49F"
             gradientColor = "#b5e8df"
             positiveSymbol = "+"
+            arrow = <KeyboardDoubleArrowUpIcon></KeyboardDoubleArrowUpIcon>
         }
         else {
             lineColor = "#d61e1e"
             gradientColor = "#ffc9c9"
+            arrow = <KeyboardDoubleArrowDownIcon></KeyboardDoubleArrowDownIcon>
         }
         return lineColor
     }
@@ -189,7 +194,7 @@ function StockPage() {
                                 </dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
                                 <dt style={{ fontSize: "120%" }}>Sector: {stock.sector}</dt>
-                                <dt style={{ color: redOrGreen(), fontSize: "100%" }}>
+                                <dt style={{ color: redOrGreen(), fontSize: "100%" }}>{arrow}
                                     {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} (<strong>{positiveSymbol}{percentageChange}%</strong>)
                                 </dt>
                              

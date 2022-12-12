@@ -14,8 +14,6 @@ import {Logout, Cancel} from '@mui/icons-material';
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
 
-
-
 /// Redux ///
 import { useSelector } from 'react-redux';
 import TimeLine from "../../components/gameComponents/individualGameScreenComponents/Timeline";

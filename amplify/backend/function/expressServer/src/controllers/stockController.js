@@ -56,7 +56,7 @@ const getAllStocks = async (req, res, next) => {
       let deRecs = deRecommendData.data.message
       
       // Keyword undefied just return the top stocks, also feed in recs to function
-      const stocks = await stockService.getStockSummary(Stock, recs)
+      const stocks = await stockService.getStockSummary(Stock, recs, deRecs)
       res.json(stocks)
     }else{ 
       // Keyword defined search for the stocks 

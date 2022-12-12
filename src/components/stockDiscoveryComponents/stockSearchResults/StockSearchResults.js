@@ -1,4 +1,4 @@
-import {Row } from 'react-bootstrap';
+import {Row, Col, Container } from 'react-bootstrap';
 import { APIName } from '../../../constants/APIConstants'
 import { useState, useEffect } from 'react';
 import { API } from "aws-amplify";
@@ -62,7 +62,13 @@ function StockSearchResults({keyword}) {
         </> :
     
         <>
-        <MessageAlert variant='danger'>No results match your search term "{keyword}"</MessageAlert>
+        <Container>
+            <Row>
+                <Col className='mx-5'>
+                    <MessageAlert variant='danger'>No results match your search term "{keyword}"</MessageAlert>
+                </Col>
+            </Row>
+        </Container>
         </>
       
          

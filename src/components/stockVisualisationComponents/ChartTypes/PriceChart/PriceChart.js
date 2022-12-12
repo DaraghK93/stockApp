@@ -31,7 +31,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                     setNoOfTicks(0)
                 }
                 else if (datetype === "daily"){
-                    setNoOfTicks(-11)
+                    setNoOfTicks(7)
                 }
             }
             else {
@@ -47,7 +47,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 }
                 
                 else if (datetype === "daily"){
-                    setNoOfTicks(-11)
+                    setNoOfTicks(-14)
                 }
             }
         }
@@ -96,6 +96,13 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 dataKey="date"
                     stroke="#595959"
                     interval={noOfTicks}
+                    tickFormatter={(value) => dateFormatter(value)}
+                >
+                </XAxis>
+                <XAxis 
+                dataKey="date"
+                    stroke="#595959"
+                    interval={-noOfTicks}
                     tickFormatter={(value) => dateFormatter(value)}
                 >
                 </XAxis>

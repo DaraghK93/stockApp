@@ -51,7 +51,11 @@
 /* Splash Page */
 @import "./splashPageComponents/splashPageContainer.scss";
 
+
 @import "./widgetsComponents/swiperCarousel.scss";
+/* Welcome Page */
+@import "./welcomeComponents/welcomeContainer.scss";
+
 
 .navbar-dark .navbar-toggler-icon {
     background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Hamburger_icon_white.svg/1024px-Hamburger_icon_white.svg.png");
@@ -65,6 +69,7 @@
 
 
 body {
+    padding-top: 3.45rem;
     background-color: $background;
 }
 
@@ -150,3 +155,9 @@ h1,
 .ytvid { position: relative; padding-bottom: 56.25%; padding-top: 30px; height: 0; overflow: hidden; }
 
 .iframe { position:absolute; top: 0; left: 0; height: 100%; width: 100%}
+
+.textCenter{
+    display: flex !important;
+    text-align:center !important;
+    align-items:center !important;
+}

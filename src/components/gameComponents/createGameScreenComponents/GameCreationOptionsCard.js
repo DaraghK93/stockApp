@@ -23,7 +23,9 @@ import {updateActivePortfolios} from '../../../actions/portfolioActions';
 function GameCreationOptionsCard({children, setScreen, screen, disableNextStep, 
                                 gameName, gameType, gameImage, gameStartDate, gameEndDate, 
                                 startingBalance, tradingFee, maxTradesPerDay, gameWinningValue,  
-                                stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating}){
+                                stockTypes, minEnvironmentRating,  minSocialRating, minGovernanceRating,
+                                mobileScreen, quickGame
+                            }){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -55,8 +57,8 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                         "image": gameImage,
                         "sectors": stockTypes,
                         "minERating": minEnvironmentRating,
-                        "mingSRating": minSocialRating,
-                        "mingGRating": minGovernanceRating
+                        "minSRating": minSocialRating,
+                        "minGRating": minGovernanceRating
                     }
             }
             /// Set unique fields to the game type 
@@ -65,17 +67,17 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             }else if(gameType === "timeBased"){
                 myInit.body.endDate = gameEndDate
             }
+            console.log(myInit)
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
-            console.log(res)
             if (res.newLeague.active){
                 /// If the game is active then update the active portfolios state in redux 
                 /// Called becuase creating a game will also create a portfolio
                 dispatch(updateActivePortfolios(userInfo.token))  
             }
             /// Will need to be updated to redirect to game page 
-            navigate(`/game`)
+            navigate(`/game/${res.newLeague._id}`)
             setLoading(false)
         }catch(error){
             /// Will be hit if error in the POST 
@@ -83,25 +85,25 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             setLoading(false)
         }
     }
-
-    return(
-        <Card className="my-5">
-            <Card.Body>
-                {children}
-                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
-                {loading && <LoadingSpinner/>}
-                <Row className="containerButtons" lg={2} md={2} xs={2}>
+    console.log(minGovernanceRating)
+    const PrevNextButtons = () => {
+        return(
+            <Row className="containerButtons" lg={2} md={2} xs={2}>
                     <Col className="prevNextCol">
                         {screen > 1 &&
                         <Button
                             className="prevNextButtons"
                             onClick={() => {
-                                setScreen(screen-1)
+                                if (quickGame !== "customGame"){
+                                    setScreen(1) 
+                                }else{
+                                  setScreen(screen-1)  
+                                }
                             }}
                         >Back</Button>
                     }
                     </Col>
-                    {(screen === 7 && gameType === "valueBased") || (screen === 6 && gameType === "timeBased")  ?
+                    {(screen === 8 && gameType === "valueBased") || (screen === 7 && gameType === "timeBased")  ?
                         <Col className="prevNextCol">
                             <Button
                                 className="prevNextButtons"
@@ -115,16 +117,60 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                                 className="prevNextButtons"
                                 disabled={disableNextStep}
                                 onClick={() => {
-                                    setScreen(screen+1)
+                                    // If its not a customised game i.e a quickgame 
+                                    if (quickGame !== "customGame"){
+                                        if (gameType === "valueBased"){
+                                            setScreen(8)
+                                        }else if(gameType === "timeBased"){
+                                            setScreen(7)
+                                        }
+                                    }else{
+                                        // Normal flow 
+                                        setScreen(screen+1)
+                                    }
                                 }}
                             >Next</Button>
                         </Col>
-                    }      
+                        }
             </Row>
-            </Card.Body>
-        </Card>
-    )
+        )
+    }
 
+    return(
+        <>
+        {mobileScreen === true ? 
+            <>
+                {children}
+                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                {loading && <LoadingSpinner/>}
+                {mobileScreen === true ?
+                    <Card className="tradeButtonCard rounded-0" >
+                        <PrevNextButtons />
+                    </Card>
+                :
+                    <PrevNextButtons />
+                }
+            </>
+        :
+        <Card className="my-5">
+           <Card.Body>
+               <>
+                {children}
+                {error && <MessageAlert variant="danger">{error}</MessageAlert>}
+                {loading && <LoadingSpinner/>}
+                {mobileScreen === true ?
+                    <Card className="tradeButtonCard rounded-0" >
+                        <PrevNextButtons />
+                    </Card>
+                :
+                    <PrevNextButtons />
+            }
+            </>
+           </Card.Body>
+        </Card> 
+    }
+    </>
+    )
 }
 
 

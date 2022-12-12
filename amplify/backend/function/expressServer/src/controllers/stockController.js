@@ -51,9 +51,12 @@ const getAllStocks = async (req, res, next) => {
       let userID = req.user.id
       let recommendData = await stockService.getRecomms(userID)
       let recs = recommendData.data.message
+
+      let deRecommendData = await stockService.getDeRecomms(userID)
+      let deRecs = deRecommendData.data.message
       
       // Keyword undefied just return the top stocks, also feed in recs to function
-      const stocks = await stockService.getStockSummary(Stock, recs)
+      const stocks = await stockService.getStockSummary(Stock, recs, deRecs)
       res.json(stocks)
     }else{ 
       // Keyword defined search for the stocks 
@@ -148,6 +151,7 @@ const getStockBySymbol = async (req, res, next) => {
     const oneWeek = stockPriceData[0]
     const oneMonth = stockPriceData[1]
     const oneYear = stockPriceData[2]
+    const oneDay = stockPriceData[3]
     /// Get the search query for news articles
     const newsQuery = await articleService.buildSearchQueryForCompany(stocks[0].shortname,stocks[0].longname, stocks[0].symbol )
     /// Execute the query to get the articles 
@@ -179,7 +183,8 @@ const getStockBySymbol = async (req, res, next) => {
       twitterSentiment:twitterSentiment,
       week: oneWeek, 
       month: oneMonth,
-      year: oneYear
+      year: oneYear,
+      day: oneDay
     }
     // console.log(stocks)
     res.json(returnStocks);

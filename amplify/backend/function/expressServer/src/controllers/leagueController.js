@@ -24,8 +24,8 @@ const createLeague = async (req, res, next) => {
             maxDailyTrades,
             sectors,
             minERating,
-            mingGRating,
-            mingSRating,
+            minGRating,
+            minSRating,
             endDate,
             image,
             users,
@@ -223,8 +223,8 @@ const createLeague = async (req, res, next) => {
         maxDailyTrades,
         sectors,
         minERating,
-        mingGRating,
-        mingSRating,
+        minGRating,
+        minSRating,
         endDate,
         active,
         image,
@@ -684,7 +684,10 @@ const deleteLeague = async (req, res, next) => {
           'finished': true, 
           'finalStandings': '$portfolios'
         }
-      }, {
+      },{
+        '$unset': 'portfolios'
+      },
+       {
         '$merge': {
           'into': 'leagues', 
           'on': '_id'

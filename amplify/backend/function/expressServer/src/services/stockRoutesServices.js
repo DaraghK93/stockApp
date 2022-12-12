@@ -155,12 +155,26 @@ const getDeRecomms = async (userID) => {
 }
 
 
-const getStockSummary =  (schema, recommended) => {
+const getStockSummary =  (schema, recommended, derecommended) => {
 const stocks =  schema.aggregate([
     { $facet: 
         {
         // agg query for recommended. This queries the DB for the list of ticker symbols "recommended"
         recommend: [{ $match: { symbol: { "$in": recommended } } },
+        {
+            $project: {
+                'symbol': 1,
+                'longname': 1, 'exchange': 1, 'logo': 1,
+                'daily_change.absoluteChange': 1,
+                'daily_change.percentageChange': 1,
+                'daily_change.currentprice': 1,
+                'esgrating.environment_score': 1
+            }
+        },
+        {$addFields: {"order": {$indexOfArray: [recommended, "$symbol" ]}}},
+        {$sort: {"order": 1}}
+        ],
+        derecommend: [{ $match: { symbol: { "$in": derecommended } } },
         {
             $project: {
                 'symbol': 1,

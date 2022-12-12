@@ -109,6 +109,7 @@ function TableHoldings({ data }) {
             setPostsPerPage(e.target.id)
         }
         else {
+            setCurrentPage(1)
             setPostsPerPage(totalPosts)
         }
     }
@@ -223,6 +224,7 @@ function TableHoldings({ data }) {
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
                                         {
+
                                             tableData.length < 15 ?
                                                 <>
                                                     <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
@@ -234,6 +236,7 @@ function TableHoldings({ data }) {
                                                         <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
                                                         <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
                                                     </>
+
                                                     :
                                                     <>
                                                         <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>

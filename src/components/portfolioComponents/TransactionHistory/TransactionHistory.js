@@ -181,6 +181,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
             setPostsPerPage(e.target.id)
         }
         else {
+            setCurrentPage(1)
             setPostsPerPage(totalPosts)
         }
     }

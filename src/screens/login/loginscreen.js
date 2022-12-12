@@ -22,6 +22,8 @@ function LoginPage() {
   const [email, setEmail] = useState('');
   // constant password holds the value of the input password
   const [password, setPassword] = useState('');
+  // set show password or not
+  const [passwordShown, setPasswordShown] = useState(false);
 
   /// Redux ///
   const dispatch = useDispatch();
@@ -62,12 +64,22 @@ function LoginPage() {
         <Form.Group className='py-2' controlId='password'>
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type='password'
+            type={passwordShown ? 'text' : 'password'}
             placeholder='Password'
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
         </Form.Group>
+        <Form.Group>
+              <Form.Check
+                type='checkbox'
+                id='show password'
+                label='Show password'
+                onChange={(e) => {
+                  setPasswordShown(e.target.checked);
+                }}
+              />
+            </Form.Group>
         <Row>
           <Col className='text-center py-2'>
             <a href='/auth/recover' style={{ color: '#006195' }}>

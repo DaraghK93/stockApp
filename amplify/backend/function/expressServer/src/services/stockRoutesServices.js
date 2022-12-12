@@ -51,6 +51,10 @@ function getStockPriceData (stocks) {
       // checks if today is Sunday and instead sets it to 11pm on Friday (the last time the lambda runs)
       showDate = moment(startTimesMoment).subtract(2, "days").set({hour:23,minute:0,second:0,millisecond:0})
     }
+    else if (startTimesMoment.getDay() === 0 && startTimesMoment.getHours < 9){
+      // checks if today is Monday and before 9am sets it to 11pm on Friday (the last time the lambda runs)
+      showDate = moment(startTimesMoment).subtract(3, "days").set({hour:23,minute:0,second:0,millisecond:0})
+    }
     else {
       showDate = moment(startTimesMoment)
     }

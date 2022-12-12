@@ -57,8 +57,8 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                         "image": gameImage,
                         "sectors": stockTypes,
                         "minERating": minEnvironmentRating,
-                        "mingSRating": minSocialRating,
-                        "mingGRating": minGovernanceRating
+                        "minSRating": minSocialRating,
+                        "minGRating": minGovernanceRating
                     }
             }
             /// Set unique fields to the game type 
@@ -67,6 +67,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             }else if(gameType === "timeBased"){
                 myInit.body.endDate = gameEndDate
             }
+            console.log(myInit)
             /// Send the request 
             const res = await API.post(APIName, path, myInit)
             /// Just console log for now 
@@ -84,7 +85,7 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
             setLoading(false)
         }
     }
-    
+    console.log(minGovernanceRating)
     const PrevNextButtons = () => {
         return(
             <Row className="containerButtons" lg={2} md={2} xs={2}>

@@ -107,6 +107,10 @@ const LeagueSchema = new mongoose.Schema(
           type: Schema.Types.ObjectId, 
           ref: 'PortfolioData',
           required:true
+        }],
+        finalStandings: [{
+          type: [Object],
+          default: []
         }]
     },
     { collection: 'leagues' },

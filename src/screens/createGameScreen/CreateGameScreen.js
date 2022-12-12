@@ -37,6 +37,7 @@ function CreateGameScreen(){
     const ms   = gameStartDate.getTime() + (86400000 *days); /// 86400000 -> ms in a day 
     const twoWeeks = new Date(ms); // set gameEnd default to two weeks from today 
     const [gameEndDate, setGameEndDate] = useState(twoWeeks)
+    const [gameDurationError, setGameDurationError] = useState()
     /// Page 3 - Starting Balance, fees and max trades 
     const [startingBalance, setStartingBalance] = useState(100000)
     const [tradingFee, setTradingFee] = useState(20)
@@ -103,13 +104,14 @@ function CreateGameScreen(){
                             />
                     </GameCreationOptionsCard>
                 :screen === 3 ?
-                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} mobileScreen={mobileScreen} quickGame={quickGame}>
+                    <GameCreationOptionsCard screen={screen} setScreen={setScreen} gameType={gameType} mobileScreen={mobileScreen} quickGame={quickGame} disableNextStep={gameDurationError}>
                         <GameDurationSelection 
                             gameStartDate={gameStartDate} 
                             setGameStartDate={setGameStartDate}
                             gameEndDate={gameEndDate}
                             setGameEndDate={setGameEndDate}
                             gameType={gameType}
+                            gameDurationError={gameDurationError} setGameDurationError={setGameDurationError}
                         />
                     </GameCreationOptionsCard>
                 :screen === 4 ?

@@ -1,4 +1,4 @@
-import { Card, Col, Container, Table, Button, Dropdown } from "react-bootstrap";
+import { Card, Col, Container, Table, Button, Dropdown, Modal } from "react-bootstrap";
 import { useState, useEffect, Fragment } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom"
@@ -42,9 +42,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
         setData(filtered)
     }, [transactions])
 
-    console.log()
-
-
 
     window.addEventListener("resize", showCols, true)
 
@@ -76,10 +73,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
     const buySellAll = ["BUY", "SELL", "ALL"]
 
-
-    console.log(data)
-
-
     const updateStatus = (status) => {
         setCurrentStatus(status)
         if (status === "PENDING") {
@@ -102,7 +95,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
         else {
             setShowPendingCol(false)
             setHidePendingCol(true)
-    
+
             if (currentType === "ALL") {
                 const filtered = transactions.filter(transaction => {
                     return transaction.status === status
@@ -132,7 +125,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
             setData(filtered)
         }
     }
-
 
     // expand row function
     const handleExpandRow = (event, userId) => {
@@ -220,7 +212,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
                 </div>
                 <br />
                 <Container>
-
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <nav>
                             <ul key="updateStatus" className="pagination">
@@ -277,7 +268,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                 <tbody>
                                     {currentPosts.map((transaction, index) => (
                                         (<Fragment key={`${index}-fragment${transaction.date}`}>
-                                            <tr style={{ verticalAlign: "middle", fontSize: "90%" }}  key={index}>
+                                            <tr style={{ verticalAlign: "middle", fontSize: "90%" }} key={index}>
                                                 <td key={transaction.date} className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
                                                 <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>
                                                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -326,8 +317,6 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                                             <td key={`${transaction.stock[0].symbol}-expanded-row2`} colSpan="6">
                                                                 <div>
                                                                     <h3>{transaction.stock[0].shortname}</h3>
-
-
                                                                     <ul style={{ listStyleType: "none" }}>
                                                                         <li><strong>Date: </strong>{moment(transaction.date).format('DD-MM-YYYY')}</li>
                                                                         <li><strong>Ticker: </strong>{transaction.stock[0].symbol}</li>
@@ -373,32 +362,32 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                                     :
 
                                                     data.length === 15 ?
-                                                    <>
-                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
-                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
-                                                    </>
-                                                    :
-                                                    data.length < 10 ?
                                                         <>
                                                             <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                            <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                                             <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
                                                         </>
                                                         :
-                                                        data.length < 15 ?
+                                                        data.length < 10 ?
                                                             <>
                                                                 <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                                                <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                                                 <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
                                                             </>
                                                             :
-                                                            <>
-                                                                <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                                                <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
-                                                                <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
-                                                                <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                            data.length < 15 ?
+                                                                <>
+                                                                    <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                                    <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                                    <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                                </>
+                                                                :
+                                                                <>
+                                                                    <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                                    <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                                    <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                                                    <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
 
-                                                            </>
+                                                                </>
 
                                                 }
 

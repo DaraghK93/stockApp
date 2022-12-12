@@ -9,9 +9,10 @@ import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
+import BasicModal from "../../components/widgets/BasicModal/BasicModal";
 
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
-import {Logout, Cancel} from '@mui/icons-material';
+import { Logout, Cancel } from '@mui/icons-material';
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -35,7 +36,9 @@ function IndividualGameScreen() {
     const [isShownStocks, setisShownStocks] = useState(false);
     const [isShownPortfolio, setisShownPortfolio] = useState(false);
     const [success, setSuccess] = useState("")
-    const [showAreYouSureModal, setShowAreYouSureModal ] = useState(false);
+    const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
+    // modal state
+    const [show, setShow] = useState(false);
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
@@ -64,7 +67,7 @@ function IndividualGameScreen() {
     }
 
     function isAdmin() {
-        if (league.leagueAdmin === userInfo.username){
+        if (league.leagueAdmin === userInfo.username) {
             return true
         }
         else {
@@ -151,7 +154,7 @@ function IndividualGameScreen() {
     }
 
 
-    function showGameStocksPage(){
+    function showGameStocksPage() {
         setisShownGameDetails(false)
         setisShownLeaderBoard(false)
         setisShownPortfolio(false)
@@ -163,60 +166,60 @@ function IndividualGameScreen() {
     function checkForDraw() {
         if (league.finalStandings.length > 1) {
 
-        if (league.finalStandings[0].totalValue !== league.finalStandings[1].totalValue) {
-        return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
-        is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
-        } else {
-            let draws = [league.finalStandings[0].user]
-            for (let i = 1; i <league.finalStandings.length; i++) {
-                if (league.finalStandings[i].totalValue === league.finalStandings[0].totalValue ) {
-                    draws.push(league.finalStandings[i].user)
-                } else {
-                    break
+            if (league.finalStandings[0].totalValue !== league.finalStandings[1].totalValue) {
+                return <p style={{ "textAlign": "center", "paddingTop": "1rem" }}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong>
+                    is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
+            } else {
+                let draws = [league.finalStandings[0].user]
+                for (let i = 1; i < league.finalStandings.length; i++) {
+                    if (league.finalStandings[i].totalValue === league.finalStandings[0].totalValue) {
+                        draws.push(league.finalStandings[i].user)
+                    } else {
+                        break
+                    }
+
                 }
-            
+                let drawString = draws.join(', ')
+                // replace last comma with and
+                drawString = drawString.replace(/,(?=[^,]+$)/, ', and ')
+                return <p style={{ "textAlign": "center", "paddingTop": "1rem" }}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon>Draw between <strong>{drawString}! </strong>
+                    Have another go <Link to="/game">here!</Link> </p>
             }
-            let drawString = draws.join(', ')
-            // replace last comma with and
-            drawString = drawString.replace(/,(?=[^,]+$)/, ', and ')
-            return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon>Draw between <strong>{drawString}! </strong> 
-             Have another go <Link to="/game">here!</Link> </p>
+        } else {
+            return <p style={{ "textAlign": "center", "paddingTop": "1rem" }}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong>
+                is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
         }
-    } else {
-        return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
-        is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
     }
-}
-    
-   
+
+
 
     function timeOrValueLine() {
 
         if (!league.finished) {
-         
-            if (league.leagueType === "timeBased" || (!league.active) ) {
+
+            if (league.leagueType === "timeBased" || (!league.active)) {
                 return (
-                    <TimeLine 
-                    startDate={league.startDate} 
-                    endDate={league.endDate} 
-                    portfolios={league.portfolios} 
-                    accessCode={league.accessCode}
+                    <TimeLine
+                        startDate={league.startDate}
+                        endDate={league.endDate}
+                        portfolios={league.portfolios}
+                        accessCode={league.accessCode}
                     ></TimeLine>
 
                 )
             }
             else {
                 return (
-                    <ValueLine 
-                    portfolios={league.portfolios} 
-                    winningValue={league.winningValue} 
-                    accessCode={league.accessCode}
+                    <ValueLine
+                        portfolios={league.portfolios}
+                        winningValue={league.winningValue}
+                        accessCode={league.accessCode}
                     ></ValueLine>
                 )
             }
-        } else { 
+        } else {
             return (
-                
+
                 checkForDraw()
             )
         }
@@ -224,134 +227,137 @@ function IndividualGameScreen() {
     }
 
 
-    const cancelOrder = async ( transactionId, portfolioId ) => {
-        try{
-                /// Set the portfolio Loading to true and reset error
-                setLoading(true)
-                setError()
-                const path = '/api/portfolio/cancelLimitOrder'
-                let myInit = {
-                    headers : {"x-auth-token": userToken},       
-                    body: {
-                        transactionId: transactionId, 
-                        portfolioId: portfolioId, 
-                    }
+    const cancelOrder = async (transactionId, portfolioId) => {
+        try {
+            /// Set the portfolio Loading to true and reset error
+            setLoading(true)
+            setError()
+            const path = '/api/portfolio/cancelLimitOrder'
+            let myInit = {
+                headers: { "x-auth-token": userToken },
+                body: {
+                    transactionId: transactionId,
+                    portfolioId: portfolioId,
                 }
-                /// Send the request 
-                await API.post(APIName, path, myInit)
-                /// Set the success message using the
-                setSuccess(transactionId)
-                setLoading(false)
-        }catch(error){
+            }
+            /// Send the request 
+            await API.post(APIName, path, myInit)
+            /// Set the success message using the
+            setSuccess(transactionId)
+            setShow(true)
+            setLoading(false)
+         
+        } catch (error) {
             setError(error.response.data.errormessage)
             setLoading(false)
         }
-     }
+    }
 
     return (
         <>
-            {loading || portfolioLoading ? <LoadingSpinner /> 
-            : error ? <MessageAlert variant='danger'>{error}</MessageAlert> 
-            : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert>
-            :
-                <>
-                    <div className="container-img">
-                        <Image className="gameImage" src={league.image}></Image>
-                        <div className="centeredGameImg"><br></br><br></br>
-                            <h1 className="ImgTxt">{league.leagueName}</h1><br></br>
-                            {!league.finished ? <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
-                                                     <CopyComponent copyText={accessString} /></p>
-                            : <h2 className="ImgTxt">Game Over!</h2> }
-
-                        </div>
-                    </div>
-                    <GameNavBar disPlayScreen={disPlayScreen} active={active} />
-                    {isShownLeaderBoard &&
-                        <>
-                        
-                        <Container>
-                            {timeOrValueLine()}
-                        </Container>
-                            {league.finished ? <LeaderBoard leaderBoardInfo={league.finalStandings} startingBalance={league.startingBalance} /> 
-                            : <LeaderBoard leaderBoardInfo={league.portfolios} startingBalance={league.startingBalance} />}
-                    </>
-                    }
-                    {isShownGameDetails &&
-                        <Container style={{ "textAlign": "center", "alignItems": "center" }}>
-                            <GameCreationSummary
-                                gameType={league.leagueType}
-                                gameName={league.leagueName}
-                                gameStartDate={league.startDate}
-                                gameEndDate={league.endDate}
-                                startingBalance={league.startingBalance}
-                                tradingFee={league.tradingFee}
-                                maxTradesPerDay={league.maxDailyTrades}
-                                gameWinningValue={league.winningValue}
-                                stockTypes={league.sectors}
-                                ESGGameType={ESGGameType()}
-                            />
-                            <Container>
-                                {isAdmin() && league.finished !== true &&
-                            <Button 
-                            variant="danger"
-                            onClick={() =>{setShowAreYouSureModal(true)}} 
-                            style={{margin: '1rem'}}
-                            >Cancel League <Cancel/></Button>
-                            }
-                            {
-                                !isAdmin() && league.finished !== true &&
-                                <Button 
-                                variant="danger"
-                            onClick={() =>{setShowAreYouSureModal(true)}} 
-                            style={{margin: '1rem'}}
-                            >Leave League <Logout/></Button>
-                            }
-                        </Container>
-                        <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal} 
-                            leagueId={league._id}
-                            portfolioId={portfolio._id}
-                            isAdmin={isAdmin()}
-                />
-                            </Container>
-
-                    }
-                    {isShownStocks &&
-                        <Container>
-                            <br></br><h2>This is stocks screen</h2>
-                        </Container>
-                    }
-                    {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
-
-                        <>
-                            <Container style={{ textAlign: "center" }}>
-                                <br></br>
-                                <h2>No holdings to display - yet!</h2>
-                                <p>You have to spend money to make money, start trading here: </p>
-                                <Button onClick={() => showGameStocksPage()}>Trade now</Button>
-                            </Container>
-                        </>
+            {loading || portfolioLoading ? <LoadingSpinner />
+                : error ? <MessageAlert variant='danger'>{error}</MessageAlert>
+                    : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert>
                         :
-                         isShownPortfolio &&
                         <>
-                            <Container>
-                                <Row>
-                                    <GamePortfolio data={portfolio.valueHistory} name={portfolio.portfolioName} totalValue={portfolio.totalValue} />
-                                </Row>
-                                <Row>
-                                    <Col>
-                                        <HoldingsCard data={portfolio.holdings} remainder={portfolio.remainder} />
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col><br></br>
-                                        <TransactionHistory transactions={portfolio.transactions} cancelOrder={cancelOrder} />
-                                    </Col>
-                                </Row>
-                            </Container>
-                            <br></br>
+                            <div className="container-img">
+                                <Image className="gameImage" src={league.image}></Image>
+                                <div className="centeredGameImg"><br></br><br></br>
+                                    <h1 className="ImgTxt">{league.leagueName}</h1><br></br>
+                                    {!league.finished ? <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
+                                        <CopyComponent copyText={accessString} /></p>
+                                        : <h2 className="ImgTxt">Game Over!</h2>}
+
+                                </div>
+                            </div>
+                            <GameNavBar disPlayScreen={disPlayScreen} active={active} />
+                            <BasicModal showState={show} setShowState={setShow} title={"Order Cancelled!"} bodyText={"Successfully cancelled order!"}></BasicModal>
+                            {isShownLeaderBoard &&
+                                <>
+
+                                    <Container>
+                                        {timeOrValueLine()}
+                                    </Container>
+                                    {league.finished ? <LeaderBoard leaderBoardInfo={league.finalStandings} startingBalance={league.startingBalance} />
+                                        : <LeaderBoard leaderBoardInfo={league.portfolios} startingBalance={league.startingBalance} />}
+                                </>
+                            }
+                            {isShownGameDetails &&
+                                <Container style={{ "textAlign": "center", "alignItems": "center" }}>
+                                    <GameCreationSummary
+                                        gameType={league.leagueType}
+                                        gameName={league.leagueName}
+                                        gameStartDate={league.startDate}
+                                        gameEndDate={league.endDate}
+                                        startingBalance={league.startingBalance}
+                                        tradingFee={league.tradingFee}
+                                        maxTradesPerDay={league.maxDailyTrades}
+                                        gameWinningValue={league.winningValue}
+                                        stockTypes={league.sectors}
+                                        ESGGameType={ESGGameType()}
+                                    />
+                                    <Container>
+                                        {isAdmin() && league.finished !== true &&
+                                            <Button
+                                                variant="danger"
+                                                onClick={() => { setShowAreYouSureModal(true) }}
+                                                style={{ margin: '1rem' }}
+                                            >Cancel League <Cancel /></Button>
+                                        }
+                                        {
+                                            !isAdmin() && league.finished !== true &&
+                                            <Button
+                                                variant="danger"
+                                                onClick={() => { setShowAreYouSureModal(true) }}
+                                                style={{ margin: '1rem' }}
+                                            >Leave League <Logout /></Button>
+                                        }
+                                    </Container>
+                                    <AreYouSure showState={showAreYouSureModal} setShowState={setShowAreYouSureModal}
+                                        leagueId={league._id}
+                                        portfolioId={portfolio._id}
+                                        isAdmin={isAdmin()}
+                                    />
+                                </Container>
+
+                            }
+                            {isShownStocks &&
+                                <Container>
+                                    <br></br><h2>This is stocks screen</h2>
+                                </Container>
+                            }
+                            {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
+
+                                <>
+                                    <Container style={{ textAlign: "center" }}>
+                                        <br></br>
+                                        <h2>No holdings to display - yet!</h2>
+                                        <p>You have to spend money to make money, start trading here: </p>
+                                        <Button onClick={() => showGameStocksPage()}>Trade now</Button>
+                                    </Container>
+                                </>
+                                :
+                                isShownPortfolio &&
+                                <>
+                                    <Container>
+                                        <Row>
+                                            <GamePortfolio data={portfolio.valueHistory} name={portfolio.portfolioName} totalValue={portfolio.totalValue} />
+                                        </Row>
+                                        <Row>
+                                            <Col>
+                                                <HoldingsCard data={portfolio.holdings} remainder={portfolio.remainder} />
+                                            </Col>
+                                        </Row>
+                                        <Row>
+                                            <Col><br></br>
+                                                <TransactionHistory transactions={portfolio.transactions} cancelOrder={cancelOrder} />
+                                            </Col>
+                                        </Row>
+                                    </Container>
+                                    <br></br>
+                                </>
+                            }
                         </>
-                    }
-                </>
             }
         </>
     )

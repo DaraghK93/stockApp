@@ -75,7 +75,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
 
     const updateStatus = (status) => {
         setCurrentStatus(status)
-        if (currentType === "ALL"){
+        if (currentType === "ALL") {
             const filtered = transactions.filter(transaction => {
                 return transaction.status === status
             })
@@ -181,6 +181,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
             setPostsPerPage(e.target.id)
         }
         else {
+            setCurrentPage(1)
             setPostsPerPage(totalPosts)
         }
     }
@@ -191,11 +192,11 @@ function TransactionHistory({ transactions, cancelOrder }) {
                 <div className="holdingCard">
                     <Col>
                         <h2 className="cardTitle">Transactions<InfoButtonModal title={"What are transactions?"} info={
-                            <p>This is a record of the stock purchases and sales that you have made in this game. This includes pending transactions which are your unfulfilled limit orders, completed 
+                            <p>This is a record of the stock purchases and sales that you have made in this game. This includes pending transactions which are your unfulfilled limit orders, completed
                                 transactions and cancelled transactions.
                             </p>
-                            
-                            } /></h2>
+
+                        } /></h2>
                     </Col>
                 </div>
                 <br />
@@ -345,26 +346,26 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                                 Show {postsPerPage}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                {
+                                                {data.length < 10 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                                    :
                                                     data.length < 15 ?
                                                         <>
                                                             <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
                                                             <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
                                                             <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
                                                         </>
-                                                        : data.length < 10 ?
-                                                            <>
-                                                                <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                                                <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
-                                                            </>
-                                                            :
-                                                            <>
-                                                                <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                                                <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
-                                                                <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
-                                                                <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                        :
+                                                        <>
+                                                            <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                            <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                            <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                                            <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
 
-                                                            </>
+                                                        </>
 
                                                 }
 

@@ -185,7 +185,7 @@ const stocks =  schema.aggregate([
                 'esgrating.environment_score': 1
             }
         },
-        {$addFields: {"order": {$indexOfArray: [recommended, "$symbol" ]}}},
+        {$addFields: {"order": {$indexOfArray: [derecommended, "$symbol" ]}}},
         {$sort: {"order": 1}}
         ],
         // agg query for top environment

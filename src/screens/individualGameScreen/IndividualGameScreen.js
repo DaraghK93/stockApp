@@ -7,6 +7,7 @@ import LeaderBoard from "../../components/gameComponents/individualGameScreenCom
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
 import {Logout, Cancel} from '@mui/icons-material';
@@ -108,6 +109,7 @@ function IndividualGameScreen() {
                 setPortfolio(response)
                 setPortfolioLoading(false)
             })
+
             .catch((error) => {
                 /// This will be an error from API call 
                 console.log(error);
@@ -148,18 +150,40 @@ function IndividualGameScreen() {
         }
     }
 
+    function checkForDraw() {
+        if (league.finalStandings.length > 1) {
+
+        if (league.finalStandings[0].totalValue !== league.finalStandings[1].totalValue) {
+        return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
+        is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
+        } else {
+            let draws = [league.finalStandings[0].user]
+            for (let i = 1; i <league.finalStandings.length; i++) {
+                if (league.finalStandings[i].totalValue === league.finalStandings[0].totalValue ) {
+                    draws.push(league.finalStandings[i].user)
+                } else {
+                    break
+                }
+            
+            }
+            let drawString = draws.join(', ')
+            // replace last comma with and
+            drawString = drawString.replace(/,(?=[^,]+$)/, ', and ')
+            return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon>Draw between <strong>{drawString}! </strong> 
+             Have another go <Link to="/game">here!</Link> </p>
+        }
+    } else {
+        return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
+        is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
+    }
+}
+    
 
     function timeOrValueLine() {
 
-        if (league.finished === true) {
-            return (
-                <>
-                    <p>The game is over!</p>
-                </>
-            )
-        }
-        else {
-            if (league.leagueType === "timeBased") {
+        if (!league.finished) {
+         
+            if (league.leagueType === "timeBased" || (!league.active) ) {
                 return (
                     <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
 
@@ -170,7 +194,13 @@ function IndividualGameScreen() {
                     <ValueLine portfolios={league.portfolios} winningValue={league.winningValue} accessCode={league.accessCode}></ValueLine>
                 )
             }
+        } else { 
+            return (
+                
+                checkForDraw()
+            )
         }
+
     }
 
 
@@ -186,18 +216,21 @@ function IndividualGameScreen() {
                         <Image className="gameImage" src={league.image}></Image>
                         <div className="centeredGameImg"><br></br><br></br>
                             <h1 className="ImgTxt">{league.leagueName}</h1><br></br>
-                            <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
-                                <CopyComponent copyText={accessString} /></p>
+                            {!league.finished ? <p className="ImgTxt">Access Code: <strong>{league.accessCode} </strong>
+                                                     <CopyComponent copyText={accessString} /></p>
+                            : <h2 className="ImgTxt">Game Over!</h2> }
 
                         </div>
                     </div>
                     <GameNavBar disPlayScreen={disPlayScreen} active={active} />
                     {isShownLeaderBoard &&
                         <>
+                        
                             <Container>
                                 {timeOrValueLine()}
                             </Container>
-                            <LeaderBoard leaderBoardInfo={league.portfolios} />
+                                {league.finished ? <LeaderBoard leaderBoardInfo={league.finalStandings} startingBalance={league.startingBalance} /> 
+                                : <LeaderBoard leaderBoardInfo={league.portfolios} startingBalance={league.startingBalance} />}
                         </>
                     }
                     {isShownGameDetails &&

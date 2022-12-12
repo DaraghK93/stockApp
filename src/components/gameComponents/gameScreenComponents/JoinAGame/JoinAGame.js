@@ -98,7 +98,7 @@ function JoinAGame(){
                    </FormContainer>
                     {error && <MessageAlert variant="danger">{error}</MessageAlert>}
                 {leagueName &&
-                    <Modal show={setShow} onHide={handleClose} backdrop="static">
+                    <Modal show={setShow} onHide={handleClose} backdrop="static" centered>
                         <Modal.Body>
                             <Row xl={1} md={1} sm={1} xs={1} className="textCenter">
                         <Confetti numberOfPieces={500} recycle={false}/>
@@ -109,16 +109,10 @@ function JoinAGame(){
                                 <Confetti numberOfPieces={500} recycle={false} />
                             </Row>
                             <Row md={2} className="textCenter">
-                                <Col>
+
                                     <Link className="w-100" to={`/game/${leagueId}`} >
                                         <Button className="mb-2 w-100">View League <EmojiEventsIcon></EmojiEventsIcon></Button>
                                     </Link>
-                                </Col>
-                                <Col>
-                                    <Link className="w-100" to={`/stockdiscovery`}>
-                                        <Button className="mb-2 w-100">Explore Stocks <QueryStatsIcon></QueryStatsIcon></Button>
-                                    </Link>
-                                </Col>
 
                             </Row>
                         </Modal.Body>

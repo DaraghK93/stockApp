@@ -44,6 +44,32 @@ const getAllStocks = async (req, res, next) => {
   try{
     /// keyword is query param 
     const keyword = req.query.keyword;
+    let pageNumber = req.query.pageNumber;
+    let pageNumberINT = parseInt(pageNumber);
+
+  // if no page number included only show the first page
+    if(!pageNumber){
+      pageNumberINT =0
+    }
+
+    //check pagenumber query
+    if (      
+      !Number.isInteger(pageNumberINT) ||
+      pageNumberINT < 0
+    ) {
+      // Invalid page number bad request
+      res.status(400)
+      res.errormessage = 'Invalid page number entered'
+      return next(
+        new Error(
+          'Invalid page number entered',
+        ),
+      )
+    }
+
+    // number to skip is stocks per page * page number
+    const noPerPage = 24;
+    const noToSkip = pageNumberINT * noPerPage;
 
     /// if undefined return the stock summary 
     if(keyword == "undefined"){     
@@ -51,9 +77,12 @@ const getAllStocks = async (req, res, next) => {
       let userID = req.user.id
       let recommendData = await stockService.getRecomms(userID)
       let recs = recommendData.data.message
+
+      let deRecommendData = await stockService.getDeRecomms(userID)
+      let deRecs = deRecommendData.data.message
       
       // Keyword undefied just return the top stocks, also feed in recs to function
-      const stocks = await stockService.getStockSummary(Stock, recs)
+      const stocks = await stockService.getStockSummary(Stock, recs, deRecs)
       res.json(stocks)
     }else{ 
       let newStr = keyword.replace(/[^\w\s-&]/gi, '');

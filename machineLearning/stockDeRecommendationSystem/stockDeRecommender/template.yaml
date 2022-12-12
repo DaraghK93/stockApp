@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  python3.9
+
+  Sample SAM Template for stockDeRecommender
+
+# More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
+Globals:
+  Function:
+    Timeout: 200
+    Tracing: Active
+    Environment:
+      Variables:
+        ENVIRONMENT: prod
+        MONGOURI: mongodb://host.docker.internal:27017/
+        DATABASENAME: dev
+  Api:
+    TracingEnabled: True
+
+Resources:
+  stockDeRecommenderFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      PackageType: Image
+      Architectures:
+        - x86_64
+      Events:
+        RecommendStocks:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /stockDeRecommendations
+            Method: get
+    Metadata:
+      Dockerfile: Dockerfile
+      DockerContext: ./stockDeRecommender
+      DockerTag: python3.9-v1

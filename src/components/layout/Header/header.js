@@ -8,8 +8,8 @@ import {
 import { NavLink } from 'react-router-dom';
 
 import { useState } from "react";
-
-
+import SettingsIcon from '@mui/icons-material/Settings';
+import LogoutIcon from '@mui/icons-material/Logout';
 /// Redux ///
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../../actions/userActions'
@@ -59,9 +59,9 @@ function Header() {
                 </Nav>
                 <Nav>
                   <NavDropdown  className="justify-content-end userDropDown"  title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>
-                  <NavDropdown.Item as={NavLink}  to="/settings">Settings</NavDropdown.Item>
+                  <NavDropdown.Item as={NavLink}  to="/settings"><SettingsIcon></SettingsIcon> Settings</NavDropdown.Item>
                   <div className="dropdown-divider"></div>
-                <NavDropdown.Item onClick={logoutHandler} >Logout</NavDropdown.Item>
+                <NavDropdown.Item onClick={logoutHandler} ><LogoutIcon></LogoutIcon> Logout</NavDropdown.Item>
                 </NavDropdown>
                 </Nav>
                

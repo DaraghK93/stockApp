@@ -79,7 +79,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 margin={{
                     top: 10,
                     right: 30,
-                    left: -30,
+                    left: -25,
                     bottom: 0
                 }}>
                 <defs>
@@ -97,17 +97,11 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                     tickFormatter={(value) => dateFormatter(value)}
                 >
                 </XAxis>
-                <XAxis 
-                dataKey="date"
-                    stroke="#595959"
-                    interval={-noOfTicks}
-                    tickFormatter={(value) => dateFormatter(value)}
-                >
-                </XAxis>
                 <YAxis 
                     width={100}
                     stroke="#595959"
-                    tickFormatter={(value) => parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })}
+                    tickFormatter={(value) => value < 10000 ? parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }) : 
+                    "$" + parseInt((value) / 1000)+"K"  }
                     type= "number"
                     domain = {["dataMin - 1", "dataMax + 1"]}
                     allowDecimals={false}

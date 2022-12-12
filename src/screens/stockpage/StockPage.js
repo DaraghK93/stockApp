@@ -43,7 +43,6 @@ function StockPage() {
 
 
     // data coming directly from the stock object provided above. This means that another request is not needed
-
     const oneDayPrices = stock.day
     const oneWeekPrices = stock.week
     const oneMonthPrices = stock.month

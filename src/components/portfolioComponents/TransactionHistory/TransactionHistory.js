@@ -42,6 +42,8 @@ function TransactionHistory({ transactions, cancelOrder }) {
         setData(filtered)
     }, [transactions])
 
+    console.log()
+
 
 
     window.addEventListener("resize", showCols, true)
@@ -68,34 +70,51 @@ function TransactionHistory({ transactions, cancelOrder }) {
         { label: "Units", accessor: "units", sortable: true, sortbyOrder: "", showHeader: hideMobile },
         { label: "Limit Value", accessor: "1", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
         { label: "", accessor: "2", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
+        { label: "", accessor: "3", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
     ];
 
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
     const buySellAll = ["BUY", "SELL", "ALL"]
 
+
+    console.log(data)
+
+
     const updateStatus = (status) => {
         setCurrentStatus(status)
-        if (currentType === "ALL") {
-            const filtered = transactions.filter(transaction => {
-                return transaction.status === status
-            })
-            setData(filtered)
-        }
-        else {
-            const filtered = transactions.filter(transaction => {
-                return transaction.status === status && transaction.buyOrSell === currentType
-            })
-            setData(filtered)
-        }
-
         if (status === "PENDING") {
             setShowPendingCol(true)
             setHidePendingCol(false)
+            if (currentType === "ALL") {
+                const filtered = transactions.filter(transaction => {
+                    return transaction.status === status
+                })
+                setData(filtered)
+            }
+            else {
+                const filtered = transactions.filter(transaction => {
+                    return transaction.status === status && transaction.buyOrSell === currentType
+                })
+                setData(filtered)
+            }
 
         }
         else {
             setShowPendingCol(false)
             setHidePendingCol(true)
+    
+            if (currentType === "ALL") {
+                const filtered = transactions.filter(transaction => {
+                    return transaction.status === status
+                })
+                setData(filtered)
+            }
+            else {
+                const filtered = transactions.filter(transaction => {
+                    return transaction.status === currentStatus && transaction.buyOrSell === currentType
+                })
+                setData(filtered)
+            }
         }
     }
 
@@ -257,8 +276,8 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                 </thead>
                                 <tbody>
                                     {currentPosts.map((transaction, index) => (
-                                        (<Fragment key={`${index}-fragment`}>
-                                            <tr key={transaction.stock[0].symbol}>
+                                        (<Fragment key={`${index}-fragment${transaction.date}`}>
+                                            <tr style={{ verticalAlign: "middle", fontSize: "90%" }}  key={index}>
                                                 <td key={transaction.date} className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
                                                 <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>
                                                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

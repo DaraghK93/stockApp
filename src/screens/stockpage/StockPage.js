@@ -145,6 +145,8 @@ function StockPage() {
                 const res = await API.get(APIName, path)
                 // Set the state for the stock and loading to false 
                 setStock(res)
+                setAbsoluteChange(res.daily_change.absoluteChange)
+                setPercentageChange(res.daily_change.percentageChange)
                 setLoading(false)
                 dispatch(updateActivePortfolios(userInfo.token)) 
             } catch (error) {

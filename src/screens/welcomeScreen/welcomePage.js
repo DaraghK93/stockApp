@@ -41,15 +41,15 @@ function WelcomePage() {
                 <Container className="welcome-page-container">
                     <Row>
                         <Col>
-                        <h1>Thanks for joining FinOptimise!</h1>
-                        <h2>
-                            Whether you're completely new to stock trading or a seasoned campaigner, we've got you covered!
-                        </h2>
+                        <h1 style={{paddingBottom:"1rem"}}>Thanks for joining FinOptimise!</h1>
+                        <h3 style={{paddingBottom:"0.75rem"}}>
+                            New to Trading or a Seasoned Investor? Either way, we've got you!
+                        </h3>
                         </Col>
                     </Row>
                     {!mobileScreen && 
-                    <Container>
-                    <Row xl={3} lg={2} md={2} xs={1}>
+                    <Container style={{marginBottom:"1.5rem"}}>
+                    <Row xl={3} lg={2} md={2} xs={1} >
                     
                         <Col sm md={8} className="stockInfoCol">
                         <Card style={{backgroundColor:"#63C7B2"}} height={100} className="welcomeInfoCardStyle">
@@ -92,7 +92,7 @@ function WelcomePage() {
                         Not all those who wander are lost, but you can get lost in the nearly 500 stocks that can be found on the app!
                     </p>
                     <p>Realise the full capabilities of FinOptimise!</p>
-                    <Button className="welcomeButtonDesktop" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
+                    <Button className="welcomeButtonDesktop" as={Link} to="/stockdiscovery">I'm ready, Let's Go!</Button>
                     
                     
                 </Container>
@@ -146,7 +146,7 @@ function WelcomePage() {
                         Not all those who wander are lost, but you can get lost in the nearly 500 stocks that can be found on the app!
                     </p>
                     <p>Realise the full capabilities of FinOptimise!</p>
-                    <Button className="welcomeButtonMobile" as={Link} to="/stockdiscovery">Hook it to my Veins!</Button>
+                    <Button className="welcomeButtonMobile" as={Link} to="/stockdiscovery">I'm Ready, Let's Go!</Button>
                 </Container>
                       </Accordion.Body>
           </Accordion.Item>

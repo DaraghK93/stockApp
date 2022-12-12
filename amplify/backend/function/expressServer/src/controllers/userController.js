@@ -67,9 +67,9 @@ const registerUser = async (req, res, next) => {
     }
     if (username.length > 12) {
       res.status(400);
-      res.errormessage = 'Username length must be less than 12 characters';
+      res.errormessage = 'Username length must be 12 characters or less';
       return next(
-        new Error('Username length must be less than 12 characters')
+        new Error('Username length must be less 12 characters or less')
       );
     }
 

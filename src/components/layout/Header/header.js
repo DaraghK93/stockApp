@@ -53,9 +53,9 @@ function Header() {
             (
               <>
                 <Nav className="container-fluid">
-                  <Nav.Link id={"2"} onClick={setActiveLink} as={Link} className={active === "2" ? 'navlinkactive' : "navlink"} to="/game">Game</Nav.Link>
-                  <Nav.Link id={"1"} onClick={setActiveLink} as={Link} className={active === "1" ? 'navlinkactive' : "navlink"} to="/stockdiscovery/">Explore</Nav.Link>
-                  <Nav.Link id={"3"} onClick={setActiveLink} as={Link} className={active === "3" ? 'navlinkactive' : "navlink"} to="/faqs">Learn</Nav.Link>
+                  <Nav.Link id={"2"} onClick={setActiveLink} as={NavLink} className={active === "2" ? 'navlinkactive' : "navlink"} to="/game">Game</Nav.Link>
+                  <Nav.Link id={"1"} onClick={setActiveLink} as={NavLink} className={active === "1" ? 'navlinkactive' : "navlink"} to="/stockdiscovery/">Explore</Nav.Link>
+                  <Nav.Link id={"3"} onClick={setActiveLink} as={NavLink} className={active === "3" ? 'navlinkactive' : "navlink"} to="/faqs">Learn</Nav.Link>
                 </Nav>
                 <Nav>
                   <NavDropdown  className="justify-content-end userDropDown"  title={<span className="userDropDownTitle">{userInfo.firstname}</span>}>

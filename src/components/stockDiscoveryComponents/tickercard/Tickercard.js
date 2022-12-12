@@ -22,8 +22,8 @@ function TickerCard({ stock }) {
   }
 
   return (
-    <Card className="h-100 tickercardstyle mx-auto">
-        <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none' }}>
+    <Link to={`/stock/${stock.symbol}`} style={{ textDecoration: 'none'}}>
+      <Card className="h-100 tickercardstyle" style={{ margin: 'auto'}}>
 
         <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
           <div style={{

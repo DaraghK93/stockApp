@@ -123,29 +123,56 @@ const getRecomms = async (userID) => {
   }
 };
 
-const getStockSummary = (schema, recommended) => {
-  const stocks = schema.aggregate([
-    {
-      $facet: {
+// This function makes an API call to the API gateway for the DeRecommender lambda function
+const getDeRecomms = async (userID) => {
+  // This sets the body of the request to the userID. 
+  var data = '{"userid":' + '"' + userID + '"}';
+  try {
+    const resp = await axios({
+      method: 'GET',
+      url: 'https://s9x8bi3xxe.execute-api.eu-north-1.amazonaws.com/default/stock-derecommender-stockDeRecommenderFunction-OTAIvBEb1V4V',
+      data: data
+    });
+    return resp
+  } catch (err) {
+    // Error handler
+    console.error(err);
+  }
+}
+
+
+const getStockSummary =  (schema, recommended, derecommended) => {
+const stocks =  schema.aggregate([
+    { $facet: 
+        {
         // agg query for recommended. This queries the DB for the list of ticker symbols "recommended"
-        recommend: [
-          { $match: { symbol: { $in: recommended } } },
-          {
+        recommend: [{ $match: { symbol: { "$in": recommended } } },
+        {
             $project: {
-              symbol: 1,
-              longname: 1,
-              exchange: 1,
-              logo: 1,
-              'daily_change.absoluteChange': 1,
-              'daily_change.percentageChange': 1,
-              'daily_change.currentprice': 1,
-              'esgrating.environment_score': 1,
-            },
-          },
-          {
-            $addFields: { order: { $indexOfArray: [recommended, '$symbol'] } },
-          },
-          { $sort: { order: 1 } },
+                'symbol': 1,
+                'longname': 1, 'exchange': 1, 'logo': 1,
+                'daily_change.absoluteChange': 1,
+                'daily_change.percentageChange': 1,
+                'daily_change.currentprice': 1,
+                'esgrating.environment_score': 1
+            }
+        },
+        {$addFields: {"order": {$indexOfArray: [recommended, "$symbol" ]}}},
+        {$sort: {"order": 1}}
+        ],
+        derecommend: [{ $match: { symbol: { "$in": derecommended } } },
+        {
+            $project: {
+                'symbol': 1,
+                'longname': 1, 'exchange': 1, 'logo': 1,
+                'daily_change.absoluteChange': 1,
+                'daily_change.percentageChange': 1,
+                'daily_change.currentprice': 1,
+                'esgrating.environment_score': 1
+            }
+        },
+        {$addFields: {"order": {$indexOfArray: [derecommended, "$symbol" ]}}},
+        {$sort: {"order": 1}}
         ],
         // agg query for top environment
         topEnvironment: [
@@ -371,9 +398,10 @@ const getAllGameStocks = (
 };
 
 module.exports = {
-  getStockPriceData,
-  getStockSummary,
-  getRecomms,
-  gameStockSummary,
-  getAllGameStocks,
-};
+    getStockPriceData,
+    getStockSummary,
+    getRecomms,
+    getDeRecomms,
+    gameStockSummary,
+    getAllGameStocks
+}

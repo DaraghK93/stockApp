@@ -137,6 +137,24 @@ const getRecomms = async (userID) => {
     }
   }
 
+// This function makes an API call to the API gateway for the DeRecommender lambda function
+const getDeRecomms = async (userID) => {
+  // This sets the body of the request to the userID. 
+  var data = '{"userid":' + '"' + userID + '"}';
+  try {
+    const resp = await axios({
+      method: 'GET',
+      url: 'https://s9x8bi3xxe.execute-api.eu-north-1.amazonaws.com/default/stock-derecommender-stockDeRecommenderFunction-OTAIvBEb1V4V',
+      data: data
+    });
+    return resp
+  } catch (err) {
+    // Error handler
+    console.error(err);
+  }
+}
+
+
 const getStockSummary =  (schema, recommended) => {
 const stocks =  schema.aggregate([
     { $facet: 
@@ -347,6 +365,7 @@ module.exports = {
     getStockPriceData,
     getStockSummary,
     getRecomms,
+    getDeRecomms,
     gameStockSummary,
     getAllGameStocks
 }

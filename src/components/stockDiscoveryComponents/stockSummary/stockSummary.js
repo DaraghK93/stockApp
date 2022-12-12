@@ -60,6 +60,13 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
+        <SideScrollMenu>
+                {stocks[0].derecommend.map((stockObj) => (
+                        <div className='sideScrollCard' key={stockObj._id}>
+                            <TickerCard key={stockObj._id} stock={stockObj}/>
+                        </div>
+                     ))}
+        </SideScrollMenu>
 
         <h2 className="stockdiscoveryRowTitle">Top Movers <Timeline /> <InfoButtonModalWhite title="Top Movers" info={
                         <div>

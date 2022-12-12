@@ -279,12 +279,12 @@ function IndividualGameScreen() {
                     {isShownLeaderBoard &&
                         <>
                         
-                            <Container>
-                                {timeOrValueLine()}
-                            </Container>
-                                {league.finished ? <LeaderBoard leaderBoardInfo={league.finalStandings} startingBalance={league.startingBalance} /> 
-                                : <LeaderBoard leaderBoardInfo={league.portfolios} startingBalance={league.startingBalance} />}
-                        </>
+                        <Container>
+                            {timeOrValueLine()}
+                        </Container>
+                            {league.finished ? <LeaderBoard leaderBoardInfo={league.finalStandings} startingBalance={league.startingBalance} /> 
+                            : <LeaderBoard leaderBoardInfo={league.portfolios} startingBalance={league.startingBalance} />}
+                    </>
                     }
                     {isShownGameDetails &&
                         <Container style={{ "textAlign": "center", "alignItems": "center" }}>

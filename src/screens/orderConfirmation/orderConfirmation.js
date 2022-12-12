@@ -11,6 +11,7 @@ import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPrice
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 import {useNavigate, Link} from "react-router-dom"
 
@@ -212,7 +213,12 @@ function OrderConfirmationPage() {
             { stockLoading || loading || portfolioLoading ? <LoadingSpinner /> 
             : error ? <MessageAlert variant='danger'>{error}</MessageAlert> 
             : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> 
-            : <Container >
+            : <Container>
+                    <Row>
+                        <Link className="backToStockInfo" to={`/stock/${stock.symbol}`}>
+                            <ArrowBackIcon/> <span style={{"text-decoration": "none"}}>Stock Information</span>
+                        </Link>
+                    </Row>
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
                         <Link to={`/stock/${stock.symbol}`}><img src={stock.logo} className="img-fluid" alt="Company Logo" style={{

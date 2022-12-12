@@ -18,7 +18,7 @@
 }
 
 .backToStockInfo{
-    font-size: 1.5rem;
+    font-size: 1.25rem;
 }
 
 a:link.backToStockInfo {
@@ -41,5 +41,9 @@ a:active.backToStockInfo {
     .tradeRestrictionsError{
         text-align:center;
         width: 40rem;
+    }
+
+    .backToStockInfo{
+       font-size: 1.5rem;
     }
 }

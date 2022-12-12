@@ -1,6 +1,6 @@
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import BottomStickyButton from "../../components/widgets/BottomStickyButton/BottomStickyButton";
 import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
@@ -216,7 +216,7 @@ function OrderConfirmationPage() {
             : <Container>
                     <Row>
                         <Link className="backToStockInfo" to={`/stock/${stock.symbol}`}>
-                            <ArrowBackIcon/> <span style={{"text-decoration": "none"}}>Stock Information</span>
+                            <ArrowBackIcon/> <span>Stock Information</span>
                         </Link>
                     </Row>
                     <Row md={3} sm={2} xs={2}>
@@ -235,8 +235,6 @@ function OrderConfirmationPage() {
                                 <dt>{stock.symbol}</dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
                                 <dt style={{ fontSize: "120%" }}>Sector: {stock.sector}</dt>
-                            
-                                <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>
                             </dl>
                         </Col>
                     </Row>

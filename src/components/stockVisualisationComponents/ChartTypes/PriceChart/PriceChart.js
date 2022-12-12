@@ -16,9 +16,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
 
     const [noOfTicks, setNoOfTicks] = useState("")
 
-
     useEffect(() => {
-
         function showTick(event) {
             if (window.innerWidth >= 800 ) {
                 if (datetype === "yearly"){
@@ -31,7 +29,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                     setNoOfTicks(0)
                 }
                 else if (datetype === "daily"){
-                    setNoOfTicks(5)
+                    setNoOfTicks(7)
                 }
             }
             else {
@@ -47,7 +45,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 }
                 
                 else if (datetype === "daily"){
-                    setNoOfTicks(10)
+                    setNoOfTicks(-14)
                 }
             }
         }
@@ -102,7 +100,8 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 <YAxis 
                     width={100}
                     stroke="#595959"
-                    tickFormatter={(value) => parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })}
+                    tickFormatter={(value) => value < 10000 ? parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }) : 
+                    "$" + parseInt((value) / 1000)+"K"  }
                     type= "number"
                     domain = {["dataMin - 1", "dataMax + 1"]}
                     allowDecimals={false}

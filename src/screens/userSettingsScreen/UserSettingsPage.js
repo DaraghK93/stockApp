@@ -80,7 +80,7 @@ function UserSettingsPage() {
     // Register the onbeforeunload event
     window.onbeforeunload = () => {
       dispatch({
-        type: 'RESET_ERROR',
+        type: 'RESET_CHANGE_ERROR',
         payload: null,
       });
     };
@@ -91,7 +91,7 @@ function UserSettingsPage() {
 
   useEffect(() => {
     dispatch({
-      type: 'RESET_ERROR',
+      type: 'RESET_CHANGE_ERROR',
       payload: null,
     });
     return () => {};
@@ -165,14 +165,14 @@ function UserSettingsPage() {
             userToken
           )
         );
-        setPassword('');
-        setUsername('');
-        setFirstname('');
-        setLastname('');
-        setAvatar('');
-        setNewPassword('');
-        setConfirmNewPassword('');
-        setEmail('');
+        // setPassword('');
+        // setUsername('');
+        // setFirstname('');
+        // setLastname('');
+        // setAvatar('');
+        // setNewPassword('');
+        // setConfirmNewPassword('');
+        // setEmail('');
       }
     } else {
       setCurrPasswordEnteredError(true);

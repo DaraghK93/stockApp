@@ -27,3 +27,5 @@ export const USER_VERIFY_JWT_FAIL     = "USER_VERIFY_JWT_FAIL";
 
 // Reset errors for components
 export const RESET_ERROR  =  "RESET_ERROR";
+export const RESET_CHANGE_ERROR  =  "RESET_CHANGE_ERROR";
+export const RESET_REG_ERROR  =  "RESET_REG_ERROR";

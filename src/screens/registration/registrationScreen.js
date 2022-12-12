@@ -48,7 +48,7 @@ function RegistrationPage() {
     // Register the onbeforeunload event
     window.onbeforeunload = () => {
       dispatch({
-        type: 'RESET_ERROR',
+        type: 'RESET_REG_ERROR',
         payload: null,
       });
     };
@@ -60,7 +60,7 @@ function RegistrationPage() {
 
   useEffect(() => {
     dispatch({
-      type: 'RESET_ERROR',
+      type: 'RESET_REG_ERROR',
       payload: null,
     });
     return () => {};

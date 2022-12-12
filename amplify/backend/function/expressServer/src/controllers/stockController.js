@@ -44,6 +44,32 @@ const getAllStocks = async (req, res, next) => {
   try{
     /// keyword is query param 
     const keyword = req.query.keyword;
+    let pageNumber = req.query.pageNumber;
+    let pageNumberINT = parseInt(pageNumber);
+
+  // if no page number included only show the first page
+    if(!pageNumber){
+      pageNumberINT =0
+    }
+
+    //check pagenumber query
+    if (      
+      !Number.isInteger(pageNumberINT) ||
+      pageNumberINT < 0
+    ) {
+      // Invalid page number bad request
+      res.status(400)
+      res.errormessage = 'Invalid page number entered'
+      return next(
+        new Error(
+          'Invalid page number entered',
+        ),
+      )
+    }
+
+    // number to skip is stocks per page * page number
+    const noPerPage = 24;
+    const noToSkip = pageNumberINT * noPerPage;
 
     /// if undefined return the stock summary 
     if(keyword == "undefined"){     
@@ -69,7 +95,7 @@ const getAllStocks = async (req, res, next) => {
           { sector: { '$regex': keyword, '$options': 'i' } }
         ]
       // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings) 
-      }).select({prices:0})
+      }).select({prices:0}).skip(noToSkip).limit(noPerPage)
       res.json(stocks);
     }
   }catch(err){

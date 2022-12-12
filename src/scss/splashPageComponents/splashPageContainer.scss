@@ -41,17 +41,12 @@
 }
 
 .stockDisplayContainer {
-    //height: 25rem;
     background-color: $primary;
     padding: 2rem 0;
-    align-items: center;
     text-align: center;
-    // width: 70%;
-}
-
-.d-block{
-    // max-width: 80%;
-    // mix-blend-mode: color-burn;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .carousel{

@@ -223,7 +223,23 @@ function TableHoldings({ data }) {
                                         Show {postsPerPage}
                                     </Dropdown.Toggle>
                                     <Dropdown.Menu>
-                                        {
+                                        {tableData.length === 10 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                                    :
+
+                                                    tableData.length === 15 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                                    :
+
+
+
                                             tableData.length < 10 ?
                                                 <>
                                                     <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>

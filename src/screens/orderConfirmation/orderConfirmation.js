@@ -134,6 +134,9 @@ function OrderConfirmationPage() {
                             setHolding(item.units)
                         }
                     });
+                }else{
+                    setHolding()
+                    setBuyOrSell("Buy")
                 }
                 setGameTradeFee(res.league.tradingFee)
                 /// Set the Iitiliase the new portfolio balance to the remainder of the current 

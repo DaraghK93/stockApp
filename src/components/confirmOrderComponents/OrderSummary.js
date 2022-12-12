@@ -112,12 +112,12 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                 <Row md={2} className="textCenter">
                     <Col>
                      <Link className="w-100" to={`/stockdiscovery`}>
-                        <Button className="mb-2 w-100">Browse More Stocks <QueryStatsIcon></QueryStatsIcon></Button>
+                        <Button className="mb-2 w-100"><QueryStatsIcon fontSize="medium"/><br></br>Browse More Stocks </Button>
                     </Link>
                     </Col>
                    <Col>
                     <Link className="w-100" to={`/game/${gameId}`}>
-                        <Button className="mb-2 w-100">View Leaderboard <EmojiEventsIcon></EmojiEventsIcon></Button>
+                        <Button className="mb-2 w-100"><EmojiEventsIcon fontSize="medium"/><br></br>View Leaderboard </Button>
                     </Link>
                     </Col>
                 </Row> 

@@ -31,7 +31,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                     setNoOfTicks(0)
                 }
                 else if (datetype === "daily"){
-                    setNoOfTicks(5)
+                    setNoOfTicks(-11)
                 }
             }
             else {
@@ -47,7 +47,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 }
                 
                 else if (datetype === "daily"){
-                    setNoOfTicks(10)
+                    setNoOfTicks(-11)
                 }
             }
         }

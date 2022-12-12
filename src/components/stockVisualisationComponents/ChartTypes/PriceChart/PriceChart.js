@@ -62,7 +62,7 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
 
     const dateFormatter = (value) => {
     if (datetype === "daily"){
-        return moment(value).format('h:mma')
+        return moment(value).format('HH:mm')
     }
     else if (datetype === "weekly") {
         return moment(value).format('MMM Do')
@@ -96,23 +96,15 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 dataKey="date"
                     stroke="#595959"
                     interval={noOfTicks}
-                    // tickCount={20}
                     tickFormatter={(value) => dateFormatter(value)}
-                    // tickInterval={"2"}
-                    // type="datetime"
-                    // tickInterval={30 * 24 * 3600 * 1000}
-                    // allowDataOverflow 
                 >
                 </XAxis>
                 <YAxis 
                     width={100}
                     stroke="#595959"
-                    // interval={2}
-                    // tickInterval= {0}
-                    // tickCount={3}
                     tickFormatter={(value) => parseInt(value).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })}
                     type= "number"
-                    domain = {["dataMin", "dataMax"]}
+                    domain = {["dataMin - 1", "dataMax + 1"]}
                     allowDecimals={false}
              
                     />

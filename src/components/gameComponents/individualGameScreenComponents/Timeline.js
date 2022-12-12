@@ -8,15 +8,10 @@ function TimeLine({
     endDate, 
     portfolios, 
     accessCode, 
-    setisShownGameDetails,
-    setisShownLeaderBoard,
-    setisShownPortfolio,
-    setisShownStocks,
-    setActive,
  }) {
 
     var startDateIn = moment(startDate).startOf('day');
-    var endDateIn = moment(endDate).startOf('day');
+    var endDateIn = moment(endDate)
     const currentDate = moment().startOf('day')
     const max = endDateIn.diff(startDateIn, "days")
     const now = currentDate.diff(startDateIn, "days")
@@ -24,16 +19,6 @@ function TimeLine({
     const leftDaysUntil = startDateIn.diff(currentDate, "days")
 
     var accessString = accessCode.toString()
-
-    function showGameStocksPage(){
-        setisShownGameDetails(false)
-        setisShownLeaderBoard(false)
-        setisShownPortfolio(false)
-        setisShownStocks(true)
-        setActive("2")
-    }
-
-    
 
     function lessThanThreePlayersText() {
         if (portfolios.length < 3) {
@@ -57,12 +42,12 @@ function TimeLine({
 
     function scheduledOrActive() {
         if (!(currentDate < startDateIn)) {
-
             return (
                 <>
                 <ProgressBar striped variant="info" max={max} min={0} now={now} />
                     <span>
-                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong className="linkStyle" onClick={showGameStocksPage()}>Make a trade now.</strong></p>
+                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong
+                        >Make a trade now.</strong></p>
                         {lessThanThreePlayersText()}
                     </span>
                 </>

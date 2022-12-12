@@ -1,4 +1,4 @@
-import { Card, Col, Container, Table, Button, Dropdown, Modal } from "react-bootstrap";
+import { Card, Col, Container, Table, Button, Dropdown } from "react-bootstrap";
 import { useState, useEffect, Fragment } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom"

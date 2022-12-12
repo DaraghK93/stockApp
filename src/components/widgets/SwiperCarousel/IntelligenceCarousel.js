@@ -22,54 +22,41 @@ const IntelligenceCarousel = () => {
           sensitivity: 1,
           releaseOnEdges: true,
         }}
-        // style={{ maxWidth: "20rem" }}
-      // breakpoints={{
-      //   // when window width is >= 640px
-      //   640: {
-      //     width: 640,
-      //     slidesPerView: 1,
-      //   },
-      //   // when window width is >= 768px
-      //   768: {
-      //     width: 768,
-      //     slidesPerView: 1,
-      //   },
-      // }}
       >
 
         <div className="swiper-wrapper">
           <SwiperSlide>
-            <div class="swiperImage">
+            <div className="swiperImage">
               <img className="swiperImageActual" src="splash_carousel_2_1.png" alt="" />
             </div>
-            <div class="swiper-slide" >
-              <div class="captionTitle"><h2>Company specific news feeds</h2></div>
-              <div class="caption" ><p>Use our in-built, company specific news feeds from a range of publications to keep up to date with companies and get an advantage over other players in the league.</p></div>
+            <div className="swiper-slide" >
+              <div className="captionTitle"><h2>Company specific news feeds</h2></div>
+              <div className="caption" ><p>Use our in-built, company specific news feeds from a range of publications to keep up to date with companies and get an advantage over other players in the league.</p></div>
               <div></div>
               <br></br>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <img className="swiperImageActual" src="splash_carousel_2_2.png" alt="" />
-            <div class="swiper-slide">
-              <div class="captionTitle"><h2>Sentiment Analysis</h2></div>
-              <div class="caption"><p>Use our sentiment analysis tools to see the whether the current sentiment of a company is Positive, Negative or Neutral both on Twitter and across our News Feed.</p></div>
+            <div className="swiper-slide">
+              <div className="captionTitle"><h2>Sentiment Analysis</h2></div>
+              <div className="caption"><p>Use our sentiment analysis tools to see the whether the current sentiment of a company is Positive, Negative or Neutral both on Twitter and across our News Feed.</p></div>
               <div></div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <img className="swiperImageActual" src="splash_carousel_2_3.png" alt="" />
-            <div class="swiper-slide">
-              <div class="captionTitle"><h2>ESG Investing</h2></div>
-              <div class="caption"><p>Use our clear and easy to understand ESG Ratings to help you invest ethically.</p></div>
+            <div className="swiper-slide">
+              <div className="captionTitle"><h2>ESG Investing</h2></div>
+              <div className="caption"><p>Use our clear and easy to understand ESG Ratings to help you invest ethically.</p></div>
               <div></div>
             </div>
           </SwiperSlide>
           <SwiperSlide>
             <img className="swiperImageActual" src="splash_carousel_2_4.png" alt="" />
-            <div class="swiper-slide">
-              <div class="captionTitle"><h2>Learn About the Basics</h2></div>
-              <div class="caption"><p>Use our education section to read about the basics of investing and to find more resources for further reading/watching. Use that newfound knowledge to get the upper hand in your league!</p>
+            <div className="swiper-slide">
+              <div className="captionTitle"><h2>Learn About the Basics</h2></div>
+              <div className="caption"><p>Use our education section to read about the basics of investing and to find more resources for further reading/watching. Use that newfound knowledge to get the upper hand in your league!</p>
               </div>
               <div></div>
               <div></div>

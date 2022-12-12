@@ -111,10 +111,14 @@ function StockPage() {
             positiveSymbol = "+"
             arrow = <KeyboardDoubleArrowUpIcon></KeyboardDoubleArrowUpIcon>
         }
-        else {
+        else if (parseFloat(absoluteChange) < 0){
             lineColor = "#d61e1e"
             gradientColor = "#ffc9c9"
             arrow = <KeyboardDoubleArrowDownIcon></KeyboardDoubleArrowDownIcon>
+        }
+        else {
+            lineColor = "#00C49F"
+            gradientColor = "#b5e8df"
         }
         return lineColor
     }

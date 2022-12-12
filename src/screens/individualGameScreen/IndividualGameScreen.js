@@ -148,6 +148,14 @@ function IndividualGameScreen() {
         }
     }
 
+    function showGameStocksPage(){
+        setisShownGameDetails(false)
+        setisShownLeaderBoard(false)
+        setisShownPortfolio(false)
+        setisShownStocks(true)
+        setActive("2")
+    }
+
 
     function timeOrValueLine() {
 
@@ -161,13 +169,32 @@ function IndividualGameScreen() {
         else {
             if (league.leagueType === "timeBased") {
                 return (
-                    <TimeLine startDate={league.startDate} endDate={league.endDate} portfolios={league.portfolios} accessCode={league.accessCode}></TimeLine>
+                    <TimeLine 
+                    startDate={league.startDate} 
+                    endDate={league.endDate} 
+                    portfolios={league.portfolios} 
+                    accessCode={league.accessCode}
+                    setisShownGameDetails={setisShownGameDetails}
+                    setisShownLeaderBoard={setisShownLeaderBoard}
+                    setisShownPortfolio={setisShownPortfolio}
+                    setisShownStocks={setisShownStocks}
+                    setActive={setActive}
+                    ></TimeLine>
 
                 )
             }
             else {
                 return (
-                    <ValueLine portfolios={league.portfolios} winningValue={league.winningValue} accessCode={league.accessCode}></ValueLine>
+                    <ValueLine 
+                    portfolios={league.portfolios} 
+                    winningValue={league.winningValue} 
+                    accessCode={league.accessCode}
+                    setisShownGameDetails={setisShownGameDetails}
+                    setisShownLeaderBoard={setisShownLeaderBoard}
+                    setisShownPortfolio={setisShownPortfolio}
+                    setisShownStocks={setisShownStocks}
+                    setActive={setActive}
+                    ></ValueLine>
                 )
             }
         }
@@ -274,7 +301,7 @@ function IndividualGameScreen() {
                                 <br></br>
                                 <h2>No holdings to display - yet!</h2>
                                 <p>You have to spend money to make money, start trading here: </p>
-                                <Link to="/stockdiscovery"><Button>Trade now</Button></Link>
+                                <Button onClick={() => showGameStocksPage()}>Trade now</Button>
                             </Container>
                         </>
                         :

@@ -3,7 +3,17 @@ import moment from 'moment'
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
 
-function TimeLine({ startDate, endDate, portfolios, accessCode }) {
+function TimeLine({ 
+    startDate, 
+    endDate, 
+    portfolios, 
+    accessCode, 
+    setisShownGameDetails,
+    setisShownLeaderBoard,
+    setisShownPortfolio,
+    setisShownStocks,
+    setActive
+ }) {
 
     var startDateIn = moment(startDate);
     var endDateIn = moment(endDate);
@@ -12,6 +22,14 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
     const now = currentDate.diff(startDateIn, "days")
     const leftDays = max - now
     var accessString = accessCode.toString()
+
+    function showGameStocksPage(){
+        setisShownGameDetails(false)
+        setisShownLeaderBoard(false)
+        setisShownPortfolio(false)
+        setisShownStocks(true)
+        setActive("2")
+    }
 
 
     function lessThanThreePlayersText() {
@@ -41,7 +59,7 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
                     <br></br>
                     <ProgressBar striped variant="info" max={max} min={0} now={now} />
                     <span>
-                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong>Make a trade now.</strong></p>
+                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong className={"linkStyle"} onClick={() => showGameStocksPage()}>Make a trade now.</strong></p>
                         {lessThanThreePlayersText()}
                     </span>
                 </Col>

@@ -3,7 +3,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import CheckCircleOutlineSharpIcon from '@mui/icons-material/CheckCircleOutlineSharp';
 import Confetti from 'react-confetti'
 import { Link } from "react-router-dom";
-
+import QueryStatsIcon from '@mui/icons-material/QueryStats';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmountSelected, newPortfolioBalance, qty, gameTradeFee, orderSuccess, gameId}) {
 
@@ -111,12 +112,12 @@ function OrderSummary({ stockName, stockLogo, buyOrSell, orderType, dollarAmount
                 <Row md={2} className="textCenter">
                     <Col>
                      <Link className="w-100" to={`/stockdiscovery`}>
-                        <Button className="mb-2 w-100">Browse More Stocks</Button>
+                        <Button className="mb-2 w-100">Browse More Stocks <QueryStatsIcon></QueryStatsIcon></Button>
                     </Link>
                     </Col>
                    <Col>
                     <Link className="w-100" to={`/game/${gameId}`}>
-                        <Button className="mb-2 w-100">View Leaderboard</Button>
+                        <Button className="mb-2 w-100">View Leaderboard <EmojiEventsIcon></EmojiEventsIcon></Button>
                     </Link>
                     </Col>
                 </Row> 

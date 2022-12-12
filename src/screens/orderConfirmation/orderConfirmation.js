@@ -178,7 +178,8 @@ function OrderConfirmationPage() {
             : <Container >
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
-                        <Link to={`/stock/${stock.symbol}`}><img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} /></Link>
+                        <Link to={`/stock/${stock.symbol}`}><img src={stock.logo} className="img-fluid" alt="Company Logo" style={{
+                                  maxHeight:"12rem", paddingTop: "1.25rem", paddingLeft: "1rem", position:"relative", float:"right" }} /></Link>
                         
                         </Col>
                         <Col className="stockInfoCol col-md-4 col-sm-8 col-6">

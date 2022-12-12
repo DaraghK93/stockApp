@@ -56,18 +56,23 @@ const getAllStocks = async (req, res, next) => {
       const stocks = await stockService.getStockSummary(Stock, recs)
       res.json(stocks)
     }else{ 
-      // Keyword defined search for the stocks 
-       const stocks = await Stock.find({
-        "$or": [
-          { symbol: { '$regex': keyword, '$options': 'i' } },
-          { longname: { '$regex': keyword, '$options': 'i' } },
-          { shortname: { '$regex': keyword, '$options': 'i' } },
-          { industry: { '$regex': keyword, '$options': 'i' } },
-          { sector: { '$regex': keyword, '$options': 'i' } }
-        ]
-      // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings) 
-      }).select({prices:0})
-      res.json(stocks);
+      let newStr = keyword.replace(/[^\w\s-&]/gi, '');
+      if (newStr.trim() !== ''){
+        // Keyword defined search for the stocks
+        const stocks = await Stock.find({
+          "$or": [
+            { symbol: { '$regex': newStr, '$options': 'i' } },
+            { longname: { '$regex': newStr, '$options': 'i' } },
+            { shortname: { '$regex': newStr, '$options': 'i' } },
+            { industry: { '$regex': newStr, '$options': 'i' } },
+            { sector: { '$regex': newStr, '$options': 'i' } }
+          ]
+          // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings)
+        }).select({prices:0})
+        res.json(stocks);
+      } else {
+        res.json([])
+      }
     }
   }catch(err){
     console.error(err.message);

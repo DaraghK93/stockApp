@@ -684,7 +684,10 @@ const deleteLeague = async (req, res, next) => {
           'finished': true, 
           'finalStandings': '$portfolios'
         }
-      }, {
+      },{
+        '$unset': 'portfolios'
+      },
+       {
         '$merge': {
           'into': 'leagues', 
           'on': '_id'

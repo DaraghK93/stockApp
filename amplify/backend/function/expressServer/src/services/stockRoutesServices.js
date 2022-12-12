@@ -8,6 +8,7 @@ const Stock = require('../models/stock.model')
 
 function getStockPriceData (stocks) {
     // this function allows the user to get the weekly, monthly and yearly data for a stock
+    const daily_prices = stocks[0].prices
     const weekly_prices = stocks[0].prices
     const monthly_prices = stocks[0].prices
     const yearly_prices = stocks[0].prices
@@ -21,24 +22,34 @@ function getStockPriceData (stocks) {
     // https://bobbyhadz.com/blog/javascript-get-all-dates-between-two-dates#:~:text=To%20get%20all%20of%20the%20dates%20between%202%20dates%3A&text=Copied!,(date))%3B%20date. 
     function getDatesInRange(startDate, endDate) {
         // the below function will create an array of dates from today back one month
-        const date = new Date(startDate.getTime());
+        const date = new Date(startDate.getTime())
+        
     
         const dates = []
-        const dates_no_year = []
     
         while (date <= endDate) {
         new_Date = new Date(date)
         // the three lines below will put the dates in the format needed to extract the data
-        var year = new_Date.toLocaleString("default", { year: "numeric" });
-        var month = new_Date.toLocaleString("default", { month: "2-digit" });
-        var day = new_Date.toLocaleString("default", { day: "2-digit" });
+        var year = new_Date.toLocaleString("en-IE", { year: "numeric" });
+        var month = new_Date.toLocaleString("en-IE", { month: "2-digit" })
+        var day = new_Date.toLocaleString("en-IE", { day: "2-digit" });
         // the date will be added to the array using .push()
         dates.push(year + "-" + month + "-" + day);
-        dates_no_year.push(day + "/" + month)
         date.setDate(date.getDate() + 1);
         }
-        return [dates, dates_no_year];
+        return dates
     }
+    // var formattedTimeArray = []
+    const tempStocks = stocks[0].prices
+
+    // get the last date in the prices object
+    // const showDate = Object.entries(tempStocks).pop()
+    const getAllDates = Object.fromEntries(
+      Object.entries(tempStocks).slice(-42)
+    )
+    const getAllDatesArray = Object.keys(getAllDates)
+    
+
     // Date() gives us the current date, Date(end_Date) interprets the 
     // input date and creates a date that can be used in the function
     const weekStart = new Date(start_Date_week)
@@ -47,47 +58,45 @@ function getStockPriceData (stocks) {
     const today = new Date();
     
     // run the function to get the range of dates
-    dateRangeWeek = getDatesInRange(weekStart, today)[0]
-    dateRangeMonth = getDatesInRange(monthStart, today)[0]
-    dateRangeYear = getDatesInRange(yearStart, today)[0]
+    dateRangeWeek = getDatesInRange(weekStart, today)
+    dateRangeMonth = getDatesInRange(monthStart, today)
+    dateRangeYear = getDatesInRange(yearStart, today)
 
 
-    // get dates in format DD/MM for the graphs
-    dateRangeWeekNoYear = getDatesInRange(weekStart, today)[1]
-    dateRangeMonthNoYear = getDatesInRange(monthStart, today)[1]
-    dateRangeYearNoYear = getDatesInRange(yearStart, today)[1]
 
     // create an object for the prices (similar to python dictionary)
+    const prices_day = []
     const prices_week = []
     const prices_month = []
     const prices_year = []
-
+    // ***One Day***
+    // loop through the date range list and extract the data
+    for (var i = 0; i < getAllDatesArray.length; i++) { 
+        // the format of the data keys is "YYYY-MM-DDT20:00" 
+        prices_day.push({"date": getAllDatesArray[i], "price": getAllDates[getAllDatesArray[i]]["Close"] })}
     // ***One Week***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeWeek.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
-        // console.log(monthly_prices[date_range[i]+"T20:00"])
         if(typeof(weekly_prices[dateRangeWeek[i]+"T20:00"]) != 'undefined'){     
-        prices_week.push({"date": dateRangeWeekNoYear[i], "price": weekly_prices[dateRangeWeek[i]+"T20:00"]["Close"] })}}
+        prices_week.push({"date": dateRangeWeek[i]+"T20:00", "price": weekly_prices[dateRangeWeek[i]+"T20:00"]["Close"] })}}
         
     // ***One Month***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeMonth.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
-        // console.log(monthly_prices[date_range[i]+"T20:00"])
         if(typeof(monthly_prices[dateRangeMonth[i]+"T20:00"]) != 'undefined'){
         
-        prices_month.push({"date": dateRangeMonthNoYear[i], "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
+        prices_month.push({"date": dateRangeMonth[i]+"T20:00", "price": monthly_prices[dateRangeMonth[i]+"T20:00"]["Close"] })}}
     
     // ***One Year***
     // loop through the date range list and extract the data
     for (var i = 0; i < dateRangeYear.length; i++) { 
         // the format of the data keys is "YYYY-MM-DDT20:00"
-        // console.log(monthly_prices[date_range[i]+"T20:00"])
         if(typeof(yearly_prices[dateRangeYear[i]+"T20:00"]) != 'undefined'){
-        prices_year.push({"date": dateRangeYearNoYear[i], "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
+        prices_year.push({"date": dateRangeYear[i]+"T20:00", "price": yearly_prices[dateRangeYear[i]+"T20:00"]["Close"] })}}
     
-    return [prices_week, prices_month,prices_year]
+    return [prices_week, prices_month,prices_year, prices_day]
 
 };
 

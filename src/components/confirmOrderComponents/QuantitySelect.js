@@ -10,7 +10,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
     useEffect(() => {
         //// Set the max and min values 
         if (buyOrSell === "Buy"){
-            setMin(1)
+            setMin(stockPrice)
             setMax(portfolioBalance-gameTradeFee)
         }else if (buyOrSell === "Sell"){
             setMin(1)
@@ -19,7 +19,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
 
        
         //// Only Update the states if within max and min limits 
-        if (dollarAmountSelected >= 1 &&  dollarAmountSelected <= max){
+        if (dollarAmountSelected >= min &&  dollarAmountSelected <= max){
             setMarketPriceError("")
             /// Calculating the new portfolio balance will differ if its a buy or sell 
             if(buyOrSell === "Buy"){
@@ -40,14 +40,18 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
             }else if (buyOrSell === "Sell"){
                 setMarketPriceError(`You only own ${parseFloat(holding*stockPrice).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} worth, try lowering the quantity!`)
             }
-        }else if (dollarAmountSelected < min){
-            setMarketPriceError(`Needs to be at least $1`)
+        }
+        if (dollarAmountSelected < min){
+             if (buyOrSell === "Buy"){
+                setMarketPriceError(`Need to buy at least 1 share at price of ${parseFloat(min).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}`)
+             }
+           
         }
 
 
     },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max,holding,setMarketPriceError,min])
 
-
+    console.log(min)
     return (
             <Card className="px-3">
                 <h5 style={{ marginTop: "10px"}}>Quantity </h5>
@@ -64,7 +68,7 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
                         startWidth={"2rem"}
                         showError={false}
                         reset={buyOrSell}
-                        resetValue={"1"}
+                        resetValue={min}
                     />
                 </Card.Body>
             </Card>

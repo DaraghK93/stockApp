@@ -1,0 +1,11 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "stock-derecommender"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1cqzryr3nj5cu"
+s3_prefix = "stock-derecommender"
+region = "eu-north-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = ["stockDeRecommenderFunction=211862813211.dkr.ecr.eu-north-1.amazonaws.com/stockderecommender9fe32ea3/stockderecommenderfunction3a860374repo"]

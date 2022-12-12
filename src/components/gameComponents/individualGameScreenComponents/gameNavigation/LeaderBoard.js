@@ -1,14 +1,14 @@
 import { Fragment, useState, useEffect } from "react"
 import { Image, Row, Col, Table, Container, OverlayTrigger, Tooltip } from 'react-bootstrap';
-// import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-// import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 
-function LeaderBoard({ leaderBoardInfo }) {
+
+function LeaderBoard({ leaderBoardInfo, startingBalance }) {
 
     const [showTop3, setShowTop3] = useState(false);
     const [showCol, setShowCol] = useState(true)
-
     useEffect(() => {
         if (leaderBoardInfo.length > 3) {
             setShowTop3(true)
@@ -16,15 +16,16 @@ function LeaderBoard({ leaderBoardInfo }) {
         showCols()
     }, [leaderBoardInfo])
 
-
     function applyRank() {
         var rank = 1;
+        // let change;
         for (var i = 0; i < leaderBoardInfo.length; i++) {
             // increase rank only if current score less than previous
             if (i > 0 && leaderBoardInfo[i].totalValue < leaderBoardInfo[i - 1].totalValue) {
                 rank++;
             }
             leaderBoardInfo[i].rank = rank;
+
         }
     }
     applyRank()
@@ -38,6 +39,29 @@ function LeaderBoard({ leaderBoardInfo }) {
         }
         else {
             setShowCol(false)
+        }
+    }
+
+    function setChange(element, showCol) {
+        let change;
+        if (!element.valueHistory || element.valueHistory.length === 0 ) {
+            change = element.totalValue - startingBalance
+        } else {
+            change = element.totalValue - element.valueHistory[element.valueHistory.length -1].value
+        }
+        if (change > 0) {
+            return (<><center>+{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            {showCol && <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />}
+            </center> </>)
+
+        } else if (change < 0) {
+            return (<><center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            {showCol && <KeyboardDoubleArrowDownIcon style={{ fill: '#FF0000'}} />}
+            </center></>)
+        } else {
+            return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+      
+            </center>
         }
     }
 
@@ -76,7 +100,6 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                 <p><strong><span className="rankingText">3rd place</span></strong><br></br>
                                                     @{leaderBoardInfo[2].user.toString()}
                                                     <br></br>{parseFloat(leaderBoardInfo[2].totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-
                                                 </p>
                                             </Col>
                                             <br></br><br></br>
@@ -120,11 +143,8 @@ function LeaderBoard({ leaderBoardInfo }) {
                                                                 <td><center>{parseFloat(item.totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                                 <td id={item.dailyChange} className="rightCurvedBorders"
                                                                     style={{ verticalAlign: "middle" }}>
-
-
-                                                                    <center>+{parseFloat(20).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-                                                                        {/* <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} /> */}
-                                                                    </center></td>
+                                                                          {setChange(item, showCol)}
+                                                                    </td>
                                                             </tr>
                                                             <tr key={`${item.user}padding`} style={{ height: "5px" }} ></tr>
                                                         </Fragment>)

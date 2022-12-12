@@ -652,6 +652,7 @@ function HomeScreen() {
 
   return (
     <>
+        <div className="createGameScrollBars">
       <Container className='splash-page-container'>
         <Row className='py-4'>
           <Col className='mx-4'>
@@ -819,9 +820,9 @@ function HomeScreen() {
           </Col>
         </Row>
       </Container>
-
+      </div>
       <Footer />
-
+  
     </>
   );
 }

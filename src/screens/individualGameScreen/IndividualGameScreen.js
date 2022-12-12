@@ -240,7 +240,7 @@ function IndividualGameScreen() {
                 /// Send the request 
                 await API.post(APIName, path, myInit)
                 /// Set the success message using the
-                setSuccess("Success")
+                setSuccess(transactionId)
                 setLoading(false)
         }catch(error){
             setError(error.response.data.errormessage)

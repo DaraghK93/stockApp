@@ -52,7 +52,7 @@ function getStockPriceData (stocks) {
       showDate = moment(startTimesMoment).subtract(2, "days").set({hour:23,minute:0,second:0,millisecond:0})
     }
     else {
-      showDate = startTimesMoment
+      showDate = moment(startTimesMoment)
     }
     const remainder = 20 - (showDate.minute() % 20)
     const datestart = moment(showDate).add(remainder, "minutes")

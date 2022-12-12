@@ -239,7 +239,7 @@ function OrderConfirmationPage() {
                             {gameESGRestrictionError &&<p>Minimum {gameESGRestrictionError} rating not met</p>}
                             {gameSectorRestrictionError && <p>{stock.sector} sector stocks not tradable due to game restrictions</p>}
                             <p>
-                                Try a different portfolio or view the available stocks to trade from the <span className="bolded">Trade Section</span> of the <Link to={`/game/${gameId}`}>Game Page!</Link>
+                                Try a different portfolio or view the available stocks to trade from the <span className="bolded">Trade Section</span> of the <Link className="linkStyle" to={`/game/${gameId}`}>Game Page!</Link>
                             </p>
                         </MessageAlert>
                     </Row>

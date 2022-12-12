@@ -13,10 +13,10 @@ import {Alert} from 'react-bootstrap';
 //  Props:
 //      variant  - This is bootsrap variant, can be changed later https://bootstrap-vue.org/docs/reference/color-variants
 //      children - This is will contain the text to display along with anythin else, see here for more info https://reactjs.org/docs/composition-vs-inheritance.html 
-function MessageAlert({variant,children}){
+function MessageAlert({variant,children,className}){
     // Ser variant and place the children prop insdie alert 
     return(
-        <Alert className="m-3" variant={variant}>
+        <Alert className={`m-3 ${className}`} variant={variant}>
             {children}
         </Alert>
     )

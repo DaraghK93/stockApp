@@ -649,7 +649,7 @@ function HomeScreen() {
           <Row>
             <Col className='mx-4'>
               <p className='splashpageParagraph'>
-                Use our A.I. tools to arm yourself with the information needed to get the inside scoop and get ahead of your friends in your league. Get the latest news and tweets relating to each stock, with sentiment classification of the contents into Positive, Neautral or Negative categories.
+                Use our A.I. tools to arm yourself with the information needed to get the inside scoop and get ahead of your friends in your league. Get the latest news and tweets relating to each stock, with sentiment classification of the contents into Positive, Neutral or Negative categories.
               </p>
             </Col>
           </Row>

@@ -51,7 +51,7 @@ function StockSummary() {
                             <p>FinOptimise uses a Machine Learning technology known as a content based recommender systems to suggest companies that you may be interested in. Our Machine Learning models provide two suggested rows:</p>
                             <p><b>Recommended</b> provides recommendations of companies<mark className="positive">similar to your holdings.</mark></p>
                             <p><b>Diversify Your Portfolio</b> provides recommendations of companies that are<mark className="negative">dissimilar to your holdings.</mark></p> 
-                            <p>More infomation on content based recommender systems and how they work can be found <a href='https://towardsdatascience.com/introduction-to-recommender-systems-1-971bd274f421'>here.</a></p>
+                            <p>More infomation on content based recommender systems and how they work can be found <a href='https://towardsdatascience.com/introduction-to-recommender-systems-1-971bd274f421' className='linkStyle'>here.</a></p>
                         </div>} /></h2>
         <h3 className="stockdiscoveryRow">Recommended <IcBaselineCurrencyExchange/> <InfoButtonModal title="Recommended" info={
                         <div>
@@ -86,7 +86,7 @@ function StockSummary() {
         <h3 className="stockdiscoveryRow">Top Gainers <TrendingUp /><InfoButtonModal title="Top Gainers" info={
                         <div>
                             <p>This section shows the<mark className="bold">top 20 companies</mark>ranked by<mark className="positive">largest positive % change</mark>in stock price over the<mark className="bold">past 24 hour period.</mark></p> 
-                            <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p> 
+                            <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp' className='linkStyle'>here.</a></p> 
                         </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topGainers.map((stockObj) => (
@@ -99,7 +99,7 @@ function StockSummary() {
                     <h3 className="stockdiscoveryRow">Top Losers <TrendingDown /><InfoButtonModal title="Top Losers" info={
                         <div>
                             <p>This section shows the<mark className="bold">top 20 companies</mark>ranked by<mark className="negative">largest negative % change</mark>in stock price over the<mark className="bold">past 24 hour period.</mark></p>
-                            <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp'>here.</a></p>
+                            <p>An explanation for how price change is calculated is explained <a href='https://www.investopedia.com/terms/c/change.asp' className='linkStyle'>here.</a></p>
                         </div>} /></h3>
         <SideScrollMenu>
                 {stocks[0].topLosers.map((stockObj) => (
@@ -112,12 +112,12 @@ function StockSummary() {
         <h2 className="stockdiscoveryRowTitle">Top ESG Stocks <Forest /> <InfoButtonModal title="Top ESG" info={
                         <div>
                             <p>This section shows the<mark className="bold">top 20 companies</mark> ranked by<mark className="positive">Environmental, Social and Governance (ESG) ratings.</mark></p>
-                            <p>An explanation for ESG ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                            <p>An explanation for ESG ratings, along with how they're calculated can be found <Link to="/faqs" className='linkStyle'>here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
                         </div>} /></h2>
                         <h3 className="stockdiscoveryRow">Top Environmental <EnergySavingsLeaf /><InfoButtonModal title="Top Environmental" info={
                             <div>
                                 <p>This section shows the<mark className="bold">top 20 companies</mark>ranked by their<mark className="positive">Environmental rating</mark>, as taken from their ESG scores.</p>
-                                <p>An explanation for Environmental ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                                <p>An explanation for Environmental ratings, along with how they're calculated can be found <Link to="/faqs" className='linkStyle'>here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
                             </div>} /></h3>
                         <SideScrollMenu>
                             {stocks[0].topEnvironment.map((stockObj) => (
@@ -129,7 +129,7 @@ function StockSummary() {
                         <h3 className="stockdiscoveryRow">Top Social <Groups3 /><InfoButtonModal title="Top Social" info={
                             <div>
                                 <p>This section shows the<mark className="bold">top 20 companies</mark>ranked by their<mark className="positive">Social rating</mark>, as taken from their ESG scores.</p>
-                                <p>An explanation for Social ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                                <p>An explanation for Social ratings, along with how they're calculated can be found <Link to="/faqs" className='linkStyle'>here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
                             </div>} /></h3>
                         <SideScrollMenu>
                             {stocks[0].topSocial.map((stockObj) => (
@@ -141,7 +141,7 @@ function StockSummary() {
                         <h3 className="stockdiscoveryRow">Top Governance <AssuredWorkload /><InfoButtonModal title="Top Governance" info={
                             <div>
                                 <p>This section shows the<mark className="bold">top 20 companies</mark>ranked by their<mark className="positive">Governance rating</mark>, as taken from their ESG scores.</p>
-                                <p>An explanation for Governance ratings, along with how they're calculated can be found <Link to="/faqs">here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
+                                <p>An explanation for Governance ratings, along with how they're calculated can be found <Link to="/faqs" className='linkStyle'>here</Link> on our education page. Just scroll down to the "What do I need to know about ESG?" section.</p>
                             </div>} /></h3>
                         <SideScrollMenu>
                             {stocks[0].topGovernance.map((stockObj) => (
@@ -153,7 +153,7 @@ function StockSummary() {
         <h2 className="stockdiscoveryRowTitle">Top Stocks By Sector <DataUsage /> <InfoButtonModal title="Top Stocks By Sector" info={
                         <div>
                             <p>This section shows the<mark className="bold">top 20 companies</mark>ranked by<mark className="positive">largest positive % change</mark>in stock price over the<mark className="bold">past 24 hour period</mark>in each of the 11 sectors in the S&P500.</p>
-                            <p>Detailed explanations of these 11 sectors can be found <a href='https://corporatefinanceinstitute.com/resources/valuation/the-sp-sectors/'>here.</a></p>
+                            <p>Detailed explanations of these 11 sectors can be found <a href='https://corporatefinanceinstitute.com/resources/valuation/the-sp-sectors/' className='linkStyle'>here.</a></p>
                         </div>} /></h2>
         <h3 className="stockdiscoveryRow">Industrials <Factory /></h3>
         <SideScrollMenu>

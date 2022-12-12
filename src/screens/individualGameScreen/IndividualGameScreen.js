@@ -8,6 +8,8 @@ import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinn
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { Link } from "react-router-dom";
+
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
 import {Logout, Cancel} from '@mui/icons-material';
 /// API ///
@@ -148,6 +150,7 @@ function IndividualGameScreen() {
         }
     }
 
+
     function showGameStocksPage(){
         setisShownGameDetails(false)
         setisShownLeaderBoard(false)
@@ -155,6 +158,7 @@ function IndividualGameScreen() {
         setisShownStocks(true)
         setActive("2")
     }
+
 
     function checkForDraw() {
         if (league.finalStandings.length > 1) {
@@ -180,10 +184,11 @@ function IndividualGameScreen() {
         }
     } else {
         return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
-        is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
+        is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
     }
 }
     
+   
 
     function timeOrValueLine() {
 

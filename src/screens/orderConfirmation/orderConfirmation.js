@@ -11,7 +11,9 @@ import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPrice
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
-import {useNavigate, Link} from "react-router-dom";
+
+import {useNavigate, Link} from "react-router-dom"
+
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -228,7 +230,11 @@ function OrderConfirmationPage() {
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}
                                 <dt style={{ fontSize: "120%" }}>Sector: {stock.sector}</dt>
                                 </dt>
-                                <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>                  
+                                <dt><Link to={`/stock/${stock.symbol}`}><Button>Back to stock information</Button></Link></dt>
+=========
+                                <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
+                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
+>>>>>>>>> Temporary merge branch 2
                             </dl>
                         </Col>
                     </Row>

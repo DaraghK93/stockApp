@@ -40,9 +40,10 @@ function getStockPriceData (stocks) {
         return dates
     }
     var formattedTimeArray = []
+    const tempStocks = stocks[0].prices
 
     // get the last date in the prices object
-    const showDate = Object.keys(stocks[0].prices).pop()
+    const showDate = Object.keys(tempStocks).pop()
 
     // convert to moment
     const datestart = moment(showDate)

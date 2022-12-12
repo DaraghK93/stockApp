@@ -53,7 +53,7 @@ function StockSummary() {
                             <p><b>Diversify Your Portfolio</b> provides recommendations of companies that are<mark className="negative">dissimilar to your holdings.</mark></p> 
                             <p>More infomation on content based recommender systems and how they work can be found <a href='https://towardsdatascience.com/introduction-to-recommender-systems-1-971bd274f421' className='linkStyle'>here.</a></p>
                         </div>} /></h2>
-        <h3 className="stockdiscoveryRow">Recommended <IcBaselineCurrencyExchange/> <InfoButtonModal title="Recommended" info={
+        <h3 className="stockdiscoveryRow">Recommended <IcBaselineCurrencyExchange/><InfoButtonModal title="Recommended" info={
                         <div>
                             
                             <p>This Machine Learning model will suggest companies from our database that are<mark className="positive">similar</mark>to your most recent transaction.</p>
@@ -66,7 +66,7 @@ function StockSummary() {
                         </div>
                      ))}
         </SideScrollMenu>
-        <h3 className="stockdiscoveryRow">Diversify Your Portfolio<Fa6SolidChartPie/> <InfoButtonModal title="Diversify Your Portfolio" info={
+        <h3 className="stockdiscoveryRow">Diversify Your Portfolio<Fa6SolidChartPie/><InfoButtonModal title="Diversify Your Portfolio" info={
                         <div>
                             <p>This Machine Learning model will suggest companies from our database that are<mark className="negative">dissimilar</mark>to your most recent transaction.</p>
                             <p> If you have not yet made a transaction, the recommender system will give you recommendations based on companies<mark className="negative">dissimilar</mark>to the<mark className="positive">highest positive mover</mark>over the<mark className="bold">past 24 hours.</mark></p>

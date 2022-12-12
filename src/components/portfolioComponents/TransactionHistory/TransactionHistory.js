@@ -375,7 +375,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
 
                         </>
                         :
-                        <MessageAlert variant="info">No {currentStatus.toLowerCase()} transactions for this game!</MessageAlert>
+                        <MessageAlert variant="info">No {currentStatus.toLowerCase()} {currentType !== "ALL" ? currentType.toLocaleLowerCase() : null} transactions for this game!</MessageAlert>
                     }
                 </Container>
             </Card>

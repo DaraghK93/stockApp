@@ -53,8 +53,8 @@ function TickerCard({ stock }) {
           </center>
           </ListGroupItem>
         </ListGroup>
-    </Link>
       </Card>
+    </Link>
   );
 }
 

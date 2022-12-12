@@ -42,7 +42,7 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
         }
     }
 
-    function setChange(element) {
+    function setChange(element, showCol) {
         let change;
         if (!element.valueHistory || element.valueHistory.length === 0 ) {
             change = element.totalValue - startingBalance
@@ -50,13 +50,14 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
             change = element.totalValue - element.valueHistory[element.valueHistory.length -1].value
         }
         if (change > 0) {
-            return <center>+{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-            <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />
-            </center>
+            return (<><center>+{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            {showCol && <KeyboardDoubleArrowUpIcon style={{ fill: '#22ff00' }} />}
+            </center> </>)
+
         } else if (change < 0) {
-            return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
-            <KeyboardDoubleArrowDownIcon style={{ fill: '#FF0000'}} />
-            </center>
+            return (<><center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
+            {showCol && <KeyboardDoubleArrowDownIcon style={{ fill: '#FF0000'}} />}
+            </center></>)
         } else {
             return <center>{parseFloat(change).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}
       
@@ -142,7 +143,7 @@ function LeaderBoard({ leaderBoardInfo, startingBalance }) {
                                                                 <td><center>{parseFloat(item.totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                                 <td id={item.dailyChange} className="rightCurvedBorders"
                                                                     style={{ verticalAlign: "middle" }}>
-                                                                          {setChange(item)}
+                                                                          {setChange(item, showCol)}
                                                                     </td>
                                                             </tr>
                                                             <tr key={`${item.user}padding`} style={{ height: "5px" }} ></tr>

@@ -140,7 +140,7 @@ function IndividualGameScreen() {
 
         if (league.finalStandings[0].totalValue !== league.finalStandings[1].totalValue) {
         return <p style={{"textAlign":"center","paddingTop":"1rem"}}> <EmojiEventsIcon fontSize="large"></EmojiEventsIcon><strong>{league.finalStandings[0].user} </strong> 
-        is the winner! Don't let them win another! Create a game <Link to="/game">here!</Link> </p>
+        is the winner! Don't let them win another! Create a game <Link className="linkStyle" to="/game">here!</Link> </p>
         } else {
             let draws = [league.finalStandings[0].user]
             for (let i = 1; i <league.finalStandings.length; i++) {

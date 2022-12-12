@@ -7,7 +7,6 @@ import LeaderBoard from "../../components/gameComponents/individualGameScreenCom
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
-import { Link } from "react-router-dom";
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
 import {Logout, Cancel} from '@mui/icons-material';
 /// API ///

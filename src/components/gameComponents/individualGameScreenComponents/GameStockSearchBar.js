@@ -44,6 +44,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   ];
 
   useEffect(() => {
+    setDisplayBadSearch(false)
     if (screen === '1') {
       navigate(`/game/all/${leagueId}`);
       setDisplayBadSearch(false);

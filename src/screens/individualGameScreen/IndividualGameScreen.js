@@ -347,16 +347,6 @@ function IndividualGameScreen() {
                                                                     
                                                                 </tbody>
                                                             </Table>
-                                                            {/* <strong></strong>
-                                                            <ul style={{ listStyleType: "none" }}>
-                                                                <li><strong>Date: </strong></li>
-                                                                <li><strong>Ticker: </strong>{transaction.stock[0].symbol}</li>
-                                                                <li><strong>Buy/ Sell: </strong></li>
-                                                                <li><strong>Value: </strong>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
-                                                                <li><strong>Order Type: </strong>{transaction.orderType}</li>
-                                                                <li><strong>Trading Fee: </strong>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
-                                                                <li><strong>Stocks: </strong>{transaction.units.toFixed(2)}</li>
-                                                            </ul> */}
                                                         </Accordion.Body>
                                                     </Accordion.Item>
                                                 </Accordion>

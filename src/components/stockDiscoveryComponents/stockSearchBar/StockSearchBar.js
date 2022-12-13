@@ -23,8 +23,9 @@ function StockSearchBar() {
     if(keywordsClean.trim()){
       navigate(`/search/stock/${keywordsClean}`)
       setDisplayBadSearch(false)
-    }else{
+    }else if (!keyword){
       navigate(`/stockdiscovery/`)
+      setDisplayBadSearch(false);
     }
     // reset form to blank after search
     e.target.reset()

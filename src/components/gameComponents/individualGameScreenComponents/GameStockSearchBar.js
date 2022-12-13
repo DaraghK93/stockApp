@@ -28,9 +28,9 @@ function GameStockSearchBar({ leagueId, currScreen }) {
     if (keywordsClean.trim()) {
       navigate(`/search/game/${keywordsClean}/${leagueId}`);
       setDisplayBadSearch(false);
-    } else {
+    } else if (!keywords){
       navigate(`/game/all/${leagueId}`);
-      setKeywords('');
+      setDisplayBadSearch(false);
     }
     //reset form to blank after search
     e.target.reset();
@@ -46,8 +46,10 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   useEffect(() => {
     if (screen === '1') {
       navigate(`/game/all/${leagueId}`);
+      setDisplayBadSearch(false);
     } else if (screen === '2') {
       navigate(`/game/summary/${leagueId}`);
+      setDisplayBadSearch(false);
     }
     // eslint-disable-next-line
   }, [screen, leagueId]);

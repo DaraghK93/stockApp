@@ -60,9 +60,8 @@ function GamePortfolio({ data, name, totalValue, final, finished, port, starting
                             <dt>
                                 <h1>{String(name)}</h1>
                             </dt>
-        
                             <dt style={{ fontSize: "150%" }}>{parseFloat(total).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</dt>
-
+                            <dt style={{"color":"grey"}}>Current Portfolio Value</dt> 
                         </dl>
                     </Row>
                     <Row>

@@ -30,14 +30,12 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
         setSpendingPowerError()
         /// If your current spending power is greater than the game trade fee you cant complete the order
         if (portfolioBalance < gameTradeFee && buyOrSell === "Buy"){
-            console.log("HIT",buyOrSell)
             /// This check is for the game fee 
             setSpendingPowerError(`Available spending power of ${parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} less than game trade fee of ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, you dont have enough to make this trade!`)
         }// }else if (portfolioBalance < )
         
         else if (buyOrSell === "Sell" && newPortfolioBalance < 0){
             setSpendingPowerError(`Try Upping the Quantity Sold to cover the trade fee to make this trade`)
-            console.log("HIT",newPortfolioBalance)
         }else if(buyOrSell === "Buy" && newPortfolioBalance > 0){
                 setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){

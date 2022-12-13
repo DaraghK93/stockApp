@@ -18,12 +18,20 @@ var apiKey = defaultClient.authentications['api-key'];
 const changeUserDetails = async (req, res, next) => {
   try {
     const errors = validationResult(req);
-    console.log(errors);
     //validate input
     if (!errors.isEmpty() && errors.errors[0].msg === 'Invalid email entered') {
       res.status(400);
       res.errormessage = 'Invalid email address. Please try again';
       return next(new Error('Invalid email address entered.'));
+    }
+    if (req.body.email) {
+      // test valid email has been entered based on mongo query
+      const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      if (!re.test(req.body.email)) {
+        res.status(400);
+        res.errormessage = 'Invalid email address. Please try again';
+        return next(new Error('Invalid email address entered.'));
+      }
     }
 
     const token = req.headers['x-auth-token'];
@@ -91,6 +99,13 @@ const changeUserDetails = async (req, res, next) => {
             new Error('Username length must be at least 3 characters')
           );
         }
+        if (newUsername.length > 12) {
+          res.status(400);
+          res.errormessage = 'Username length must be less than 12 characters';
+          return next(
+            new Error('Username length must be less than 12 characters')
+          );
+        }
         // assign username to user after all checks
         user.username = newUsername;
       }
@@ -122,7 +137,7 @@ const changeUserDetails = async (req, res, next) => {
       if (newEmail) {
         user.email = newEmail;
       }
-      
+
       if (
         !newUsername &&
         !newPassword &&

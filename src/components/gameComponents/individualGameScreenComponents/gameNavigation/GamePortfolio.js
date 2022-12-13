@@ -12,8 +12,8 @@ function GamePortfolio({ data, name, totalValue }) {
     var percentageChange
 
     function redOrGreen() {
-        absoluteChange = data[0].value - data[1].value
-        percentageChange = ((data[0].value - data[1].value) / data[1].value) * 100
+        absoluteChange = data[data.length - 1].value - data[0].value
+        percentageChange = ((data[data.length - 1].value - data[0].value) / data[data.length - 1].value) * 100
 
         if (parseFloat(absoluteChange) > 0) {
             lineColor = "#00C49F"
@@ -49,9 +49,9 @@ function GamePortfolio({ data, name, totalValue }) {
                                 :
                                 <>
                                     <dl className='infoList' style={{ padding: 0 }}>
-                                        <dt style={{ color: redOrGreen() }}> {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
+                                        <dt style={{ color: redOrGreen() }}>{positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
                                     </dl>
-                                    <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"value"} datetype={"weekly"} />
+                                    <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"value"} datetype={"port"} />
                                 </>
                             }
                         </Col>

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
-import { Container, Image, Row, Col, Button, Modal, Accordion } from 'react-bootstrap';
+import { Container, Image, Row, Col, Button, Modal, Accordion, Table } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
 import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
@@ -281,7 +281,6 @@ function IndividualGameScreen() {
                                 </div>
                             </div>
                             <GameNavBar disPlayScreen={disPlayScreen} active={active} />
-
                             <Modal centered show={show} onHide={handleClose} backdrop="static">
                                 <Modal.Header closeButton>
                                     <Modal.Title>Cancel order</Modal.Title>
@@ -307,47 +306,78 @@ function IndividualGameScreen() {
                                                     </img>
                                                 </div>
                                             </div>
-                                            <div style={{ marginLeft: "auto", marginRight: "auto" }}>
                                                 <Accordion>
                                                     <Accordion.Item eventKey="0">
                                                         <Accordion.Header align="center" style={{ "justifyContent": "center" }}>Order Details</Accordion.Header>
                                                         <Accordion.Body>
-                                                            <strong>{transaction.stock[0].shortname}</strong>
+                                                            <Table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>Stock</td>
+                                                                        <td>{transaction.stock[0].shortname}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Date</td>
+                                                                        <td>{moment(transaction.date).format('MMM Do YY')}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Buy/Sell</td>
+                                                                        <td>{transaction.buyOrSell}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Order Type</td>
+                                                                        <td>{transaction.orderType}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Trade Fee</td>
+                                                                        <td>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Limit Price</td>
+                                                                        <td>{parseFloat(transaction.value/transaction.units.toFixed(2)).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Quantity</td>
+                                                                        <td>{transaction.units.toFixed(2)}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>Value</td>
+                                                                        <td>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                                                                    </tr>
+                                                                    
+                                                                </tbody>
+                                                            </Table>
+                                                            {/* <strong></strong>
                                                             <ul style={{ listStyleType: "none" }}>
-                                                                <li><strong>Date: </strong>{moment(transaction.date).format('DD-MM-YYYY')}</li>
+                                                                <li><strong>Date: </strong></li>
                                                                 <li><strong>Ticker: </strong>{transaction.stock[0].symbol}</li>
-                                                                <li><strong>Buy/ Sell: </strong>{transaction.buyOrSell}</li>
+                                                                <li><strong>Buy/ Sell: </strong></li>
                                                                 <li><strong>Value: </strong>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
                                                                 <li><strong>Order Type: </strong>{transaction.orderType}</li>
                                                                 <li><strong>Trading Fee: </strong>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
                                                                 <li><strong>Stocks: </strong>{transaction.units.toFixed(2)}</li>
-                                                            </ul>
+                                                            </ul> */}
                                                         </Accordion.Body>
                                                     </Accordion.Item>
                                                 </Accordion>
-                                            </div>
                                         </>
                                     }
                                 </Modal.Body>
-                                <Modal.Footer>
                                     <Modal.Footer>
                                         <Button variant="primary"
                                             onClick={handleClose}
                                         >
-                                            No,<br></br> I changed my mind!
+                                            Go Back
                                         </Button>
                                         <Button variant="danger"
-                                            // onClick={getStockInfo}
                                             onClick={() => cancelOrder(transaction._id, transaction.portfolioId)}
                                         >
-                                            Yes,<br></br> lets cancel this order!
+                                            Cancel Order
                                         </Button>
                                     </Modal.Footer>
-                                </Modal.Footer>
                             </Modal>
                             {isShownLeaderBoard &&
                                 <>
-
                                     <Container>
                                         {timeOrValueLine()}
                                     </Container>

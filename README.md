@@ -4,14 +4,14 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/DaraghK93/stockApp">
-    <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/logo512.png" alt="Logo" width="200">
+  <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/logo512.png" alt="Logo" width="300rem">
   </a>
 
   <p align="center">
-    <a href="https://github.com/DaraghK93/stockApp"><strong>Explore the GitHub Repo»</strong></a>
+    <a href="https://github.com/DaraghK93/stockApp"><strong>Explore the GitHub Repo »</strong></a>
     <br />
-    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/"><strong>EVisit the Site»</strong></a>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/"><strong>Visit the Site »</strong></a>
   </p>
 </div>
 
@@ -41,8 +41,47 @@
 
 <!-- ABOUT -->
 ## About 
-
+### Core Features:
 FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
+
+<div align="center">
+  <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_1_1.png" alt="Create or join a Game" width="80%">
+  </a>
+  <p>Create or join a Game</p>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_1_2.png" alt="Explore stocks with personalised recommendations" width="80%">
+  </a>
+  <p>Explore stocks with personalised recommendations</p>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_1_3.png" alt="Explore stocks using our advanced A.I. tools" width="80%">
+  </a>
+  <p>Explore stocks using our advanced A.I. tools</p>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_1_4.png" alt="Compete against friends and see where you stand in real time" width="80%">
+  </a>
+  <p>Compete against friends and see where you stand in real time</p>
+</div>
+
+### Other Features:
+<div align="center">
+  <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_2_1.png" alt="Create or join a Game" width="80%">
+  </a>
+  <p>Company specific news feeds</p>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_2_2.png" alt="Explore stocks with personalised recommendations" width="80%">
+  </a>
+  <p>Explore stocks with personalised recommendations</p>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_2_3.png" alt="Explore stocks using our advanced A.I. tools" width="80%">
+  </a>
+  <p>Explore stocks using our advanced A.I. tools</p>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
+    <img src="public/splash_carousel_2_4.png" alt="Compete against friends and see where you stand in real time" width="80%">
+  </a>
+  <p>Learn About the Basics - Use our education section to read about the basics of investing and to find more resources for further reading/watching. Use that newfound knowledge to get the upper hand in your league!</p>
+</div>
 
 ---
 
@@ -65,32 +104,29 @@ This application was built on the MERN stack and deployed using AWS Amplify.
 * [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
 * [Docker](https://www.docker.com/)
 
+---
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<!-- Contributors / Dev Team -->
+## Contributors
+| Name            | GitHub                            | LinkedIn                             |
+|-----------------|-----------------------------------|--------------------------------------|
+| Bearach Byrne   | https://github.com/BearachB       | https://www.linkedin.com/in/bearach/ |
+| Joseph Corcoran | https://github.com/joeycor92      | -                                    |
+| Warren Kavanagh | https://github.com/WarrenK-design | -                                     |
+| Rebecca Kelly   | https://github.com/beckskelly     | -                                    |
+| Daragh Kneeshaw | https://github.com/DaraghK93/     | -                                    |
+| Caolán Power    | https://github.com/caolan-power   | -                                    |
+
+<p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 
 ---
+
 <!-- CONTACT -->
 ## Contact
 
 FinOptimise Development Team - finoptimisetud@gmail.com
 
 Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK93/stockApp)
-
----
-
-<!-- Contributors -->
-## Contributors
-| Name            | GitHub                            |
-|-----------------|-----------------------------------|
-| Bearach Byrne   | https://github.com/BearachB       |
-| Joseph Corcoran | https://github.com/joeycor92      |
-| Warren Kavanagh | https://github.com/WarrenK-design |
-| Rebecca Kelly   | https://github.com/beckskelly     |
-| Daragh Kneeshaw | https://github.com/DaraghK93/     |
-| Caolán Power    | https://github.com/caolan-power   |
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
----
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
@@ -117,92 +153,3 @@ Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK
 
 [AWS.com]: https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white
 [AWS-url]: https://aws.amazon.com/
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-

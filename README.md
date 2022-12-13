@@ -22,16 +22,11 @@
     <li>
       <a href="#about">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#core-features">Core Features</a></li>
+        <li><a href="#other-features">Other Features</a></li>
       </ul>
     </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+    <li><a href="#built-with">Built With</a></li>
     <li><a href="#contributors">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -92,7 +87,7 @@ FinOptimise is a fantasy stock trading game. Experience the stock market risk fr
 
 ---
 
-### Built With
+## Built With
 
 This application was built on the MERN stack and deployed using AWS Amplify.
 #### <ins>Development Tools/Technologies:</ins>

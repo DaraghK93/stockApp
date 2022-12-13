@@ -55,6 +55,11 @@ function GameStockSearchBar({ leagueId, currScreen }) {
     // eslint-disable-next-line
   }, [screen, leagueId]);
 
+  useEffect(() => {
+    /// When the current screen changes reset the error
+    setDisplayBadSearch(false)
+  },[currScreen])
+
   return (
     <>
       {keyword && (

@@ -3,26 +3,37 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import {useNavigate} from "react-router-dom"
 import FormContainer from '../../layout/FormContainer/FormContainer';
+import { Row, Col, Container } from 'react-bootstrap';
+import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
+
 
 // Search feature fucntion which passes the user input as props
-function StockSearchBar() {
+function StockSearchBar({searchBarError, setSearchBarError}) {
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
 
   const submitHandler = (e) => {
     e.preventDefault()
-    if(keyword.trim()){
-      navigate(`/search/stock/${keyword}`)
-    }else{
-      navigate(`/game/`)
+    const regex = /[^a-zA-Z0-9-\s]/g;
+    let keywordsClean = keyword.replace(regex, "");
+    if(keyword && keywordsClean === ""){
+      setSearchBarError(true);
+    }else {
+    if(keywordsClean.trim()){
+      navigate(`/search/stock/${keywordsClean}`)
+      setSearchBarError(false)
+    }else if (!keyword){
+      navigate(`/stockdiscovery/`)
+      setSearchBarError(false);
     }
+  }
     // reset form to blank after search
     e.target.reset()
     setKeyword("")
   }
 
 
-    return(
+    return(<>
       <FormContainer>
          <Form
         onSubmit={submitHandler}
@@ -31,6 +42,7 @@ function StockSearchBar() {
         <Form.Control
           type='text'
           name='search'
+          value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder='Search Stocks'
         >
@@ -45,7 +57,18 @@ function StockSearchBar() {
         
       </Form>
       </FormContainer>
-     
+      {searchBarError && (          
+      <Container>
+        <Row>
+          <Col className='text-center mx-5'>
+            <MessageAlert variant='danger'>
+              Invalid search term. Please try again
+            </MessageAlert>
+          </Col>
+        </Row>
+      </Container>
+      )}
+   </>  
     )
 }
 

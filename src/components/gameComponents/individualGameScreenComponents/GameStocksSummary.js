@@ -26,11 +26,13 @@ function GameStocksSummary({ league }) {
 
         let path = `/api/stock/gameStocks/summary`;
         let queryStringParameters = {
-          sectors: league.sectors,
           minERating: league.minERating,
           minSRating: league.minSRating,
           minGRating: league.minGRating,
         };
+        for (let i = 0; i < league.sectors.length; i++) {
+          queryStringParameters[`sectors[${i}]`] = league.sectors[i];
+        }
         let requestConfig = {
           queryStringParameters,
           headers: { 'x-auth-token': userToken },

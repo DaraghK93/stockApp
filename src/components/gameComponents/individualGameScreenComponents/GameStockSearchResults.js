@@ -34,12 +34,14 @@ function GameStockSearchResults({ keyword, league }) {
         setLoading(true);
         let path = `/api/stock/gameStocks/search/${keyword}`;
         let queryStringParameters = {
-          sectors: league.sectors,
           minERating: league.minERating,
           minSRating: league.minSRating,
           minGRating: league.minGRating,
           pageNumber: page,
         };
+        for (let i = 0; i < league.sectors.length; i++) {
+          queryStringParameters[`sectors[${i}]`] = league.sectors[i];
+        }
         let requestConfig = {
           queryStringParameters,
           headers: { 'x-auth-token': userToken },

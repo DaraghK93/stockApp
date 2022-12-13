@@ -3,10 +3,15 @@ import moment from 'moment'
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
 import CopyComponent from "../../widgets/CopyComponent/CopyComponent";
 
-function TimeLine({ startDate, endDate, portfolios, accessCode }) {
+function TimeLine({ 
+    startDate, 
+    endDate, 
+    portfolios, 
+    accessCode, 
+ }) {
 
-    var startDateIn = moment(startDate);
-    var endDateIn = moment(endDate);
+    var startDateIn = moment(startDate).startOf('day');
+    var endDateIn = moment(endDate)
     const currentDate = moment().startOf('day')
     const max = endDateIn.diff(startDateIn, "days")
     const now = currentDate.diff(startDateIn, "days")
@@ -14,6 +19,7 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
     const leftDaysUntil = startDateIn.diff(currentDate, "days")
 
     var accessString = accessCode.toString()
+
     function lessThanThreePlayersText() {
         if (portfolios.length < 3) {
             if (portfolios.length !== 1) {
@@ -33,13 +39,15 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
         }
     }
 
+
     function scheduledOrActive() {
         if (!(currentDate < startDateIn)) {
             return (
                 <>
                 <ProgressBar striped variant="info" max={max} min={0} now={now} />
                     <span>
-                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong>Make a trade now.</strong></p>
+                        <p>Only <strong>{leftDays}</strong> more days left in this game! <strong
+                        >Make a trade now.</strong></p>
                         {lessThanThreePlayersText()}
                     </span>
                 </>
@@ -63,6 +71,8 @@ function TimeLine({ startDate, endDate, portfolios, accessCode }) {
                 
                 <Col style={{ paddingRight: "1rem" }}>
                     <br></br>
+
+
                    {scheduledOrActive()}
                 </Col>
             </Row>

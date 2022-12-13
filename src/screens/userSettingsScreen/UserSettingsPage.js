@@ -3,7 +3,7 @@
 //  <URL>/changeuserdetails
 // Description:
 //  This screen contains the components for a user to change their account details
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
@@ -76,6 +76,28 @@ function UserSettingsPage() {
     };
   }
 
+  useEffect(() => {
+    // Register the onbeforeunload event
+    window.onbeforeunload = () => {
+      dispatch({
+        type: 'RESET_CHANGE_ERROR',
+        payload: null,
+      });
+    };
+    return () => {
+      window.onbeforeunload = null;
+    };
+  });
+
+  useEffect(() => {
+    dispatch({
+      type: 'RESET_CHANGE_ERROR',
+      payload: null,
+    });
+    return () => {};
+    // eslint-disable-next-line
+  }, []);
+
   const traitError = useTrait('');
 
   function handleSubmit(event) {
@@ -143,6 +165,14 @@ function UserSettingsPage() {
             userToken
           )
         );
+        setPassword('');
+        setUsername('');
+        setFirstname('');
+        setLastname('');
+        setAvatar('');
+        setNewPassword('');
+        setConfirmNewPassword('');
+        setEmail('');
       }
     } else {
       setCurrPasswordEnteredError(true);
@@ -172,19 +202,17 @@ function UserSettingsPage() {
         <Card className='accountDetailsForm' id='accountDetailsForm'>
           <Form onSubmit={handleSubmit}>
             <h5>Update Account Information</h5>
-            {error === 'Current password incorrect' && (
-              <MessageAlert variant='danger'>{error}</MessageAlert>
-            )}
-            {currPasswordEnteredError && (
-              <MessageAlert variant='danger'>
-                {'Current password is required'}
-              </MessageAlert>
-            )}
-            {loading && <LoadingSpinner />}
             <Form.Group className='py-2' controlId='oldPassword'>
-              <Form.Label>
-                Current Password
-              </Form.Label>
+              <Form.Label>Current Password</Form.Label>
+              {error === 'Current password incorrect' && (
+                <MessageAlert variant='danger'>{error}</MessageAlert>
+              )}
+              {currPasswordEnteredError && (
+                <MessageAlert variant='danger'>
+                  {'Current password is required'}
+                </MessageAlert>
+              )}
+              {loading && <LoadingSpinner />}
               <Form.Control
                 type='password'
                 placeholder='Enter current password'
@@ -192,10 +220,9 @@ function UserSettingsPage() {
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
-                <Form.Text id="passwordHelpBlock" muted>
-                This is required if you want to update any
-                account information.
-                </Form.Text>
+              <Form.Text id='passwordHelpBlock' muted>
+                This is required if you want to update any account information.
+              </Form.Text>
             </Form.Group>
             <p>Choose new avatar</p>
             <Row className='py-3' md={4} sm={2} xs={2}>
@@ -236,14 +263,14 @@ function UserSettingsPage() {
                 onChange={(event) => setLastname(event.target.value)}
               />
             </Form.Group>
-            {error === 'Invalid email address. Please try again' && (
-              <MessageAlert variant='danger'>{error}</MessageAlert>
-            )}
-            {error === 'Email already taken' && (
-              <MessageAlert variant='danger'>{error}</MessageAlert>
-            )}
             <Form.Group className='py-2' controlId='email'>
               <Form.Label>New Email</Form.Label>
+              {error === 'Invalid email address. Please try again' && (
+                <MessageAlert variant='danger'>{error}</MessageAlert>
+              )}
+              {error === 'Email already taken' && (
+                <MessageAlert variant='danger'>{error}</MessageAlert>
+              )}
               <Form.Control
                 type='email'
                 placeholder='Enter New Email'
@@ -251,14 +278,17 @@ function UserSettingsPage() {
                 onChange={(event) => setEmail(event.target.value)}
               />
             </Form.Group>
-            {error === 'Username already taken' && (
-              <MessageAlert variant='danger'>{error}</MessageAlert>
-            )}
-            {error === 'Username length must be at least 3 characters' && (
-              <MessageAlert variant='danger'>{error}</MessageAlert>
-            )}
             <Form.Group className='py-2' controlId='username'>
               <Form.Label>New Username</Form.Label>
+              {error === 'Username already taken' && (
+                <MessageAlert variant='danger'>{error}</MessageAlert>
+              )}
+              {error === 'Username length must be at least 3 characters' && (
+                <MessageAlert variant='danger'>{error}</MessageAlert>
+              )}
+              {error === 'Username length must be less than 12 characters' && (
+                <MessageAlert variant='danger'>{error}</MessageAlert>
+              )}
               <Form.Control
                 type='text'
                 placeholder='Enter New Username'
@@ -266,13 +296,13 @@ function UserSettingsPage() {
                 onChange={(event) => setUsername(event.target.value)}
               />
             </Form.Group>
-            {passwordErrorMessage && (
-              <MessageAlert variant='danger'>
-                {passwordErrorMessage}
-              </MessageAlert>
-            )}
             <Form.Group className='py-2' controlId='newPassword'>
               <Form.Label>New Password</Form.Label>
+              {passwordErrorMessage && (
+                <MessageAlert variant='danger'>
+                  {passwordErrorMessage}
+                </MessageAlert>
+              )}
               <Form.Control
                 type={passwordShown ? 'text' : 'password'}
                 placeholder='Enter New Password'

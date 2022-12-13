@@ -25,7 +25,7 @@ function TableHoldings({ data }) {
     const currentPosts = tableData.slice(indexOfFirstPage, indexOfLastPage)
 
     const columns = [
-        { label: "Logo", accessor: "logo", sortable: false, showHeader: true },
+        { label: "Company", accessor: "logo", sortable: false, showHeader: true },
         { label: "Ticker", accessor: "symbol", sortable: true, showHeader: showCol },
         { label: "Value", accessor: "currentValue", sortable: true, sortbyOrder: "desc", showHeader: true },
         { label: "Qty", accessor: "units", sortable: true, sortbyOrder: "desc", showHeader: showCol },
@@ -36,7 +36,11 @@ function TableHoldings({ data }) {
 
     useEffect(() => {
         showCols()
-    }, [])
+        const filtered = data.filter(holding => {
+            return parseFloat(holding.units) > 0
+        })
+        setTableData(filtered)
+    }, [data])
 
     window.addEventListener("resize", showCols);
 
@@ -105,13 +109,14 @@ function TableHoldings({ data }) {
             setPostsPerPage(e.target.id)
         }
         else {
+            setCurrentPage(1)
             setPostsPerPage(totalPosts)
         }
     }
 
     return (
         <>
-            {data.length > 0 ?
+            {tableData.length > 0 ?
                 <Container>
 
 
@@ -144,7 +149,7 @@ function TableHoldings({ data }) {
                         <tbody>
                             {currentPosts.map((item, index) => (
                                 (<Fragment key={`${index}-fragment`}>
-                                    <tr style={{ verticalAlign: "middle" }} key={item.symbol}>
+                                    <tr style={{ verticalAlign: "middle" }} key={`${index}-fragment-${item.symbol}`}>
                                         <td key={item.logo}><center><Link to={`/stock/${item.symbol}`}>
                                             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <div style={{
@@ -164,8 +169,8 @@ function TableHoldings({ data }) {
                                         <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"}><center>{item.symbol}</center></td>
                                         <td key={`${index}-currentValue`}><center>{parseFloat(item.currentValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
 
-                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-units`}><center>{item.units.toFixed(2)}</center></td>
-                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-currentprice`}><center>{parseFloat(item.currentPrice).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-units${item.units}`}><center>{item.units.toFixed(2)}</center></td>
+                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-currentprice${item.currentPrice}`}><center>{parseFloat(item.currentPrice).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                         <td key={`/stock/${item.symbol}/confirmorder`}><center><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></center></td>
                                         <td className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${item.symbol}/button`}><center>
                                             <Button style={{ padding: 0, margin: 0, color: "black" }}
@@ -199,37 +204,73 @@ function TableHoldings({ data }) {
                             ))}
                         </tbody>
                     </Table>
-                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <nav>
-                            <ul key="pagination" className="pagination">
-                                {pageNumbers.map(number => (
-                                    <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
-                                        <button onClick={() => pagination(number)} className="page-link"> {number} </button>
-                                    </li>
-                                ))}
-                            </ul>
-                        </nav>
+                    {tableData.length > 5 ?
+                        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                            <nav>
+                                <ul key="pagination" className="pagination">
+                                    {pageNumbers.map(number => (
+                                        <li key={number} className={currentPage === number ? 'page-item active' : 'page-item'}>
+                                            <button onClick={() => pagination(number)} className="page-link"> {number} </button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </nav>
 
-                        <ul className="pagination">
-                            <Dropdown className="d-inline mx-2">
-                                <Dropdown.Toggle
-                                    id="dropdown-autoclose-true">
-                                    Show {postsPerPage}
-                                </Dropdown.Toggle>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
-                                    <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
-                                    <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
-                                    <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown>
-                        </ul>
-                    </div>
+                            <ul className="pagination">
+                                <Dropdown className="d-inline mx-2">
+                                    <Dropdown.Toggle
+                                        id="dropdown-autoclose-true">
+                                        Show {postsPerPage}
+                                    </Dropdown.Toggle>
+                                    <Dropdown.Menu>
+                                        {tableData.length === 10 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                                    :
+
+                                                    tableData.length === 15 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                                    :
+
+
+
+                                            tableData.length < 10 ?
+                                                <>
+                                                    <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                    <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                </> :
+
+                                                tableData.length < 15 ?
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+
+
+                                                    :
+                                                    <>
+                                                        <Dropdown.Item key={5} id={5} onClick={changePostsPerPage}>Show 5</Dropdown.Item>
+                                                        <Dropdown.Item key={10} id={10} onClick={changePostsPerPage}>Show 10</Dropdown.Item>
+                                                        <Dropdown.Item key={15} id={15} onClick={changePostsPerPage}>Show 15</Dropdown.Item>
+                                                        <Dropdown.Item key={"all"} id={"all"} onClick={changePostsPerPage}>Show {totalPosts} (all)</Dropdown.Item>
+                                                    </>
+                                        }
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            </ul>
+                        </div> : null}
 
                 </Container> :
                 <Container>
                     <MessageAlert variant='info' >
-                        You have no holdings! <Link to="/stockdiscovery/" style={{color:"black"}}><strong>Click here</strong></Link> to start 
+                        You have no holdings! <Link to="/stockdiscovery/" style={{ color: "black" }}><strong>Click here</strong></Link> to start
                         exploring stocks and building your portfolio!
                     </MessageAlert>
                 </Container>

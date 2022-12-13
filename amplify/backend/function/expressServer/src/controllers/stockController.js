@@ -357,6 +357,8 @@ try{
   /// if undefined return the stock summary
   if (keyword == 'undefined') {
   } else {
+    let newStr = keyword.replace(/[^\w\s-&]/gi, '');
+      if (newStr.trim() !== ''){
     // Keyword defined search for the stocks
     const stocks = await Stock.find({
       $and: [
@@ -385,7 +387,7 @@ try{
       return next(new Error('No stocks found for this game'));
     }
     res.json(stocks);
-  }
+  }}
 } catch(err){
  console.error(err.message);
  res.status(500)

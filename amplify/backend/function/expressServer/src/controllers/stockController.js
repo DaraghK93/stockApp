@@ -85,7 +85,7 @@ const getAllStocks = async (req, res, next) => {
       const stocks = await stockService.getStockSummary(Stock, recs, deRecs)
       res.json(stocks)
     }else{ 
-      let newStr = keyword.replace(/[^\w\s-&]/gi, '');
+      let newStr = keyword.replace(/[^a-zA-Z0-9-]/g, '');
       if (newStr.trim() !== ''){
         // Keyword defined search for the stocks
         const stocks = await Stock.find({
@@ -358,6 +358,7 @@ try{
   if (keyword == 'undefined') {
   } else {
     let newStr = keyword.replace(/[^\w\s-&]/gi, '');
+    console.log(newStr.trim())
       if (newStr.trim() !== ''){
     // Keyword defined search for the stocks
     const stocks = await Stock.find({

@@ -10,9 +10,11 @@ function StockSearchBar() {
   const navigate = useNavigate()
 
   const submitHandler = (e) => {
+    const regex = /[^a-zA-Z0-9-]/g;
+    let keywordsClean = keyword.replace(regex, "");
     e.preventDefault()
-    if(keyword.trim()){
-      navigate(`/search/stock/${keyword}`)
+    if(keywordsClean.trim()){
+      navigate(`/search/stock/${keywordsClean}`)
     }else{
       navigate(`/stockdiscovery/`)
     }

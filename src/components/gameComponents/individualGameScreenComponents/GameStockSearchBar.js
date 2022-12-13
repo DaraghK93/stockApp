@@ -17,9 +17,12 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
+    const regex = /[^a-zA-Z0-9-]/g;
+    let keywordsClean = keywords.replace(regex, "");
+    console.log(keywordsClean)
     e.preventDefault();
-    if (keywords.trim()) {
-      navigate(`/search/game/${keywords}/${leagueId}`);
+    if (keywordsClean.trim()) {
+      navigate(`/search/game/${keywordsClean}/${leagueId}`);
     } else {
       navigate(`/game/all/${leagueId}`);
       setKeywords('');

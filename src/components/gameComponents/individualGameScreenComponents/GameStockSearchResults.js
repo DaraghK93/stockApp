@@ -94,12 +94,12 @@ function GameStockSearchResults({ keyword, league }) {
         </Container>
       ) : Object.keys(stocks).length !== 0 ? (
         <>
-          <h3 className='stockdiscoveryRow'>
-            Showing Results for "{keyword.trim()}"
-          </h3>
-
           <Container className='py-3'>
-            <Row style={{ marginLeft:"auto", marginRight:"auto"}}>
+            <h3 className='stockdiscoveryRow'>
+              Showing Results for "{keyword.trim()}"
+            </h3>
+
+            <Row style={{ marginLeft: 'auto', marginRight: 'auto' }}>
               {stocks.map((stockObj) => (
                 <Col xs={6} md={3} xl={2} className='py-2' key={stockObj._id}>
                   <TickerCard

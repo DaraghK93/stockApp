@@ -29,6 +29,7 @@ function StockSearchResults({ keyword }) {
     }
   }
   useEffect(() => {
+    setError('');
     const getStocks = async () => {
       try {
         setLoading(true);

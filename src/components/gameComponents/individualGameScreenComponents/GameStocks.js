@@ -42,13 +42,44 @@ function GameStocks({ league }) {
       <div className='stockDiscovery mb-5'>
         <Container>
           <Row className='py-3'>
-          <h1 className="stockdiscoveryRowTitleTop" style={{ textAlign: 'center' }}>Tradable stocks <InfoButtonModal title="Tradable stocks" info={
-                        <div>
-                            <p>When you create a game you can restrict the stocks the participants can buy such as restricting which sectors can be traded or what the minimum E,S or G score is. This section aims to make it easier to find stocks that match your game details. Anything you see in this tab is available to buy or sell (Tradable)</p> 
-                            <p> The <mark class="bold">All Stocks</mark> section will show you pages of all the available stocks for your current game.</p>
-                            <p> The <mark class="bold">Summary</mark> section will show you the top movers and top losers of all the available stocks for your current game.</p>
-                            <p> You can also <mark class="bold">Search</mark> for stocks and any results shown will be available to trade.</p>
-                        </div>} /></h1>
+            <h1
+              className='stockdiscoveryRowTitleTop'
+              style={{ textAlign: 'center' }}
+            >
+              Tradable stocks{' '}
+              <InfoButtonModal
+                title='Tradable stocks'
+                info={
+                  <div>
+                    <p>
+                      When you create a game you can restrict the stocks the
+                      participants can buy such as restricting which sectors can
+                      be traded or what the minimum Environmental, Social or
+                      Governance score is. This section aims to make it easier
+                      to find stocks that match your game details. Anything you
+                      see in this tab is available to buy or sell (Tradable)
+                    </p>
+                    <p>
+                      {' '}
+                      The <mark className='bold'>All Stocks</mark> section will
+                      show you pages of all the available stocks for your
+                      current game.
+                    </p>
+                    <p>
+                      {' '}
+                      The <mark className='bold'>Summary</mark> section will
+                      show you the top movers and top losers of all the
+                      available stocks for your current game.
+                    </p>
+                    <p>
+                      {' '}
+                      You can also <mark className='bold'>Search</mark> for
+                      stocks and any results shown will be available to trade.
+                    </p>
+                  </div>
+                }
+              />
+            </h1>
           </Row>
           {keyword === undefined && (
             <Row className='py-3' lg={1} md={1} xs={1}>

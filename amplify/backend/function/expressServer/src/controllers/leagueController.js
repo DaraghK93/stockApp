@@ -642,12 +642,14 @@ const deleteLeague = async (req, res, next) => {
               }
             }, {
               '$set': {
-                'user': '$user.username'
+                'user': '$user.username',
+                'avatar': '$user.avatar'
               }
             }, {
               '$project': {
                 'totalValue': 1, 
-                'user': 1
+                'user': 1,
+                'avatar':1
               }
             }
           ]

@@ -12,8 +12,8 @@ function GamePortfolio({ data, name, totalValue }) {
     var percentageChange
 
     function redOrGreen() {
-        absoluteChange = data[0].value - data[1].value
-        percentageChange = ((data[0].value - data[1].value) / data[1].value) * 100
+        absoluteChange = data[data.length - 1].value - data[0].value
+        percentageChange = ((data[data.length - 1].value - data[0].value) / data[data.length - 1].value) * 100
 
         if (parseFloat(absoluteChange) > 0) {
             lineColor = "#00C49F"

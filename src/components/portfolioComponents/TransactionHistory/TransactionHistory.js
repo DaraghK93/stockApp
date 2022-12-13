@@ -208,8 +208,11 @@ function TransactionHistory({ transactions, cancelOrder }) {
                             </p>
 
                         } /></h2>
+                 
                     </Col>
+                       
                 </div>
+                <MessageAlert variant="info">You have successfully cancelled stock X</MessageAlert>
                 <br />
                 <Container>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

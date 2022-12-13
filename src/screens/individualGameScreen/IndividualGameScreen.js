@@ -9,7 +9,6 @@ import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
-import BasicModal from "../../components/widgets/BasicModal/BasicModal";
 
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
 import { Logout, Cancel } from '@mui/icons-material';
@@ -38,7 +37,6 @@ function IndividualGameScreen() {
     const [success, setSuccess] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
     // modal state
-    const [show, setShow] = useState(false);
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
@@ -244,7 +242,6 @@ function IndividualGameScreen() {
             await API.post(APIName, path, myInit)
             /// Set the success message using the
             setSuccess(transactionId)
-            setShow(true)
             setLoading(false)
          
         } catch (error) {
@@ -271,7 +268,6 @@ function IndividualGameScreen() {
                                 </div>
                             </div>
                             <GameNavBar disPlayScreen={disPlayScreen} active={active} />
-                            <BasicModal showState={show} setShowState={setShow} title={"Order Cancelled!"} bodyText={"Successfully cancelled order!"}></BasicModal>
                             {isShownLeaderBoard &&
                                 <>
 

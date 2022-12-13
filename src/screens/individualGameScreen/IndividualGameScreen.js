@@ -11,7 +11,10 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
 
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
-import { Logout, Cancel } from '@mui/icons-material';
+
+import {Logout, Cancel} from '@mui/icons-material';
+import GameStocks from "../../components/gameComponents/individualGameScreenComponents/GameStocks";
+
 /// API ///
 import { APIName } from '../../constants/APIConstants'
 import { API } from "aws-amplify";
@@ -316,13 +319,14 @@ function IndividualGameScreen() {
                                     />
                                 </Container>
 
-                            }
-                            {isShownStocks &&
-                                <Container>
-                                    <br></br><h2>This is stocks screen</h2>
-                                </Container>
-                            }
-                            {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
+                    }
+                    {isShownStocks &&
+                        <>
+                        <GameStocks league={league}></GameStocks>
+                        </>
+                    }
+                    {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
+
 
                                 <>
                                     <Container style={{ textAlign: "center" }}>

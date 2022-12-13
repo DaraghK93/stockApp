@@ -119,6 +119,9 @@ function OrderConfirmationPage() {
                 /// Set the portfolio Loading to true and reset error
                 setPortfolioLoading(true)
                 setPortfolioError()
+                /// eset holding,will be set if they have any and reset buy incase they have no holdings 
+                setHolding()
+                setBuyOrSell("Buy")
                 let path = `/api/portfolio/${gameId}`;
                 let myInit = {
                     headers : {"x-auth-token": userToken},       
@@ -143,7 +146,7 @@ function OrderConfirmationPage() {
                     res.holdings.forEach(item =>{
                         /// If the user has a postion in this stock it will match the stock ID 
                         /// the units will also not equal to 0 
-                        if(item.stockId === stock.id && item.units > 1){
+                        if(item.stockId === stock.id && item.units > 0){
                             setHolding(item.units)
                         }
                     });
@@ -182,7 +185,7 @@ function OrderConfirmationPage() {
             setDollarAmountSelected(1)
         }
     },[buyOrSell])
-
+    
 
     //// Cehck for the environment and sector scores ////
     useEffect(() => {
@@ -263,6 +266,8 @@ function OrderConfirmationPage() {
                                 orderType={orderType}
                                 setOrderType={setOrderType}
                                 buyOrSell={buyOrSell}
+                                portfolioBalance={portfolio.portfolioBalance}
+                                gameTradeFee={gameTradeFee}
                             />
                         </Col>
                     </Row>

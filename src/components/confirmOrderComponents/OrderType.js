@@ -1,7 +1,7 @@
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import InfoButtonModal from '../widgets/InfoButtonModal/InfoButtonModal';
 
-function OrderType({orderType,setOrderType,buyOrSell}) {
+function OrderType({orderType,setOrderType,buyOrSell,portfolioBalance,gameTradeFee}) {
 
     const handleClick = (event) => {
         if (event.target.id === "1") {
@@ -53,6 +53,7 @@ function OrderType({orderType,setOrderType,buyOrSell}) {
                                 onClick={handleClick}
                                 variant='outline-primary'
                                 className="orderButton"
+                                disabled={portfolioBalance < gameTradeFee}
                             >Limit
                             <p onClick={() => {handleClick({"target":{"id":"2"}})}} className="orderButtonSubtitle">
                                 {buyOrSell === "Buy"? <> Buy Later!</>:<>Sell Later!</>}

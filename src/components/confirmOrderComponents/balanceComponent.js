@@ -27,15 +27,19 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
 
     useEffect(() => {
         const setGraphData = () => {
+        setSpendingPowerError()
         /// If your current spending power is greater than the game trade fee you cant complete the order
-        if (portfolioBalance < gameTradeFee){
+        if (portfolioBalance < gameTradeFee && buyOrSell === "Buy"){
+            /// This check is for the game fee 
             setSpendingPowerError(`Available spending power of ${parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })} less than game trade fee of ${parseFloat(gameTradeFee).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}, you dont have enough to make this trade!`)
-        }else if(buyOrSell === "Buy"){
+        }else if (buyOrSell === "Sell" && newPortfolioBalance < 0){
+            setSpendingPowerError(`Try Upping the Quantity Sold to cover the trade fee to make this trade`)
+        }else if(buyOrSell === "Buy" && newPortfolioBalance > 0){
                 setData([{ value: newPortfolioBalance },{ value: parseFloat(dollarAmountSelected) }]);
         }else if(buyOrSell === "Sell"){
                 if (orderType === "Market Order" && (dollarAmountSelected <= (holding*stockPrice))){
                     setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:(holding*stockPrice)-dollarAmountSelected}]) 
-                }else if (orderType === "Limit Order"){
+                }else if (orderType === "Limit Order" && newPortfolioBalance > 0){
                     setData([{ value: parseFloat(portfolioBalance) },{ value: parseFloat(dollarAmountSelected) }, { value:((Math.floor(stockPrice*1.15))*holding)-dollarAmountSelected}]) 
                 }
         }
@@ -91,7 +95,10 @@ function BalanceComponent({ portfolioName, newPortfolioBalance, dollarAmountSele
                     </h5>
                     }
                     <p><strong>{portfolioName}</strong>- Available Spending Power: {parseFloat(portfolioBalance).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}</p>
-                    {spendingPowerError ? <MessageAlert variant="danger">{spendingPowerError}</MessageAlert>
+                    {spendingPowerError ? 
+                    <Card.Body style={{"textAlign":"center","alignItems":"center"}}>
+                        <MessageAlert variant="danger">{spendingPowerError}</MessageAlert>
+                    </Card.Body>
                     :
                     <ResponsiveContainer width="100%" height={300} margin={100}>
                         <PieChart height={260} width={500}>

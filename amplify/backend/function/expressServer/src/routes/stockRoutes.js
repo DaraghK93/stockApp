@@ -22,6 +22,4 @@ router.get('/gameStocks/:type', protectedRoute, getGameStocks)
 // for searching game stocks
 router.get('/gameStocks/search/:keyword', protectedRoute, getAllGameStocks)
 
-
-
 module.exports = router;

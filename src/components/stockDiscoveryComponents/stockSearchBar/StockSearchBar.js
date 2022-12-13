@@ -14,7 +14,7 @@ function StockSearchBar() {
     if(keyword.trim()){
       navigate(`/search/stock/${keyword}`)
     }else{
-      navigate(`/stockdiscovery/`)
+      navigate(`/game/`)
     }
     // reset form to blank after search
     e.target.reset()

@@ -40,22 +40,22 @@ FinOptimise is a fantasy stock trading game. Experience the stock market risk fr
 ### Core Features:
 <div align="center">
   <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_1_1.png" alt="Create or join a Game" width="80%">
+    <img src="public/splash_carousel_1_1.png" alt="Create or join a Game" width="45%">
   </a>
   <h3>Create or Join a Game</h3>
   <p>Create or join a game with fully customisable rules or create one with out of the box rules.</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_1_2.png" alt="Explore stocks with personalised recommendations" width="80%">
+    <img src="public/splash_carousel_1_2.png" alt="Explore stocks with personalised recommendations" width="45%">
   </a>
   <h3>Explore Stocks</h3>
   <p>Explore stocks with personalised recommendations</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_1_3.png" alt="Explore stocks using our advanced A.I. tools" width="80%">
+    <img src="public/splash_carousel_1_3.png" alt="Explore stocks using our advanced A.I. tools" width="45%">
   </a>
   <h3>Research the Best Stocks to Trade</h3>
   <p>Research the best stocks to trade using our advanced A.I. tools</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_1_4.png" alt="Compete against friends and see where you stand in real time" width="80%">
+    <img src="public/splash_carousel_1_4.png" alt="Compete against friends and see where you stand in real time" width="45%">
   </a>
   <h3>Compete Against Your Friends</h3>
   <p>Compete against friends and see where you stand in real time with our game leaderboards</p>
@@ -64,22 +64,22 @@ FinOptimise is a fantasy stock trading game. Experience the stock market risk fr
 ### Other Features:
 <div align="center">
   <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_2_1.png" alt="Create or join a Game" width="80%">
+    <img src="public/splash_carousel_2_1.png" alt="Create or join a Game" width="45%">
   </a>
   <h3>Company specific news feeds</h3>
   <p>Use our in-built company specific news feeds from a range of publications to keep up to date with companies and get an advantage over other players in the league.</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_2_2.png" alt="Explore stocks with personalised recommendations" width="80%">
+    <img src="public/splash_carousel_2_2.png" alt="Explore stocks with personalised recommendations" width="45%">
   </a>
   <h3>Sentiment Analysis</h3>
   <p>Use our sentiment analysis tools to see the whether the current sentiment of a company is Positive, Negative or Neutral both on Twitter and across our News Feed.</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_2_3.png" alt="Explore stocks using our advanced A.I. tools" width="80%">
+    <img src="public/splash_carousel_2_3.png" alt="Explore stocks using our advanced A.I. tools" width="45%">
   </a>
   <h3>Ethical Investing</h3>
   <p>Use our clear and easy to understand ESG Ratings to help you learn how to invest ethically.</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
-    <img src="public/splash_carousel_2_4.png" alt="Compete against friends and see where you stand in real time" width="80%">
+    <img src="public/splash_carousel_2_4.png" alt="Compete against friends and see where you stand in real time" width="45%">
   </a>
   <h3>Learn About the Basics</h3>
   <p>Use our education section to read about the basics of investing and to find more resources for further reading/watching. Use that newfound knowledge to get the upper hand in your league!</p>

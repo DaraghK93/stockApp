@@ -179,12 +179,12 @@ function OrderConfirmationPage() {
     // This useEffect id used to reset values whne the user swiches between buy/sell
     // Need to reset the dollar amount as it may not make sense when you switch from buy to sell 
     useEffect(() => {
-        if(buyOrSell === "Buy"){
-            setDollarAmountSelected(1)
+        if(buyOrSell === "Buy" && stock !== ''){
+            setDollarAmountSelected(stock.daily_change.currentprice)
         }else if(buyOrSell === "Sell"){
             setDollarAmountSelected(1)
         }
-    },[buyOrSell])
+    },[buyOrSell,stock])
     
 
     //// Cehck for the environment and sector scores ////

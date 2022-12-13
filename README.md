@@ -110,14 +110,14 @@ This application was built on the MERN stack and deployed using AWS Amplify.
 
 <!-- Contributors / Dev Team -->
 ## Contributors
-| Name            | GitHub                            | LinkedIn                             |
-|-----------------|-----------------------------------|--------------------------------------|
-| Bearach Byrne   | https://github.com/BearachB       | https://www.linkedin.com/in/bearach/ |
-| Joseph Corcoran | https://github.com/joeycor92      | -                                    |
-| Warren Kavanagh | https://github.com/WarrenK-design | -                                     |
-| Rebecca Kelly   | https://github.com/beckskelly     | -                                    |
-| Daragh Kneeshaw | https://github.com/DaraghK93/     | -                                    |
-| Caolán Power    | https://github.com/caolan-power   | -                                    |
+| Name            | GitHub                            | LinkedIn                                                 |
+|-----------------|-----------------------------------|----------------------------------------------------------|
+| Bearach Byrne   | https://github.com/BearachB       | https://www.linkedin.com/in/bearach/                     |
+| Joseph Corcoran | https://github.com/joeycor92      | https://www.linkedin.com/in/joey-corcoran-13530490/      |
+| Warren Kavanagh | https://github.com/WarrenK-design | https://www.linkedin.com/in/warren-kavanagh/             |
+| Rebecca Kelly   | https://github.com/beckskelly     | https://www.linkedin.com/in/rebecca-rose-kelly/          |
+| Daragh Kneeshaw | https://github.com/DaraghK93/     | https://www.linkedin.com/in/daragh-kneeshaw-46b4a0159/   |
+| Caolán Power    | https://github.com/caolan-power   | https://www.linkedin.com/in/caol%C3%A1n-power-659b74193/ |
 
 <p align="right">(<a href="#table-of-contents">back to top</a>)</p>
 

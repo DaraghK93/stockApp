@@ -1,3 +1,92 @@
+<!-- Project Title -->
+# FinOptimise
+
+## Table of Contents
+1. [About](#about)
+2. [Built With](#built-with)
+3. [Contact](#contact)
+4. [Contributors](#contributors)
+5. [About](#about)
+
+<!-- ABOUT -->
+## About
+
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
+
+Project summary goes here
+
+### Built With
+
+This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+
+
+* [![MongoDB][Mongodb.com]][Mongodb-url]
+* [![Express][Expressjs.com]][Express-url]
+* [![React][React.js]][React-url]
+* [![React Bootstrap][Bootstrap.com]][Bootstrap-url]
+* [![NodeJS][NodeJS.org]][NodeJS-url]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+---
+<!-- CONTACT -->
+## Contact
+
+FinOptimise Development Team - finoptimisetud@gmail.com
+
+Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK93/stockApp)
+
+<!-- Contributors -->
+## Contributors
+| Name            | GitHub                            |
+|-----------------|-----------------------------------|
+| Bearach Byrne   | https://github.com/BearachB       |
+| Joseph Corcoran | https://github.com/joeycor92      |
+| Warren Kavanagh | https://github.com/WarrenK-design |
+| Rebecca Kelly   | https://github.com/beckskelly     |
+| Daragh Kneeshaw | https://github.com/DaraghK93/     |
+| Caolán Power    | https://github.com/caolan-power   |
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+---
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[Mongodb.com]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
+[Mongodb-url]: https://www.mongodb.com/home
+
+[Expressjs.com]: https://img.shields.io/badge/Express.js-404D59?style=for-the-badge
+[Express-url]: https://expressjs.com/
+
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://react-bootstrap.github.io/
+
+[NodeJS.org]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
+[NodeJS-url]: https://nodejs.org/en/
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Team Members:
 Joseph Corcoran
 Caolán Power

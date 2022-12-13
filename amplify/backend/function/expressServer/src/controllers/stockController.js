@@ -387,6 +387,8 @@ try{
       return next(new Error('No stocks found for this game'));
     }
     res.json(stocks);
+  }  else {
+    res.json([])
   }}
 } catch(err){
  console.error(err.message);

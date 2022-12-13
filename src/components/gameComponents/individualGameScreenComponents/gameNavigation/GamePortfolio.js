@@ -74,7 +74,7 @@ console.log(data)
                                 :
                                 <>
                                     <dl className='infoList' style={{ padding: 0 }}>
-                                        <dt style={{ color: redOrGreen() }}> {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
+                                        <dt style={{ color: redOrGreen() }}>{positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
                                     </dl>
                                     <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"value"} datetype={"port"} />
                                 </>

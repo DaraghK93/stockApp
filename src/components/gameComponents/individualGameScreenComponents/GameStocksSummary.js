@@ -62,22 +62,48 @@ function GameStocksSummary({ league }) {
       ) : (
         <>
           <h3 className='stockdiscoveryRow'>Today's Biggest Positive Movers</h3>
-          <SideScrollMenu>
-            {stocks[0].topGainers.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
+          {stocks[0].topGainers.length > 0 ? (
+            <SideScrollMenu>
+              {stocks[0].topGainers.map((stockObj) => (
+                <div className='sideScrollCard' key={stockObj._id}>
+                  <TickerCard key={stockObj._id} stock={stockObj} />
+                </div>
+              ))}
+            </SideScrollMenu>
+          ) : (
+            <Container>
+              <Row>
+                <Col className='text-center mx-5'>
+                  <MessageAlert variant='info'>
+                    No gainers to show. Lots of companies in the red today, stay
+                    safe out there
+                  </MessageAlert>
+                </Col>
+              </Row>
+            </Container>
+          )}
 
           <h3 className='stockdiscoveryRow'>Today's Biggest Negative Movers</h3>
-          <SideScrollMenu>
-            {stocks[0].topLosers.map((stockObj) => (
-              <div className='sideScrollCard' key={stockObj._id}>
-                <TickerCard key={stockObj._id} stock={stockObj} />
-              </div>
-            ))}
-          </SideScrollMenu>
+          {stocks[0].topLosers.length > 0 ? (
+            <SideScrollMenu>
+              {stocks[0].topLosers.map((stockObj) => (
+                <div className='sideScrollCard' key={stockObj._id}>
+                  <TickerCard key={stockObj._id} stock={stockObj} />
+                </div>
+              ))}
+            </SideScrollMenu>
+          ) : (
+            <Container>
+              <Row>
+                <Col className='text-center mx-5'>
+                  <MessageAlert variant='info'>
+                    No top losers to show. You couldn't lose money today if you
+                    tried but you still probably will.
+                  </MessageAlert>
+                </Col>
+              </Row>
+            </Container>
+          )}
         </>
       )}
     </>

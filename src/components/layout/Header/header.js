@@ -46,7 +46,7 @@ function Header() {
     <Navbar expanded={expanded} fixed="top" expand="lg" variant="dark"
       className="navbar">
       <Container>
-        <Navbar.Brand style={{ color: 'white'}} as={NavLink} to="/game"><img style={{marginBottom: "3px",verticalAlign:"middle" ,height:"1.2rem", marginTop:"auto", marginBottom:"auto"}} src="./FinOptimizeLogoWhiteNoText.png" alt="logo"/> FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
+        <Navbar.Brand style={{ color: 'white'}} as={NavLink} to="/game"><img style={{paddingBottom: "4px",verticalAlign:"middle" ,height:"1.2rem"}} src="./FinOptimizeLogoWhiteNoText.png" alt="logo"/> FIN<span className="navbar-brand mb-0 h1">OPTIMISE</span></Navbar.Brand>
         <Navbar.Toggle style={{ color: "white" }} onClick={() => setExpanded(expanded ? false : "expanded")} aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {userInfo ?

@@ -32,6 +32,7 @@ function OrderConfirmationPage() {
     
     /// Order State ////
     const [dollarAmountSelected, setDollarAmountSelected] = useState(0)
+    const [dollarAmountLoading, setDollarAmountLoading] = useState(true)
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
     const [qty, setQty] = useState("0");
@@ -179,12 +180,14 @@ function OrderConfirmationPage() {
     // This useEffect id used to reset values whne the user swiches between buy/sell
     // Need to reset the dollar amount as it may not make sense when you switch from buy to sell 
     useEffect(() => {
+        setDollarAmountLoading(true)
         if(buyOrSell === "Buy" && stock !== ''){
             setDollarAmountSelected(stock.daily_change.currentprice)
         }else if(buyOrSell === "Sell"){
             setDollarAmountSelected(1)
         }
-    },[buyOrSell,stock])
+        setDollarAmountLoading(false)
+    },[buyOrSell,stock,orderType])
     
 
     //// Cehck for the environment and sector scores ////
@@ -289,6 +292,7 @@ function OrderConfirmationPage() {
                                     holding={holding}
                                     marketPriceError = {marketPriceError}
                                     setMarketPriceError = {setMarketPriceError}
+                                    dollarAmountLoading={dollarAmountLoading}
                                 />
                                 </Col>
                         </Row>

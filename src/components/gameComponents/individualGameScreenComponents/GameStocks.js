@@ -15,6 +15,7 @@ function GameStocks({ league }) {
   let { redirect } = useParams();
 
   const [screen, setScreen] = useState('1');
+  const [searchBarError, setSearchBarError] = useState(false);
 
   /// The choices for the screens, used for buttons at top of screen
   var screenChocies = [
@@ -92,7 +93,7 @@ function GameStocks({ league }) {
           )}
           <Row>
             <Col>
-              <GameStockSearchBar leagueId={league._id} currScreen={screen} />
+              <GameStockSearchBar leagueId={league._id} currScreen={screen} searchBarError={searchBarError} setSearchBarError={setSearchBarError}/>
             </Col>
           </Row>
         </Container>
@@ -112,7 +113,7 @@ function GameStocks({ league }) {
           keyword !== undefined && (
             <Container>
               <Row md={1} xs={1}>
-                <GameStockSearchResults keyword={keyword} league={league} />
+                <GameStockSearchResults keyword={keyword} league={league} searchBarError={searchBarError} setSearchBarError={setSearchBarError}/>
               </Row>
             </Container>
           )

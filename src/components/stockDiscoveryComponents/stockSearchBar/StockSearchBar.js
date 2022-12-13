@@ -8,24 +8,27 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 
 
 // Search feature fucntion which passes the user input as props
-function StockSearchBar() {
+function StockSearchBar({searchBarError, setSearchBarError}) {
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
   const [displayBadSearch, setDisplayBadSearch] = useState(false);
 
   const submitHandler = (e) => {
+    e.preventDefault()
     const regex = /[^a-zA-Z0-9-\s]/g;
     let keywordsClean = keyword.replace(regex, "");
     if(keyword && keywordsClean === ""){
       setDisplayBadSearch(true);
+      setSearchBarError(true);
     }
-    e.preventDefault()
     if(keywordsClean.trim()){
       navigate(`/search/stock/${keywordsClean}`)
       setDisplayBadSearch(false)
+      setSearchBarError(false)
     }else if (!keyword){
       navigate(`/stockdiscovery/`)
       setDisplayBadSearch(false);
+      setSearchBarError(false);
     }
     // reset form to blank after search
     e.target.reset()
@@ -57,7 +60,7 @@ function StockSearchBar() {
         
       </Form>
       </FormContainer>
-      {displayBadSearch && (          
+      {searchBarError && (          
       <Container>
         <Row>
           <Col className='text-center mx-5'>

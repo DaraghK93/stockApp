@@ -7,7 +7,7 @@ import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import TickerCard from '../tickercard/Tickercard';
 
-function StockSearchResults({ keyword }) {
+function StockSearchResults({ keyword, searchBarError, setSearchBarError, }) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -58,19 +58,35 @@ function StockSearchResults({ keyword }) {
     getStocks();
   }, [userToken, keyword, page]);
 
+
+  useEffect(() => {
+    if(searchBarError){
+      console.log('error')
+      setError(false);
+    }
+  }, [searchBarError]);
+
   return (
     <>
       {loading ? (
         <LoadingSpinner />
-      ) : error ? (
+      ) : error === 'No stocks found for this query' ? (
         <Container>
           <Row>
             <Col className='text-center mx-5'>
-              <MessageAlert variant='danger'>{error}</MessageAlert>
+              <MessageAlert variant='danger'>{error}. Please try again</MessageAlert>
             </Col>
           </Row>
         </Container>
-      ) : Object.keys(stocks).length !== 0 ? (
+      ) : error && error !== 'No stocks found for this query' ? (
+        <Container>
+        <Row>
+          <Col className='text-center mx-5'>
+            <MessageAlert variant='danger'>{error}</MessageAlert>
+          </Col>
+        </Row>
+      </Container>
+      ) : Object.keys(stocks).length !== 0 && (
         <>
           <Container className='py-3'>
             <h3 className='stockdiscoveryRow'>
@@ -122,18 +138,6 @@ function StockSearchResults({ keyword }) {
                   </Button>
                 </Col>
               )}
-            </Row>
-          </Container>
-        </>
-      ) : (
-        <>
-          <Container>
-            <Row>
-              <Col className='text-center mx-5'>
-                <MessageAlert variant='danger'>
-                  No results match your search term. Please try again
-                </MessageAlert>
-              </Col>
             </Row>
           </Container>
         </>

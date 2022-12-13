@@ -97,7 +97,13 @@ const getAllStocks = async (req, res, next) => {
             { sector: { '$regex': newStr, '$options': 'i' } }
           ]
           // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings)
-        }).select({prices:0}).skip(noToSkip).limit(noPerPage)
+        }).select({prices:0}).skip(noToSkip).limit(noPerPage);
+        if(stocks.length === 0){
+          // No stock found
+          res.status(404);
+          res.errormessage = 'No stocks found for this query';
+          return next(new Error('No stocks found for this query'));
+        }
         res.json(stocks);
       } else {
         res.json([])
@@ -358,8 +364,7 @@ try{
   if (keyword == 'undefined') {
   } else {
     let newStr = keyword.replace(/[^\w\s-&]/gi, '');
-    console.log(newStr.trim())
-      if (newStr.trim() !== ''){
+    if (newStr.trim() !== ''){
     // Keyword defined search for the stocks
     const stocks = await Stock.find({
       $and: [

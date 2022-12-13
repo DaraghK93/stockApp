@@ -10,7 +10,7 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import ScreenSelectionRadioButton from '../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton';
 
 // Search feature fucntion which passes the user input as props
-function GameStockSearchBar({ leagueId, currScreen }) {
+function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBarError }) {
   let { keyword } = useParams();
 
   const [keywords, setKeywords] = useState('');
@@ -19,18 +19,21 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   const [displayBadSearch, setDisplayBadSearch] = useState(false);
 
   const submitHandler = (e) => {
+    e.preventDefault();
     const regex = /[^a-zA-Z0-9-]/g;
     let keywordsClean = keywords.replace(regex, '');
     if (keywords && keywordsClean === '') {
       setDisplayBadSearch(true);
+      setSearchBarError(true);
     }
-    e.preventDefault();
     if (keywordsClean.trim()) {
       navigate(`/search/game/${keywordsClean}/${leagueId}`);
       setDisplayBadSearch(false);
+      setSearchBarError(false);
     } else if (!keywords){
       navigate(`/game/all/${leagueId}`);
       setDisplayBadSearch(false);
+      setSearchBarError(false);
     }
     //reset form to blank after search
     e.target.reset();
@@ -45,12 +48,15 @@ function GameStockSearchBar({ leagueId, currScreen }) {
 
   useEffect(() => {
     setDisplayBadSearch(false)
+    setSearchBarError(false);
     if (screen === '1') {
       navigate(`/game/all/${leagueId}`);
       setDisplayBadSearch(false);
+      setSearchBarError(false);
     } else if (screen === '2') {
       navigate(`/game/summary/${leagueId}`);
       setDisplayBadSearch(false);
+      setSearchBarError(false);
     }
     // eslint-disable-next-line
   }, [screen, leagueId]);
@@ -58,6 +64,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   useEffect(() => {
     /// When the current screen changes reset the error
     setDisplayBadSearch(false)
+    setSearchBarError(false)
   },[currScreen])
 
   return (
@@ -87,7 +94,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
           </div>
         </Form>
       </FormContainer>
-      {displayBadSearch && (
+      {searchBarError && (
         <Container>
           <Row>
             <Col className='text-center mx-5'>

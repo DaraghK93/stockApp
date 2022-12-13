@@ -7,7 +7,12 @@ import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 
-function GameStockSearchResults({ keyword, league }) {
+function GameStockSearchResults({
+  keyword,
+  league,
+  searchBarError,
+  setSearchBarError,
+}) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -30,7 +35,7 @@ function GameStockSearchResults({ keyword, league }) {
 
   useEffect(() => {
     const getStocks = async () => {
-      setError('')
+      setError('');
       try {
         setLoading(true);
         let path = `/api/stock/gameStocks/search/${keyword}`;
@@ -63,6 +68,13 @@ function GameStockSearchResults({ keyword, league }) {
     getStocks();
   }, [userToken, keyword, league, page]);
 
+  useEffect(() => {
+    if(searchBarError){
+      console.log('error')
+      setError(false);
+    }
+  }, [searchBarError]);
+
   return (
     <>
       {loading ? (
@@ -93,7 +105,7 @@ function GameStockSearchResults({ keyword, league }) {
             </Col>
           </Row>
         </Container>
-      ) : Object.keys(stocks).length !== 0 ? (
+      ) : Object.keys(stocks).length !== 0 && (
         <>
           <Container className='py-3'>
             <h3 className='stockdiscoveryRow'>
@@ -148,19 +160,8 @@ function GameStockSearchResults({ keyword, league }) {
             </Row>
           </Container>
         </>
-      ) : (
-        <>
-          <Container>
-            <Row>
-              <Col className='text-center mx-5'>
-                <MessageAlert variant='danger'>
-                  No results match your search term "{keyword}"
-                </MessageAlert>
-              </Col>
-            </Row>
-          </Container>
-        </>
-      )}
+      )
+      }
     </>
   );
 }

@@ -1,6 +1,20 @@
 <!-- Project Title -->
 # FinOptimise
 
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/DaraghK93/stockApp">
+    <img src="https://stockappnewslogobucket.s3.eu-west-1.amazonaws.com/logo512.png" alt="Logo" width="200">
+  </a>
+
+  <p align="center">
+    <a href="https://github.com/DaraghK93/stockApp"><strong>Explore the GitHub Repo»</strong></a>
+    <br />
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">Visit the Site</a>
+  </p>
+</div>
+
 ## Table of Contents
 <details>
   <summary>Cllick to Expand</summary>

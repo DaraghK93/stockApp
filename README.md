@@ -34,21 +34,21 @@
     </li>
     <li><a href="#contributors">Contributors</a></li>
     <li><a href="#contact">Contact</a></li>
-
   </ol>
 </details>
 
-<!-- ABOUT -->
-## About
-FinOptimise 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+---
 
-Project summary goes here
+<!-- ABOUT -->
+## About 
+
+FinOptimise is a fantasy stock trading game. Experience the stock market risk free. Learn about healthy investing habits. Research stocks to get ahead. Compete with friends in game leagues with customisable rules.
+
+---
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
+This application was built on the MERN stack and deployed using AWS Amplify.
 
 * [![MongoDB][Mongodb.com]][Mongodb-url]
 * [![Express][Expressjs.com]][Express-url]
@@ -65,6 +65,8 @@ This section should list any major frameworks/libraries used to bootstrap your p
 FinOptimise Development Team - finoptimisetud@gmail.com
 
 Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK93/stockApp)
+
+---
 
 <!-- Contributors -->
 ## Contributors

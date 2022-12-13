@@ -2,15 +2,31 @@
 # FinOptimise
 
 ## Table of Contents
-1. [About](#about)
-2. [Built With](#built-with)
-3. [Contact](#contact)
-4. [Contributors](#contributors)
-5. [About](#about)
+<details>
+  <summary>Cllick to Expand</summary>
+  <ol>
+    <li>
+      <a href="#about">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#contributors">Contributors</a></li>
+    <li><a href="#contact">Contact</a></li>
+
+  </ol>
+</details>
 
 <!-- ABOUT -->
 ## About
-
+FinOptimise 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 Project summary goes here
@@ -52,6 +68,12 @@ Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+<!-- Images -->
+
+
+
+<!-- Icons -->
 [Mongodb.com]: https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white
 [Mongodb-url]: https://www.mongodb.com/home
 
@@ -83,17 +105,6 @@ Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK
 
 
 
-
-
-
-
-Team Members:
-Joseph Corcoran
-Caolán Power
-Rebecca Kelly
-Bearach Byrne
-Warren Kavanagh
-Daragh Kneeshaw
 
 # Getting Started with Create React App
 

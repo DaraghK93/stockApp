@@ -39,7 +39,8 @@ function IndividualGameScreen() {
     const [isShownPortfolio, setisShownPortfolio] = useState(false);
     const [success, setSuccess] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
-    // modal state
+    // message state
+    const [showCancelOrder, setShowCancelOrder] = useState(false)
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
@@ -245,6 +246,7 @@ function IndividualGameScreen() {
             await API.post(APIName, path, myInit)
             /// Set the success message using the
             setSuccess(transactionId)
+            setShowCancelOrder(true)
             setLoading(false)
          
         } catch (error) {
@@ -350,7 +352,7 @@ function IndividualGameScreen() {
                                         </Row>
                                         <Row>
                                             <Col><br></br>
-                                                <TransactionHistory transactions={portfolio.transactions} cancelOrder={cancelOrder} />
+                                                <TransactionHistory transactions={portfolio.transactions} cancelOrder={cancelOrder} showCancelOrder={showCancelOrder} setShowCancelOrder={setShowCancelOrder} />
                                             </Col>
                                         </Row>
                                     </Container>

@@ -6,7 +6,7 @@ import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import { ChevronUp, ChevronDown } from "react-feather"
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
 
-function TransactionHistory({ transactions, cancelOrder }) {
+function TransactionHistory({ transactions, cancelOrder, showCancelOrder, setShowCancelOrder }) {
 
     // for column in pending
     const [showPendingCol, setShowPendingCol] = useState(false)
@@ -67,7 +67,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
         { label: "Units", accessor: "units", sortable: true, sortbyOrder: "", showHeader: hideMobile },
         { label: "Limit Value", accessor: "1", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
         { label: "", accessor: "2", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
-        { label: "", accessor: "3", sortable: false, sortbyOrder: "", showHeader: showPendingCol },
+        { label: "", accessor: "3", sortable: false, sortbyOrder: "", showHeader: hideDesktop },
     ];
 
     const statuses = ["PENDING", "COMPLETED", "CANCELLED"]
@@ -208,11 +208,16 @@ function TransactionHistory({ transactions, cancelOrder }) {
                             </p>
 
                         } /></h2>
-                 
+
                     </Col>
-                       
+
                 </div>
-                <MessageAlert variant="info">You have successfully cancelled stock X</MessageAlert>
+                {showCancelOrder &&
+                    setTimeout(() => {
+                        setShowCancelOrder(false)
+                    }, 5000) ?
+                    <MessageAlert variant="success">You have successfully cancelled this transacation</MessageAlert> : null
+                }
                 <br />
                 <Container>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -271,7 +276,7 @@ function TransactionHistory({ transactions, cancelOrder }) {
                                 <tbody>
                                     {currentPosts.map((transaction, index) => (
                                         (<Fragment key={`${index}-fragment${transaction.date}`}>
-                                            <tr style={{ verticalAlign: "middle", fontSize: "90%" }} key={index}>
+                                            <tr style={{ verticalAlign: "middle", fontSize: "90%" }} key={`${index}-fragment-row${transaction.date}`}>
                                                 <td key={transaction.date} className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"}><center>{moment(transaction.date).format('DD-MM-YYYY')}</center></td>
                                                 <td key={transaction.stock[0].logo}><center><Link to={`/stock/${transaction.stock[0].symbol}`}>
                                                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

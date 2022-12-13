@@ -6,7 +6,7 @@ import MessageAlert from "../../widgets/MessageAlert/MessageAlert";
 import { ChevronUp, ChevronDown } from "react-feather"
 import InfoButtonModal from "../../widgets/InfoButtonModal/InfoButtonModal";
 
-function TransactionHistory({ transactions, cancelOrder, showCancelOrder, setShowCancelOrder }) {
+function TransactionHistory({ transactions, setShow, setTransaction }) {
 
     // for column in pending
     const [showPendingCol, setShowPendingCol] = useState(false)
@@ -197,6 +197,12 @@ function TransactionHistory({ transactions, cancelOrder, showCancelOrder, setSho
         }
     }
 
+    function showModalSetTransaction(transaction){
+        setShow(true)
+        setTransaction(transaction)
+    }
+
+
     return (
         <>
             <Card>
@@ -212,13 +218,7 @@ function TransactionHistory({ transactions, cancelOrder, showCancelOrder, setSho
                     </Col>
 
                 </div>
-                {showCancelOrder &&
-                    setTimeout(() => {
-                        setShowCancelOrder(false)
-                    }, 5000) ?
-                    <MessageAlert variant="success">You have successfully cancelled this transacation</MessageAlert> : null
-                }
-                <br />
+
                 <Container>
                     <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                         <nav>
@@ -304,7 +304,7 @@ function TransactionHistory({ transactions, cancelOrder, showCancelOrder, setSho
                                                     <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}>
                                                         <center>
                                                             <Button variant="danger"
-                                                                onClick={() => cancelOrder(transaction._id, transaction.portfolioId)}
+                                                                onClick={() => showModalSetTransaction(transaction) }
                                                             >Cancel</Button>
                                                         </center></td>
                                                 }

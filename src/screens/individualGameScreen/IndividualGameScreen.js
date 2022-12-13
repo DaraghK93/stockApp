@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import GameNavBar from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GameNavBar";
-import { Container, Image, Row, Col, Button } from 'react-bootstrap';
+import { Container, Image, Row, Col, Button, Modal, Accordion } from 'react-bootstrap';
 import GamePortfolio from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/GamePortfolio";
 import HoldingsCard from "../../components/portfolioComponents/HoldingsCard/HoldingsCard";
 import LeaderBoard from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/LeaderBoard";
@@ -9,10 +9,10 @@ import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
 import GameCreationSummary from "../../components/gameComponents/createGameScreenComponents/GameCreationSummary";
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import { Link } from "react-router-dom";
-
+import moment from "moment";
 import AreYouSure from "../../components/gameComponents/individualGameScreenComponents/gameNavigation/AreYouSure"
 
-import {Logout, Cancel} from '@mui/icons-material';
+import { Logout, Cancel } from '@mui/icons-material';
 import GameStocks from "../../components/gameComponents/individualGameScreenComponents/GameStocks";
 
 /// API ///
@@ -40,7 +40,8 @@ function IndividualGameScreen() {
     const [success, setSuccess] = useState("")
     const [showAreYouSureModal, setShowAreYouSureModal] = useState(false);
     // message state
-    const [showCancelOrder, setShowCancelOrder] = useState(false)
+    const [show, setShow] = useState(false)
+    const [transaction, setTransaction] = useState("")
 
     // portfolio state
     const [portfolio, setPortfolio] = useState();
@@ -246,13 +247,20 @@ function IndividualGameScreen() {
             await API.post(APIName, path, myInit)
             /// Set the success message using the
             setSuccess(transactionId)
-            setShowCancelOrder(true)
+            setShow(false);
             setLoading(false)
-         
+
         } catch (error) {
             setError(error.response.data.errormessage)
             setLoading(false)
         }
+    }
+
+    const handleClose = () => {
+        /// On close reset the success and errors, they may be going back to make another trade
+        setError("")
+        setSuccess("")
+        setShow(false);
     }
 
     return (
@@ -273,6 +281,70 @@ function IndividualGameScreen() {
                                 </div>
                             </div>
                             <GameNavBar disPlayScreen={disPlayScreen} active={active} />
+
+                            <Modal centered show={show} onHide={handleClose} backdrop="static">
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Cancel order</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <h2>Are you sure you want to cancel this order?</h2><br></br>
+                                    {transaction &&
+                                        <>
+                                            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+                                                <div style={{
+                                                    width: "6rem",
+                                                    height: "6rem",
+                                                }}>
+                                                    <img src={transaction.stock[0].logo} style={{
+                                                        maxWidth: "100%",
+                                                        height: "100%",
+                                                        display: "block",
+                                                        objectFit: "contain",
+                                                        marginLeft: "auto",
+                                                        marginRight: "auto"
+                                                    }}
+                                                        alt="company logo">
+                                                    </img>
+                                                </div>
+                                            </div>
+                                            <div style={{ marginLeft: "auto", marginRight: "auto" }}>
+                                                <Accordion>
+                                                    <Accordion.Item eventKey="0">
+                                                        <Accordion.Header align="center" style={{ "justifyContent": "center" }}>Order Details</Accordion.Header>
+                                                        <Accordion.Body>
+                                                            <strong>{transaction.stock[0].shortname}</strong>
+                                                            <ul style={{ listStyleType: "none" }}>
+                                                                <li><strong>Date: </strong>{moment(transaction.date).format('DD-MM-YYYY')}</li>
+                                                                <li><strong>Ticker: </strong>{transaction.stock[0].symbol}</li>
+                                                                <li><strong>Buy/ Sell: </strong>{transaction.buyOrSell}</li>
+                                                                <li><strong>Value: </strong>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
+                                                                <li><strong>Order Type: </strong>{transaction.orderType}</li>
+                                                                <li><strong>Trading Fee: </strong>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</li>
+                                                                <li><strong>Stocks: </strong>{transaction.units.toFixed(2)}</li>
+                                                            </ul>
+                                                        </Accordion.Body>
+                                                    </Accordion.Item>
+                                                </Accordion>
+                                            </div>
+                                        </>
+                                    }
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Modal.Footer>
+                                        <Button variant="primary"
+                                            onClick={handleClose}
+                                        >
+                                            No,<br></br> I changed my mind!
+                                        </Button>
+                                        <Button variant="danger"
+                                            // onClick={getStockInfo}
+                                            onClick={() => cancelOrder(transaction._id, transaction.portfolioId)}
+                                        >
+                                            Yes,<br></br> lets cancel this order!
+                                        </Button>
+                                    </Modal.Footer>
+                                </Modal.Footer>
+                            </Modal>
                             {isShownLeaderBoard &&
                                 <>
 
@@ -321,13 +393,13 @@ function IndividualGameScreen() {
                                     />
                                 </Container>
 
-                    }
-                    {isShownStocks &&
-                        <>
-                        <GameStocks league={league}></GameStocks>
-                        </>
-                    }
-                    {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
+                            }
+                            {isShownStocks &&
+                                <>
+                                    <GameStocks league={league}></GameStocks>
+                                </>
+                            }
+                            {isShownPortfolio && portfolio.holdings.length === 0 && portfolio.transactions.length === 0 ?
 
 
                                 <>
@@ -352,7 +424,12 @@ function IndividualGameScreen() {
                                         </Row>
                                         <Row>
                                             <Col><br></br>
-                                                <TransactionHistory transactions={portfolio.transactions} cancelOrder={cancelOrder} showCancelOrder={showCancelOrder} setShowCancelOrder={setShowCancelOrder} />
+                                                <TransactionHistory
+                                                    transactions={portfolio.transactions}
+                                                    setShow={setShow}
+                                                    setTransaction={setTransaction}
+
+                                                />
                                             </Col>
                                         </Row>
                                     </Container>

@@ -1,6 +1,6 @@
 import LoadingSpinner from "../../components/widgets/LoadingSpinner/LoadingSpinner";
 import MessageAlert from "../../components/widgets/MessageAlert/MessageAlert";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import BottomStickyButton from "../../components/widgets/BottomStickyButton/BottomStickyButton";
 import { useState, useEffect } from 'react';
 import QuantitySelect from "../../components/confirmOrderComponents/QuantitySelect";
@@ -11,8 +11,10 @@ import LimitPriceSelect from "../../components/confirmOrderComponents/LimitPrice
 import PortfolioSelectionDropdown from "../../components/portfolioComponents/portfolioSelectionDropdown/portfolioSelectionDropdown";
 import AreYouSure from "../../components/confirmOrderComponents/AreYouSure";
 import BuyOrSell from "../../components/confirmOrderComponents/BuyOrSell";
-import {useNavigate} from "react-router-dom"
-import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
+import {useNavigate, Link} from "react-router-dom"
+
 
 /// Redux ///
 import {useSelector} from 'react-redux';
@@ -30,6 +32,7 @@ function OrderConfirmationPage() {
     
     /// Order State ////
     const [dollarAmountSelected, setDollarAmountSelected] = useState(0)
+    const [dollarAmountLoading, setDollarAmountLoading] = useState(true)
     const [buyOrSell, setBuyOrSell] = useState("Buy");
     const [orderType, setOrderType] = useState("Market Order");
     const [qty, setQty] = useState("0");
@@ -177,12 +180,14 @@ function OrderConfirmationPage() {
     // This useEffect id used to reset values whne the user swiches between buy/sell
     // Need to reset the dollar amount as it may not make sense when you switch from buy to sell 
     useEffect(() => {
-        if(buyOrSell === "Buy"){
-            setDollarAmountSelected(1)
+        setDollarAmountLoading(true)
+        if(buyOrSell === "Buy" && stock !== ''){
+            setDollarAmountSelected(stock.daily_change.currentprice)
         }else if(buyOrSell === "Sell"){
             setDollarAmountSelected(1)
         }
-    },[buyOrSell])
+        setDollarAmountLoading(false)
+    },[buyOrSell,stock,orderType])
     
 
     //// Cehck for the environment and sector scores ////
@@ -214,10 +219,17 @@ function OrderConfirmationPage() {
             { stockLoading || loading || portfolioLoading ? <LoadingSpinner /> 
             : error ? <MessageAlert variant='danger'>{error}</MessageAlert> 
             : portfolioError ? <MessageAlert variant='danger'>{portfolioError}</MessageAlert> 
-            : <Container >
+            : <Container>
+                    <Row>
+                        <Link className="backToStockInfo" to={`/stock/${stock.symbol}`}>
+                            <ArrowBackIcon/> <span>Stock Information</span>
+                        </Link>
+                    </Row>
                     <Row md={3} sm={2} xs={2}>
                         <Col className="col-md-3 col-sm-3 col-3">
-                            <img src={stock.logo} className="img-fluid" alt="Company Logo" style={{ width: "100%", paddingTop: "1.25rem" }} />
+                        <Link to={`/stock/${stock.symbol}`}><img src={stock.logo} className="img-fluid" alt="Company Logo" style={{
+                                  maxHeight:"12rem", paddingTop: "1.25rem", paddingLeft: "1rem", position:"relative", float:"right" }} /></Link>
+                        
                         </Col>
                         <Col className="stockInfoCol col-md-4 col-sm-8 col-6">
                             <dl className='infoList'>
@@ -228,7 +240,7 @@ function OrderConfirmationPage() {
                                 </dt>
                                 <dt>{stock.symbol}</dt>
                                 <dt style={{ fontSize: "150%" }}>${stock.daily_change.currentprice.toFixed(2)}</dt>
-                                <dt style={{ fontSize: "150%" }}>Sector: {stock.sector}</dt>
+                                <dt style={{ fontSize: "120%" }}>Sector: {stock.sector}</dt>
                             </dl>
                         </Col>
                     </Row>
@@ -280,6 +292,7 @@ function OrderConfirmationPage() {
                                     holding={holding}
                                     marketPriceError = {marketPriceError}
                                     setMarketPriceError = {setMarketPriceError}
+                                    dollarAmountLoading={dollarAmountLoading}
                                 />
                                 </Col>
                         </Row>

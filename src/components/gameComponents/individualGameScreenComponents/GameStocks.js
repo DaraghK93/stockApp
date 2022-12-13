@@ -98,11 +98,11 @@ function GameStocks({ league }) {
           </Row>
         </Container>
         {screen === '2' && keyword === undefined ? (
-          <Container>
+          // <Container>
             <Row md={1} xs={1}>
               <GameStocksSummary league={league} />
             </Row>
-          </Container>
+          // </Container>
         ) : screen === '1' && keyword === undefined ? (
           <Container>
             <Row md={1} xs={1}>

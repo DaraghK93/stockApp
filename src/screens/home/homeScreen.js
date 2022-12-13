@@ -589,6 +589,7 @@ function HomeScreen() {
 
   return (
     <>
+        <div className="createGameScrollBars">
       <Container className='splash-page-container'>
         <Row className='py-4' style={{ maxWidth: "80%", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
           <h1 style={{ fontWeight:"bold", paddingBottom:"0.5rem" }}>FinOptimise</h1>
@@ -662,8 +663,9 @@ function HomeScreen() {
           </Col>
         </Row>
       </Container>
+      </div>
       <Footer />
-
+  
     </>
   );
 }

@@ -2,12 +2,23 @@ const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const getJWTSecret = require('../utils/JWT')
+
+const { validationResult } = require('express-validator');
+
 // @desc Register new user
 // @route POST /api/users
 // @access Public
 
 const registerUser = async (req, res, next) => {
   try {
+    const errors = validationResult(req);
+    //validate input
+    if (!errors.isEmpty() && errors.errors[0].msg === 'Invalid email entered') {
+      res.status(400);
+      res.errormessage = 'Invalid email address. Please try again';
+      return next(new Error('Invalid email address entered.'));
+    }
+    
     // Parse the body
     let {
       firstname,
@@ -18,7 +29,8 @@ const registerUser = async (req, res, next) => {
       avatar,
       overeighteen
     } = req.body
-
+    
+    
     // check for nulls. all fields must be filled
     if (
       typeof firstname === 'undefined' ||
@@ -26,16 +38,43 @@ const registerUser = async (req, res, next) => {
       typeof email === 'undefined' ||
       typeof username === 'undefined' ||
       typeof password === 'undefined'
-    ) {
-      // data is missing bad request
-      res.status(400)
-      res.errormessage = 'All details are needed for a user to register'
+      ) {
+        // data is missing bad request
+        res.status(400)
+        res.errormessage = 'All details are needed for a user to register'
+        return next(
+          new Error(
+            'The client has not sent the required information to register the user',
+            ),
+            )
+          } 
+
+    // test valid email has been entered based on mongo query
+    const re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    if (!re.test(email)){
+      res.status(400);
+      res.errormessage = 'Invalid email address. Please try again';
+      return next(new Error('Invalid email address entered.'));
+    }
+
+    // username length
+    if (username.length < 3) {
+      res.status(400);
+      res.errormessage = 'Username length must be at least 3 characters';
       return next(
-        new Error(
-          'The client has not sent the required information to register the user',
-        ),
-      )
-    } 
+        new Error('Username length must be at least 3 characters')
+      );
+    }
+    if (username.length > 12) {
+      res.status(400);
+      res.errormessage = 'Username length must be 12 characters or less';
+      return next(
+        new Error('Username length must be less 12 characters or less')
+      );
+    }
+
+    
+
     let user = await User.findOne({ email })
 
     // Check for existing user

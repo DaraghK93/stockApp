@@ -663,28 +663,6 @@ function HomeScreen() {
           </Col>
         </Row>
       </Container>
-      <Container className='stockDisplayContainer'>
-        <Row>
-          <Col>
-            <div className='stockDisplay'>
-              <h2 style={{ textAlign: 'center', color: "white" }}>Learn About Investing</h2>
-              <p style={{ textAlign: 'center', color: "white", paddingBottom: "1rem" }}>Learn about the basics of investing on our education page. With useful definitions and links to external resources that will help you build healthy financial habits.</p>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          <img src='/education_screen.jpg' style={{resizeMode: "cover",width: "60%", border:"2px solid #d4d4d4"}} alt="Description here"></img>
-          </Col>
-        </Row>
-        <Row className='py-4'>
-          <Col>
-            <Button onClick={navigateLogin} className='btn-lg' style={{ border: "5px solid #d4d4d4", fontWeight: "bold", borderRadius: "2em", padding: "1rem 2rem 1rem 2rem" }}>
-              Learn Now
-            </Button>
-          </Col>
-        </Row>
-      </Container>
       </div>
       <Footer />
   

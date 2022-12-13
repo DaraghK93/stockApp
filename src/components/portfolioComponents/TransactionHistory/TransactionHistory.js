@@ -293,12 +293,12 @@ function TransactionHistory({ transactions, cancelOrder, showCancelOrder, setSho
                                                         </div>
                                                     </div>
                                                 </Link></center></td>
-                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.stock[0].symbol}><center>{transaction.stock[0].symbol}</center></td>
-                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.buyOrSell}><center>{transaction.buyOrSell}</center></td>
-                                                <td className={hidePendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value}><center>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={`${transaction.stock[0].symbol}--${index}`}><center>{transaction.stock[0].symbol}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={`${transaction.buyOrSell}-${index}`}><center>{transaction.buyOrSell}</center></td>
+                                                <td className={hidePendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${transaction.value}--${index}`}><center>{parseFloat(transaction.value).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                 <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.orderType}><center>{transaction.orderType}</center></td>
-                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.tradingFee}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
-                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.units}><center>{transaction.units.toFixed(2)}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={`${transaction.tradingFee}--tradingfee`}><center>{parseFloat(transaction.tradingFee).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                                <td className={hideMobile ? "leaderBoardShow" : "leaderBoardHide"} key={`${transaction.units}-units`}><center>{transaction.units.toFixed(2)}</center></td>
                                                 <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={transaction.value / transaction.units}><center>{parseFloat(transaction.value / transaction.units).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                                 {showPendingCol &&
                                                     <td className={showPendingCol ? "leaderBoardShow" : "leaderBoardHide"} key={index + 100}>

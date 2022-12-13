@@ -149,7 +149,7 @@ function TableHoldings({ data }) {
                         <tbody>
                             {currentPosts.map((item, index) => (
                                 (<Fragment key={`${index}-fragment`}>
-                                    <tr style={{ verticalAlign: "middle" }} key={item.symbol}>
+                                    <tr style={{ verticalAlign: "middle" }} key={`${index}-fragment-${item.symbol}`}>
                                         <td key={item.logo}><center><Link to={`/stock/${item.symbol}`}>
                                             <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
                                                 <div style={{
@@ -169,8 +169,8 @@ function TableHoldings({ data }) {
                                         <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"}><center>{item.symbol}</center></td>
                                         <td key={`${index}-currentValue`}><center>{parseFloat(item.currentValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
 
-                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-units`}><center>{item.units.toFixed(2)}</center></td>
-                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-currentprice`}><center>{parseFloat(item.currentPrice).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
+                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-units${item.units}`}><center>{item.units.toFixed(2)}</center></td>
+                                        <td className={showCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${index}-currentprice${item.currentPrice}`}><center>{parseFloat(item.currentPrice).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</center></td>
                                         <td key={`/stock/${item.symbol}/confirmorder`}><center><Link to={`/stock/${item.symbol}/confirmorder`}><Button>Trade</Button></Link></center></td>
                                         <td className={hideCol ? "leaderBoardShow" : "leaderBoardHide"} key={`${item.symbol}/button`}><center>
                                             <Button style={{ padding: 0, margin: 0, color: "black" }}

@@ -70,6 +70,9 @@ function App() {
         <Route path='/search/stock/:keyword'
           element={userInfo ? <StockDiscoveryPage /> : <Navigate to="/" />} />
 
+        <Route path='/search/game/:keyword/:gameId'
+          element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
+
         <Route path='/stock/:symbol'
           element={userInfo ? <StockPage /> : <Navigate to="/" />} />
 
@@ -80,6 +83,9 @@ function App() {
           element={userInfo ? <CreateGameScreen /> : <Navigate to="/" />} />
 
         <Route path='/game/:gameId'
+          element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
+
+        <Route path='/game/:redirect/:gameId'
           element={userInfo ? <IndividualGameScreen /> : <Navigate to="/" />} />
 
         <Route path="/stock/:symbol/confirmorder"

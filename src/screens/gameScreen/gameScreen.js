@@ -61,7 +61,9 @@ function GameScreen(){
         
 
     return(
+        
         <>
+        <div className="createGameScrollBars">
         {loading ? <LoadingSpinner /> : error  ? <MessageAlert variant='danger'>{error}</MessageAlert> :
         <Container style={{paddingBottom:"2rem"}}>
             <Row className="py-3" lg={1} md={1} xs={1}>
@@ -85,6 +87,7 @@ function GameScreen(){
                 </Row>
             )}
         </Container>}
+        </div>
         </>
         )}
 

@@ -17,9 +17,33 @@
     width: 20rem;
 }
 
+.backToStockInfo{
+    font-size: 1.25rem;
+}
+
+a:link.backToStockInfo {
+      text-decoration: none;
+}
+
+a:visited.backToStockInfo {
+      text-decoration: none;
+}
+
+a:hover.backToStockInfo {
+      text-decoration: none;
+}
+
+a:active.backToStockInfo {
+      text-decoration: none;
+}
+
 @media only screen and (min-width: 1120px){ 
     .tradeRestrictionsError{
         text-align:center;
         width: 40rem;
+    }
+
+    .backToStockInfo{
+       font-size: 1.5rem;
     }
 }

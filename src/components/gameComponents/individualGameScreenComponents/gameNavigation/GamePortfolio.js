@@ -4,7 +4,7 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import StockPriceChart from "../../../stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 
 function GamePortfolio({ data, name, totalValue, final, finished, port, starting }) {
-console.log(data)
+
     function getFinal() {
         if (finished===true) {
         let result = final.find(item =>item._id === port)

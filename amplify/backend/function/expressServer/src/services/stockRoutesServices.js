@@ -7,11 +7,11 @@ var axios = require('axios').default;
 const Stock = require('../models/stock.model');
 
 function getStockPriceData (stocks) {
-    // this function allows the user to get the weekly, monthly and yearly data for a stock
-    const daily_prices = stocks[0].prices
-    const weekly_prices = stocks[0].prices
-    const monthly_prices = stocks[0].prices
-    const yearly_prices = stocks[0].prices
+  // this function allows the user to get the weekly, monthly and yearly data for a stock
+  const daily_prices = stocks[0].prices
+  const weekly_prices = stocks[0].prices
+  const monthly_prices = stocks[0].prices
+  const yearly_prices = stocks[0].prices
 
   // Use moment - npm i
   const start_Date_week = moment(moment().subtract(1, 'week')).format(
@@ -56,17 +56,17 @@ function getStockPriceData (stocks) {
     const getAllDatesArray = Object.keys(getAllDates)
     
 
-    // Date() gives us the current date, Date(end_Date) interprets the 
-    // input date and creates a date that can be used in the function
-    const weekStart = new Date(start_Date_week)
-    const monthStart = new Date(start_Date_month)
-    const yearStart = new Date (start_Date_year)
-    const today = new Date();
-    
-    // run the function to get the range of dates
-    dateRangeWeek = getDatesInRange(weekStart, today)
-    dateRangeMonth = getDatesInRange(monthStart, today)
-    dateRangeYear = getDatesInRange(yearStart, today)
+  // Date() gives us the current date, Date(end_Date) interprets the 
+  // input date and creates a date that can be used in the function
+  const weekStart = new Date(start_Date_week)
+  const monthStart = new Date(start_Date_month)
+  const yearStart = new Date (start_Date_year)
+  const today = new Date();
+  
+  // run the function to get the range of dates
+  dateRangeWeek = getDatesInRange(weekStart, today)
+  dateRangeMonth = getDatesInRange(monthStart, today)
+  dateRangeYear = getDatesInRange(yearStart, today)
 
 
 

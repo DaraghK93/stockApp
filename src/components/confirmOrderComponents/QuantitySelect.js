@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import RangeSlider from '../widgets/RangeSlider/RangeSlider';
 import MessageAlert from '../widgets/MessageAlert/MessageAlert';
 
-function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSell, gameTradeFee, holding, setQty,  qty, portfolioBalance,  stockPrice,  setNewPortfolioBalance, marketPriceError, setMarketPriceError }) {
+function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSell, gameTradeFee, holding, setQty,  qty, portfolioBalance,  stockPrice,  setNewPortfolioBalance, marketPriceError, setMarketPriceError,dollarAmountLoading }) {
     const [min, setMin] = useState()
     const [max, setMax] = useState()
     
@@ -42,14 +42,14 @@ function QuantitySelect({ dollarAmountSelected, setDollarAmountSelected, buyOrSe
             }
         }
         if (dollarAmountSelected < min){
-             if (buyOrSell === "Buy"){
+             if (buyOrSell === "Buy"  && dollarAmountLoading === false ){
                 setMarketPriceError(`Need to buy at least 1 share at price of ${parseFloat(min).toLocaleString('en-US', {style: 'currency', currency: 'USD' })}`)
              }
            
         }
 
 
-    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max,holding,setMarketPriceError,min])
+    },[dollarAmountSelected,buyOrSell,portfolioBalance,setNewPortfolioBalance,stockPrice,gameTradeFee,setQty,max,holding,setMarketPriceError,min,dollarAmountLoading])
 
     return (
             <Card className="px-3">

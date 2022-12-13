@@ -27,8 +27,6 @@ function GamePortfolio({ data, name, totalValue }) {
         return lineColor
     }
 
-    console.log(data)
-
     return (
         <>
             <Card className="priceChartStyle">

@@ -56,7 +56,7 @@ This application was built on the MERN stack and deployed using AWS Amplify.
 * [![React Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![NodeJS][NodeJS.org]][NodeJS-url]
 
-#### Deployment Tools
+#### Deployment Tools/Services
 * [AWS][AWS-url]
 * [AWS Amplify](https://aws.amazon.com/amplify/)
 * [AWS Lambda](https://aws.amazon.com/lambda/)

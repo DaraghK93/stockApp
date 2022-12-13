@@ -4,6 +4,6 @@
 
 /// API Name 
 const prodAPIName = "stockapi"
-const localapi    =  "localapi"
+const localapi    =  "stockapi"
 
 export const APIName = process.env.NODE_ENV === 'development' ? localapi : prodAPIName;

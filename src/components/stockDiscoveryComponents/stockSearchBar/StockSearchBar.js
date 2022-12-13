@@ -41,6 +41,7 @@ function StockSearchBar() {
         <Form.Control
           type='text'
           name='search'
+          value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           placeholder='Search Stocks'
         >

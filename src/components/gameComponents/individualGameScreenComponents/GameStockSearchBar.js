@@ -70,6 +70,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
             <Form.Control
               type='text'
               name='search'
+              value={keyword}
               onChange={(e) => setKeywords(e.target.value)}
               placeholder='Search Stocks'
             ></Form.Control>

@@ -130,7 +130,7 @@ function StockSearchResults({ keyword }) {
             <Row>
               <Col className='text-center mx-5'>
                 <MessageAlert variant='danger'>
-                  No results match your search term "{keyword}"
+                  No results match your search term. Please try again
                 </MessageAlert>
               </Col>
             </Row>

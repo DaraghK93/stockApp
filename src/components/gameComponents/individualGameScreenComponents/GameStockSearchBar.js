@@ -3,8 +3,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from '../../layout/FormContainer/FormContainer';
-import { Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { Row, Col, Container } from 'react-bootstrap';
+import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 
 import ScreenSelectionRadioButton from '../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton';
 
@@ -15,14 +16,19 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   const [keywords, setKeywords] = useState('');
   const [screen, setScreen] = useState(currScreen);
   const navigate = useNavigate();
+  const [displayBadSearch, setDisplayBadSearch] = useState(false);
 
   const submitHandler = (e) => {
     const regex = /[^a-zA-Z0-9-]/g;
-    let keywordsClean = keywords.replace(regex, "");
-    console.log(keywordsClean)
+    let keywordsClean = keywords.replace(regex, '');
+    if (keywords && keywordsClean === '') {
+      setDisplayBadSearch(true);
+    }
+    console.log(keywordsClean);
     e.preventDefault();
     if (keywordsClean.trim()) {
       navigate(`/search/game/${keywordsClean}/${leagueId}`);
+      setDisplayBadSearch(false);
     } else {
       navigate(`/game/all/${leagueId}`);
       setKeywords('');
@@ -73,6 +79,17 @@ function GameStockSearchBar({ leagueId, currScreen }) {
           </div>
         </Form>
       </FormContainer>
+      {displayBadSearch && (
+        <Container>
+          <Row>
+            <Col className='text-center mx-5'>
+              <MessageAlert variant='danger'>
+                Invalid search term. Please try again
+              </MessageAlert>
+            </Col>
+          </Row>
+        </Container>
+      )}
     </>
   );
 }

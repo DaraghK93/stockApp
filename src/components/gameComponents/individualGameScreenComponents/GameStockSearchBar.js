@@ -24,7 +24,6 @@ function GameStockSearchBar({ leagueId, currScreen }) {
     if (keywords && keywordsClean === '') {
       setDisplayBadSearch(true);
     }
-    console.log(keywordsClean);
     e.preventDefault();
     if (keywordsClean.trim()) {
       navigate(`/search/game/${keywordsClean}/${leagueId}`);

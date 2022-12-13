@@ -11,7 +11,7 @@
   <p align="center">
     <a href="https://github.com/DaraghK93/stockApp"><strong>Explore the GitHub Repo»</strong></a>
     <br />
-    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">Visit the Site</a>
+    <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/"><strong>EVisit the Site»</strong></a>
   </p>
 </div>
 
@@ -49,12 +49,22 @@ FinOptimise is a fantasy stock trading game. Experience the stock market risk fr
 ### Built With
 
 This application was built on the MERN stack and deployed using AWS Amplify.
-
+#### Development Tools:
 * [![MongoDB][Mongodb.com]][Mongodb-url]
 * [![Express][Expressjs.com]][Express-url]
 * [![React][React.js]][React-url]
 * [![React Bootstrap][Bootstrap.com]][Bootstrap-url]
 * [![NodeJS][NodeJS.org]][NodeJS-url]
+
+#### Deployment Tools
+* [AWS][AWS-url]
+* [AWS Amplify](https://aws.amazon.com/amplify/)
+* [AWS Lambda](https://aws.amazon.com/lambda/)
+* [AWS SAM](https://aws.amazon.com/serverless/sam/)
+* [AWS API Gateway](https://aws.amazon.com/api-gateway/)
+* [AWS Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-parameter-store.html)
+* [Docker](https://www.docker.com/)
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -104,6 +114,9 @@ Project Link: [https://github.com/DaraghK93/stockApp](https://github.com/DaraghK
 
 [NodeJS.org]: https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white
 [NodeJS-url]: https://nodejs.org/en/
+
+[AWS.com]: https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white
+[AWS-url]: https://aws.amazon.com/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

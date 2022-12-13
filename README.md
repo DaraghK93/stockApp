@@ -17,7 +17,7 @@
 
 ## Table of Contents
 <details>
-  <summary>Cllick to Expand</summary>
+  <summary>Click to Expand</summary>
   <ol>
     <li>
       <a href="#about">About The Project</a>
@@ -77,7 +77,7 @@ FinOptimise is a fantasy stock trading game. Experience the stock market risk fr
     <img src="public/splash_carousel_2_3.png" alt="Explore stocks using our advanced A.I. tools" width="45%">
   </a>
   <h3>Ethical Investing</h3>
-  <p>Use our clear and easy to understand ESG Ratings to help you learn how to invest ethically.</p>
+  <p>Use the clear and easy to understand ESG Ratings to help you learn how to invest ethically.</p>
     <a href="https://master.d2l3aeky8jssr5.amplifyapp.com/">
     <img src="public/splash_carousel_2_4.png" alt="Compete against friends and see where you stand in real time" width="45%">
   </a>

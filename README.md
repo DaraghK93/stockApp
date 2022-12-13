@@ -49,14 +49,14 @@ FinOptimise is a fantasy stock trading game. Experience the stock market risk fr
 ### Built With
 
 This application was built on the MERN stack and deployed using AWS Amplify.
-#### Development Tools:
-* [![MongoDB][Mongodb.com]][Mongodb-url]
-* [![Express][Expressjs.com]][Express-url]
-* [![React][React.js]][React-url]
-* [![React Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![NodeJS][NodeJS.org]][NodeJS-url]
+#### <ins>Development Tools/Technologies:</ins>
+[![MongoDB][Mongodb.com]][Mongodb-url]
+[![Express][Expressjs.com]][Express-url]
+[![React][React.js]][React-url]
+[![React Bootstrap][Bootstrap.com]][Bootstrap-url]
+[![NodeJS][NodeJS.org]][NodeJS-url]
 
-#### Deployment Tools/Services
+#### <ins>Deployment Tools/Services:</ins>
 * [AWS][AWS-url]
 * [AWS Amplify](https://aws.amazon.com/amplify/)
 * [AWS Lambda](https://aws.amazon.com/lambda/)

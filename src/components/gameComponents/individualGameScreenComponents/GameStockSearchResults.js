@@ -30,6 +30,7 @@ function GameStockSearchResults({ keyword, league }) {
 
   useEffect(() => {
     const getStocks = async () => {
+      setError('')
       try {
         setLoading(true);
         let path = `/api/stock/gameStocks/search/${keyword}`;

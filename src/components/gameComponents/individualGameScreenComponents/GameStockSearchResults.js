@@ -71,6 +71,7 @@ function GameStockSearchResults({
   useEffect(() => {
     if(searchBarError){
       setError(false);
+      setStock({})
     }
   }, [searchBarError]);
 

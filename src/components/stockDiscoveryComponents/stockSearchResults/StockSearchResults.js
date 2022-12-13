@@ -62,6 +62,7 @@ function StockSearchResults({ keyword, searchBarError, setSearchBarError, }) {
   useEffect(() => {
     if(searchBarError){
       setError(false);
+      setStock({})
     }
   }, [searchBarError]);
 

@@ -20,7 +20,7 @@ function StockSearchBar({searchBarError, setSearchBarError}) {
     if(keyword && keywordsClean === ""){
       setDisplayBadSearch(true);
       setSearchBarError(true);
-    }
+    }else {
     if(keywordsClean.trim()){
       navigate(`/search/stock/${keywordsClean}`)
       setDisplayBadSearch(false)
@@ -30,6 +30,7 @@ function StockSearchBar({searchBarError, setSearchBarError}) {
       setDisplayBadSearch(false);
       setSearchBarError(false);
     }
+  }
     // reset form to blank after search
     e.target.reset()
     setKeyword("")

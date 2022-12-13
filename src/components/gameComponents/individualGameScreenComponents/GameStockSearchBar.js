@@ -25,7 +25,7 @@ function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBar
     if (keywords && keywordsClean === '') {
       setDisplayBadSearch(true);
       setSearchBarError(true);
-    }
+    }else {
     if (keywordsClean.trim()) {
       navigate(`/search/game/${keywordsClean}/${leagueId}`);
       setDisplayBadSearch(false);
@@ -35,6 +35,7 @@ function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBar
       setDisplayBadSearch(false);
       setSearchBarError(false);
     }
+  }
     //reset form to blank after search
     e.target.reset();
     setKeywords('');

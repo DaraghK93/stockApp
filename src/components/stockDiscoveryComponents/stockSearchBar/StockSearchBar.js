@@ -11,23 +11,19 @@ import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 function StockSearchBar({searchBarError, setSearchBarError}) {
   const [keyword, setKeyword] = useState('')
   const navigate = useNavigate()
-  const [displayBadSearch, setDisplayBadSearch] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault()
     const regex = /[^a-zA-Z0-9-\s]/g;
     let keywordsClean = keyword.replace(regex, "");
     if(keyword && keywordsClean === ""){
-      setDisplayBadSearch(true);
       setSearchBarError(true);
     }else {
     if(keywordsClean.trim()){
       navigate(`/search/stock/${keywordsClean}`)
-      setDisplayBadSearch(false)
       setSearchBarError(false)
     }else if (!keyword){
       navigate(`/stockdiscovery/`)
-      setDisplayBadSearch(false);
       setSearchBarError(false);
     }
   }

@@ -16,23 +16,19 @@ function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBar
   const [keywords, setKeywords] = useState('');
   const [screen, setScreen] = useState(currScreen);
   const navigate = useNavigate();
-  const [displayBadSearch, setDisplayBadSearch] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
     const regex = /[^a-zA-Z0-9-]/g;
     let keywordsClean = keywords.replace(regex, '');
     if (keywords && keywordsClean === '') {
-      setDisplayBadSearch(true);
       setSearchBarError(true);
     }else {
     if (keywordsClean.trim()) {
       navigate(`/search/game/${keywordsClean}/${leagueId}`);
-      setDisplayBadSearch(false);
       setSearchBarError(false);
     } else if (!keywords){
       navigate(`/game/all/${leagueId}`);
-      setDisplayBadSearch(false);
       setSearchBarError(false);
     }
   }
@@ -48,15 +44,12 @@ function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBar
   ];
 
   useEffect(() => {
-    setDisplayBadSearch(false)
     setSearchBarError(false);
     if (screen === '1') {
       navigate(`/game/all/${leagueId}`);
-      setDisplayBadSearch(false);
       setSearchBarError(false);
     } else if (screen === '2') {
       navigate(`/game/summary/${leagueId}`);
-      setDisplayBadSearch(false);
       setSearchBarError(false);
     }
     // eslint-disable-next-line
@@ -64,9 +57,8 @@ function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBar
 
   useEffect(() => {
     /// When the current screen changes reset the error
-    setDisplayBadSearch(false)
     setSearchBarError(false)
-  },[currScreen])
+  },[currScreen, setSearchBarError])
 
   return (
     <>

@@ -103,7 +103,7 @@ const createLeague = async (req, res, next) => {
     }
 
     // ensure  winning balance is above starting balance if it is a valuebased game
-    if (leagueType === "valueBased" && winningValue <= startingBalance) {
+    if (leagueType === "valueBased" && parseFloat(winningValue) <= parseFloat(startingBalance)) {
       res.status(400)
       res.errormessage = 'Winning Balance must be greater than starting Balance '
       return next(
@@ -214,12 +214,12 @@ const createLeague = async (req, res, next) => {
     // otherwise it will be an empty object
     let league = {
         leagueName,
-        startingBalance,
+        startingBalance: parseFloat(startingBalance),
         leagueType,
         tradingFee,
         private,
         startDate,
-        winningValue,
+        winningValue: parseFloat(winningValue),
         maxDailyTrades,
         sectors,
         minERating,

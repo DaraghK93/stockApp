@@ -1,5 +1,5 @@
 import { Container } from "react-bootstrap"
-
+import moment from "moment";
 const CustomToolTip = props => {
     const { active, payload, label } = props;
     if (!active || !payload) {
@@ -9,7 +9,7 @@ const CustomToolTip = props => {
         <div className="toolTipStyle">
             <Container>
                 <p>
-                    Date: {label}
+                    Date: {moment(label).format('MMM Do YYYY')}
                 </p>
                 {payload.map((item, i) => (
                     <p key={i}>

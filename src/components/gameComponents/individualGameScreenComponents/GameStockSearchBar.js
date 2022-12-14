@@ -3,13 +3,14 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import FormContainer from '../../layout/FormContainer/FormContainer';
-import { Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import { Row, Col, Container } from 'react-bootstrap';
+import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 
 import ScreenSelectionRadioButton from '../gameScreenComponents/screenSelectionRadioButton/screenSelectionRadioButton';
 
 // Search feature fucntion which passes the user input as props
-function GameStockSearchBar({ leagueId, currScreen }) {
+function GameStockSearchBar({ leagueId, currScreen, searchBarError, setSearchBarError }) {
   let { keyword } = useParams();
 
   const [keywords, setKeywords] = useState('');
@@ -18,12 +19,19 @@ function GameStockSearchBar({ leagueId, currScreen }) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (keywords.trim()) {
-      navigate(`/search/game/${keywords}/${leagueId}`);
-    } else {
+    const regex = /[^a-zA-Z0-9-]/g;
+    let keywordsClean = keywords.replace(regex, '');
+    if (keywords && keywordsClean === '') {
+      setSearchBarError(true);
+    }else {
+    if (keywordsClean.trim()) {
+      navigate(`/search/game/${keywordsClean}/${leagueId}`);
+      setSearchBarError(false);
+    } else if (!keywords){
       navigate(`/game/all/${leagueId}`);
-      setKeywords('');
+      setSearchBarError(false);
     }
+  }
     //reset form to blank after search
     e.target.reset();
     setKeywords('');
@@ -36,13 +44,21 @@ function GameStockSearchBar({ leagueId, currScreen }) {
   ];
 
   useEffect(() => {
+    setSearchBarError(false);
     if (screen === '1') {
       navigate(`/game/all/${leagueId}`);
+      setSearchBarError(false);
     } else if (screen === '2') {
       navigate(`/game/summary/${leagueId}`);
+      setSearchBarError(false);
     }
     // eslint-disable-next-line
   }, [screen, leagueId]);
+
+  useEffect(() => {
+    /// When the current screen changes reset the error
+    setSearchBarError(false)
+  },[currScreen, setSearchBarError])
 
   return (
     <>
@@ -61,6 +77,7 @@ function GameStockSearchBar({ leagueId, currScreen }) {
             <Form.Control
               type='text'
               name='search'
+              value={keywords}
               onChange={(e) => setKeywords(e.target.value)}
               placeholder='Search Stocks'
             ></Form.Control>
@@ -70,6 +87,17 @@ function GameStockSearchBar({ leagueId, currScreen }) {
           </div>
         </Form>
       </FormContainer>
+      {searchBarError && (
+        <Container>
+          <Row>
+            <Col className='text-center mx-5'>
+              <MessageAlert variant='danger'>
+                Invalid search term. Please try again
+              </MessageAlert>
+            </Col>
+          </Row>
+        </Container>
+      )}
     </>
   );
 }

@@ -7,7 +7,12 @@ import LoadingSpinner from '../../widgets/LoadingSpinner/LoadingSpinner';
 import MessageAlert from '../../widgets/MessageAlert/MessageAlert';
 import TickerCard from '../../stockDiscoveryComponents/tickercard/Tickercard';
 
-function GameStockSearchResults({ keyword, league }) {
+function GameStockSearchResults({
+  keyword,
+  league,
+  searchBarError,
+  setSearchBarError,
+}) {
   const [stocks, setStock] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -30,16 +35,19 @@ function GameStockSearchResults({ keyword, league }) {
 
   useEffect(() => {
     const getStocks = async () => {
+      setError('');
       try {
         setLoading(true);
         let path = `/api/stock/gameStocks/search/${keyword}`;
         let queryStringParameters = {
-          sectors: league.sectors,
           minERating: league.minERating,
           minSRating: league.minSRating,
           minGRating: league.minGRating,
           pageNumber: page,
         };
+        for (let i = 0; i < league.sectors.length; i++) {
+          queryStringParameters[`sectors[${i}]`] = league.sectors[i];
+        }
         let requestConfig = {
           queryStringParameters,
           headers: { 'x-auth-token': userToken },
@@ -59,6 +67,13 @@ function GameStockSearchResults({ keyword, league }) {
     };
     getStocks();
   }, [userToken, keyword, league, page]);
+
+  useEffect(() => {
+    if(searchBarError){
+      setError(false);
+      setStock({})
+    }
+  }, [searchBarError]);
 
   return (
     <>
@@ -90,14 +105,14 @@ function GameStockSearchResults({ keyword, league }) {
             </Col>
           </Row>
         </Container>
-      ) : Object.keys(stocks).length !== 0 ? (
+      ) : Object.keys(stocks).length !== 0 && (
         <>
-          <h3 className='stockdiscoveryRow'>
-            Showing Results for "{keyword.trim()}"
-          </h3>
-
           <Container className='py-3'>
-            <Row style={{ marginLeft:"auto", marginRight:"auto"}}>
+            <h3 className='stockdiscoveryRow'>
+              Showing Results for "{keyword.trim()}"
+            </h3>
+
+            <Row style={{ marginLeft: 'auto', marginRight: 'auto' }}>
               {stocks.map((stockObj) => (
                 <Col xs={6} md={3} xl={2} className='py-2' key={stockObj._id}>
                   <TickerCard
@@ -145,19 +160,8 @@ function GameStockSearchResults({ keyword, league }) {
             </Row>
           </Container>
         </>
-      ) : (
-        <>
-          <Container>
-            <Row>
-              <Col className='text-center mx-5'>
-                <MessageAlert variant='danger'>
-                  No results match your search term "{keyword}"
-                </MessageAlert>
-              </Col>
-            </Row>
-          </Container>
-        </>
-      )}
+      )
+      }
     </>
   );
 }

@@ -85,7 +85,7 @@ const getAllStocks = async (req, res, next) => {
       const stocks = await stockService.getStockSummary(Stock, recs, deRecs)
       res.json(stocks)
     }else{ 
-      let newStr = keyword.replace(/[^\w\s-&]/gi, '');
+      let newStr = keyword.replace(/[^a-zA-Z0-9-]/g, '');
       if (newStr.trim() !== ''){
         // Keyword defined search for the stocks
         const stocks = await Stock.find({
@@ -97,7 +97,13 @@ const getAllStocks = async (req, res, next) => {
             { sector: { '$regex': newStr, '$options': 'i' } }
           ]
           // Sorts the results by symbol, this will change to marketcap (and eventually whatever the user enters), once the fields in the DB have been updated to numbers (currently strings)
-        }).select({prices:0})
+        }).select({prices:0}).skip(noToSkip).limit(noPerPage);
+        if(stocks.length === 0){
+          // No stock found
+          res.status(404);
+          res.errormessage = 'No stocks found for this query';
+          return next(new Error('No stocks found for this query'));
+        }
         res.json(stocks);
       } else {
         res.json([])
@@ -357,6 +363,8 @@ try{
   /// if undefined return the stock summary
   if (keyword == 'undefined') {
   } else {
+    let newStr = keyword.replace(/[^\w\s-&]/gi, '');
+    if (newStr.trim() !== ''){
     // Keyword defined search for the stocks
     const stocks = await Stock.find({
       $and: [
@@ -385,7 +393,9 @@ try{
       return next(new Error('No stocks found for this game'));
     }
     res.json(stocks);
-  }
+  }  else {
+    res.json([])
+  }}
 } catch(err){
  console.error(err.message);
  res.status(500)

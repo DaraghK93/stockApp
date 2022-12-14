@@ -3,7 +3,30 @@ import MessageAlert from "../../../widgets/MessageAlert/MessageAlert";
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import StockPriceChart from "../../../stockVisualisationComponents/ChartTypes/PriceChart/PriceChart";
 
-function GamePortfolio({ data, name, totalValue }) {
+function GamePortfolio({ data, name, totalValue, final, finished, port, starting }) {
+
+    function getFinal() {
+        if (finished===true) {
+        let result = final.find(item =>item._id === port)
+        return result.totalValue
+        } else {
+            return null
+        }
+    }
+
+    let finalValue = getFinal()
+
+    function whichTotal() {
+        let total
+        if (finished) {
+            total = finalValue
+        } else {
+            total = totalValue
+        }
+        return total
+    }
+    let total = whichTotal()
+
 
     var lineColor;
     var gradientColor;
@@ -12,9 +35,10 @@ function GamePortfolio({ data, name, totalValue }) {
     var percentageChange
 
     function redOrGreen() {
-        absoluteChange = data[0].value - data[1].value
-        percentageChange = ((data[0].value - data[1].value) / data[1].value) * 100
 
+        absoluteChange = total - starting
+        percentageChange = (total - starting) / starting * 100
+  
         if (parseFloat(absoluteChange) > 0) {
             lineColor = "#00C49F"
             gradientColor = "#b5e8df"
@@ -36,8 +60,8 @@ function GamePortfolio({ data, name, totalValue }) {
                             <dt>
                                 <h1>{String(name)}</h1>
                             </dt>
-                            <dt style={{ fontSize: "150%" }}>{parseFloat(totalValue).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</dt>
-
+                            <dt style={{ fontSize: "150%" }}>{parseFloat(total).toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</dt>
+                            <dt style={{"color":"grey"}}>Current Portfolio Value</dt> 
                         </dl>
                     </Row>
                     <Row>
@@ -49,9 +73,9 @@ function GamePortfolio({ data, name, totalValue }) {
                                 :
                                 <>
                                     <dl className='infoList' style={{ padding: 0 }}>
-                                        <dt style={{ color: redOrGreen() }}> {positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
+                                        <dt style={{ color: redOrGreen() }}>{positiveSymbol}{parseFloat(absoluteChange).toLocaleString('en-US', { style: 'currency', currency: 'USD' })} ({positiveSymbol}{percentageChange.toFixed(2)}%)</dt>
                                     </dl>
-                                    <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"value"} datetype={"weekly"} />
+                                    <StockPriceChart data={data} lineColor={lineColor} gradientColor={gradientColor} dataKey={"value"} datetype={"port"} />
                                 </>
                             }
                         </Col>

@@ -435,7 +435,8 @@ function IndividualGameScreen() {
                                 <>
                                     <Container>
                                         <Row>
-                                            <GamePortfolio data={portfolio.valueHistory} name={portfolio.portfolioName} totalValue={portfolio.totalValue} />
+                                            <GamePortfolio data={portfolio.valueHistory} name={portfolio.portfolioName} totalValue={portfolio.totalValue}
+                                             final={league.finalStandings} finished={league.finished} port={portfolio._id} starting={league.startingBalance} />
                                         </Row>
                                         <Row>
                                             <Col>

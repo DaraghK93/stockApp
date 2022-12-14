@@ -589,7 +589,7 @@ function HomeScreen() {
 
   return (
     <>
-        <div className="createGameScrollBars">
+        <div className="createGameScrollBars" style={{overflowX:"hidden"}}>
       <Container className='splash-page-container'>
         <Row className='py-4' style={{ maxWidth: "80%", justifyContent: "center", marginLeft: "auto", marginRight: "auto" }}>
           <h1 style={{ fontWeight:"bold", paddingBottom:"0.5rem" }}>FinOptimise</h1>

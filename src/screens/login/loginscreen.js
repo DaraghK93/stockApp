@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../actions/userActions';
+import {Link} from "react-router-dom"
 
 /// Widgets ///
 import MessageAlert from '../../components/widgets/MessageAlert/MessageAlert';
@@ -82,14 +83,14 @@ function LoginPage() {
             </Form.Group>
         <Row>
           <Col className='text-center py-2'>
-            <a href='/auth/recover' style={{ color: '#006195' }}>
+            <Link to={'/auth/recover'} className='linkStyle'>
               Forgot password?
-            </a>
+            </Link>
           </Col>
           <Col className='text-center py-2'>
-            <a href='/register' style={{ color: '#006195' }}>
+            <Link to={'/register'} className='linkStyle'>
               Create account
-            </a>
+            </Link>
           </Col>
         </Row>
         <Row>

@@ -31,6 +31,9 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 else if (datetype === "daily"){
                     setNoOfTicks(7)
                 }
+                else if (datetype === "port"){
+                    setNoOfTicks(0)
+                }
             }
             else {
                 if (datetype === "yearly"){
@@ -45,7 +48,10 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
                 }
                 
                 else if (datetype === "daily"){
-                    setNoOfTicks(-14)
+                    setNoOfTicks(14)
+                }
+                else if (datetype === "port"){
+                    setNoOfTicks(4)
                 }
             }
         }
@@ -66,6 +72,9 @@ function StockPriceChart({ data, lineColor, gradientColor, dataKey, datetype }) 
         return moment(value).format('MMM Do')
     }
     else if (datetype === "monthly") {
+        return moment(value).format('MMM Do')
+    }
+    else if (datetype === "port") {
         return moment(value).format('MMM Do')
     }
     else {

@@ -509,7 +509,7 @@ const getLeaguePortfolio = async (req,res,next) => {
                           'sectors':1,
                           'minERating':1,
                           'minSRating':1,
-                          'minGRating':1
+                          'minGRating':1,
                       }
                   }
               ]

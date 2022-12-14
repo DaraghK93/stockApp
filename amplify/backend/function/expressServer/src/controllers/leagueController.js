@@ -214,12 +214,12 @@ const createLeague = async (req, res, next) => {
     // otherwise it will be an empty object
     let league = {
         leagueName,
-        startingBalance: startingBalance,
+        startingBalance,
         leagueType,
         tradingFee,
         private,
         startDate,
-        winningValue: winningValue,
+        winningValue,
         maxDailyTrades,
         sectors,
         minERating,

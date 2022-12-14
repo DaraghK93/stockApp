@@ -50,20 +50,20 @@ function GameCreationOptionsCard({children, setScreen, screen, disableNextStep,
                     body:{
                         "leagueName":gameName ,
                         "leagueType":gameType,
-                        "startingBalance": startingBalance,
-                        "maxDailyTrades": maxTradesPerDay,
-                        "tradingFee": tradingFee,
+                        "startingBalance": parseFloat(startingBalance),
+                        "maxDailyTrades": parseFloat(maxTradesPerDay),
+                        "tradingFee": parseFloat(tradingFee),
                         "startDate": gameStartDate,
                         "image": gameImage,
                         "sectors": stockTypes,
-                        "minERating": minEnvironmentRating,
-                        "minSRating": minSocialRating,
-                        "minGRating": minGovernanceRating
+                        "minERating": parseFloat(minEnvironmentRating),
+                        "minSRating": parseFloat(minSocialRating),
+                        "minGRating": parseFloat(minGovernanceRating)
                     }
             }
             /// Set unique fields to the game type 
             if (gameType === "valueBased"){
-                myInit.body.winningValue = gameWinningValue
+                myInit.body.winningValue = parseFloat(gameWinningValue)
             }else if(gameType === "timeBased"){
                 myInit.body.endDate = gameEndDate
             }

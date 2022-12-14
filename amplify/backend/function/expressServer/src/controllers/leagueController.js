@@ -103,7 +103,7 @@ const createLeague = async (req, res, next) => {
     }
 
     // ensure  winning balance is above starting balance if it is a valuebased game
-    if (leagueType === "valueBased" && parseFloat(winningValue) <= parseFloat(startingBalance)) {
+    if (leagueType === "valueBased" && winningValue <= startingBalance) {
       res.status(400)
       res.errormessage = 'Winning Balance must be greater than starting Balance '
       return next(
@@ -157,7 +157,7 @@ const createLeague = async (req, res, next) => {
     }
 
     // ensure starting balance is at least 1000
-    if (parseFloat(startingBalance) < 1000 || parseFloat(startingBalance) > 1000000) {
+    if (startingBalance < 1000 || startingBalance > 1000000) {
       res.status(400)
       res.errormessage = 'Starting Balance must be greater than $1000 and less than $1,000,000'
       return next(
@@ -187,7 +187,7 @@ const createLeague = async (req, res, next) => {
   }
 
     // ensure the tradingFee is in the right interval
-    if (parseFloat(tradingFee) < 0 || parseFloat(tradingFee) > 300) {
+    if (tradingFee < 0 || tradingFee > 300) {
       res.status(400)
       res.errormessage = 'Trading fee must be between 0 and 300'
       return next(
@@ -198,7 +198,7 @@ const createLeague = async (req, res, next) => {
     }
 
     // ensure maxDailyTrades is greater than 0
-    if (parseFloat(maxDailyTrades) <= 0) {
+    if (maxDailyTrades <= 0) {
       res.status(400)
       res.errormessage = 'Max Daily Trades must be a positive number'
       return next(
@@ -214,12 +214,12 @@ const createLeague = async (req, res, next) => {
     // otherwise it will be an empty object
     let league = {
         leagueName,
-        startingBalance: parseFloat(startingBalance),
+        startingBalance: startingBalance,
         leagueType,
         tradingFee,
         private,
         startDate,
-        winningValue: parseFloat(winningValue),
+        winningValue: winningValue,
         maxDailyTrades,
         sectors,
         minERating,
